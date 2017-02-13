@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>HCI Engineering Group: Contact Us</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Bootstrap -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=Arvo:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
+<link href="css/style.css" rel="stylesheet">
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+</head>
+<body>
+<header class="main__header normal">
+    <!-- to be filled by javascript, see header.html-->
+</header>
+<section class="main__middle__container">
+  <br><br><br><br>
+  <section class="contact-us">
+    <div class="container">
+      
+      <!-- Google Maps -->
+      <iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?ie=UTF8&amp;cid=3475329887376826349&amp;q=MIT:+Computer+Science+and+Artificial+Intelligence+Laboratory&amp;gl=US&amp;hl=en&amp;ll=42.362365,-71.090577&amp;spn=0.006295,0.006295&amp;t=m&amp;output=embed"></iframe>
+
+      <br><br>
+
+        <div class="one_third">
+          <h3>Get in touch</h3>
+          <hr>
+            <b>Address:</b>
+            <p>
+              MIT Computer Science and Artificial Intelligence Lab<br>
+              The Stata Center, Building 32 <br>
+              32 Vassar Street<br>
+              Cambridge, MA 02139 USA
+            </p>
+
+            <b>Office:</b> 
+            <p>
+              room 32-214
+            </p>
+          
+            <b>Email:</b>
+            <p>
+              stefanie(dot)mueller(at)mit(dot)edu
+            </p>
+          
+            <b>Telephone:</b>
+            <p>
+              please contact us by email first. <br>
+              +1 (617) 715-5831
+            </p>
+        </div>
+
+        <div class="one_third">
+          <h3>Applications</h3>
+          <hr>
+            <p>
+              We are accepting applications for Postdoc, Ph.D., and internship positions. 
+            </p>
+          
+            <p>
+              For a PhD position, please use <a href="http://www.eecs.mit.edu/academics-admissions/graduate-program/admissions" target="_blank">MIT's PhD admission site.</a>
+            </p>
+          
+            <p>
+              Postdocs and interns can email us directly. 
+            </p>
+          
+            <p>
+              When you apply please include:
+              <ul>
+                  <li>
+                    your CV
+                  </li>
+                  <li> 
+                    a link to your homepage, which provides an overview of your work (use pictures and videos to facilitate understanding). In case of group projects make clear what was your unique contribution. 
+                  </li>
+                  <li> 
+                    email addresses of two recommendation letter writers 
+                  </li>
+                </ul>
+            </p>
+        </div>
+
+        <div class="one_third column-last">
+          <h3>HCI Seminar Speakers</h3>
+          <hr>
+            <p>
+              If you are in town and would like to give a talk at the <a href="http://groups.csail.mit.edu/uid/seminar.shtml" target="_blank">MIT CSAIL HCI Seminar</a>, please email us.
+            </p> 
+
+            <p>The HCI Seminar is a jointly organized by the <a href="http://groups.csail.mit.edu/uid/index.shtml" target="_blank">User Interface Design Group</a>, the <a href="http://haystack.csail.mit.edu/" target="_blank">Haystack Group,</a> and the <a href="http://hcie.csail.mit.edu/" target="_blank">HCI Engineering group.</a> 
+            </p>
+        </div>
+
+      </div><!-- container-->
+
+  </section> <!-- contact-us-->
+</section> <!-- main__middle__container-->
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+<script type="text/javascript" src="js/jquery.min.js"></script> 
+<!-- Include all compiled plugins (below), or include individual files as needed --> 
+<script src="js/bootstrap.min.js"></script> 
+<script type="text/javascript">
+/** START loads the header, please insert in every file **/
+$("header").load("header.html", function(){
+  var linkToMe = $('a[href="'+window.location.href.split('/').pop()+'"]').parent();
+  linkToMe.addClass('active')
+});
+/** END **/
+
+            function send_special_order() {
+                var data1 = $('#name').val();
+                var data2 = $('#subject').val();
+                var data3 = $('#email').val();
+                var data4 = $('#message').val();
+        $.ajax({
+			type: "POST",
+			url: "send.php",
+			dataType : "json",
+			data: ( {"name" : data1, "subject" : data2, "email" : data3,"message" : data4} ) ,
+			   success: function() {
+                               
+			   },
+                           complete: function(){
+                                $('#feedback').append('<p>Thank you for sending us a message. Our specialists will contact you as soon as possible.</p><p>Your message details are:</p>\n\
+                                <ul>\n\
+                                    <li>Name: <b>' + data1 + '</b></li>\n\
+                                    <li>Email: <b>' + data3 + '</b></li>\n\
+                                    <li>Subject: <b>' + data2 + '</b></li>\n\
+                                    <li>Message: <b>' + data4 + '</b></li>\n\
+                                </ul>\n\
+                                <p>If you want to change your information press the button:\n\
+                                <p><a href="#" id="send-more" class="btn btn-lg btn-info">edit info</a></p>');
+                                $('#contact-form').slideUp();
+                                $('#send-more').click(function(e){
+                                    e.preventDefault()
+                                    $('#contact-form').slideDown();
+                                    $('#feedback').html('');
+                                });
+                           }
+        });
+}
+            $('#contact-form').submit(function() {
+                send_special_order();
+                return false;
+            });
+        </script> 
+<script type="text/javascript">
+$( "a.submenu" ).click(function() {
+$( ".menuBar" ).slideToggle( "normal", function() {
+// Animation complete.
+});
+});
+$( "ul li.dropdown a" ).click(function() {
+$( "ul li.dropdown ul" ).slideToggle( "normal", function() {
+// Animation complete.
+});
+$('ul li.dropdown').toggleClass('current');
+});
+</script>
+</body>
+</html>
