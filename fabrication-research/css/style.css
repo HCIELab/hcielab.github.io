@@ -1,0 +1,346 @@
+html,
+body {
+    height: 100%;
+    background: #f2f2f2;
+}
+
+*,
+*:before,
+*:after 
+{
+    box-sizing: border-box;
+}
+
+/* Header
+---------------------------------------------------------------------- */
+.header 
+{
+	padding: 1rem;
+	width: 960px;
+	position: relative; 
+	margin: 0 auto; 
+	-webkit-transition: all 1s ease;
+  	-moz-transition: all 1s ease;
+  	-o-transition: all 1s ease;
+  	transition: all 1s ease;	
+	background: #f2f2f2;
+}
+
+.disclaimer 
+{
+	font-family: 'Open Sans', sans-serif;
+	font-size:11px;
+}
+
+/* Controls
+---------------------------------------------------------------------- */
+
+.controls 
+{
+	padding: 1rem;
+	width: 960px;
+	position: relative; 
+	margin: 0 auto; 
+	-webkit-transition: all 1s ease;
+  	-moz-transition: all 1s ease;
+  	-o-transition: all 1s ease;
+  	transition: all 1s ease;	
+	background: #333;
+	font-family: 'helvetica neue', arial, sans-serif;
+	color: #f2f2f2;
+}
+
+.control {
+    position: relative;
+    display: inline-block;
+    width: 2.7rem;
+    height: 2.7rem;
+    background: #444;
+    cursor: pointer;
+    font-size: 0.1px;
+    color: white;
+    transition: background 150ms;
+}
+
+.control:hover {
+    background: #3f3f3f;
+}
+
+.control[data-filter]:after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    top: calc(50% - 6px);
+    left: calc(50% - 6px);
+    border: 2px solid currentColor;
+    border-radius: 2px;
+    background: currentColor;
+    transition: background-color 150ms, border-color 150ms;
+}
+
+.control[data-sort]:after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid;
+    border-left: 2px solid;
+    top: calc(50% - 6px);
+    left: calc(50% - 6px);
+    transform:  translateY(1px) rotate(45deg);
+}
+
+.control[data-sort*=":desc"]:after {
+    transform:  translateY(-4px) rotate(-135deg);
+}
+
+.mixitup-control-active {
+    background: #393939;
+}
+
+.mixitup-control-active[data-filter]:after {
+    background: transparent;
+}
+
+.input 
+{
+    display: inline-block;
+    font-size: 1rem;
+    padding: .75rem;
+    margin-left: .75rem;
+    border-radius: 2px;
+    border: 0 none;
+    background: white;
+    font-family: 'helvetica neue', arial, sans-serif;
+    vertical-align: top;
+}
+
+/* Container
+---------------------------------------------------------------------- */
+
+.container {
+	position: relative; 
+	width: 960px; 
+	margin: 1px auto; 
+	-webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  transition: all 1s ease;	
+}
+
+.container:after {
+    content: '';
+    display: inline-block;
+    width: 100%;
+}
+
+/* Paper Information
+---------------------------------------------------------------------- */
+
+.papertitle 
+{
+	font-weight:bold;
+	font-family: 'Open Sans', sans-serif;
+	font-size:14px;
+}
+
+.paperauthors 
+{
+	font-family: 'Open Sans', sans-serif;
+	font-size:11px;
+}
+
+.btn.active.focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn:active:focus,
+.btn:focus 
+{
+    outline: none;
+}
+
+.btn 
+{
+    border: 0;
+    border-radius: 2px;
+    padding: 2px 6px;
+    text-transform: uppercase;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: -webkit-transform;
+    transition-property: transform;
+}
+
+.dl
+{
+    color: #f2f2f2;
+    background-color: #e95a44;
+    border: 1px solid transparent;
+	font-family: 'Open Sans', sans-serif;
+	text-decoration: none;
+}
+
+.pdf
+{
+    color: #f2f2f2;
+    background-color: #000686;
+    border: 1px solid transparent;
+	font-family: 'Open Sans', sans-serif;
+	text-decoration: none;
+}
+
+.video
+{
+    color: #f2f2f2;
+    background-color: #1D5C00;
+    border: 1px solid transparent;
+	font-family: 'Open Sans', sans-serif;
+	text-decoration: none;
+}
+
+.web
+{
+    color: #f2f2f2;
+    background-color: #948100;
+    border: 1px solid transparent;
+	font-family: 'Open Sans', sans-serif;
+	text-decoration: none;
+}
+
+.slide
+{
+    color: #f2f2f2;
+    background-color: #000686;
+    border: 1px solid transparent;
+	font-family: 'Open Sans', sans-serif;
+	text-decoration: none;
+}
+/* Target Elements
+---------------------------------------------------------------------- */
+
+.portfolio,
+.gap 
+{
+    display: inline-block;
+    vertical-align: top;
+}
+
+
+.portfolio 
+{
+    border-radius: 2px;
+    margin-bottom: 1rem;
+    position: relative;
+
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	width:960px;
+	margin-bottom:2%;
+	/*float:left;*/
+	overflow:hidden;
+		font-family: 'Open Sans', sans-serif;
+	font-size:14px;
+}
+
+.portfolio:before 
+{
+    content: '';
+    display: inline-block;
+}
+
+.portfolio img 
+{
+	max-width:100%;
+	position: relative;
+	top:0;
+    -webkit-transition: all 600ms cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition:         all 600ms cubic-bezier(0.645, 0.045, 0.355, 1);		
+}
+	
+.portfolio .label 
+{
+	position: absolute;
+	width: 100%;
+	height:40px;
+	bottom:-40px;
+    -webkit-transition: all 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition:         all 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.portfolio .label-bg {
+	background: #e95a44;
+	width: 100%;
+	height:100%;
+	position: absolute;
+	top:0;
+	left:0;
+}
+	
+.portfolio .label-text 
+{
+	color:#fff;
+	position: relative;
+	z-index:500;
+	padding:5px 8px;
+}
+			
+.mix .text-category 
+{
+	display:block;
+	font-size:9px;
+}
+	
+.portfolio:hover .label 
+{
+    bottom:0;
+}
+
+/* Grid Breakpoints
+---------------------------------------------------------------------- */
+
+/* 2 Columns */
+
+.mix,
+.gap {
+    /*width: calc(100%/2 - (((2 - 1) * 1rem) / 2));*/
+	width: 93%;
+}
+
+/* 3 Columns */
+/*
+@media screen and (min-width: 541px) {
+    .mix,
+    .gap 
+	{
+        width: calc(100%/3 - (((3 - 1) * 1rem) / 3));
+    }
+}
+*/
+/* 4 Columns */
+/*
+@media screen and (min-width: 961px) {
+    .mix,
+    .gap 
+	{
+        width: calc(100%/4 - (((4 - 1) * 1rem) / 4));
+    }
+}
+*/
+/* 5 Columns */
+/*
+@media screen and (min-width: 1281px) {
+    .mix,
+    .gap 
+	{
+        width: calc(100%/5 - (((5 - 1) * 1rem) / 5));
+    }
+}
+*/
