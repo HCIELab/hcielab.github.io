@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>HCI Engineering Group</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<!-- CSAIL icon -->
+<link rel="shortcut icon" href="/images/icons/csail.ico" type="image/x-icon" />
+
+<!-- Bootstrap -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+<link href="css/custom.css" rel="stylesheet">
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+
+<style>
+
+.etech-sch-col1 {width:60px; border: 1px solid black;}
+.etech-sch-col2 {width:100px; border: 1px solid black;}
+.etech-sch-col3 {width:450px; border: 1px solid black;}
+.etech-sch-col4 {width:120px; border: 1px solid black;}
+</style>
+
+<!-- Fonts -->
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+<header class="main__header normal">
+   <!-- to be filled by javascript, see header.html-->
+</header>
+
+<section class="main__middle__container">
+  <div class="container">
+    <div class="row nothing">
+
+      <section class="col-md-8 pull-right main-content">
+        <h3 class="custom_headline_medium" style="padding-bottom:10px">6.S063 Engineering Interactive Technologies (fall 2017)<br><br>PSet1: Build a Multi-Touch Pad</h3>
+
+       <p style="color:red;"><b>Deadline:</b> due at 1pm on Wednesday, September 27, 2017</a></p>
+       <p style="padding-top:10px;"><b>Deliverables:</b> <br>
+        <ul>
+          <li>upload a short video of your touchpad + the application in action to Gradebook</li>
+          <li>upload finger tracking + application code to Gradebook</li>
+          <li>give a live demo of your touch pad to your TA in class</li>
+        </ul>
+
+          </p>
+
+  
+<p style="padding-top:10px;">
+  <b>Task:</b><br>
+Build a multi-touch pad using the principles of <a href="http://wiki.nuigroup.com/FTIR">FTIR (Frustrated Total Internal Reflection).</a> <br>
+The multi-touch pad has all the components required later for your group project: custom laser-cut parts, custom electronics, and custom code. <br>
+We hope by doing this problem set and getting experience with end-to-end prototyping, you will be able to better scope your group project.<br>
+
+</p>
+<br>
+<p>
+  <b>Provided Resources:</b><br>
+We will provide you with all the materials you need, you will get from us:
+ <ul>
+          <li>an acrylic sheet</li>
+          <li>a webcam</li>
+          <li>LEDs</li>
+          <li>a switch</li>
+          <li>resistors</li>
+          <li>USB connector + cover</li>
+          <li>cables</li>
+        </ul>
+</p>
+<p>
+In addition we give you the following components, which help you prototype your touchpad but are not part of the final prototype:
+
+ <ul>
+          <li>an Arduino Nano</li>
+          <li>a breadboard</li>
+          <li>jumper wires</li>
+        </ul>
+</p>
+
+  
+<p style="padding-top:10px;">
+  <b>Equipment:</b><br>
+
+To build the multi-touch pad you need access to the following equipment:
+ <ul>
+          <li>a laser cutter</li>
+          <li>a heat gun or strip heater for bending the sheet</li>
+          <li>a soldering iron</li>
+        </ul>
+</p>
+
+<p>
+
+  <b>Instructions for Building the Hardware:</b>
+
+<ul>
+<li>create the .svg file for the acrylic sheet and laser cut it</li>
+    <ul>
+      <li>multi-touch pad height: XXcm, tracking area on top: YYcm x ZZcm (see drawing)</li>
+      <li>with 8 LED holes</li>
+      <li>with 1 hole for the switch</li>
+      <li>optional: add thin engraved lines for easier bending</li>
+    </ul>
+<li>use strip heater or heat gun to bend the acrylic sheet</li>
+<li>prototype LED setup using the breadboard and the Arduino
+    <ul>
+      <li>test 1 LED first with the corresponding resistor first, lights up? good.</li>
+      <li>extend your circuit for 8 LEDs, adjust resistor, all light up? good</li>
+    </ul></li>
+      <li>remove LEDs from breadboard and plug them into your acrylic sheet</li>
+      <li>cross LED legs to connect them to each other</li>
+      <li>test with Arduino 5V and GND if they still all light up</li>
+      <li>if yes, solder them</li>
+      <li>add switch to the setup, solder the switch to the LEDs</li>
+      <li>test with Arduino 5V and GND, does the switch work?</li>
+      <li>assembly your USB cable</li>
+      <li>create your USB cable</li>
+      <li>connect everything to your laptop, does the LEDs light up (+ switch is on ;))?</li>
+      <li>tape the camera on, you area ready for the computer vision part</li>
+
+
+</ul>
+</p>
+
+
+<p>
+
+  <b>Instructions for Writing the Software:</b>
+
+<ul>
+<li>display camera image</li>
+<li>convert to HSV color space</li>
+<li>threshold for your LED color</li>
+    <ul>
+      <li>it helps to create some sliders for hmin, hmax, smin, smax, vmin, vmax so you can try around until you find good values</li>
+    </ul>
+  </li>
+      <li>find contours</li>
+      <li>delete contours that are smaller than a finger blob</li>
+      <li>find contour center to have touch coordinates
+     <ul>
+      <li>fit ellipse around contour</li>
+      <li>get center of ellipse</li>
+    </ul>
+      </li>
+      <li>draw (x,y) coordinates of each finger tip onto the image</li>
+       <li>now that you have the finger positions, add some of your own code, e.g. a gesture recognition (zoom in with two fingers) or a drawing app, feel free to get createive here. extra points for clever applications.</li>
+    </ul>
+
+</li>
+</ul>
+</p>
+
+
+
+<!-- 
+<br><br>
+
+        <p>Learn laser cutting, electronics breadboard prototyping, soldering, and computer vision in only two afternoons. In this hands-on IAP, we will build a multi-touch pad using the principles of FTIR (Frustrated Total Internal Reflection).</p>
+
+   
+         <br>
+         <img src="images/classes/iap-multitouch/iap-multitouch-hacking.jpg" alt="image" class="img-responsive" width="600px" style="margin:0"> <br />
+
+
+       
+         -->
+
+
+
+
+
+<!-- <table>
+  <tr>
+    <td>
+      <img src="images/classes/iap-multitouch/fingerprints.jpg" alt="image" class="img-responsive" width="300px" style="margin:0"> <br />
+    </td>
+    <td>
+      <img src="images/classes/iap-multitouch/opencv-tracking.png" alt="image" class="img-responsive" width="500px" style="margin:0"> <br />
+    </td>
+  </tr>
+</table> -->
+        <br />
+        <br />
+      </section>
+      
+      <aside class="col-md-4 pull-left">
+        
+        <!-- Publication -->
+
+        <br>
+<img src="images/classes/engineering-interactive-technologies.jpg" width="250px">
+
+<img src="images/classes/steve-mann-eye-tap-1459515472-GVIx-column-width-inline.jpeg" width="250px">
+
+<img src="images/classes/chris-harrison-everyday-devices-00_03_38.png" width="250px">
+
+<img src="images/classes/Levipath_project.jpeg" width="250px">
+
+<img src="images/classes/electronics.png" width="250px">
+
+<img src="images/classes/kinect.png" width="250px">
+
+
+
+
+   <!--      <strong>Announcements:</strong><br>
+        <p>
+          (to come)
+          <br>
+          <br>
+        </p> -->
+
+<!--         <strong>TAs:</strong><br>
+
+        <p>
+          <a href="https://www.behance.net/apgomes" target="_blank">Antonio Gomes (Postdoc)</a><br>
+          <a href="http://www.sens.sys.es.osaka-u.ac.jp/users/punpongsanon/" target="_blank">Parinya Punpongsanon (Postdoc)</a><br>
+          <a href="http://www.paulw.info/" target="_blank">Paul Worgan (Postdoc)</a><br>
+          <br>
+        </p>
+
+        <strong>When:</strong><br>
+        <p>
+          Fall 2017<br>
+          days/time tbd<br>
+          <br>
+        </p> -->
+
+        <!-- Publication -->
+  <!--       <strong>Where:</strong><br>
+        <p>
+          <br>
+          <br>
+        </p>
+ -->
+        <!-- Publication -->
+   <!--      <strong>What to bring:</strong><br>
+        <p>
+          your laptop<br>
+          we bring the rest<br><br>
+        </p> -->
+
+        <!-- Publication -->
+ <!--        <strong>Prerequisites:</strong><br>
+        <p>
+          6.005 Elements of Software Construction <br>
+          6.031 Elements of Software Construction (new) <br> 
+          6.111 Introductory Digital Systems Laboratory<br>
+          6.115 Microcomputer Project Laboratory<br>
+          or instructor permission<br><br>
+        </p>
+       -->
+
+     <!--    <strong>Class Size:</strong><br>
+        <p>
+          Maximum 30 students.<br>
+          Enrollment limited. <br>
+        <br>
+        </p> -->
+
+          
+      </aside>
+      
+    </div>
+  </div>
+  </div>
+</section>
+
+<div class="custom_footer" align="center">
+<span class="copyright">
+Since 2017 &copy; MIT CSAIL (HCI Engineering group). All Rights Reserved.
+</span>
+<a href="http://mit.edu/" target="_blank" style="text-decoration:none;border-bottom:0px"><img src="images/logos/mit.svg" alt="MIT" class="custom_footer_logo" /></a>
+<a href="http://csail.mit.edu/" target="_blank" style="text-decoration:none;border-bottom:0px"><img src="images/logos/csail.svg" alt="CSAIL" class="custom_footer_logo"/>
+</a>
+<a href="http://hci.csail.mit.edu/" target="_blank" style="text-decoration:none;border-bottom:0px"><img src="images/logos/hci.svg" alt="HCI" class="custom_footer_logo"/></a>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+<script type="text/javascript" src="js/jquery.min.js"></script> 
+<!-- Include all compiled plugins (below), or include individual files as needed --> 
+<script src="js/bootstrap.min.js"></script> 
+<script type="text/javascript">
+/** START loads the header, please insert in every file **/
+$("header").load("header.html", function(){
+  var linkToMe = $('a[href="'+window.location.href.split('/').pop()+'"]').parent();
+  linkToMe.addClass('active')
+});
+/** END **/
+
+$('.carousel').carousel({
+  interval: 3500, // in milliseconds
+  pause: 'none' // set to 'true' to pause slider on mouse hover
+})
+</script> 
+
+<script type="text/javascript">
+$( "a.submenu" ).click(function() {
+$( ".menuBar" ).slideToggle( "normal", function() {
+// Animation complete.
+});
+});
+$( "ul li.dropdown a" ).click(function() {
+$( "ul li.dropdown ul" ).slideToggle( "normal", function() {
+// Animation complete.
+});
+$('ul li.dropdown').toggleClass('current');
+});
+</script>
+
+<!-- Google Analytic // UA-91887045-1 --> 
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-91887045-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+</body>
+</html>
