@@ -74,36 +74,47 @@ You are done when the blue light on the micro-controller blinks.
  <div style="font-size:12pt;margin-bottom:8px;margin-top:25px"><b>Setup How-To for Mac (Stefanie Mueller, on OSX Yosemite)</b> </div>
 
               <ul>
-                  <li>make sure you have python installed</li>
-                  <li>follow <a href="https://dev.to/kenwalger/micropython-and-the-nodemcu-esp8266">this tutorial</a>, but I had to change some things </li>
+                  <li>Install the latest Python if not already (<a href="https://www.python.org/downloads/release/python-362/">Python 3.4 or later</a>)</li>
+                  <li>Follow <a href="https://dev.to/kenwalger/micropython-and-the-nodemcu-esp8266">this tutorial.</a> Some tips below:</li>
                   <li>I had to reduce the baud rate otherwise I got an error (they use 460800, I used 9600 to be safe)
                   <ul>
                     <li>esptool.py --port /dev/cu.wchusbserial1410 --baud <b>9600</b> write_flash --flash_size=detect 0 esp8266-20170108-v1.8.7.bin</li>
                   </ul>
                 </li>
-                  <li>if upload successful, go to your terminal, the screen command looks like this:
+                  <li>If the upload is successful, go to your terminal. Use the screen command like this:
                   <ul>
                     <li>screen /dev/cu.wchusbserial1410 115200 –L</li>
-                    <li>this time baud rate 115200 worked for me, but in case it doesn't you can reduce it again</li>
-                    <li>if you see weird signs or an empty screen, press enter a couple of times until you see the >>> for the python command line</li>
-                    <li>then enter your python code for the LED</li>
+                    <li>This time baud rate 115200 worked for me, but in case it doesn't you can reduce it again.</li>
+                    <li>If you see weird signs or an empty screen, press enter a couple of times until you see the >>> for the python command line.</li>
+                    <li>Enter your python code for the LED.</li>
                   </ul>
                 </li>
+                <li>If you still have issues, ask on <a href="https://piazza.com/class/j0o7o1dyi8js?cid=16">Piazza</a>.</li>
               </ul>
 
         
  <div style="font-size:12pt;margin-bottom:8px;margin-top:25px"><b>Setup How-To for Windows (Jared Counts, on Windows 10)</b> </div>
             <ul>
-                <li>install the latest Python if not already installed (Python 3.4 or later)</li>
-                <li>follow <a href="https://dev.to/kenwalger/micropython-and-the-nodemcu-esp8266">this tutorial</a>.</li>
-                <li>the article suggests that COM4 would be the port of your NodeMCU. If that doesn't work, you can find the correct port by doing the following:
+                <li>Install the latest Python if not already (<a href="https://www.python.org/downloads/release/python-362/">Python 3.4 or later</a>)</li>
+                <li>Follow <a href="https://dev.to/kenwalger/micropython-and-the-nodemcu-esp8266">this tutorial</a>. Some tips below:</li>
+                <li>The article suggests that COM4 would be the port of your NodeMCU. If that doesn't work, you can find the correct port by doing the following:
                     <ol>
+                      <li>Make sure the USB is connected fully.</li>
                         <li>Open up Device Manager (Windows key, type "Device Manager", hit enter)</li>
                         <li>Expand "Ports (COM &amp; LPT)"</li>
                         <li>Under Ports, look for "USB-SERIAL CH340 (...)". The port is specified in the parentheses here (usually COM1, or COM2, etc.)</li>
                         <img src="images/classes/eit/hw2-setup-microcontroller/port-finding.PNG" width="250px">
                     </ol>
                 </li>
+                <li>
+                If the prompt (">>>") on your serial terminal does not show up, or all you see is gibberish, you can try a few things:
+                  <ul>
+                      <li>Press enter a few times. Also try Ctrl+C a few times.</li>
+                      <li>Restart the terminal.</li>
+                      <li>Try reflashing the chip, but include "-fm dio" as a flag. E.g.: esptool.py --port COM4 --baud 460800 write_flash <b>-fm dio</b> --flash_size=detect 0 esp8266-20170108-v1.8.7.bin</li>
+                  </ul>
+                </li>
+                <li>If you still have issues, ask on <a href="https://piazza.com/class/j0o7o1dyi8js?cid=16">Piazza</a>.</li>
             </ul>  
 
 
