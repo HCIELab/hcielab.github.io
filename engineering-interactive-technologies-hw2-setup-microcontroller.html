@@ -78,12 +78,12 @@ You are done when the blue light on the micro-controller blinks.
                   <li>Follow <a href="https://dev.to/kenwalger/micropython-and-the-nodemcu-esp8266">this tutorial.</a> Some tips below:</li>
                   <li>I had to reduce the baud rate otherwise I got an error (they use 460800, I used 9600 to be safe)
                   <ul>
-                    <li>esptool.py --port /dev/cu.wchusbserial1410 --baud <b>9600</b> write_flash --flash_size=detect 0 esp8266-20170108-v1.8.7.bin</li>
+                    <li><code>esptool.py --port /dev/cu.wchusbserial1410 --baud <b>9600</b> write_flash --flash_size=detect 0 esp8266-20170108-v1.8.7.bin</code></li>
                   </ul>
                 </li>
                   <li>If the upload is successful, go to your terminal. Use the screen command like this:
                   <ul>
-                    <li>screen /dev/cu.wchusbserial1410 115200 –L</li>
+                    <li><code>screen /dev/cu.wchusbserial1410 115200 –L</code></li>
                     <li>This time baud rate 115200 worked for me, but in case it doesn't you can reduce it again.</li>
                     <li>If you see weird signs or an empty screen, press enter a couple of times until you see the >>> for the python command line.</li>
                     <li>Enter your python code for the LED.</li>
@@ -111,9 +111,14 @@ You are done when the blue light on the micro-controller blinks.
                   <ul>
                       <li>Press enter a few times. Also try Ctrl+C a few times.</li>
                       <li>Restart the terminal.</li>
-                      <li>Try reflashing the chip, but include "-fm dio" as a flag. E.g.: esptool.py --port COM4 --baud 460800 write_flash <b>-fm dio</b> --flash_size=detect 0 esp8266-20170108-v1.8.7.bin</li>
+                      <li>Try reflashing the chip, but include "-fm dio" as a flag. E.g.: <code>esptool.py --port COM4 --baud 460800 write_flash <b>-fm dio</b> --flash_size=detect 0 esp8266-20170108-v1.8.7.bin</code></li>
                   </ul>
                 </li>
+                <li>If nothing shows up in the command prompt when running esptool.py, then you may need to call the script using python manually.
+                	<ul>
+                		<li>E.g. <code>python esptool.py ...</code>, instead of <code>esptool.py ...</code></li>
+                	</ul>
+            	</li>
                 <li>If you still have issues, ask on <a href="https://piazza.com/class/j0o7o1dyi8js?cid=16">Piazza</a>.</li>
             </ul>  
 
