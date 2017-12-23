@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HCI Engineering Group</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!-- CSAIL ICON -->
+	<link rel="CSAIL" href="../images/icon/csail.ico" type="image/x-icon" />
+
+	<!-- Bootstrap -->
+	<link href="../css/bootstrap.css" rel="stylesheet">
+	<link href="../css/custom-style.css" rel="stylesheet">
+	
+	<!-- jQuery --> 
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+	
+	<!-- Google Analytic -->
+	<script type="text/javascript" src="js/analytics.js"></script>
+	
+	<style>
+	.etech-sch-col1 {width:60px; border: 1px solid black;}
+	.etech-sch-col2 {width:120px; border: 1px solid black;}
+	.etech-sch-col3 {width:450px; border: 1px solid black;}
+	.etech-sch-col4 {width:100px; border: 1px solid black;}
+	</style>
+</head>
+
+<body>
+<header class="main_header">
+	<!-- to be filled by javascript, see header.html -->
+</header>
+
+<section class="main_container">
+  <div class="container">
+    <div class="row nothing">
+
+      <section class="col-md-8 pull-right main-content">
+        <h4 class="medium.headline" style="font-size:12px;padding-bottom:10px"><a href="http://hcie.csail.mit.edu/engineering-interactive-technologies.html">6.S063 Engineering Interactive Technologies (fall 2017)</a><br></h>
+         <h2 class="headline">HW7: Setup OpenCV</h2>
+
+       <p style="color:red;"><b>Deadline:</b> due Wednesday (October 4, 2017) at 1pm, upload <a href="https://learning-modules.mit.edu/gradebook/index.html?uuid=/course/6/fa17/6.S063#assignments/32945620"><b style="color:red;">here</b></a></p>
+
+
+       <div style="font-size:12pt;margin-bottom:8px;margin-top:25px"><b>Deliverables:</b> </div>
+        <ul>
+              <li>a screenshot of your OpenCV program and the resulting camera image, <a href="https://learning-modules.mit.edu/gradebook/index.html?uuid=/course/6/fa17/6.S063#assignments/32945620">upload here</a></li>
+        </ul>
+
+ <div style="font-size:12pt;margin-bottom:8px;margin-top:25px"><b>Questions?</b> </div>
+ <ul>
+                  <li>post on <a href="https://piazza.com/class/j0o7o1dyi8js">piazza</a> </li>
+                  <li>go to a TA office hour for building/coding oriented questions (tbd)</li>
+                  <li>go to an instructor office hour for logistical questions and grading (mondays, 4-5pm, 32-211)</li>
+                  <li>do not send us emails</li>
+              </ul>
+<br>
+<hr>
+
+
+    <b> <div style="font-size:12pt;margin-bottom:8px;margin-top:25px">Task:</div></b>
+Install OpenCV.
+Then test run your camera:
+<ul>
+<li>create a new python file with the code below (e.g. test.py)</li>
+<li>go to your console, call the python file (I had to use the python3 prompt to make it work, e.g. python3 test.py)</li>
+<li>you should see your camera image displayed, if you have the wrong camera image, change the camera_port variable.</li>
+<li>if you get errors, your openCV and python setup might not be linked correctly, consider talking to your TA</li>
+</ul>
+
+<br>
+import cv2<br>
+camera_port = 0<br>
+camera = cv2.VideoCapture(camera_port)<br>
+ret, frame = camera.read()<br>
+cv2.imshow('window',frame)<br>
+cv2.waitKey(0)<br><br>
+
+
+You are done when you see this: <br><br><br>
+
+<a href="http://hcie.csail.mit.edu/images/classes/eit/setup-opencv/display-camera-image.png"><img src="../images/classes/eit/setup-opencv/display-camera-image.png" width="600"></a>
+
+
+ <b> <div style="font-size:12pt;margin-bottom:8px;margin-top:25px">Installing (general):</div></b>
+<ul>
+  <li>You should be able to install OpenCV using pip:
+    <ul>
+      <li>In terminal, or command line, run <code>pip install opencv-python</code></li>
+      <li>If pip is not found, you may need to use <code>pip3</code> or <code>pip3.5</code> in place of <code>pip</code></li>
+    </ul>
+  </li>
+  <li>If this doesn't work, you can try manually installing OpenCV for Python (see below).</li>
+</ul>
+
+ <b> <div style="font-size:12pt;margin-bottom:8px;margin-top:25px">Installing on Windows:</div></b>
+<ul>
+  <li><a href="https://sourceforge.net/projects/opencvlibrary/files/opencv-win/">download .zip file from here</a></li>
+  <li>run the installer and you should be all set</li>
+  <li>for a custom setup, <a href="http://docs.opencv.org/3.2.0/d3/d52/tutorial_windows_install.html">you can read more here</a></li>
+</ul>
+
+ <b> <div style="font-size:12pt;margin-bottom:8px;margin-top:25px">Installing on Mac:</div></b>
+<ul>
+  <li>follow the <a href="http://www.pyimagesearch.com/2016/12/19/install-opencv-3-on-macos-with-homebrew-the-easy-way/">tutorial here, section "Install OpenCV 3 on macOS with Homebrew (the easy way)"</a></li>
+  <li>if you already have it installed, make sure to run 'brew upgrade opencv' before coming to class so you have the latest version</li>
+</ul>
+  <br><br>
+
+        <br />
+        <br />
+      </section>
+      
+      <aside class="col-md-4 pull-left">
+        
+        <!-- Publication -->
+ <img src="../images/classes/eit/setup-opencv/finger1.png" width="250">
+ <img src="../images/classes/eit/setup-opencv/finger2.png" width="250">
+ <img src="../images/classes/eit/setup-opencv/finger4.png" width="250">
+
+
+
+        <br>
+
+
+
+
+   <!--      <strong>Announcements:</strong><br>
+        <p>
+          (to come)
+          <br>
+          <br>
+        </p> -->
+
+<!--         <strong>TAs:</strong><br>
+
+        <p>
+          <a href="https://www.behance.net/apgomes" target="_blank">Antonio Gomes (Postdoc)</a><br>
+          <a href="http://www.sens.sys.es.osaka-u.ac.jp/users/punpongsanon/" target="_blank">Parinya Punpongsanon (Postdoc)</a><br>
+          <a href="http://www.paulw.info/" target="_blank">Paul Worgan (Postdoc)</a><br>
+          <br>
+        </p>
+
+        <strong>When:</strong><br>
+        <p>
+          Fall 2017<br>
+          days/time tbd<br>
+          <br>
+        </p> -->
+
+        <!-- Publication -->
+  <!--       <strong>Where:</strong><br>
+        <p>
+          <br>
+          <br>
+        </p>
+ -->
+        <!-- Publication -->
+   <!--      <strong>What to bring:</strong><br>
+        <p>
+          your laptop<br>
+          we bring the rest<br><br>
+        </p> -->
+
+        <!-- Publication -->
+ <!--        <strong>Prerequisites:</strong><br>
+        <p>
+          6.005 Elements of Software Construction <br>
+          6.031 Elements of Software Construction (new) <br> 
+          6.111 Introductory Digital Systems Laboratory<br>
+          6.115 Microcomputer Project Laboratory<br>
+          or instructor permission<br><br>
+        </p>
+       -->
+
+     <!--    <strong>Class Size:</strong><br>
+        <p>
+          Maximum 30 students.<br>
+          Enrollment limited. <br>
+        <br>
+        </p> -->
+
+          
+      </aside>
+      
+    </div>
+  </div>
+  </div>
+</section>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 footer" style="text-align: center;">
+			<span class="copyright">
+			Since 2017 &copy; MIT CSAIL (HCI Engineering group) [redesign by 
+			<a href="http://punpongsanon.info/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			moji
+			</a>]. 
+			All Rights Reserved.
+			
+			<a href="http://mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../images/logo/mit.svg" alt="MIT" class="footer-logo" />
+			</a>
+			<a href="http://csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../images/logo/csail.svg" alt="CSAIL" class="footer-logo"/>
+			</a>
+			<a href="http://hci.csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../images/logo/hci.svg" alt="HCI" class="footer-logo"/>
+			</a>
+			</span>
+		</div>
+	</div>
+</div>
+
+<!-- Bootstrap --> 
+<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+<!-- header -->
+<script type="text/javascript" src="../js/headerstrap.js"></script> 
+<!-- footer -->
+<script type="text/javascript" src="../js/footerstrap.js"></script> 
+
+</body>
+</html>

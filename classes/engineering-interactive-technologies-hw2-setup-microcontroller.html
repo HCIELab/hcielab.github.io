@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HCI Engineering Group</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!-- CSAIL ICON -->
+	<link rel="CSAIL" href="../images/icon/csail.ico" type="image/x-icon" />
+
+	<!-- Bootstrap -->
+	<link href="../css/bootstrap.css" rel="stylesheet">
+	<link href="../css/custom-style.css" rel="stylesheet">
+	
+	<!-- jQuery --> 
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+	
+	<!-- Google Analytic -->
+	<script type="text/javascript" src="js/analytics.js"></script>
+	
+	<style>
+	.etech-sch-col1 {width:60px; border: 1px solid black;}
+	.etech-sch-col2 {width:120px; border: 1px solid black;}
+	.etech-sch-col3 {width:450px; border: 1px solid black;}
+	.etech-sch-col4 {width:100px; border: 1px solid black;}
+	</style>
+</head>
+
+<body>
+<header class="main_header">
+	<!-- to be filled by javascript, see header.html -->
+</header>
+
+<section class="main_container">
+  <div class="container">
+    <div class="row nothing">
+
+      <section class="col-md-8 pull-right main-content">
+        <h4 class="medium.headline" style="font-size:12px;padding-bottom:10px"><a href="http://hcie.csail.mit.edu/engineering-interactive-technologies.html">6.S063 Engineering Interactive Technologies (fall 2017)</a><br></h>
+         <h2 class="headline">HW2: Setup your micro-controller</h2>
+
+       <p style="color:red;"><b>Deadline:</b> due Wednesday (September 13, 2017) at 1pm, upload <a href="https://learning-modules.mit.edu/gradebook/index.html?uuid=/course/6/fa17/6.S063#assignments/32865665"><b style="color:red;">here</b></a></p>
+
+
+       <div style="font-size:12pt;margin-bottom:8px;margin-top:25px"><b>Deliverables:</b> </div>
+        <ul>
+              <li>short video (use your smart phone) showing how you upload the python code to the micro-controller using your computer console and how as a result the micro-controller's blue LED lights up, <a href="https://learning-modules.mit.edu/gradebook/index.html?uuid=/course/6/fa17/6.S063#assignments/32865665">upload video here</a></li>
+        </ul>
+
+ <div style="font-size:12pt;margin-bottom:8px;margin-top:25px"><b>Questions?</b> </div>
+ <ul>
+                  <li>post on <a href="https://piazza.com/class/j0o7o1dyi8js">piazza</a> </li>
+                  <li>go to a TA office hour for building/coding oriented questions (tbd)</li>
+                  <li>go to an instructor office hour for logistical questions and grading (mondays, 4-5pm, 32-211)</li>
+                  <li>do not send us emails</li>
+              </ul>
+<br>
+<hr>
+
+
+    <b> <div style="font-size:12pt;margin-bottom:8px;margin-top:25px">Task:</div></b>
+Setup your micro controller so you can upload code via <a href="https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/intro.html">MicroPython</a> from your computer.<br>
+You are done when the blue light on the micro-controller blinks.
+
+<br><br>
+
+<img src="../images/classes/eit/hw2-setup-microcontroller/final-setup2.jpg" width="600px">
+
+
+ <div style="font-size:12pt;margin-bottom:8px;margin-top:25px"><b>Setup How-To for Mac (Stefanie Mueller, on OSX Yosemite)</b> </div>
+
+              <ul>
+                  <li>Install the latest Python if not already (<a href="https://www.python.org/downloads/release/python-362/">Python 3.4 or later</a>)</li>
+                  <li>Follow <a href="https://dev.to/kenwalger/micropython-and-the-nodemcu-esp8266">this tutorial.</a> Some tips below:</li>
+                  <li>I had to reduce the baud rate otherwise I got an error (they use 460800, I used 9600 to be safe)
+                  <ul>
+                    <li><code>esptool.py --port /dev/cu.wchusbserial1410 --baud <b>9600</b> write_flash --flash_size=detect 0 esp8266-20170108-v1.8.7.bin</code></li>
+                  </ul>
+                </li>
+                  <li>If the upload is successful, go to your terminal. Use the screen command like this:
+                  <ul>
+                    <li><code>screen /dev/cu.wchusbserial1410 115200 –L</code></li>
+                    <li>This time baud rate 115200 worked for me, but in case it doesn't you can reduce it again.</li>
+                    <li>If you see weird signs or an empty screen, press enter a couple of times until you see the >>> for the python command line.</li>
+                    <li>Enter your python code for the LED.</li>
+                  </ul>
+                </li>
+                <li>Sometimes the Microcontroller port can be found in /dev/cu.*, e.g. try <code>ls /dev/cu.*</code> and <code>ls /dev/tty.*</code> when looking for your microcontroller. Generally it should be named "/dev/cu.wchusbserialXXXX" or "/dev/tty.wchusbserialXXXX"</li>
+                <li>
+                For some Macs, the microcontroller won't show up anywhere. In this case, you may need to install the <a href="https://kig.re/2014/12/31/how-to-use-arduino-nano-mini-pro-with-CH340G-on-mac-osx-yosemite.html">appropriate driver for CH340G, here</a>.
+                    <ul>
+                        <li>You can also try the <a href="https://blog.sengotta.net/signed-mac-os-driver-for-winchiphead-ch340-serial-bridge/">driver on this page</a>.</li>
+                    </ul>
+                </li>
+                <li>If you still have issues, ask on <a href="https://piazza.com/class/j0o7o1dyi8js?cid=16">Piazza</a>.</li>
+              </ul>
+
+        
+ <div style="font-size:12pt;margin-bottom:8px;margin-top:25px"><b>Setup How-To for Windows (Jared Counts, on Windows 10)</b> </div>
+            <ul>
+                <li>Install the latest Python if not already (<a href="https://www.python.org/downloads/release/python-362/">Python 3.4 or later</a>)</li>
+                <li>Follow <a href="https://dev.to/kenwalger/micropython-and-the-nodemcu-esp8266">this tutorial</a>. Some tips below:</li>
+                <li>The article suggests that COM4 would be the port of your NodeMCU. If that doesn't work, you can find the correct port by doing the following:
+                    <ol>
+                      <li>Make sure the USB is connected fully.</li>
+                        <li>Open up Device Manager (Windows key, type "Device Manager", hit enter)</li>
+                        <li>Expand "Ports (COM &amp; LPT)"</li>
+                        <li>Under Ports, look for "USB-SERIAL CH340 (...)". The port is specified in the parentheses here (usually COM1, or COM2, etc.)</li>
+                        <img src="../images/classes/eit/hw2-setup-microcontroller/port-finding.PNG" width="250px">
+                    </ol>
+                </li>
+                <li>
+                If the prompt (">>>") on your serial terminal does not show up, or all you see is gibberish, you can try a few things:
+                  <ul>
+                      <li>Press enter a few times. Also try Ctrl+C a few times.</li>
+                      <li>Restart the terminal.</li>
+                      <li>Try reflashing the chip, but include "-fm dio" as a flag. E.g.: <code>esptool.py --port COM4 --baud 460800 write_flash <b>-fm dio</b> --flash_size=detect 0 esp8266-20170108-v1.8.7.bin</code></li>
+                  </ul>
+                </li>
+                <li>If nothing shows up in the command prompt when running esptool.py, then you may need to call the script using python manually.
+                	<ul>
+                		<li>E.g. <code>python esptool.py ...</code>, instead of <code>esptool.py ...</code></li>
+                	</ul>
+            	</li>
+                <li>If you still have issues, ask on <a href="https://piazza.com/class/j0o7o1dyi8js?cid=16">Piazza</a>.</li>
+            </ul>  
+
+
+
+        <br />
+        <br />
+      </section>
+      
+      <aside class="col-md-4 pull-left">
+        
+        <!-- Publication -->
+
+        <br>
+<img src="../images/classes/eit/hw2-setup-microcontroller/micro-controller.png" width="250px">
+<!-- <img src="images/classes/eit/hw1-businesscard/card3.jpg" width="250px">
+<img src="images/classes/eit/hw1-businesscard/card1.jpg" width="250px">
+ -->
+
+
+
+
+   <!--      <strong>Announcements:</strong><br>
+        <p>
+          (to come)
+          <br>
+          <br>
+        </p> -->
+
+<!--         <strong>TAs:</strong><br>
+
+        <p>
+          <a href="https://www.behance.net/apgomes" target="_blank">Antonio Gomes (Postdoc)</a><br>
+          <a href="http://www.sens.sys.es.osaka-u.ac.jp/users/punpongsanon/" target="_blank">Parinya Punpongsanon (Postdoc)</a><br>
+          <a href="http://www.paulw.info/" target="_blank">Paul Worgan (Postdoc)</a><br>
+          <br>
+        </p>
+
+        <strong>When:</strong><br>
+        <p>
+          Fall 2017<br>
+          days/time tbd<br>
+          <br>
+        </p> -->
+
+        <!-- Publication -->
+  <!--       <strong>Where:</strong><br>
+        <p>
+          <br>
+          <br>
+        </p>
+ -->
+        <!-- Publication -->
+   <!--      <strong>What to bring:</strong><br>
+        <p>
+          your laptop<br>
+          we bring the rest<br><br>
+        </p> -->
+
+        <!-- Publication -->
+ <!--        <strong>Prerequisites:</strong><br>
+        <p>
+          6.005 Elements of Software Construction <br>
+          6.031 Elements of Software Construction (new) <br> 
+          6.111 Introductory Digital Systems Laboratory<br>
+          6.115 Microcomputer Project Laboratory<br>
+          or instructor permission<br><br>
+        </p>
+       -->
+
+     <!--    <strong>Class Size:</strong><br>
+        <p>
+          Maximum 30 students.<br>
+          Enrollment limited. <br>
+        <br>
+        </p> -->
+
+          
+      </aside>
+      
+    </div>
+  </div>
+  </div>
+</section>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 footer" style="text-align: center;">
+			<span class="copyright">
+			Since 2017 &copy; MIT CSAIL (HCI Engineering group) [redesign by 
+			<a href="http://punpongsanon.info/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			moji
+			</a>]. 
+			All Rights Reserved.
+			
+			<a href="http://mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../images/logo/mit.svg" alt="MIT" class="footer-logo" />
+			</a>
+			<a href="http://csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../images/logo/csail.svg" alt="CSAIL" class="footer-logo"/>
+			</a>
+			<a href="http://hci.csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../images/logo/hci.svg" alt="HCI" class="footer-logo"/>
+			</a>
+			</span>
+		</div>
+	</div>
+</div>
+
+<!-- Bootstrap --> 
+<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+<!-- header -->
+<script type="text/javascript" src="../js/headerstrap.js"></script> 
+<!-- footer -->
+<script type="text/javascript" src="../js/footerstrap.js"></script> 
+
+</body>
+</html>
