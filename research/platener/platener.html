@@ -253,12 +253,180 @@
 		</b> 
 		</br>
 		</br>	
-
-
-
+		<b>Specifying the focus of the current design iteration</b> 
+		</br>
+		On top of these global settings, different design iterations tend to put the focus on different parts. Platener allows users to define such a focus by assigning a specific fabrication technique using brushes. For the head mounted display, the global threshold defines that the forehead piece should be 3D printed. Within this context, the user can now choose the focus of the current design iteration:
 		</br>
 		</br>
-		
+		Case 1: The current design iteration is about some other part, such as the optical path. The forehead piece thus does not matter. In this case, the user can use the do not print brush on the forehead piece and the device will be fabricated without this part (Figure 8).
+		</br>
+		</br>
+		<img src="images/platener-headpiece-ignore.jpg" alt="platener-instructions" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 8: The design iteration does not require the head piece. The user thus uses the do not print brush.
+		</b> 
+		</br>
+		</br>
+		Case 2: The current design iteration is about the ergonomics of the forehead piece, thus the contact area of the forehead piece matters. The user has a heat gun and decides to use the curve acrylic brush on the forehead piece (Figure 9).
+		</br>
+		</br>
+		<img src="images/platener-headpart-bend.jpg" alt="platener-instructions" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 9: Overwriting the default with the curve acrylic brush to obtain a curved version for ergonomic testing.
+		</b> 
+		</br>
+		</br>
+		Case 3: In this round of design, not just the ergonomics, but also the entire industrial design of the forehead piece is in focus. The user thus overwrites the setting of the forehead piece in the last iteration by using the 3D print brush, resulting in the hybrid object shown in Figure 1c.
+		</br>
+		</br>
+		Case 4: In yet another round of design, the mechanics and the stability of the object are in focus. Per default, Platener has chosen to represent the four vertical edges of the casing as finger joints. These are easy to assemble, but brittle and thus not a good approximation for the stability of a 3D print. The user handles this by customizing these edges/ connectors, similar to how one customized plates. As shown in Figure 10a, the user uses the bend acrylic brush and brushes across the connectors. This causes Platener to merge the four wall segments into a single long strip (Figure 10b). The assembled result is shown in Figure 10c—a version of the head mounted display that is sturdier than any of the converted versions we showed earlier, as its main body consists of only three pieces. 
+		</br>
+		</br>
+		<img src="images/platener-casing-one-piece-bend.jpg" alt="platener-instructions" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 10: Using the bend acrylic brush, the user defines the casing as being made from one piece, which makes it sturdier. 
+		</b> 
+		</br>
+		</br>
+		<span class="medium-headline">
+		Comparison to other low-fab techniques
+		</span>
+		</br>
+		</br>
+		Compared to low-fab techniques from the related work, Platener generally better preserves a model’s geometry. We illustrate this at the example of the three objects used in the faBrickator paper, i.e., the penny ballista (Figure 11), the soap dispenser (Figure 12), and the head mounted display (Figure 13). Platener objects are generally sturdier as they are made from fewer pieces than when using building blocks (penny ballista: 17 plates vs 99 Lego, soap dispenser: 21 plates vs 53 Lego, head mounted display: 9 plates vs 160 Lego). The curved surface, despite requiring more manual effort, results in particularly sturdy results.
+		</br>
+		</br>
+		<img src="images/platener-fabrickator-penny-ballista.jpg" alt="platener-different-conversions" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 11: Penny ballista: (a) original 3D model, (b) faBrickator, (c) Platener. 
+		</b> 
+		</br>
+		</br>
+		Platener is intended to be a low-fab technique, i.e., users are supposed to use it for intermediate test prints while still iterating, and to only 3D print the final version. That said, some objects produced by Platener are of sufficient fidelity that users may choose to use the Platener conversion to fabricate also the final output.
+		</br>
+		</br>
+		<img src="images/platener-fabrickator-soap-dispensers.jpg" alt="platener-different-conversions" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 12: Soap dispenser: (a) original 3D model, (b) faBrickator, (c) Platener. 
+		</b> 
+		</br>
+		</br>
+		On the flipside, Platener is subject to the following limitations: The thickness of the extracted plates is limited to the capabilities of the laser cutter (e.g. 10mm maximum plate thickness on our ULS PLS6.150D laser cutter). While Platener speeds up design iteration of functional objects, it is less suitable for objects that are solely defined by their shape, such as 3D scans of people. 
+		</br>
+		</br>
+		<img src="images/platener-fabrickator-hmd.jpg" alt="platener-different-conversions" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 13: Head mounted display: (a) original 3D model, (b) faBrickator, (c) Platener.
+		</b> 
+		</br>
+		</br>
+		<span class="medium-headline">
+		Implementation
+		</span>
+		</br>
+		</br>
+		This section describes Platener’s core data structure and the implementation of the processing pipeline.
+		</br>
+		</br>	
+		<b>#1 Mesh Segmentation </b> 
+		</br>
+		The mesh segmentation algorithm takes a 3D printable manifold mesh as input and outputs laser-cuttable plates and 3D printable parts. Platener then generates the plate graph of the 3D model according to the adjacency relationship of these segments.</br>
+		The segmentation algorithm first extracts all flat planes from the 3D mesh then identifies plates by iteratively grouping plane pairs that are parallel, have an opposite normal, and are within distance d. The variable d represents the thickness of the plate and users manually configure it according to the laser cutting material. Each plate consists of two planes. The size and shape of the plate are determined by projecting both planes into 2D and intersecting them. We repeat the algorithm with all planes that remain after intersection until no more planes can be converted to plates. After extracting all plates, the algorithm labels the remaining parts of the 3D mesh as to 3D print. 
+		</br>
+		</br>
+		<b>#2 Plate Graph Generation</b> 
+		</br>
+		 After the mesh segmentation, Platener constructs a plate graph that records the fabrication method for each segment and joints between them. As illustrated by Figure 14, each node in the plate graph represents one part of the 3D model and each edge represents a connector between two plates. Each note has one of the three states: 3D print, laser-cut, or ignore. Each edge, i.e. connector, has one of the five states: no connector, bending connector, finger joint, interlocking joint, bending connector, or glue connector.
+		</br>
+		</br>
+		<img src="images/platener-graph.png" alt="platener-different-conversions" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 14: The plate graph represents the 3D model as a graph of nodes (plates) with edges (connectors).
+		</b> 
+		</br>
+		</br>
+		Initially, Platener labels all nodes as 3D print and all edges as no connector. As users move the fidelity-speed slider towards speed, Platener gradually labels the largest laser-cuttable segments as laser-cut and their adjacent edges as finger joints. Similarly, as users manually specify a fabrication method for each part, Platener interactively updates the corresponding labels in the graph.
+		</br>
+		</br>
+		<b>#3 Mesh Processing</b> 
+		</br>
+		  At the end of the process pipeline, Platener processes the mesh segments according to the plate graph. 
+		</br>
+		</br>
+		Unfolding Curved Parts:</br>
+		When the curved plate option is activated, Platener gradually unfolds the curved segment onto a 2D plane. Platener also adds the bending lines or the living hinge pattern perpendicular to the unfolding direction. If the 3D segment cannot be unfolded without overlapping itself, Platener converts it to 3D printing as a fall back method.
+		</br>
+		</br>
+		Joint Generation:</br>
+		According to the labels on the edges, Platener places joints between segments or merges segments into a single piece. When the edge is labeled as no connector, e.g. both nodes are 3D printed, or bending connector, e.g. users applied the bend acrylic brush on the joints, Platener merges them into one single 3D mesh or plate. When using finger joints, Platener extends the boundaries of the segments and generates finger joints on the overlapping volume. The interlocking joint label is used when there is a cross-section between two segments. In such cases, Platener creates a slit on the laser-cut piece, allowing another plate to slide into and interlock with. Finally, in case the overlapping volume is too small, Platener switches to the glue connector, i.e. creates flat surfaces on both segments that afford gluing.
+		</br>
+		</br>
+		<span class="medium-headline">
+		Technical Evaluation
+		</span>
+		</br>
+		</br>
+		We evaluated the effectiveness of Platener by analyzing the speed-up after conversion for a range of different models. Given that Platener was designed for functional objects, such as casing and mechanical tools, we focused on 3D models that their creators described in such terms.
+		</br>
+		</br>	
+		<b>3D Meshes from Thingiverse</b> 
+		</br>
+		In order to obtain an objective sample, we downloaded 3D models from the online 3D model repository Thingiverse. At the day of the download, Thingiverse contained more than a hundred thousand 3D models in total.</br>
+		We collected the 3D models by searching the website using the sites built-in search box and downloaded the top 200 results. In order to obtain an objective sample, we did not perform any further selection or removal of mislabeled objects at this stage, so our sample represents the “noise” level currently contained in these sites. Also note that many 3D models on Thingiverse consist of multiple 3D meshes. We processed them separately without merging them into one single 3D model.</br>
+		The 10 search terms we used were box, camera, controller, gadget, gear, household, mechanical, phone, speaker, tool. We obtained an overall number of 2,250 3D meshes.
+		</br>
+		</br>	
+		<b>Measurements</b> 
+		</br>
+		 We evaluated the effectiveness of Platener based on two measurements: (1) Fabrication Time before and after conversion, and (2) Number of pieces as a metric indicating the manual assembly effort required. 
+		</br>
+		</br>	
+		<b>Results</b> 
+		</br>
+		Platener processed all 3D models and generated 3D printable stl files and laser-cuttable svg files. We estimated the 3D printing time with the slic3r (http://slic3r.org) g-code simulator, the laser-cut time by the length of the path contained in the svg files, and we approximated the assembly time via the simple formula of number of pieces multiplied by 15 seconds.</br>
+		Figure 15 shows the time savings achieved by Platener. It shows that 39.5% of the downloaded 3D models achieve a speed up of more than 10x, which is faster than any of the systems in the related work. Another 13.4% achieve a speed up of 3-10x. 22.8% of models result in no speed up.
+		</br>
+		</br>
+		<img src="images/platener-timesaving-chart.jpg" alt="platener-different-conversions" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 15: Fabrication time speed up. 
+		</b> 
+		</br>
+		</br>
+		Figure 16 shows some example objects that resulted in high speed ups (>10x). These objects consist mainly of flat pieces and contain only few parts that cannot be laser cut.
+		</br>
+		</br>
+		<img src="images/platener-good-models.jpg" alt="platener-different-conversions" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 16: Some of the models that Platener fabricated 10x+ faster: (a) camera body, (b) hardware divider, (c) raspberry pi casing, (d) mount. 
+		</b> 
+		</br>
+		</br>
+		In contrast, Figure 17 shows two examples for which Platener was unable to produce any time savings. As expected, these objects are characterized by spherical curvature—shapes that lie outside of what Platener was designed to handle.
+		</br>
+		</br>
+		<img src="images/platener-bad-models.jpg" alt="platener-different-conversions" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 17: We would not use Platener for these objects as conversion results in no time-savings: (a) cone shaped mini heater part, (b) Kindle Fire comfort grip.
+		</b> 
+		</br>
+		</br>
+		Converted objects consisted on average of 12 pieces, which we approximate with 3 minutes of assembly time.
+		In summary, our results show that Platener achieves faster fabrication time for many functional objects, making it a useful tool for substantially speeding up the prototyping workflow.
+		</br>
+		</br>
+		</br>
+		</br>
 	</div>
 	</div>
 </div>
