@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MoSculp: Interactive Visualization of Shape and Time</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!-- CSAIL ICON -->
+	<link rel="CSAIL" href="http://hcie.csail.mit.edu/images/icon/csail.ico" type="image/x-icon" />
+
+	<!-- Bootstrap -->
+	<link href="http://hcie.csail.mit.edu/css/bootstrap.css" rel="stylesheet">
+	<link href="http://hcie.csail.mit.edu/css/custom-style.css" rel="stylesheet">
+	
+	<!-- Lightbox -->
+	<link href="../../css/lightbox.css" rel="stylesheet">
+	
+	<!-- jQuery --> 
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+	
+	<!-- Google Analytic -->
+	<script type="text/javascript" src="http://hcie.csail.mit.edu/js/analytics.js"></script>
+</head>
+
+<body>
+<header class="main_header">
+	<!-- to be filled by javascript, see header.html -->
+</header>
+<div class="container" style="padding-top: 100px;">
+	<div class="row">
+	<!-- Publication details -->
+	<div class="col-md-4" style="text-align: left;">
+		</br>
+		</br>
+		<span class="medium-headline">
+		Publication
+		</span>
+		</br>
+		</br>
+		 Xiuming Zhang, Tali Dekel, Tianfan Xue, Andrew Owens, Qiurui He, Jiajun Wu, Stefanie Mueller, William T. Freeman.
+		</br>
+		 MoSculp: Interactive Visualization of Shape and Time.
+		</br>
+		In Proceedings of 
+		<a href="https://uist.acm.org/uist2018/" target="_blank">UIST &#8217;18</a>
+		(to appear).
+		</br>
+			<a href="https://www.youtube.com/watch?v=8g3LaF9oVFY" class="btn btn-vdo" alt="video" target="_blank">Video</a> 
+			&nbsp; &nbsp; 
+			</br>
+			</br>
+			<!-- <span class="medium-headline">
+			Video
+			</span>
+			</br>
+			</br>
+			<iframe width="325" height="190" src="https://www.youtube.com/embed/8g3LaF9oVFY" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+			</br>
+			</br> -->
+	</div>
+	
+	
+	<!-- Project information -->
+	<div class="col-md-8" style="text-align: left;">
+		<h3 class="headline">
+		MoSculpt:<br>
+		Interactive Visualization of Shape and Time
+		</h3>
+		</br>
+		<img src="images/runner.png" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 1:  Our  MoSculp  system  transforms  a  video  (a)  into  a  motion sculpture  –  the  3D  path  traced  by  the  human  while  moving  through space. Our motion sculptures can be virtually inserted back into the original video (b), rendered in a synthetic scene (c), or physically 3D printed (d). Users can interactively customize their design, e.g., by changing the number of keyframes, sculpture material and lighting.
+		</b> 
+		</br>
+		</br>
+		We present a system that allows users to visualize complex human motion via 3D motion sculptures—a representation that conveys the 3D structure swept by a human body as it moves through space. Given an input video, our system computes a motion sculpture and provides the user with an interface for rendering motion sculptures in different styles, including the options to insert the sculpture back into the source video or render it in a synthetic scene.
+		</br>
+		</br>
+		To provide this end-to-end workflow, we introduce an algorithm that estimates the human’s 3D geometry over time and develop a 3D-aware image-based rendering approach to preserve the depth ordering between the sculpture and the human as observed in the video. By automating the process, our system takes motion sculpture creation out of the realm of professional artists, and makes it accessible to novice users and applicable to a wide range of existing video material.
+		</br>
+		</br>
+		By providing viewers with 3D information, motion sculptures reveal space-time motion information that is difficult to perceive with the naked eyes, and allow viewers to interpret how different parts of the object interact over time. We validate the effectiveness of this approach with user studies, finding that our motion sculpture visualizations are significantly more informative about motion than existing stroboscopic and space-time visualization methods.
+		</br>
+		</br>
+		<span class="medium-headline">
+		Introduction
+		</span>
+		</br>
+		</br>
+		Complicated actions, such as swinging a tennis racket or dancing ballet, can be difficult to convey to a viewer through a static photo. To address this problem, researchers and artists have developed a number of motion visualization techniques, such as chronophotography, stroboscopic photography, and multi-exposure photography [28, 6]. However, since such methods operate entirely in 2D, they are unable to convey the motion’s underlying 3D structure. Consequently, they tend to create cluttered results when parts of the object are occluded (Figure 2). Moreover, they often require special capturing procedures, environment (such as a plain black background), or lighting equipment.
+		</br>
+		</br>
+		In this paper, we present MoSculp, an end-to-end system that takes a standard video as input and produces a motion sculpture – visualization of the spatial-temporal structure carved by the body as it moves through space. Motion sculptures convey the human’s trajectory and reveal how its 3D shape evolves over time and thus facilitate the understanding of human motion. Once computed, motion sculptures can be inserted back to the source video (Figure 1b), rendered in a synthesized scene (Figure 1c), or physically 3D printed (Figure 1d).
+		</br>
+		</br>
+		<img src="images/compare-to-existing-methods.png" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 2. Comparison of (a) our motion sculptures (Ballet-1 [8] and Federer) with related approaches: (b) standard stroboscopic photography, which does not use depth, and (c) shape-time photography [14].
+		</b> 
+		</br>
+		</br>
+		Because motion sculptures are 3D, users can navigate around them and view them from alternative viewpoints, revealing information about the motion that is inaccessible from the original viewpoint. To this end, we develop an interactive interface that allows users to explore motion sculptures in 3D and customize various rendering settings including lighting, sculpture’s material, the rendered body parts and scene back- ground1. These tools provide flexibility for users to express their artistic designs and further facilitates their understanding of human shape and motion.
+		</br>
+		</br>
+		Our main contribution is to devise the first end-to-end system for creating motion sculptures from ordinary videos, thus making them accessible for novice users. A core component of our system is to estimate the human’s pose and body shape over time. Our 3D estimation algorithm, built upon the state of the art, is customized to cover the specifics of motion sculptures (e.g., clothes) and to support simple user corrections. The motion sculpture is then inferred from the union of the 3D shapes over time. To embed the sculpture back into the original video, we have developed a 3D-aware image-based rendering approach that preserves depth ordering. Our system achieves high-quality, artifact-free composites on a variety of human actions, such as ballet dancing, fencing, and other athletic actions.
+
+		</br>
+		</br>
+		<span class="medium-headline">
+		Constructable
+		</span>
+		</br>
+		</br>
+		Constructable is a drafting table that produces physical output in every step. As illustrated by Figure 1, all interaction in constructable takes place on the workpiece, mediated through low-power hand-held laser pointers, which we call proxy lasers or simply tools. In the shown example, the user uses the finger joint tool to add finger joints between two pieces by crossing the two involved edges.
+		</br>
+		</br>
+		Proxy lasers are too weak to affect the work piece. To make the interaction ‘real’, constructable tracks proxy laser interactions using a camera mounted above (Figure 1b), reconstructs the tool’s path, transforms it using a constraint set defined by the current tool, and implements the effect using its high-powered cutting laser (Figure 1c). Since all key elements were constructed in the context of constraints, we obtain fully functional mechanical devices, such as the simple motorized vehicle shown in Figure 1d.
+		</br>
+		</br>
+		The combination of proxy laser and cutting laser is one of the key ideas behind our system, because it allows users to work faster and more interactively than the interactive fabrication systems in the related work. The reason is that the manipulation of materials that are durable enough for making functional mechanical devices requires a high-powered tool. These, however, require safety measures, such as our glass enclosure. Opening and closing the enclosure for each interaction takes too long, but by letting users point at the workpiece through the safety enclosure, constructable allows user’s attention to remain on the workpiece at all times, despite the enclosure. As intended, users witness how the workpiece changes with their every interaction first hand and not mediated by a screen or projector.
+		</br>
+		</br>
+		Constructable achieves its other main design objective, i.e., precision, using a system of constraints implemented by the individual proxy lasers.
+		</br>
+		</br>
+		<b>Proxy lasers</b>
+		</br>
+		</br>
+		Figure 2 provides a closer look at the proxy lasers. Each proxy laser features three barrel buttons (Figure 2c). While held depressed, the middle button activates the beam, allowing the system and the user to see where the tool is pointed [21]. The visual feedback allows users to determine a starting point with precision before starting to cut. It thereby implements the tracking state of its three-state model [5].
+		</br>
+		</br>
+		The other two buttons trigger the tool’s two modes of operation. The cut button allows cutting a tool-specific shape, such as a circle for the circle tool. The sketch line button creates the same shape, but etches it as a shallow dashed line into the surface of the material. Sketch lines have no direct impact on the mechanics of the workpiece, but instead serve as alignment aids that magnetically attract subsequent cuts (alignment lines [3]).
+		</br>
+		</br>
+		All tools explain themselves exclusively through the cut or sketch line they produce and there is no further visual feedback, i.e., no screen or projector. Since all output is created using the laser cutter itself, constructable’s geometry output is extremely precise.
+		</br>
+		</br>
+		<img src="images/constructable-tools.jpg" alt="constructable-tools" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 2: (a, b) Constructable offers 15 different proxy lasers and an undo button. (c) Each proxy-laser offers three barrel buttons.
+		</b> 
+		</br>
+		</br>
+		<b>Creating, Selecting, copying, and pasting using tools</b>
+		</br>
+		</br>
+		Constructable achieves precision by means of sketch lines and by implementing constraints into every proxy laser. Constraints differ between tools.
+		</br>
+		</br>
+		Creating: Polyline, Circle, and Freehand are constructable’s tools for creating objects from scratch. These tools are only moderately constrained. The circle tool, for example, always produces a perfect circle, but diameter and location remain freehand. The freehand tool is not subject to any constraints.
+		</br>
+		</br>
+		Most of constructable’s tools connect to or extend an existing object and this spatial relationship adds constraints. Users establish these constraints by selecting one or more existing objects. The finger joint tool, for example, snaps to existing lines.
+		</br>
+		</br>
+		Selecting: As illustrated by Figure 3, users select (a) a surface by clicking into it, (b) an edge by crossing it [2], and (c) a point by drawing a pigtail close to it [12]. We designed this selection mechanism so as to extend seamlessly to multiple objects. Users select (d) multiple surfaces by drawing a path across, (e) multiple edges by crossing multiple edges, and (f) multiple points as a sequence of multiple pigtails.
+		</br>
+		</br>
+		<img src="images/constructable-object-line-point.png" alt="constructable-tools" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 3: Constructable allows users to select (a) objects by pointing, (b) lines by crossing, and (c) points with pigtails. (d-f) To allow for fast selection, all selection gestures can be extended across multiple objects, lines, and points.
+		</b> 
+		</br>
+		</br>
+		Pasting: A range of tools, such as the copy tool, results in the creation of new objects. The size and shape of a new object is determined implicitly, e.g., by the object being copied and does not require or allow for user input. However, to allow users to optimize material usage, we let users show constructable where to create it. As illustrated by Figure 4, users point constructable to available material by drawing a directional cropmark (see also [19]). The orientation of the cropmark specifies the orientation of the pasted object, allowing users to optimize for material use.
+		</br>
+		</br>
+		<img src="images/constructable-copy-paste.png" alt="constructable-tools" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 4: Users paste an object by drawing a crop-mark. Constructable places the object into the “inside” of the cropmark. Cropmarks allow users to place objects carefully into available space while preventing them from cutting into adjacent contents.
+		</b> 
+		</br>
+		</br>
+		<span class="medium-headline">
+		Walkthrough: Constructing a Device
+		</span>
+		</br>
+		</br>
+		In the following, we illustrate constructable’s tools at the example of the simple motorized vehicle that we had briefly touched upon in Figure 1. Figure 5 shows the final outcome and the pieces required to produce it.
+		</br>
+		</br>
+		<img src="images/constructable-gearbox.png" alt="constructable-tools" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 5: (a-c) The gearbox in different states of assembly, for use in (d) a simple motorized vehicle.
+		</b> 
+		</br>
+		</br>
+		We start by creating the housing (Figure 6). (a) We use the polyline tool to sketch the rectangular base. (b) Using the sketch line button on the scale tool we create a sketch line rectangle around the base—this sets the height of the walls. (c) By crossing the north edge of the base with the Extrude tool, we create the first wall segment. (d) For efficiency, we create the remaining three walls using a single long stroke that extrudes the base east, south, and west. There is no limit on concatenating, so we could have also extruded all four walls in a single stroke. (e and f) To allow us to assemble the housing later, we add finger joints. We connect the walls by crossing pairs of respective edges using the finger joint tool. (g) Finally, we assemble the box by connecting the finger joints.
+		</br>
+		</br>
+		<img src="images/constructable-walkthrough1.png" alt="constructable-tools" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 6: Interactively constructing the housing for the motorized vehicle and gearbox.
+		</b> 
+		</br>
+		</br>
+		Figure 7 shows how we add gearbox and wheels. (a) To make sure that we end up with straight axles we draw three sketch lines using the polyline tool. (b) We create the first axle hole using the hole tool, the location of which snaps to the intersection of the two sketch lines located close by. (c) We draw all remaining axle holes using a single stroke concatenating multiple pigtails.
+		</br>
+		</br>
+		(d) We create the first pair of gears by selecting two axle holes, define the transmission ratio by marking the point where we want the two gears to meet, and show constructable where to create the gears using a cropmark. We create the second set of gears accordingly. (f) To create a wheel, we first create an axle hole using the hole tool. We then create a wheel around this axle hole using the scale tool. (g) We create a second wheel by copying the first one using the copy tool.
+		</br>
+		</br>
+		We are now done creating our parts. We remove them from the machine and assemble them, resulting in the vehicle shown in Figure 5.
+		</br>
+		</br>
+		The device is mechanically functional, because every mechanical connection was created using tools that embody appropriate constraints.
+		</br>
+		</br>
+		<img src="images/constructable-walkthrough2.png" alt="constructable-tools" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 7: Continuing the previous example, we add axles, a two-stage gearbox, and wheels.
+		</b> 
+		</br>
+		</br>
+		<b>Decorative functionality</b>
+		</br>
+		While constructable was designed with the goal of supporting interactive construction, its underlying concept of tools allows us to integrate form-giving (Figure 8) and decorative functionality as well (Figure 9).
+		</br>
+		</br>
+		<img src="images/constructable-booklet.png" alt="constructable-tools" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 8: Creating a wooden booklet sleeve by (a) drawing the cover with the polyline tool, then (b) smoothing the corners with the round tool, and (c) making the wood flexible using the bend tool [1].
+		</b> 
+		</br>
+		</br>
+		Figure 9 illustrates how we apply a logo to the housing of our motorized vehicle, á la CopyCAD [8]. (a) Continuing our earlier example, we place the housing of our motorized vehicle back into the machine, and position a photo with the desired logo on top of it. (b) We wave the rub-on tool across those areas of the photo that we want to transfer. (c) We take the photo back out, and as we close the lid, constructable engraves the logo into the housing.
+		</br>
+		</br>
+		<img src="images/constructable-textures.png" alt="constructable-tools" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 9: Adding a decorative logo onto the side of the motorized vehicle using the rub-on tool.
+		</b> 
+		</br>
+		</br>
+		Similarly, the trace tool cuts the contours of a physical object into the workpiece. Figure 10 shows how to use this to create a holder for two paint jars.
+		</br>
+		</br>
+		<img src="images/constructable-trace.png" alt="constructable-tools" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 10: Creating a holder for two paint jars by (a) selecting physical objects inside the cutter using the trace tool, (b) After removing the physical objects constructable cuts.
+		</b> 
+		</br>
+		</br>
+		Finally, we can use the freehand tool to create unconstrained freehand lines and cuts (Figure 11).
+		</br>
+		</br>
+		<img src="images/constructable-freehand.png" alt="constructable-tools" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 11: Sketching using the freehand tool.
+		</b> 
+		</br>
+		</br>
+		<b>Trial-and-error support using “undo” tools</b>
+		</br>
+		Finally, constructable offers basic support for trial-and- error by providing an approximation of “undo” tools. Since physical cuts cannot be undone, constructable’s “undo” tools instead refabricate the object — they create a copy that does not have the cut. Users apply the tool by crossing the cuts they want removed; they then paste the newly restored object.
+		</br>
+		</br>
+		While the primary purpose of the tool is to repair and undo, the way it achieves this is by uniting two objects and copy-ing the result. Since this functionality is useful beyond undo, we ended up giving the tool the name union tool.
+		</br>
+		</br>
+		In practice, any tool that unites two objects can be used as an undo tool. Figure 12 shows the butterfly joint tool, which connects two objects using a butterfly connector. This tool produces a butterfly-shaped hole across the cut and lets users paste a matching butterfly-shaped connector. Users repair the cut on assembly by placing the connector into the hole—it sits tight enough to create a lasting connection. While the union tool obviously creates the stronger connection, a butterfly joint consumes less material.
+		</br>
+		</br>
+		<img src="images/constructable-cross-joint.png" alt="constructable-tools" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 12: Undoing a cut by re-uniting the pieces using the butterfly tool.
+		</b> 
+		</br>
+		</br>
+		<span class="medium-headline">
+		Benefits and Limitations, Summary of the Design
+		</span>
+		</br>
+		</br>
+		In the above walkthrough, we demonstrated interactive construction using constructable. We showed how constructable allows to interactively construct a functional mechanical device by bringing some of the key qualities of CAD-based personal fabrication into interactive fabrication.
+		</br>
+		</br>
+		<b>Precise input and output</b>
+		</br>
+		Constructable achieves the precision required to make functional mechanical devices as follows:
+		</br>
+		</br>
+		Precise input: Even though all input to constructable is mediated through a hand-held tool, the resulting jerkiness never interfered with precision because all relevant parame- ters are appropriately constrained. Only parameters with no functional implications, such as the size of the base of the motorized vehicle, were defined free hand.
+		</br>
+		</br>
+		Constructable uses three types of constraints: (1) Each tool implements constraints; the polyline tool, for example, draws only rectilinear contents. (2) Sketch lines allow users to add constraints explicitly. (3) A special class of tools that create connections, such as finger joints create both halves of the connection at once. As a result, finger joints always fit perfectly even though they involve two parts. The gear tool is based on the same concept and one might say that it connects two axles.
+		</br>
+		</br>
+		Precise output: As mentioned earlier, all tools explain themselves exclusively through the cut or sketch line they produce. Since this allows all output to be created using the laser cutter itself, constructable’s geometry output is extremely precise. This offers orders of magnitude higher resolution than projection and is never subject to calibration issues.
+		</br>
+		</br>
+		<b>No projection</b>
+		</br>
+		An early version of our system did feature a projector, similar to several systems in the related work, such as CopyCAD [8]. Letting go of it not only increased precision, but also made sure we directed users’ attention at the work-piece at all times, rather than at a projection collocated with the workpiece.
+		</br>
+		</br>
+		A side effect of not having a computer display meant that we had to eliminate all hidden state and modes, because there was no way to keep users informed about them. This led us to design the proxy laser model, in which the current set of constraints is represented solely by which physical device the user is currently holding.
+		</br>
+		</br>
+		As another side effect of using the cutter as the sole visual feedback device, sketch lines became permanent. While users can erase sketch lines by replicating the final object using the unite tool, we think that users will typically choose to leave these lines in, the same way that designers leave sketch lines in to illustrate their process or even because they are esthetically pleasing [4].
+		</br>
+		</br>
+		<b>Trial-and-error using “undo” tools</b>
+		</br>
+		We implemented trial-and-error using special “undo” functions, such as the union and butterfly joint tool that allow users to re-create the previous state of an object by refabricating it.
+		</br>
+		</br>
+		<b>Fast interaction via the proxy laser mechanism</b>
+		</br>
+		As mentioned earlier, constructable achieves fast interaction using the proxy laser mechanism, i.e., drawing with low-power laser tools, the effect of which is implemented by a high-power cutting laser. We found the resulting interaction to invite a powerful conceptual model, namely that the cutting laser amplifies the proxy laser, similar to how power brakes and power steering amplify the driver’s muscle strength. We plan to develop this notion further in future versions of constructable, with the ultimate goal of causing at least the freehand proxy laser to invite the interpretation that it itself is cutting.
+		</br>
+		</br>
+		<b>Limitations</b>
+		</br>
+		Like any tool, constructable is useful for some design problems and less so for others. While constructable extends the range of problems that can be tackled interactively, it is obviously not a CAD system. As with traditional wood-working tools, some types of projects can be tackled tool-in-hand, while more advanced problems require users to sit down with a piece of paper first. The same way that saw and wood chisel cannot replace a detailed design process, constructable cannot replace CAD.
+		</br>
+		</br>
+		Another limitation is that all construction with constructable is inherently scale 1:1 and constructable offers no way of inspecting a detail in magnification. Similar to working with traditional woodworking tools, this limits users to projects that fit a particular scale.
+		</br>
+		</br>
+		Finally, constructable was not designed with walk-up use in mind. While some tools, such as the finger joint tool have the potential to make complex construction elements accessible to inexperienced users, mechanical construction in general does require know-how. Rather than addressing first time users, we designed the majority of constructable’s tools so as to be generic in nature, to apply to each other, and thereby allow for a wide range of constructions.
+		</br>
+		</br>
+		<span class="medium-headline">
+		Ergonomic: The Drafting Table Form Factor 
+		</span>
+		</br>
+		</br>
+		While constructable is primarily about constructive functionality, we made some observations on ergonomics.
+		</br>
+		</br>
+		While we initially perceived it mostly as a design hurdle, the laser cutter’s glass cover turned out to become one of the key elements creating the affordance of our system. (Figure 13a). By allowing users to rest their body weight on the glass, it allows users to get even closer to the workpiece without worrying about interfering with it. Furthermore, we found ourselves resting proxy lasers on the glass while drawing (Figure 13b), which adds substantial stability, making the interaction even more precise.
+		</br>
+		</br>
+		<img src="images/constructable-ergonomic.png" alt="constructable-tools" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 13: (a) The glass cover supports users’ weight, allowing them to get close to the workpiece. (b) Resting proxy lasers onto the glass allows for precise interaction.
+		</b> 
+		</br>
+		</br>
+		To invite this interpretation and posture, we positioned the proxy laser tools as shown in Figure 13c. This allows users to reach tools without lifting their arm, but instead pivoting around their elbows similar to the Lagoon in Alias Sketchbook [6].
+		</br>
+		</br>
+		We found all of the above to invite the interpretation of constructable as a drafting table, the “drawing” on which is the actual physical object itself. We plan on building on this interpretation in future versions by tilting the glass cover slightly towards the user (e.g., as in ActiveDesk [7]).
+		</br>
+		</br>
+		<span class="medium-headline">
+		Contribution
+		</span>
+		</br>
+		</br>
+		The main contribution of this paper is the concept of interactive construction, which we support with the functional system prototype constructable. Our demo scenarios illustrate how users can create functional mechanical devices, which exceeds the complexity of examples created in the interactive fabrication literature. We are thus primarily making a systems contribution.
+		</br>
+		</br>
+		In addition, our system contains a series of novel elements, including (a) the proxy laser mechanism, i.e., drawing with low-power laser tools, the effect of which is implemented by a high-power cutting laser, (b) the use of the laser cutter as a super high precision display, replacing projection, and (c) the notion of undoing a physically destructive action by refabricating the broken piece.
+		</br>
+		</br>
+		<span class="medium-headline">
+		Implementation
+		</span>
+		</br>
+		Figure 14 shows how constructable processes proxy laser input in order to generate cutting laser output.
+		</br>
+		</br>
+		<img src="images/constructable-implementation.png" alt="constructable-tools" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 14: Data processing flow in constructable.
+		</b> 
+		</br>
+		</br>
+		<b>Sensing</b>
+		</br>
+		Constructable observes the workpiece using a web cam (MS Lifecam, 844x448px, 30 fps) and extracts the dot produced by the proxy-lasers using color tracking. Constructable then smoothes tool paths using a Kalman Filter and performs shape recognition on paths using PaleoSketch [25] before applying the geometric operations and spatial constraints defined by the tool.
+		</br>
+		</br>
+		At this point, constructable records the interaction history, which it uses to support undo and selective repairs using the union tool.
+		</br>
+		</br>
+		<b>Output to the laser cutter</b>
+		</br>
+		Constructable now outputs the shape to the laser cutter, currently a Universal PLS6.150D. Using the OpenDraw API, Constructable draws the shape into an OpenDraw document, which it sends to the cutter using the printer interface. As required by Universal laser cutter systems, constructable encodes the necessary meta-information into the color of the respective line, i.e., cutting-depth (mm), laser power (percentage), and speed (percentage). A red 0pt line, for example, causes the laser to cut, while green is used to create a shallow, low-power sketch line. Constructable sends all communication using the Open Sound Protocol, which makes it easy to adapt the system to other hardware components, such as a different laser cutter model.
+		</br>
+		</br>
+		<b>Remixing: using physical objects as a reference</b>
+		</br>
+		Constructable captures physical objects using the same camera that tracks the laser dots. A bar of fluorescent light mounted inside the cutter supports this by providing homogeneous, reflection-free illumination of the workpiece. An IR rangefinder sensor informs the system when the lid is open.
+		</br>
+		</br>
+		<b>Proxy lasers</b>
+		</br>
+		In order to retrieve the constraint set represented by the current tool, constructable determines which tool is in use using mechanical switches, one of which is installed in each tool holder (similar to pen “recognition” in SmartBoards, smarttech.com). This bypass allows us to implement all proxy lasers using a single type of off-the-shelf laser pointer. The buttons on all proxy lasers trigger an IR signal, which Constructable monitors using an IR receiver placed next to the camera.
+		</br>
+		</br>
+		Similar to the tracking button, the cut and sketch line buttons are spring-loaded in order to eliminate mode errors [13]. Users operate them without letting go of the tracking button, which users perform by rocking their finger back and forth between tracking button and the center position of tracking and cut button. For optimized ergonomics during prolonged use [13] constructable offers a dual-footswitch pedal, which is fulfilling the same purpose as the cut and sketch line barrel buttons.
+		</br>
+		</br>
+		<span class="medium-headline">
+		Conclusion
+		</span>
+		</br>
+		</br>
+		In this paper, we proposed interactive construction as a way to enable users to interactively create functional mechanical devices. Our prototype called constructable serves as a drafting table that produces physical output in every step. By building constraints into tools, providing sketch lines and by using the laser cutter itself for high precision output, constructable offers the necessary precision required to produce simple, yet functional mechanics that cannot be created with traditional interactive fabrication tools. Equally important, constructable allows for fast fabrication by making a high-power cutting laser accessible to the user via safe low-power proxy lasers. As future work, we plan to extend constructable to allow for collaborative use.
+		</br>
+		</br>
+		</br>
+		</br>
+		
+		<span class="medium-headline">
+		Demos at CHI'13 and TEI'13
+		</span>
+		<hr>
+		Packing at Hasso Plattner Institute, Berlin, Germany</br>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-1.jpg" alt="demo" width="128" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-2.jpg" alt="demo" width="290" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-3.jpg" alt="demo" width="290" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-4.jpg" alt="demo" width="128" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-5.jpg" alt="demo" width="290" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-6.jpg" alt="demo" width="290" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-7.jpg" alt="demo" width="290" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-8.jpg" alt="demo" width="290" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		Unpacking in Barcelona</br>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-14.jpg" alt="demo" width="290" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-15.jpg" alt="demo" width="290" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-16.jpg" alt="demo" width="230" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-17.jpg" alt="demo" width="230" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-18.jpg" alt="demo" width="230" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		Demo Setup</br>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-10.jpg" alt="demo" width="290" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-11.jpg" alt="demo" width="290" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-12.jpg" alt="demo" width="290" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-13.jpg" alt="demo" width="148" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		Demo</br>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-19.jpg" alt="demo" width="290" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-20.jpg" alt="demo" width="290" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-21.jpg" alt="demo" width="340" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-28.jpg" alt="demo" width="290" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-33.jpg" alt="demo" width="290" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-27.jpg" alt="demo" width="340" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-36.jpg" alt="demo" width="290" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-24.jpg" alt="demo" width="340" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-23.jpg" alt="demo" width="290" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-25.jpg" alt="demo" width="290" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-26.jpg" alt="demo" width="250" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-29.jpg" alt="demo" width="250" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-35.jpg" alt="demo" width="210" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-37.jpg" alt="demo" width="290" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/demo/constructable-tei-demo-2013-stefanie-mueller-pedro-lopes-konstantin-kaefer-bastian-kruck-38.jpg" alt="demo" width="290" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		</br>
+	</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 footer" style="text-align: center;">
+			<span class="copyright">
+			Since 2017 &copy; MIT CSAIL (HCI Engineering group) [redesign by 
+			<a href="http://punpongsanon.info/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			moji
+			</a>]. 
+			All Rights Reserved.
+			
+			<a href="http://mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="http://hcie.csail.mit.edu/images/logo/mit.svg" alt="MIT" class="footer-logo" />
+			</a>
+			<a href="http://csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="http://hcie.csail.mit.edu/images/logo/csail.svg" alt="CSAIL" class="footer-logo"/>
+			</a>
+			<a href="http://hci.csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="http://hcie.csail.mit.edu/images/logo/hci.svg" alt="HCI" class="footer-logo"/>
+			</a>
+			</span>
+		</div>
+	</div>
+</div>
+
+<!-- Bootstrap --> 
+<script type="text/javascript" src="http://hcie.csail.mit.edu/js/bootstrap.min.js"></script>
+<!-- header -->
+<script type="text/javascript" src="http://hcie.csail.mit.edu/js/headerstrap-for-subpage.js"></script> 
+<!-- lightbox -->
+<script type="text/javascript" src="../../js/lightbox.js"></script> 
+
+</body>
+</html>
