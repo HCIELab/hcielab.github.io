@@ -1,5 +1,5 @@
 /** START loads the header, please insert in every file **/
-$("header").load("http://hcie.csail.mit.edu/header.html", function()
+$("header").load("https://hcie.csail.mit.edu/header.html", function()
 {
   var linkToMe = $('a[href="'+window.location.href.split('/').pop()+'"]').parent();
   linkToMe.addClass('active')
