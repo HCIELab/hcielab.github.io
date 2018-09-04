@@ -60,42 +60,36 @@
 
 <h3>Task:</h3>
 
-Install OpenCV. <br>
-Download Version 3.4.3. here:</br>
-<a href="https://opencv.org/releases.html">https://opencv.org/releases.html</a></br></br>
+Install OpenCV. Run: <code>pip install opencv-python</code> <br><br>
+You may need to replace <code>pip</code> with <code>pip3</code> or <code>pip3.5</code> depending on how things are set up on your computer. <br>
+If this doesn't work, use the manual installation instructions at the bottom of this page.<br><br>
 
 
 Then test run your camera:<br>
 <ul>
-<li>create a new python file with the code below (e.g. test.py)</li>
-<li>go to your console, call the python file (I had to use the python3 prompt to make it work, e.g. python3 test.py)</li>
+<li>create and run a new python3 file with the code below (I had to use the python3 prompt to make it work, e.g. python3 test.py)</li>
 <li>you should see your camera image displayed, if you have the wrong camera image, change the camera_port variable.</li>
 <li>if you get errors, your openCV and python setup might not be linked correctly, consider talking to a TA</li>
 </ul>
 
 <br>
+<code>
 import cv2<br>
+<br>
 camera_port = 0<br>
 camera = cv2.VideoCapture(camera_port)<br>
-ret, frame = camera.read()<br>
-cv2.imshow('window',frame)<br>
-cv2.waitKey(0)<br><br>
-
+<br>
+while True:<br>
+&emsp; &emsp; ret, frame = camera.read()<br>
+&emsp; &emsp; cv2.imshow('window',frame)<br>
+&emsp; &emsp; cv2.waitKey(100)<br>
+</code>
+<br>
 You are done when you see this: <br><br><br>
 
 <img src="../2018-fall-6810/images/multi-touch-pad/display-camera-image.png" width="600">
 
 
- <b> <div style="font-size:12pt;margin-bottom:8px;margin-top:25px">Installing (general):</div></b>
-<ul>
-  <li>You should be able to install OpenCV using pip:
-    <ul>
-      <li>In terminal, or command line, run <code>pip install opencv-python</code></li>
-      <li>If pip is not found, you may need to use <code>pip3</code> or <code>pip3.5</code> in place of <code>pip</code></li>
-    </ul>
-  </li>
-  <li>If this doesn't work, you can try manually installing OpenCV for Python (see below).</li>
-</ul>
 
  <b> <div style="font-size:12pt;margin-bottom:8px;margin-top:25px">Installing on Windows:</div></b>
 <ul>
