@@ -79,47 +79,64 @@ We are going to wire up a wind sensor and an LED to create a 'electronic candle'
 	<li>remove power from laptop and instead use a 9V battery</li>
 	<li>minutiarize the setup by soldering onto a protoboard</li>
 </ul>
-<br><br>
+
 
 <h3>Breadboard</h3><br>
 
 Certain rows and columns of the holes are electrically connected together.
 Each column of 5 holes is connected internally. If you insert one end of side of a component into one set of the holes in a column of 5, and then insert one side into a second set of holes across the gap, the pins will not be connected together.<br><br>
 
-(example image of what works and what doesn't)<br><br>
-
 If you were to rip the back off your breadboard (DO NOT DO...we ruined the one in the photo so you don't have to!) you could more clearly see which rows and columns are connected.<br><br>
 
 <img src="images/electronics-tutorial/breadboards_side_by_side.jpg" width="383px" /> <br>
-<b>The back of a breadboard, revealing the metal connectors inside. Note how there are many short connectors (with five connecting holes), and only several longer connectors, often called "rails" or "busses" and which we'll use for power distribution.</b>
+<br>The back of a breadboard, revealing the metal connectors inside. Note how there are many short connectors (with five connecting holes), and only several longer connectors, often called "rails" or "busses" and which we'll use for power distribution.</b>
 <br><br>
 
 There are good and bad ways to wire a breadboard, just like there are good and bad ways to write code. The general rule is to keep the wires short and sweet...avoid large loops.<br><br>
 
-<span style="color:red">(show some valid and invalid wiring and explain why that is)</span>
-<br><br>
+When adding components, be careful not to short them! Here we have an LED with both terminals plugged into the same row. They are therefore electrically connected with each other. DO NOT DO THIS! <br><br>
 
-<h3>Connect Micro-Controller to Breadboard</h3><br>
+<img src="images/electronics-tutorial/led-bad.jpg" width="383px" /> <br><br>
 
-The micro-controller has a 3.3V output (+) and a 0V/GND (-, ground).<br><br>
+Instead, plug LEDs and other electrical components along the other access like this: <br><br>
 
-Your breadboard has horizontal rails that allow to distribute the 3.3V and GND to anywhere on the board.<br><br>
+<img src="images/electronics-tutorial/led-good.jpg" width="383px" /> <br><br>
 
-Use a jumper wire to connect the 3.3V to the red horizontal rail and another wire to connect the GND to the other horizontal rail. <br><br>
+The long red and blue buses are traditionally used for power and ground. For example, if you were powering your devices with a 9V batter, you could plug it in as so: <br><br>
+
+<img src="images/electronics-tutorial/power-rails.jpg" width="383px" /> <br><br>
 
 Note that you could also switch the two rails with each other, they are only 'wires' themselves, but that would be confusing since they are color-coded.<br><br>
 
-<span style="color:red">(show some images maybe even with flipped rails to show that it doesn't matter)</span>
+<img src="images/electronics-tutorial/swapped-power-rails.jpg" width="383px" /> <br><br>
+
+NEVER EVER EVER short your power and ground!!! (It's okay here because the batter isn't plugged in)<br><br>
+
+<img src="images/electronics-tutorial/bad-power.jpg" width="383px" /> <br><br>
+
+NEVER EVER EVER short your power and ground, even through a wire!!! (It's okay here because the batter isn't plugged in)<br><br>
+
+<img src="images/electronics-tutorial/bad-power-2.jpg" width="383px" /> <br><br>
+
+
+<h3>Connect Micro-Controller to Breadboard</h3><br>
+
+Make sure nothing is plugged into your breadboard and your arduino is off (not plugged into your computer or any other power source). As a general rule, never play with live wires. Always remove all power sources before plugging and unplugging wires and other devices.<br><br>
+
+The micro-controller has a 3.3V output (+) and a 0V/GND (-, ground).<br><br>
+
+Use a jumper wire to connect the 3.3V to the red horizontal rail and another wire to connect the GND to the other horizontal rail. <br>
+
+Even though this might not be necessary, it will make it easier to wire things up later. <br><br>
 
 <h3>Connect your LED</h3><br>
 
 Before you can connect your LED, you also need a resistor.<br><br>
 
-The reason for this is that your micro-controller provides 3.3V, but your LED only needs XX.<br>
+The reason for this is that your micro-controller provides 3.3V, but your LED only needs about 2V.<br>
 If you supply more energy, your LED will blow up.<br><br>
 
-Here's the math:<br><br>
-
+TODO: Here's the math:<br><br>
 
 To find the right resistor, you do the following:<br><br>
 
@@ -132,31 +149,53 @@ Or you can use a Resistor Color Code Calculate website that gives you the right 
 
 Now that you have your LED and the resistor, you can wire up your LED.</br> 
 Use the following wiring diagram.<br><br>
+Note that an LED can only be plugged in one way! The longer leg must be connected to the higher voltage. On the other hand, the resistor can be plugged in facing either way and on either side of the LED. <br><br>
 
-<span style="color:red">(placeholder)</span>
+<img src="images/electronics-tutorial/LED-diagram.png" width="383px" /> <br><br>
+<img src="images/electronics-tutorial/led-hooked-up.png" width="383px" /> <br><br>
 
-<img src="images/electronics-tutorial/wiring-diagram-LED.png" width="383px" /> 
-<img src="images/electronics-tutorial/wiring-LED.png" width="383px" /> 
+If you don't know how to read the top diagram, ask a TA to help you better understand them, you will need this again further along in the tutorial (and in the future for your project).<br>
 
-If you don't know how to read these, ask a TA to help you better understand them, you will need this again further along in the tutorial (and in the future for your project).<br><br>
+So long as everything was done correctly, you should be able to run the same program as you did in the homework to make it blink! <br><br>
 
-<h3>Write Arduino Code to turn LED on/off</h3><br>
-
-The Arduino has a setup() function that is called exactly once on start.<br>
-The loop() function runs repeatedly until you shut the micro-controller off.<br><br>
-
-Your LED is wired on Pin XX.<br>
-Thus, in the setup function you need to write this.<br><br>
-
-Then in the loop function you need to write this.<br><br>
 
 <h3>Add Button to your LED to turn it on/off</h3><br>
 
 Next, add a button to your LED using this wiring chart.<br><br>
 
-<img src="images/electronics-tutorial/wiring-diagram-LED.png" width="383px" /> <br><br>
+<img src="images/electronics-tutorial/button-diagram.png" width="383px" /> <br><br>
 
-You also need to extend your code in the following way: <br><br>
+<h3>Write Arduino Code to turn LED on/off</h3><br>
+
+Now, let's write our own code. To turn the LED on and off with the button!<br>
+
+The Arduino has a setup() function that is called exactly once on start.<br>
+The loop() function runs repeatedly until you shut the micro-controller off.<br>
+Before either of these functions, you can declare variables.<br><br>
+
+Your LED is wired on Pin 13 and button is wired to pin 2. Declare this at the top of your code by adding the following lines of code at the top.<br><br>
+
+<code>const int buttonPin = 2;</code><br>
+<code>const int ledPin =  13;</code><br><br>
+
+We also will declare a variable that will keep track of the button state, whether it is pressed or not. <br><br>
+
+<code>int buttonState = 0;</code><br><br>
+
+In the setup function, we declare whether the pins are inputs or outputs.<br><br>
+
+<code>pinMode(ledPin, OUTPUT); </code><br>
+<code>pinMode(buttonPin, INPUT); </code><br><br>
+
+Lastly in the loop function we conditionally turn the LED on or off depending on whether the button is pressed.<br><br>
+<code>if (buttonState == HIGH) {    </code> <br>
+<code>    // turn LED on:    </code><br>
+<code>    digitalWrite(ledPin, HIGH);  </code><br>
+<code>  } </code><br>
+<code>  else {</code><br>
+<code>    // turn LED off:</code><br>
+<code>    digitalWrite(ledPin, LOW); </code><br>
+<code>  }</code><br>
 
 <h3>Solder your wind sensor</h3><br>
 
@@ -164,7 +203,7 @@ The wind sensor doesn't come with legs (aka: header pins) to plug it into the br
 
 Grab a soldering iron and some solder thread and ask a TA to show you how to do it if you have never done it before.<br><br>
 
-<img src="images/electronics-tutorial/windsensor.png" width="283px" /> <img src="images/electronics-tutorial/soldering.jpg" width="383px" /> <br><br>
+<img src="images/electronics-tutorial/windsensor.png" width="283px" /> <img src="images/electronics-tutorial/solder-during.jpg" width="383px" /> <br><br>
 
 <br><br>
 
@@ -172,23 +211,8 @@ Grab a soldering iron and some solder thread and ask a TA to show you how to do 
 
 Once you have the header pins soldered on, connect the windsensor to your circuit using the following wiring diagram.
 
-<img src="images/electronics-tutorial/wiring-diagram-LED.png" width="383px" /> <br><br>
+<img src="images/electronics-tutorial/wind-sensor-diagram.png" width="383px" /> <br><br>
 
-You might ask yourself why we don't need a resistor for the wind sensor?<br>
-The wind sensor is a more sophisticated sensor in that it already sits on a board and has some additional electronics.<br>
-The actual sensor is only this part here:<br><br>
-
-(mark in some photo)
-
-<br><br>
-
-The other little components on the board are resistors and other elements that manage the sensors power, so we don't need to add them ourselves.
-
-<br><br>
-
-Finally, carefully bend both the wind sensor and the LED so they are laying flat down like this.<br><br>
-
-<img src="images/electronics-tutorial/electric-candle-parts.jpg" width="383px" /> 
 
 <h3>How does the wind sensor actually work?</h3><br>
 
@@ -199,10 +223,11 @@ The other electronics on the board detect this change and turn it into values th
 
 <h3>Add code for detecting blowing air onto the sensor</h3><br>
 
-Here's what to add to the code. </br>
-Potentially we can just give this out as a file.</br></br>
+Download the code for the wind sensor <a href="https://drive.google.com/open?id=1qNz9xMhzCPzKHjEM0KepP6mbsn48ToiS" style="color:red">here</a>. Make sure you understand how it works. There are several conversions that are done in the loop. You do not need to understand the details of how those work.<br><br>
 
-Once you run this, you should be able to blow the LED on / off.</br></br>
+If the light keeps going out or it fails to go out, you might need to calibrate the wind speed threshold. Look at the line that says <code>if (WindSpeed_MPH > 20)</code> and change the 20 to be bigger or smaller as necessary. <br><br>
+
+Once you run this, you should be able to blow the LED off and use the button to turn it back on.<br><br>
 
 
 <h3>Replace laptop power via USB cable with a 9V battery</h3><br>
@@ -213,9 +238,31 @@ Once the code is uploaded on the Arduino, it constantly keeps running, so there 
 The only reason we are still using the laptop is because it's supplying the energy to the micro-controller.<br>
 However, we can replace the power supply using a battery and battery connector.<br><br>
 
- Using the switch on the battery is important because even when the candle is out, your Arduino is still running. So remember to power it down completely with the switch (or by unplugging the battery) or you’ll run out of juice very soon.<br><br>
+Using the switch on the battery is important because even when the candle is out, your Arduino is still running. So remember to power it down completely with the switch (or by unplugging the battery) or you’ll run out of juice very soon.<br><br>
 
-<img src="images/electronics-tutorial/9V-battery.png" width="383px" /> <br><br>
+Let's solder a switch to our batter pack wires. Remember not to have the battery plugged in while we do this!<br><br>
+
+Before soldering the wire to the switch, put a bit of heat shrink on! This will protect the exposed wires.<br><br>
+
+<img src="images/electronics-tutorial/before-soldering.jpg" width="383px" /> <br><br>
+
+<img src="images/electronics-tutorial/after-soldering.jpg" width="383px" /> <br><br>
+
+After soldering both the battery wire and an additional wire to the switch (make sure that at least one wire is soldered to the middle pin!), you can shrink the heat shrink using a heat gun. Ask a TA if you do not know how to use one.<br><br>
+
+before<br>
+
+<img src="images/electronics-tutorial/heat-shrink.jpg" width="383px" /> <br><br>
+
+after<br>
+
+<img src="images/electronics-tutorial/heat-shrunk.jpg" width="383px" /> <br><br>
+
+Finally, to avoid accidentally shorting your battery, you can cut off the third pin, as it is not necessary for our purpose.<br><br>
+
+<img src="images/electronics-tutorial/clipped.jpg" width="383px" /> <br><br>
+
+Now just plug in your battery power into the Arduino Vin and the ground into Gnd, and it should work without laptop power!<br><br>
 
 <h3>Minituarizing your setup</h3><br>
 
