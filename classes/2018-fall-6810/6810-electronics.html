@@ -80,11 +80,38 @@ We are going to wire up a wind sensor and an LED to create a 'electronic candle'
 	<li>minutiarize the setup by soldering onto a protoboard</li>
 </ul>
 
+<h3>Check if you have all components:</h3><br>
+
+Grab a bag for your team (one bag per team, same team as your group projet).</br><br>
+
+<span style="color:red">Lotta: add picture of the all components that are in the bag labeled. LED, button, wind sensor, 9V battery, battery clip, switch, Arduino nano, protoboard, what else?</span>
+</br></br>
+
+You should have:</br>
+<ul>
+	<li>LED</li>
+	<li>button</li>
+	<li>wind sensor</li>
+	<li>9V battery</li>
+	<li>battery clip</li>
+	<li>switch</li>
+	<li>bunch of different resistors for LEDs (ca 100ohm)</li>
+	<li>bunch of different resistors for button (1kOhm)</li>
+	<li>Arduino nano</li>
+	<li>protoboard</li>
+</ul>
+</br></br>
+<span style="color:red">Lotta: add spreadsheet where you and Mark can check in which team already got their bags.</span>
+</br></br>
+
+
 
 <h3>Breadboard</h3><br>
 
-Certain rows and columns of the holes are electrically connected together.
-Each column of 5 holes is connected internally. If you insert one end of side of a component into one set of the holes in a column of 5, and then insert one side into a second set of holes across the gap, the pins will not be connected together.<br><br>
+The breadboard has holes for plugging in components.<br>
+Certain rows and columns are electrically connected together.<br>
+Each column of 5 holes is connected internally. <br>
+If you insert one end of side of a component into one set of the holes in a column of 5, and then insert one side into a second set of holes across the gap, the pins will not be connected together.<br><br>
 
 If you were to rip the back off your breadboard (DO NOT DO...we ruined the one in the photo so you don't have to!) you could more clearly see which rows and columns are connected.<br><br>
 
@@ -94,7 +121,7 @@ If you were to rip the back off your breadboard (DO NOT DO...we ruined the one i
 
 There are good and bad ways to wire a breadboard, just like there are good and bad ways to write code. The general rule is to keep the wires short and sweet...avoid large loops.<br><br>
 
-When adding components, be careful not to short them! Here we have an LED with both terminals plugged into the same row. They are therefore electrically connected with each other. DO NOT DO THIS! <br><br>
+<span style="color:red">When adding components, be careful not to short them! Here we have an LED with both terminals plugged into the same row. They are therefore electrically connected with each other. DO NOT DO THIS! </span><br><br>
 
 <img src="images/electronics-tutorial/led-bad.jpg" width="383px" /> <br><br>
 
@@ -106,26 +133,28 @@ The long red and blue buses are traditionally used for power and ground. For exa
 
 <img src="images/electronics-tutorial/power-rails.jpg" width="383px" /> <br><br>
 
-Note that you could also switch the two rails with each other, they are only 'wires' themselves, but that would be confusing since they are color-coded.<br><br>
+Note that you could also switch the two rails with each other, they are only 'wires' themselves, but plugging red into the blue rail would be visually confusing since they are color-coded.<br><br>
 
 <img src="images/electronics-tutorial/swapped-power-rails.jpg" width="383px" /> <br><br>
 
-NEVER EVER EVER short your power and ground!!! (It's okay here because the batter isn't plugged in)<br><br>
+<span style="color:red">NEVER EVER EVER short your power and ground!!! It's okay here because neither the Arduino is connected nor the battery is plugged in, otherwise you would have to trash the Arduino after this.</span><br><br>
 
 <img src="images/electronics-tutorial/bad-power.jpg" width="383px" /> <br><br>
 
-NEVER EVER EVER short your power and ground, even through a wire!!! (It's okay here because the batter isn't plugged in)<br><br>
+<span style="color:red">NEVER EVER EVER short your power and ground, even through a wire!!! It's okay here because neither the Arduino is connected nor the battery is plugged in, otherwise you would have to trash the Arduino after this.</span><br><br>
 
 <img src="images/electronics-tutorial/bad-power-2.jpg" width="383px" /> <br><br>
 
 
 <h3>Connect Micro-Controller to Breadboard</h3><br>
 
-Make sure nothing is plugged into your breadboard and your arduino is off (not plugged into your computer or any other power source). As a general rule, never play with live wires. Always remove all power sources before plugging and unplugging wires and other devices.<br><br>
+Make sure nothing is plugged into your breadboard and your arduino is off (not plugged into your computer or any other power source). <br><br>
+
+<span style="color:red">As a general rule, never play with live wires.<br> Always remove all power sources before plugging and unplugging wires and other devices.</span><br><br>
 
 The micro-controller has a 3.3V output (+) and a 0V/GND (-, ground).<br><br>
 
-Use a jumper wire to connect the 3.3V to the red horizontal rail and another wire to connect the GND to the other horizontal rail. <br>
+Use a jumper wire to connect the 3.3V to the red horizontal rail and another wire to connect the GND to the other horizontal rail as shown in the green checkmark image above. <br>
 
 Even though this might not be necessary, it will make it easier to wire things up later. <br><br>
 
@@ -133,43 +162,79 @@ Even though this might not be necessary, it will make it easier to wire things u
 
 Before you can connect your LED, you also need a resistor.<br><br>
 
-The reason for this is that your micro-controller provides 3.3V or 5V, but these LEDs only need about 2V if it is yellow or red and 3V if it is white, green, or blue. Furthermore, they don't want more than 20mA of current (or else they blow up), and contribute only a negligable resistance to the circuit. Therefore, in order to get the current down to 20mA, we'll have to calculate what resistor we will need.<br><br>
+The reason for this is that your micro-controller provides 3.3V (or 5V if you use the pin right next to the 3.3V on your Arduino), but the LEDs we gave you only need about 2V if it is yellow or red and 3V if it is white, green, or blue. <br><br>
+
+Furthermore, they don't want more than 20mA of current (or else they blow up), and contribute only a negligable resistance to the circuit. Therefore, in order to get the current down to 20mA, we'll have to calculate what resistor we will need.<br><br>
 
 Here's the math for the yellow/red LEDs:<br><br>
 
 The voltage going through the resistor will be 3.3V - 2V = 1.3V<br>
-V=IR<br>
+V=I*R (voltage = current * resistance)<br>
 1.3V = 20mA * R<br>
 R = 65 Ohms <br><br>
 
-To be safe, you can use a larger resistor. Probably anything 100 Ohms - 650 Ohms will work fine, though a large resistor will lead to a less bright LED since there will be less current. <br><br>
+To be safe, you can use a larger resistor. <br>
+Probably anything 100 Ohms - 650 Ohms will work fine, though a large resistor will lead to a less bright LED since there will be less current. <br><br>
 
-To find the right resistor, you do the following:<br><br>
+To find the right resistor (they all have the color coded rings on them), you do the following:<br><br>
 
 Either use one of the color-charts as you see below:<br><br>
 
-<img src="images/electronics-tutorial/colorcode-resistors.png" width="383px" /> <br><br>
+<img src="images/electronics-tutorial/colorcode-resistors.png" width="683px" /> <br><br>
 
 Or you can use a Resistor Color Code Calculate website that gives you the right resistor:<br>
-<a href="https://www.allaboutcircuits.com/tools/resistor-color-code-calculator/">https://www.allaboutcircuits.com/tools/resistor-color-code-calculator/</a><br><br>
+<a href="https://www.hobby-hour.com/electronics/resistorcalculator.php/">https://www.hobby-hour.com/electronics/resistorcalculator.php</a><br><br>
 
 Now that you have your LED and the resistor, you can wire up your LED.</br> 
 Use the following wiring diagram.<br><br>
-Note that an LED can only be plugged in one way! The longer leg must be connected to the higher voltage. On the other hand, the resistor can be plugged in facing either way and on either side of the LED. <br><br>
 
+<span style="color:red">Note that an LED has to be plugged in the right direction, otherwise it will blow and you can trash it! </span><br><br>
+
+The longer leg must be connected to the higher voltage. What does this mean in our setup? <br>
+The 
+
+
+On the other hand, the resistor can be plugged in facing either way and on either side of the LED. <br><br>
+
+<span style="color:red">Lotta: can we remove the Pin 13 thing for the first step? Just do a 3.3V to GND setup so people see the LED light up even without having Arduino software open.</span><br><br>
+
+REPLACE:
+CONNECT BOTH GND RATHER THAN HAVING THE 'advanced notation'.
+<span style="color:red">Lotta: can you remove the long LED leg and short LED leg hint?</span><br><br>
 <img src="images/electronics-tutorial/LED-diagram.png" width="383px" /> <br><br>
-<img src="images/electronics-tutorial/led-hooked-up.png" width="383px" /> <br><br>
 
-If you don't know how to read the top diagram, ask a TA to help you better understand them, you will need this again further along in the tutorial (and in the future for your project).<br>
+Now we add control from the Arduino, for this we connect to high/low pin that we can turn on and off. 
+<br><br>
+Build this:
+<br><br>
+<img src="images/electronics-tutorial/LED-diagram.png" width="383px" /> <br><br>
+
+You should see your LED blink now (the Arduino is still running your blink code that you uploaded as part of your homework).<br><br>
+
+Here's the blink code snippet and you can see it writes High/low to pin 13, which turns on/off the LED.
+<br><br>
+
+If you don't know how to read the top diagram, ask a TA to help you better understand them, you will need this again further along in the tutorial (and in the future for your project).<br><br>
 
 So long as everything was done correctly, you should be able to run the same program as you did in the homework to make it blink! <br><br>
 
 
 <h3>Add Button to your LED to turn it on/off</h3><br>
 
-Next, add a button to your LED using this wiring chart.<br><br>
 
-<img src="images/electronics-tutorial/button-diagram.png" width="383px" /> <br><br>
+Next, add a button to your LED using this wiring chart.<br>
+We are going to read on pin 2 if the button is pressed or not and then turn the LED on/off on pin 13 based on the button's state.<br>
+<span style="color:red">Did you unplug your Arduino before you started wiring??? If not, please do. No live wiring or you might fry your micro-controller if you plug a wire wrongly.</span><br><br>
+
+TODO: add two lines for serial monitor.<br><br>
+
+This chart only shows how the button is connected from 3V to GND (without the Pin reading), but while this powers the button it would not allow us to read if the button is pressed or not.  <br><br>
+(wondering if we want to replace the GND triangle one more time as a closed wire)<br><br>
+<img src="images/electronics-tutorial/button-diagram.png" width="483px" /> <br><br>
+
+Here we add the cable that allows us to read the button state on Pin 2. <br><br>
+<img src="images/electronics-tutorial/button-diagram.png" width="483px" /> <br><br>
+
 
 <h3>Write Arduino Code to turn LED on/off</h3><br>
 
@@ -194,6 +259,9 @@ In the setup function, we declare whether the pins are inputs or outputs.<br><br
 <code>pinMode(buttonPin, INPUT); </code><br><br>
 
 Lastly in the loop function we conditionally turn the LED on or off depending on whether the button is pressed.<br><br>
+
+<code>buttonState = digitalRead(buttonPin);</code><br>
+
 <code>if (buttonState == HIGH) {    </code> <br>
 <code>    // turn LED on:    </code><br>
 <code>    digitalWrite(ledPin, HIGH);  </code><br>
@@ -209,16 +277,13 @@ The wind sensor doesn't come with legs (aka: header pins) to plug it into the br
 
 Grab a soldering iron and some solder thread and ask a TA to show you how to do it if you have never done it before.<br><br>
 
-<img src="images/electronics-tutorial/windsensor.png" width="283px" /> <img src="images/electronics-tutorial/solder-during.jpg" width="383px" /> <br><br>
+<span style="color:red">Lotta: Can you add pictures? Should I break the header pins into individual pieces? Does it matter if I stick them through from the front or the back? Explain something about the third hand to help soldering?</span>
 
 <br><br>
 
-<h3>Connect your wind sensor to the board</h3><br>
+<img src="images/electronics-tutorial/windsensor.png" width="283px" /> <img src="images/electronics-tutorial/solder-during.jpg" width="383px" /> <br><br>
 
-Once you have the header pins soldered on, connect the windsensor to your circuit using the following wiring diagram.
-
-<img src="images/electronics-tutorial/wind-sensor-diagram.png" width="383px" /> <br><br>
-
+<br><br>
 
 <h3>How does the wind sensor actually work?</h3><br>
 
@@ -227,6 +292,19 @@ A wire warmed up by a little electricity will cool when air blows across it.</br
 When the wire cools, its conductivity changes. </br>
 The other electronics on the board detect this change and turn it into values the Arduino can read.</br></br>
 
+
+<h3>Connect your wind sensor to the board</h3><br>
+
+Once you have the header pins soldered on, connect the windsensor to your circuit using the following wiring diagram. <span style="color:red">Did you unplug your Arduino? No live wiring.</span><br><br>
+
+Lotta: Can you say something about the wiring? e.g. We are first wiring the sensor again to 3.3V and GND. Then, to detect wind, we need to read on pin RV and TMP, which will give us a continous analog signal (different from the discrete signal we got from the button, which only had on/off)... thus we wire the windsensor to A0 (A stand for analog).
+<br><br>
+Lotta: Switch IV and TMP.<br><br>
+
+
+
+<img src="images/electronics-tutorial/wind-sensor-diagram.png" width="383px" /> <br><br>
+
 <h3>Add code for detecting blowing air onto the sensor</h3><br>
 
 Download the code for the wind sensor <a href="https://drive.google.com/open?id=1qNz9xMhzCPzKHjEM0KepP6mbsn48ToiS" style="color:red">here</a>. Make sure you understand how it works. There are several conversions that are done in the loop. You do not need to understand the details of how those work.<br><br>
@@ -234,6 +312,14 @@ Download the code for the wind sensor <a href="https://drive.google.com/open?id=
 If the light keeps going out or it fails to go out, you might need to calibrate the wind speed threshold. Look at the line that says <code>if (WindSpeed_MPH > 20)</code> and change the 20 to be bigger or smaller as necessary. <br><br>
 
 Once you run this, you should be able to blow the LED off and use the button to turn it back on.<br><br>
+
+<h3>Multi-Meter Debugging</h3><br>
+
+<br><br>
+
+Here's how to do it.
+
+<br><br>
 
 
 <h3>Replace laptop power via USB cable with a 9V battery</h3><br>
