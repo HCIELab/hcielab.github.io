@@ -133,10 +133,16 @@ Even though this might not be necessary, it will make it easier to wire things u
 
 Before you can connect your LED, you also need a resistor.<br><br>
 
-The reason for this is that your micro-controller provides 3.3V, but your LED only needs about 2V.<br>
-If you supply more energy, your LED will blow up.<br><br>
+The reason for this is that your micro-controller provides 3.3V or 5V, but these LEDs only need about 2V if it is yellow or red and 3V if it is white, green, or blue. Furthermore, they don't want more than 20mA of current (or else they blow up), and contribute only a negligable resistance to the circuit. Therefore, in order to get the current down to 20mA, we'll have to calculate what resistor we will need.<br><br>
 
-TODO: Here's the math:<br><br>
+Here's the math for the yellow/red LEDs:<br><br>
+
+The voltage going through the resistor will be 3.3V - 2V = 1.3V<br>
+V=IR<br>
+1.3V = 20mA * R<br>
+R = 65 Ohms <br><br>
+
+To be safe, you can use a larger resistor. Probably anything 100 Ohms - 650 Ohms will work fine, though a large resistor will lead to a less bright LED since there will be less current. <br><br>
 
 To find the right resistor, you do the following:<br><br>
 
