@@ -99,6 +99,7 @@ You should have:</br>
 	<li>bunch of different resistors for button (1kOhm)</li>
 	<li>Arduino nano</li>
 	<li>protoboard</li>
+    <li>header pins</li>
 </ul>
 </br></br>
 <span style="color:red">Lotta: add spreadsheet where you and Mark can check in which team already got their bags.</span>
@@ -298,11 +299,11 @@ If it doesn't work, you can try debugging with your serial monitor. The serial m
 
 In the setup part of the code, add a line somewhere that initiates the serial monitor:<br><br>
 
-<code>Serial.begin(9600)</code><br><br>
+<code>Serial.begin(9600);</code><br><br>
 
 Then after finding the button state in the loop, have the serial monitor print the state of the button:<br><br>
 
-<code>Serial.println(buttonState)</code><br><br>
+<code>Serial.println(buttonState);</code><br><br>
 
 While running the arduino, you can open the serial monitor by going to Tools --> Serial Monitor. You may need to change the baud rate to 9600 in the serial monitor (or change it in the setup to whatever the default you have is).
 
@@ -328,11 +329,13 @@ The other electronics on the board detect this change and turn it into values th
 
 Once you have the header pins soldered on, connect the windsensor to your circuit using the following wiring diagram. <span style="color:red">Did you unplug your Arduino? No live wiring.</span><br><br>
 
-Usually, when wiring up a sensor, you will need to wire up the ground and high voltage (in our case 3.3V) up for reference. In addition, you wire up some pins to do the reading. In the case of the button, our input was simply binary: either the button was on or it was off. For that sort of reading, we use a digital pin. The arduino also comes with analog pins that can read voltages on a scale. This is useful when a sensor provides an output with a gradient value. In this case, we are interested in the wind speed, which is on a continuous scale. Hence, we are using analog pins A0 and A1 as our inputs.
+Note that the wind sensor requires a higher voltage to run. You should therefore hook it up to the Arduino's 5V supply.<br><br>
+
+Usually, when wiring up a sensor, you will need to wire up the ground and high voltage (in our case 5V) up for reference. In addition, you wire up some pins to do the reading. In the case of the button, our input was simply binary: either the button was on or it was off. For that sort of reading, we use a digital pin. The arduino also comes with analog pins that can read voltages on a scale. This is useful when a sensor provides an output with a gradient value. In this case, we are interested in the wind speed, which is on a continuous scale. Hence, we are using analog pins A0 and A1 as our inputs.
 
 <br>
 
-<img src="images/electronics-tutorial/wind-sensor-diagram-2.png" width="383px" /> <br><br>
+<img src="images/electronics-tutorial/wind-sensor-diagram-3.png" width="383px" /> <br><br>
 
 <h3>Add code for detecting blowing air onto the sensor</h3><br>
 
@@ -376,21 +379,77 @@ Finally, to avoid accidentally shorting your battery, you can cut off the third 
 
 Now just plug in your battery power into the Arduino Vin and the ground into Gnd, and it should work without laptop power!<br><br>
 
-<h3>Minituarizing your setup</h3><br>
+<h3>Minituarizing your Setup: Planning it Out</h3><br>
 
 The breadboard and Arduino Uno are pretty chunky and will by hard to integrate into a physical prototype.<br><br>
 
 We can make everything much smaller by using an Arduino Nano and a protoboard.<br><br>
 
-However, for this, we need to solder again!<br><br>
+This will take some planning, and it is not particularly easy to undo a soldering job, so before continuing think about the following contraints:<br><br>
 
-<img src="images/electronics-tutorial/arduino-nano-protoboard.jpg" width="383px" /> <br><br>
+<li>Everything, including the nano, wind sensor, LED, and button need to fit on the board.</li>
+<li>The wind sensor tip and led should hang off slightly above the board so that once the board is in a casing, you can still see the LED and the wind sensor can still sense.</li>
+<img src="images/electronics-tutorial/final-board.jpg" width="383px" /><br>
+<li>All the wire connections need to fit together. It might be useful to think about having areas of ground and power since several components use that and protoboards do not have power rails like breadbords do.</li>
+<li>The board is double sided! You can take advantage of both sides to avoid having too many overlapping wires or other components.</li>
+<li>To the best of your ability, keep things compact but clean. You may need to debug things in the end so leave some extra space!</li>
+<li>If you are unsure about how to plan, read through the next two sections about soldering the nano/wind sensor and connecting everything else.</li>
+<li>If after reading the next two sections you are still unsure, ask a TA!</li>
 
-Transfer your design and ask a TA if you have any questions!
+<h3>Soldering the Header Pins for the Nano and Wind Sensor</h3><br>
+
+Since the arduino nano and wind sensor are both fairly nice and it would be good to be able to easily remove them and use them for something else (or swap them out if they stop working), we will solder on header pins to the protoboard for them.<br><br>
+
+Cut the row of header pins so that you have three pieces of the appropriate length: two for the arduino nano and one for the wind sensor. When cutting header pins, try to cut in the middle of the next pin that you no longer need. For example, if you need a row of 5, cut through the 6th pin. It is rather inevitable that you will have to "waste" a pin per cut you make.<br><br>
+
+<img src="images/electronics-tutorial/header-pins.jpg" width="383px" /> <br><br>
+
+Plan the location of the arduino nano and the wind sensor.<br><br>
+
+<img src="images/electronics-tutorial/plan-locations.jpg" width="383px" /> <br><br>
+
+Flip the board over and solder the rails.<br><br>
+
+<img src="images/electronics-tutorial/solder-pins-to-board.jpg" width="383px" /> <br><br>
+
+Now you should be able to remove and place back the arduino and wind sensor at will! But be careful when removing them about bending the pins.<br><br>
+
+<img src="images/electronics-tutorial/pins-on-board.jpg" width="383px" /> <br><br>
+
+<h3>Soldering Everything Else</h3><br>
+
+Here are the general instructions for soldering everything else to the board.<br><br>
+
+For the various smaller circuit components (leds, resistors, and button), you can insert the legs into the board, flip the board over, and solder them onto it.<br><br>
+
+<img src="images/electronics-tutorial/solder-other-components.jpg" width="383px" /> <br><br>
+
+If you'd like to avoid having pokey bits, you can trim the wires after soldering them. However, remember that the LED has a long leg and a short leg! If you are going to trim the LED, be sure to remember which leg is which, or otherwise mark it somehow.<br><br>
+
+<img src="images/electronics-tutorial/trim-after-soldering.jpg" width="383px" /> <br><br>
+
+In addition to soldering the components on, you will also need to make connections. You can either do this by soldering on wires like this:<br><br>
+
+<img src="images/electronics-tutorial/wire-connection.jpg" width="383px" /> <br><br>
+
+Or by creating solder bridges such as the one at the end of the green wire here:<br><br>
+
+<img src="images/electronics-tutorial/solder-bridge.jpg" width="383px" /> <br><br>
+
+Note that if the solder you are using has lots of flux, it might be surprisingly difficult to make solder bridges. You can cheat by soldering on a stripped wire.<br><br>
+
+<h3>Debugging</h3><br>
+
+After soldering everything together, does the wind sensor program work perfectly? Great! You can skip this section! Otherwise, here are some tips for finding bugs in your board:<br><br>
+
+<li>Try running just the LED Blink code. Does that work? What about the button push code? This will help you isolate the problems as being with the LED, button, or wind sensor.</li>
+<li>Once you know what compont is wrong, double check that all the connections that should exist do. Also check that there aren't any extra connections shorting things out. Check your wiring against the circuit diagrams in earlier sections.</li>
+<li>You can use the ohmeter setting on a multimeter to test that the electrical connections are properly conducting. Ask a TA if you don't know how to use a multimeter.</li>
+
 
 <h3>Create a new housing (optional)</h3><br>
 
-If you are up for it, you could also 3D print a new housing for your candle.
+If you are up for it, you could also 3D print a new housing for your candle.<br><br>
 
 <img src="images/electronics-tutorial/led-candle.jpg" width="383px" /> <br><br>
 
