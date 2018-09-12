@@ -373,38 +373,53 @@ To use the battery, you can simply unplug the Arduino 3.3V and GND cables from t
 <img src="images/electronics-tutorial/battery-plugged-in.jpg" width="383px" /> <br><br>
 
 However, if we left everything as it is, your battery would be dead within a few hours.<br>
-Why? Because even without the laptop your battery. 
-
-
-Using the switch on the battery is important because even when the candle is out, your Arduino is still running. So remember to power it down completely with the switch (or by unplugging the battery) or you’ll run out of juice very soon.<br><br>
+Why? Because the Arduino keeps running its loop function all the time, i.e. as long as it has power. So to prevent your battery from draining you need to either (1) unplug the battery every time you are done with programming (not great), or (2) add a switch for turning it on/off.<br><br>
 
 Let's solder a switch to our batter pack wires. Remember not to have the battery plugged in while we do this!<br><br>
 
-Before soldering the wire to the switch, put a bit of heat shrink on! This will protect the exposed wires.<br><br>
+How does the switch work?<br>
+The switch is basically a mechanism to interrupt e.g. your GND wire.<br>
+Imagine cutting your black GND wire into two halfs and then putting the switch in the middle.
+If the switch is in one position, both ends of your black GND cable will be connected and your circuit is closed. If the switch is in another position, your black cable remains 'broken' and no current flows.<br><br>
+
+The switch has three pins as you can see here.<br><br>
+
+<img src="images/electronics-tutorial/switch-schematic.png" width="283px" /> <img src="images/electronics-tutorial/switch-schematic2.png" width="283px" /> <br><br>
+
+Let's solder the black wire on one of the outside pins of the switch (it doesn't matter which one). Since the switch is pretty small and there is not a lot space for soldering, lets put a bit of heat shrink on the wire that we can use to cover the wire from connecting to the neighbor pins! <br><br>
 
 <img src="images/electronics-tutorial/before-soldering.jpg" width="383px" /> <br><br>
 
 <img src="images/electronics-tutorial/after-soldering.jpg" width="383px" /> <br><br>
 
-After soldering both the battery wire and an additional wire to the switch (make sure that at least one wire is soldered to the middle pin!), you can shrink the heat shrink using a heat gun. Ask a TA if you do not know how to use one.<br><br>
-
-before<br>
+Now move your heatshrink over the soldered area.<br>
+Use your soldering iron or a heatgun (ask a TA) to apply heat gently, this will make it shrink and cover the wire.<br><br>
 
 <img src="images/electronics-tutorial/heat-shrink.jpg" width="383px" /> <br><br>
 
-after<br>
+Now get yourself a second piece of black wire from one of the cable roles.<br><br>
 
-<img src="images/electronics-tutorial/heat-shrunk.jpg" width="383px" /> <br><br>
+<img src="https://hcie.csail.mit.edu/classes/2018-fall-6810/images/multi-touch-pad/cable1.png" width="383px" /> <br>
+
+Solder it to the middle pin. (When you move the switch both the middle and outside pin will connect and your circuit is closed). <br>
+
+<img src="images/electronics-tutorial/clipped.jpg" width="383px" /> <br><br>
 
 Finally, to avoid accidentally shorting your battery, you can cut off the third pin, as it is not necessary for our purpose.<br><br>
 
-<img src="images/electronics-tutorial/clipped.jpg" width="383px" /> <br><br>
+Now plug the battery back into your circuit and test if the switch works:<br><br>
+
+<img src="images/electronics-tutorial/battery-plugged-in.jpg" width="383px" /> <br><br>
+
+
+<span style="color:red">Using the switch on the battery every time you are done with using the Arduino is important because even when the candle is out, your Arduino is still running. So remember to power it down completely with the switch (or by unplugging the battery) or you’ll run out of juice very soon.</span><br><br>
+
 
 
 
 <h3>Minituarizing your Setup: Planning it Out</h3><br>
 
-The breadboard and Arduino Uno are pretty chunky and will by hard to integrate into a physical prototype.<br><br>
+The breadboard and Arduino Uno are pretty chunky and will be hard to integrate into a physical prototype.<br><br>
 
 We can make everything much smaller by using an Arduino Nano and a protoboard.<br><br>
 
