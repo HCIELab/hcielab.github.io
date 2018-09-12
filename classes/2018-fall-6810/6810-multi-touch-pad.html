@@ -82,7 +82,7 @@ You will get from us:<br><br>
           <li>an acrylic sheet (6"x24", 7/32 thick)</li>
           <li>USB connector + cover</li>
           <li>a switch</li>
-          <li>LEDs</li>
+          <li>8 LEDs (one of them is an extra!)</li>
           <li>resistors</li>
           <li>alligator clips</li>
           <li>microcontroller</li>
@@ -144,11 +144,11 @@ On one side of your touch pad, add the row that will hold the LEDs and the on/of
 
 Add from left to right:<br>
 <ul>
-      <li>leave 6cm of space from the bottom (the camera will be glued underneath the LEDs)</li>
-      <li>1 hole for the switch (size of the switch)</li>
-      <li>1 hole for the resistor (size of the resistor)</li>
-      <li>2 holes for wires near the resistor (size of a wire)</li>
-      <li>7 holes for the LEDs (size of the LEDs)</li>
+      <li>leave 7cm of space from the bottom (the camera will be glued underneath the LEDs)</li>
+      <li>1 hole for the switch</li>
+      <li>1 hole for the resistor</li>
+      <li>2 holes for wires near the resistor</li>
+      <li>7 holes for the LEDs</li>
       <li style="color:red">It is unlikely that you will get all the hole sizes right the first time. Use the spare part of acrylic you have on your sheet to test the hole sizes first. Does the LED really hold in the hole or does it fall out easily etc?</li>
 </ul>
 
@@ -180,7 +180,7 @@ Now use strip heater or heat gun to bend the acrylic sheet.<br><br>
  	 <li>make sure you peeled off any protective sheet on the acrylic</li>
       <li>warm up equally from both sides to make sure the sheet is thoroughly heated</li>
       <li>use an alignment aid to make sure you get a 90 degree bend</li>
-      <li style="color:red">test with a small piece of acrylic first:<br> you want to have nice 90 degree angles<br> you want to make sure that when you bend the second side, your pad will stand stable and does not wobble <br> you want to avoid heat bubbles from overheating as much as possible (those will create tracking problems later)</li>
+      <li style="color:red">test with a small piece of acrylic first if you haven't already done so in class:<br> you want to have nice 90 degree angles<br> you want to make sure that when you bend the second side, your pad will stand stable and does not wobble <br> you want to avoid heat bubbles from overheating as much as possible (those will create tracking problems later)</li>
   </ul>
 
 <br> <br>
@@ -232,16 +232,16 @@ Now use strip heater or heat gun to bend the acrylic sheet.<br><br>
 
 <h4>Add LEDs and Resistor</h4><br>
 
-Prototype the LED setup first using the breadboard and the microcontroller.<br>
+Prototype the LED setup first using the breadboard and the microcontroller 5V power source.<br><br>
 
-Test 1 LED with resistor on breadboard first, lights up? <br> <br>
+Test 1 LED with a resistor on breadboard first. Your LEDs are rated to have a 3.1 voltage drop and can have up to 20mA of current running through them, but you might want much less to be safe. Figure out what resistor you should use and check that you LED lights up. <br> <br>
 
 <img src="../2018-fall-6810/images/multi-touch-pad/arduino-software.png" width="300px">
 <img src="../2018-fall-6810/images/multi-touch-pad/electronics-1led.png" width="300px"><br> <br>
 
-Extend your circuit to 7 LEDs, adjust resistor, all lights up? <br> <br>
-<span style="color:red">explain parallel vs. serial circuit and how to do the resistor math.</span> <br> <br>
+Extend your circuit to 7 LEDs as shown in the diagram, and adjust resistor as necessary. Does it light up? <br><br>
 
+<img src="../2018-fall-6810/images/multi-touch-pad/circuit-diagram.png" width="500px"><br> <br>
 
 Remove LEDs from breadboard and plug them into your acrylic sheet (all long legs on one side).<br> <br>
 <img src="../2018-fall-6810/images/multi-touch-pad/led-legs1.jpg" width="500px"><br> <br>
@@ -254,7 +254,7 @@ Solder them.<br> <br>
 
 <img src="../2018-fall-6810/images/multi-touch-pad/led-legs3.jpg" width="500px"><br> <br>
 
-Test with the Microcontroller's 3V and GND if they still all light up.<br> <br>
+Test with the Microcontroller's 5V and GND if they still all light up.<br> <br>
 
 <img src="../2018-fall-6810/images/multi-touch-pad/led-legs4.jpg" width="300px">
 <img src="../2018-fall-6810/images/multi-touch-pad/led-legs5.jpg" width="130px"><br> <br>
@@ -274,7 +274,7 @@ The resistor leg that points inwards will connect to the middle of the switch, s
 
 <img src="../2018-fall-6810/images/multi-touch-pad/resistor3.jpg" width="400px"><br> <br>
 
-Test if the switch works with Microcontroller's 3V (on the top or bottom leg of switch) and GND (on the inside facing LED leg). Move switch, does it work?<br> <br>
+Test if the switch works with Microcontroller's 5V (on the top or bottom leg of switch) and GND (on the inside facing LED leg). Move switch, does it work?<br> <br>
 
 <!-- <span style="color:red">image missing</span> -->
 
@@ -287,7 +287,7 @@ Create a twisted cable using two cables and a drill.<br><br>
 <img src="../2018-fall-6810/images/multi-touch-pad/cable1.png" width="300px">
 <img src="../2018-fall-6810/images/multi-touch-pad/cable2.png" width="300px"><br><br>
 
-Solder the two cable ends to the outer two pins of the USB connector. <br><br>
+Solder the two cable ends to the outer two pins of the USB connector. Connect the power and ground exactly as shown in the diagram so that you don't accidentally wire up you LEDs backward!<br><br>
 
 <img src="../2018-fall-6810/images/multi-touch-pad/usb1.jpg" width="300px">
 <img src="../2018-fall-6810/images/multi-touch-pad/usb2.jpg" width="300px">
@@ -345,7 +345,7 @@ If you finished this part completely, you will get full points except when one o
 
 <h4>Add Camera</h4><br>
 
-Use some double sided tape to tape the camera onto your touchpad below the LEDs.<br>
+Use some tape or glue to attach the camera onto your touchpad below the LEDs. It may be useful to unscrew the bottom part of the camera.<br>
 Connect the camera to your laptop.<br>
 Use e.g. skype, to see if the camera image comes up.<br><br>
 
