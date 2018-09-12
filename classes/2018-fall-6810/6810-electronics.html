@@ -84,7 +84,7 @@ We are going to wire up a wind sensor and an LED to create a 'electronic candle'
 
 Grab a bag for your team (one bag per team, same team as your group projet).</br><br>
 
-<img src="images/electronics-tutorial/electronics-collection.jpg" width="383px" /> <br>
+<img src="images/electronics-tutorial/electronics-collection.JPG" width="383px" /> <br>
 
 </br></br>
 
@@ -199,8 +199,8 @@ Use the following wiring diagram.<br><br>
 
 <span style="color:red">Note that an LED has to be plugged in the right direction, otherwise it will blow and you can trash it! </span><br><br>
 
-The longer leg must be connected to the higher voltage. What does this mean in our setup? <br>
-The 
+The longer leg must be connected to the higher voltage.<br>
+Thus, it has to face towards the 3.3V since the resistor comes afterwards. <br><br>
 
 
 On the other hand, the resistor can be plugged in facing either way and on either side of the LED. <br><br>
@@ -209,7 +209,10 @@ On the other hand, the resistor can be plugged in facing either way and on eithe
 
 If you don't know how to read the this diagram, ask a TA to help you better understand them, you will need this again further along in the tutorial (and in the future for your project).<br><br>
 
-Now we add control from the Arduino, for this we connect to high/low pin that we can turn on and off. 
+In the above setup, we connected the LED to 3.3V. This means, the LED will always be on.<br>
+
+To add computer control to this, i.e. being able to turn it on and off via code, we connect it to a pin. If the pin is set to high it will supply 3.3B and the LED is on, otherwise if the pin is set to low, the LED will remain off.
+
 <br><br>
 Build this:
 <br><br>
@@ -361,6 +364,18 @@ Once the code is uploaded on the Arduino, it constantly keeps running, so there 
 The only reason we are still using the laptop is because it's supplying the energy to the micro-controller.<br>
 However, we can replace the power supply using a battery and battery connector.<br><br>
 
+<img src="images/electronics-tutorial/battery-clip.jpg" width="283px" /> <br><br>
+
+To use the battery, you can simply unplug the Arduino 3.3V and GND cables from the breadboard rails and instead use the battery cables and it should work without laptop power!
+
+<br><br>
+
+<img src="images/electronics-tutorial/battery-plugged-in.jpg" width="383px" /> <br><br>
+
+However, if we left everything as it is, your battery would be dead within a few hours.<br>
+Why? Because even without the laptop your battery. 
+
+
 Using the switch on the battery is important because even when the candle is out, your Arduino is still running. So remember to power it down completely with the switch (or by unplugging the battery) or you’ll run out of juice very soon.<br><br>
 
 Let's solder a switch to our batter pack wires. Remember not to have the battery plugged in while we do this!<br><br>
@@ -385,7 +400,7 @@ Finally, to avoid accidentally shorting your battery, you can cut off the third 
 
 <img src="images/electronics-tutorial/clipped.jpg" width="383px" /> <br><br>
 
-Now just plug in your battery power into the Arduino Vin and the ground into Gnd, and it should work without laptop power!<br><br>
+
 
 <h3>Minituarizing your Setup: Planning it Out</h3><br>
 
