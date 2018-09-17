@@ -207,7 +207,7 @@ Either use one of the color-charts as you see below:<br><br>
 <img src="images/electronics-tutorial/colorcode-resistors.png" width="683px" /> <br><br>
 
 Or you can use a Resistor Color Code Calculate website that gives you the right resistor:<br>
-<a href="https://www.hobby-hour.com/electronics/resistorcalculator.php/">https://www.hobby-hour.com/electronics/resistorcalculator.php</a><br><br>
+<a href="https://www.hobby-hour.com/electronics/resistorcalculator.php/"><b>https://www.hobby-hour.com/electronics/resistorcalculator.php</b></a><br><br>
 
 Now that you have your LED and the resistor, you can wire up your LED.</br> 
 Use the following wiring diagram.<br><br>
@@ -224,9 +224,9 @@ On the other hand, the resistor can be plugged in facing either way and on eithe
 
 If you don't know how to read the this diagram, ask a TA to help you better understand them, you will need this again further along in the tutorial (and in the future for your project).<br><br>
 
-In the above setup, we connected the LED to 3.3V. This means, the LED will always be on.<br>
+In the above setup, we connected the LED to 3.3V. This means, the LED will always be on.<br><br>
 
-To add computer control to this, i.e. being able to turn it on and off via code, we connect it to a pin. If the pin is set to high it will supply 3.3B and the LED is on, otherwise if the pin is set to low, the LED will remain off.
+To add computer control to this, i.e. being able to turn it on and off via code, we connect it to a pin (see image below). If the pin is set to high it will supply 3.3V and the LED is on, otherwise if the pin is set to low, the LED will remain off.
 
 <br><br>
 Build this:
@@ -260,10 +260,15 @@ void loop() {<br>
 
 
 Next, add a button to your LED using this wiring chart.<br>
-We are going to read on pin 2 if the button is pressed or not and then turn the LED on/off on pin 13 based on the button's state.<br>
 <span style="color:red">Did you unplug your Arduino before you started wiring??? If not, please do. No live wiring or you might fry your micro-controller if you plug a wire wrongly.</span><br><br>
 
-Add the button by wiring this together. Use any resistor 1k-10k:<br><br>
+When the switch is closed, there will be a connection between 3.3V and GND (and we can read this as HIGH on Pin2).<br>
+If the switch is open, there is no connection between 3.3V and GND (and we can read this as LOW on Pin2).<br><br>
+
+We are going to read on pin 2 if the button is pressed or not and then turn the LED on/off on pin 13 based on the button's state.<br><br>
+
+Add the button by wiring this together.<br> 
+Use any resistor 1k-10k:<br><br>
 
 <img src="images/electronics-tutorial/button-diagram-2.png" width="483px" /> <br><br>
 
@@ -412,7 +417,7 @@ Use your soldering iron or a heatgun (ask a TA) to apply heat gently, this will 
 
 <img src="images/electronics-tutorial/heat-shrink.jpg" width="383px" /> <br><br>
 
-Now get yourself a second piece of black wire from one of the cable roles.<br><br>
+Now take a second piece of black wire, e.g. from your cable kit or cut it from a wire roll in EDS or IDC.<br><br>
 
 <img src="https://hcie.csail.mit.edu/classes/2018-fall-6810/images/multi-touch-pad/cable1.png" width="383px" /> <br>
 
