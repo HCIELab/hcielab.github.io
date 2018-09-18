@@ -68,6 +68,8 @@ We are going to write a piece of Computer Vision software that extracts the posi
 Your job is to write the color-extraction with OpenCV. <br>
 We will give you code for the rest (i.e. the logic for solving the cube).<br>
 
+
+
 <br><br>
 
 <h3>Where to place your code</h3><br>
@@ -75,12 +77,54 @@ We will give you code for the rest (i.e. the logic for solving the cube).<br>
 In the code, you will find a function XX. 
 Please insert your code into this function.
 
+
 <h3>Reading a Camera Image</h3><br>
 
-You can read a live camera image from your computer using the following code. 
+Before we can read the live camera feed, we first have to initialize the camera like this: <br><br>
 
-<code></code>
+<code>
+/* Initializing the Camera * /
+camera_port = 0  // your built in camera is typicall 0, any extra camera on USB is 1, 2 etc.<br>
+camera = cv2.VideoCapture(camera_port) // this returns the camera object and opens the video channel<br>
+</code>
+<br><br>
 
+Next, we can read frames from the camera like this:<br>
+
+<code>
+/* Initializing the Camera * /
+read image code<br>
+</code>
+
+<h3>Doing an Action on Key-Press</h3><br>
+
+It is often useful for debugging to do some action on keypress (e.g. quit the program, save a specific image from the camera).<br><br>
+
+Here is some code to e.g. quit your program on keypress of 'X'.<br><br>
+
+<code>
+/* Doing something on Keypress * /<br>
+if key == X {<br>
+	//stop program<br>
+}<br>
+</code>
+
+<h3>Writing Frames to Disk</h3><br>
+
+It is often a good idea to start developing a program on a single frame, aka a still image rather than trying to solve it right away with a live video stream, e.g. a single image in which you hold the rubriks cube into the camera.<br><br>
+
+Expand your code to save a single frame to disk on keypress of 'C' (capture).
+
+<code>
+/* Code for saving an image * /<br>
+frame write to disk<br>
+</code>
+
+
+<h3>Reading a Camera Image</h3><br>
+
+
+<br>
 
 
 
