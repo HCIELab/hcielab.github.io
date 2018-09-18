@@ -230,10 +230,30 @@ The cv2.Chain_approx_simple allows you to decide how many points for each contou
 
 <img src="images/opencv-lab/contours2.png" width="483px" /><br><br>
 
-<h3>Filtering Noisy Contours / Computing their Area</h3><br>
+<h3>Drawing Contours on an Image</h3><br>
+
+Next, we can draw the returned contours in the image, so we actually see something. <br>
+
+<code>
+	/* iterate over contours*/<br>
+for contour in contours:<br>
+	cv2.drawContours(frame, contour, -1, (0,255,0), 3) <br>
+</code>
+
+<br><br>
+
+<h3>Filtering Noisy Contours</h3><br>
+
+If you displayed your contours, you probably saw a lot of noise coming up.<br>
+Since we are looking for large square shaped area, we can dismiss contours that are too small.<br><br>
 
 <img src="images/opencv-lab/contours3.png" width="483px" /><br><br>
 
+Since it's hard to guess the area, add a slider to your program that you can use to try different contour sizes for filtering!<br><br>
+
+Once you are done, here's what you should see:<br><br>
+
+<img src="images/opencv-lab/contours4.png" width="283px" /><br><br>
 
 
 
