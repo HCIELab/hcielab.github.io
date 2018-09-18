@@ -255,6 +255,42 @@ Once you are done, here's what you should see:<br><br>
 
 <img src="images/opencv-lab/contours4.png" width="283px" /><br><br>
 
+<h3>Fitting a Square around the Contour</h3><br>
+
+The contour is just a path and thus it can have any shape and often has a noisy outline.<br>
+We can fit a square around each contour and then use the square to compute the center point (i.e. location of the square within the image).<br>
+
+<code>
+	/* fitting a square around the contour */<br>
+cv2.minEnclosingCircle(contour)<br>
+//add line that queries the center<br>
+</code>
+
+<br>
+
+We can now also draw the square into the image and add the coordinates to it:
+
+<code>
+cv2.circle(frame,draw_center,draw_radius,(0,255,0),2)<br>
+cv2.putText(frame,textstring,(int(x+50),int(y)), 
+            cv2.FONT_HERSHEY_SIMPLEX, 0.5,(255,255,255),1) <br>
+
+</code>
+
+<br>
+
+This should give you this image:<br><br>
+
+<img src="images/opencv-lab/fitting-square-around-contour.png" width="483px" /><br><br>
+
+<h3>Extend Code to Work with all Colors on the Rubrik Cube</h3><br>
+
+Now extend your code to work with all colors of the Rubrik cube.<br>
+When you are done and you have the position of all squares, fill the position into this array (to come) so the rest of the code can provide you with the solution.<br><br>
+
+<h3>Upload your Code and a Video of yourself solving your Cube to Gradebook</h3><br>
+
+Upload your solution here.<br><br>
 
 
 <br><br>
