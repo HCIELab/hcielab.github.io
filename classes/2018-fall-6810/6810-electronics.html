@@ -277,7 +277,8 @@ Add the button by wiring this together.<br>
 Use any resistor 1k-10k:<br><br>
 
 <img src="images/electronics-tutorial/button-diagram-2.png" width="483px" /> <br><br>
-
+Here is the button pin configuration<br><br>
+<img src="images/electronics-tutorial/Button.jpg" width="483px" /> <br><br>
 How does this work? Note that we will be using pin 2 only as an input pin, not an output pin. That means that depending on whether the button is pressed, it will read either a high voltage close to 3.3V or a low voltage close to 0V. Which does it read when the button is pressed? Which does it read when the button is not pressed? Ask a TA if you are confused!<br><br>
 
 If you wire up the button slightly differently, the answers to the above questions might change. Without having to do any re-wiring, think about what the readings on the pin would be if you instead wired the button like this:
@@ -364,7 +365,7 @@ The other electronics on the board detect this change and turn it into values th
 
 <h3>Connect your wind sensor to the board</h3><br>
 
-Once you have the header pins soldered on, connect the windsensor to your circuit using the following wiring diagram. <span style="color:red">Did you unplug your Arduino? No live wiring.</span><br><br>
+Once you have the header pins soldered on, connect the windsensor to your circuit using the following wiring diagram. Keep all previously wired components connected. <span style="color:red">Did you unplug your Arduino? No live wiring.</span><br><br>
 
 Note that the wind sensor requires a higher voltage to run. You should therefore hook it up to the Arduino's 5V supply.<br><br>
 
@@ -376,7 +377,7 @@ Usually, when wiring up a sensor, you will need to wire up the ground and high v
 
 <h3>Add code for detecting blowing air onto the sensor</h3><br>
 
-Download the code for the wind sensor <a href="https://drive.google.com/open?id=1qNz9xMhzCPzKHjEM0KepP6mbsn48ToiS" style="color:red">here</a>. Make sure you understand how it works. There are several conversions that are done in the loop. You do not need to understand the details of how those work.<br><br>
+Download the code for the wind sensor <a href="https://drive.google.com/open?id=1qNz9xMhzCPzKHjEM0KepP6mbsn48ToiS" style="color:red">here</a>. Make sure you understand how it works. For example if you do not know the difference between analogRead and digitalRead, please ask a TA or Google it. There are several conversions that are done in the loop. You do not need to understand the details of how those work.<br><br>
 
 If the light keeps going out or it fails to go out, you might need to calibrate the wind speed threshold. Look at the line that says <code>if (WindSpeed_MPH > 20)</code> and change the 20 to be bigger or smaller as necessary. It will be useful to use the serial monitor here to find an appropriate threshold.<br><br>
 
@@ -392,16 +393,16 @@ However, we can replace the power supply using a battery and battery connector.<
 
 <img src="images/electronics-tutorial/battery-clip.jpg" width="283px" /> <br><br>
 
-To use the battery, you can simply unplug the Arduino 3.3V and GND cables from the breadboard rails and instead use the battery cables and it should work without laptop power!
+To use the battery, you can simply connect the black GND cable to the GND of your Arduino and the red 9V to Vin on your Arduino. The Arduino should power on without laptop power!
 
 <br><br>
 
-<img src="images/electronics-tutorial/battery-plugged-in.jpg" width="383px" /> <br><br>
+<img src="images/electronics-tutorial/Connect_Battery.jpg" width="383px" /> <br><br>
 
 However, if we left everything as it is, your battery would be dead within a few hours.<br>
 Why? Because the Arduino keeps running its loop function all the time, i.e. as long as it has power. So to prevent your battery from draining you need to either (1) unplug the battery every time you are done with programming (not great), or (2) add a switch for turning it on/off.<br><br>
 
-Let's solder a switch to our batter pack wires. Remember not to have the battery plugged in while we do this!<br><br>
+Let's solder a switch to our battery pack wires. Remember not to have the battery plugged in while we do this!<br><br>
 
 How does the switch work?<br>
 The switch is basically a mechanism to interrupt e.g. your GND wire.<br>
@@ -435,7 +436,7 @@ Finally, to avoid accidentally shorting your battery, you can cut off the third 
 
 Now plug the battery back into your circuit and test if the switch works:<br><br>
 
-<img src="images/electronics-tutorial/battery-plugged-in.jpg" width="383px" /> <br><br>
+<img src="images/electronics-tutorial/Switch_Battery.jpg" width="383px" /> <br><br>
 
 
 <span style="color:red">Using the switch on the battery every time you are done with using the Arduino is important because even when the candle is out, your Arduino is still running. So remember to power it down completely with the switch (or by unplugging the battery) or you’ll run out of juice very soon.</span><br><br>
