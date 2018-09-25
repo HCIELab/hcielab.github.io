@@ -97,22 +97,29 @@ Next, we can read frames from the camera like this:<br>
 /* Initializing the Camera * /
 read image code<br>
 display image on screen<br>
-add a wait so it doesn't fly<br>
+add a wait so it doesn't fly<br><br>
+ret, frame = camera.read()<br>
+cv2.namedWindow('image',0)<br>
+cv2.resizeWindow('image',800,600)<br>
 </code>
 <br>
 
-We need to add the wait statement for XXms otherwise your computer will stall and not be able to take any key input from you. <br><br>
+We need to add the wait statement for ~5ms otherwise your computer will stall and not be able to take any key input from you. 
+<code>
+	key = cv2.waitKey(5)
+</code>
+<br><br>
 
 <h3>Doing an Action on Key-Press</h3><br>
 
 It is often useful for debugging to do some action on keypress (e.g. quit the program, save a specific image from the camera).<br><br>
 
-Here is some code to e.g. quit your program on keypress of 'X'.<br><br>
+Here is some code to e.g. quit your program on keypress of 'x'.<br><br>
 
 <code>
 /* Doing something on Keypress * /<br>
-if key == X {<br>
-	//stop program<br>
+if key == 120:<br>
+    &nbsp &nbsp break<br>
 }<br>
 </code>
 
@@ -120,11 +127,15 @@ if key == X {<br>
 
 It is often a good idea to start developing a program on a single frame, aka a still image rather than trying to solve it right away with a live video stream, e.g. a single image in which you hold the rubriks cube into the camera.<br><br>
 
-Expand your code to save a single frame to disk on keypress of 'C' (capture).
+Expand your code to save a single frame to disk on keypress of 'c' (capture).<br>
 
 <code>
 /* Code for saving an image * /<br>
-frame write to disk<br>
+/* frame write to disk * /<br>
+if key == 99:<br>
+    &nbsp &nbsp img_name = "opencv_frame.png"<br>
+    &nbsp &nbsp cv2.imwrite(img_name, frame)<br>
+
 </code>
 <br><br>
 
@@ -179,7 +190,7 @@ The same principle applies when you use a range: If the value of the pixel betwe
 
 <img src="images/opencv-lab/threshold1.png" width="483px" /><br><br>
 
-Here's the code for this:
+Here's the code for this:<br>
 
 <code>
 	*/define lower and upper range, e.g. for color blue*/<br>
@@ -201,8 +212,17 @@ Rather than hard-coding the values, it is often a good idea to have some sliders
 Here is how you can add some sliders to set h_min, s_min, v_min, h_max, s_max, v_max:<br><br>
 
 <code>
-	*/adding sliders */<br>
-example code<br>
+	*/adding sliders */<br><br>
+
+	# nothing<br>
+	def nothing():<br>
+    &nbsp &nbsp pass<br><br>
+	cv2.createTrackbar('h','image',25,179,nothing)<br>
+	cv2.createTrackbar('s','image',50,255,nothing)<br>
+	cv2.createTrackbar('v','image',50,255,nothing)<br>
+	cv2.createTrackbar('H','image',35,179,nothing)<br>
+	cv2.createTrackbar('S','image',255,255,nothing)<br>
+	cv2.createTrackbar('V','image',255,255,nothing)<br>
 </code>
 
 <br><br>
@@ -215,11 +235,11 @@ How can we find the contours?<br>
 For this, OpenCV offers a handy function:<br>
 
 <code>
-	*/adding sliders */<br>
-contours, hierarchy = cv2.findContours(threshold_image,<br>
+	*/return contours */<br>
+image, contours, hierarchy = cv2.findContours(threshold_image,<br>
                                        cv2.RETR_TREE,<br>
                                        cv2.CHAIN_APPROX_SIMPLE)<br>
-</code>
+</code><br>
 
 In this example, the variable contours will be a list of paths, with each path being a contour found in the thresholded image (i.e. for every white blob).<br>
 
@@ -239,7 +259,7 @@ Next, we can draw the returned contours in the image, so we actually see somethi
 <code>
 	/* iterate over contours*/<br>
 for contour in contours:<br>
-	cv2.drawContours(frame, contour, -1, (0,255,0), 3) <br>
+    &nbsp &nbsp cv2.drawContours(frame, contour, -1, (0,255,0), 3) <br>
 </code>
 
 <br><br>
