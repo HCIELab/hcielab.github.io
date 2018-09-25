@@ -284,16 +284,16 @@ We can fit a square around each contour and then use the square to compute the c
 
 <code>
 	/* fitting a square around the contour */<br>
-cv2.minEnclosingCircle(contour)<br>
+x,y,w,h = cv2.boundingRect(contour)<br>
 //add line that queries the center<br>
 </code>
 
 <br>
 
-We can now also draw the square into the image and add the coordinates to it:
+We can now also draw the square into the image and add the coordinates to it:<br>
 
 <code>
-cv2.circle(frame,draw_center,draw_radius,(0,255,0),2)<br>
+cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),5)<br>
 cv2.putText(frame,textstring,(int(x+50),int(y)), 
             cv2.FONT_HERSHEY_SIMPLEX, 0.5,(255,255,255),1) <br>
 
