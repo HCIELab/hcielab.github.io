@@ -80,7 +80,7 @@ You should now see a solution (or an error if you did it wrong).
 
 # Paramaters
 
-You can use `-n` or `--normalize` to also output the solution in a "human-readable" format.
+It will also output the solution in a "human-readable" format.
 
 For example:
 
@@ -95,17 +95,7 @@ is specified with `nl`.
 #### Test runs I've done:
 
 ```
-$ ./qbr.py
--- SOLUTION --
-Starting position:
-    front: green
-    top: white
-
-U2 R D2 L2 F2 L U2 L F' U L U R2 B2 U' F2 D2 R2 D2 R2 (20 moves)
-```
-
-```
-$ ./qbr.py -n
+$ ./qbr.py 
 -- SOLUTION --
 Starting position:
     front: green
