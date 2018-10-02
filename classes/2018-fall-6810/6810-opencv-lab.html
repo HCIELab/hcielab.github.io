@@ -74,11 +74,15 @@ We will give you code for the rest (i.e. the logic for solving the cube).<br>
 
 <br><br>
 
-<h3>Where to place your code</h3><br>
+<h3>Download the code</h3><br>
 
-In the code, you will find a function XX. 
-Please insert your code into this function.
+Start by cloning this <a href="https://github.com/HCIELab/Rubiks-Cube-Code">repository</a>. Open the rubiks-cube-code directory then navigate to the src folder. Here you will find several python scripts. Here is a general description of each python script.<br><br>
 
+<b>qbr.py</b> - This file contains high-level code for running the rubik's solver. You will run this script to test your code.<br>
+<b>video.py</b>  - This file is were the computer vision processing happens. You will spend most of your time coding in this file<br>
+<b>colordetection.py</b>  - This file contains code for specifically sampling colors from an image and classifying the colors<br>
+<b>combiner.py</b> - This file contains a helper function for formatting the color data of the rubiks cube. You won't need to touch this file.<br>
+<b>normalizer.py</b> - This file provides a method for converting the encoded solution output into normal instructions. You won't need to touch this file either.<br>
 
 <h3>Reading a Camera Image</h3><br>
 
@@ -89,6 +93,7 @@ Before we can read the live camera feed, we first have to initialize the camera 
 camera_port = 0  // your built in camera is typicall 0, any extra camera on USB is 1, 2 etc.<br>
 camera = cv2.VideoCapture(camera_port) // this returns the camera object and opens the video channel<br>
 </code>
+Open up the video.py file and implement this as task 1.1
 <br><br>
 
 Next, we can read frames from the camera like this:<br>
