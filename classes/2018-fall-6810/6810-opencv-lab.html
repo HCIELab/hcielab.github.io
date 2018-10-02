@@ -84,6 +84,237 @@ Start by cloning this <a href="https://github.com/HCIELab/Rubiks-Cube-Code">repo
 <b>combiner.py</b> - This file contains a helper function for formatting the color data of the rubiks cube. You won't need to touch this file.<br>
 <b>normalizer.py</b> - This file provides a method for converting the encoded solution output into normal instructions. You won't need to touch this file either.<br>
 
+<h3>Task 1: Getting Acquainted with OpenCV</h3><br>
+Before we get into extracting the colors of the cube for the solver we will learn to use some of the tool provided by OpenCV. 
+The first part of your task is to open the video.py file and initialize the camera.<br><br>
+
+
+<pre><code>'''
+Initialize the camera here
+'''
+cam_port         = # your code here task 1.1
+cam              = #</code></pre><br>
+
+
+Here you will select a camera port and create a camera object with that port. If you are using a laptop, the default camera is port 0 and your external webcam would be port 1 when it is plugged in.<br><br>
+
+
+<pre><code>cam_port         = 0   # I've set my camera port to port zero!</code></pre><br>
+
+
+Now you can create a camera object using the camera port you selected. This will be done with one of OpnCV's built in functions.<br><br>
+
+
+<pre><code>cam         = cv2.VideoCapture(cam_port)   # I've created my camera object!</code></pre><br>
+
+Next, navigate to the first main loop in the scan function of the video.py file.<br><br>
+
+
+<pre><code>while cameratesting:
+    '''
+    Here we want to make sure things are working and learn about how to use some openCV functions
+    Your code here
+    '''
+    #task 1.2 preview a camera window
+    #task 1.3 draw a rectangle
+    #task 1.4 make a slider
+    #task 1.5 add text
+    #task 1.6 make a mask based on hsv
+    #task 1.7 display the masked image</code></pre><br>
+
+As you can see we will be be using this loop to test some OpenCV functions. Let us start by creating a window and displaying frames in the window. We will use 3 OpenCV functions to do this.<br><br>
+
+<pre><code># Creates a window named 'my_window_name' with no default size
+cv2.namedWindow('my_window_name',0)	
+
+# Resizes the window
+cv2.resizeWindow('my_window_name', 600, 600) 
+
+# Captures a frame of video from the camera object
+_,frame = cam.read()
+
+#################################
+#Add more processing code here
+#################################
+
+# Displays the frame on the window we made
+cv2.imshow('my_window_name', frame)	
+
+</code></pre><br>
+
+To run the code, navigate to your src directory using terminal, or powershell and run the command.<br><br>
+
+
+<pre><code>python ./qbr.py -n</code></pre><br>
+
+Now let's try drawing some rectangles on top of the image. Rectangles can often times be useful for highlighting important objects in a frame or just indicating bounds in a window. Be sure to add the rectangle code before the <code>cv2.imshow()</code> command otherwise nothing will show up.<br><br>
+
+<pre><code># Draw rectangle on the frame
+cv2.rectangle(frame, (200,200), (x+50, y+50), (255,0,0), 1)	
+
+# -1 borderwidth is a fill
+cv2.rectangle(frame, (300,200), (x+50, y+50), (0,0,255), -1)
+
+# Note the construction of a rectangle
+# arg1 = frame to draw on
+# arg2 = x,y coordinates of the rectangle's top left corner
+# arg3 = x,y coordinates of the rectangle's bottom right corner
+# arg4 = r,g,b values
+cv2.rectangle(frame, (xtop_left,ytop_left), (xbot_right,ybot_right), (r,g,b), borderwidth)
+</code></pre><br>
+
+Next we will create sliders. These are particularly good for setting parameters such as thresholding values live. We will see how this works later in the lab.<br><br>
+
+<pre><code># Create a trackbar
+# Note
+# arg1 = track bar name
+# arg2 = window to draw on
+# arg3 = default start value
+# arg4 = max value of range (range is always 0-max)
+# arg5 = a callback function for when the bar changes value (can be an empty function,
+#        but be sure it's defined)
+
+# Add this function before the the while camera testing loop
+# Otherwise your code will continuously create the taskbar
+cv2.createTrackbar('My track bar','my_window_name',125,255, empty_callaback)
+
+# Write this in the camera testing loop to read the values live
+# arg1 = trackbar name
+# arg2 = window to pull trackbar info from
+value = cv2.getTrackbarPos('My track bar','my_window_name')
+print(value)
+
+</code></pre><br>
+
+Now we are going to start putting soe things together to do some color filtering. The first step is to convert the current frame from RGB color space to HSV color space. Here is an overview of color spaces and why we are switching to HSV: <br><br>
+
+<h5>Intro to Color Spaces</h5><br>
+RGB and CMYK are the most common color spaces.<br>
+RGB is used for on-screen images, while CMYK is used for printed content.<br><br>
+
+
+<img src="images/opencv-lab/rgb-cmyk.png" width="483px" /><br><br>
+
+
+Your camera image is in RGB.<br>
+Is RGB a good color space for tracking color?<br><br>
+
+<img src="images/opencv-lab/rgb-problem1.png" width="683px" /><br><br>
+
+RGB encodes color in 3 different channels: R, G, and B.<br>
+For instance, the light orange in the image below consists of 227 Red parts mixed with 151 green parts and 83 blue parts.<br><br>
+
+Even just slightly changing the lighting situation in the room, will result in a big mess, i.e. all of these numbers change! <br>
+As you can see below, on a more sunny day, the same object might now be more saturated orange and all the numbers change. <br>
+Thus, it will be very difficult to color track an object (such as the Rubrik cube squares) using RGB color space!<br><br>
+
+<img src="images/opencv-lab/rgb-problem2.png" width="683px" /><br><br>
+
+Now there is another color space called HSV (Hue, Satuation, Value).<br>
+This color space is much more suitable for our needs, since the hue-channel encodes all the different colors in a single channel (see below).<br>
+The saturation channel contains all the different saturated versions of this color and the value channel contains all the different brightness versions of this color.<br>
+<br>
+
+<img src="images/opencv-lab/hsv-color-space2.png" width="483px" /><br><br>
+
+Thus, to track a specific color in HSV, we can simply select the range in Hue (e.g. 60-140 for green), and then include all saturations (0-255) and all values (0-255) of that color.<br> 
+This allows us to track color independent of the current light situation in the room.<br>
+<b>Note that in OpenCV, Hue has a range of (0-179)</b><br><br>
+
+Now let's convert the frame into an HSV image.<br><br>
+
+<pre><code># Convert frame from RGB to HSV
+# Note
+# arg1 = frame
+# arg2 = colorspace to convert to
+hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV) # generates an hsv version of frame and 
+                                             # stores it in the hsv image variable
+</code></pre><br>
+
+Next make a mask (a mask is an matrix of binary values for every pixel in a frame). The mask will be used to cut out parts of the image. Based on some HSV values.<br><br>
+<pre><code># create a mask
+# Bounds for HSV values we are interested in
+lower_hsv = np.array([89,178,51])
+upper_hsv = np.array([118,255,194])
+
+# Note
+# arg1 = hsv image
+# arg2 = lower bound of HSV
+# arg3 = upper bound of HSV
+mask = cv2.inRange(hsv, lower_hsv, upper_hsv) # makes a mask where pixels with hsv in bounds 
+                                              # will be one and pixels with hsv out of bounds
+                                              # will be zero
+</code></pre><br>
+
+Now we will apply the mask to the original frame and display the masked frame. <br><br>
+
+<pre><code># Apply the mask and display
+# Bitwise and the frame with itself and apply the mask
+frame = cv2.bitwise_and(frame,frame, mask= mask)
+</code></pre><br>
+
+Congratulations!! You've been acquainted with OpenCV.
+
+<h3>Code Overview</h3><br>
+Before we move on to the next task here is a quick overview of how the rubik's solver works and what you are implementing. The solver reads in color data from specified location on the screen (detector stickers). It then classifies the colors based on some calibration parameters and displays what is sees (current stickers).<br><br>
+
+When the user presses the space bar, the face of stickers is recorded and the most recent set that was recorded is displayed (recorded stickers). The orientation of the cube matters during recording. The order of faces recorded is not important though. Each face is identified by the color of the middle square. If any recorded data is bad, you can record again by pressing space again.<br><br>
+
+When the user presses "c", the window will change to a calibration mode where each color can be calibrated using trackbars. There is a text indicator of which color is being calibrated and pressing space will cycle through the colors. Once all 6 colors are calibrated, the window will return to the detection mode.<br><br>
+
+You will be drawing the stickers for detecting colors, indicating currently seen colors, and recorded colors. You are also responsible for making the trackbars, and masks for thresholding 
+colors.
+
+<h3>Task 2: Draw the Stickers</h3><br>
+Navigate to the top of the video.py file and set the <code>cameratesting</code> variable to <code>False</code>. Now take a look at the three helper functions <code>draw_detector_stickers</code>, <code>draw_current_stickers</code>, and <code>draw_recorded_stickers</code>. As the name implies we will use these functions to draw some stickers on the image to give us some visual feedback.<br><br>
+
+The function should draw 9 detector stickers that are physical indicators of where we should place the cube. This is important because the color detection for each sticker is fixed. The <code>detector_stickers</code> variable contains the coordinates of the top left corner of each sticker. Each detector sticker should be a square with side length 30 and border width 2. The border should be white. Look at the <code>draw_current_stickers</code> function for reference. Note that the current stickers are squares with side length 32 and are filled with color based on the current colors being detected by the camera.<br><br>
+
+<pre><code>def draw_current_stickers(frame, state):
+    """Draws the 9 current stickers in the frame."""
+    for index,(x,y) in enumerate(current_stickers):
+        cv2.rectangle(frame, (x,y), (x+32, y+32), ColorDetector.name_to_rgb(state[index]), -1)
+</code></pre><br>
+
+Next you will implement the same thing for the <code>draw_recorded_stickers</code> function. This function should draw the 9 recorded stickers based on the most recent recorded state. Again reference the <code>draw_current_stickers</code> function. The stickers should be squares filled with side length 32 and color equal to the colors given by state.<br><br>
+
+To check verify your code, run <code>qbr.py</code>. You should see the stickers overlaid on your screen similar to this image<br>
+
+###insert image
+
+<h3>Task 3: Add Trackbars and Masking</h3><br>
+There should be a upper and lower bound trackbar for H, S, and V. The Hue trackbars are given to you. <br><br>
+
+<pre><code># create trackbars here
+    cv2.createTrackbar('H Upper',"default",defaultcal[color[len(colorcal)]][0][0],179, empty_callaback)
+    cv2.createTrackbar('H Lower',"default",defaultcal[color[len(colorcal)]][0][1],179, empty_callaback)
+
+    # make four more trackbars for ('S Upper', 'S Lower', 'V Upper', 'V Lower')
+    # Note you should use these trackbar names to make other parts of the code run properly
+</code></pre><br>
+
+Then you need to obtain the trackbar values from the trackbars. These values are taken by the code and organized into upper and lower bound arrays for masking.<br><br>
+
+<pre><code># hue upper lower
+hu = cv2.getTrackbarPos('H Upper','default')
+su = cv2.getTrackbarPos('H Lower','default')
+# saturation upper lower
+su = None # yourcode here
+sl = None # yourcode here
+# value upper lower
+vu = None # yourcode here
+vl = None # yourcode here
+</code></pre><br>
+
+ Now for the masking. Note that red and orange have an abnormal thresholding due to their position in the Hue space (approx hue range => 0-7 && 169-179). For this reason you only need to create a mask for the other colors and this is done once here.<br><br>
+
+<pre><code># Task 3
+mask = None # your code here
+res = None # your code here
+</code></pre><br>
+
+
+<!---
 <h3>Reading a Camera Image</h3><br>
 
 Before we can read the live camera feed, we first have to initialize the camera like this: <br><br>
@@ -329,6 +560,7 @@ Upload your solution here.<br><br>
         <br />
         <br />
         <br />
+    -->
       </section>
 
       <aside class="col-md-4 pull-left">
