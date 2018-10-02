@@ -61,22 +61,14 @@
 
 We are going to write a piece of Computer Vision software that extracts the position of the colored squares from each side of a Rubrik's cube and then solves the cube by giving you instructions on how to rotate each row/column.<br><br>
 
-<img src="images/opencv-lab/opencv-result.png" width="483px" /><br><br>
-
-<!-- <span style="color:red">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/4uBRRA1gai0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-</span> -->
+<img src="images/opencv-lab/color-recognition .png" width="483px" /><br><br>
 
 Your job is to write the color-extraction with OpenCV. <br>
 We will give you code for the rest (i.e. the logic for solving the cube).<br>
 
-
-
-<br><br>
-
 <h3>Download the code</h3><br>
 
-Start by cloning this <a href="https://github.com/HCIELab/Rubiks-Cube-Code">repository</a>. Open the rubiks-cube-code directory then navigate to the src folder. Here you will find several python scripts. Here is a general description of each python script.<br><br>
+Start by cloning this<a href="https://github.com/HCIELab/Rubiks-Cube-Solver-OpenCVLab"><font color ='red'> repository</font></a>. Open the rubiks-cube-code directory then navigate to the src folder. Here you will find several python scripts. Here is a general description of each python script.<br><br>
 
 <b>qbr.py</b> - This file contains high-level code for running the rubik's solver. You will run this script to test your code.<br>
 <b>video.py</b>  - This file is were the computer vision processing happens. You will spend most of your time coding in this file<br>
@@ -115,7 +107,7 @@ Next, navigate to the first main loop in the scan function of the video.py file.
     Here we want to make sure things are working and learn about how to use some openCV functions
     Your code here
     '''
-    #task 1.2 preview a camera window
+    #task 1.2 preview a camera window 
     #task 1.3 draw a rectangle
     #task 1.4 make a slider
     #task 1.5 add text
@@ -124,11 +116,15 @@ Next, navigate to the first main loop in the scan function of the video.py file.
 
 As you can see we will be be using this loop to test some OpenCV functions. Let us start by creating a window and displaying frames in the window. We will use 3 OpenCV functions to do this.<br><br>
 
-<pre><code># Creates a window named 'my_window_name' with no default size
-cv2.namedWindow('my_window_name',0)	
+<pre><code># Creates a window named 'my_window_name'
+<font color ='red'># Create and resize the window before the camera testing loop 
+cv2.namedWindow('my_window_name',0)	# the zero makes the window adjustable
 
 # Resizes the window
-cv2.resizeWindow('my_window_name', 600, 600) 
+cv2.resizeWindow('my_window_name', 600, 600) </font>
+
+# Sets the amount of time to display a frame in milliseconds
+key = cv2.waitKey(10)
 
 # Captures a frame of video from the camera object
 _,frame = cam.read()
@@ -146,22 +142,27 @@ To run the code, navigate to your src directory using terminal, or powershell an
 
 
 <pre><code>python ./qbr.py -n</code></pre><br>
+You should get a window with a camera feed like this.<br><br>
+
+<img src="images/opencv-lab/task-1.2.png" width="483px" /><br><br>
 
 Now let's try drawing some rectangles on top of the image. Rectangles can often times be useful for highlighting important objects in a frame or just indicating bounds in a window. Be sure to add the rectangle code before the <code>cv2.imshow()</code> command otherwise nothing will show up.<br><br>
 
 <pre><code># Draw rectangle on the frame
-cv2.rectangle(frame, (200,200), (x+50, y+50), (255,0,0), 1)	
+cv2.rectangle(frame, (200,200), (250, 250), (255,0,0), 2) 
 
 # -1 borderwidth is a fill
-cv2.rectangle(frame, (300,200), (x+50, y+50), (0,0,255), -1)
+cv2.rectangle(frame, (300,200), (350, 250), (0,0,255), -1)
 
 # Note the construction of a rectangle
 # arg1 = frame to draw on
 # arg2 = x,y coordinates of the rectangle's top left corner
 # arg3 = x,y coordinates of the rectangle's bottom right corner
 # arg4 = r,g,b values
+# arg5 = borderwidth  => width of the border or make a fill using -1
 cv2.rectangle(frame, (xtop_left,ytop_left), (xbot_right,ybot_right), (r,g,b), borderwidth)
 </code></pre><br>
+<img src="images/opencv-lab/task-1.3.png" width="483px" /><br><br>
 
 Next we will create sliders. These are particularly good for setting parameters such as thresholding values live. We will see how this works later in the lab.<br><br>
 
@@ -173,11 +174,11 @@ Next we will create sliders. These are particularly good for setting parameters 
 # arg4 = max value of range (range is always 0-max)
 # arg5 = a callback function for when the bar changes value (can be an empty function,
 #        but be sure it's defined)
-
+<font color='red'>
 # Add this function before the the while camera testing loop
 # Otherwise your code will continuously create the taskbar
 cv2.createTrackbar('My track bar','my_window_name',125,255, empty_callaback)
-
+</font>
 # Write this in the camera testing loop to read the values live
 # arg1 = trackbar name
 # arg2 = window to pull trackbar info from
@@ -185,8 +186,9 @@ value = cv2.getTrackbarPos('My track bar','my_window_name')
 print(value)
 
 </code></pre><br>
+<img src="images/opencv-lab/task-1.4.png" width="600px" /><br><br>
 
-Now we are going to start putting soe things together to do some color filtering. The first step is to convert the current frame from RGB color space to HSV color space. Here is an overview of color spaces and why we are switching to HSV: <br><br>
+Now we are going to start putting things together to do some color filtering. The first step is to convert the current frame from RGB color space to HSV color space. Here is an overview of color spaces and why we are switching to HSV: <br><br>
 
 <h5>Intro to Color Spaces</h5><br>
 RGB and CMYK are the most common color spaces.<br>
@@ -233,7 +235,7 @@ hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV) # generates an hsv version of frame
 
 Next make a mask (a mask is an matrix of binary values for every pixel in a frame). The mask will be used to cut out parts of the image. Based on some HSV values.<br><br>
 <pre><code># create a mask
-# Bounds for HSV values we are interested in
+# Bounds for HSV values we are interested in (Blue)
 lower_hsv = np.array([89,178,51])
 upper_hsv = np.array([118,255,194])
 
@@ -252,10 +254,13 @@ Now we will apply the mask to the original frame and display the masked frame. <
 # Bitwise and the frame with itself and apply the mask
 frame = cv2.bitwise_and(frame,frame, mask= mask)
 </code></pre><br>
+Results may vary with the lighting and where you place your code relative to the rectangle code, but it should produce a result similar to this. Feel free to tweak the lower and upper hsv bounds to filter different colors.<br>
+<img src="images/opencv-lab/task-1.7.png" width="483px" /><br><br>
 
 Congratulations!! You've been acquainted with OpenCV.
 
 <h3>Code Overview</h3><br>
+<img src="images/opencv-lab/code-overview.png" width="483px" /><br><br>
 Before we move on to the next task here is a quick overview of how the rubik's solver works and what you are implementing. The solver reads in color data from specified location on the screen (detector stickers). It then classifies the colors based on some calibration parameters and displays what is sees (current stickers).<br><br>
 
 When the user presses the space bar, the face of stickers is recorded and the most recent set that was recorded is displayed (recorded stickers). The orientation of the cube matters during recording. The order of faces recorded is not important though. Each face is identified by the color of the middle square. If any recorded data is bad, you can record again by pressing space again.<br><br>
@@ -266,6 +271,8 @@ You will be drawing the stickers for detecting colors, indicating currently seen
 colors.
 
 <h3>Task 2: Draw the Stickers</h3><br>
+<font color='red'>Start by commenting out the code you added outside the camera testing loop for the window and trackbar.</font><br><br>
+
 Navigate to the top of the video.py file and set the <code>cameratesting</code> variable to <code>False</code>. Now take a look at the three helper functions <code>draw_detector_stickers</code>, <code>draw_current_stickers</code>, and <code>draw_recorded_stickers</code>. As the name implies we will use these functions to draw some stickers on the image to give us some visual feedback.<br><br>
 
 The function should draw 9 detector stickers that are physical indicators of where we should place the cube. This is important because the color detection for each sticker is fixed. The <code>detector_stickers</code> variable contains the coordinates of the top left corner of each sticker. Each detector sticker should be a square with side length 30 and border width 2. The border should be white. Look at the <code>draw_current_stickers</code> function for reference. Note that the current stickers are squares with side length 32 and are filled with color based on the current colors being detected by the camera.<br><br>
@@ -278,9 +285,18 @@ The function should draw 9 detector stickers that are physical indicators of whe
 
 Next you will implement the same thing for the <code>draw_recorded_stickers</code> function. This function should draw the 9 recorded stickers based on the most recent recorded state. Again reference the <code>draw_current_stickers</code> function. The stickers should be squares filled with side length 32 and color equal to the colors given by state.<br><br>
 
-To check verify your code, run <code>qbr.py</code>. You should see the stickers overlaid on your screen similar to this image<br>
+To run <code>qbr.py</code>, you will need to fill in this piece of code<br><br>
 
-###insert image
+<pre><code>while not cameratesting:
+        _, frame = None # your code here
+        hsv = None      # your code here
+        key = None      # your code here
+</code></pre><br>
+
+To check verify your code, run <code>qbr.py</code>. You should see the stickers overlaid on your screen similar to this image<br><br>
+
+<img src="images/opencv-lab/task-2.png" width="483px" /><br><br>
+
 
 <h3>Task 3: Add Trackbars and Masking</h3><br>
 There should be a upper and lower bound trackbar for H, S, and V. The Hue trackbars are given to you. <br><br>
@@ -289,6 +305,7 @@ There should be a upper and lower bound trackbar for H, S, and V. The Hue trackb
     cv2.createTrackbar('H Upper',"default",defaultcal[color[len(colorcal)]][0][0],179, empty_callaback)
     cv2.createTrackbar('H Lower',"default",defaultcal[color[len(colorcal)]][0][1],179, empty_callaback)
 
+    <font color='red'># Remember that the range for S and V are not 0 to 179</font>
     # make four more trackbars for ('S Upper', 'S Lower', 'V Upper', 'V Lower')
     # Note you should use these trackbar names to make other parts of the code run properly
 </code></pre><br>
@@ -312,6 +329,20 @@ vl = None # yourcode here
 mask = None # your code here
 res = None # your code here
 </code></pre><br>
+
+To test this code you will run the <code>qbr.py</code> script and press 'c'. This will initiate the calibration state. You should then be able to adjust calibration values using your track bars to filter the color you are calibrating for.<br>
+
+Here are some good calibrations:<br><br>
+<img src="images/opencv-lab/cali-blue.png" width="483px" /><br>
+<img src="images/opencv-lab/cali-green.png" width="483px" /><br>
+<img src="images/opencv-lab/cali-white.png" width="483px" /><br>
+<img src="images/opencv-lab/cali-yellow.png" width="483px" /><br>
+<img src="images/opencv-lab/cali-orange.png" width="483px" /><br>
+<img src="images/opencv-lab/cali-red.png" width="483px" /><br><br>
+
+Here are some bad calibrations:<br><br>
+<img src="images/opencv-lab/cali-blue-bad.png" width="483px" /><br>
+<img src="images/opencv-lab/cali-red-bad.png" width="483px" /><br>
 
 
 <!---
