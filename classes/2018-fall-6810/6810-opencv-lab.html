@@ -141,7 +141,7 @@ cv2.imshow('my_window_name', frame)
 To run the code, navigate to your src directory using terminal, or powershell and run the command.<br><br>
 
 
-<pre><code>python ./qbr.py -n</code></pre><br>
+<pre><code>python ./qbr.py </code></pre><br>
 You should get a window with a camera feed like this.<br><br>
 
 <img src="images/opencv-lab/task-1.2.png" width="483px" /><br><br>
@@ -333,17 +333,60 @@ res = None # your code here
 To test this code you will run the <code>qbr.py</code> script and press 'c'. This will initiate the calibration state. You should then be able to adjust calibration values using your track bars to filter the color you are calibrating for.<br>
 
 Here are some good calibrations:<br><br>
-<img src="images/opencv-lab/cali-blue.png" width="483px" /><br>
-<img src="images/opencv-lab/cali-green.png" width="483px" /><br>
-<img src="images/opencv-lab/cali-white.png" width="483px" /><br>
-<img src="images/opencv-lab/cali-yellow.png" width="483px" /><br>
-<img src="images/opencv-lab/cali-orange.png" width="483px" /><br>
-<img src="images/opencv-lab/cali-red.png" width="483px" /><br><br>
+<img src="images/opencv-lab/cali-blue.png" width="483px" /><br><br>
+<img src="images/opencv-lab/cali-green.png" width="483px" /><br><br>
+<img src="images/opencv-lab/cali-white.png" width="483px" /><br><br>
+<img src="images/opencv-lab/cali-yellow.png" width="483px" /><br><br>
+<img src="images/opencv-lab/cali-orange.png" width="483px" /><br><br>
+<img src="images/opencv-lab/cali-red.png" width="483px" /><br><br><br>
 
 Here are some bad calibrations:<br><br>
-<img src="images/opencv-lab/cali-blue-bad.png" width="483px" /><br>
-<img src="images/opencv-lab/cali-red-bad.png" width="483px" /><br>
+<img src="images/opencv-lab/cali-blue-bad.png" width="483px" /><br><br>
+<img src="images/opencv-lab/cali-red-bad.png" width="483px" /><br><br>
 
+<h3>Finally: Solve Some Cubes!</h3><br>
+Now that you have all the missing puzzles filled up, let's solve some cubes! <br>
+Navigate to rubiks-cube-code/src folder, run the qbr.py file (via terminal or your preferred python IDEs). If you implemented everthing correctly so far, you should see your laptop camera window pop up with similar UI shown down below. You might want to manually drag and adjust the window size for better fit on screen. 
+<br><br>
+<img src="images/opencv-lab/color-recognition .png" width="483px" /><br><br>
+
+<br>
+As specified above, you should check/set the color calibration threshold first by press 'c'. This will initiate the calibration state. You should then be able to adjust calibration values using your track bars to filter the indicated color written on window. Press space to "set" the current thredshold and move to next color.
+<br><br>
+<img src="images/opencv-lab/cali-orange-highlight.png" width="483px" /><br><br>
+
+<br>
+The pre-defined thresholds for each color should work pretty decent for most of the cases, so you probably don't have to adjust much at this point. Still, go through the color calibration state just in case. It is useful to mention that you can press 'c' any time, while the camera is open, to change a specific color thredshold on the fly. This function can be quite handy when you run into the situation where one color brick does not get recognized on some cube faces. 
+<br>
+After the color calibration state, you can go ahead and scan the cube faces one by one. The six center bricks will be used as each face's identifier, since they don't really move. The order of faces get scanned does not matter, and you can scan as many times as you want. The program will overwrite the old scan when same side is detected. However, the rotation of face does matter when scanning. Below attached is the 2D Rubiks cube graph. For each of the six faces, you should scan the face with its index "1" "2" "3" on the top and put it towards camera. <br>
+[F: green]  [R: red]  [B: blue]  [L: orange]  [U: white]  [D: yellow]
+
+<br><br>
+<img src="images/opencv-lab/cube-rotation.png" width="483px" /><br><br>
+
+<br>
+When the program indicates "scanned sides: 6/6", means all six faces have been recorded at least once. You can then press etc to exit the camera window. If you scan the six faces correctly, the cube solvtion will print out onto concole.
+<br><br>
+<img src="images/opencv-lab/cube-solver-output.png" width="483px" /><br><br>
+
+<br>
+If you somehow scan the six faces incorrectly, or pressed etc before the program records all six faces, a error message will show up on the concole. You will have to run the qbr.py again :(
+
+<br><br>
+<img src="images/opencv-lab/cube-solver-output-error.png" width="483px" /><br><br>
+
+<h4> So... Happy solving folks! </h4><br>
+
+<br><br>
+
+
+
+
+
+
+        <br />
+        <br />
+        <br />
 
 <!---
 <h3>Reading a Camera Image</h3><br>
