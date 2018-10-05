@@ -314,7 +314,16 @@ colors.<br><br>
 <h3>Task 2: Draw the Stickers</h3><br>
 <font color='red'>Start by commenting out the code you added outside the camera testing loop for the window and trackbar.</font><br><br>
 
-Navigate to the top of the video.py file and set the <code>cameratesting</code> variable to <code>False</code> (we are now moving on to the real code, i.e. the loop that starts with *while not cameratesting*. Now take a look at the three helper functions <code>draw_detector_stickers</code>, <code>draw_current_stickers</code>, and <code>draw_recorded_stickers</code>. As the name implies we will use these functions to draw some stickers on the image to give us some visual feedback.<br><br>
+Navigate to the top of the video.py file and set the <code>cameratesting</code> variable to <code>False</code> (we are now moving on to the real code, i.e. the loop that starts with *while not cameratesting*. Before moving on, make sure the new *while not cameratesting* loop is also (1) reading the current frame, (2) converting it to hsv, and (3) pausing every 10ms to wait for key input (just copy from previous code).<br><br>
+
+<pre><code>while not cameratesting:
+        _, frame = None # your code here
+        hsv = None      # your code here
+        key = None      # your code here 
+</pre></code>
+
+<br><br>
+Now take a look at the three helper functions <code>draw_detector_stickers</code>, <code>draw_current_stickers</code>, and <code>draw_recorded_stickers</code>. As the name implies we will use these functions to draw some stickers on the image to give us some visual feedback.<br><br>
 
 The function should draw 9 detector stickers that are physical indicators of where we should place the cube. This is important because the color detection for each sticker is fixed. The <code>detector_stickers</code> variable contains the coordinates of the top left corner of each sticker. Each detector sticker should be a square with side length 30 and border width 2. The border should be white. Look at the <code>draw_current_stickers</code> function for reference. Note that the current stickers are squares with side length 32 and are filled with color based on the current colors being detected by the camera.<br><br>
 
