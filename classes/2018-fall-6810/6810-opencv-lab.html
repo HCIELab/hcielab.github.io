@@ -331,21 +331,19 @@ Here's one example for the <code>draw_current_stickers</code> function for refer
     """Draws the 9 current stickers in the frame."""
     for index,(x,y) in enumerate(current_stickers):
         cv2.rectangle(frame, (x,y), (x+32, y+32), ColorDetector.name_to_rgb(state[index]), -1)
+        #ColorDetector.name_to_rgb(state[index]) is simply generation an RGB value in format (R,G,B)
+        #if you want to draw white, you can use (255,255,255) as the argument and (0,0,0) for black
+        #the last argument -1 says the sticker is filled, using 0 instead makes it unfilled
 </code></pre><br>
 
 Next you will implement the same thing for the <code>draw_recorded_stickers</code> function. This function should draw the 9 recorded stickers based on the most recent recorded state. Reference the <code>draw_current_stickers</code> function. The <code>recorded_stickers</code> variable contains the coordinates of the top left corner of each sticker. The stickers should be squares filled with side length 32 and color equal to the colors given by state.<br><br>
 
 Finally, implement the <code>draw_detector_stickers</code>, these are physical indicators of where we should hold the cube in front of the camera. This is important because the color detection for each sticker is fixed. The <code>detector_stickers</code> variable contains the coordinates of the top left corner of each sticker. Each detector sticker should be a square with side length 30 and border width 2. The border should be white.<br><br> 
 
-To run <code>qbr.py</code>, you will need to fill in this piece of code<br><br>
 
-<pre><code>while not cameratesting:
-        _, frame = None # your code here
-        hsv = None      # your code here
-        key = None      # your code here
-</code></pre><br>
+<br><br> 
+To check verify your code, run <code>qbr.py</code>. You should see the stickers overlaid on your screen similar to this image.<br><br>
 
-To check verify your code, run <code>qbr.py</code>. You should see the stickers overlaid on your screen similar to this image<br><br>
 
 <img src="images/opencv-lab/task-2.png" width="483px" /><br><br>
 
