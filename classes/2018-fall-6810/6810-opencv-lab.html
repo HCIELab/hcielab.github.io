@@ -361,7 +361,8 @@ cv2.createTrackbar('H Lower',"default",defaultcal[color[len(colorcal)]][0][1],17
 
 Now you have created the trackbars, but you still need to obtain the trackbar values when the user is dragging the sliders. These values are taken by the code and organized into upper and lower bound arrays for masking.<br><br>
 
-<pre><code># hue upper lower
+<pre><code>#this code goes below the: if key == 99: statement, search for:
+# hue upper lower
 hu = cv2.getTrackbarPos('H Upper','default')
 hl = cv2.getTrackbarPos('H Lower','default')
 # saturation upper lower
@@ -374,7 +375,8 @@ vl = None # yourcode here
 
  Now for the masking. Note that red and orange have an abnormal thresholding due to their position in the Hue space (approx hue range => 0-7 && 169-179). For this reason you only need to create a mask for the other colors and this is done once here.<br><br>
 
-<pre><code># Task 3
+<pre><code># search where it says:
+# Task 3
 mask = None # your code here
 res = None # your code here
 </code></pre><br>
