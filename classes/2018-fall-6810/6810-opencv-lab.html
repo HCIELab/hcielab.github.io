@@ -325,7 +325,7 @@ Navigate to the top of the video.py file and set the <code>cameratesting</code> 
 <br><br>
 Now take a look at the three helper functions <code>draw_detector_stickers</code>, <code>draw_current_stickers</code>, and <code>draw_recorded_stickers</code>. As the name implies we will use these functions to draw some stickers on the image to give us some visual feedback.<br><br>
 
-The function should draw 9 detector stickers that are physical indicators of where we should place the cube. This is important because the color detection for each sticker is fixed. The <code>detector_stickers</code> variable contains the coordinates of the top left corner of each sticker. Each detector sticker should be a square with side length 30 and border width 2. The border should be white. Look at the <code>draw_current_stickers</code> function for reference. Note that the current stickers are squares with side length 32 and are filled with color based on the current colors being detected by the camera.<br><br>
+Here's one example for the <code>draw_current_stickers</code> function for reference. The <code>current_stickers</code> variable contains the coordinates of the top left corner of each sticker. Note that the current stickers are squares with side length 32 and are filled with color based on the current colors being detected by the camera.<br><br>
 
 <pre><code>def draw_current_stickers(frame, state):
     """Draws the 9 current stickers in the frame."""
@@ -333,7 +333,9 @@ The function should draw 9 detector stickers that are physical indicators of whe
         cv2.rectangle(frame, (x,y), (x+32, y+32), ColorDetector.name_to_rgb(state[index]), -1)
 </code></pre><br>
 
-Next you will implement the same thing for the <code>draw_recorded_stickers</code> function. This function should draw the 9 recorded stickers based on the most recent recorded state. Again reference the <code>draw_current_stickers</code> function. The stickers should be squares filled with side length 32 and color equal to the colors given by state.<br><br>
+Next you will implement the same thing for the <code>draw_recorded_stickers</code> function. This function should draw the 9 recorded stickers based on the most recent recorded state. Reference the <code>draw_current_stickers</code> function. The <code>recorded_stickers</code> variable contains the coordinates of the top left corner of each sticker. The stickers should be squares filled with side length 32 and color equal to the colors given by state.<br><br>
+
+Finally, implement the <code>draw_detector_stickers</code>, these are physical indicators of where we should hold the cube in front of the camera. This is important because the color detection for each sticker is fixed. The <code>detector_stickers</code> variable contains the coordinates of the top left corner of each sticker. Each detector sticker should be a square with side length 30 and border width 2. The border should be white.<br><br> 
 
 To run <code>qbr.py</code>, you will need to fill in this piece of code<br><br>
 
