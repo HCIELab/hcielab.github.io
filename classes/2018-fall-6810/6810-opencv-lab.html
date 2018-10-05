@@ -256,7 +256,7 @@ Thus, to track a specific color in HSV, we can simply select the range in Hue (e
 This allows us to track color independent of the current light situation in the room.<br>
 <b>Note that in OpenCV, Hue has a range of (0-179)</b><br><br>
 
-Now let's convert the frame into an HSV image.<br><br>
+Now let's convert the frame you are reading every round in the loop into an HSV image.<br><br>
 
 <pre><code># Convert frame from RGB to HSV
 # Note
@@ -269,8 +269,8 @@ hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV) # generates an hsv version of frame
 Next make a mask (a mask is an matrix of binary values for every pixel in a frame). The mask will be used to cut out parts of the image. Based on some HSV values.<br><br>
 <pre><code># create a mask
 # Bounds for HSV values we are interested in (Blue)
-lower_hsv = np.array([89,178,51])
-upper_hsv = np.array([118,255,194])
+lower_hsv = np.array([89,178,51])     #hmin,smin,vmin
+upper_hsv = np.array([118,255,194])   #hmax,smax,vmax
 
 # Note
 # arg1 = hsv image
@@ -281,13 +281,15 @@ mask = cv2.inRange(hsv, lower_hsv, upper_hsv) # makes a mask where pixels with h
                                               # will be zero
 </code></pre><br>
 
-Now we will apply the mask to the original frame and display the masked frame. <br><br>
+Now we will apply the mask to the original frame and display the masked frame. <br>
+<br>
 
 <pre><code># Apply the mask and display
 # Bitwise and the frame with itself and apply the mask
 frame = cv2.bitwise_and(frame,frame, mask= mask)
 </code></pre><br>
-Results may vary with the lighting and where you place your code relative to the rectangle code, but it should produce a result similar to this. Feel free to tweak the lower and upper hsv bounds to filter different colors.<br>
+
+Results may vary with the lighting and where you place your code relative to the rectangle code, but it should produce a result similar to this. Make sure you are showing the *blue* side to the camera since we are tresholding/masking for the blue color with lower_hsv and upper_hsv.Feel free to tweak the lower and upper hsv bounds to filter different colors (we will do this in a better way in a minute using the sliders, so don't spend too much time with hard coded hsv values at this point).<br><br>
 <img src="images/opencv-lab/task-1.7.png" width="483px" /><br><br>
 
 Congratulations!! You've been acquainted with OpenCV.
