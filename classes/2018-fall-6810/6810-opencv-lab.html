@@ -331,17 +331,15 @@ Here's one example for the <code>draw_current_stickers</code> function for refer
     """Draws the 9 current stickers in the frame."""
     for index,(x,y) in enumerate(current_stickers):
         cv2.rectangle(frame, (x,y), (x+32, y+32), ColorDetector.name_to_rgb(state[index]), -1)
-        #ColorDetector.name_to_rgb(state[index]) is simply generation an RGB value in format (R,G,B)
-        #if you want to draw white, you can use (255,255,255) as the argument and (0,0,0) for black
-        #the last argument -1 says the sticker is filled, using 0 instead makes it unfilled
+        #ColorDetector.name_to_rgb is generating an RGB value in format (R,G,B)
+        #for white, you can use (255,255,255) as argument and (0,0,0) for black
+        #-1 means the sticker is filled, using 0 instead makes it unfilled
 </code></pre><br>
 
 Next you will implement the same thing for the <code>draw_recorded_stickers</code> function. This function should draw the 9 recorded stickers based on the most recent recorded state. Reference the <code>draw_current_stickers</code> function. The <code>recorded_stickers</code> variable contains the coordinates of the top left corner of each sticker. The stickers should be squares filled with side length 32 and color equal to the colors given by state.<br><br>
 
 Finally, implement the <code>draw_detector_stickers</code>, these are physical indicators of where we should hold the cube in front of the camera. This is important because the color detection for each sticker is fixed. The <code>detector_stickers</code> variable contains the coordinates of the top left corner of each sticker. Each detector sticker should be a square with side length 30 and border width 2. The border should be white.<br><br> 
 
-
-<br><br> 
 To check verify your code, run <code>qbr.py</code>. You should see the stickers overlaid on your screen similar to this image.<br><br>
 
 
@@ -353,15 +351,15 @@ Next you will need two trackbars for each H, S, and V (6 trackbars in total).<br
 We have already given you the two min and max trackbars for H (you can see them on top of the window). <br><br>
 
 <pre><code># create trackbars here
-    cv2.createTrackbar('H Upper',"default",defaultcal[color[len(colorcal)]][0][0],179, empty_callback)
-    cv2.createTrackbar('H Lower',"default",defaultcal[color[len(colorcal)]][0][1],179, empty_callback)
+cv2.createTrackbar('H Upper',"default",defaultcal[color[len(colorcal)]][0][0],179, empty_callback)
+cv2.createTrackbar('H Lower',"default",defaultcal[color[len(colorcal)]][0][1],179, empty_callback)
 
-    <font color='red'># Remember that H has a range of 0-179 while S and V have 0-255</font>
-    # make four more trackbars for ('S Upper', 'S Lower', 'V Upper', 'V Lower')
-    # Please use exactly these trackbar names to make other parts of the code run properly
+<font color='red'># Remember that H has a range of 0-179 while S and V have 0-255</font>
+# make four more trackbars for ('S Upper', 'S Lower', 'V Upper', 'V Lower')
+# Please use exactly these trackbar names to make other parts of the code run properly
 </code></pre><br>
 
-Then you need to obtain the trackbar values from the trackbars. These values are taken by the code and organized into upper and lower bound arrays for masking.<br><br>
+Now you have created the trackbars, but you still need to obtain the trackbar values when the user is dragging the sliders. These values are taken by the code and organized into upper and lower bound arrays for masking.<br><br>
 
 <pre><code># hue upper lower
 hu = cv2.getTrackbarPos('H Upper','default')
