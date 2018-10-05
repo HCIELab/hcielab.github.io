@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HCI Engineering Group</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!-- CSAIL ICON -->
+	<link rel="CSAIL" href="../../images/icon/csail.ico" type="image/x-icon" />
+
+	<!-- Bootstrap -->
+	<link href="../../css/bootstrap.css" rel="stylesheet">
+	<link href="../../css/custom-style.css" rel="stylesheet">
+
+	<!-- jQuery -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+
+	<!-- Google Analytic -->
+	<script type="text/javascript" src="../../js/analytics.js"></script>
+
+	<style>
+	.etech-sch-col1 {width:60px; border: 1px solid black;padding:10px;}
+	.etech-sch-col2 {width:120px; border: 1px solid black;padding:10px;}
+	.etech-sch-col3 {width:450px; border: 1px solid black;padding:10px;}
+	.etech-sch-col4 {width:70px; border: 1px solid black;padding:10px;}
+  .etech-sch-col5 {width:70px; border: 1px solid black;padding:10px;}
+  /*.etech-sch-col6 {width:170px; border: 1px solid black;padding:10px;}*/
+  ul {
+    padding:0px;padding-left:10px;margin:0px;
+  }
+	</style>
+</head>
+
+<body>
+<header class="main_header">
+	<!-- to be filled by javascript, see header.html -->
+</header>
+
+<section class="main_container">
+	<div class="container">
+    <div class="row nothing">
+
+      <section class="col-md-8 pull-right main-content">
+</br></br></br></br>
+        <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2018)</a><br></h>
+        <h2 class="headline">3D Modeling Lab + Firefly</h2>
+
+  <!-- <img src="images/laser-cutting/laser-cutter.png" width="183px" /> <img src="images/laser-cutting/laser-cutter-cutting.png" width="250px" /> -->
+          <br>
+          <hr>
+
+We think the entire tutorial can be done in 60-70 minutes, but if you need longer, deliverable 2 (everything working) is only due next friday in case you get stuck. <br><br>
+
+<h3 span style="color:red">Deliverable: only Task 1 (end of class, Deadline: Oct 5, 2.30pm)</a></h3>
+<a style="color:red" href="https://learning-modules.mit.edu/gradebook/index.html?uuid=/course/6/fa18/6.810#assignments/39432587">
+  Once you finished Task 1 in this tutorial, make a .zip file of your working code and upload it to Gradebook.</a> <br> 
+<br>
+
+<h3 span style="color:red">Deliverable: entire tutorial (Deadline: Oct 12, 1pm)</a></h3>
+<a style="color:red" href="https://learning-modules.mit.edu/gradebook/index.html?uuid=/course/6/fa18/6.810#assignments/39432525">
+  When you are done with the entire tutorial (including Task 2+3), make a .zip file of your working code and upload it to Gradebook.</a> <br> 
+<br>
+
+<h3>Here's what we are building today:</h3><br>
+
+We are going to write a piece of Computer Vision software that extracts the position of the colored squares from each side of a Rubrik's cube and then solves the cube by giving you instructions on how to rotate each row/column.<br><br>
+
+<img src="images/opencv-lab/color-recognition .png" width="483px" /><br><br>
+
+Your job is to write the color-extraction with OpenCV. <br>
+We will give you code for the rest (i.e. the logic for solving the cube).<br>
+
+<h3>Download the code</h3><br>
+
+Start by cloning this<a href="https://github.com/HCIELab/Rubiks-Cube-Solver-OpenCVLab"><font color ='red'> repository</font></a>. Open the rubiks-cube-code directory then navigate to the src folder. Here you will find several python scripts. Here is a general description of each python script.<br><br>
+
+<b style="color:red">qbr.py</b> - This file contains high-level code for running the rubik's solver. You will run this script to test your code.<br>
+<b style="color:red">video.py</b>  - This file is where the computer vision processing happens. You will spend most of your time coding in this file.<br>
+<b style="color:red">colordetection.py</b>  - This file contains code for sampling colors from an image and classifying the colors.<br>
+<b>combiner.py</b> - This file contains a helper function for formatting the color data of the rubiks cube. You won't need to touch this file.<br>
+<b>normalizer.py</b> - This file provides a method for converting the encoded solution output into normal instructions. You won't need to touch this file either.<br>
+
+<h3>Task 1: Getting Acquainted with OpenCV</h3><br>
+Before we get into extracting the colors of the cube for the solver we will learn to use some of the functions provided by OpenCV. 
+The first part of your task is to open the video.py file and initialize the camera (keep reading, we show you how to do it in the next sections).<br><br>
+
+
+<pre><code>'''
+Initialize the camera here
+'''
+cam_port         = # your code here task 1.1
+cam              = #</code></pre><br>
+
+
+Here you will select a camera port and create a camera object with that port. If you are using a laptop, the default camera is port 0 and your external webcam would be port 1 when it is plugged in.<br><br>
+
+
+<pre><code>cam_port         = 0   # I've set my camera port to port zero!</code></pre><br>
+
+
+Now you can create a camera object using the camera port you selected. This will be done with one of OpnCV's built in functions.<br><br>
+
+
+<pre><code>cam         = cv2.VideoCapture(cam_port)   # I've created my camera object!</code></pre><br>
+
+Now we have initialized the camera, but we are not yet reading frames from it. <br>
+To do this, navigate to the first main loop in the scan function of the video.py file.<br><br>
+
+
+<pre><code>while cameratesting:
+    '''
+    Here we want to make sure things are working and learn about how to use some openCV functions
+    Your code here
+    '''
+    #task 1.2 preview a camera window 
+    #task 1.3 draw a rectangle
+    #task 1.4 make a slider
+    #task 1.5 add text
+    #task 1.6 make a mask based on hsv
+    #task 1.7 display the masked image</code></pre><br>
+
+As you can see we will be using this loop to test some OpenCV functions. <br>
+The loop will execute infinitely and thus allows us to grab a new frame from the camera every time we go through it. <br><br>
+
+
+Let us start by creating a window, which we can later use to display frames.<br>
+Since we only need to create the window once, we want to do this *before* the cameratesting loop.<br><br>
+
+<pre><code># before the cameratesting loop
+# Creates a window named 'my_window_name' 
+cv2.namedWindow('my_window_name',0) # the zero makes the window adjustable
+
+# Resizes the window
+cv2.resizeWindow('my_window_name', 600, 600) 
+</code></pre><br>
+
+Now that we have a window, we can read frames from the camera and display them.<br>
+The cvWaitKey(ms) pauses the program for a certain number of ms. You need this line otherwise your computer has no time to catch up and your program will stall.<br><br>
+
+<pre><code>#task 1.2 preview a camera window
+# Read a frame and display it in the window
+
+# Captures a frame of video from the camera object
+_,frame = cam.read()
+
+#################################
+#Add more processing code here
+#################################
+
+# Displays the frame on the window we made
+cv2.imshow('my_window_name', frame)	
+
+# Sets the amount of time to display a frame in milliseconds
+key = cv2.waitKey(10)
+</code></pre><br><br>
+
+To run the code, navigate to your src directory using terminal, or powershell and run the command.<br><br>
+
+
+<pre><code>python ./qbr.py </code></pre><br>
+You should get a window with a camera feed like this.<br><br>
+
+<img src="images/opencv-lab/task-1.2.png" width="483px" /><br><br>
+
+You can quit your program with control+C or right click on the icon in your task bar.<br><br>
+
+Now let's try drawing some rectangles on top of the image. Rectangles can often times be useful for highlighting important objects in a frame or just indicating bounds in a window. Be sure to add the rectangle code *before* you are displaying your window with the command <code>cv2.imshow()</code>. If you draw something with your code after you displayed the window/image nothing will show up.<br><br>
+
+<pre><code>#################################
+#Add more processing code here
+#################################
+
+# Draw rectangle on the frame
+cv2.rectangle(frame, (200,200), (250, 250), (255,0,0), 2) 
+
+# -1 borderwidth is a fill
+cv2.rectangle(frame, (300,200), (350, 250), (0,0,255), -1)
+
+# Note the construction of a rectangle
+# arg1 = frame to draw on
+# arg2 = x,y coordinates of the rectangle's top left corner
+# arg3 = x,y coordinates of the rectangle's bottom right corner
+# arg4 = r,g,b values
+# arg5 = borderwidth  => width of the border or make a fill using -1
+
+# cv2.rectangle(frame, (xtop_left,ytop_left), (xbot_right,ybot_right), (r,g,b), borderwidth)
+</code></pre><br>
+<img src="images/opencv-lab/task-1.3.png" width="483px" /><br><br>
+
+Next we will create sliders. These are particularly good for setting parameters such as the color thresholding values live. We will see how this works later in the lab. Create your slider *before* the camera testing loop, otherwise your code will create a new slider every frame, which we don't want!<br><br>
+
+<pre><code># before the cameratesting loop (same place where you created + resized the window)
+
+# Create a trackbar
+# Note
+# arg1 = track bar name
+# arg2 = window to draw on
+# arg3 = default start value
+# arg4 = max value of range (range is always 0-max)
+# arg5 = a callback function for when the bar changes value (can be an empty function,
+#        but be sure it's defined)
+
+cv2.createTrackbar('My track bar','my_window_name',125,255, empty_callback)
+</code></pre><br><br>
+
+Now inside the loop, we can read the current value of the trackbar.<br><br>
+
+<pre><code>
+# Write this in the camera testing loop to read the values live
+# arg1 = trackbar name
+# arg2 = window to pull trackbar info from
+value = cv2.getTrackbarPos('My track bar','my_window_name')
+print(value)
+
+</code></pre><br>
+<img src="images/opencv-lab/task-1.4.png" width="600px" /><br><br>
+
+Now we are going to start putting things together to do some color filtering. The first step is to convert the current frame from RGB color space to HSV color space. Here is an overview of color spaces and why we are switching to HSV: <br><br>
+
+<h5>Intro to Color Spaces</h5><br>
+RGB and CMYK are the most common color spaces.<br>
+RGB is used for on-screen images, while CMYK is used for printed content.<br><br>
+
+
+<img src="images/opencv-lab/rgb-cmyk.png" width="483px" /><br><br>
+
+
+Your camera image is in RGB.<br>
+Is RGB a good color space for tracking color?<br><br>
+
+<img src="images/opencv-lab/rgb-problem1.png" width="683px" /><br><br>
+
+RGB encodes color in 3 different channels: R, G, and B.<br>
+For instance, the light orange in the image below consists of 227 Red parts mixed with 151 green parts and 83 blue parts.<br><br>
+
+Even just slightly changing the lighting situation in the room, will result in a big mess, i.e. all of these numbers change! <br>
+As you can see below, on a more sunny day, the same object might now be more saturated orange and all the numbers change. <br>
+Thus, it will be very difficult to color track an object (such as the Rubrik cube squares) using RGB color space!<br><br>
+
+<img src="images/opencv-lab/rgb-problem2.png" width="683px" /><br><br>
+
+Now there is another color space called HSV (Hue, Satuation, Value).<br>
+This color space is much more suitable for our needs, since the hue-channel encodes all the different colors in a single channel (see below).<br>
+The saturation channel contains all the different saturated versions of this color and the value channel contains all the different brightness versions of this color.<br>
+<br>
+
+<img src="images/opencv-lab/hsv-color-space2.png" width="483px" /><br><br>
+
+Thus, to track a specific color in HSV, we can simply select the range in Hue (e.g. 60-140 for green), and then include all saturations (0-255) and all values (0-255) of that color.<br> 
+This allows us to track color independent of the current light situation in the room.<br>
+<b>Note that in OpenCV, Hue has a range of (0-179)</b><br><br>
+
+Now let's convert the frame you are reading every round in the loop into an HSV image.<br><br>
+
+<pre><code># Convert frame from RGB to HSV
+# Note
+# arg1 = frame
+# arg2 = colorspace to convert to
+hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV) # generates an hsv version of frame and 
+                                             # stores it in the hsv image variable
+</code></pre><br>
+
+Next make a mask (a mask is an matrix of binary values for every pixel in a frame). The mask will be used to cut out parts of the image. Based on some HSV values.<br><br>
+<pre><code># create a mask
+# Bounds for HSV values we are interested in (Blue)
+lower_hsv = np.array([89,178,51])     #hmin,smin,vmin
+upper_hsv = np.array([118,255,194])   #hmax,smax,vmax
+
+# Note
+# arg1 = hsv image
+# arg2 = lower bound of HSV
+# arg3 = upper bound of HSV
+mask = cv2.inRange(hsv, lower_hsv, upper_hsv) # makes a mask where pixels with hsv in bounds 
+                                              # will be one and pixels with hsv out of bounds
+                                              # will be zero
+</code></pre><br>
+
+Now we will apply the mask to the original frame and display the masked frame. <br>
+<br>
+
+<pre><code># Apply the mask and display
+# Bitwise and the frame with itself and apply the mask
+frame = cv2.bitwise_and(frame,frame, mask= mask)
+</code></pre><br>
+
+Results may vary with the lighting and where you place your code relative to the rectangle code, but it should produce a result similar to this. Make sure you are showing the *blue* side to the camera since we are tresholding/masking for the blue color with lower_hsv and upper_hsv.Feel free to tweak the lower and upper hsv bounds to filter different colors (we will do this in a better way in a minute using the sliders, so don't spend too much time with hard coded hsv values at this point).<br><br>
+<img src="images/opencv-lab/task-1.7.png" width="483px" /><br><br>
+
+Congratulations!! You've been acquainted with OpenCV.
+
+<h3>Code Overview</h3><br>
+<img src="images/opencv-lab/code-overview.png" width="483px" /><br><br>
+Before we move on to the next task here is a quick overview of how the rubik's solver works and what you are implementing. The solver reads in color data from specified locations on the screen (detector stickers). It then classifies the colors based on some calibration parameters and displays what is sees (current stickers).<br><br>
+
+When the user presses the space bar, the face of stickers is recorded and the most recent set that was recorded is displayed (recorded stickers). The orientation of the cube matters during recording, which we will specify later in the tutorial. The order of faces recorded is not important though. Each face is identified by the color of the middle square (no matter how you change the pieces of the cube the middle piece will always have the same color, i.e. side one always has yellow in the middle, side 2 always green etc.). If any recorded data is bad, you can record again by pressing space again and it will simply override what you had recorded for that specific side (again identified by the color of the middle piece).<br><br>
+
+When the user presses "c", the window will change to a calibration mode where each color can be calibrated using trackbars. There is a text indicator of which color is being calibrated and pressing space will cycle through the colors. Once all 6 colors are calibrated, the window will return to the detection mode.<br><br>
+
+You will be drawing the stickers for detecting colors, indicating currently seen colors, and recorded colors. You are also responsible for making the trackbars, and masks for thresholding 
+colors.<br><br>
+
+<h3 span style="color:red">Deliverable: only Task 1 (end of class, Deadline: Oct 5, 2.30pm)</a></h3>
+<a style="color:red" href="https://learning-modules.mit.edu/gradebook/index.html?uuid=/course/6/fa18/6.810#assignments/39432587">
+  Once you finished Task 1 in this tutorial, make a .zip file of your working code and upload it to Gradebook.</a> <br> 
+<br>
+
+
+<h3>Task 2: Draw the Stickers</h3><br>
+<font color='red'>Start by commenting out the code you added outside the camera testing loop for the window and trackbar.</font><br><br>
+
+Navigate to the top of the video.py file and set the <code>cameratesting</code> variable to <code>False</code> (we are now moving on to the real code, i.e. the loop that starts with *while not cameratesting*. Before moving on, make sure the new *while not cameratesting* loop is also (1) reading the current frame, (2) converting it to hsv, and (3) pausing every 10ms to wait for key input (just copy from previous code).<br><br>
+
+<pre><code>while not cameratesting:
+        _, frame = None # your code here
+        hsv = None      # your code here
+        key = None      # your code here 
+</pre></code>
+
+<br><br>
+Now take a look at the three helper functions <code>draw_detector_stickers</code>, <code>draw_current_stickers</code>, and <code>draw_recorded_stickers</code>. As the name implies we will use these functions to draw some stickers on the image to give us some visual feedback.<br><br>
+
+Here's one example for the <code>draw_current_stickers</code> function for reference. The <code>current_stickers</code> variable contains the coordinates of the top left corner of each sticker. Note that the current stickers are squares with side length 32 and are filled with color based on the current colors being detected by the camera.<br><br>
+
+<pre><code>def draw_current_stickers(frame, state):
+    """Draws the 9 current stickers in the frame."""
+    for index,(x,y) in enumerate(current_stickers):
+        cv2.rectangle(frame, (x,y), (x+32, y+32), ColorDetector.name_to_rgb(state[index]), -1)
+        #ColorDetector.name_to_rgb is generating an RGB value in format (R,G,B)
+        #for white, you can use (255,255,255) as argument and (0,0,0) for black
+        #-1 means the sticker is filled, using 0 instead makes it unfilled
+</code></pre><br>
+
+Next you will implement the same thing for the <code>draw_recorded_stickers</code> function. This function should draw the 9 recorded stickers based on the most recent recorded state. Reference the <code>draw_current_stickers</code> function. The <code>recorded_stickers</code> variable contains the coordinates of the top left corner of each sticker. The stickers should be squares filled with side length 32 and color equal to the colors given by state.<br><br>
+
+Finally, implement the <code>draw_detector_stickers</code>, these are physical indicators of where we should hold the cube in front of the camera. This is important because the color detection for each sticker is fixed. The <code>detector_stickers</code> variable contains the coordinates of the top left corner of each sticker. Each detector sticker should be a square with side length 30 and border width 2. The border should be white.<br><br> 
+
+To check verify your code, run <code>qbr.py</code>. You should see the stickers overlaid on your screen similar to this image.<br><br>
+
+
+<img src="images/opencv-lab/task-2.png" width="483px" /><br><br>
+
+
+<h3>Task 3: Add Trackbars and Masking</h3><br>
+Next you will need two trackbars for each H, S, and V (6 trackbars in total).<br>
+We have already given you the two min and max trackbars for H (you can see them on top of the window). <br><br>
+
+<pre><code># create trackbars here
+cv2.createTrackbar('H Upper',"default",defaultcal[color[len(colorcal)]][0][0],179, empty_callback)
+cv2.createTrackbar('H Lower',"default",defaultcal[color[len(colorcal)]][0][1],179, empty_callback)
+
+<font color='red'># Remember that H has a range of 0-179 while S and V have 0-255</font>
+# make four more trackbars for ('S Upper', 'S Lower', 'V Upper', 'V Lower')
+# Please use exactly these trackbar names to make other parts of the code run properly
+</code></pre><br>
+
+Now you have created the trackbars, but you still need to obtain the trackbar values when the user is dragging the sliders. These values are taken by the code and organized into upper and lower bound arrays for masking.<br><br>
+
+<pre><code># hue upper lower
+hu = cv2.getTrackbarPos('H Upper','default')
+hl = cv2.getTrackbarPos('H Lower','default')
+# saturation upper lower
+su = None # yourcode here
+sl = None # yourcode here
+# value upper lower
+vu = None # yourcode here
+vl = None # yourcode here
+</code></pre><br>
+
+ Now for the masking. Note that red and orange have an abnormal thresholding due to their position in the Hue space (approx hue range => 0-7 && 169-179). For this reason you only need to create a mask for the other colors and this is done once here.<br><br>
+
+<pre><code># Task 3
+mask = None # your code here
+res = None # your code here
+</code></pre><br>
+
+To test this code you will run the <code>qbr.py</code> script and press 'c'. This will initiate the calibration state. You should then be able to adjust calibration values using your track bars to filter the color you are calibrating for.<br>
+
+Here are some good calibrations:<br><br>
+<img src="images/opencv-lab/cali-blue.png" width="483px" /><br><br>
+<img src="images/opencv-lab/cali-green.png" width="483px" /><br><br>
+<img src="images/opencv-lab/cali-white.png" width="483px" /><br><br>
+<img src="images/opencv-lab/cali-yellow.png" width="483px" /><br><br>
+<img src="images/opencv-lab/cali-orange.png" width="483px" /><br><br>
+<img src="images/opencv-lab/cali-red.png" width="483px" /><br><br><br>
+
+Here are some bad calibrations:<br><br>
+<img src="images/opencv-lab/cali-blue-bad.png" width="483px" /><br><br>
+<img src="images/opencv-lab/cali-red-bad.png" width="483px" /><br><br>
+
+<h3>Finally: Solve Some Cubes!</h3><br>
+Now that you have all the missing puzzles filled up, let's solve some cubes! <br>
+Navigate to rubiks-cube-code/src folder, run the qbr.py file (via terminal or your preferred python IDEs). If you implemented everthing correctly so far, you should see your laptop camera window pop up with similar UI shown down below. You might want to manually drag and adjust the window size for better fit on screen. 
+<br><br>
+<img src="images/opencv-lab/color-recognition .png" width="483px" /><br><br>
+
+<br>
+As specified above, you should check/set the color calibration threshold first by press 'c'. This will initiate the calibration state. You should then be able to adjust calibration values using your track bars to filter the indicated color written on window. Press space to "set" the current thredshold and move to next color.
+<br><br>
+<img src="images/opencv-lab/cali-orange-highlight.png" width="483px" /><br><br>
+
+<br>
+The pre-defined thresholds for each color should work pretty decent for most of the cases, so you probably don't have to adjust much at this point. Still, go through the color calibration state just in case. It is useful to mention that you can press 'c' any time, while the camera is open, to change a specific color thredshold on the fly. This function can be quite handy when you run into the situation where one color brick does not get recognized on some cube faces. 
+<br>
+After the color calibration state, you can go ahead and scan the cube faces one by one. The six center bricks will be used as each face's identifier, since they don't really move. The order of faces get scanned does not matter, and you can scan as many times as you want. The program will overwrite the old scan when same side is detected. However, the rotation of face does matter when scanning. Below attached is the 2D Rubiks cube graph. For each of the six faces, you should scan the face with its index "1" "2" "3" on the top and put it towards camera. <br>
+[F: green]  [R: red]  [B: blue]  [L: orange]  [U: white]  [D: yellow]
+
+<br><br>
+<img src="images/opencv-lab/cube-rotation.png" width="483px" /><br><br>
+
+<br>
+When the program indicates "scanned sides: 6/6", means all six faces have been recorded at least once. You can then press etc to exit the camera window. If you scan the six faces correctly, the cube solvtion will print out onto concole.
+<br><br>
+<img src="images/opencv-lab/cube-solver-output.png" width="483px" /><br><br>
+
+<br>
+If you somehow scan the six faces incorrectly, or pressed etc before the program records all six faces, a error message will show up on the concole. You will have to run the qbr.py again :(
+
+<br><br>
+<img src="images/opencv-lab/cube-solver-output-error.png" width="483px" /><br><br>
+
+<h4> So... Happy solving folks! </h4><br>
+
+<br>
+
+<h3 span style="color:red">Deliverable: entire tutorial (Deadline: Oct 12, 1pm)</a></h3>
+<a style="color:red" href="https://learning-modules.mit.edu/gradebook/index.html?uuid=/course/6/fa18/6.810#assignments/39432525">
+  When you are done with the entire tutorial (including Task 2+3), make a .zip file of your working code and upload it to Gradebook.</a> <br> 
+<br>
+<br>
+
+
+
+        <br />
+        <br />
+        <br />
+
+<!---
+<h3>Reading a Camera Image</h3><br>
+
+Before we can read the live camera feed, we first have to initialize the camera like this: <br><br>
+
+<code>
+/* Initializing the Camera * /
+camera_port = 0  // your built in camera is typicall 0, any extra camera on USB is 1, 2 etc.<br>
+camera = cv2.VideoCapture(camera_port) // this returns the camera object and opens the video channel<br>
+</code>
+<br><br>
+
+Next, we can read frames from the camera like this:<br>
+
+<code>
+/* Initializing the Camera * /
+read image code<br>
+display image on screen<br>
+add a wait so it doesn't fly<br><br>
+ret, frame = camera.read()<br>
+cv2.namedWindow('image',0)<br>
+cv2.resizeWindow('image',800,600)<br>
+</code>
+<br>
+
+We need to add the wait statement for ~5ms otherwise your computer will stall and not be able to take any key input from you. 
+<code>
+	key = cv2.waitKey(5)
+</code>
+<br><br>
+
+<h3>Doing an Action on Key-Press</h3><br>
+
+It is often useful for debugging to do some action on keypress (e.g. quit the program, save a specific image from the camera).<br><br>
+
+Here is some code to e.g. quit your program on keypress of 'x'.<br><br>
+
+<code>
+/* Doing something on Keypress * /<br>
+if key == 120:<br>
+    &nbsp &nbsp break<br>
+}<br>
+</code>
+
+<h3>Writing Frames to Disk</h3><br>
+
+It is often a good idea to start developing a program on a single frame, aka a still image rather than trying to solve it right away with a live video stream, e.g. a single image in which you hold the rubriks cube into the camera.<br><br>
+
+Expand your code to save a single frame to disk on keypress of 'c' (capture).<br>
+
+<code>
+/* Code for saving an image * /<br>
+/* frame write to disk * /<br>
+if key == 99:<br>
+    &nbsp &nbsp img_name = "opencv_frame.png"<br>
+    &nbsp &nbsp cv2.imwrite(img_name, frame)<br>
+
+</code>
+<br><br>
+
+<h3>RGB, CMYK, and HSV Color Spaces for Color Tracking</h3><br>
+
+RGB and CMYK are the most common color spaces.<br>
+RGB is used for on-screen images, while CMYK is used for printed content.<br><br>
+
+
+<img src="images/opencv-lab/rgb-cmyk.png" width="483px" /><br><br>
+
+
+Your camera image is in RGB.<br>
+Is RGB a good color space for tracking color?<br><br>
+
+<img src="images/opencv-lab/rgb-problem1.png" width="683px" /><br><br>
+
+RGB encodes color in 3 different channels: R, G, and B.<br>
+For instance, the light orange in the image below consists of 227 Red parts mixed with 151 green parts and 83 blue parts.<br><br>
+
+Even just slightly changing the lighting situation in the room, will result in a big mess, i.e. all of these numbers change! <br>
+As you can see below, on a more sunny day, the same object might now be more saturated orange and all the numbers change. <br>
+Thus, it will be very difficult to color track an object (such as the Rubrik cube squares) using RGB color space!<br><br>
+
+<img src="images/opencv-lab/rgb-problem2.png" width="683px" /><br><br>
+
+Now there is another color space called HSV (Hue, Satuation, Value).<br>
+This color space is much more suitable for our needs, since the hue-channel encodes all the different colors in a single channel (see below).<br>
+The saturation channel contains all the different saturated versions of this color and the value channel contains all the different brightness versions of this color.<br>
+<br>
+
+<img src="images/opencv-lab/hsv-color-space2.png" width="483px" /><br><br>
+
+Thus, to track a specific color in HSV, we can simply select the range in Hue (e.g. 60-140 for green), and then include all saturations (0-255) and all values (0-255) of that color.<br> 
+This allows us to track color independent of the current light situation in the room.<br><br>
+
+<code>
+	/* Code to convert your image into HSV color space */<br>
+hsv_image = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)<br>
+</code>
+<br>
+
+If you display this image on your screen (make sure to use the hsv_image variable in the showImage() function), it will probably look super weird because your RGB display cannot display an HSV image (different color space).<br><br>
+
+<img src="images/opencv-lab/hsv-color-space3.png" width="283px" /><br><br>
+
+<h3>Thresholding an Image</h3><br>
+
+Thresholding an image basically means going over every single pixel of an image, then for each pixel in the image the program asks: Is the pixel value above a certain threshold? If the answer is yes, the pixel is colored white, if the answer is no, the pixel is colored black. <br><br>
+
+The same principle applies when you use a range: If the value of the pixel between the lower and upper bounds of the range, then color it white. If it is outside the bounds of the range, color it black.<br><br>
+
+<img src="images/opencv-lab/threshold1.png" width="483px" /><br><br>
+
+Here's the code for this:<br>
+
+<code>
+	*/define lower and upper range, e.g. for color blue*/<br>
+lower_blue = np.array([h_min,s_min,v_min]) // e.g. 100,0,0<br>
+upper_blue = np.array([h_max,s_max,v_max]) // e.g. 140,255,255<br>
+<br>
+*/threshold the image using the lower and upper bounds*/<br>
+threshold_image = cv2.inRange(hsv_image, lower_blue, upper_blue)<br>
+</code>
+<br><br>
+
+Let's start by just searching for one of the Rubrik cube's colors, such as red.<br>
+Once you have this working, you can later extend your code to other colors (but we recommend moving on for now and doing one color end-to-end first.<br><br>
+
+<h3>Adding Sliders for Setting Threshold Values</h3><br>
+
+Rather than hard-coding the values, it is often a good idea to have some sliders to define the lower and upper bounds.<br><br>
+
+Here is how you can add some sliders to set h_min, s_min, v_min, h_max, s_max, v_max:<br><br>
+
+<code>
+	*/adding sliders */<br><br>
+
+	# nothing<br>
+	def nothing():<br>
+    &nbsp &nbsp pass<br><br>
+	cv2.createTrackbar('h','image',25,179,nothing)<br>
+	cv2.createTrackbar('s','image',50,255,nothing)<br>
+	cv2.createTrackbar('v','image',50,255,nothing)<br>
+	cv2.createTrackbar('H','image',35,179,nothing)<br>
+	cv2.createTrackbar('S','image',255,255,nothing)<br>
+	cv2.createTrackbar('V','image',255,255,nothing)<br>
+</code>
+
+<br><br>
+
+<h3>Find Contours</h3><br>
+
+Ok great, now you have a black and white image, but its just a soup of pixels.<br>
+How can we find the contours?<br>
+
+For this, OpenCV offers a handy function:<br>
+
+<code>
+	*/return contours */<br>
+image, contours, hierarchy = cv2.findContours(threshold_image,<br>
+                                       cv2.RETR_TREE,<br>
+                                       cv2.CHAIN_APPROX_SIMPLE)<br>
+</code><br>
+
+In this example, the variable contours will be a list of paths, with each path being a contour found in the thresholded image (i.e. for every white blob).<br>
+
+<img src="images/opencv-lab/contours1.png" width="283px" /><br><br>
+
+Below you can find the arguments of the function explain.<br>
+The cv2.RETR-TREE allows you to find out the hierachy of contours, e.g. is one contour inside some other contour. We don't really need this here since all the rubrik cube squares are right next to each other. However, we could use this function later to cancel out noise (e.g. small contours found inside some larger contour are probably noise).<br><br>
+
+The cv2.Chain_approx_simple allows you to decide how many points for each contour you want. If you do not approximate the contour, the path object will be very large. For our case, getting an approximation is totally sufficient, so we use it here.<br><br>
+
+<img src="images/opencv-lab/contours2.png" width="483px" /><br><br>
+
+<h3>Drawing Contours on an Image</h3><br>
+
+Next, we can draw the returned contours in the image, so we actually see something. <br>
+
+<code>
+	/* iterate over contours*/<br>
+for contour in contours:<br>
+    &nbsp &nbsp cv2.drawContours(frame, contour, -1, (0,255,0), 3) <br>
+</code>
+
+<br><br>
+
+<h3>Filtering Noisy Contours</h3><br>
+
+If you displayed your contours, you probably saw a lot of noise coming up.<br>
+Since we are looking for large square shaped area, we can dismiss contours that are too small.<br><br>
+
+<img src="images/opencv-lab/contours3.png" width="483px" /><br><br>
+
+Since it's hard to guess the area, add a slider to your program that you can use to try different contour sizes for filtering!<br><br>
+
+Once you are done, here's what you should see:<br><br>
+
+<img src="images/opencv-lab/contours4.png" width="283px" /><br><br>
+
+<h3>Fitting a Square around the Contour</h3><br>
+
+The contour is just a path and thus it can have any shape and often has a noisy outline.<br>
+We can fit a square around each contour and then use the square to compute the center point (i.e. location of the square within the image).<br>
+
+<code>
+	/* fitting a square around the contour */<br>
+x,y,w,h = cv2.boundingRect(contour)<br>
+//add line that queries the center<br>
+</code>
+
+<br>
+
+We can now also draw the square into the image and add the coordinates to it:<br>
+
+<code>
+cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),5)<br>
+cv2.putText(frame,textstring,(int(x+50),int(y)), 
+            cv2.FONT_HERSHEY_SIMPLEX, 0.5,(255,255,255),1) <br>
+
+</code>
+
+<br>
+
+This should give you this image:<br><br>
+
+<img src="images/opencv-lab/fitting-square-around-contour.png" width="483px" /><br><br>
+
+<h3>Extend Code to Work with all Colors on the Rubrik Cube</h3><br>
+
+Now extend your code to work with all colors of the Rubrik cube.<br>
+When you are done and you have the position of all squares, fill the position into this array (to come) so the rest of the code can provide you with the solution.<br><br>
+
+<h3>Upload your Code and a Video of yourself solving your Cube to Gradebook</h3><br>
+
+Upload your solution here.<br><br>
+
+
+<br><br>
+
+
+
+
+
+
+        <br />
+        <br />
+        <br />
+    -->
+      </section>
+
+      <aside class="col-md-4 pull-left">
+
+        <!-- Publication -->
+
+        <br><br><br><br><br>
+				<!-- <h4>Computer Vision Steps</h4><br> -->
+		   <!--  <ul>
+		    <li><a href="#step1">Install the Slicing Program (Cura)</a><br /></li>
+		    <li><a href="#step2">Setup the Slicer Cura for the 3D Printer Prusa i3 Mk2</a><br /></li>
+		    <li><a href="#step3">Find a 3D Model</a><br /></li>
+		    <li><a href="#step4">Slice your 3D Model</a><br /></li>
+				<li><a href="#step5">Export your sliced model for 3D Printing</a><br /></li>
+				<li><a href="#step6">Print Your Model</a><br /></li>
+				<li><a href="#step7">Unload Filament</a><br /></li>
+				<li><a href="#step8">Load New Filament</a><br /></li>
+				<li><a href="#step9">Remove your Print from the Build Plate</a><br /></li>
+				<li><a href="#further">Further Reading while Waiting</a><br /></li>
+				</ul> -->
+        <!-- Publication -->
+
+<!-- <h4>Side Bar</h4><br>
+
+    <ul>
+      <li>Prof. Stefanie Mueller (Instructor)</li>
+      <li>Lotta-Gili Blumberg (TA)</li>
+      <li>Xin Wen (UTA)</li>
+      <li>Loren Maggiore (LA)</li>
+      <li>Mark Chounlakone (LA)</li>
+    </ul>
+ -->
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+      </aside>
+
+    </div>
+  </div>
+  </div>
+</section>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 footer" style="text-align: center;">
+			<span class="copyright">
+			Since 2017 &copy; MIT CSAIL (HCI Engineering group) [redesign by
+			<a href="http://punpongsanon.info/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			moji
+			</a>].
+			All Rights Reserved.
+
+			<a href="http://mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/mit.svg" alt="MIT" class="footer-logo" />
+			</a>
+			<a href="http://csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/csail.svg" alt="CSAIL" class="footer-logo"/>
+			</a>
+			<a href="http://hci.csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/hci.svg" alt="HCI" class="footer-logo"/>
+			</a>
+			</span>
+		</div>
+	</div>
+</div>
+
+<!-- Bootstrap -->
+<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+<!-- header -->
+<script type="text/javascript" src="../../js/headerstrap-for-subpage.js"></script>
+
+</body>
+</html>
