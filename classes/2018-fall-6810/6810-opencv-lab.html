@@ -125,19 +125,26 @@ To do this, navigate to the first main loop in the scan function of the video.py
     #task 1.6 make a mask based on hsv
     #task 1.7 display the masked image</code></pre><br>
 
-As you can see we will be be using this loop to test some OpenCV functions. <br>
-The loop will execute infinitely and thus allows us to grab a new frame from the camera every time we go through it. <br>
-Let us start by creating a window and displaying frames in the window.  <br>We will use 3 OpenCV functions to do this.<br><br>
+As you can see we will be using this loop to test some OpenCV functions. <br>
+The loop will execute infinitely and thus allows us to grab a new frame from the camera every time we go through it. <br><br>
 
-<pre><code># Creates a window named 'my_window_name'
-<font color ='red'># Create and resize the window before the camera testing loop 
-cv2.namedWindow('my_window_name',0)	# the zero makes the window adjustable
+
+Let us start by creating a window, which we can later use to display frames.<br>
+Since we only need to create the window once, we want to do this *before* the cameratesting loop.<br><br>
+
+<pre><code># before the cameratesting loop
+# Creates a window named 'my_window_name' 
+cv2.namedWindow('my_window_name',0) # the zero makes the window adjustable
 
 # Resizes the window
-cv2.resizeWindow('my_window_name', 600, 600) </font>
+cv2.resizeWindow('my_window_name', 600, 600) 
+</code></pre><br>
 
-# Sets the amount of time to display a frame in milliseconds
-key = cv2.waitKey(10)
+Now that we have a window, we can read frames from the camera and display them.<br>
+The cvWaitKey(ms) pauses the program for a certain number of ms. You need this line otherwise your computer has no time to catch up and your program will stall.<br><br>
+
+<pre><code>#task 1.2 preview a camera window
+# Read a frame and display it in the window
 
 # Captures a frame of video from the camera object
 _,frame = cam.read()
@@ -149,7 +156,9 @@ _,frame = cam.read()
 # Displays the frame on the window we made
 cv2.imshow('my_window_name', frame)	
 
-</code></pre><br>
+# Sets the amount of time to display a frame in milliseconds
+key = cv2.waitKey(10)
+</code></pre><br><br>
 
 To run the code, navigate to your src directory using terminal, or powershell and run the command.<br><br>
 
