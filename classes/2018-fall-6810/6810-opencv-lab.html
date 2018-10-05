@@ -349,13 +349,14 @@ To check verify your code, run <code>qbr.py</code>. You should see the stickers 
 
 
 <h3>Task 3: Add Trackbars and Masking</h3><br>
-There should be a upper and lower bound trackbar for H, S, and V. The Hue trackbars are given to you. <br><br>
+Next you will need two trackbars for each H, S, and V (6 trackbars in total).<br>
+We have already given you the two min and max trackbars for H (you can see them on top of the window). <br><br>
 
 <pre><code># create trackbars here
     cv2.createTrackbar('H Upper',"default",defaultcal[color[len(colorcal)]][0][0],179, empty_callback)
     cv2.createTrackbar('H Lower',"default",defaultcal[color[len(colorcal)]][0][1],179, empty_callback)
 
-    <font color='red'># Remember that the range for S and V are not 0 to 179</font>
+    <font color='red'># Remember that H has a range of 0-179 while S and V have 0-255</font>
     # make four more trackbars for ('S Upper', 'S Lower', 'V Upper', 'V Lower')
     # Note you should use these trackbar names to make other parts of the code run properly
 </code></pre><br>
