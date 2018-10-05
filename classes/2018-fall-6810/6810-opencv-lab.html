@@ -109,7 +109,8 @@ Now you can create a camera object using the camera port you selected. This will
 
 <pre><code>cam         = cv2.VideoCapture(cam_port)   # I've created my camera object!</code></pre><br>
 
-Next, navigate to the first main loop in the scan function of the video.py file.<br><br>
+Now we have initialized the camera, but we are not yet reading frames from it. <br>
+To do this, navigate to the first main loop in the scan function of the video.py file.<br><br>
 
 
 <pre><code>while cameratesting:
@@ -124,7 +125,9 @@ Next, navigate to the first main loop in the scan function of the video.py file.
     #task 1.6 make a mask based on hsv
     #task 1.7 display the masked image</code></pre><br>
 
-As you can see we will be be using this loop to test some OpenCV functions. Let us start by creating a window and displaying frames in the window. We will use 3 OpenCV functions to do this.<br><br>
+As you can see we will be be using this loop to test some OpenCV functions. <br>
+The loop will execute infinitely and thus allows us to grab a new frame from the camera every time we go through it. <br>
+Let us start by creating a window and displaying frames in the window.  <br>We will use 3 OpenCV functions to do this.<br><br>
 
 <pre><code># Creates a window named 'my_window_name'
 <font color ='red'># Create and resize the window before the camera testing loop 
