@@ -59,7 +59,7 @@ We think the entire tutorial can be done in 60-70 minutes, but if you need longe
 
 <h3 span style="color:red">Upload 1 (end of class, Deadline: Oct 5, 2.30pm)</a></h3>
 <a style="color:black" href="https://learning-modules.mit.edu/gradebook/index.html?uuid=/course/6/fa18/6.810#assignments/39432587">
-  Once you complete Task 2 in this tutorial, make a (i) video of the sphere changing color based on wind sensor, and add (ii) .gh file of your grasshopper visual code along with (iii) screenshots of your script to Gradebook 
+  Once you complete Task 1 in this tutorial, take screenshots of your your 3D candle and upload it to Gradebook 
 </a> <br> 
 <br>
 
@@ -68,7 +68,7 @@ Add video <br>
 
 <h3 span style="color:red">Upload 2 (end of class, Deadline: Oct 18, 2.30pm)</a></h3>
 <a style="color:black" href="https://learning-modules.mit.edu/gradebook/index.html?uuid=/course/6/fa18/6.810#assignments/39432587">
-  Once you complete Task 2 in this tutorial, make a (i) video of the virtual candle changing flame based on wind sensor, and add (ii) .gh file of your grasshopper visual code along with (iii) screenshots of your script to Gradebook</a> <br> 
+  Once you complete Task 2 in this tutorial, make a (i) video of the parametric candle (ii) .gh file of your grasshopper visual code along with (iii) screenshots of your script to Gradebook</a> <br> 
 <br>
 
 Add image <br>
@@ -76,44 +76,32 @@ Add video <br>
 
 <h3 span style="color:red">Upload 3 (Deadline: Oct 24, 1 pm)</a></h3>
 <a style="color:black" href="https://learning-modules.mit.edu/gradebook/index.html?uuid=/course/6/fa18/6.810#assignments/39432525">
-  When you are done with the entire tutorial (including Task 2 to 5), make a .zip file of your working code and upload it to Gradebook.</a> <br> 
+  Once you complete Task 3,4 and 5 in this tutorial, make a (i) video of the virtual parametric candle changing flame based on wind sensor, and add (ii) .gh file of your grasshopper visual code along with (iii) final .STL file of your exported 3D model and (iv) screenshots of your script to Gradebook</a> <br> 
 <br>
 
 Add image <br>
 Add video <br>
 
-<h3>Goal:</h3><br>
+<h3>Goal:</h3>
+We will learn to interface between digital 3D modeling environments and physical interfaces. We are going to connect the arduino wind sensor+led circuit (that you built in first lab) with digital 3D modeling software Rhino3D  and its plugins (Grasshopper and Firefly). 
 
-We are going to connect the arduino wind sensor+led circuit (that you built in first lab) with digital 3D modeling software Rhino3D  and its plugins (Grasshopper and Firefly). We will learn to interface between digital 3D modeling environments and physical interfaces. <br>
-
-There are many advantages of the digital-physical interfacing. It allows us to combine the benefits of virtual design environments with real world data and vice versa. <br>
-
-(Note: There a multiple links throughput this lab and at the end to useful tutorials for learning more of 3D parametric modeling.)
-
-<br><br>
-
-
-
-<h3>Here's what we will design and build today:</h3><br>
-
+There are many advantages of the digital-physical interfacing:
 <ul>
-  <li>Task 1: First familiarize yourself with Rhino3D, Grasshopper plugin and Firefly plugin and setup the interfacing with arduino</li>
-  <li>Task 2: Write a visual script to control the color of sphere in 3D using the wind sensor using Grasshopper and Firefly</li>
-  <li>Task 3: Design a parametric candle (that can change height and diameter and flame size). Then contro lthe flame of the digital candle using the wind sensor (so when your LED turns off, even the virtual flame turns off)</li>
-  <li>Task 4: Change the parameters of the candle design and export STL file for 3D printing</li>
-  <li>Task 5 (Optional): Download a candle model from free open source CAD database and control that digital candle using wind sensor</li>
-  
+  <li> Real-world sensor data can be used for controling 3D models in virtual world
+  <li> Virtual models can be used to control or actuate physical interfaces in real world    
 </ul>
 <br>
 
+(Note: There are multiple resources listed at the end of this tutorial for more information on 3D parametric modeling using Rhino, Grasshopper and other plugins.)
+
+<br><br>
 
 <span style="color:red">
   Before we start, check if you have all your components of your original wind sensor + LED circuit work correctly. 
   </span><br>
 
 Now let's forget the circuit for a bit and dive into the digital world.<br> 
-<h3>Background:</h3><br>
-
+<h3>Background:</h3>
  While there are multiple 3D modeling software available (like Solidworks, OnShape, AutoCAD, Sketchup), we will be using Rhino3D for our lab. It is very easy to learn, intuitive to use and has over 100 plugins (together called Rhino-zoo! ). The applications vary from architecture design, to FEM analysis, to Neural networks for design optimization etc. In particular, the popularity of Rhino3D stems from the plugin called grasshopper which allows for parametric visual programming (as youwill learn today). We will also be using Firefly (which is a plugin for grasshopper) which allows the parameters of design to be controlled by arduino inputs/outputs. <br><br>
 
 In short, we use:<br>
@@ -122,26 +110,44 @@ In short, we use:<br>
   <li><a href="https://www.grasshopper3d.com/">Grasshopper </a>: for parametric 3D modeling <gif>
     <li><a href="http://www.fireflyexperiments.com/">Firefly </a>: for interfacing with arduino input/outputs <gif/movie>
 </ul><br>
-<img src="images/3dmodeling/Capture.PNG" width="750px" /><br><br>
+<img src="images/3dmodeling/rhino-gh.png" width="750px" /><br><br>
 
-<h3>Task 1: Familiarizing with Rhino+Grasshopper+Firefly and Setting up the Arduino communication port</h3><br>
 
-#1 Rhino3D: 
-If all the plugin installations are setup properly  on your computer, you should be able to open Rhino. It opens 4 viewports and looks like any typical CAD software. 
+<h3>Here's what we will design and build today:</h3>
+
 <ul>
-  <li>Set units of your file (inches?)
-    <li>Type “units” in the command line and then select the units you want to work with
-    <li>3D model the candle base
-    <li>3D model the flame
+  <li>Task 1: First familiarize yourself with Rhino3D and 3D model a candle</li>
+  <li>Task 2: Familiarize with Grasshopper plugin and design a parametric candle (that can change height and diameter and flame size).
+  <li>Task 3: Interface with Firely plugin and control the flame of the parametic candle using the wind sensor (so when your LED turns off, even the virtual flame turns off)
+  <li>Task 4: Change the parameters of the candle design and export STL file for 3D printing</li>
+  <li>Task 5: (Optional): Download a candle model from free open source CAD database and control that digital candle using wind sensor</li>
+
+</ul>
+<br>
+
+<h3>Task 1: Familiarizing with Rhino3D and modeling candle</h3><br>
+If all the plugin installations are setup properly  on your computer, you should be able to open Rhino. It opens 4 viewports and looks like any typical CAD software. We will 3D model a simple candle to familiarize with the interface.
+<ul>
+    <li>Set units of your file to inches or centimeters or millimeters. Type “units” in the command line and then select the units you want to work with
+    <li>Make all your viewports to "ghosted" or "shaded"
+    <li>3D model the candle base: Refer the video for 3D modeling of the candle base. The commands we will use are : circle, extrusion, cap
+    <li>3D model the flame: Commands to use are : eliipse, line, revolve
+    <li>Note: You can either model using commands in the command window (top white bar) or using the toolbars on left
 </ul>
 <br><br>
 
-#2 Grasshopper(gh): 
-Then type “grasshopper” in the command line and it will open a new window. This new window is your visual programming environment - like a visual script. If you create a 3D model (lets say a sphere, the 3D model will show up in Rhino window, but you will be able to manipulate it realtime through grasshopper, as we will see in next steps. <br><br>
+Now that you have the candle modelled, we will use some transformations to change the shape of the candle using: Scale, Scale1D, Scale2D and also change the color properties. <span style="color: red"> Once you have modeled the candle, save the file from File -> SaveAs and upload it to your gradebook with screenshots </span><br><br>
+
+<video width="750"  controls>
+  <source src="images/3dmodeling/candle3Dmodeling2.mp4" type="video/mp4"></video>
+ <br><br>
+
+<h3>Task 2: Familiarizing with Grasshopper and modeling "parametric" candle</h3><br>
+Open a new file and type “grasshopper” in the command line and it will open a new window. This new window is your visual programming environment - like a visual script. If you create a 3D model (lets say a sphere, the 3D model will show up in Rhino window, but you will be able to manipulate it realtime through grasshopper, as we will see in next steps. <br><br>
 
 You also have sliders and sequence generators that you can use to control parameters (hence the name “parametric” design) <br><br>
 
-Let's try a simple addition script <br><br>
+Let's try a simple addition script, first with discrete numbers and then with sliders <br><br>
 
 <video width="750"  controls>
   <source src="images/3dmodeling/addition_gh.mp4" type="video/mp4"></video>
