@@ -57,30 +57,30 @@
 
 We think the entire tutorial can be done in 60-70 minutes, but if you need longer, upload 3 is only due next friday in case you get stuck. <br><br>
 
-<h3 span style="color:red">Upload 1 (end of class, Deadline: Oct 5, 2.30pm)</a></h3>
+<h3 span style="color:red">Upload 1 (end of class, Deadline: Oct 19, 2.30pm)</a></h3>
 <a style="color:black" href="https://learning-modules.mit.edu/gradebook/index.html?uuid=/course/6/fa18/6.810#assignments/39432587">
   Once you complete Task 1 in this tutorial, take screenshots of your your 3D candle and upload it to Gradebook 
 </a> <br> 
 <br>
 
-Add image <br>
-Add video <br>
+<img src="images/3dmodeling/upload_1.png" width="360px" /><br><br>
 
-<h3 span style="color:red">Upload 2 (end of class, Deadline: Oct 18, 2.30pm)</a></h3>
+
+<h3 span style="color:red">Upload 2 (end of class, Deadline: Oct 19, 2.30pm)</a></h3>
 <a style="color:black" href="https://learning-modules.mit.edu/gradebook/index.html?uuid=/course/6/fa18/6.810#assignments/39432587">
   Once you complete Task 2 in this tutorial, make a (i) video of the parametric candle (ii) .gh file of your grasshopper visual code along with (iii) screenshots of your script to Gradebook</a> <br> 
 <br>
 
-Add image <br>
-Add video <br>
+<img src="images/3dmodeling/upload_2.png" width="360px" /> <br>
+<video width="360"  controls><source src="images/3dmodeling/upload_2.mp4" type="video/mp4"></video><br><br>
+
 
 <h3 span style="color:red">Upload 3 (Deadline: Oct 24, 1 pm)</a></h3>
 <a style="color:black" href="https://learning-modules.mit.edu/gradebook/index.html?uuid=/course/6/fa18/6.810#assignments/39432525">
   Once you complete Task 3,4 and 5 in this tutorial, make a (i) video of the virtual parametric candle changing flame based on wind sensor, and add (ii) .gh file of your grasshopper visual code along with (iii) final .STL file of your exported 3D model and (iv) screenshots of your script to Gradebook</a> <br> 
 <br>
 
-Add image <br>
-Add video <br>
+<img src="images/3dmodeling/upload_3.png" width="640px" /><br><br>
 
 <h3>Goal:</h3>
 We will learn to interface between digital 3D modeling environments and physical interfaces. We are going to connect the arduino wind sensor+led circuit (that you built in first lab) with digital 3D modeling software Rhino3D  and its plugins (Grasshopper and Firefly). 
@@ -125,7 +125,7 @@ In short, we use:<br>
 </ul>
 <br>
 
-<h3>Task 1: Familiarizing with Rhino3D and modeling candle</h3><br>
+<h3>Task 1: Familiarizing with Rhino3D and modeling candle (10-15 minutes) </h3><br>
 If all the plugin installations are setup properly  on your computer, you should be able to open Rhino. It opens 4 viewports and looks like any typical CAD software. We will 3D model a simple candle to familiarize with the interface.
 <ul>
     <li>Set units of your file to inches or centimeters or millimeters. Type “units” in the command line and then select the units you want to work with
@@ -136,13 +136,13 @@ If all the plugin installations are setup properly  on your computer, you should
 </ul>
 <br><br>
 
-Now that you have the candle modelled, we will use some transformations to change the shape of the candle using: Scale, Scale1D, Scale2D and also change the color properties. <span style="color: red"> Once you have modeled the candle, save the file from File -> SaveAs and upload it to your gradebook with screenshots </span><br><br>
+Now that you have the candle modelled, we will use some transformations to change the shape of the candle using: Scale, Scale1D, Scale2D and also change the color properties. <span style="color: red"> Upload 1: Once you have modeled the candle, save the file from File -> SaveAs and upload it to your gradebook with screenshots </span><br><br>
 
 <video width="750"  controls>
   <source src="images/3dmodeling/candle3Dmodeling2.mp4" type="video/mp4"></video>
  <br><br>
 
-<h3>Task 2: Familiarizing with Grasshopper and modeling "parametric" candle</h3><br>
+<h3>Task 2: Familiarizing with Grasshopper and modeling "parametric" candle (15-20 minutes) </h3><br>
 Open a new file and type “grasshopper” in the command line and it will open a new window. This new window is your visual programming environment - like a visual script. If you create a 3D model (lets say a sphere, the 3D model will show up in Rhino window, but you will be able to manipulate it realtime through grasshopper, as we will see in next steps. <br><br>
 
 You also have sliders and sequence generators that you can use to control parameters (hence the name “parametric” design) <br><br>
@@ -150,81 +150,99 @@ You also have sliders and sequence generators that you can use to control parame
 Let's try a simple addition script, first with discrete numbers and then with sliders <br><br>
 
 <video width="750"  controls>
-  <source src="images/3dmodeling/addition_gh.mp4" type="video/mp4"></video>
+  <source src="images/3dmodeling/addition.mp4" type="video/mp4"></video>
     <br><br>
 
 Now you can use the output of the addition as the input parameter for 3D sphere 
 <br><br>
 
-#3 Firefly:
-Before we start controlling our arduino board with Firefly, we need to first upload a arduino script that will allow this communication. So, open your arduino IDE, and download this <a href="https://drive.google.com/open?id=1rniLeJybBRAkoNDu_tWF_Ia5wzupVhQR ">firefly firmata</a> and click compile and upload. <span style="color: red"> Make sure you update your board to Arduino Nano and your port to the right COM port before uploading. </span>
+<video width="750"  controls>
+  <source src="images/3dmodeling/sphere.mp4" type="video/mp4"></video>
+    <br><br>
+
+Now that we know how to make parametric forms, we will make a parametric candle. You can start with a new grasshopper file. We will follow the same design steps that we did for Rhino3D candle, except this time through grasshopper. First, lets start with the candle base. <br><br>
+
+<video width="750"  controls>
+  <source src="images/3dmodeling/candlebase.mp4" type="video/mp4"></video>
+    <br><br>
+
+Next, we will make the candle flame. This part is a little tricky because the location of the flame depends on the top of the candle (which keeps changing). So, we will have tofirst locate the centre of the top of the candle face and then add the vertical ellipsoidal geometry. Once we have modeled this, we will change the color, scale and other properties of the flame. <br><br>
+
+<video width="750"  controls>
+  <source src="images/3dmodeling/candleflame.mp4" type="video/mp4"></video>
+    <br><br>
+
+<span style="color: red"> Upload 2: Once you have modeled the parametric candle, save the file and upload it to your gradebook along with short video and screenshots </span><br><br>
+
+
+<h3>Task 3: Interfacing Arduino with Firefly and controlling the parametric with wind sensor (20-30 minutes) </h3><br>
+Now we will start the most fun part. But before we start controlling our arduino board with Firefly, we need to first upload a arduino script that will allow this communication. Follow the next steps carefully to avoid debugging errors. <br><br>
+
+<li> Step 1: Open your arduino IDE, and download this <a href="https://drive.google.com/open?id=1rniLeJybBRAkoNDu_tWF_Ia5wzupVhQR ">firefly firmata</a> and click compile and upload. <span style="color: blue"> Make sure you update your board to Arduino Nano and your port to the right COM port before uploading. </span>
 <br><br>
 <img src="images/3dmodeling/firmata.png" width="750px" /><br><br>
 
-Close arduino (imp) → otherwise your port will be busy communicating with arduino and Firefly will not be able to get/send data to microcontroller. 
+<li> Step 2: <span style="color: blue"> IMP: Close arduino </span> otherwise your port will be busy communicating with Arduino and Firefly will not be able to get/send data to microcontroller board. 
 <br><br>
 
-Check if the communication is established with Firefly by going back to Rhino/GH and clicking on the firefly toolbar in gh. Open port → select com port → and then toggle true. If it says “Hooray, the …” then you have successfully established connection. 
+<li> Step 3: Go back to Rhino/Grasshopper and go to Firefly toolbar and establish the connection with arduino. Check open ports → Open port → select COM port → match your BaudRate (same as in arduino IDE) → and then toggle true. If it says “Hooray, the …” then you have successfully established connection. Now toggle “False”. <span style="color: blue"> Always remember to stop communication with firefly when switching to arduino and vice versa. </span>
 <br><br>
 
-Now toggle “false” (always remember to stop communication with firefly when switching to arduino and vice versa)
+<video width="750"  controls>
+  <source src="images/3dmodeling/firefly_port.mp4" type="video/mp4"></video>
+    <br><br>
+
+<li> Step 4: While you can write up the exact same script you wrote last week in firefly and upload through Firefly, for now we will use Arduino itself. So open Arduino IDE again, and upload this new <a href="https://drive.google.com/open?id=1mjwfMtOLz1Uvy664z-PxxCRZMGCzQm4c ">candlescript</a>. Note: This script is same as before, except for one change. We will also print 0/1 based on whether the LED is on or off. We will be printing in serialport (not serial monitor). This will allow us to read the values 0/1 in Firefly and we can use it for changing 3D model parametrically (Flame will be yellow if printed value is 1 and disappear if printed value is 0). Once you upload it, open the serial plotter and check if the values are being plotted (switch on and blow of your led a couple of times)
 <br><br>
 
-#4 Arduino: 
-While you can write up the exact same script you wrote last week in firefly and upload through firefly, for now we will use arduino itself. So open arduino again, and upload this new script candlescript. This script is same as before except for one change. We will also print 0/1 based on whether the LED is on or off. We will be printing in serialport (not serial monitor). This will allow us to read the values 0/1 in firefly and we can use it for changing 3D model parametrically (as we did in the addition part). Once you upload it, open the serial plotter and check if the values are being plotted (switch on and blow of your led a couple of times)
+<li> Step 5: Now close arduino (to stop communication with port). Go back to Firefly.
 <br><br>
 
-Now close arduino (to stop communication with port). 
+<li> Step 6: Select SerialRead (this component can read the data from serial plotter). Check whether the same values of 0/1 are being printed in Firefly as you light/blowoff off the candle using the wind-sensor. If the values are printing, you are now ready to use these values to change the color of the fame or the flame radius. For color change, we will make a list of two colors (0)-white and (1)-yellow. If the plotter prints 0, the color chosen from the list will be (0)-white and if the plotter prints 1, the color chosen will be (1)-yellow. For radius change, we will replace the radius slider with the values coming from serial plotter in the same way by making a list of two integers. Note: this video doesn't capture when the LED switches on and off on the microcontroller. 
+
 <br><br>
 
-Go back to Firefly.
+<video width="750"  controls>
+  <source src="images/3dmodeling/firefly_candle.mp4" type="video/mp4"></video>
 <br><br>
 
-<h3> Task 2. Changing color of the sphere through arduino wind sensor input </h3>
-Now you will test if the values that were being printed in serial port are being read by firefly.
-<br><br>
+Step 7: Now you can change any parameter of the candle based on input from the serial plotter such as radius of the candle, height, color, etc. Play around a little and make your own versions of candle adapting to the wind sensor.
 
 <span style="color:red">
-Upload1. Video of color changing of the sphere </span><br>
-Optional (you can also change the size of the sphere using the input from the wind sensor)<br>
+Upload 3. Video of the color and flame going on/off based on input from wind sensor </span><br>
+Optional (you can also change the size/scale of the candle using the input from the wind sensor)<br>
 
-<h3> Task 3. Modeling a parametric candle and controlling the flame using wind sensor </h3>
-visual script
-<span style="color:red">
-Upload 2. Video of the color and flame going on/off based on input from wind sensor </span><br>
+<h3>Task 4: Exporting .STL file from Grasshopper/Rhino3D.</h3>
+Because grasshopper is only simulating the visualization, your model doesn't truly exist in the Rhino UI until you "bake" a version you want permanent. Here is how you bake a certain version of the model and export it into .STL file for 3D printing. To bake a component from grasshopper, you Right click onthe component in gh and click "Bake" and select the layer you want the geometry to be baked in. For exporting the .STL file, go to Rhino, now select the geometry you want to export, go to File --> Export Selected.
 
-<h3>Task 4. Parametric candle → export baking/stl file </h3>
+
+
+
+<video width="750"  controls>
+  <source src="images/3dmodeling/Rhino-gh-export.mp4" type="video/mp4"></video>
+<br><br>
 <span style="color:red">
-(Upload?)
+ Upload 4: Export your desired version of the parametric candle in .STL format and upload in the gradebook.
 </span><br>
 
-<h3>Task 5. <span style="color:blue">(Optional) </span> Download a model from thingiverse and now control that using wind sensor </h3>
-<span style="color:red">
-(Upload?)
+<h3>Task 5: <span style="color:blue">(Optional) </span>  Modifying 3D models from online sources </h3>
+You can also modify existing 3D models in grasshopper to suit your preferences. Download a model from thingiverse or any other source, and change it in grasshopper and make a version you would want to 3D print. (Hint: to modify an exsiting geometry through gh, you can reference it by selecting "Geometry" --> Right click --> "Select One Geometry" --> Clock on the geometry in the Rhino UI)
+<span style="color:red"> <br><br>
+
+Upload 5: Upload a new version of candle. 
 </span><br>
 
 
+    <br><br>
 
+ 
+Additional Resources for learning Rhino3D, Grasshopper and other plugins of the Rhino zoo. <br>
 
-
-
-
-
-
-    <br><br><br><br>
-
-    ----------------------------------------------------------------------------------------------------------------------------<br>
-Firefly offers a set of comprehensive software tools dedicated to bridging the gap between Grasshopper (a free plug-in for Rhino) and the Arduino micro-controller. It allows near real-time data flow between the digital and physical worlds – enabling the possibility to explore virtual and physical prototypes with unprecedented fluidity.<br><br>
-
-A notable distinction for Firefly is that it is the first visual microcontroller programming environment designed specifically for a 3-D parametric CAD package (such as Rhino). This feature means that real-world data, acquired from various types of sensors or other input devices (video cameras, internet feeds, or mobile phone devices, etc.) can be used to explicitly define parametric relationships within a Grasshopper model. <br><br>
-
-In order to begin working with Firefly, we’ll first need to program the Arduino to set up all of the pins so that they can communicate back and forth with Grasshopper. Fortunately, we’ve already taken care of all the dirty work, so you don’t have to worry about a thing. First, copy/paste the three sub-folders from within the Arduino Code (from the zip file you downloaded) into your Arduino Sketchbook folder which is usually found in one of two places on your hardrive: <br><br>
-
-----------------------------------------------------------------------------------------------------------------------------<br>
-Resources
-
-
-
+<li><a href="https://www.youtube.com/watch?v=yPgMccdh8QU ">Rhino Tutorials</a>
+<li><a href="https://www.grasshopper3d.com/page/tutorials-1 ">Grasshopper Resources</a>
+<li><a href="https://www.youtube.com/watch?v=2bAyWdHPXas ">Grasshopper Tutorials</a>
+<li><a href="http://www.fireflyexperiments.com/resources/ ">Firefly examples</a>
+<li><a href="https://www.food4rhino.com/ ">Food4Rhino / Rhino Zoo</a>
 
 
 
