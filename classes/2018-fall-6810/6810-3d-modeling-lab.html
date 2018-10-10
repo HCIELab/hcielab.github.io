@@ -55,6 +55,8 @@
           <br>
           <hr>
 
+<span style="color:gray">Rhino, Grasshopper and Firefly installation instructions for Windows PC are at the bottom of this tutorial. While Rhino and Grasshopper versions are available for Mac, Firefly plugin is not. If you wish to install these programs on your personal laptops, follow the instructions provided at the bottom. You will also need to have installed Arduino IDE for this tutorial. </span> <br><br>
+
 We think the entire tutorial can be done in 60-70 minutes, but if you need longer, upload 3 is only due next friday in case you get stuck. <br><br>
 
 <h3 span style="color:red">Upload 1 (end of class, Deadline: Oct 19, 2.30pm)</a></h3>
@@ -133,7 +135,11 @@ If all the plugin installations are setup properly  on your computer, you should
     <li>3D model the candle base: Refer the video for 3D modeling of the candle base. The commands we will use are : circle, extrusion, cap
     <li>3D model the flame: Commands to use are : eliipse, line, revolve
     <li>Note: You can either model using commands in the command window (top white bar) or using the toolbars on left
-</ul>
+    <li>Rhino3D UI tips: 
+    	<ul><li>Switch "Osnap" ON at the bottom toolbar and make sure the box for "Center" is checked. This will help you snap on the center of the circle while 3D modeling.
+    		<li>Zoom in and zoom out is using scroll of mouse. Pan is by pressing the center mouse button.
+    		<li>You can maximize a viewport by double clocking on the viewport name
+		</ul>
 <br><br>
 
 Now that you have the candle modelled, we will use some transformations to change the shape of the candle using: Scale, Scale1D, Scale2D and also change the color properties. <span style="color: red"> Upload 1: Once you have modeled the candle, save the file from File -> SaveAs and upload it to your gradebook with screenshots </span><br><br>
@@ -148,6 +154,13 @@ Open a new file and type “grasshopper” in the command line and it will open 
 You also have sliders and sequence generators that you can use to control parameters (hence the name “parametric” design) <br><br>
 
 Let's try a simple addition script, first with discrete numbers and then with sliders <br><br>
+
+<li>GH UI tips: 
+    	<ul><li>If you double click on the canvas, you can search a component by typing 
+    		<li>The preview of grasshopper can be switched on and off by clicking the center button on mouse and clicking the "preview off" icon
+    		<li>YOu can enable/disable a component execution by clicking the center button on mouse and clicking the "enable/disable" icon
+    	</ul>
+    	<br><br>
 
 <video width="750"  controls>
   <source src="images/3dmodeling/addition.mp4" type="video/mp4"></video>
@@ -185,7 +198,7 @@ Now we will start the most fun part. But before we start controlling our arduino
 <li> Step 2: <span style="color: blue"> IMP: Close arduino </span> otherwise your port will be busy communicating with Arduino and Firefly will not be able to get/send data to microcontroller board. 
 <br><br>
 
-<li> Step 3: Go back to Rhino/Grasshopper and go to Firefly toolbar and establish the connection with arduino. Check open ports → Open port → select COM port → match your BaudRate (same as in arduino IDE) → and then toggle true. If it says “Hooray, the …” then you have successfully established connection. Now toggle “False”. <span style="color: blue"> Always remember to stop communication with firefly when switching to arduino and vice versa. </span>
+<li> Step 3: Go back to Rhino/Grasshopper and go to Firefly toolbar and establish the connection with arduino. Check open ports → Open port → select COM port → match your BaudRate (same as in arduino IDE) → and then toggle true. If it says “Hooray, the …” then you have successfully established connection. If you have more than one port displayed, you can select the one that matches your arduino IDE from the list by using "list item" component and then selecting the index(i) of the COM port you want from the list. Now toggle “False”. <span style="color: blue"> Always remember to stop communication with firefly when switching to arduino and vice versa. </span>
 <br><br>
 
 <video width="750"  controls>
@@ -231,9 +244,20 @@ You can also modify existing 3D models in grasshopper to suit your preferences. 
 
 Upload 5: Upload a new version of candle. 
 </span><br>
+----------------------------------------------------------------------------------------------------------------
+
+<br><br>
+
+ 
+Installation Instructions for Windows:
+<li>Download Rhino 6 from <a href = "" >Rhino3D website.</a> A 90 trial version will also work.</li>
+<li>Once installed, open Rhino3D and type "Grasshopper" in the command window (top white bar). Check if it opens correctly</li>
+<li>In Grasshopper, got to File --> Special Folders --> Components Folder</li>
+<li>Copy all the files from <a href="https://drive.google.com/drive/folders/18DNAEIJhMYDjQKurP7WTbm7VIxo1UHc6?usp=drive_open">this location</a> into the Components Folder (These are Firefly installation files)</li>
+<li>Restart Rhino, reopen Grasshopper and a new toolbar called Firefly should appear in Grasshopper </li>
 
 
-    <br><br>
+ <br>
 
  
 Additional Resources for learning Rhino3D, Grasshopper and other plugins of the Rhino zoo. <br>
