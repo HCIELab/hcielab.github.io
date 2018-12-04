@@ -72,20 +72,20 @@
 		Towards Shape Exploration in Interactive Fabrication.
 		</h3>
 		</br>
-		<img src="images/runner.jpg" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/fig1-formfab.png" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
 		</br>
 		<b>
-		Figure 1. Our MoSculp system transforms a video (a) into a motion sculpture, i.e., the 3D path traced by the human while moving through space. Our motion sculptures can be virtually inserted back into the original video (b), rendered in a synthetic scene (c), and physically 3D printed (d). Users can interactively customize their design, e.g., by changing the sculpture material and lighting.
+		Figure 1. (a) FormFab changes the workpiece while the user is interacting with it. First, a heat-gun warms up the workpiece. Once the material has become compliant, (b) the user’s hand gesture interactively controls a pneumatic system that applies pressure or vacuum, pushing the material outwards or pulling it inwards.  
 		</b> 
 		</br>
 		</br>
-		We present a system that visualizes complex human motion via 3D motion sculptures—a representation that conveys the 3D structure swept by a human body as it moves through space. Our system computes a motion sculpture from an input video, and then embeds it back into the scene in a 3D-aware fashion. The user may also explore the sculpture directly in 3D or physically print it. Our interactive interface allows users to customize the sculpture design, for example, by selecting materials and lighting conditions.
+		Several systems have illustrated the concept of interactive fabrication, i.e. rather than working through a digital editor, users make edits directly on the physical workpiece. However, so far the interaction has been limited to turn-taking, i.e., users first perform a command and then the system responds with physical feedback. In this paper, we present a first step towards interactive fabrication that changes the workpiece while the user is manipulating it. 
 		</br>
 		</br>
-		To provide this end-to-end workflow, we introduce an algorithm that estimates a human’s 3D geometry over time from a set of 2D images, and develop a 3D-aware image-based rendering approach that inserts the sculpture back into the original video. By automating the process, our system takes motion sculpture creation out of the realm of professional artists, and makes it applicable to a wide range of existing video material.
+		To achieve this, our system FormFab does not add or subtract material but instead reshapes it (formative fabrication). A heat gun attached to a robotic arm warms up a thermoplastic sheet until it becomes compliant; users then control a pneumatic system that applies either pressure or vacuum thereby pushing the material outwards or pulling it inwards. 
 		</br>
 		</br>
-		By conveying 3D information to users, motion sculptures reveal space-time motion information that is difficult to perceive with the naked eye, and allow viewers to interpret how different parts of the object interact over time. We validate the effectiveness of motion sculptures with user studies, finding that our visualizations are more informative about motion than existing stroboscopic and space-time visualization methods.
+		Since FormFab reshapes the workpiece while users are moving their hands, users can interactively explore different sizes of a shape with a single interaction.  
 		</br>
 		</br>
 		<span class="medium-headline">
@@ -93,16 +93,223 @@
 		</span>
 		</br>
 		</br>
-		Complicated actions, such as swinging a tennis racket or dancing ballet, can be difficult to convey to a viewer through a static photo. To address this problem, researchers and artists have developed a number of motion visualization techniques, such as chronophotography, stroboscopic photography, and multi-exposure photography [37, 8]. However, since such methods operate entirely in 2D, they are unable to convey the motion’s underlying 3D structure. Consequently, they tend to generate cluttered results when parts of the object are occluded (Figure 2). Moreover, they often require special capturing procedures, environment (such as a clean, black background), or lighting equipment.
+		Recently, Willis et al. [28] proposed the concept of Interactive Fabrication. The key idea is to bring the principles of direct manipulation [20] to the editing of physical objects: Instead of working on a digital 3D model and producing the physical version only at the end, users make edits directly on the physical workpiece and see it change immediately. 
 		</br>
 		</br>
-		In this paper, we present MoSculp, an end-to-end system that takes a video as input and produces a motion sculpture: a visualization of the spatiotemporal structure carved by a body as it moves through space. Motion sculptures aid in visualizing the trajectory of the human body, and reveal how its 3D shape evolves over time. Once computed, motion sculptures can be inserted back to the source video (Figure 1b), rendered in a synthesized scene (Figure 1c), or physically 3D printed (Figure 1d).
+		Early interactive fabrication systems, such as Shaper [28], CopyCAD [5], and constructable [14], allow for hands-on editing on the physical workpiece. However, their interaction is best described as turn-taking: users first provide input to the system and then the system responds with physical feedback. Since there are two discrete steps, users can only explore one option per turn [2].
 		</br>
 		</br>
-		<img src="images/compare-to-existing-methods.jpg" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		In this paper, we propose an interactive fabrication system that can change a workpiece’s shape while the user is interacting. This enables users to explore different sizes of a shape with a single interaction rather than in multiple turns. We accomplish this using a process called formative fabrication, which rather than adding or subtracting, reshapes the existing material. In our system, users interactively control a pneumatic air pump that applies either pressure or vacuum to a compliant thermoplastic sheet, thereby pushing the material outwards or pulling it inwards (Figure 1b). 
 		</br>
-		
 		</br>
+		<img src="images/fig2-formfab-interaction.png" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 2: (a,b) Drawing outline and heating. (c,d) One interaction, i.e., the same part is first pulled out and then pushed in.  
+		</b> 
+		</br>
+		</br>
+
+		</br>
+		</br>
+		<img src="images/fig3-teddy-bear-steps.png" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 3: Making the teddy bear head: (a,b) drawing and extruding the left ear, (c) extruding an eye. 
+		</b> 
+		</br>
+		</br>
+
+		</br>
+		</br>
+		<img src="images/fig4-final-teddy.jpg" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 4: The sculpture of a teddy bear’s head.  
+		</b> 
+		</br>
+		</br>
+
+		</br>
+		</br>
+		<img src="images/fig5-formfab-finger-tracking.png" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 5: Tracking unit. 
+		</b> 
+		</br>
+		</br>
+
+		</br>
+		</br>
+		<img src="images/fig6-heat-sensor.png" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 6: Heat guns and temperature sensor.
+		</b> 
+		</br>
+		</br>
+
+		</br>
+		</br>
+		<img src="images/fig7-pneumatic-system.png" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 7: Pneumatic system: an Arduino controls how much pressure is applied and also switches the valves.
+		</b> 
+		</br>
+		</br>
+
+		</br>
+		</br>
+		<img src="images/fig8-heat-spiral.png" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 8: (a) overheating, (b) even heat distribution. 
+		</b> 
+		</br>
+		</br>
+
+		</br>
+		</br>
+		<img src="images/fig9-robo-configuration.png" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 9: Calculating path for even heat distribution.
+		</b> 
+		</br>
+		</br>
+
+		</br>
+		</br>
+		<img src="images/fig10-simulation.png" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 10: Our system computes a physical simulation on a digital counterpart of the physical workpiece. 
+		</b> 
+		</br>
+		</br>
+
+		</br>
+		</br>
+		<img src="images/fig11-zerolevel.png" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 11: (a) Zero level. (b) Increase pressure. (c) Decrease pressure, then switch to vacuum.
+		</b> 
+		</br>
+		</br>
+
+		</br>
+		</br>
+		<img src="images/fig12-heat-area.png" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 12: Factors influencing the heat distribution.
+		</b> 
+		</br>
+		</br>
+
+		</br>
+		</br>
+		<img src="images/fig13-thickness.png" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 13: (a) This 2 mm sheet is stretched too far. (b) The thicker 4 mm sheet can accomplish this shape.
+		</b> 
+		</br>
+		</br>
+
+		</br>
+		</br>
+		<img src="images/fig14-heat-sinking-through.png" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 14: Since the heat comes from the top, it requires less time to sink through (a) a thin workpiece than (b) a thicker workpiece.
+		</b> 
+		</br>
+		</br>
+
+		</br>
+		</br>
+		<img src="images/fig15-pressure-vs-area.png" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 15: (a) Applying the same amount of pressure to a small area (no resulting extrusion) and (b) a big area. 
+		</b> 
+		</br>
+		</br>
+
+		</br>
+		</br>
+		<img src="images/fig16-material-tests.png" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 16: Results from our material stretch test. 
+		</b> 
+		</br>
+		</br>
+
+		</br>
+		</br>
+		<img src="images/fig17-mirror-copypaste.png" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 17: Different tools: (a) simultaneous extrusion of both ears, (b) copy pasting the left ear to the right side. 
+		</b> 
+		</br>
+		</br>
+
+		</br>
+		</br>
+		<img src="images/fig18-alignment-and-snapping.png" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 18: (a) Snapping the shape to fixed increments to provide guidance. (b) Aligning the right ear height to the left ear height. 
+		</b> 
+		</br>
+		</br>
+
+		</br>
+		</br>
+		<img src="images/fig19-area-vs-outline.png" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 19: Heating: (a) outline only, (b) entire area.
+		</b> 
+		</br>
+		</br>
+
+		</br>
+		</br>
+		<img src="images/fig20-area-vs-outline-photo.png" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 20: First steps of making a head sculpture with neck. (a) outline shape for neck, (b,c) adding the head.
+
+		</b> 
+		</br>
+		</br>
+
+		</br>
+		</br>
+		<img src="images/fig21-even-heating.png" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 21: Heterogeneous heating: (a) a tilted plateau shape from an outline, (b) a tilted area shape. 
+		</b> 
+		</br>
+		</br>
+
+
+
+
+
+
+
+
+
+
 		</br>
 		</br>
 		</br>
