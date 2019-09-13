@@ -596,13 +596,13 @@
           </p>
    
            To achieve colors other than black, we need to deactivate one or more color channels. Deactivating the cyan color, for instance, would result in red since only yellow and magenta remain activated (Figure 2b). To deactivate each color channel individually, we can leverage the fact that the deactivation peak (i.e. absorption peak) of each photo-chromic color is at a different wavelength (Figure 3). </p>
-           <p><img src="images/image003.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
+           <p><img src="images/photochameleon-absorption-peak.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
          <strong>Figure 3. The absorption peak of each photochromic dye is at a different wavelength. To control each color chan-nel, we can use the RGB LEDs of a projector to supply the required deactivation wavelength.<br>
          </strong>
 
          <p>Since all of the deactivation wavelengths are within the spectrum of visible light (390 nm to 790 nm), we can use a regular office projector’s red, green, and blue LEDs to supply one deactivation wavelength each. As can be seen in Figure 3, shining blue light from the projector will deactivate yellow, green light will deactivate magenta and red light will deactivate cyan. Thus, to deactivate a specific photochromic color channel, the projector only needs to project R, G, or B pixels to reduce the saturation of the channel, as shown in Figure 4. </p>
 
-           <p><img src="images/image004.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
+           <p><img src="images/effect of RGB on CMY (theoretical).png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
          <strong>Figure 4. Theoretical result of shining different combinations of RGB on the mixed CMY photochromic ink.<br>
          </strong>
 
@@ -610,7 +610,7 @@
    
            Figure 5 shows the physical result of shining different combinations of RGB on the CMY ink mixture, which we ob-tained by following the deactivation chart in Figure 4. While Figure 5 demonstrates the results obtained by fully deactivating one or more channels, we can achieve intermediate colors of different saturation levels by only partially deactivating each channel. We will provide more information on this when we discuss the algorithm that times the projected deactivation wavelengths to accomplish this.  </p>
 
-            <p><img src="images/image005.jpg" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
+            <p><img src="images/Physical results of liquid.jpg" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
          <strong>Figure 5. Physical result of shining different combina-tions of RGB on the mixed CMY dye. <br>
          </strong>
          </p>
@@ -630,13 +630,13 @@
         Several factors were involved in selecting the dyes for the CMY solution: (1) The visual appearance of the dyes needs to be as close to cyan, magenta, and yellow as possible in order to achieve the largest color gamut; (2) to be able to control each color channel individually, the deactivation wavelengths for each photochromic dye need to have as little overlap as possible; (3) the color of the dyes needs to be stable (i.e. do not deactivate quickly under ambient light). </p>
         </p><b>#1 Visual appearance:</b> Figure 6 shows the available dyes from Yamada Chemical Co. which is the only compa-ny we found that reliably sells bi-stable (P-type) photo-chromic dyes. While we can see that a dye color exists for yellow (DAE-0068); for magenta, the nearest colors are red purple (DAE-0012), red (DAE-0004) and purple (DAE-0159), and for cyan: blue (DAE-0001) and blue purple (DAE-0018). </p>
 
-        <p><img src="images/image006.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
+        <p><img src="images/ink colors.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
          <strong>Figure 6. Bi-stable photochromic inks available from Yamada Chemical Co.: 0.1wt% die mixed in ethyl acetate. <br>
          </strong>
 
          </p><b>#2 Absorption Spectra:</b> To be able to choose photochromic dyes that minimize overlap between different color channels, we determined the absorption spectrum for each photochromic dye. For this, we first mixed 0.1 wt% of each dye in ethyl acetate from Fisher Scientific using a magnetic stirrer for 1 hour at 500 RPM and then filled the solution into quartz cuvettes with a 1mL path length. We then radiated the solu-tion under UV light until the photochromic inks were fully activated and then placed the cuvettes in a spectropho-tometer (Varian Cary 5000 UV-Vis-NIR spectrophotometer) to determine their absorption spectra. The results are shown in Figure 7. We used yellow (DAE-0068) as a starting point for selection since it was the only available dye for this channel. For magenta, red purple (DAE-0012) and red (DAE-004) had the least overlap with yellow and cyan. For cyan, the least overlap with magenta was blue (DAE-0001) followed by blue purple (DAE-0018). </p>
 
-         <p><img src="images/image007.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
+         <p><img src="images/absorption spectrum.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
          <strong>Figure 7. Absorption spectra of the photochromic dyes in the visible wavelength range. <br>
          </strong>
 
@@ -648,7 +648,7 @@
 
         </p>Before applying the coating to an object, we primed the surface of the object with spray paint to avoid subsurface scattering of the projected light. We first sprayed each object with black paint (drying time: 30 min), and then subsequently sprayed a white paint layer (drying time: 24 hours). </p>
 
-        <p><img src="images/image008.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
+        <p><img src="images/spraying.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
          <strong>Figure 8. (a) Applying the photochromic coating and (b) the resulting coated object after UV activation. <br>
          </strong>
 
@@ -668,7 +668,7 @@
 
 		  </p>To determine the optical spectrum of each of the LEDs in the projector, we used a spectrometer (Thorlabs, CCS200) and found that the three LEDs overlap well with the select-ed photochromic dyes (Figure 9).</p>
 
-		  <p><img src="images/image009.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
+		  <p><img src="images/projector spectrum.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
          <strong>Figure 9. Optical spectrum of the projector output and absorption spectra of cyan, magenta and yellow dyes. <br>
          </strong>
 
@@ -678,7 +678,7 @@
 
          </p>To limit the wavelength range to only deactivate magenta, we opened up the projector and added a filter in front of the green LED (Semrock Brightline® FF02-529/24-25). To ensure the highest energy output, we placed the filter between the green LED and the collimator (Figure 10). With this modification, we were able to otherwise use the projector as is. </p>
 
-         <p><img src="images/image010.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
+         <p><img src="images/projector modification.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
          <strong>Figure 10. Modified projector with added optical filter between green LED and collimator. <br>
          </strong>
 
@@ -699,7 +699,7 @@
 
 		  </p>In an ideal scenario each LED would deactivate only one color channel, however, as seen in Figure 9, shining light from one of the LEDs also partially deactivates the other two color channels. This has two implications: First, using the photochromic dyes commercially available today, we can achieve only part of the CMY color spectrum (Figure 14). For instance, it is not possible to achieve a fully saturated cyan as deactivating magenta also causes cyan to partially deactivate. Second, a naïve approach that as-sumes that each projected deactivation wavelength (R, G, B), only affects a single photochromic color channel (Figure 4) will not lead to the correct color on the object due to additional effects of the other color channels on the dye. We therefore developed an optimization algorithm that takes into account the effect of overlapping absorption spectra. Figure 11 shows (a) the desired color texture and the results from both (b) the naïve approach and (c) our approximation algorithm, the latter of which leads to a color representation closer to the desired.</p>
 
-		  <p><img src="images/image011.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
+		  <p><img src="images/optimization results.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
          <strong>Figure 11. (a) Expected result. Results from (b) the naïve approach and (c) our optimization.<br>
          </strong>
 
@@ -714,14 +714,14 @@
 
          </p>The saturation level of each projected R, G, B color bar linearily increased from left to right over time until it reached the right edge of the cube (Figure 12). This proce-dure created a color gradient from fully saturated dye (left) to increasingly desaturated dye (right) and intermediate saturations in between. We then extracted the relative satu-ration level by capturing a photo of each cube under white light, converted the photo to the CMY color space, and plotted the saturation per color channel as the relative satu-ration decrease over time.</p> 
 
-         <p><img src="images/image013.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
+         <p><img src="images/deactivation speed.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
          <strong>Figure 12. Effect of exposure time of R, G, B projector channels on C, M, Y coatings (left = 0s, with time increasing to the right). <br>
          </strong>
 
 
          </p>Result: Figure 13 shows the relative saturation levels over time for each dye and each of the projector’s color channels. While each of the projector’s R, G, B LEDs deactivated its primary photochromic color channel, the deactiva-tion times varied significantly from 32 seconds for the yel-low dye under blue light to 620 seconds for the magenta dye under green light and 800 seconds for the cyan dye under red light. </p>
 
-         <p><img src="images/image012.png" alt="mosculpt-runner" width="700" style="padding-bottom:0px; margin-bottom:10px"><br>
+         <p><img src="images/deactivation speed curves.png" alt="mosculpt-runner" width="700" style="padding-bottom:0px; margin-bottom:10px"><br>
          <strong>Figure 13. Deactivation times of the photochromic dye per light channel (R, G, B). We consider a dye to be deactivated when it drops below 5% saturation. <br>
          </strong>
 
@@ -757,8 +757,8 @@
 
 		</p>Figure 14 shows the captured texture colors of this experiment in the CIExy chromaticity diagram. As can be seen, our color gamut has its greatest impact in the area between the three primary photochromic colors.</p>
 
-		<img src="images/image024.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
-         <strong>Figure 14: Achievable color gamut of our photochromic coating in the CIE xy chromaticity diagram. <br>
+		<img src="images/color gamut.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
+         <strong>Figure 14. Achievable color gamut of our photochromic coating in the CIE xy chromaticity diagram. <br>
          </strong>
 
 
@@ -766,8 +766,8 @@
 
          </p>Next, we quantified the texture resolution that can be achieved using the photochromic coating. We projected three black and white checkerboard patterns with varying checkerboard widths (5px, 2px, and 1px width), onto the surface of a coated cube and applied the texture on the cube for 12 minutes until the white checkerboard areas (white = all three R, G, B LEDs on) were fully deactivated. We measured the pixel size of the physical texture using an Olympus SZ61 microscope (Figure 15) and found the pixel measurements to be consistent at 129 um for a single pixel (5px = 647 um, 35px = 257 um, 1px = 129 um).</p>
 
-         <p><img src="images/image025.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
-         <strong>Figure 15: Resolution of checkerboard pattern. <br>
+         <p><img src="images/resolution test.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
+         <strong>Figure 15. Resolution of checkerboard pattern. <br>
          </strong>
 
           </p>While Figure 15a/b (5px and 2px width) both show a clear checkerboard pattern, the squares start to become indistin-guishable in Figure 15c (1px width). To clarify if the blur at the edges of the individual pixels in Figure 15 stems from the projector being out-of-focus or from subsurface scattering, we ran an additional test: we attached a 1x1 cm square mask on a UV activated cube and projected white light on it, after which we removed the square mask. Examining under a microscope, the edges and corners of the pixels remained sharp indicating that the projector’s lens and focus is the main reason for blur. Thus, while with our current projector system, the maximum resolution we can achieve is 257 um (2px), a better projector could achieve higher texture resolutions. </p>
@@ -777,7 +777,7 @@
 
           </p>The time for a texture to fade depends on the saturation level of the texture being applied to the object. A stronger saturation will take longer to deactivate fully than a lighter saturation. To evaluate the durability in normal lighting conditions, we activated three samples, coated with C, M, and Y colors, with a UV light and placed them under 150 lux illumination (average light intensity of a living room is 100–300 lux). We recorded the time each color took to disappear: the cyan and magenta colors disappeared after 26h and 19h respectively, while the yellow color disap-peared after 5h (Figure 16). Since outside light is stronger than indoor lighting, the dyes deactivate quicker and are therefore more suitable for indoor use. These deactivation times are a limitation in the materials currently commercially available.</p>
 
-          <p><img src="images/image026.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
+          <p><img src="images/color fading curves.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
          <strong>Figure 16. Color fade vs time for cyan, magenta and yel-low dyes under 150 lux illumination. <br>
          </strong>
 
@@ -793,7 +793,7 @@
 
          </p>In the last part of this paper, we describe the end-to-end system that allows users to transfer a texture onto a physical object. Figure 17 shows a summary of the system pipe-line.</p>
 
-          <p><img src="images/image027.png" alt="mosculpt-runner" width="800" style="padding-bottom:0px; margin-bottom:10px"><br>
+          <p><img src="images/end-to-end system.png" alt="mosculpt-runner" width="800" style="padding-bottom:0px; margin-bottom:10px"><br>
          <strong>Figure 17. Overview of the end-to-end system. <br></p>
          </strong>
 
@@ -803,7 +803,7 @@
 
          </p>We use a similar hardware setup and component layout as ColorMod: For activation, we use a UV light (Luminus Devices Inc. CBM-40-UV, ~365 nm, 4W) that we automatically turn on/off using a digital controller (PhatLight LED Develop Kits). For deactivation, we use our modified projector (LED DLP projector AAXA M6, 1920x1080 pixels, 1200 Lumens, with added green filter). For 360° projection on the object, we use a rotating platform that is controlled with a stepper motor. The rotating platform has a positioning screw to ensure central placement of the object when rotating. The setup with the above components is shown in Figure 18.</p>
 
-          <p><img src="images/image028.jpg" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
+          <p><img src="images/hardware setup.jpg" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
          <strong>Figure 18. Hardware setup.  <br>
          </strong></p>
 
@@ -811,7 +811,7 @@
 
          </p>After placing the physical object onto the rotating platform, users load the corresponding 3D model into the 3D editor Blender (Figure 19a). Next, users apply a virtual texture to the digital model using Blender’s texture mapping tools (Figure 19b). Clicking on the ‘Preview’ button converts the texture to the closest match realizable with the available photochromic color space (Figure 19c). To compute this preview texture, we run our optimisation algorithm on the virtual texture and compute the deactivation times t for each pixel. We estimate the resulting physical color by calculating C(t) and then load the newly computed texture onto the 3D model. The user can toggle between the virtual and the preview texture, adjusting colors as required.</p>
 
-          <p><img src="images/image030.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
+          <p><img src="images/user interface.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
          <strong>Figure 19. (a) Loading the 3D model of the object, (b) applying a virtual texture onto the 3D model, (c) computing the preview texture. <br>
          </strong></p>
 
@@ -821,7 +821,7 @@
          
          </p>To begin the projection sequence, users hit the ‘Activation’ button to activate the photochromic coating on the object. The rotating platform turns 360°; in 10 steps (36°; increments, 1 min per step, 10 min total). Users then press the ‘Projection’ button to apply the computed R, G, B anima-tions that deactivate the color channels on a per-pixel basis to create the desired color texture (Figure 20). Once the projection on one side of the object is complete, the platform rotates the object by 90° and repeats this process until all the sides have processed. The total time to apply color to the object depends on the object’s shape and the texture being applied (up to 45 min per side). </p>
 
-          <p><img src="images/image031.jpg" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
+          <p><img src="images/transferring texture.jpg" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
          <strong>Figure 20. Projecting the deactivation colors onto the 3D object to achieve the desired texture. <br>
          </strong></p>
 
@@ -833,7 +833,7 @@
 
          </p>Figure 21 shows the final result of the texture after it has been applied to the photochromic object. The texture shown took 2 hours to apply. Since the texture contains pure yellow, which requires the longest deactivation time, most other textures can be transferred significantly faster. Note that since the texture transfer is done in a black box, no decay due to external light occurs during this process. The (de)activation times could also be significantly decreased by using a stronger projector with more lumen.</p>
 
-          <p><img src="images/image032.jpg" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
+          <p><img src="images/actual texture on photochameleon.jpg" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
          <strong>Figure 21. Final result of the texture on the object. <br>
          </strong></p>
 
@@ -841,7 +841,7 @@
 
           </p>Objects can be re-colored multiple times, simply by repeat-ing the procedure described above, i.e. the UV light will re-activate all color channels (resulting in a black object), enabling a new texture to be applied through the projector. The zebra texture show in Figure 22 took 1 hour to apply.</p>
 
-          <p><img src="images/image033.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
+          <p><img src="images/reprogramming new textures.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
          <strong>Figure 22. Re-coloring the chameleon (zebra texture) by activating with UV light and applying a new texture. <br>
          </strong></p>
 
@@ -858,13 +858,13 @@
 
 		    </p>Photochromic shoes, textiles, and accessories could enable users to alter the appearance of their outfits from day to night without the need to carry multiple items. Applying the photochromic coating to a phone case would enable users to apply and change the design or pattern of the casing on a daily basis. Here, have applied the coating to a phone case of an iPhone XR (length: 15.3 cm, width: 7.8 cm) (Figure 23). The patterns on the phone case can be re-programmed. The textures took between 24-40 minutes to apply (top: 24 min, middle: 34 min, bottom: 40 min).</p>
 
-		     <p><img src="images/image034.png" alt="mosculpt-runner" width="700" style="padding-bottom:0px; margin-bottom:10px"><br>
+		     <p><img src="images/photochameleon-phone case.png" alt="mosculpt-runner" width="700" style="padding-bottom:0px; margin-bottom:10px"><br>
          <strong>Figure 23. The same phone case re-programmed three times with different textures. <br>
          </strong></p>
            
            </p>To demonstrate the application of our coating onto textiles, Figure 24 shows a women’s size US 6 shoe (length: 24.5 cm) coated with different textures to match different outfits; both textures took 1.5 hours to apply.</p>
 
-            <p><img src="images/image035.png" alt="mosculpt-runner" width="700" style="padding-bottom:0px; margin-bottom:10px"><br>
+            <p><img src="images/photochameleon-shoes.png" alt="mosculpt-runner" width="700" style="padding-bottom:0px; margin-bottom:10px"><br>
          <strong>Figure 24 The same shoe with two different textures to match a user’s daily outfit. <br>
          </strong></p>
 
@@ -873,7 +873,7 @@
 
          </p>In a showroom or sales scenario, a re-programmable color-changing coating could enable potential buyers to explore different textures or patterns on a product before making a final choice. Figure 25 demonstrates this by exploring different textures for a car. To realise this vision, we sprayed the coating onto a 1/18 scale model of an Aston Martin Vanquish (length: 26 cm) and projected a range of different textures. A re-programmable coating could also be used within the context of car-sharing among multiple users or to display changing advertisements on the car exterior. The textures shown took 40 min (butterflies) and 60 min (flame) to apply.</p>
 
-           <p><img src="images/image036.png" alt="mosculpt-runner" width="700" style="padding-bottom:0px; margin-bottom:10px"><br>
+           <p><img src="images/photochameleon-car model.png" alt="mosculpt-runner" width="700" style="padding-bottom:0px; margin-bottom:10px"><br>
          <strong>Figure 25. The same car with two different color textures. <br>
          </strong></p>
 
