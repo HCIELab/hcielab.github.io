@@ -524,28 +524,27 @@
 		<img src="images/fig1-overview.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"/>
 		<br>
 		<b>
-		Figure 1: FoldTronics creates 3D objects with integrated electronics. Our design software allows users to: (a) Convert a 3D model into a honeycomb structure &amp; place electronic components into it. (b) Export the 2D layers (honeycomb pattern, wiring, insulation). (c) Fabricate the layers on a cutting plotter using sheets of plastic, copper, and regular tape. (d) After soldering and folding, the object is ready to be used: (e, f) This smart watch has a 2D display when collapsed and a 3D volumetric display (3 layers, 6 LEDs each) when expanded – the LEDs and wiring are integrated inside the object.
+		Figure 1. 3D printed objects inherently possess surface patterns due to the angle of the print path and the thickness of the trace the 3D printer lays down. G-ID exploits such features that would normally go unnoticed to identify unique instances of an object without the need to embed an obtrusive, additional tag. G-ID provides (a) a user interface for slicing individual instances of the same object with different settings and assigning labels to them. After (b) 3D printing, users can (c) identify each instance using the G-ID mobile app that uses image processing techniques to detect the slicing parameters and retrieve the associated labels.
 		</b>
 		<br>
 		<br>
-	  We present FoldTronics, a 2D-cutting based fabrication technique to integrate electronics into 3D folded objects. The key idea is to cut and perforate a 2D sheet to make it foldable into a honeycomb structure using a cutting plotter; before folding the sheet into a 3D structure, users place the electronic components and circuitry onto the sheet.</p>
-		<p>The fabrication process only takes a few minutes enabling users to rapidly prototype functional interactive devices. The resulting objects are lightweight and rigid, thus allowing for weight-sensitive and force-sensitive applications. Finally, due to the nature of the honeycomb structure, the objects can be folded flat along one axis and thus can be efficiently transported in this compact form factor.</p>
-		<p>We describe the structure of the foldable sheet, and present a design tool that enables users to quickly prototype the desired objects. We showcase a range of examples made with our design tool, including objects with integrated sensors and display elements. </br>
-		  <br>
-		  <br>
-		  <span class="medium-headline">
-	      Introduction
-	      </span>
-		  <br>
-		  <br>
-	    </p>
+		We present G-ID, a method that utilizes the subtle patterns left by the 3D printing process to distinguish and identify objects that otherwise look similar to the human eye. The key idea is to mark different instances of a 3D model by varying slicing parameters that do not change the model geometry but can be detected as machine-readable differences in the print. As a result, G-ID does not add anything to the object but exploits the patterns appearing as a byproduct of slicing, an essential step of the 3D printing pipeline. </p>
+We introduce the G-ID slicing &amp; labeling interface that varies the settings for each instance, and the G-ID mobile app, which uses image processing techniques to retrieve the parameters and their associated labels from a photo of the 3D printed object. Finally, we evaluate our method&rsquo;s accuracy under different lighting conditions, when objects were printed with different filaments and printers, and with pictures taken from various positions and angles.
+<p><br>
+  <br>
+  <span class="medium-headline">
+    Introduction
+    </span>
+  <br>
+  <br>
+</p>
 	  <div title="Page 2">
 		  <div>
 		    <div>
-		      <p>While many of today&rsquo;s fabrication processes allow users to fabricate passive 3D objects, fabricating 3D objects with integrated electronics that allow for interactive applications remains challenging [2]. For instance, while it is now possible to 3D print the wires of a circuit using silver ink (e.g., Voxel8), there is only little progress in fabricating the actual electronic components themselves (see Lewis et al. for a first approach to 3D print an LED [19]). </p>
-		      <p>Since 3D printing is not yet at a level to make fully functional objects, researchers are looking into alternative fabrication methods. For instance, ObjectSkin [12] dips the object into a water bath with a film that contains circuitry; ActMold [40] places electronic circuitry onto a plastic sheet prior to draw-forming a 3D structure from it, and Foldio [27] prints circuitry onto a 2D sheet that the user can cut and fold. However, those methods only apply electronics to the surface of an object. </p>
-		      <p>Recently, PEP [26] showed how to integrate electronics into the inside of 3D objects by cutting and stacking paper sheets that were previously enhanced with electronic components. However, since PEP fabricates objects by stacking paper sheets, the approach is limited to thin-film electronics, such as flat coils and RFID tags, that do not interfere with the stacking process. In addition, the resulting objects are solid inside, making it difficult to apply the approach to lightweight and portable applications. </p>
-		      <p>In this paper, we take a different approach: Inspired by existing methods that fold passive 2D sheets into honeycomb structures [32] to create rigid and lightweight objects, we propose a new fabrication technique that combines honeycomb structures with integrated electronics (Figure 1). Our method goes beyond existing origami-electronics applications (e.g., origami robot [9] &amp; antenna [42]) by providing a fabrication pipeline supported by a design tool that facilitates the creation of interactive objects. Users only have to use a regular cutting plotter to cut the 2D sheets into a specific pattern, add the electronic components, and then fold the structure into its final 3D shape. </p>
+		      <p>Machine-readable tags have many applications ranging from package delivery and tracking, to interactive museum exhibits, and games. While in the last decades, researchers have mainly focused on developing 2D tags, the rise of 3D printing now enables researchers to investigate how to embed tags directly with the geometry of 3D objects. For instance, QR codes are no longer limited to 2D applications and can now also be used as part of a 3D object&rsquo;s surface geometry by modifying the 3D model.<br>
+One key challenge when using tags is how to make them unobtrusive. To make tags less visible, researchers have investigated how to leave the surface intact and instead change the inside geometry of a model. <em>InfraStructs</em>, for instance, scans the object&rsquo;s interior with a terahertz scanner, while <em>AirCode</em> requires a projector and camera setup to detect internal air pockets using subsurface scattering. Even though these approaches leave the object&rsquo;s surface intact, both need large equipment, which prevents these solutions from being used in everyday scenarios.</p>
+To be able to use regular scanning equipment, such as a mobile phone camera, researchers proposed to analyze small imprecisions on the object&rsquo;s surface that are created during the fabrication process. Those imprecisions are unobtrusive yet machine readable and can therefore be used as tags. Such imperfections make it possible to identify which fused deposition modeling (FDM) printer was used to create an object. For the purpose of easier explanation, we will refer to FDM printers as 3D printers for the remainder of the paper.
+<p>. </p>
 	        </div>
 	      </div>
 	  </div>
@@ -557,7 +556,7 @@
 		</span>
 		<br>
 		<br>
-		For our method, we employ a standard kirigami honeycomb cutting and folding method [32]. We will briefly describe how this works and how we extend it to integrate electronics.
+		For our method, we employ a standard kirigami honeycomb cutting and folding method. We will briefly describe how this works and how we extend it to integrate electronics.
 		<br>
 		<br>
 		<b>Basic Folding Principle</b
