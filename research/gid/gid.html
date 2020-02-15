@@ -520,303 +520,346 @@
 		<h3 class="headline">
 		G-ID: Identifying 3D Prints Using Slicing Parameters
 		</h3>
-		<p><br>
+<br>
 		<img src="images/Fig1-G-ID-pipeline.png" alt="mosculpt-runner" width="720" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>		<h6>
+		<strong>Figure 1.</strong> 3D printed objects inherently possess surface patterns due to the angle of the print path and the thickness of the trace the 3D printer lays down. G-ID exploits such features that would normally go unnoticed to identify unique instances of an object without the need to embed an obtrusive, additional tag. G-ID provides (a) a user interface for slicing individual instances of the same object with different settings and assigning labels to them. After (b) 3D printing, users can (c) identify each instance using the G-ID mobile app that uses image processing techniques to detect the slicing parameters and retrieve the associated labels.<br>
 		<br>
-		<b>
-		Figure 1. 3D printed objects inherently possess surface patterns due to the angle of the print path and the thickness of the trace the 3D printer lays down. G-ID exploits such features that would normally go unnoticed to identify unique instances of an object without the need to embed an obtrusive, additional tag. G-ID provides (a) a user interface for slicing individual instances of the same object with different settings and assigning labels to them. After (b) 3D printing, users can (c) identify each instance using the G-ID mobile app that uses image processing techniques to detect the slicing parameters and retrieve the associated labels.
-		</b>
-		<br>
-		<br>
-		We present G-ID, a method that utilizes the subtle patterns left by the 3D printing process to distinguish and identify objects that otherwise look similar to the human eye. The key idea is to mark different instances of a 3D model by varying slicing parameters that do not change the model geometry but can be detected as machine-readable differences in the print. As a result, G-ID does not add anything to the object but exploits the patterns appearing as a byproduct of slicing, an essential step of the 3D printing pipeline. </p>
+		</h6>
+		We present G-ID, a method that utilizes the subtle patterns left by the 3D printing process to distinguish and identify objects that otherwise look similar to the human eye. The key idea is to mark different instances of a 3D model by varying slicing parameters that do not change the model geometry but can be detected as machine-readable differences in the print. As a result, G-ID does not add anything to the object but exploits the patterns appearing as a byproduct of slicing, an essential step of the 3D printing pipeline. 
 We introduce the G-ID slicing &amp; labeling interface that varies the settings for each instance, and the G-ID mobile app, which uses image processing techniques to retrieve the parameters and their associated labels from a photo of the 3D printed object. Finally, we evaluate our method&rsquo;s accuracy under different lighting conditions, when objects were printed with different filaments and printers, and with pictures taken from various positions and angles.
-<p><br>
   <br>
-  <span class="medium-headline">
-    Introduction
-    </span>
-  <br>
-  <br>
-</p>
-	  <div title="Page 2">
+  <h2>INTRODUCTION</h2>
+<div title="Page 2">
 		  <div>
 		    <div>
 		      <p>Machine-readable tags have many applications ranging from package delivery and tracking, to interactive museum exhibits, and games. While in the last decades, researchers have mainly focused on developing 2D tags, the rise of 3D printing now enables researchers to investigate how to embed tags directly with the geometry of 3D objects. For instance, QR codes are no longer limited to 2D applications and can now also be used as part of a 3D object&rsquo;s surface geometry by modifying the 3D model.<br>
-One key challenge when using tags is how to make them unobtrusive. To make tags less visible, researchers have investigated how to leave the surface intact and instead change the inside geometry of a model. <em>InfraStructs</em>, for instance, scans the object&rsquo;s interior with a terahertz scanner, while <em>AirCode</em> requires a projector and camera setup to detect internal air pockets using subsurface scattering. Even though these approaches leave the object&rsquo;s surface intact, both need large equipment, which prevents these solutions from being used in everyday scenarios.</p>
-To be able to use regular scanning equipment, such as a mobile phone camera, researchers proposed to analyze small imprecisions on the object&rsquo;s surface that are created during the fabrication process. Those imprecisions are unobtrusive yet machine readable and can therefore be used as tags. Such imperfections make it possible to identify which fused deposition modeling (FDM) printer was used to create an object. For the purpose of easier explanation, we will refer to FDM printers as 3D printers for the remainder of the paper.
-<p>. </p>
-	        </div>
-	      </div>
+		        One key challenge when using tags is how to make them unobtrusive. To make tags less visible, researchers have investigated how to leave the surface intact and instead change the inside geometry of a model. <em>InfraStructs</em>, for instance, scans the object&rsquo;s interior with a terahertz scanner, while <em>AirCode</em> requires a projector and camera setup to detect internal air pockets using subsurface scattering. Even though these approaches leave the object&rsquo;s surface intact, both need large equipment, which prevents these solutions from being used in everyday scenarios.</p>
+              <p>To be able to use regular scanning equipment, such as a mobile phone camera, researchers proposed to analyze small imprecisions on the object&rsquo;s surface that are created during the fabrication process. Those imprecisions are unobtrusive yet machine readable and can therefore be used as tags. Such imperfections make it possible to identify which fused deposition modeling (FDM) printer was used to create an object. For the purpose of easier explanation, we will refer to FDM printers as 3D printers for the remainder of the paper.
+              </p>
+              <div>
+                <p>In this work, we propose a different approach to identification. When a 3D model is prepared for 3D printing, it first undergoes <em>slicing</em>, a computational process which converts a 3D model into layers and their corresponding print path (a <strong>G</strong>-code file), which the extruder then follows to create the 3D object. The parameters for the slicing process can be modified for each individual instance, which allows <strong>G</strong>-ID to create unique textures on the surface of objects that can be detected with a commodity camera, such as those available on a mobile phone. Since our approach allows us to be in control over which printed instance has been modified with which slicer settings, we can identify each instance and retrieve associated labels previously assigned by a user.    </p>
+                <p>&nbsp;</p>
+                <p><img src="images/Fig2-difference-related-work.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
+                <strong>Figure 2. Different ways to embed tags into 3D models while leaving the surface intact:<br>
+                (a) changing the internal geometry <em>(Infrastructs)</em>,<br>
+                (b) varying slicing parameters (<em>G-ID</em>),<br>
+                (c) relying on fabrication imprecisions (<em>PrinTracker</em>). </strong> </p>
+                <p>Our contributions can be summarized as follows:</p>
+              </div>
+              <ol>
+  <li>A method to utilize the subtle patterns left as an inevitable byproduct of the conventional 3D printing process to identify objects without the need to embed an additional tag.</li>
+  <li>A tool for users who want to create multiple instances of an object but intend to give each one a unique identifier.</li>
+  <li>A mobile app that helps users take pictures of objects to be identified, as well as a stationary setup to detect finer variations in slicing parameters using image processing.</li>
+  <li>An evaluation of the space of slicing parameters that can be varied to generate unique instances of a 3D model and the corresponding detection accuracy under different environmental and hardware-related conditions.</li>
+</ol>
+<p>We demonstrate these contributions with a diverse set of interactive applications.</p>
+<h2>
+		G-ID: LABELING AND IDENTIFYING OBJECTS BY THEIR SLICING PARAMETERS
+	    </h2>
+		The main contribution of G-ID is a framework to <em>label</em> and <em>identify</em> 3D printed objects by their distinct slicer settings.<br>
+G-ID <em>labels</em> 3D printed objects by intentionally varying the slicing settings of an unmodified 3D model which determine the path the extruder will follow. This allows G-ID to produce multiple instances that all have a unique artifact, e.g., the small grooves on the surfaces of the object that can be shaped differently when the print path is laid down. <br>
+G-ID then <em>identifies</em> the 3D printed object by such textures, i.e. after users take a picture of the object with a commodity camera, G-ID applies image processing techniques to first extract and then correlate the features with their initial slicing settings to retrieve the identifying label.<br>
+  <br>
+	<b>Main Benefits of Using Different Slicing Parameters </b>
+        <br>
+        Slicing parameters reveal themselves on any printed object as a fabrication byproduct that is normally ignored. One may make use of these inevitable textures that come for free due to 3D printing. G-ID combines a wide range of slicing parameters to create a sufficiently large parameter space. For each slicing parameter for surface and infill, there is a variety of values available (see section &ldquo;Spacing of Slicing Parameters&rdquo;). The use of so many values is enabled by G-ID&rsquo;s recognition algorithm, which uses a Fourier-based method for precise measurements. Detecting these values precisely in turn enables new applications such as &ldquo;Finding optimal print settings&rdquo; (see &ldquo;Application Scenarios&rdquo;).		    </p>
+<p><b>G-ID Workflow for an Identification Application</b> <br>
+  In the following section, we describe how we use (1) <em>the</em> <em>G-ID labeling interface</em> to assign each instance of a 3D printed object a unique tag prior to 3D printing, and how we use (2) <em>the</em> <em>G-ID identification app</em> that runs on a mobile device to detect each object&rsquo;s tag after 3D printing.</p>
+<p>We explain the workflow of G-ID using an application scenario, in which we will create a set of forty key covers—each with an unobtrusive feature that identifies its owner. We use these key covers in our research lab: At the end of the semester when members depart, we often forget to write down who has returned their keys. Using G-ID, we can quickly identify whom the previously returned keys used to belong to and then send a reminder to those who have outstanding keys. </p>
+<b>Labeling Interface (Slicer)</b>
+<p>To assign each key cover a unique tag, we open G-ID&rsquo;s labeling interface (Figure 3) on our computer and load the 3D model of the key cover by dragging it onto the canvas. Since we want to create 40 key covers, we enter 40 instances into the left-hand panel of the interface.<br>
+<div>
+  <p>
+    <em>#1 Generate Instances</em>: We select &ldquo;Mobile phone&rdquo; as the desired detection setup. Next, we click the &ldquo;Generate previews&rdquo; button, which slices each instance of the key cover with a unique set of slicing settings. In this case, since we only request 40 instances, G-ID only varies the slicing parameters <em>initial bottom line angle</em> and <em>initial bottom line width</em> (more on this in section &ldquo;Slicing parameters used for labeling&rdquo;). After slicing is completed, G-ID previews each instance as shown in Figure 1a.</p>
+  <p>&nbsp;</p>
+</div>
+		    </div>
+		  </div>
 	  </div>
-      <p><br>
-		
-
-		<span class="medium-headline">
-		Basics of Interactive Honeycomb Structures
-		</span>
-		<br>
-		<br>
-		For our method, we employ a standard kirigami honeycomb cutting and folding method. We will briefly describe how this works and how we extend it to integrate electronics.
-		<br>
-		<br>
-		<b>Basic Folding Principle</b
-        ><br>
-	  Figure 2 illustrates how we can fold honeycomb cells by cutting and folding paper.</p>
-      <p><img src="images/fig2-folding-principle4.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
+      <p><img src="images/Fig3-UI.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
         
-        <strong>Figure 2: Folding honeycomb structures: (a) half a column of cells, (b) column of cells, (c) multiple columns.<br>
+        <strong>Figure 3. G-ID labeling interface: load a 3D model and enter number of unique instances needed. 
         </strong>
         
       </p>
-      <p><em><br>
-      Creating half a cell column:</em> Each column of honeycomb cells consists of mountains and valleys. Mountains are lines that are bent in one direction, valleys are lines that are bent in the opposing direction. This causes the strip to fold into its characteristic shape. Figure 2a shows the strip pattern to create half a cell column from mountains and valleys.</p>
-        <p><em>Creating a full cell column:</em> To create both sides of a honeycomb cell column, we duplicate the previously described pattern (Figure 2b). The center line connecting the two half-columns needs to be designed as follows: A slit is placed along all center line segments that do not connect to two valleys (they will form the hollow cell), all line segments connecting two valleys use a mountain line (they form glue surfaces that will hold the structure together after folding, see Figure 2b).  </p>
-        <p><em>Creating multiple cell columns:</em> Finally, to create a second cell column, we can use the cutting pattern shown in Figure Figure 2c. Again, we duplicate the pattern from the previous image and place it right next to the existing structure. In addition, where the two cell columns meet, we now place slits whenever the center line segments do not connect to two mountains (to form the hollow cells between the two columns, see the hollow cell in Figure 2c). All line segments that do connect to two mountains now use a valley line (they form the glue surfaces that hold the two columns together). To create more than two columns, we can repeat this pattern as many times as required.
-          
-          
-          <em>Cell Size:</em> The size of the cell determines the resolution of the honeycomb structure (Figure 3). This is not only important to represent the original shape of the 3D object as accurately as possible, but also for the placement and wiring of electronic components: Since the electronic components are placed inside the cells (Figure 3b), the cells need to have at least the same size as the components. Similarly, since the wires are placed alongside the walls of the cells, the larger the cell, the more wires can be routed to an electronic component. Thus, there is a trade-off between honeycomb resolution and size of electronic components. Smaller electronic components work better since they allow for a higher resolution. Each cell can also house multiple electronic components as long as they fit inside the cell.        </p>
-        <p><br>
-          <img src="images/fig3-thickness-length-width.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px">
-          
-          <br>
-        Figure 3: (a) The cell size (length, width, height) determines (b) the size of the electronic components and numbers of wires that can be placed.        </p>
-        <p><strong>Placing Electronic Components
-        </strong></p>
-        <p>When folding the honeycomb, some cells are formed from the top side of the sheet while others are formed from the bottom side of the sheet. Since we only support one-sided circuit boards, we can only place electronic components into those cells made from the top of the sheet (Figure 4).        </p>
-        <p>In addition, electronic components can only be placed onto surfaces that are not being glued together. On the top side of the sheet, the mountain surfaces become glued and thus cannot be used for placing electronic components (see crossed out side faces in Figure 4b). <br>
-          
-          In our design tool, we highlight which cells can be used for placing electronic components. For instance, users receive a warning when placing a component as shown in Figure 4b since the component is housed in an invalid cell made from the bottom of the sheet and the wiring is on a mountain surface that would be glued when folded.        </p>
-        <p><br>
-          <img src="images/fig4-top-and-bottom-of-sheet.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-          <strong>Figure 4: (a) Electronic components can only be placed on the surfaces that are not being glued, and (b) only into cells that are formed from the top of the sheet.
-          </strong>        </p>
-        <p><strong>Circuit Layout on Honeycomb Foldable Structures</strong>        </p>
-        <p>Finally, the wires to connect the electronic components can be placed onto any surface that is also suitable for an electronic component (i.e., it is neither on the back of the sheet nor being glued together). We prevent short circuiting of wires as a result of folding by adding an insulating sheet in a later step of the pipeline (see section "fabrication process").
-          
-          
-          <em>Cross-Cell Circuit Connector:</em> As mentioned previously, the cell size determines how many wires can be routed to a cell. For example, as shown in Figure 5a, when the width of a cell is 7mm and the width of the wire is 1mm,only 4wires can reach a cell since we also need to leave a 1mm gap between each wire. To allow for more wires, we created the wiring method shown in Figure 5b: This wiring method leverages the fact that after folding, the mountains will be connected since they are being glued together. When the mountains become glued, seemingly unconnected wires become connected and the circuit is closed. Figure 5 shows the results: rather than (a) just 4 wires, our new method (b) allows for 8 wires. However, while regular wiring can be placed on any surface, our cross-cell circuit connector only works on mountains since other surfaces do not become glued together.        </p>
-        <p><br>
-        <img src="images/Fig5-wiring.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-          <strong>Figure 5: (a) Traditional wiring method. (b) Our new wiring allows for more wires due to folding.</strong>
-          
-          <br><br>
-          
-          
-          
-          
-          <span class="medium-headline">
-          FoldTronics Pipeline<br>
-          </span>
-          
-          Next, we describe how users can create interactive objects with integrated electronics using the FoldTronics design software and fabrication pipeline. We will illustrate all steps at the example of making a simple LED circuit with one cross-cell circuit connector and a battery. We chose this simple example for the step-by-step illustration and will demonstrate more complex use cases in section "Scenarios."        </p>
-        <p><br>
-        <img src="images/fig12-folding.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-        <strong>Figure 6: (a, b) Walk-through example: functional LED circuit with one cross-cell circuit connector and a battery.</strong></p>
-        <p>
-          
-          
-          
-          
-        Creating interactive foldable 3D objects, such as the functional LED circuit with battery, requires three steps:</p>
-        <p><em>(1) Device Design:</em> Users start by 3D modeling their device, then convert the 3D model into a foldable honeycomb structure using our conversion software, and place the electronics onto the cells facilitated by our software’s guidance tools.<br>
-          <em>(2) Export for Fabrication:</em> Next, users export their design for fabrication on a regular cutting plotter. All layers are exported "fabrication-ready" except for the wiring layer, which requires users to open it in the electronics design software EAGLE to use its auto-wiring function.<br>
-          <em>(3) Fabrication &amp; Assembly:</em> Finally, users use the cutting plotter to fabricate the different layers, then solder on the electronics and fold the shape into its 3D structure.
-          
-          
-          
-          
-          The software for our design tool can be found on <a href="https://github.com/eratoimf/foldtronics">GitHub</a>. A full list of materials and a step-by-step description of the process can also be found in our FoldTronics <a href="https://www.instructables.com/id/FoldTronics-Creating-3D-Objects-With-Integrated-El/">Instructables</a> tutorial.        </p>
-        <p><strong>#1 Device Design using FoldTronics User Interface</strong>        </p>
-        <p>To create the LED circuit, we start by creating a 3D model in the 3D editor Rhino3D for which we implemented our FoldTronics plugin (Figure 7a). After creating the basic shape of the 3D model, we convert it into a honeycomb structure by pressing the "convert" button. As soon as the algorithm split the model into the honeycomb cells, the result is displayed in the 3D view (Figure 7b).          </p>
-        <p><img src="images/fig13-converting.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-        <strong>Figure 7: (a) Converting the 3D model into (b, c) honeycombs with different resolutions.</strong></p>
-        <p>We can now vary the resolution of the honeycomb using the provided slider to find the best trade-off between higher resolution and having enough space in the cells to house the LED, the battery, and the cross-cell circuit connector. Figure 7b/c show different resolutions (5mm vs. 4mm for the width of the cells) for this purpose. The resolution slider changes both the number of columns and the number of cells simultaneously because changing the resolution for columns and rows separately would cause the final shape to differ from the original shape.<br>
-        To add the LED, battery, and cross-cell circuit connector, we select them from the list of components from the menu and add them by clicking the respective button (Figure 8a). This automatically creates a 3D model of a box representing the size of the selected electronic component (Figure 8b). We can now drag the LED and other electronic components to a location in the 3D volume. In case we accidentally place a component onto a fold or a non-valid cell, it is automatically relocated to the next valid cell (Figure 8b).          </p>
-        <p><img src="images/fig14-components.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-        <strong>Figure 8: (a) Adding electronic components from the menu, (b) relocating components to valid cells, (c) color-coding components that are too large.</strong></p>
-        <p>If the width of the electronic component, such as the LED, is too large (i.e., larger than the width of the cell), the color of the electronic component changes to black and a warning is displayed on the menu (Figure 8c).</p>
-        <p>We are done with placing the components. Before exporting, we use the "Collapsing Simulation" slider to preview how the design will look when compressed and expanded again.  </p>
-        <p><strong>#2 Export for Fabrication</strong></p>
-        <p>Once we are done with placing the electronic components, we hit the "export" button to generate the layers for fabrication. As can be seen in Figure 9, on export, our 3D editor plugin creates all layers of the fabrication stack as 2D drawing files (.DXF file format) except the layer that contains the wiring, which we will create now as a seperate step in the process.<br>
-          
-          <br><img src="images/fig15-dxf.png" alt="mosculpt-runner" width="500" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-        <strong>Figure 9: Individual layers generated using Grasshopper and EAGLE to create a honeycomb structure with integrated electronics.</strong></p>
-        <p>To generate the missing wiring layer, users open the 2D file of the honeycomb structure in the electronic design software EAGLE and execute our custom EAGLE ULP plugin. As can be seen in Figure 10, the plugin (a) generates a circuit board the size of the honeycomb pattern and then converts each colored square back into an electronic component (i.e. the LED, battery, and cross-cell circuit connector). (b) With the electronic components already on the sheet, users can now build the schematic. (c) Finally, users can use EAGLE’s auto-wiring function to create the full circuitry on the sheet, and then export the design as .DXF file, which provides the last missing layer for fabrication.
-          
-          
-          <br>
-          
-          <br><img src="images/fig16-eagle.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-          <strong>Figure 10: (a) Generated circuit board + colored squares converted to electronic components in EAGLE, (b) the user creates the logical connections, then (c) uses EAGLE’s auto-wiring to create the circuit.</strong>
-          
-          
-          
-          <strong>#3 Fabrication &amp; Assembly</strong>        </p>
-        <p>To fabricate the layers, we only have to cut the 2D drawing of each layer (.DXF file format) in the right order using the cutting plotter. We use the FoldTronics settings sheet to set the cutting blade width, speed, and force for each layer.</p>
-        <p><em>Cutting / Perforating the Base Sheet:</em> We first insert the base sheet (PET plastic) into the cutter and cut and perforate it to create the mountain, valley, and slit lines as well as the markers for the electronic components (Figure 11). The FoldTronics process only perforates the sheet from the top and differentiates between mountain and valley lines using separate visual notations (dotted lines for mountains vs. dashed lines for valleys) since they require folding into opposing directions later on (Figure 9a). Alternatively, the FoldTronics process can also perforate the sheet from both sides, i.e. perforate the mountains from the top and valleys from the bottom, however, this requires reinserting the sheet into the cutting plotter.</p>
-        <p>While all the slits are cut through, the outline of the honeycomb is only perforated to keep it connected to the main sheet, which allows us to further process the sheet with the cutting plotter in the next steps. Finally, the areas where electronic components will be soldered on are also perforated to make it easier to find out which component goes where.</p>
-        <p>For the objects used in this paper, we use PET plastic sheets, thickness 0.1mm and cut the sheets with a cutting plotter (model: Silhouette Portrait, settings cutting: blade 0.2mm, speed 2cm/s, force 10, settings perforating: blade 0.2mm, speed 2cm/s, force 5). </p>
-        <p><img src="images/fig7-cutting-and-perforating.jpg" alt="mosculpt-runner" width="500" style="padding-bottom:0px; margin-bottom:10px"><br>
-        <strong>Figure 11: (a) Inserting the sheet into the plotter, (b) the cut &amp; perforated honeycomb still connected to the sheet.</strong></p>
-        <p><em>Placing the Wiring with Copper Tape: </em>Next, we place a layer of one-sided copper tape (thickness: 0.07mm) across the entire sheet (Figure 12a). We put the sheet back into the cutting plotter with the copper side up, then execute the file to cut out the shape of the wires (Figure 9b) which is configured to make sure to not cut into the base sheet (cutting settings: blade 0.2mm, speed 2cm/s, force 13). Afterwards, we peel off the copper tape that is not part of the wiring (Figure 12b).        </p>
-        <p><br>
-        <img src="images/fig8-cutting-wiring.png" alt="mosculpt-runner" width="500" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-        <strong>Figure 12: (a) Placing the copper sheet, (b) after cutting, we can peel the rest of the wires off.</strong></p>
-        <p><em>Insulating Sheet:</em> In order to prevent any short circuiting from wires touching after folding the base sheet, we next add an insulating layer (Figure 13a). For this, we place a layer of regular non-conductive tape across the entire sheet (thickness: 0.08mm). We put the sheet back into the cutting plotter, which removes the insulating tape only in those areas that have wire ends that either will be connected to electronic components or that use our novel cross cell circuit connector (Figure 13b) according to the drawing shown in Figure 9c. We use the cutting settings: blade 0.1mm, speed 2cm/s, force 4.        </p>
-        <p><br>
-        <img src="images/fig9-cutting-insulating.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-          <strong>Figure 13: (a) Applying the insulating layer and cutting out areas for (b) electronic components, and the cross-cell circuit connector.</strong>          </p>
-      <p>Glue mountains/valleys to hold after folding: In the next step, we apply a layer of regular double-sided tape to the sheet on both its bottom and its top (Figure 9d/e). The double-sided tape is used to connect the valleys and mountains that hold the honeycomb structure together after folding as was illustrated in Figure 2b/c (mountains get glued from the top of the sheets while valleys get glued from the bottom). After inserting the sheet into the cutting plotter, the double-sided tape is cut out in all areas that are not supposed to be taped together (cutting settings: blade 0.2mm, speed 2cm/s, force 6). In addition, for taped valleys/mountains that also carry a cross-cell circuit connector, the cutting plotter cuts out the areas needed for the electronic connections. After cutting both sides, we peel off the remaining double sided tape (Figure 14). </p>
-        <p><br>
-        <img src="images/fig10-double-sided.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-          
-        <strong>Figure 14: Applying regular double-sided tape on both sides for gluing mountains/valleys.</strong></p>
-        <p>
-          
-          <em>Soldering:</em> In a final step before soldering, we now cut off the honeycomb pattern to disconnect it from the sheet. Next we solder the electronic components (LED, battery) onto the wires using a soldering iron. If the components are small and hard to solder, we can also use solder paste as an alternative. Since soldering the cross-cell circuit connector is difficult, we use double-sided conductive tape to create the connection.        </p>
-        <p><br>
-        <img src="images/fig11-soldering.png" alt="mosculpt-runner" width="500" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-          <strong>Figure 15: (a) Soldering electronic components. (b) Applying double-sided conductive tape for cross-cell circuit connector.</strong>        </p>
-        <p><em>Folding:</em> We now fold the honeycomb together (Figure 16). The total time for making this example, including all fabrication steps and folding was 18 minutes for us.        </p>
-        <p><br>
-        <img src="images/fig12-folding-2.png" alt="mosculpt-runner" width="500" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-          <strong>
-        Figure 16: (a, b) Folding the honeycomb. (c) Assembled functional LED circuit.</strong></p>
-        <p>The fabrication took 2 minutes for cutting the plastic sheet, 3 minutes for cutting the copper foil, 1 minute for cutting the insulating sheet, and 2 minutes total to cut the double-sided tape on each side. After fabricating all layers, it took us 10 minutes to assemble the structure. For less experienced users, the process will take longer. While assembly time is a limitation of our process since it scales linearly with the number of cells, our work enables functionality which cannot be achieved in other ways.</p>
-        <p><br>
-          
-          <span class="medium-headline">
-          Scenarios
-          </span>
-          <br>
-        </p>
-      <p>Next, we illustrate several scenarios that benefit from having integrated electronics in foldable honeycomb structures.</p>
-        <p><strong>#1 Tube Case with Liquid Levels (Integrated Sensing)</strong>        </p>
-        <p>Figure 17 shows a portable test tube case that can detect if tubes are inserted or removed, the type of liquid they contain, and the current liquid level. After measuring, the portable test-tube case displays the tube’s content quantity and color in real time on the user’s phone.<br>
-          To allow for sensing inside the 3D structure, we placed three IR reflectance sensors per cell onto the 2D base sheet prior to folding the structure into its three-dimensional shape. Once folded, the sensors can detect a test tube inserted into one of the honeycomb cells.<br>
-          Since we use a honeycomb structure, the test-tube case is portable, i.e. when users walk to the test site, they can easily store it in their pocket and expand it on site (thickness when collapsed 5mm vs. 45mm when expanded (9x)). In addition, since the honeycomb structure is hollow, the test-tube case is very lightweight and thus easy to carry around.
-          
-          <br><img src="images/fig17-test-tube-case.png" alt="mosculpt-runner" width="488" style="padding-bottom:0px; margin-bottom:10px"><br>
-          <strong>Figure 17: (a, b) Tube case with sensors. (c) 3D model data, (d) circuit layout.</strong>
-          <br><br>
-          
-          
-          
-        <strong>#2 2D + 3D Smartwatch Display (Integrated Displays)</strong></p>
-        <p>Figure 18 shows a prototype of a smart watch: (a) By default, the smart watch provides a regular 2D display (for simplicity of prototyping we use a display made from 2x3 LEDs). (b) However, when the user pulls the watch face upwards, the 2D display transforms into a volumetric 3D display for viewing additional content.          </p>
-        <p><img src="images/fig18-smart-watch.png" alt="mosculpt-runner" width="488" style="padding-bottom:0px; margin-bottom:10px"><br>
-          <strong>Figure 18: (a, b) Expandable smart watch. (c) 3D model data, (d) circuit layout.
-        </strong></p>
-        <p>While traditional fabrication approaches make it difficult to arrange LEDs inside a 3D structure, our method of folding a 2D sheet reduces the 3D placement problem to a 2D layout problem, which we can solve with our design software.        </p>
-        <p>To detect when the display state changes from 2D to 3D and the additional LEDs need to be turned on, we also integrated a sensor that can detect when the display is in its flat 2D state. The key idea is to place conductive wires in a way that they touch when the display is compressed, and do not touch as the display gets expanded. We support this "touch sensor" in our design software as a separate electronic component.</p>
-        <p>In summary, this example made use of several benefits of the honeycomb structure: The 2D-to-3D folding facilitated the placement of the LEDs in the 3D volume, the capabilities of cells to expand and contract enabled the interaction of transforming the display, and since the honeycomb structure is sparse the resulting object was also very lightweight, which is especially important for wearable applications. More ways of extending screen space of such a folded smartwatch are shown by Fuchs et al. [10]. </p>
-        <p><strong>#3 Dynamic Game-Controller (Integrated Sensing)</strong></p>
-        <p>Building onto the functionality explained above, we also build a game-controller that users can transform into different shapes to represent different game states, e.g., from a regular controller to a gun-shaped controller as shown in Figure 19. The controller includes two of the touch-buttons explained in the previous example: one touch button operates the controller and allows the user to shoot objects, whereas the other touch button detects the state of the game controller (when user compresses the controller to state 1, the touch button activates; when the user expands the controller, the touch button deactivates and we transform the controller to state 2).</p>
-        <p>In summary, foldable honeycomb structures with integrated electronics that enable interactive 3D objects are useful in a variety of scenarios ranging from mobile applications that require effective storage for transportation (scenario 1: mobile tube case) to deformable and shape-changing objects (scenario 2: smart watch as well as scenario 3: dynamic game controller). <br>
-          <br><img src="images/fig19-game-controller.png" alt="mosculpt-runner" width="490" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-          <strong> Figure 19: Shape changing controller. (c) 3D model data, (d) circuit layout.</strong>        </p>
-        <p><span class="medium-headline">Implementation / Code</span></p>
-        <p>
-          Figure 20 shows a flowchart of our implementation pipeline. As mentioned previously, the main design tool is implemented in the 3D editor Rhino3D as a Grasshopper extension. Grasshopper directly exports the layers for the honeycomb sheet, insulating tape, and mountain/valley assembly. In addition, to generate the wiring, we implemented a ULP plugin to the electronic design software EAGLE, which exports the wiring layer – making the stack of layers complete.
-          
-          
-          <br><img src="images/fig20-system-flow.png" alt="mosculpt-runner" width="500" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-        <strong>Figure 20: Flow chart of the system.</strong></p>
-        <p><strong>Layer #1: Converting the 3D Model into a 2D Structure</strong></p>
-        <p>In the current version of our software, we can only convert a specific type of 3D model, i.e., shapes whose bottom and top are flat surfaces. There are no constraints on the other sides of the object, i.e. they can be slanted or curved or have an arbitrary shape (Figure 21).</p>
-        <p><em>Generating the Honeycomb Columns:</em> We start the conversion process by splitting the model into 2D planes that will form the walls of the honeycomb cell (Figure 22a/b).          </p>
-        <p><img src="images/fig21-types.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-        <strong>Figure 21: Examples of models our algorithm can convert.</strong></p>
-        <p>To determine the position of each 2D plane, our algorithm first computes the bounding box of the model using Grasshopper’s DeBox() function and then divides the width of the bounding box by the number of slices (which the user set using the "resolution" slider). To generate each 2D plane, we now split the model with a large cutting plane at each plane’s position using Grasshoppers Brep() function (Figure 22b).</p>
-        <p><br>
-        <img src="images/fig22-slicing-the-3D-model4.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-        <strong>Figure 22: (a) 3D model, (b) splitting into honeycomb columns, and (c) cells. (d) Duplicating each column to form both sides of a cell.</strong></p>
-        <p>Generating the Honeycomb Cell Segments: As can be seen in Figure 22c the next step is to split each 2D plane into the honeycomb cells segments, which will form the mountains and valleys. To find the position of each cell segment, we compute the bounding box of each 2D plane, compute its width, and then divide it by the cell resolution, which the user had previously set using the resolution slider. In the final step illustrated in Figure 22d, we duplicate each 2D plane and its cell segments to have one available for folding each of the connecting cells (see also Figure 23 for how this is represented in the final 2D layout).</p>
-        <p>Generating the 2D Layout: To convert the 2D planes with cell segments into a 2D drawing, we proceed as follows: First, we project each 2D plane onto the sheet starting with plane A, plane B, plane C and so on. When placing a 2D plane, we also have to create a duplicate vertically mirrored since each 2D plane is used for both the left and right connecting cell as mentioned previously (compare Figure 23 and Figure 22d). </p>
-        <p><br>
-        <img src="images/fig23-2d-layout.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-        <strong>Figure 23: Converting the model from Figure 22 into a 2D layout.</strong></p>
-        <p>After placing all planes and generating the line layout, we now determine which lines will be cut and which perforated.</p>
-        <p>For this, our algorithm iterates over the cells starting with
-        the top left cell and processes all the cells in a column before moving to the next one. While going over the cells, our algorithm executes the layout that we explained at the beginning of this paper and that is shown in Figure 2c, i.e. our algorithm tags each line as either a mountain, a valley, a slit, or as part of the honeycomb outline. In the 2D drawing, all slits are colored black for cutting, all mountains and valley lines are colored red for engraving.</p>
-        <p><em>Placing Electronic Components:</em> In addition, we also compute the position of electronic components on the 2D layout. For this, we identify which valley/mountain the electronic component is attached to and then identify that valley/mountain on the 2D sheet. We draw the outline of electronic component as a rectangle onto the 2D sheet in the respective position. Each electronic has a different color assigned to it (except red and black), which allows us to identify each component in EAGLE.          </p>
-        <p><strong>Layer #2: Wiring of Components with EAGLE</strong></p>
-        <p>After the user imported the base-layer into EAGLE, our EAGLE User Language Program (ULP) plugin first generates a circuit board the size of the honeycomb pattern by parsing the .DXF file and going over the outside contour of the honeycomb using the coordinates in the file. Next, it converts the colored squares according to their color into matching electronic components. First, we extract the position of electronic components from the .DXF file, then load the matching electronic component from EAGLE’s component library using EAGLE’s add() function and provide the respective component ID as parameter. Using the generated board and electronic component, the user can now create the desired schematic and then use EAGLE’s standard auto-routing function to generate the wiring layout.          </p>
-      <p><strong>Layer #3: Insulating Layer</strong></p>
-        <p>The insulating layer is exported from Grasshopper when the 2D honeycomb layout is generated. The insulating layer is simple in that it covers all cells except those that have an electronic component or a cross-cell circuit connector placed on them, which we can easily identify when we place the colored squares for the components on the sheet.</p>
-        <p><strong>Layer #4: Valley/Mountain Glue Layer</strong></p>
-        <p>Similarly, the valley/mountain glue layers that use double-sided tape to hold the honeycomb together are generated when Grasshopper generates the 2D honeycomb layout. Since this follows a pre-defined cell-pattern (see Figure 2c), we generate this layer when we are defining which cells are mountains and which valleys on the base layer.</p>
-        <p><span class="medium-headline">
-        Extensions For Honeycomb Circuits</span></p>
-        <p>
-          
-          
-          Next, we describe extensions to our approach that allow for additional functionality.          </p>
-      <p><strong>Double-Sided Circuit</strong></p>
-        <p>We can also create double-sided circuit boards by applying our fabrication process on both sides (wiring + insulating sheet). However, at this point our design software only supports one-sided boards and thus users would have to create the layout manually. If the user prints the circuit on the back side of the sheet, it is necessary to connect the circuit of the top side and the back side using eyelets (Figure 24).<br>
-          
-          <br><img src="images/fig24-2d-layout.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-          
-          <strong>Figure 24: Double-sided circuit and connection.</strong>
-          <br><br>
-          
-          
-        <strong>Using Different Honeycomb Patterns</strong></p>
-        <p>Beside the honeycomb pattern we used for this paper, there are other structures with different properties available. For instance, by using a different size for mountains than for valleys, we can create structures of negative Poisson’s ratio (NPR), which can be stretched in two directions [25]. With recent inventions in meta-materials, such structures could in the future even potentially be expanded to three-dimensional expansion and contraction [29]. Finally, by generating heterogeneous patterns, in a way similar to the ones shown in Hybrid Bricolage [8], we can generate honeycombs that better approximate an object’s geometry. Properties of irregular honeycomb structures have also been explored in computer graphics [15], mechanical engineering [20], and material science [43].          </p>
-        <p><strong>Stacking Multiple Honeycomb Structures</strong>        </p>
-        <p>At the moment, we use a single layer of honeycomb structure only, which limits us to very simple shapes. However, moving forward we can stack multiple honeycomb layers on top of each other for more complex geometries.
-          Other Base-Sheet Materials: Opaque, Translucent etc.<br>
-          For the objects illustrated in this paper, we used a transparent PET plastic sheet. However, other materials than PET can be used as the base as long as they comply with the maximum thickness of 0.8mm (thicker sheets are hard to cut and hard to fold). For example, by using a translucent plastic sheet we can diffuse the light of LEDs for a lamp, or by using a black plastic sheet we can conceal the internal parts. Similarly, paper can also be used for low cost prototyping.<br>
-          <br>
-          
-          <span class="medium-headline">
-          Discussion
-          </span>        </p>
-        <p>Finally, we will discuss our experiences while building honeycomb circuits over the course of several months. <strong>Conductive Inkjet Printing vs. Conductive Tape</strong>
-          
-        We initially considered the use of conductive inkjet printing to print the circuits directly onto the sheet rather than applying a layer of conductive tape and then peeling of the non-wire areas. However, conductive inkjet printing turned out to be not as reliable since the wire traces easily broke during folding. Conductive tape, in contrast, was robust enough to withstand folding over longer periods of time.          </p>
-        <p><strong>Robustness of Prototypes</strong></p>
-        <p>We found that with respect to the robustness of the constructed circuitry, the weakest point are the wire traces. When the lines are thin (less than 1mm) and folded several hundred times, such as when expanding and contracting the transformable smart watch display, traces start to break. We can reduce this effect by using thicker wire traces. However, this results in fewer wires per cell. For the cross-cell circuit connector, solder paste helped eliminate these issues since it "glues" both sides together more reliably. However, the paste needs to be applied manually while the tape can be cut using the plotter. We also noticed that the blade of the cutting plotter gets dull over time. However, for the entire project, we only replaced the blade once ($9 per blade).</p>
-        <p><strong>Debugging Folded Circuitry</strong></p>
-        <p>During assembly, we found that debugging the circuitry was challenging once the circuit was folded into its 3D shape since the honeycomb-cells were glued/taped together and thus could not be easily unfolded again. To facilitate this, we envision a version of our fabrication process that uses hook-and-loop fasteners (both regular and conductive) instead of tape to connect the mountains/valleys. When debugging is required, the hook-and-loop fasteners allow users to pull the two surfaces apart to reveal the circuitry, diagnose the problem, and then re-connect the surfaces.</p>
-        <p><strong>Learning Curve when Using Honeycomb Circuits</strong></p>
-        <p>Most of the fabrication steps (e.g., applying tape and aligning sheets, automated cutting using the plotter) require little expertise and have limited complexity. Soldering is the hardest task but our target users (makers and other technical inventors with expertise in electronics and prototyping) tend to be familiar with this. The steps in the electronic design software EAGLE are not more difficult than for regular 2D electronics. The most error-prone step from our own experience is soldering the right components into the right place, which could be further improved by cutting visually distinguishable marks into the sheet at the correct locations. The cutting and layering could be further automated using layered-object manufacturing (automatically aligns, cuts, laminates layers) or a machine similar to the one used during the honeycomb manufacturing process shown in Wadley et al.        <br>
-          <br>
-          <span class="medium-headline">
-          Conclusion
-        </span></p>
-        <p>In this paper, we presented a novel fabrication technique that allows users to integrate electronic parts into foldable 3D structures. Since our technique is based on using a plotting cutter and a plastic sheet, users can create foldable prototypes fast and at low cost. To facilitate the design, we developed a layer-based fabrication method and developed software that automatically generates the required layers for folding, circuitry, and insulating. We demonstrated how our technique can create a variety of 3D objects with integrated functions, such as a smart-watch, a test tube case and a shape-changing controller. For future work, we plan to investigate how to reduce the number of layers required by using conductive inkjet printing for printing traces that are robust to folding. In addition, we plan to automate the folding process using a feeder and a folding machine . We also plan to develop a circuit layout algorithm that avoids potential short circuiting when folding which would allow us to reduce the need for having an insulating sheet.
-          
-          
-          <br><br><br><br>
-        </p>
-        </br>
-		</br>
-		</br>
-		</br>
-		</br>
-		</br>
+      <p>&nbsp;</p>
+      <p>#2 Enter Labels: We can now enter a label in the form of a text, an image, or a URL next to the preview of each instance. Since we want to give each key cover the name of one of our lab members, we enter one name per instance. We can update these labels later any time, for instance, when a new team member joins our lab and we need to reassign the key.</p>
+        <p> #3 3D Printing: Upon clicking the “Export” button, each instance’s G-code file is saved, as well as a digital file (XML) that stores the object information and the entered label corresponding to each instance. We can now send the G-code files to our FDM printer to obtain the printed instances. We also transfer the digital file that stores the object information to our smartphone to be used later for identification. </p>
+		
+		
+      <p><b>Identification Interface (Mobile App + Object Alignment)</b> </p>
+        <p>At the end of the semester when we update our key inventory, we use the G-ID mobile app on our phone to identify which of the returned keys belonged to whom. After launching the app, we first select the model we would like to scan, i.e., the key cover, from our object library (Figure 4a). The app then helps us to align the camera image with the object by showing an outline of the object on the screen, similar to how check cashing or document scanning apps work (Figure 4b). When the outlines are aligned in this human-in-the-loop setting, the app automatically captures and processes the image (Figure 4c). It then identifies the features in the photo associated with the surface-related slicing parameter settings, retrieves the user-assigned label, and shows it on the screen (Figure 1c). We check off the lab members who returned their keys and send a reminder to everyone else.        
+      <p>        
+      <p><img src="images/Fig4-Handheld-phone.png" alt="mosculpt-runner" width="450" style="padding-bottom:0px; margin-bottom:10px"><br>
+          <strong>Figure 4. G-ID mobile app for identifying instances: (a) select model from library, (b) face the object, (c) once outlines are aligned, the app automatically takes the image.  </strong>
+        
+      <p>      
+      <p>To assign each key cover a unique tag, we open G-ID&rsquo;s labeling interface (Figure 3) on our computer and load the 3D model of the key cover by dragging it onto the canvas. Since we want to create 40 key covers, we enter 40 instances into the left-hand panel of the interface.        
+      <p><b>Surface &amp; Interior: Detecting Infill Using a Light Source </b>
+        <p>In the above described scenario, G-ID was able to successfully label each instance using only slicing parameters that affect the object&rsquo;s surface, such as the initial bottom line width and angle because the number of instances was small. However, for scenarios requiring more instances, G-ID can also sense the interior of objects (<em>infill</em>) at the expense of adding a small light source as described in the next scenario.</p>
+      <p>For our department&rsquo;s annual celebration, we are asked to print a set of 300 coffee mugs as a giveaway. Each coffee mug, when inserted into a smart coffee machine (camera and light source below the tray table), automatically fills the mug with the user&rsquo;s preferred drink. Similar to the previous scenario, we use G-ID&rsquo;s labeling interface to generate the instances, but this time G-ID also varies the parameters <em>infill angle</em>, <em>infill pattern</em>, and <em>infill density</em> once it used up the parameter combinations available for the surface. As users insert their mug into the smart coffee machine, which has a stationary setup, the integrated light makes the infill visible due to the translucent nature of regular PLA 3D printing filament (Figure 5). G-ID takes a picture, extracts the infill angle, pattern, and density in addition to the previously mentioned bottom surface parameters, and after identification, pours the user&rsquo;s favorite drink.</p>
+      <p>&nbsp;</p>
+      <p><img src="images/Fig5-infill-mug-scenario.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
+      <strong>Figure 5. By adding a light, we can also detect variations in infill, such as different infill angles, patterns, and densities, which allow for a larger number of instances. Here, the coffee maker recognizes the mug’s infill and pours the user’s preferred drink.</strong>      
+      <h2>SLICING PARAMETERS USED FOR LABELING</h2> 
 
-
-	</div>
+        <p>In the next section of the paper, we report on the types of slicing parameters for surface and infill that can be used for creating unique identifiers.</p>
+        <p><b>Surface Parameters</b>
+        </p>
+      <p><i>Bottom Surface: Resolution &amp; Angle: </i>When the bottom layer is printed by moving the print head along a path, two parameters influence how the path on this first layer is laid out. <em>Initial bottom line width </em>defines the width of a single line on the bottom surface and thus the resulting resolution. <em>Initial bottom line angle</em> sets the direction when drawing the lines to construct the surface. Combinations of these two parameters are shown in Figure 6.        
+      <p>        
+      <p><img src="images/Fig6-Bottom-Surface-parameters.png" alt="mosculpt-runner" width="450" style="padding-bottom:0px; margin-bottom:10px"><br>
+  <strong>Figure 6.  Combinations of different line widths and angles.</strong>      
+      <p>Intermediate Layers: Resolution &amp; Angle
+      It is possible to vary the slicing parameters for the intermediate layers in the same way as for the bottom surface. Layer height when varied leads to different layer thicknesses across the printed object and thus affects the overall print resolution. Rotating the 3D model on the build plate leads to different layer angles across the side surface. Combinations of these two parameters can be seen in Figure 7.            
+      <p><img src="images/Fig7-side-parameters.png" alt="mosculpt-runner" width="450" style="padding-bottom:0px; margin-bottom:10px"><br>
+        <strong>Figure 7. Different layer angles achieved by rotating the model at the expense of additional support material and print time (a vs. b), and various print qualities (b vs. c).</strong>
+      <p>However, using the slicing parameters for layers comes at several drawbacks. As can be seen, changing the layer orientation results in a significant increase in print time due to the extra support material required. Further, changing the layer resolution can result in a notable difference in print quality across different instances. We still include it here to provide a complete overview of all available parameters.      
+      <p><b>Infill Parameters</b>
+      <p>Next, we review slicing parameters that change an object&rsquo;s internal print path.</p>
+      <p><i>Infill: Resolution, Angle, &amp; Pattern: </i>Three parameters influence how the infill is laid out. <em>Infill line distance</em> determines how much the lines of the infill are spaced out and thus determines the internal resolution. The denser the infill lines, the higher the infill density. <em>Infill angle</em> rotates the infill lines according to the direction specified in degrees. Different combinations of these two parameters are shown in Figure 8a. <em>Infill pattern</em> allows for different layouts of the print path (Figure 8b), such as grid or triangle shapes. 
+</p>
+      <p>&nbsp; </p>
+      <p><img src="images/Fig8-infill.png" alt="mosculpt-runner" width="450" style="padding-bottom:0px; margin-bottom:10px"><br>
+        <strong>Figure 8. Cross-sections of the mug model show (a) different infill angles and densities, (b) different infill patterns.</strong>
+      <p>      
+      <p>
+		<b>Selecting Parameters that Minimize Print Time &amp; Material</b>
+      <p>When the user enters the number of instances, G-ID varies those slicing settings first that have the least amount of impact on print time and required material. For instance, the bottom line angle does not add any print time, does not change the resolution, and does not require additional material, whereas changing the bottom width changes the resolution slightly. Infill parameters are varied afterwards since they affect most layers of the model, starting with the infill angle, followed by infill pattern and width.            
+	  <h2>DETECTING &amp; IDENTIFYING SLICING PARAMETERS</h2> 
+		    
+		    
+      <p>To detect these slicing parameters on a 3D print, we apply common image processing techniques. Our pipeline is implemented using <em>OpenCV</em> and uses <em>SimpleElastix,</em> a state-of-the-art image registration library.</p>
+      <b>Aligning the Object&rsquo;s Base in Handheld Camera Images</b>
+      <p>In the first processing step, G-ID needs to further refine the position and orientation of the object in the photo the user has taken to match the outline of the 3D model that was shown on the screen. For such alignment, most existing tagging approaches include specific shapes with the tags. For example, QR codes&nbsp; have three square finder patterns. We did not want to add such markers and therefore decided to infer the position and orientation of the object based on the contour of its surface, which G-ID can extract from the 3D model. </p>
+      <p>&nbsp;</p>
+<p><img src="images/Fig9-image-registration-fourier.png" alt="mosculpt-runner" width="700" style="padding-bottom:0px; margin-bottom:10px"><br>
+  <strong>Figure 9. Image registration &amp; processing pipeline. (a) The captured outline is registered with that of the 3D model model for (b) improved alignment. (c) Its Fourier transform is used to infer line angle θ and width d. (d) The distance ∆x between intensity peaks on the inclined line is inversely proportional to d.</strong>
+<p><b>Images Used for Alignment</b>
+<p>When the user processes the 3D model in the G-ID labeling interface, it automatically saves the outline of its base in the XML file as a binary image (stored as a Base64 string). When the user loads the XML file in the app, the object appears in the user&rsquo;s model library. After choosing the desired model, the app shows the user the stored outline to assist them with facing the object from the right angle. The app automatically captures the image when the contours are matched (i.e., the bitwise XOR error between the detected contour and target contour is below an acceptable value). G-ID then applies several pre-processing steps, such as applying a bilateral filter to smooth different color and shade regions without blurring their boundaries.
+<p><b>Removing Overhangs</b>
+<p>In the next processing step, G-ID removes overhangs, i.e., filters out object geometry that is not part of the bottom surface but appears in the image due to the camera angle. G-ID filters these parts out based on their shading in the camera image: Since the bottom surface is flat and located at a different height than an overhang, the two surfaces have different reflection properties, and thus appear brighter or darker in the image (Figure 9a). To find the shading of the bottom surface, G-ID samples a small region of interest to extract the HSV values to get the corresponding threshold range. G-ID then uses the threshold to mask the contour. </p>
+<p><b>Reducing Perspective from the Image (Undistorting)</b></p>
+<p>After extracting the contour, G-ID applies an affine transformation (translation, rotation, scaling, shearing) to compute the deformation field required for alignment. As input to this image registration, we use the masked image from the previous step (converted to a binary outline) as the moving image. The fixed image is the outline of the 3D model at a constant scale. While a projective transformation would best rectify the perspective, it can be approximated by an affine transform since the perspective deviation is minimized due to human-in-the-loop camera image capturing. 
+</p>
+<p>To find the best affine transformation, we use adaptive stochastic gradient descent as the optimizer. As the objective function, we use mean squares since we work with binary images, which have little gradient information. The computed parameter map of the affine transformation is then applied to the image the user has taken to align it with the digital 3D model outline (Figure 9b). </p>
+<p>
+<b>Detecting Bottom Line Angle and Width</b>
+<p>Since the traces of the 3D printed surface have a periodic layout, we are able to detect their orientation and widths by looking at the frequency spectrum, i.e., we take the 2D Fourier transform of the image. From this spectrum, we can determine the bottom line angle  by extracting the slope of the line on which the periodic peaks lie (peaks are marked yellow in Figure 9c). We can determine the bottom line width <em>d</em> by casting the intensity values on this inclined line into a 1D array and computing the distance <em>x</em> between the maxima, which is inversely proportional to <em>d</em>. This approach is more robust than looking at the original image itself because in case the lines have irregularities, their distances may be inconsistent, whereas the Fourier transform acts as a smoothing filter and provides an averaged value.</p>
+<b>Error Checking</b>
+<p>If the picture the user has taken is of poor quality (out-of-focus, poor lighting, or accidental shaking of camera), the lines on the object surface will not be clear enough to extract correct measurements of parameters. Fortunately, these false readings can be avoided due to the nature of the 2D Fourier transform. In the Fourier spectra of digital photos, there is a strong intensity along the x and y-axis since real-world objects have many horizontal or vertical features and symmetries. If surface lines are not distinguishable, peak intensities appear on the x and y-axis and therefore erroneously result in detection of 0° or 90°. Thus, the detection of either of these two angles indicates a false reading. Therefore, we exclude these two values from our allowed slicing parameter space. Whenever our algorithm detects these two angles, we notify the user that the image has to be retaken for correct measurement.</p>
+<p>
+<b>Detecting Infill Angle, Width, and Pattern</b>
+<p>To detect the infill parameters, we first remove noise from the image that is caused by the bottom lines on the surface (Figure 10). We remove them by (a) increasing the contrast of the image, (b) blurring the image with a 2D Gaussian smoothing kernel, and (c) applying adaptive thresholding. <br>
+  To detect the infill <em>pattern,</em> we compare the resulting shapes after thresholding to the known infill pattern templates shown in Figure 10d/e. To determine infill <em>density,</em> we compare the infill templates at different scales to the size of the shapes in the image, the matching template then indicates the size of the pattern. Similarly, the infill <em>angle</em> is detected by rotating the template and finding the angle that gives the smallest sum of squared difference to shapes in the image. Since infill is detected in the stationary setup, alignment of the base is less of a concern and image registration can either be simplified or ignored for shorter processing times.</p>
+<p>&nbsp;</p>
+<p><img src="images/Fig10-image-processing.png" alt="mosculpt-runner" width="450" style="padding-bottom:0px; margin-bottom:10px"><br>
+  <strong>Figure 10. Image processing to extract the components of the infill pattern: (a) photo, (b) contrast increased, (c) blurred, (d) binarized, and (e) matched to the template of the respective infill type: grid, triangles, trihexagon from top to bottom.</strong>
+<h2>Spacing of Slicing Parameters</h2>
+<p>We conducted an experiment to determine which parameter spacing can be reliably identified using our detection method. For the experiment, we printed a number of instances with different slicing settings and used our detection method to identify each pattern. Table 1 summarizes the results of this experiment under regular office light conditions. We focus this analysis on the parameters related to bottom surface and infill, which are seen from the object&rsquo;s base, and do not consider those related to the side (intermediate layers).<br>
+  <br>
+<div>
+  <table border="1" cellspacing="3" cellpadding="3">
+    <tr>
+      <td width="90" valign="top"><p> </p></td>
+      <td width="48" valign="top"><p><strong>Min</strong></p></td>
+      <td width="54" valign="top"><p><strong>Max</strong></p></td>
+      <td width="60" valign="top"><p><strong>Spacing</strong></p></td>
+      <td width="71" valign="top"><p><strong>Variations</strong></p></td>
+    </tr>
+    <tr>
+      <td width="90" valign="top"><p><strong>Bottom:</strong></p></td>
+      <td width="48" valign="top"><p>&nbsp;</p></td>
+      <td width="54" valign="top"><p>&nbsp;</p></td>
+      <td width="60" valign="top"><p>&nbsp;</p></td>
+      <td width="71" valign="top"><p>&nbsp;</p></td>
+    </tr>
+    <tr>
+      <td width="90" valign="top"><p>Angle (°)</p></td>
+      <td width="48" valign="top"><p>0°</p></td>
+      <td width="54" valign="top"><p>180°</p></td>
+      <td width="60" valign="top"><p>5°</p></td>
+      <td width="71" valign="top"><p>36-2=34*</p></td>
+    </tr>
+    <tr>
+      <td width="90" valign="top"><p>Width (mm)</p></td>
+      <td width="48" valign="top"><p>0.35</p></td>
+      <td width="54" valign="top"><p>0.6</p></td>
+      <td width="60" valign="top"><p>0.05</p></td>
+      <td width="71" valign="top"><p>6</p></td>
+    </tr>
+    <tr>
+      <td width="90" valign="top"><p>Bottom Total:</p></td>
+      <td width="48" valign="top"><p>&nbsp;</p></td>
+      <td width="54" valign="top"><p>&nbsp;</p></td>
+      <td width="60" valign="top"><p>&nbsp;</p></td>
+      <td width="71" valign="top"><p>= 204</p></td>
+    </tr>
+    <tr>
+      <td width="90" valign="top"><p><strong>Infill:</strong></p></td>
+      <td width="48" valign="top"><p>&nbsp;</p></td>
+      <td width="54" valign="top"><p>&nbsp;</p></td>
+      <td width="60" valign="top"><p>&nbsp;</p></td>
+      <td width="71" valign="top"><p>&nbsp;</p></td>
+    </tr>
+    <tr>
+      <td width="90" valign="top"><p>Angle (°)</p></td>
+      <td width="48" valign="top"><p>0°</p></td>
+      <td width="54" valign="top"><p>60°/90°</p></td>
+      <td width="60" valign="top"><p>5°</p></td>
+      <td width="71" valign="top"><p>12 / 18</p></td>
+    </tr>
+    <tr>
+      <td width="90" valign="top"><p>Width (mm)</p></td>
+      <td width="48" valign="top"><p>2.6</p></td>
+      <td width="54" valign="top"><p>3.2</p></td>
+      <td width="60" valign="top"><p>0.6</p></td>
+      <td width="71" valign="top"><p>2</p></td>
+    </tr>
+    <tr>
+      <td width="90" valign="top"><p>Pattern (type)</p></td>
+      <td width="48" valign="top"><p>- </p></td>
+      <td width="54" valign="top"><p>- </p></td>
+      <td width="60" valign="top"><p>- </p></td>
+      <td width="71" valign="top"><p>3</p></td>
+    </tr>
+    <tr>
+      <td width="90" valign="top"><p>Infill Total:</p></td>
+      <td width="48" valign="top"><p>&nbsp;</p></td>
+      <td width="54" valign="top"><p>&nbsp;</p></td>
+      <td width="60" valign="top"><p>&nbsp;</p></td>
+      <td width="71" valign="top"><p>= 84</p></td>
+    </tr>
+    <tr>
+      <td width="90" valign="top"><p><strong>Total:</strong></p></td>
+      <td width="48" valign="top"><p>&nbsp;</p></td>
+      <td width="54" valign="top"><p>&nbsp;</p></td>
+      <td width="60" valign="top"><p>&nbsp;</p></td>
+      <td width="71" valign="top"><p><strong>= 17,136</strong></p></td>
+    </tr>
+  </table>
+</div>
+<p>Table 1: Each slicing parameter&rsquo;s range (min, max) and incremental spacing values as determined by our experiments. The last column shows the number of variations that can be realized. (*2 angles reserved for error checking). <br>
+  <br>
+  Using the object&rsquo;s base for identification has many advantages: (1) it is easier for users to take aligned pictures of the base since it is flat, (2) it is more time and material efficient to manipulate base-related features since they only affect a single layer and have no influence on the print quality of the main surface of the object, (3) there are more combinations of identifiable features since both bottom surface and infill can be seen just from the base, (4) it is convenient to computationally process a flat surface. <br>
+  We therefore decided to first focus on the bottom layer and infill parameters, however, further analysis can be done concerning side surfaces by repeating our experiment.
+  </p>
+  </p>
+<p><b>Selecting 3D Models to Evaluate Parameter Spacings</b>
+</p>
+<p>How finely differences in slicing parameters can be detected depends on the size of the area of the bottom surface. The larger the surface, the more features can be used by the algorithm for classification. To determine a spacing of parameters that works well across different 3D models, we used objects with varying surface areas for our experiment.<br>
+  To select these objects, we downloaded the top 50 3D models from <a href="https://www.thingiverse.com/">Thingiverse</a>  and ranked them by their bottom surface area (i.e., the largest square one may inscribe in the contour of the first slice, determined by an automated MATLAB script). We found that 25 models had a large surface area (&gt;6cm2), 7 models had a medium surface area (1.2-6cm2), and 18 models had small surface areas (&lt;1.2cm2). These ranges were determined empirically based on our initial tests. We randomly picked one object representing each of these three categories and printed multiple instances using the parameters below.</p>
+<p><b>Determining the Range for Each Slicer Setting</b></p>
+<p>Before slicing each of the models with different settings, we first determined the min and max values for each setting.</p>
+<p><em>Bottom:</em> For the bottom angle, we can use 0°-180°. Going beyond 180° would cause instances to be non-distinguishable (i.e., 90° looks the same as 270°). We took the min value for initial bottom line width as 0.35mm, the default value recommended in the slicer <em>Cura</em>. Although this parameter can be as large as twice the nozzle size (2*0.4mm), we limit the max value to 0.6mm to avoid disconnected lines. For the pattern settings, which do not have min and max values, we considered the &ldquo;line&rdquo; pattern for the bottom surface. </p>
+<p><em>Infill</em><em>:</em> As for the infill angle, we can use a range of 0°-60°&nbsp;for the <em>trihexagon</em> and <em>triangular</em> patterns, and 0°-90°&nbsp;for the <em>grid</em> pattern, as their layouts are periodic with period 60° and 90°, respectively. For infill line distance (density), we determined that having infill units smaller than 2.6mm makes the pattern unrecognizable — we thus used it as the min value. The max value is 3.2mm for objects with medium base area but may go up to 8.0mm for larger objects. Going beyond this value would imply an infill density of less than 10%, and thus fragile, less stable objects. The three infill pattern (type) settings do not have min or max values.</p>
+<b>Slicing with Different Spacings and Capturing Photos</b>
+<p>Next, we used our three selected objects (small, medium, large), and printed them with different slicing settings. Our goal was to determine how finely we can subdivide the given parameter ranges for accurate detection. To find the optimal spacing for each parameter, we made pairwise comparisons of two values (e.g., for angles, instance #1: 8° - instance #2: 5°; difference: 3°), while keeping all other parameters constant. Based on 16 pictures taken for each pairwise comparison, we report the accuracy at which we can distinguish the two instances. For the prints with infill variations, we held a small light source <em>(Nitecore Tini)</em> against the side of the 3D printed object before taking the image.</p>
+<p><b>Results of the Experiments</b></p>
+<p>As expected, objects from the &ldquo;small&rdquo; category did not have sufficient base area to fit in enough infill units and thus not give satisfactory results. We therefore conclude that G-ID cannot be used for very small bases and excluded them from the rest of the analysis. We next discuss the results for each slicing parameter for the medium and large object category.
+</p>
+<p>&nbsp;</p>
+<p><img src="images/Fig12-combined-parameters.png" alt="mosculpt-runner" width="720" style="padding-bottom:0px; margin-bottom:10px"><br>
+  <strong>Figure 11. Detection accuracies vs. parameter spacing between pairs of instances for the four slicing parameters 
+(bottom line angle &amp; width, as well as infill angle &amp;width). All plots have the same y-range.
+</strong></p>
+<p><b>Bottom Line Angle &amp; Width</b></p>
+<p>The dashed lines in Figure 11a,b indicate that a spacing of 5°&nbsp;and 0.05 mm provides a classification accuracy of 100% for both the medium and large base area categories, respectively. Thus, a range of 0°-180° would give us 36 variations for the angle. However, we exclude the two degrees 0° and 90° from the bottom line angle range since these are reserved for error checking (as described in section &ldquo;Detecting Slicing Parameters&rdquo;), therefore we have 34 variations. A range of 0.35-0.6mm allows 36 variations for the width.</p>
+<p><b>Infill Angle &amp; Line Distance (Width)</b>
+  </p>
+<p>The dashed lines in Figure 11c,d show that a spacing of 5°&nbsp;and 0.6mm provides a 100% detection accuracy for the two categories, respectively. Thus, for the ranges of 0°-60° and 0°-90°, we can use 12 or 18 variations, respectively. For the width, we can use, for medium objects, a range of 2.6-3.2mm (2 variations); and for large objects 2.6-8.0mm (10 variations). We report the smaller number in Table 1.
+</p>
+<p>
+<b>Infill Pattern</b>
+<p>The confusion matrix in Figure 12&nbsp;shows that the &ldquo;grid&rdquo; and &ldquo;trihexagon&rdquo; work for both medium and large classes. For large objects, we can also use all three different patterns.</p>
+<p><img src="images/Fig11-infill-confusion-matrix.png" alt="mosculpt-runner" width="390" style="padding-bottom:0px; margin-bottom:10px"><br>
+  <strong>Figure 12. Sliced infill patterns vs. detected infill patterns.</strong></p>
+<b>Total Number of Instances Possible</b>
+<p>Based on the results, using a parameter spacing that works for both medium and large objects, we can achieve a total of 204 instances if we only use the camera, or 17,136 instances if we use both the camera and light (see Table 1). In comparison to other types of tags, we can say that these parameter spaces have a larger code capacity than a 1D barcode with 7 or 14 bits, respectively.</p>
+<b>Cross-Validation</b>
+<p>To cross-validate our parameter spacing, we printed another random set of 16 objects (10 large, 6 medium) from the same top 50 model list from Thingiverse (excluding the ones we used in the previous experiment) with white filament. Before printing, we randomly assigned each model a combination of slicing settings from the available parameter space and then tested if G-ID can identify them. Our second goal was to see if the parameter spacing still applies when multiple parameters are varied at the same time (our previous experiment only varied one slicing parameter per instance at a time). Among the 10 objects with large bottom area, all slicing parameters were correctly identified. Among the 6 objects from the medium category, 5 were correctly identified. In total, the detection accuracy is 93.75%. The falsely identified model had the smallest bottom surface area (1.4cm2), which confirms the fact that objects without sufficient surface area cannot be recognized.</p>
+<p>
+<p><img src="images/Fig13-Pipeline-overview-system.png" alt="mosculpt-runner" width="480" style="padding-bottom:0px; margin-bottom:10px"><br>
+  <strong>Figure 13. System overview. </strong><br>
+  <h2>System Implementation</h2>
+  <p>An overview of the system is shown in Figure 13. G-ID&rsquo;s labeling interface for creating multiple instances runs on the browser and is based on WebGL. Once the user drags a 3D model (.stl) onto the canvas and enters the number of instances, the interface calls its backend written in Python, which is responsible for the distribution of the slicing parameters. Once the slicing parameters are determined for each individual instance, the backend calls the slicer <em>CuraEngine</em> to compute the G-code for each instance.</p>
+  <p>After the instances are sliced with their individual slicer settings, the user is shown the 2D sliced layers as well as the 3D model. For rendering these previews, we use the JavaScript library <em>Three.js</em>. Finally, G-ID saves an .XML file with the slicing parameters, labels and the contour of the object&rsquo;s base as an image (created using an automated MATLAB script) for future identification with the G-ID mobile app.</p>
+  <h2>Evaluation</h2>
+  <p><strong>Different Materials, Lighting Conditions, Thicknesses</strong></p>
+  <p><em>Surface:</em> To see how the filament&rsquo;s color and different lighting affect the detection of surface parameters, we printed six instances of the key cover with eight different colors of Ultimaker PLA filaments (total of 48 instances) and using a dimmable LED lamp varied the light in the room from 0 – 500 lux (measured with lux meter Tacklife LM01). We picked the filament colors to be the primary and secondary colors of the RYB model, as well as white and black filament. We selected the light intensities to represent different low-light conditions. For slicing, we used surface parameters distributed evenly along bottom line angle and width within the allowed range from Table 1. The results are shown in Figure 14. All colors worked well for lighting conditions above 250 lux. This shows that our approach works well in classrooms (recommended light level: 250 lux) and offices/laboratories (recommended light level: 500 lux). The results also show that the camera needs more light to resolve the lines for lighter colors (i.e., white and yellow) than for darker colors. Since we used white filament for our parameter spacing evaluation, the results in Table 1 work even for worst-case scenarios. This also means that for other filament colors, an even smaller surface area would suffice for correct detection since the surface details can be better resolved.  </p>
+  <p><img src="images/Fig14-Lighting.png" alt="mosculpt-runner" width="450" style="padding-bottom:0px; margin-bottom:10px"><br>
+    <strong>Figure 13. System overview. </strong></p>
+  <p><em>Infill:</em> We were able to detect the patterns for all of the aforementioned filament colors except for black due to its opaque nature. Further, the brighter the light, the thicker the object base may be: 145 lumens suffice for a base of 1mm (suggested thickness in Cura), 380 lumens suffice for 1.75 mm.</p>
+  <b>Different 3D Printers</b>
+  <p>Since G-ID takes as input universal units like millimeters (width) and degrees (angle), our method extends to FDM printers other than the one we used for the experiments. To confirm this, we fabricated six test prints on the 3D printers Prusa i3 MK3S and Creality CR-10S Pro in addition to the Ultimaker 3 that we used for our experiments, and inspected the traces laid down with a microscope. The line widths of the prints had an average deviation of 9.6m (Prusa) and 10.7m (Creality) from the Ultimaker 3 prints. The line angles had an average deviation of 0.5° (Prusa) and 0.25° (Creality). These deviations are insignificant for our detection method since the spacing values chosen for the parameters are much larger than these values. To verify this, we used our mobile app to take pictures of these samples and ran our algorithm, which correctly detected the unique identifiers.</p>
+  <p><b>Camera Distance and Angle</b>    </p>
+  <p><em>Distance</em>: If the phone is held too far away from the object, the camera cannot detect the detailed grooves on the surface. To determine how far the camera can be held from the object, we took pictures with smartphones of different camera resolutions. We found that the iPhone 5s (8MP) can resolve the slicing parameter features up to 26cm, Pixel 2 (12.2MP) up to 36cm, and OnePlus 6 (16MP) up to 40cm. Taking into account the cameras&rsquo; field of view, this means that users can fit in an object with one dimension as large as 29cm, 45cm, and 52cm, respectively. G-ID guides users into the correct camera distance by varying the size of the object outline displayed on the user&rsquo;s phone for alignment. <br>
+      <em>Angle:</em> Since our image registration technique uses affine transformation, it is not able to fully remove the perspective distortion if the camera angle varies strongly. However, since our app guides users to align the object, the distortion is negligible. To show our algorithm can robustly read bottom surface parameters on a variety of shapes, we created a virtual dataset similar to the <em>LayerCode</em> paper. We downloaded the first 600 models from the Thingi10K database that have a rotationally non-symmetric base of appropriate size, sliced them with a random set of slicing settings, and rendered the G-codes using 3D editor <em>Blender.</em> We placed the virtual camera at points located on a spherical cap above the object base, with 8 evenly sampled azimuthal angles for each of the 5 polar angles. The percentage of shapes read correctly for each polar angle value <em>θ</em> is given in Table 2. The spacing values chosen for the parameters act as a buffer to prevent false readings. The objects for which detection failed at small angles had rather rounded bases, which makes alignment challenging. </p>
+    <table width="352" height="66" border="1" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="65" valign="top"><strong><em>θ</em></strong></td>
+        <td width="52" valign="top"><p>4°</p></td>
+        <td width="52" valign="top"><p>6°</p></td>
+        <td width="52" valign="top"><p>8°</p></td>
+        <td width="52" valign="top"><p>10°</p></td>
+        <td width="52" valign="top"><p>12°</p></td>
+      </tr>
+      <tr>
+        <td width="65" valign="top"><p align="left"><strong>Accuracy</strong></p></td>
+        <td width="52" valign="top"><p>98.50%</p></td>
+        <td width="52" valign="top"><p>94.50%</p></td>
+        <td width="52" valign="top"><p>86.67%</p></td>
+        <td width="52" valign="top"><p>75.00%</p></td>
+        <td width="52" valign="top"><p>64.50%</p></td>
+      </tr>
+    </table>
+    <p>Table 2: Polar angle <em>θ</em> vs. the percentage of identified objects.</p>
+    <h2>Application Scenarios</h2>
+    <p>Below, we outline three further example scenarios in addition to the two previously explained applications.<br>
+      <em>Finding Optimal Print Settings:</em> G-ID can be used to identify which slicing parameters a particular 3D print was created with. In Figure 15, a maker is trying to find the best angle for optimizing mechanical strength, and prints the model multiple times with varying settings. Rather than carefully writing down which settings were used for which one, the maker can retrieve a particular setting from a print simply by taking a picture of it. It is unlikely that they users estimate these settings by eye correctly as seeing tiny differences is not trivial.</p>
+    <p><img src="images/Fig15-Dinosaurs.png" alt="mosculpt-runner" width="450" style="padding-bottom:0px; margin-bottom:10px"><br>
+      <strong>Figure 15. Identifying particular print settings with G-ID: (a) exploring different slicing parameters and (b) printing them, (c) retrieving the best settings using G-ID.
+</strong></p>
+    <p><em>User Identification:</em> G-ID can be used to create identifiable objects that belong to a specific user cheaply and rapidly as it doesn&rsquo;t require the user to embed, e.g., an RFID/NFC tag in a separate step. For instance, in <em>toys-to-life</em> video games, physical character figurines that carry a G-ID label can be used to load a player&rsquo;s identity/score. When users insert their figurine into the G-ID reader, it communicates the user&rsquo;s ID to the game to display their name and score (Figure 16).
+</p>
+    <p><img src="images/Fig17-Figurine_toys.png" alt="mosculpt-runner" width="510" style="padding-bottom:0px; margin-bottom:10px"><br>
+      <strong>Figure 16. (a) Toys-to-life figurines are used to identify the player and display their info in the video game.</strong></p>
+    <p><em>Labeling a Commercial 3D Print for Anti-Counterfeiting:</em> Online 3D printing services such as <em>3D Hubs</em> or <em>makexyz</em>  ensure to refund customers if they can show a 3D model was not printed according to the user&rsquo;s specifications. By slicing a model using certain settings and storing this information, they can verify that a returned object was indeed fabricated by them before a refund is approved. Let us assume a 3D model is leaked and frauds attempt to print a copy themselves and then return that to get a refund (although they never bought it in the first place). Businesses can use G-ID to cross-verify the print setting used to create the original.</p>
+    <h2>Discussion &amp; Limitations</h2>
+    <p>Next, we discuss limitations and future work for labeling and identifying objects by their slicing parameters.</p>
+    <strong>Other Slicing Parameters </strong>
+    <p>In this work, we focused on surface and infill parameters, which offer a large number of unique identifiable features. Other slicing parameters, such as those that create geometry that is removed after fabrication (e.g., those related to <em>support material</em> or <em>build plate adhesion</em>) are less suitable.</p>
+    <p>However, for special materials, such as wood filaments, the shade of the object&rsquo;s color can be altered by varying the speed and temperature, which could be used to create differences among instances: the hotter/slower the extruder, the more the wood particles burn and the darker the resulting surface (Figure 17). However, since the changes affect the objects appearance, we do not consider them for our work.</p>
+    <p>&nbsp;</p>
+    <p><img src="images/Fig16-temperature-wood.png" alt="mosculpt-runner" width="440" style="padding-bottom:0px; margin-bottom:10px"><br>
+      <strong>Figure 17. The hotter the nozzle, the darker the print’s finish.</strong></p>
+    <strong>Rotational Symmetry of Outlines</strong>
+    <p>Since we use the outline of objects to extract the orientation of features, objects whose bases are rotationally symmetric are less suitable for our approach. Thus, the number of identifiable angles is reduced for certain shapes, e.g., for a square base, the range narrows down from 0°-180° to 0°-90°.</p>
+    <strong>Non-Flat Side Surfaces </strong>
+    <p>When a camera&rsquo;s optical axis is parallel to the object&rsquo;s axis of rotation on the build plate, the layer traces on a curved surface appear as straight, parallel lines and the features can be extracted similarly using Fourier transforms. For that, we instruct the user to take a picture from the correct viewpoint (as shown in Figure 18) by generating a silhouette guide of the object taking into account the camera&rsquo;s focal length</p>
+    <p><img src="images/Fig18-dinosaur-non-flat-sides-Fourier.png" alt="mosculpt-runner" width="330" style="padding-bottom:0px; margin-bottom:10px"><br>
+      <strong>Figure 18. (a) Model’s axis of rotation is orthogonal to the image plane of the virtual camera, (b) rendered target outline for the user to align model, (c) image has parallel traces</strong>.</p>
+    <strong>Applicability Beyond FDM Printing</strong>
+    <p>FDM and SLA printing have been the most accessible consumer techniques for the last decade. Although SLA achieves better resolutions, individual layers on objects can still be distinct (Figure 19). As for DLP printing, the projected pattern creates rectangular voxels that cause the edges to look stepped; different voxel sizes thus lead to different appearances . Most printing methods use infill, so the general idea of varying infill still applies. We thus think our method will stay relevant. Even if printing imperfections become smaller in the future, there are two factors to consider: As 3D printers improve in resolution, camera resolution improves over time (see Samsung&rsquo;s latest 108MP sensor). Computer vision gets better too: Neural networks can now pick up details beyond what the human eye or traditional image processing can detect, e.g., they have been used to identify tiny defects in solar cells  or dents in cars.</p>
+    <p><img src="images/Fig18-SLS.png" alt="mosculpt-runner" width="270" style="padding-bottom:0px; margin-bottom:10px"><br>
+      <strong>Figure 19. Formlabs SLA print captured by a phone camera.</strong></p>
+    <h2>Conclusion &amp; FUTURE WORK</h2>
+    <p>We presented G-ID, a method that utilizes the subtle patterns left by the 3D printing process to identify objects and that provides both a labeling and identification interface for creating and detecting surface and infill parameters using only a commodity camera. We reported on the code capacity enabled by an off-the-shelf slicer. In the future, this can be scaled up by building a custom slicer for creating unique print paths that go beyond what current slicers offer, e.g., spatial pattern tiling could expand the number of encodings (2 different tiles would give more than 2042=41,616 combinations). Also, our current implementation uses optimization-based image registration, which takes a few seconds. In the future, we can enable continuous detection for faster image capturing using optimization-free contour matching methods.</p>
+    <h2>ACKNOWLEDGMENTS </h2>
+    <p>We thank Alexandre Kaspar, Liane Makatura, Danielle Pace, and Jack Forman for the fruitful discussions. This work was supported in part by NSF Award IIS-1716413. Sriram Subramanian is grateful for the ERC Advanced Grant (#787413) and the RAEng Chairs in Emerging Technology Program.</p>
+    <p><br>
+      <br>
+      
+      </br>
+      </br>
+      </br>
+      </br>
+      </br>
+      </br>
+      
+      
+    </div>
 	</div>
 </div>
 
