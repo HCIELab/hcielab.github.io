@@ -597,7 +597,7 @@ G-ID then <em>identifies</em> the 3D printed object by such textures, i.e. after
       <p>      
       <p>To assign each key cover a unique tag, we open G-ID&rsquo;s labeling interface (Figure 3) on our computer and load the 3D model of the key cover by dragging it onto the canvas. Since we want to create 40 key covers, we enter 40 instances into the left-hand panel of the interface.        
       <p><b>Surface &amp; Interior: Detecting Infill Using a Light Source </b>
-        <p>In the above described scenario, G-ID was able to successfully label each instance using only slicing parameters that affect the object&rsquo;s surface, such as the initial bottom line width and angle because the number of instances was small. However, for scenarios requiring more instances, G-ID can also sense the interior of objects (<em>infill</em>) at the expense of adding a small light source as described in the next scenario.</p>
+      <p>In the above described scenario, G-ID was able to successfully label each instance using only slicing parameters that affect the object&rsquo;s surface, such as the initial bottom line width and angle because the number of instances was small. However, for scenarios requiring more instances, G-ID can also sense the interior of objects (<em>infill</em>) at the expense of adding a small light source as described in the next scenario.</p>
       <p>For our department&rsquo;s annual celebration, we are asked to print a set of 300 coffee mugs as a giveaway. Each coffee mug, when inserted into a smart coffee machine (camera and light source below the tray table), automatically fills the mug with the user&rsquo;s preferred drink. Similar to the previous scenario, we use G-ID&rsquo;s labeling interface to generate the instances, but this time G-ID also varies the parameters <em>infill angle</em>, <em>infill pattern</em>, and <em>infill density</em> once it used up the parameter combinations available for the surface. As users insert their mug into the smart coffee machine, which has a stationary setup, the integrated light makes the infill visible due to the translucent nature of regular PLA 3D printing filament (Figure 5). G-ID takes a picture, extracts the infill angle, pattern, and density in addition to the previously mentioned bottom surface parameters, and after identification, pours the user&rsquo;s favorite drink.</p>
       <p>&nbsp;</p>
       <p><img src="images/Fig5-infill-mug-scenario.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
@@ -749,7 +749,7 @@ G-ID then <em>identifies</em> the 3D printed object by such textures, i.e. after
 <p><b>Selecting 3D Models to Evaluate Parameter Spacings</b>
 </p>
 <p>How finely differences in slicing parameters can be detected depends on the size of the area of the bottom surface. The larger the surface, the more features can be used by the algorithm for classification. To determine a spacing of parameters that works well across different 3D models, we used objects with varying surface areas for our experiment.<br>
-  To select these objects, we downloaded the top 50 3D models from <a href="https://www.thingiverse.com/">Thingiverse</a>  and ranked them by their bottom surface area (i.e., the largest square one may inscribe in the contour of the first slice, determined by an automated MATLAB script). We found that 25 models had a large surface area (&gt;6cm2), 7 models had a medium surface area (1.2-6cm2), and 18 models had small surface areas (&lt;1.2cm2). These ranges were determined empirically based on our initial tests. We randomly picked one object representing each of these three categories and printed multiple instances using the parameters below.</p>
+  To select these objects, we downloaded the top 50 3D models from <a href="https://www.thingiverse.com/" target="_blank">Thingiverse</a>  and ranked them by their bottom surface area (i.e., the largest square one may inscribe in the contour of the first slice, determined by an automated MATLAB script). We found that 25 models had a large surface area (&gt;6cm2), 7 models had a medium surface area (1.2-6cm2), and 18 models had small surface areas (&lt;1.2cm2). These ranges were determined empirically based on our initial tests. We randomly picked one object representing each of these three categories and printed multiple instances using the parameters below.</p>
 <p><b>Determining the Range for Each Slicer Setting</b></p>
 <p>Before slicing each of the models with different settings, we first determined the min and max values for each setting.</p>
 <p><em>Bottom:</em> For the bottom angle, we can use 0°-180°. Going beyond 180° would cause instances to be non-distinguishable (i.e., 90° looks the same as 270°). We took the min value for initial bottom line width as 0.35mm, the default value recommended in the slicer <em>Cura</em>. Although this parameter can be as large as twice the nozzle size (2*0.4mm), we limit the max value to 0.6mm to avoid disconnected lines. For the pattern settings, which do not have min and max values, we considered the &ldquo;line&rdquo; pattern for the bottom surface. </p>
@@ -795,23 +795,23 @@ G-ID then <em>identifies</em> the 3D printed object by such textures, i.e. after
   <p>Since G-ID takes as input universal units like millimeters (width) and degrees (angle), our method extends to FDM printers other than the one we used for the experiments. To confirm this, we fabricated six test prints on the 3D printers Prusa i3 MK3S and Creality CR-10S Pro in addition to the Ultimaker 3 that we used for our experiments, and inspected the traces laid down with a microscope. The line widths of the prints had an average deviation of 9.6m (Prusa) and 10.7m (Creality) from the Ultimaker 3 prints. The line angles had an average deviation of 0.5° (Prusa) and 0.25° (Creality). These deviations are insignificant for our detection method since the spacing values chosen for the parameters are much larger than these values. To verify this, we used our mobile app to take pictures of these samples and ran our algorithm, which correctly detected the unique identifiers.</p>
   <p><b>Camera Distance and Angle</b>    </p>
   <p><em>Distance</em>: If the phone is held too far away from the object, the camera cannot detect the detailed grooves on the surface. To determine how far the camera can be held from the object, we took pictures with smartphones of different camera resolutions. We found that the iPhone 5s (8MP) can resolve the slicing parameter features up to 26cm, Pixel 2 (12.2MP) up to 36cm, and OnePlus 6 (16MP) up to 40cm. Taking into account the cameras&rsquo; field of view, this means that users can fit in an object with one dimension as large as 29cm, 45cm, and 52cm, respectively. G-ID guides users into the correct camera distance by varying the size of the object outline displayed on the user&rsquo;s phone for alignment. <br>
-      <em>Angle:</em> Since our image registration technique uses affine transformation, it is not able to fully remove the perspective distortion if the camera angle varies strongly. However, since our app guides users to align the object, the distortion is negligible. To show our algorithm can robustly read bottom surface parameters on a variety of shapes, we created a virtual dataset similar to the <em>LayerCode</em> paper. We downloaded the first 600 models from the Thingi10K database that have a rotationally non-symmetric base of appropriate size, sliced them with a random set of slicing settings, and rendered the G-codes using 3D editor <em>Blender.</em> We placed the virtual camera at points located on a spherical cap above the object base, with 8 evenly sampled azimuthal angles for each of the 5 polar angles. The percentage of shapes read correctly for each polar angle value <em>θ</em> is given in Table 2. The spacing values chosen for the parameters act as a buffer to prevent false readings. The objects for which detection failed at small angles had rather rounded bases, which makes alignment challenging. </p>
+      <em>Angle:</em> Since our image registration technique uses affine transformation, it is not able to fully remove the perspective distortion if the camera angle varies strongly. However, since our app guides users to align the object, the distortion is negligible. To show our algorithm can robustly read bottom surface parameters on a variety of shapes, we created a virtual dataset similar to the <em>LayerCode</em> paper. We downloaded the first 600 models from the <a href="https://arxiv.org/abs/1605.04797" target="_blank">Thingi10K</a> database that have a rotationally non-symmetric base of appropriate size, sliced them with a random set of slicing settings, and rendered the G-codes using 3D editor <em>Blender.</em> We placed the virtual camera at points located on a spherical cap above the object base, with 8 evenly sampled azimuthal angles for each of the 5 polar angles. The percentage of shapes read correctly for each polar angle value <em>θ</em> is given in Table 2. The spacing values chosen for the parameters act as a buffer to prevent false readings. The objects for which detection failed at small angles had rather rounded bases, which makes alignment challenging. </p>
     <table width="352" height="66" border="1" cellpadding="0" cellspacing="0">
       <tr>
-        <td width="65" valign="top"><strong><em>θ</em></strong></td>
-        <td width="52" valign="top"><p>4°</p></td>
-        <td width="52" valign="top"><p>6°</p></td>
-        <td width="52" valign="top"><p>8°</p></td>
-        <td width="52" valign="top"><p>10°</p></td>
-        <td width="52" valign="top"><p>12°</p></td>
+        <td width="65" align="left" valign="middle"><strong><em>θ</em></strong></td>
+        <td width="52" align="left" valign="middle"><p>4°</p></td>
+        <td width="52" align="left" valign="middle"><p>6°</p></td>
+        <td width="52" align="left" valign="middle"><p>8°</p></td>
+        <td width="52" align="left" valign="middle"><p>10°</p></td>
+        <td width="52" align="left" valign="middle"><p>12°</p></td>
       </tr>
       <tr>
-        <td width="65" valign="top"><p align="left"><strong>Accuracy</strong></p></td>
-        <td width="52" valign="top"><p>98.50%</p></td>
-        <td width="52" valign="top"><p>94.50%</p></td>
-        <td width="52" valign="top"><p>86.67%</p></td>
-        <td width="52" valign="top"><p>75.00%</p></td>
-        <td width="52" valign="top"><p>64.50%</p></td>
+        <td width="65" align="left" valign="middle"><p align="left"><strong>Accuracy</strong></p></td>
+        <td width="52" align="left" valign="middle"><p>98.50%</p></td>
+        <td width="52" align="left" valign="middle"><p>94.50%</p></td>
+        <td width="52" align="left" valign="middle"><p>86.67%</p></td>
+        <td width="52" align="left" valign="middle"><p>75.00%</p></td>
+        <td width="52" align="left" valign="middle"><p>64.50%</p></td>
       </tr>
     </table>
     <p>Table 2: Polar angle <em>θ</em> vs. the percentage of identified objects.</p>
@@ -848,11 +848,9 @@ G-ID then <em>identifies</em> the 3D printed object by such textures, i.e. after
     <p>We presented G-ID, a method that utilizes the subtle patterns left by the 3D printing process to identify objects and that provides both a labeling and identification interface for creating and detecting surface and infill parameters using only a commodity camera. We reported on the code capacity enabled by an off-the-shelf slicer. In the future, this can be scaled up by building a custom slicer for creating unique print paths that go beyond what current slicers offer, e.g., spatial pattern tiling could expand the number of encodings (2 different tiles would give more than 2042=41,616 combinations). Also, our current implementation uses optimization-based image registration, which takes a few seconds. In the future, we can enable continuous detection for faster image capturing using optimization-free contour matching methods.</p>
     <h2>ACKNOWLEDGMENTS </h2>
     <p>We thank Alexandre Kaspar, Liane Makatura, Danielle Pace, and Jack Forman for the fruitful discussions. This work was supported in part by NSF Award IIS-1716413. Sriram Subramanian is grateful for the ERC Advanced Grant (#787413) and the RAEng Chairs in Emerging Technology Program.</p>
-    <p><br>
+    <p>
       <br>
       
-      </br>
-      </br>
       </br>
       </br>
       </br>
