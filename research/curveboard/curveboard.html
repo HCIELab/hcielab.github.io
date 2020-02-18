@@ -211,274 +211,451 @@
 		In addition, users informed us that it was difficult to distinguish between the volume and channel controls since they both used press input with similar button sizes. To avoid wrong user input, we replaced the volume buttons with a dial.
 		<br>
 		<br>
-		<br>
-		<img src="images/Fig2 Headphone_0107_v2.png" alt="mosculpt-runner" width="720" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/Fig2 Headphone_0107_v2.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
 		<br>
 		<b>
 		Figure 2. Finding efficient and ergonomic I/O layouts for a pair of headphones.
 		</b>
 		<br>
 		<br>
+		<b><strong>#2 Ensuring that Components Fit onto the Prototype</strong></b><br>
+		When prototyping on a traditional breadboard, it is difficult for designers to estimate if all components will later fit onto the physical prototype. A physical design, especially when small or filigree, can limit which types of interactive components can be used and where they can be placed, which is an important part of interaction design.
+		<br>
+		<br>
+		Figure 3 shows this at the example of an interactive bracelet with display and button for menu control, a photoresistor and LED for heart rate monitoring, and an IMU for step counting. While prototyping directly on the bracelet, we notice that the large display that we initially selected does not fit on the slender bridges of bracelet, we thus exchange it for two smaller ones. After testing different button sizes on the bracelet prototype ranging from 2.3mm to 16mm, we find that the 7mm button fits best while providing the largest interactive space among other different options. We next add the LED and photoresistor and make sure they can be positioned together and offer enough space for users to place their finger. Finally, we exchange the wider IMU with a slimmer one, and replace the larger microcontrollers with two smaller ones.
+		<br>
+		<br>
+		While some components, like micro-controllers, can be made more compact in later design iterations via custom PCBs, user-facing I/O components (buttons, displays) will be similar in size since they relate to user’s physical characteristics, such as finger sizes and what the human eye can see.
+		<br>
+		<br>
+		<img src="images/Fig3 bracelet-camera-ready_0107.png" alt="mosculpt-runner" width="500" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 3. Upon the available space on the prototype, we iterate designs with the exchange of large OLED display with two smaller ones, and add selected push button & DIP LED.
+		</b>
+		<br>
+		<br>
+		<b><strong>#3 Preserving “Look” and “Feel”</strong></b><br>
+		When prototyping visual designs, such as a piece of interactive jewelry, it is difficult for designers to get a sense of the overall look and feel when using a breadboard that significantly distorts the prototype’s shape. CurveBoards, in contrast, allow designers to integrate the components directly on the prototype’s surface, which better preserves the shape..
+		<br>
+		<br>
+		<img src="images/Fig4 Thumb Ring_0107_v3.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 4. The look and feel of this interactive ring is preserved since the pinholes are directly integrated into its geometry.
+		</b>
+		<br>
+		<br>
+		Figure 4 shows this at the example of an interactive ring for which we iterate on the placement of LEDs. Since in our CurveBoard the pinholes form a part of the object geometry, no additional space is needed for them. We try different LED arrangements and based on how the ring looks on our hand, we decide to use multiple LEDs in a row rather than side by side. Note that while CurveBoard better preserved the shape, the pinholes are still visible and impact overall aesthetics.
+		<br>
+		<br>
+		<b><strong>#4 Preserving an Object’s Intended Function</strong></b><br>
+		Traditional breadboards add volume to an interactive object, which can hinder its intended function. For instance, a frisbee may not fly anymore since its shape is no longer aerodynamic, a ring may no longer fit on a user’s hand, and a teapot may not be able to hold the same amount of liquid inside.
+		<br>
+		<br>
+		Figure 5 shows this in more detail with the example of an interactive frisbee that displays a light pattern when thrown. Prototyping this frisbee with a breadboard attached to its surface would make the frisbee dysfunctional, i.e. it would not fly anymore. CurveBoard, in contrast, preserves the shape of the frisbee and thus its function. Our frisbee design initially contained a microcontroller and an IMU for sensing when the frisbee is in motion. We then iterated on different LED layouts until we settled on the one shown in Figure 5b.
+		<br>
+		<br>
+		<img src="images/Fig5 frisbee_new.png" alt="mosculpt-runner" width="500" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 5. CurveBoard keeps this frisbee functional, which allows us to test the appearance of different light patterns: (a) circular design, and (b) POV “CHI” design when thrown.
+		</b>
+		<br>
+		<br>
+		<b><strong>#5 Identifying Component Needs</strong></b><br>
+		Brainstorming interactive functionality without considering the physical form can be challenging for a designer, who is left with an abstract circuit on a breadboard. The direct, hands-on interaction with a prototype, in contrast, supports exploration, which enhances creativity and can help designers to envision interactive workflows and to identify the components needed to realize them [28]. In addition, since certain object geometries can affect component placement (e.g., high curvature may prevent access to movable elements like knobs or sliders [12]), brainstorming in the context of shape also allows to take such challenges into account.
+		<br>
+		<br>
+		Figure 6 shows this via the Utah teapot example for which we want to visualize its inside liquid temperature. After trying different display and temperature components on the teapot, we realize that the temperature is also needed for the teapot handle as an indicator to show if it is safe to hold. Since the tea handle is too small for another OLED display, we instead add one RGB LED onto the handle that displays either red or blue color to indicate the hot/cold. Later on, we decide to add a camera module on the inside of the lid to detect the tea concentration so that we know exactly when the brewed tea reaches the best saturation based on our preferences.
+		<br>
+		<br>
+		<img src="images/Fig6 Teapot-add-led_0107_v2.png" alt="mosculpt-runner" width="500" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 6. Here we brainstorm interactive functionality for the Utah teapot: (a) camera and display to monitor tea shade, and (b) LED and display to indicate temperature.
+		</b>
+		<br>
+		<br>
+
+
+		<span class="medium-headline">
+		INTERACTIVE EDITOR FOR CREATING CURVEBOARDS
+		</span>
+		<br>
+		<br>
+		To support designers in creating CurveBoards from their digital prototype designs, we developed an interactive editor. After loading the 3D model of the prototype, our editor first generates the pinholes across the model’s surface. Next, designers connect the pinholes into a desired channel layout using either the automatic or manual layout tools. Once the layout is completed, our editor automatically generates the channel geometry and provides the fabrication files.
+		<br>
+		<br>
+		<img src="images/fig7 3D model_0107.png" alt="mosculpt-runner" width="500" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 7. (a) CurveBoards interactive editor UI, (b) Example of a generated pinhole pattern.
+		</b>
+		<br>
+		<br>
+		<b><strong>#1 Converting the 3D Model into a Set of Pinholes</strong></b><br>
+		Designers start by loading a 3D model into the CurveBoard editor. Next, designers click the ‘generate pinholes’ button, which creates the characteristic pinhole pattern across the surface of the board (Figure 7).
+		<br>
+		<br>
+		<b><strong>#2 Creating the Board Layout</strong></b><br>
+		Next, designers create the board layout, i.e. define how to connect the pinholes into power and terminal lines. Similar to 2D breadboards that have a fixed row and column layout that cannot be modified dynamically, CurveBoards are also subject to this limitation once the board is fabricated. However, besides the standard breadboard layout that the CurveBoard editor can generate automatically, designers can also modify the layout manually depending on their prototyping needs, or for maximum flexibility leave all pinholes on the board disconnected, effectively creating a Curve-Protoboard.
+		<br>
+		<br>
+		<i>Automatic Channel Layout: </i> This method automatically generates a default breadboard layout across the surface of the 3D model. It requires minimal effort from the designer but also pre-defines how components can be placed (Figure 8a). Users can explore different versions of the automatic layout with different channel orientations on the object geometry by pressing “Generate Board Layout” button multiple times.
+		<br>
+		<br>
+		<img src="images/fig8 automatic manual_0107_v2.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 8. (a) Automatic layout, (b) manual layout.
+		</b>
+		<br>
+		<br>
+		<i>Manual Channel Layout: </i> Alternatively, designers can customize the automatic layout or create a new manual layout from scratch using the interactive tools for terminal and power line creation. Designers only have to select a set of pinholes and then indicate the desired type of connection using the corresponding button. This provides designers with more freedom in how to route the channels but comes at the expense of additional manual effort (Figure 8b).
+		<br>
+		<br>
+		<i>No Channel Connections (Curve-ProtoBoard): </i> Finally, designers also have the choice to leave all pinholes disconnected, effectively creating a Curve-Protoboard. The holes for a Curve-Protoboard are bigger in diameter (1mm vs. ~0.3mm for Curveboards) and fit both a component’s header pin and a wire. While this provides maximum flexibility, it requires additional wiring while prototyping.
+		<br>
+		<br>
+		<b><strong>#3 Export & Fabrication</strong></b><br>
+		Once designers hit the ‘export’ button, the CurveBoard editor generates the final CurveBoard geometry containing all the pinholes and connection channels underneath the CurveBoard’s surface (Figure 9). The CurveBoard editor then exports the geometry as an .stl file for 3D printing.
+		<br>
+		<br>
+		<img src="images/fig9 generated curveboard_0107.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 9. Generated 3D printable file: (a) in render mode, and (b) in transparent ‘ghost’ mode.
+		</b>
+		<br>
+		<br>
+
+
+		<span class="medium-headline">
+		FABRICATION METHOD OF CURVEBOARDS
+		</span>
+		<br>
+		<br>
+		In the next section, we describe the fabrication technique used for CurveBoards and provide details on the material preparation and mixing procedure.
+		<br>
+		<br>
+		<b><strong>Dual Material 3D Printing with Conductive Rubber</strong></b><br>
+		Our initial goal was to use dual-material 3D printing to fabricate CurveBoards, with one rigid non-conductive material used for the housing and a deformable conductive material (e.g., conductive rubber) used for the channels to facilitate repeated plugging of components.
+		<br>
+		<br>
+		Since dual-material 3D printing with conductive rubber is still an experimental fabrication technique, we used the external printing services from ACEO, which is the only company we found to offer this type of fabrication (materials: ACEO Silicone GP White for the housing, and ACEO Silicone EC for the conductive rubber, Shore Hardness 30 A).
+		<br>
+		<br>
+		We developed a range of 3D printed object geometries to test with their printing service, including different channel widths ranging from 0.6-1.5mm. However, we found that even the best of our prototypes still had a resistance of 1.4k ohm per channel (6-hole length). Thus, while the resistance was good enough to light up an LED (see Figure 10 for the 3D printed result), it was not conductive enough to work with other standard electronic I/O components. In addition, the maximum volume currently supported by the 3D printer is 200 cm3, with resolution ~1 mm to achieve reliable prints. Therefore, we conclude that dual-material 3D printing it is not yet suitable for fabricating CurveBoards.
+		<br>
+		<br>
+		<img src="images/fig10_0107.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 10. (a) Dual-material silicone 3D printed CurveBoard, and (b) with SMD LED connected.
+		</b>
+		<br>
+		<br>
+		<b><strong>3D Print Housing + Fill with Conductive Silicone</strong></b><br>
+		To address this issue, we developed a fabrication technique based on 3D printing the housing and filling the channels with conductive silicone (Figure 11). It enables high conductivity at the expense of additional manual effort (filling the channels for a CurveBoard takes between 15-30min based on our experience building the prototypes for this paper).
+		<br>
+		<br>
+		<img src="images/fig11_0107.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 11. (a) 3D printing the CurveBoard housing. (b) Filling the hollow channels with conductive silicone.
+		</b>
+		<br>
+		<br>
+		We next provide more details on both the 3D printing process and the task of filling the channels with conductive silicone.
+		<br>
+		<br>
+		<i>3D Printing:</i> For 3D printing, we used FDM 3D printers and printed on both the Ultimaker 3 and Prusa i3 MK2. We tried layer heights from 0.1mm-0.2mm and found that all created CurveBoard housings with channels that were suitable for filling them with conductive silicone. The prototypes in this paper were printed with a layer height of 0.15mm.
+		<br>
+		<br>
+		<i>Conductive Silicone for Channels: </i> To find a material mix that is both conductive and easy to extrude, we tested a range of different carbon fiber lengths, carbon-silicone ratios, and needle sizes.
+		<br>
+		<ul>
+			<li> <i>Carbon fiber length: </i> The longer the carbon fibers are the more conductive the mixture is but the harder to extrude. We tried fibers ranging from 0.5mm to 2.5mm. </li>
+			<li> <i>Carbon-Silicone ratios: </i> A higher carbon amount increases conductivity but makes the mixture harder to extrude. We tried ratios ranging from 3% to 10% carbon. </li>
+			<li> <i>Needle size: </i> The larger the needle size, the easier it is to extrude the mixture but the more difficult it is to insert the needle into a pinhole. We tried needle sizes ranging from 20G (0.6mm) to 14G (1.55mm). </li>
+		</ul>
+		<br>
+		<br>
+		Below, we describe the mixing procedure that we empirically determined to work best for filling CurveBoards.
+		<br>
+		<br>
+		To create the conductive silicone, we first mixed 10g of chopped carbon fiber (0.7mm long, 7 μm diameter from Procotex [4]) with 3ml of isopropyl alcohol. After stirring and dispersing the fiber hairs, we mix them into 100g part A of a regular two-component silicone (type: <i>Smooth-On SORTA-Clear 37 Clear</i> [34]) and stir for 5 minutes (Figure 12a/b). The carbon-silicone ratio is 5wt%, with same amount of part B added. Without part B, the conductive silicone will not start curing, i.e. we can keep the mix of part A + carbon fiber on the shelve to use over several days if stored covered.
+		<br>
+		<br>
+		Once we are ready to use the silicone, we add 100g of part B (<i>Smooth-On SORTA-Clear 37 Clear</i>) to the mix (Figure 12c), which initiates curing. After stirring for 5 minutes, we transfer the conductive silicone to a syringe (3ml, with 16-gauge blunt tip tapered dispensing needle) (Figure 12d).
+		<br>
+		<br>
+		The syringe can then be used to fill the channels in the CurveBoard. Because silicone is sticky, it remains inside the channels and does not drip out even when the object is tilted. Once all channels are filled, the CurveBoard cures for 75 minutes. For CurveBoard designs with pinholes on both sides (e.g. teapot lid in Figure 6), we tape one side up to prevent leaking, and fill the conductive silicone from the other side. We clean up the residue from the surface afterwards.
+		<br>
+		<br>
+		Because of the light blue taint of our fast curing silicone (<i>Smooth-On OOMOO 25</i>, curing time: 75 mins), we used a clear, slower curing silicone for the pictures of this paper (Smooth-On SORTA-Clear 37 Clear, curing time: 4 hours).
+		<br>
+		<br>
+		<i>Average Amount of Material per Prototype: </i> We found that CurveBoards with a volume of less than 400cm3 required on average 3g carbon and 60g silicone to fill all channels.
+		<br>
+		<br>
+		<img src="images/Fig12 mixing silicone.png" alt="mosculpt-runner" width="500" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 12. Mixing the silicone.
+		</b>
+		<br>
+		<br>
+		<b><strong>Surface Coloring to Visualize Channel Layouts</strong></b><br>
+		Since we fabricated the CurveBoards in this paper using standard FDM 3D printers that do not allow for high-resolution color printing, we cannot fabricate the breadboard markers for power and terminal channel connectivity. Instead, we mark the channel layout on the CurveBoard manually using a color marker as can be seen in Figure 13b.
+		<br>
+		<br>
+		<img src="images/Fig13-unity-outline.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 13. Channel Connectivity: (a) rendering in CurveBoard editor, (b) standard 3D printing with marker drawing, and (c) full-color 3D printing with <i>Da Vinci</i> printer.
+		</b>
+		<br>
+		<br>
+		With recent advances in full-color 3D printing, we can also use a full color printer, such as the <i>DaVinci </i>, to mark the connectivity (Figure 13c shows an example). However, since full color printers are significantly slower than regular FDM 3D printers due to the additional pass required to apply the color ink, we decided to not use them for our prototypes.
+		<br>
+		<br>
+
+
+		<span class="medium-headline">
+		EVALUATION OF CONDUCTIVITY & DURABILITY
+		</span>
+		<br>
+		<br>
+		To measure the conductivity and durability of our fabrication method, we ran two experiments.
+		<br>
+		<br>
+		<i>Conductivity: </i> To measure the resistance across different channel lengths we fabricate a 16-hole long channel and measured conductivity by iteratively increasing the pinhole distance between the measurement points. Figure 14 shows the result. When a line is fitted, we can see that for every extra pin hole, resistance goes up by on average of 8.5 ohms.
+		<br>
+		<br>
+		From all the channels contained in our prototypes, on average >95% are short terminal channels (3-6 holes, 30-60 ohms). This result is also comparable to standard breadboards which usually have >93% terminal channels. Power channels can get long & can have higher resistance (bracelet: 16 holes, 120 ohms, headphone: 36 holes, 600 ohms, the large various of resistance in long channels is likely due to the printing quality of different CurveBoard geometries).
+		<br>
+		<br>
+		<img src="images/fig14 resistance - both_0107_v2.png" alt="mosculpt-runner" width="500" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 14. (a) Resistance for different channel lengths, (b) Resistance over 100 plugs.
+		</b>
+		<br>
+		<br>
+		We wired up a range of components and found that digital signals including PWM worked well, most analog signals (e.g., photoresistors) also worked provided the channels had a stable resistance. Even for the longer power channels, resistance was within the fault-tolerance of typical electronics.
+		<br>
+		<br>
+		If needed, the resistance can be further reduced using one of the following techniques: Since the resistance R is a function of the distance D and the cross-section area A of the channel (R = k*D / A; <i>k</i> being a material property), we can decrease the resistance by making channels wider. However, this restricts the density of channels on the breadboard and prevents the use of standard components. Alternatively, we can also make the channels deeper, but this restricts the types of objects we can create as the prototypes become thicker. Finally, to reduce resistance, designers can also split long channels into segments and use connecting wires between them.
+		<br>
+		<br>
+		<i>Durability: </i> To evaluate the durability of the silicone against repeated plugging and unplugging of components, we selected a CurveBoard channel of three-pinhole length and repeatedly inserted a wire into it. We measured the resistance of the channel after every 10 plugs. We found that the silicone has a high durability due to its self-closing characteristics when a wire is removed. Surprisingly, over repeated use the resistance also decreased (Figure 14). We hypothesize that poking the pinhole over and over packs the carbon fibers tighter, which creates a better connection with the wire.
+		<br>
+		<br>
+		<i>Decay Over Time: </i> We repeated the above experiments with conductive silicone channel bar that were 6 months old. We found no statistically significant difference in the resistance measurements (p-value = 0.577954).
+		<br>
+		<br>
+
+
+		<span class="medium-headline">
+		EVALUATION WITH USERS
+		</span>
+		<br>
+		<br>
+		To gather feedback on designer’s experience when using CurveBoard, we ran a user study similar to the one conducted by Drew et al. for evaluating <i>ToastBoard</i> [8]. Note that our user study only investigates the experience of prototyping an interaction design using CurveBoard and further studies are needed to gather feedback on the CurveBoard channel layout design process and the CurveBoard fabrication.
+		<br>
+		<br>
+		We recruited six participants (3 female, 3 male). Experience levels for electronic prototyping ranged from moderately experienced (one participant) to very experienced (five participants). After a brief introduction, we randomly assigned participants to one of two conditions (either traditional breadboards + separate 3D printed prototype, or a CurveBoard of the same form factor as shown in Figure 15a/b). Participants completed a task sequence and then switched the condition.
+		<br>
+		<br>
+		<img src="images/Fig15 user study conditions_0107.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 15. Materials provided to participants in the (a) traditional breadboard vs (b) CurveBoard condition.
+		</b>
+		<br>
+		<br>
+		The task sequence asked participants to build an electronic circuit on the physical prototype given a schematic, a description of intended functionality, and a micro-controller that already runs working code. The participants were told which electronic components to use but not where to place them, i.e. they had freedom in determining the spatial layout of their interaction design. They were asked to optimize the layout of the I/O components for ergonomic and efficient interaction. We used two different task sequences and randomly assigned an order (both used the same form factor, i.e., the 3D model of the bracelet, but different schematics).
+		<br>
+		<br>
+		After each completed task, we asked participants to show us their prototype and then gave them the next task. Participants had 60 minutes per condition for finishing as many tasks as possible. The tasks were the same for all participants. Participants were not limited in terms of materials, i.e. they had several breadboard sizes including small 4x4 breadboards.
+		<br>
+		<br>
+		At the end of the session, participants filled out a questionnaire about what features they found helpful or frustrating, how both prototyping methods compared to each other, and what types of features they might like to see.
+		<br>
+		<br>
+		<b><strong>Findings</strong></b><br>
+		From all participants, 5/6 participants stated a preference for CurveBoard over the 2D breadboard. Below, we summarize additional observations and qualitative feedback:
+		<br>
+		<br>
+		<i>Attaching the Breadboard to the Prototype: </i> When using a 2D breadboard, participants used a wide variety of methods to attach the breadboard to the prototype. Most participants peeled off the backside of the breadboard to expose the sticky surface and then attached it to the prototype. One participant first applied tape across the entire bracelet and then placed the breadboard on it. Once placed, however, the breadboards were hard to move around in case additional boards had to be added to provide more wiring space for components. P2 stated: ‘I spent a lot of time with the 2D breadboards figuring out the best way to situate and attach them to the bracelet, which I didn’t have to do in the 3D breadboard use.’
+		<br>
+		<br>
+		<img src="images/Fig16 results from participants_0107.png" alt="mosculpt-runner" width="500" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 16. Some Prototypes built during user study in (a) traditional breadboard and (b) CurveBoard condition.
+		</b>
+		<br>
+		<br>
+		<i>Pre-defined Breadboard Size & Component Density: </i> When using 2D breadboards, participants found it challenging to place electronic components close to each other. Participants stated: ‘The 2D breadboard size made it very hard when I was trying to get the OLEDs near to each other.’ (p1) ‘I tried to use as many smaller breadboards as I could to cut down on excess space.’ (p6) ‘I rotated the breadboards to have two breadboards next to each other so that 4 screens are near each other’ (p1). In contrast, when asked about CurveBoard, participants said: ‘Having space to put components all over the object was pretty useful.’ (p4) ‘The 3D Breadboard had all the wire holes already there so I didn’t need to think about where to physically place breadboards.’ (p1) ‘It was easier to move things and redesign the layout.’ (p2)
+		<br>
+		<br>
+		<i>Requested Improvements: </i> Participants requests included: (1) firmer connections when plugging wires (p2, p4), (2) the ability to customize the channel connections enabled through the interactive editor or a CurveProtoboard (p3, p4), and (3) to also have curved and flexible electronic components available to better approximate the shape (p1, p6).
+		<br>
+		<br>
+
+
+		<span class="medium-headline">
+		IMPLEMENTATION
+		</span>
+		<br>
+		<br>
+		Our conversion software [46] is implemented as a <i>Grasshopper</i> plugin to the 3D editor <i>Rhino3D</i>.
+		<br>
+		<br>
+		<b><strong>Generating the Pinholes on the 3D Model Surface</strong></b><br>
+		To generate the pinholes on a 3D model surface, we first convert the 3D model into a quadmesh (Figure 17c). Each vertex of the mesh represents one pinhole candidate on the breadboard’s surface. To ensure a consistent spacing of pinholes that is required to make DIP electronic components fit, we enforce a fixed spacing between adjacent quad vertices (i.e., 2.54mm as on a 2D breadboard).
+		<br>
+		<br>
+		<img src="images/fig17_0107.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 17. (a) orientation field, (b) position field, and (c) generated quadmesh
+		</b>
+		<br>
+		<br>
+		To convert the model, we use the <i>instant meshes</i> open source library provided by Jakob et al. [14] available on github [11]. To provide the 3D model to <i>instant meshes</i>, we first export the 3D model as an .obj file using Rhino3D’s export function. Next, we prepare the input arguments for instant meshes: Since we want to generate a quad mesh, we set the <i>orientation symmetry</i> (Figure 17a) and the <i>position symmetry</i> (Figure 17b) to 4. Next, we set the <i>crease angle threshold</i> to 90° to enforce quad alignment to sharp folds in the surface. We also set the <i>align to boundaries</i> parameter to true to align the edges of individual quadmeshes with the edges of the 3D model. The final input parameter <i>target face count</i> needs to be calculated based on the mesh geometry. For this, we use the surface area of the 3D model and divide it by the size of the desired quad, i.e. 2.54x2.54mm (=6.4516mm2), which is the standard area used by one breadboard pinhole.
+		<br>
+		<br>
+		Next, we pass all pre-determined parameters and the 3D model into <i>instant meshes</i> via a Python subprocess function call. After instant meshes calculated the quadmesh, it outputs a list of vertices of the quads (each vertex will form a pinhole), a list defining the connectivity between these vertices (representing different CurveBoard layout-connectivity options), and the converted 3D model.
+		<br>
+		<br>
+		Our CurveBoard editor in <i>Rhino3D</i> then reads the quad mesh results back, removes the old model from the viewport, and instead displays the new quadmeshed 3D model.
+		<br>
+		<br>
+		<b><strong>Specifying the Breadboard Connectivity</strong></b><br>
+		Each vertex of the quadmesh represents a pinhole. When users’ select the vertices using the VCC, GND, and terminal brushes, the vertices are added to a point lists (polyline) that represents the connectivity of the breadboard channels.
+		<br>
+		<br>
+		<b><strong>Generating the Geometry of Channels for fabrication</strong></b><br>
+		In a final step, we generate the geometry for 3D printing.
+		<br>
+		<br>
+		<i>Pinholes: </i> To create pinholes, we create a cone 4mm deep from the surface of the object at each pinhole (vertex), narrowing from 1 mm diameter at the surface to 0.8 mm at their tips to minimize channel overlap over concave surfaces. We then perform a Boolean difference operation to subtract the cone geometry from the 3D object, creating tapered pinholes.
+		<br>
+		<br>
+		<i>Channels: </i> To create the channels, we first offset the points of each pinhole on the channel inward along a vector orthogonal to the surface, which creates a polyline along which the channel will be created. At each offset point, we generate a rectangle centered on this point where the height axis is parallel to the surface normal vector, and the width axis is orthogonal to both the surface normal vector and the polyline. The height and width of each rectangle that we later use for lofting the channel is initially set to the default channel size (width 1.8 mm, height: 4mm). Next, we perform two tests to adjust the channel size depending on the object geometry:
+		<br>
+		<br>
+		<i>Determine if the prototype is thick enough for the channel: </i> First, we determine if the height of the channel is smaller than the thickness of the prototype at each point of the channel (+ 1mm buffer on top/bottom for the wall thickness for 3D printing). If the thickness of the object geometry is not sufficient, we calculate the smallest height along the polyline and adjust the rectangle height accordingly (Figure 18a).
+		<br>
+		<br>
+		<i>Determine if channels collide because of curvature of object: </i> Next, we determine if the width of the channel is causing collisions with other channels. To check this, we take the channel rectangles of each channel and test if they intersect with each other. If this is the case, we reduce the width of the channel to be smaller (Figure 18b). In addition, we reduce the risk of collision by rounding all corners of the rectangle (fixed corner-roundness 0.9mm).
+		<br>
+		<br>
+		As our minimum channel size is 0.5mm high and 0.6mm wide, we support a maximum curvature of ~92.59 m-1 on any pinhole position of the 3D model without channel collision.
+		<br>
+		<br>
+		Once we determined the correct height based on these criteria, we then loft the rectangles and cap them into a polysurface for the channel. Finally, we perform a second Boolean difference with the model geometry to create the channels that connect the pinholes. This geometry is finally saved as a 3D printable .stl file.
+		<br>
+		<br>
+		<img src="images/Fig18 Maximum curvature on 3D model_0107.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 18. Channel size: (a) adjusting the height to smaller than the thickness of the prototype, (b) adjusting the width to prevent collision with neighboring channels.
+		</b>
+		<br>
+		<br>
+
+
+
+		<span class="medium-headline">
+		LIMITATIONS
+		</span>
+		<br>
+		<br>
+		CurveBoards are subject to several limitations:
+		<br>
+		<br>
+		<i>Number of Pins and Curvature of Surface: </i> When electronic components are plugged into CurveBoards, pins may not make contact with the surface when it is strongly curved and the component has many pins (e.g., displays). However, an analysis of standard electronic components showed that most components have pin rows that are fairly short (73/88 sensors on Sparkfun have < 7 pins on a single row), the pins are tightly packed (2.54mm), long (6mm), and can be slightly bent. In addition, with the silicone pads on CurveBoards, the pins do not have to be fully inserted. Therefore, components < 7 pins work on curvatures < 66.22 m-1. We can also use IC sockets which have longer pins and thus adapt better to steep curvature. The largest component on our prototypes is a micro-controller with 38 pins.
+		<br>
+		<br>
+		<i>Thickness of Required Prototypes: </i> Since our method embeds the breadboard within the physical prototype, the prototype needs to have a certain thickness in order for our algorithm to work. The minimum thickness is 3 mm across with a channel thickness of 0.6mm. As mentioned previously, the channel thickness directly correlates with the resistance.
+		<br>
+		<br>
+		<i>Regularity of Pin Spacing: </i> While it is easy to create regularly spaced pin holes on a 2D breadboard of rectangular shape, this is more challenging on arbitrary 3D surfaces. While our algorithm minimizes these issues, several pins on a board’s surface are not regularly spaced (due to a deformed quad as the result of quad meshing). We leave those areas empty to prevent invalid pin spacing on the surface.
+		<br>
+		<br>
+
 		
+		<span class="medium-headline">
+		DISCUSSION
+		</span>
+		<br>
+		<br>
+		Next, we reflect more broadly on the idea of integrating breadboards into physical prototypes.
+		<br>
+		<br>
+		<b><strong>Reusability: CurveBoard Templates</strong></b><br>
+		Traditional breadboards have a generic form factor, which allows them to be reused across different circuit designs. By designing CurveBoard prototypes as generic templates that represent classes of interactive devices, we can reuse CurveBoards across more than one use case. For instance, a CurveBoard in the shape of a plain bracelet can be used to prototype many different interactive wrist-wearables, such as a smart watch or decorative bracelet (Figure 19).
+		<br>
+		<br>
+		<img src="images/fig19_0107-v2.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 19. Generic wearable designs with same CurveBoard template: (a) smart watch, (b) decorative bracelet.
+		</b>
+		<br>
+		<br>
+		CurveBoard templates thus allow to defer the shape-decision for an individual CurveBoard prototype. Designers can start exploring the interaction design on a template, then refine the shape based on initial insights and create a custom Curveboard afterwards. As with any template, this comes at the expense of less customization for individual prototypes.
+		<br>
+		<br>
+		<b><strong>Flexible Electronics</strong></b><br>
+		While CurveBoards work with flat rigid electronic components, rigid components do not integrate well with the shapes of physical prototypes. Flexible electronics, in contrast, conform better to the shape as they can bend. For instance, a flexible display mounted on a CurveBoard bracelet conforms better to the curvature than a rigid display (Figure 20). While to-date, flexible electronics are still rare and an area of on-going development, we envision that future CurveBoards will primarily be used with flexible components of adaptable curvature.
+		<br>
+		<br>
+		<img src="images/fig20.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 20. A wearable E-book reader with flexible display.
+		</b>
+		<br>
+		<br>
 
 
 		<span class="medium-headline">
-		Application Use Cases
+		CONCLUSION
 		</span>
-		</br>
-		</br>
-		In this section, we will illustrate five applications, in-cluding two continuous and three discrete examples. For each example, we will show the use of our design tool, and report on the fabrication and dissolving time as well as the simulation accuracy.
-		</br>
-		</br>
-		<b>#1 Overnight Scent Release (Continuous)</b></br>
-		As mentioned above, we can use dissolvable support capsules to release relaxing scents overnight at pre-defined time steps. For this, we printed three support material spheres and filled them with essential oils (paused the print half way through, filled the capsule, continued the print as described in Printed Optics [28]). We then placed the capsules in a water container on the night stand in our bed room.
-		</br>
-		<img src="images/fig2-scent-release.png" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
-		</br>
-		<b>
-		Figure 2. This nightstand box releases relaxing scents in a pre-defined sequence: the red scent first, then blue, and finally green. (a) Simulation, and (b) actual release.
-		</b>
-		</br>
-		</br>
-		Since each sphere had a different wall thickness (2.5mm, 3mm, 4mm), the scents were released one after another after 86 min, 115 min, and 158 min respective-ly. We had previously explored the timing using Se-quential Support’s simulation tool, which had predicted times of 86 min, 135 min, and 163 min for the red, blue, and green capsules.
-		</br>
-		</br>
-		<b>#2 Animating Shadow Art (Continuous)</b></br>
-		By leveraging the timing and sequencing prediction of our support material simulation, we can use dissolving support to create shadow art. Figure 3 shows an exam-ple: Before the support material dissolves, the shadow art shows the initial image, i.e. a figure standing under a sunny sky. Once the shadow art starts dissolving, the sun turns into a cloud, the raindrops become visible, and finally an um-brella appears above the figure. The setup that we used to create this sequence consisted of the 3D printed ob-ject submersed in a water container and a light source mounted above it.
-		</br>
-		<img src="images/fig3-shadow-art-simulation.png" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
-		</br>
-		<b>
-		Figure 3. (a) Simulation: We time the dissolving sup-port to first convert the sun into a cloud, then show the raindrops, and finally an umbrella. (b) Physical result.
-		</b>
-		</br>
-		</br>
-		The dissolution time predicted by the simulation was 428 min vs. 380 min for the actual dissolving; the clouds, rain-drops, and umbrella were mostly dissolved at 1/2, 3/4T and at T, respectively, for both simulation and experiment.
-		</br>
-		</br>
-		<b>#3: Design Iteration Partially Replacing a Part (Discrete)</b></br>
-		Rather than reprinting the entire object during prototyp-ing, we can use dissolvable support material for the parts that require iteration. Figure 4 illustrates this using a Kinect handle that has been 3D printed to provide the user with a steadier grip while 3D scanning. We are unsure about the exact curvature and spacing for the grip and thus decide to print the grip part in dissolvable support.
-		</br>
-		<img src="images/fig4-design-iteration.png" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
-		</br>
-		<b>
-		Figure 4. (a) Splitting the model, (b) testing, (c) dis-solving the top part before fabricating the next version.
-		</b>
-		</br>
-		</br>
-		We use Sequential Support’s user interface to split the model into two parts (bottom: red PLA, top: white dis-solvable PVA) using the ‘slicing height’ slider. After printing and testing, we notice that the handle does not allow for a firm grip. We thus place it into hot water (70°C), which dissolves the top part within 1-2 minutes (note that discrete scenarios work with a higher water temperature (70°C vs. 45°C, thus dissolving faster). We return to the 3D editor, modify the 3D model, then ex-port again. To reprint the top portion of the grip, we place the previously printed bottom part onto the build plate (using a custom mount and double sided tape) and print the new part directly on top.
-		</br>
-		</br>
-		Printing the new part took only 1h 41 min vs. 5h 16 min for printing the object from scratch (68% faster), and only took 16g material vs. 54g (71% less material). We test the handle again and now it feels right. We dissolve the top one more time and reprint it in red PLA to pro-duce the final version of the design.
-		</br>
-		</br>
-		<b>#4 Breakage Support: Dissolvable Packaging (Discrete)</b></br>
-		To prevent fragile regions from breaking during transport, we use support material to reinforce them. Figure 5 shows an example: We print this phone stand in a FabLab but are afraid it might break as we transport it home. (a) After clicking Sequential Support’s ‘stress analysis’ button, we see that the phone stand is likely going to break in the regions close to the fingers. (b) By dragging the ‘support level’ slider, the regions identified by the stress analysis (FEA) are covered in additional dissolvable material.
-		</br>
-		<img src="images/fig5-breakage-TEI.png" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
-		</br>
-		<b>
-		Figure 5. (a) Stress map, (b) breakage support. (c) Transporting the object, and (d) after dissolving the support material on arrival use the phone stand.
-		</b>
-		</br>
-		</br>
-		Adding the support increased printing time by only 19% (17h51 vs. 15h01) and required only 6g of support add-ed to 107g PLA. After transporting the object home, softening the support using hot water (70°C) took only 4 minutes; we then wiped off the rest by hand and were ready to use the object within 15 minutes.
-		</br>
-		</br>
-		<b>#5 Assembly: Temporary Labels (Discrete)</b></br>
-		In our final use case, we use support material to simplify assembly. Here, we design a lamp that consists of 10 different parts. First, we use Sequential Support’s user interface and attach matching labels to the parts of the object that belong together using the ‘label’ buttons (Figure 1c).
-		</br>
-		</br>
-		Next, we create ‘stickers’, i.e., small support structures that can be used to connect two parts together (Figure 6a). These structures work as temporary adhesives to put parts that belong together close to each other (e.g., a nut that belongs to a particular threaded protrusion). Users can break them off during assembly and dissolve the rest later together with the labels (ca. 2-3 min in 70°C).
-		</br>
-		<img src="images/fig6-attach-TEI.png" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
-		</br>
-		<b>
-		Figure 6. (a) Small support structures can be used as connectors, to hold parts in place for (b) later assem-bly. (c) Mounting the assembled lamp onto the wall.
-		</b>
-		</br>
-		</br>
+		<br>
+		<br>
+		We presented CurveBoards, 3D breadboards directly integrated into the surface of physical prototypes. We demonstrated how CurveBoards provide a new electronic prototyping technique that allows designers to prototype the interaction design directly in the context of a physical prototype. We demonstrated CurveBoards applicability across a range of different application scenarios and object geometries, described our interactive editor and detailed our fabrication method that uses 3D printing for the housing and conductive silicone for channels. We evaluated the conductivity and durability of the resulting CurveBoards and reported on informal user feedback from participants that used CurveBoard for electronic prototyping. Finally, we detailed out implementation and concluded this paper with a discussion of limitations and opportunities around reusability and the use of flexible electronics. For future work, we plan to extend CurveBoard to support different sized or spaced parts and explore potential avenues for custom-shape electronics that better fit CurveBoard geometries.
+		<br>
+		<br>
+
+
 		<span class="medium-headline">
-		Simulation of Dissolving Support Material
+		ACKNOWLEDGMENTS
 		</span>
-		</br>
-		</br>
-		In the next section, we describe the algorithm used in our support material simulation that enables the contin-uous-time application scenarios. Our simulation takes into account different factors involved in dissolving support material, which we primarily base on related research on dissolving crystals in solvents [2, 5, 15].
-		</br>
-		</br>
-		<b>Step #1: Voxelizing the Model</b></br>
-		As soon as the user assigns support material (‘PVA’) as a shader to a part of a 3D model, we begin pre-processing the part to enable the simulation. We begin by voxelizing the part: We first compute the part’s bounding box and then fill it with voxels of size N (we use: side length = 0.3mm; the higher the resolution the more accurate the simulation, however, this comes with the trade-off of increased computational complexity that limits interactive exploration in the design inter-face). We then keep all voxels that intersect with the part’s surface and discard the rest.
-		</br>
-		</br>
-		<b>Step #2: Dissolution Probability for Number of Faces</b></br>
-		Each remaining voxel can have one of two states: dis-solving in the current time step or not dissolving. To determine the probability that a voxel will dissolve, we use the following equation (initially proposed by Gilmer et al. [5] and extended by Briese et al. [2]):
-		</br>
-		<img src="images/formula_diss.png" alt="mosculpt-runner" width="60" style="padding-bottom:0px; margin-bottom:1px"/>
-		</br>
-		As can be seen in the formula, the probability that a voxel dissolves increases exponentially with the num-ber of faces f exposed to the solvent. A voxel that is attached on only one side and thus has 5 faces exposed to the solvent, has a much higher chance of dissolving than a voxel with only one exposed face (Figure 7). This is why support structures on a model’s surface dissolve faster than those in small inlets (e.g., screw holes), and why sparse structures dissolve faster than solids.
-		</br>
-		<img src="images/fig7-number-of-faces.png" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
-		</br>
-		<b>
-		Figure 7. The more faces of a voxel are exposed to the solvent, the higher the probability that it dissolves.
-		</b>
-		</br>
-		</br>
-		In the formula, T is the temperature of the water in Kel-vin (constant at 318K or 45°C), k is Boltzmann’s con-stant (1.38064852 × 10-23 m2kg/s2K), and v and φ are constants that influence the speed of dissolution. We determined v and φ for our setup as described in section ‘Characterizing simulation parameters’ (v = 6.5, φ = 1.9).
-		</br>
-		</br>
-		Inserting all values into the formula, and varying the numbers of faces f from 1-5 gives us the probability for a voxel to dissolve based on its number of faces: f1 = 0.00049, f2 = 0.0032, f3=0.021, f4=0.15, f5=0.97 (Figure 7).
-		</br>
-		</br>
-		<b>Step #3: Drawing a Random Sample</b></br>
-		We then use these probabilities as inputs to a kinetic Monte Carlo simulation as described in Briese et al. [2].
-		We start by drawing a random number n from a uniform distribution on the interval [0,1]. This number is then compared to the probability that each voxel will dis-solve. If the random number is smaller than the dissolu-tion probability of the voxel, the voxel is dissolved. If not, it stays put.
-		</br>
-		</br>
-		After removing all dissolved voxels in the current time step, new surface voxels are generated to ensure that the voxel layer remains 1 voxel thick. We then repeat step #2 and #3. Figure 9 shows some results from our simulation.
-		</br>
-		</br>
-		<b>Step #4: Rendering</b></br>
-		We then convert the voxel model into a continuous surface using the Laplacian smoothing algorithm from the Weaverbird [27] Grasshopper add-on to render a more visually compelling result.
-		</br>
-		</br>
-		<span class="medium-headline">
-		Characterizing Simulation Parameters
-		</span>
-		</br>
-		</br>
-		Next, we explain how we determine the two input pa-rameters v and φ for the dissolution formula experimentally.
-		</br>
-		</br>
-		<b>Factors v (global dissolve speed) and φ (local speed)</b></br>
-		The factor v represents the global dissolve speed inde-pendent of the number of faces. The factor φ, in con-trast, represents the local speed with which each voxel dissolves based on the number of its exposed faces f.
-		</br>
-		</br>
-		For instance, consider the effect of varying v and φ on a ‘star’ shape. If φ is small, the number of faces exposed to the solvent has less of an effect on the probability of dissolution of each voxel. As a result, voxels at the tips of the star (containing more exposed faces) will be dis-solved at rates similar to those voxels composing the flat sides of the star (fewer exposed faces). Therefore, with small φ, the star will remain star-shaped. In con-trast, if φ is large, the number of faces exposed will play a greater role and the tips of the star will dissolve faster than the flat sides of the star, leading the star to become sphere-like.
-		</br>
-		</br>
-		<b>Collecting Test Data</b></br>
-		To determine the parameters v and φ, we printed differ-ent shapes (sphere, star, cube). We dissolved them in water and captured images using a front view camera (Figure 8). The shapes measured: cube length: 15mm, sphere diameter: 15mm, and star outside diameter: 24mm.
-		</br>
-		<img src="images/fig8-physical-dissolve.png" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
-		</br>
-		<b>
-		Figure 8. Dissolving shapes over time.
-		</b>
-		</br>
-		</br>
-		We used a 3-liter water tank and heated the water to a temperature of 45°C. This was the highest temperature chosen based on a trade-off between faster dissolution times and a tendency of the solvent to become cloudy at elevated temperatures, preventing us from recording the experiment.
-		</br>
-		</br>
-		We also created a mild current by using a 20mm mag-netic stirrer at 600rpm. The reason we use stirring is that when support material dissolves, the resulting particles stay close to the location where they dissolved, i.e., close to the object’s surface. The more particles are floating close to the surface, the slower the support material dissolves.
-		</br>
-		</br>
-		After immersing the objects in water, we took pictures every 8 minutes (Figure 8). We collected the same data from our simulation, i.e., we ran our simulation with an initial set of parameters for factor v and φ on the three test shapes and took screenshots from the same angle that the physical camera took photos of the real objects (Figure 9).
-		</br>
-		<img src="images/fig9-simulation-results.png" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
-		</br>
-		<b>
-		Figure 9. Simulation pictures.
-		</b>
-		</br>
-		</br>
-		<b>Extracting & Comparing Shape Contours</b></br>
-		We used OpenCV to extract and then compare the shape contours. We first thresholded the images and then ex-tracted huMoments to gain a feature vector describing the contours in a translation-, rotation-, and scale-invariant manner. We applied the same procedure to both the photos and the screenshots to gain a feature vector for each.
-		</br>
-		</br>
-		<b>Computing Error and Adjusting Simulation Parameters</b></br>
-		We then used the two feature vectors to compute the error (Euclidean distance) between the actual physical behavior and our simulation. This error is thus based on the compared 2D images (photos and simulation screenshots), which we use as a proxy for the difference between the full 3D shapes.
-		</br>
-		</br>
-		We then chose another set of simulation parameters v and φ, re-ran our simulation with the new v and φ and compared the error to the error from the previous pa-rameters (we always first picked φ, and then adjusted the corresponding v (global speed) until the probability for a voxel that has 5 faces (f5) was 97%). The results for each set of φ and v can be seen in Figure 10.
-		</br>
-		</br>
-		We found that φ = 1.9 and v= 6.5 lead to the best results across the three different shapes (lowest average error between the feature vectors over all time steps). Figure 10 summarizes the result for dissolving the same objects (star, sphere, cube) twice. We found that the error be-tween the two experiments differed by less than 10%.
-		</br>
-		<img src="images/fig10-Euclid_distance_Error_VS_hours.png" alt="mosculpt-runner" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
-		</br>
-		<b>
-		Figure 10. Graph of feature vector errors over time.
-		</b>
-		</br>
-		</br>
-		<span class="medium-headline">
-		Implementation
-		</span>
-		</br>
-		</br>
-		Both the simulation and the use-case specific features in our design tool are implemented as a Grasshopper plugin for the 3D editor Rhino 3D. We used the Hu-manUI library for the user interface elements.
-		</br>
-		</br>
-		<b>Design Iteration: Splitting the Model & Off-Setting It</b></br>
-		To split the model in half at the desired height, we use the Grasshopper SplitBrep() function. On export of the .stl files, the two parts are merged into a closed solid using the Grasshopper Cap function. After splitting and capping, the two geometries are baked to a new layer in Rhino using the function GH_Bake(). We use a custom script to export each geometry on the GH_Bake layer as individual .stl files (both are regular closed meshes, i.e. the parts can have sparse infills but will be separated by a solid layer). When printing a new iteration, the system only exports the top geometry as an .stl file. We then run a python script in the background that offsets the gcode com-mands in the Z direction by the height of the PLA part.
-		</br>
-		</br>
-		<b>Stress Analysis using Finite Element Analysis</b></br>
-		To create the stress analysis for our model, we use Rhi-no’s Scan&Solve plugin. The plugin comes with a func-tion called AddFaceVectorLoad(), which we give a set of input forces with a uniform load of 100N pointing from the top to the bottom. To display the resulting stress distribution we use the function SolutionDis-playEnable(). We then get the points of the highest stress using the function QuerySolutionValue(), which returns a list of stress values at all points on the model. We sort this list using a custom python script and then create a number of spherical support structures to cover the stress points commensurate with a value chosen using the slider in the user interface.
-		</br>
-		</br>
-		<b>Assembly Instructions</b></br>
-		To set up the snap locations on both the object and the instruction labels, we generate ‘point’ objects in Rhino. When the user connects two parts, we call Rhino’s ori-ent() function to snap the instruction label onto the reference point. We use the same approach for the at-tach option.
-		</br>
-		</br>
-		<b>Scent Release and Shadow Art</b></br>
-		Both examples use the simulation described previously in section ‘Simulation of Dissolving Support Material’.
-		</br>
-		</br>
-		<span class="medium-headline">
-		Limitations
-		</span>
-		</br>
-		</br>
-		While our approach enables new application scenarios, it is subject to the following limitations: (1) single-use only: once the support is dissolved, we cannot repeat the functionality. Thus, using support material works best for scenarios that require functionality only once, such as during assembly, product configuration, or transportation. (2) Simulation Precision: Since our set of sample shapes was small and the parameters were only optimized over a narrow range, the simulation should be fine-tuned in future work using additional shapes. (3) Speed: While the process of dissolving is fast at high water temperatures and for small amounts of support (only a few minutes for thicknesses in the vicin-ity of 1mm), it can take hours at low temperatures and when a lot of support material needs to dissolve. Thus, our work is limited to application scenarios with an extended time span, such as the overnight scent release or the slowly changing shadow art piece that could be displayed in a public plaza. (4) Overhangs: The support material cannot be used to print support structures for overhangs if those interfere with the main dissolving geometry. (5) Adherence: Current PVA support material is challenging to print since it does not adhere well to the regular PLA printing material. Printing on large flat surfaces (e.g. as in the design iteration case) facilitates adherence, while more complex geometries, such as the phone stand, are more difficult to print.
-		</br>
-		</br>
-		<span class="medium-headline">
-		Discussion
-		</span>
-		</br>
-		</br>
-		In this paper, we provided a first exploration into how support material can be used for different application use cases. However, for each individual use case, a more extensive exploration is required to analyze the trade-offs of using support material vs. traditional approaches.
-		</br>
-		</br>
-		For instance, using support material in the design itera-tion use case can accomplish the same function (i.e. replacing a part of the object geometry) as by using a milling machine (see Patching Physical Objects [22]). Compared to using a mill, our approach has the benefit of not requiring additional hardware and being faster when a high temperature bath is used (minutes of dis-solving vs. hours for milling). However, when using a mill, the user can decide which part to replace after printing, whereas in our approach the user needs to decide which part requires iteration before printing. In both processes, alignment and delamination are chal-lenges that need further investigation. In contrast to approaches that use joints to connect parts [7, 20] or rafts / brims, our method does not require modifying the model.
-		</br>
-		</br>
-		Similar trade-offs need to be explored for the other use cases, such as the breakage support. For instance, the benefit of our approach compared to traditional packag-ing is that it reinforces the object locally at its most fragile locations; this is different from packaging foam, which provides aggregate protection across the entire object. In addition, our approach provides additional breakage support even after being removed from the main packaging and during handling, until dissolved by the end user. On the other hand, if the amount of protec-tive support is large and requires a long time to print, the high speed of traditional wrapping techniques might outweigh the advantage of local support. Finally, de-pending on the circumstances, the soluble support pack-aging may need to be protected against humidity as this could weaken the structure over time.
-		</br>
-		</br>
-		<span class="medium-headline">
-		Conclusion
-		</span>
-		</br>
-		</br>
-		We presented Sequential Support, a system that enables users to use support material in 3D printing as a feature and not as a time- and material-consuming necessity. We showed how Sequential Support allows users to create a variety of objects for different application sce-narios, such as dissolvable prototype parts, breakage support, assembly labels, and time- and sequence-dependent shadow art and scent release mechanisms. For future work, we plan to run a qualitative study in which we will investigate how our method changes par-ticipants’ design practices. We will also use this study to explore additional application scenarios with partici-pants. In particular, we are interested to further explore use cases in fabrication in which objects have a limited life-span such as those outlined in Mobile Fabrica-tion [19], which include temporary tools and short-term fixes to everyday objects.
-		</br>
-		</br>
-		<span class="medium-headline">
-		Acknowledgements
-		</span>
-		</br>
-		</br>
-		We thank Dishita G. Turakhia and Yini Qi for their help with video editing.
+		<br>
+		<br>
+		We would like to thank our colleagues from the MIT International Design Center for the hardware support, especially Chris Haynes. We would also like to thank Dishita Turakhia for her help with the figures of this paper.
+		<br>
+		<br>
 
 
 
-
-
-
-
-		</br>
-		</br>
-		</br>
-		</br>
-		</br>
-		</br>
-		</br>
-		</br>
-		</br>
-		</br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
 
 
 	</div>
