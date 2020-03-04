@@ -55,10 +55,10 @@
 				<a href="http://groups.csail.mit.edu/hcie/files/research-projects/curveboard/2020-CHI-curveboard-paper.pdf" class="btn btn-pdf" alt="pdf" target="_blank">PDF</a>
 				&nbsp; &nbsp;
 				<!-- link needed -->
-				<!-- <a href="https://www.youtube.com/" class="btn btn-vdo" alt="video" target="_blank">Video</a>
+				<a href="https://youtu.be/erV9JR0rjGs" class="btn btn-vdo" alt="video" target="_blank">Video</a>
 				&nbsp; &nbsp;
-				<a href="http://groups.csail.mit.edu/hcie/files/research-projects/sequential-support/2019-TEI-Sequential-Support-presentation.pptx" class="btn btn-talk" alt="slide" target="_blank">Slides</a> -->
-				&nbsp; &nbsp;
+				<!-- <a href="http://groups.csail.mit.edu/hcie/files/research-projects/sequential-support/2019-TEI-Sequential-Support-presentation.pptx" class="btn btn-talk" alt="slide" target="_blank">Slides</a>
+				&nbsp; &nbsp; -->
 			</br>
 			</br>
 
@@ -67,17 +67,18 @@
 			</span>
 			</br>
 			</br>
+			<iframe width="360" height="203" src="https://www.youtube.com/embed/erV9JR0rjGs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 			<!-- <iframe width="325" height="190" src="https://www.youtube.com/embed/T-22KOGFLoQ" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe> -->
 			</br>
 			</br>
 			</br>
 
-			<span class="medium-headline">
+			<!-- <span class="medium-headline">
 						Slides
 						</span>
 						</br>
 						</br>
-						<img src="http://groups.csail.mit.edu/hcie/files/research-projects/sequential-support/presentation-images/thumbnails/2019-TEI-Sequential-Support-presentation-Slide1_180.jpg" alt="SequentialSupport" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(1)" class="hover-shadow"/>
+						<img src="http://groups.csail.mit.edu/hcie/files/research-projects/sequential-support/presentation-images/thumbnails/2019-TEI-Sequential-Support-presentation-Slide1_180.jpg" alt="SequentialSupport" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(1)" class="hover-shadow"/> -->
 						
 
 
@@ -555,7 +556,7 @@
 		<i>Determine if channels collide because of curvature of object: </i> Next, we determine if the width of the channel is causing collisions with other channels. To check this, we take the channel rectangles of each channel and test if they intersect with each other. If this is the case, we reduce the width of the channel to be smaller (Figure 18b). In addition, we reduce the risk of collision by rounding all corners of the rectangle (fixed corner-roundness 0.9mm).
 		<br>
 		<br>
-		As our minimum channel size is 0.5mm high and 0.6mm wide, we support a maximum curvature of ~92.59 m-1 on any pinhole position of the 3D model without channel collision.
+		As our minimum channel size is 0.5mm high and 0.6mm wide, we support a maximum curvature of ~92.59 m<sup>-1</sup> on any pinhole position of the 3D model without channel collision.
 		<br>
 		<br>
 		Once we determined the correct height based on these criteria, we then loft the rectangles and cap them into a polysurface for the channel. Finally, we perform a second Boolean difference with the model geometry to create the channels that connect the pinholes. This geometry is finally saved as a 3D printable .stl file.
@@ -579,7 +580,7 @@
 		CurveBoards are subject to several limitations:
 		<br>
 		<br>
-		<i>Number of Pins and Curvature of Surface: </i> When electronic components are plugged into CurveBoards, pins may not make contact with the surface when it is strongly curved and the component has many pins (e.g., displays). However, an analysis of standard electronic components showed that most components have pin rows that are fairly short (73/88 sensors on Sparkfun have < 7 pins on a single row), the pins are tightly packed (2.54mm), long (6mm), and can be slightly bent. In addition, with the silicone pads on CurveBoards, the pins do not have to be fully inserted. Therefore, components < 7 pins work on curvatures < 66.22 m-1. We can also use IC sockets which have longer pins and thus adapt better to steep curvature. The largest component on our prototypes is a micro-controller with 38 pins.
+		<i>Number of Pins and Curvature of Surface: </i> When electronic components are plugged into CurveBoards, pins may not make contact with the surface when it is strongly curved and the component has many pins (e.g., displays). However, an analysis of standard electronic components showed that most components have pin rows that are fairly short (73/88 sensors on Sparkfun have < 7 pins on a single row), the pins are tightly packed (2.54mm), long (6mm), and can be slightly bent. In addition, with the silicone pads on CurveBoards, the pins do not have to be fully inserted. Therefore, components < 7 pins work on curvatures < 66.22 m<sup>-1</sup>. We can also use IC sockets which have longer pins and thus adapt better to steep curvature. The largest component on our prototypes is a micro-controller with 38 pins.
 		<br>
 		<br>
 		<i>Thickness of Required Prototypes: </i> Since our method embeds the breadboard within the physical prototype, the prototype needs to have a certain thickness in order for our algorithm to work. The minimum thickness is 3 mm across with a channel thickness of 0.6mm. As mentioned previously, the channel thickness directly correlates with the resistance.
