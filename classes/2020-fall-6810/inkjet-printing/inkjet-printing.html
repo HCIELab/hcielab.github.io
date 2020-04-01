@@ -55,16 +55,41 @@
       
           <hr>
 
-In today's tutorial, you are going to use conductive inkjet printing to build a variety of different user input elements (buttons, sliders, dials, bend sensors). 
-
+In today's tutorial, you are going to use conductive inkjet printing to build a variety of different user input elements (buttons, sliders, dials, bend sensors).
+The technique was initially introduced in a paper from <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/06850258.pdf">Kawahara et al.</a> 
 
 <br><br>
-<h4>The steps will include:</h4>
+<h4>Sensor Types</h4>
 <ul>
 	<li>make a bend sensor</li>
 </ul>
 
 <br><br>
+
+
+<h4>Steps You will do for each Sensor:</h4>
+<ul>
+	<li>make a sensor design in Adobe Illustrator</li>
+	<li>print the sensor using conductive inkjet printing </li>
+	<li>build the circuit</li>
+	<li>connect the printed sensors to the measurement circuit using thin flat cables adhered to the design with copper tape</li> 
+</ul>
+
+
+
+<h3>Slider</h3><br>
+
+<b>Discrete vs. Continous Sliders:</b><br>
+From the paper <a href="https://dl.acm.org/doi/10.1145/2971763.2971777">DuoSkin (ISWC 2016)</a><br>
+<img src="images/slider-designs1.png" width="300px"><br><br>
+
+<b>Continous Sliders (Different Aesthetic Design Options):</b><br>
+From the paper <a href="https://dl.acm.org/doi/10.1145/2971763.2971777">DuoSkin (ISWC 2016)</a><br>
+<img src="images/slider-designs3.png" width="300px"> <img src="images/slider-designs2.png" width="300px"><br><br>
+
+<h3>Dial</h3><br>
+
+
 
 <h3>Bend Sensor</h3><br>
 
@@ -77,13 +102,39 @@ The bend sensor is based on the paper <a href="https://dl.acm.org/doi/10.1145/30
 The ink-jet printer prints tiny silver nano-particles on paper or foil. 
 Bending the paper in lets the tiny particles move closer to each other, bending the paper in the opposite direction lets the particles move apart from each other. One can measure this bending effect by <b>monitoring resistance</b>: <br><br>
 <b>bending in:</b> brings particles closer together and thus reduces resistance. <br>
-<b>bending out:</b> moves particles closer away from each other and thus increases resistance.<br><br>
+<b>bending out:</b> moves particles closer away from each other and thus increases resistance.<br>
+The higher the magnitude of flexing, the higher is the change in resistance.<br>
+This is the basic sensing principle behind <a href="https://en.wikipedia.org/wiki/Strain_gauge">resistive strain gauges.</a><br><br>
+
+<h4>Sensor Layout</h4>
+
+<b>Single Line:</b> The most basic design of a flex sensor is a single line of conductor, whose resistance is measured from its two ends. <br>
+<b>Two Parallel Lines:</b> The line can also be laid out in a U shape, resulting in two parallel lines responding to flexing with a higher response than a single line. <br>
+<b>Many Parallel Lines:</b> Eventually, an even longer line can be laid out in a zig-zag pattern of parallel lines to maximize the sensing lines subjected to bending in the parallel direction. <br><br>
+
+The image below illustrates this standard design. The sensor design senses bending predominantly along the direction of the parallel sensor lines, referred as the longitudinal axis. We will demonstrate how to build upon this basic principle to realize customized sensor surfaces.<br><br>
+
+<img src="images/flex-sensor-layout.png" width="300px"><br><br>
 
 <h4>Electronics</h4>
-The change in resistance can be measured with a <b>standard voltage divider curcuit</b>.<br> 
+The change in resistance can be measured either directly with a resistance meter or with a <b>standard voltage divider curcuit</b>.<br> 
 It is important to chose a resistor that roughly matches the overall resistance of the bend sensor. <br><br>
 
-<img src="images/bend-sensor-schematic.png" width="400px"><br><br>
+<img src="images/flex-sensor-layout-electronics.png" width="200px"> <img src="images/bend-sensor-schematic.png" width="300px"><br><br>
+
+The known resistance value is generally chosen to be close to the flat state resistance of the printed design. <br>
+For instance, for a printed design with flat state resistance of 500Ω, a known resistance R1 of 470Ω was used.<br><br>
+
+
+<h4>Calculating the Resistance</h4><br>
+
+<img src="images/resistance-formula.png" width="200px"> <br><br>
+
+<b>R2:</b> the resistance of the printed sensor (varies as you bend it, so we want to measure this!)<br>
+<b>R1:</b> the known resistance (470Ω in our example)<br>
+<b>VCC:</b> supply voltage (5V from the Arduino)<br>
+<b>Vout:</b> measured voltage output (measured from pin A0, see schematic)<br><br>
+
 
 <h4>Code</h4>
 
@@ -115,7 +166,70 @@ void loop() {<br>
  <br>
 <br>
 
-<h4>Your Task</h4>
+<h4>Measuring Sensor Layouts</h4><br>
+
+The design of a flex sensing geometry has the following primitives:<br>
+<ul>
+<li><b>number of sensing lines:</b> With more sensing lines, the resistance change to flexing is higher as compared to fewer sensing lines. Our sensor designs typically have 10 to 30 sensing lines.</li> 
+<li><b> line length:</b> the line length of our sensors varies between 2cm and 5cm. </li>
+<li><b>line width:</b> customize depending on the sensing material; more conductive materials such as silver nanoparticle ink, wider sensing lines result in a lower sensor response and are generally not preferred as more material is consumed with no advantage in sensing response. Instead, for applications that require less response range, fewer thin sensor lines can be drawn instead of a larger number of wide lines. </li>
+<li><b>line spacing:</b> linear and angular spacing between the sensor lines. Each of the sensor lines need not be parallel to each other and can be placed at different angular orientations. This enables sensing multi-axial deformations. In addition, the linear spacing between the sensor lines is kept much smaller than the sensor length. If the spacing is larger, then the change in resistance to flexing across sensor length is attenuated within the material laid out in perpendicular direction. </li>
+<li><b>composition:</b> how multiple sensing units within a geometry are laid spatially, e.g. two sensing units in a bird shape design are slightly curved to fit the wing shape better </li>
+<li><b>connecting traces:</b> traces connect the sensor design to the area on the substrate where contacts are tethered to a microcontroller; generally quite wide to have less resistance, and typically curved to avoid resistance change due to any uni-axial flexion.</li>
+</ul>
+<br><br>
+
+The resistance of the pattern depends on the sensor dimensions by<br><br>
+
+<img src="images/sensor-layout-formula.png" width="100px"> <br><br>
+
+<b>L:</b> sensor length<br>
+<b>A:</b> cross-sectional area (number of lines * (line width * line thickness))<br>
+<b>𝜌𝜌:</b> resistivity of the sensing material<br><br>
+
+We present spatial arrangements of the sensor design in 1D & 2D for sensing surface deformations, in varied sensor geometries. For sensing more complex deformations of a 1D surface, a linear array of sensing units is presented. A radial array enables sensing of 2D deformations on a surface.<br><br>
+
+
+(left) An omni-directional flex sensor design (right) with intermediate tapping.<br>
+<img src="images/omni-directional-bend-sensor.png" width="500px"> <br><br>
+
+<h4>Example Bend Sensor Designs</h4><br>
+
+<img src="images/flexy.jpg" width="700px"><br><br>
+
+<b>Bird wing:</b> This design illustrates a composition of multiple sensing units. A flex sensor spanning each of the wings can capture flexion during wing flapping. Sensing lines in each unit span the wings partly and are slightly curved to better fit to the wing shape. (design dimensions: length = 45mm, width = 0.35mm, curved at 8°).<br><br>
+
+<b>Fish design:</b> This design illustrates how a sensor can mimic the visual appearance of the interactive object. We illustrate a sensor placed around the caudal fin (tail) of the fish. The sensor can sense the back and forth wavy movement of the tail. It has fewer sensing lines with varying spacing between them. (design dimensions: length of fin =30mm, width of fin = 44mm, line width = 0.5mm).<br><br>
+
+<b>Flower:</b> This design illustrates a circular arrangement of individual sensing units. The example design consists of five petals connected through a central unit. Each of the sensing units consists of varying line lengths to conform to the petal shape and is connected to the central connector. (design dimensions: length1 = 29.78mm, length2 = 35.36mm, length3 = 36.46mm, width =0.33mm).<br><br>
+
+<b>Crescent design:</b> This design illustrates embedding a flex sensing within an extremely curved surface. Length of the sensing lines is continuously varied to adapt to the crescent shape. (design dimensions: length of crescent: 77 mm, width of crescent: 22mm, line width: 0.35mm).<br><br>
+
+<b>Leaf design:</b> This design illustrates alignment of the sensing lines at an angle to better fit the target shape. A single sensor runs through the entire leaf shape. Intermediate tapping points can be added for granular sensing response. (design dimensions: leaf length: 80mm, width: 35mm, sensing lines aligned at 45°).<br><br>
+
+
+<table>
+	<tr>
+		<td>
+<img src="images/3d-geometry-measurement.png" width="260px"><br>
+Measuring the Curvature of objects with a single flex sensor.<br><br>
+</td>
+<td>
+
+<img src="images/inchworm-animation.png" width="200px"><br>
+A virtual inchworm animated with a single flex sensor.<br><br>
+</td>
+<td>
+<img src="images/origami-folding-guidance.png" width="210px"><br>
+Origami-Folding Tool that measures if you fold correctly.<br><br>
+</td>
+</tr>
+</table>
+
+
+
+
+<h3>Your Task</h3>
 
 Download an Example Design here (provided by Stefanie and Michael).<br>
 Open it in Illustrator to make sure everything looks good.<br>
@@ -124,6 +238,34 @@ Wire Up the Circuit. Does it work?<br>
 Demo your Setup to an Instructor when done. <br>
 
 
+<h3>Printer, Inks, and Substrates</h3><br>
+
+<b>Printer:</b> We used a Canon iP100 photo inkjet printer and an Epson L220 inkjet printer for printing the designs.<br>
+<b>Ink:</b> We used Mitsubishi NBSIJ–MU01 silver nanoparticle ink. <br>
+<b>Substrate:</b> White and transparent PET films. resin coated paper and glossy photo paper can also be used<br>
+<b>Insulator:</b> To increase robustness of the printed sensor, laminate of clear tape can be applied. This avoids moisture contact and silver being rubbed off.<br><br>
+
+
+<h3>Homework</h3>
+
+Printing and patterning approaches offer a lot of freedom in how conductive traces can be laid out. This enables an unprecedented geometric variety of sensor layouts, including highly varied sizes, arrangements, and shapes of sensors. Your task is to create your own user interface with...<br><br>
+
+<img src="images/guitar.png" width="800px"><br>
+Interactive Guitar. <br>
+Paper <a href="https://dl.acm.org/doi/10.1145/2508468.2514932">Inkjet-printed conductive patterns for physical manipulation of audio signals</a><br><br>
+
+<img src="images/touch-flex-LED.png" width="300px"><br>
+Printed IO Sheet with touch, flex inputs and LEDs.<br><br>
+Paper <a href="https://dl.acm.org/doi/10.1145/3024969.3024989">Flexy (ACM TEI 2017)</a><br><br>
+
+
+
+
+<h3>More Inspiration</h3><br>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/KZ8PF9wPQu4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gA17s9MyfiM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 <br>
