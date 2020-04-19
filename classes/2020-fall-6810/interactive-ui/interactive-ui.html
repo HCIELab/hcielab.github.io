@@ -237,6 +237,7 @@ Check if your code works by creating a range of touch buttons on the screen of d
 <img src="images/separate-file-for-class.png" width="350px"><img src="images/separate-file-for-class2.png" width="300px"><br><br>
 
 
+
 <!-- Below, we show how we converted the previous code into a TouchButton class.<br>
 This now allows us to create any number of new touch buttons with the desired color-change on mouse click behavior by simply creating a new object with <code>TouchButton touchButton1;</code> and then calling the constructor with <code>touchButton1 = new TouchButton(30,30,40,40, color(255,255,255), color(0,0,0));</code> whereas the individual variables indicate the touch button position, size, and color in the pressed and unpressed states.<br><br>  
 
@@ -386,6 +387,39 @@ When you are done upload your code to Gradebook and attach a short screencast vi
 <br><br>
 
 <img src="images/result.gif" width="700px">
+
+<h5>Extra: Dial</h5>
+
+This code allows you to import an svg file directly into Processing.<br><br>
+
+If you create your SVG file in Illustrator, make sure you change the following export option: When you save the svg 1) choose "More Options" in the SVG Options dialog, and then 2) select the "Style Attributes" in the drop CSS Properties drop down to make it compatible with Processing. <br><br>
+
+<code>PShape bot;<br><br>
+
+void setup() {<br>
+  size(1040, 860);<br>
+  // The file "bot1.svg" must be in the data folder<br>
+  // of the current sketch to load successfully<br>
+  bot = loadShape("star.svg");<br>
+} <br><br>
+
+void draw(){<br>
+  background(102);<br>
+  shape(bot, 110, 90, 100, 100);  // Draw at coordinate (110, 90) at size 100 x 100<br>
+  shape(bot, 280, 40);            // Draw at coordinate (280, 40) at the default size<br>
+}
+</code>
+<br><br>
+
+<img src="images/readsvg1.png" width="250px">
+<img src="images/readsvg2.png" width="500px">
+
+<h5>Collision Detection</h5>
+
+All possible ways are described here <a href="http://jeffreythompson.org/collision-detection/table_of_contents.php">http://jeffreythompson.org/collision-detection/table_of_contents.php</a>.<br>
+We provide you with a code file that handles for you the point (mouse cursor) and polygon (shape) detection.<br><br>
+
+
 
 
 
