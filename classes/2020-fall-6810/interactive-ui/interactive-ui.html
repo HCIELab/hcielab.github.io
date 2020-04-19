@@ -220,12 +220,15 @@ You can read more about Objects and Classes in Processing here: <br>
 <li>We should be able to create a new touch button in Processings setup() function by first creating a variable, e.g., <code>TouchButton touchButton1;</code></li>
 <li>and then creating the object with the constructor, for instance: <code>touchButton1 = new TouchButton(30,30,40,40, color(255,255,255), color(0,0,0));</code> whereas the attributes are (x-position, y-position, width, height, unpressed color, pressed color)</li>
 <li>Processings draw() function should then include a call to a TouchButton class function <code>touchButton1.changeColorIfPressed()</code> to update the color if the mouse is pressed.</li>
+<li>if you want you can also put your TouchButton class into a separate file like shown below, simply create a new tab, save the class there and then call it from the main file</li>
 </ul><br>
 
 Check if your code works by creating a range of touch buttons on the screen of different sizes and with different positions and press/unpress colors.<br><br>
 
 
-<img src="images/touchbutton-class.png" width="600px">
+<img src="images/touchbutton-class.png" width="600px"><br><br>
+
+<img src="images/separate-file-for-class.png" width="350px"><img src="images/separate-file-for-class2.png" width="300px"><br><br>
 
 
 <!-- Below, we show how we converted the previous code into a TouchButton class.<br>
@@ -351,39 +354,32 @@ As you can see below, there are two sets of lines, one printed on one side of th
 Your task for the remaining time today and as homework is to prepare a user interface in Processing that mirrors the physical user interface elements that we will build next week. <br> 
 You can see an image of what you need to build below.<br><br>
 
-<h5>Requirement 1: One UI Element Each</h5>
 Your user interface should display on the screen:<br>
-
 <ul>
   <li>a touch button</li>
-  <li>one discrete slider</li>
-  <li>one continous slider</li>
-  <li>one discrete dial</li>
-  <li>one continous dial</li>
+  <li>a slider</li>
   <li>a multi-touch pad</li>
 </ul> <br>
 
-<h5>Requirement 2: Variable Resolution</h5>
- Your user interface should also be able to scale the slider, dial, and multi-touch pad to have different number of segments.<br>
- The number of segments determines the resolution of the user input element.<br>
- Thus, when the designer needs a slider of resolution 5, the slider should have 5 segments with individual states.<br>
- You may want to store the states in an array to avoid a variable mess.<br><br> 
+ Your user interface should also be able to scale the slider and multi-touch pad to have different number of segments.<br>
+ Thus, when the designer needs a slider of resolution 5, the slider should have 5 segments with individual states.<br><br>
 
-<h5>Requirement 3: Change Color Based on State Change</h5>
-Show that you can change the color of each segment / element based on a variable you set in your code. <br> 
+Show that you can change the color of each segment by clicking on it. <br> 
 
-<h5>Submit your Assignment to Gradebook</h5>
 When you are done upload your code to Gradebook and attach a short screencast video showing your UI.<br> 
 
 <h5>Implementation</h5>
 <ul>
-  <li>Create one Class per UI Element: <a href="https://processing.org/tutorials/objects/">https://processing.org/tutorials/objects/</a></li>
-  <li>Render each UI element either in silver (gray) or gold (yellow) when not active, and render it in a color of your choice when active</li>
+  <li>You already have the TouchButton class.</li>  
+  <li>Remember, a slider is just a list of TouchButtons, so when you create the class TouchSlider it makes sense to define it as an ArrayList of TouchButtons, read more about ArrayLists here: <a href="https://processing.org/reference/ArrayList.html">https://processing.org/reference/ArrayList.html</a></li>
+  <li>You can think of a multitouch pad as just a list of TouchSliders, so when you create the class MultiTouchPad it makes sense to define is as an ArrayList of TouchSliders.</li>
   <li>Label each Element with its Name, you can find more info on Displaying Text here <a href="https://processing.org/tutorials/text/">https://processing.org/tutorials/text/</a> and more info on Typography here <a href="https://processing.org/tutorials/typography/">https://processing.org/tutorials/typography/</a></li>
+  <li>(may be too difficult) For the dial, you may want to use the same approach as for the TouchSlider, i.e. use an ArrayList of Touch Buttons, but on top of that you also need more advanced drawing capabilities, we recommend you use arc to define the dial segments <a href="https://processing.org/tutorials/curves/">https://processing.org/tutorials/curves/</a></li>
 </ul>
 
+<br><br>
 
-
+<img src="images/result.gif" width="700px">
 
 
 
