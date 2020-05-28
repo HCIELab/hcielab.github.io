@@ -49,203 +49,48 @@
       <section class="col-md-8 pull-right main-content">
 </br></br></br></br>
         <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2020)</a><br></h>
-        <h2 class="headline">Conductive Inkjet Printing and Processing</h2>
+        <h2 class="headline">Problem Set</h2>
 
   <img src="images/silver-printing.jpg" width="317px" /> <img src="images/mug.png" width="350px" />
           <br>
           <hr>
 
 
-<h2 class="headline">Goal for Next 1-2 Weeks</h2>
+<h2 class="headline">Problem Set Series: Interactive Mug</h2>
 
-<b>Size of the Mug:</b> You can use the 2D template file here that represents the entire outside surface of the mug to get a sense of the size of your design.<br><br>
+In the package you will receive next week, we are going to provide you with the coffee mug shown below, so you can always sip on your favorite drink while attending 6.810. As you can see, the mug is completely blank.<br> In this problem set series, we are going to augment this coffee mug with touch buttons, sliders, and other elements to control your favorite music from Spotify. 
 
+<h2 class="headline">Problem Set 1: Circuit Design</h2>
 
+Create the circuit design in your drawing program that you would like to apply to the mug.<br>
+Your mug should at least offer the following functionality: increase/decrease volume, pause/play song, go to the next/previous song, select one of your five favorite playlists.<br>
+The pause/play needs to use a touch button and the increase/decrease volume needs to use a touch slider. For the other functionalities you can decide if you prefer to use buttons, sliders, or dials.<br>
 
-In the package you will receive next week, we are going to provide you with the coffee mug shown below, so you can always sip on your favorite drink while attending 6.810. As you can see, the mug is completely blank.<br>
+<h3>Grading</h3>
 
-In the next labs, we are going to augment this coffee mug with touch buttons, sliders, and other elements to control your favorite music from Spotify. Create a 2D design that contains the circuit you would like to apply to the mug.<br>
-The 2D design should contain at least one touch button and one touch slider as described below.<br>
-We will then print out your 2D design with the conductive inkjet printer and you will receive it in the mail hopefully by next week. <br><br><br>
-
-<img src="images/mug2.png" width="250px" />
-
-<h2 class="headline">Your Task for Today</h2>
-
-Today, we will make a first touch-button and print it out with conductive inkjet printing to make sure you have your design program setup correctly. Once you have your first touch buttonw working, we will setup the touch button in Processing so when you give physical input you can also see it on the screen.</br><br>
-
-<hr>
-
-<h2 class="headline">Step 1: Conductive Inkjet Printing a Touch Button</h2>
-
-<h3>Specifications for Conductive Inkjet Printing</h3><br>
-
-<b>Thickness of Wires:</b> Your wires should be at least 1mm thick. Make sure to check this in your drawing program. <br><br>
-
-<b>Connector Pads for Wires:</b> The end of your wire that connects to the microcontroller, needs a connector pad that is large enough to connect to conductive tape. The connector pad should be 1cm x 1cm to be on the safe side.<br><br>
-
-<h3>What Input Elements can you use?</h3><br>
-
-For starters, we are going to build some simple touch buttons, sliders, and dials.<br><br>
-
-<h4>Touch Buttons</h4><br>
-
-Touch-buttons consist of one shape + one wire that connects to the microcontroller.<br><br>
-
-<img src="images/touch-button-decorative1.png" width="300px"> <img src="images/touch-button-decorative2.png" width="300px"><br>
-
-<br><br>
-
-<h4>Touch Sliders (aka multiple touch buttons linearly arranged)</h4><br>
-
-Touch-sliders consist of multiple touch buttons linearly arranged, i.e. several shapes and each shape has its own wire that connects to the micro-controller.<br><br>
-
-<b>Discrete vs. Continous Sliders:</b><br>
-
-In the discrete slider design, the finger tends to be only over one of the slider segments. <br>
-In the continous design, the finger tends to touch two adjacent slider segements. <br><br>
-
-<img src="images/slider-designs1.png" width="300px"><br>
-From the paper <a href="https://dl.acm.org/doi/10.1145/2971763.2971777">DuoSkin (ISWC 2016)</a><br><br>
-
-<b>Continous Sliders (Different Aesthetic Design Options):</b><br>
-<img src="images/slider-designs3.png" width="300px"> <img src="images/slider-designs2.png" width="300px"><br>
-From the paper <a href="https://dl.acm.org/doi/10.1145/2971763.2971777">DuoSkin (ISWC 2016)</a><br><br>
-
-<h4>Dials (aka multiple touch buttons circularly arranged)</h4><br>
-
-Touch-dials consist of multiple touch buttons circularly arranged, i.e. several shapes and each shape has its own wire that connects to the micro-controller.<br><br>
-
-<img src="images/dial.png" width="300px"><br>
-Example from the paper <a href="https://dl.acm.org/doi/10.1145/2971763.2971777">DuoSkin (ISWC 2016)</a><br><br>
-
-<h4>Let's create your first Touch-Button</h4><br>
-
-Open your drawing program and draw a touch button with the correct wire thickness (at least 1mm) and connector pad size (at least 1cm x 1cm).  <br><br>
-
-The shape of the touch button and is completely up to you -- be creative and please don't just make a rectangle. Also keep in mind that the wire does not have to be a straight line but can be any decorative pattern you'd like to use (e.g. a wavy line).  <br><br>
-
-Please limit the size of the touch button to something that is roughly the size of a finger tip (an area around 2cm x 2cm) and the wire length to no more than 5cm for now. <br><br>
-
-Once you have your design, add it to <a href="https://drive.google.com/drive/folders/1MageOgstlli5Ze2GGVchak4iKyDtWwZK?usp=sharing">your google drive folder.</a><br><br>
-
-The teaching team will print it out for you right away and will test if it is functional.<br>
-
-<h2 class="headline">Step 2: Processing to Visualize Touch Button Input</h2>
-
-Processing is a program that makes it easy to prototype user interfaces. Once you got your microcontroller in the mail, we will wire everything up and write code to send the touch button input directly to Processing, so that it can visualize if the button is pressed or not. Today, we are going to prepare the UI in Processing so you have everything ready when the rest comes in the mail.<br><br>
-
-<div style="background:#04a47c;padding:10px;">Checkoff 1: The Teaching Team printed your Touch Sensor and it works</div>
-
-</br>
-
- <h3 class="headline">Install Processing</h3>
-
-You can download Processing for Windows, Mac, Linux here: <a href="https://processing.org/download/">https://processing.org/</a>.<br>
-Once you downloaded it, you should see an IDE similar to the one Arduino uses.
-
-<br><br>
-
-<img src="images/processing-ui.png" width="350px"><br><br>
-
- <h3 class="headline">Code Structure: setup() and draw()</h3>
-
-Similar to Arduino, Processing works with two functions:<br><br>
-
-<b>setup():</b> is only run once at the beginning<br>
-<b>draw():</b> is run repeatedly similar to Arduino's loop() function<br><br>
-
-While the simple examples below do not require you to have this structure in place (i.e. you can simple type the code into the empty window, it is good practice to put the code for redrawing the window into draw() and the code that is only required once into setup()).<br><br>
-
- <h3 class="headline">Getting Started: Drawing a Shape and Mouse Input</h3>
-
-If you haven't done it yet, please do the getting started tutorial to learn how to draw a shape and do mouse input:<br>
-<a href="https://processing.org/tutorials/gettingstarted/">https://processing.org/tutorials/gettingstarted/</a><br><br>
-
-<h3 class="headline">Loading in an Image of the Mug</h3>
-
-First, display the image below as the background of your Processing application.<br><br>
-Make sure your image file is inside your project folder (Documents -> Processing -> project folder) otherwise it cannot be loaded.<br><br>
-
-To load an image, you can use the <a href="https://processing.org/reference/PImage.html">documentation for PImage</a>.<br><br>
-
-<img src="images/processing-load-image.png"> <br><br>
-
- <h3 class="headline">Create Touch Button in Processing</h3>
-
-Processing allows us to quickly create user interfaces on screen.<br><br>
-
- <h5>Creating Touch Button on Image</h5>
-
-Next, we want to create a touch button and place it on the mug where our final touch button will be in the design.<br>
-For simplicity, we will assume that you touch button is rectangular for now.<br>
-We will show you later how to load the actual geometry of your button.<br><br>
-
-Make a rectangle with round corners and in silver (gray) color like shown in the image below:<br>
-<a href="https://processing.org/reference/rect_.html">Processing Reference for rect()</a><br>
-<a href="https://processing.org/reference/fill_.html">Processing Reference for fill()</a><br><br>
-
-<img src="images/processing-fill-color-rect.png"><br><br>
-
-If you need it later, you can find the full reference here: <br>
-<ul><li><a href="https://processing.org/reference/">Complete Processing Reference</a>.</li></ul><br>
-
- <h5>Changing Color of Button if Button is Pressed</h5>
-
-In the future, we will receive a signal from our Arduino that will either say 'touched' or 'not touched' and based on that we want to visualize in our UI that the button is pressed or not. Here, we are going to simulate this: When the mouse is over the touch button and the mouse is pressed, we want to color the button in green, otherwise the button should remain colored in gray/silver to show that it is inactive. In addition, we want to render a piece of text showing the button was pressed as shown below. <br><br>
-
-To implement this you will need:
+We will give 25 pts in total:
 <ul>
-  <li>if/else statement (works the same as in other programming languages)</li>
-  <li>for mouse click, you may want to look at <a href="https://processing.org/reference/mousePressed_.html">Mouse Pressed Processing Reference</a></li>
-  <li>for mouse click on the button: unfortunately processing does not have an intersect function, so you need to check if the mouse coordinates are within the X/Y bounds of the touch button</li>
-  <li>for the text, you may want to look at <a href="https://processing.org/reference/PFont.html">Processing Reference for Pfont</a> and <a href="https://processing.org/tutorials/text/">text tutorial here</a></li>
+	<li>5 pts: size and functionality complete (does the design fit onto the mug, is there an input element for each of the functionalities)</li>
+	<li>10 pts: circuit design correctness (are the elements correctly wired, are the wires the correct thickness, does each wire have a connector pad of sufficient size, are the connector pads arranged so they can easily connect to the micro-controller in one shared spot without wire chaos) </li>
+	<li>5 pts: usability (are the input elements large enough to be operated by a finger, are the elements appropriately spaced and distributed over the surface to avoid cross-touching between elements) </li>
+	<li>5 pts: complexity of the design (creativity of the idea, uniqueness of the shapes, overall design)</li>
 </ul>
+
+
+<h2 class="headline">Template File</h2>
+
+You can <a href="images/cup-template.svg">use this 2D template file</a> which gives you an idea of the size of the mug. <br>
+The template file represents the entire outside surface of the mug to get a sense of the size of your design.<br><br>
+
+  <img src="images/template-file.png" width="517px" />
+
+<h2 class="headline">Example Design</h2>
+
+To give you an idea what we are looking for, you can see an example design below.
+
 <br><br>
 
-<img src="images/pushed-unpushed.gif" width="450px"><br><br>
-
-
-<div style="background:#04a47c;padding:10px;">Checkoff 2: Show your completed push/unpush program.</div>
-
-
-<h5>Importing Vector Graphics</h5>
-
-Next, we will import your actual drawing to the canvas.<br>
-For this, we prepared this .svg import class. <br><br>
-
-To load your .svg file, make sure your image file is inside your project folder (Documents -> Processing -> project folder) otherwise it cannot be loaded.<br><br>
-
-You can use the <a href="https://processing.org/reference/PShape.html">Processing PShape reference</a> to see how to load it.</br>
-Position it where your former touch button was.</br></br>
-
-If you create your SVG file in Illustrator, make sure you change the following export option: When you save the svg 1) choose "More Options" in the SVG Options dialog, and then 2) select the "Style Attributes" in the drop CSS Properties drop down to make it compatible with Processing. <br><br>
-
-<img src="images/readsvg2.png" width="350px">
-
-<h5>Checking for Mouse Input on a Vector Graphic of Arbitrary Shape</h5>
-
-With a vector graphics, our simple boundary checking doesn't really work anymore, so we need something more sophisticated.<br>
-For this, we implemented you the following collision detection class that you can use in your project.<br>
-
-All possible ways are described here <a href="http://jeffreythompson.org/collision-detection/table_of_contents.php">http://jeffreythompson.org/collision-detection/table_of_contents.php</a>.<br>
-We provide you with a code file that handles for you the point (mouse cursor) and polygon (shape) detection.<br>
-You can read more about it here <a href="http://jeffreythompson.org/collision-detection/poly-point.php">http://jeffreythompson.org/collision-detection/poly-point.php</a><br><br>
-
-<div style="background:#04a47c;padding:10px;">Checkoff 3: Show your vector graphics button.</div>
-
-
-<h5>Processing Tutorials and Problem Set 1:</h5>
-
-If you still have time left, we recommend you use it to check out some of the <a href="https://processing.org/tutorials/">additional Processing tutorials</a>.<br><br>
-
-Alternatively, you can start with <a href="">Problem Set 1, which we released today.</a>
-
-
-<b>Size of the Mug:</b> You can use the 2D template file here that represents the entire outside surface of the mug to get a sense of the size of your design.<br><br>
-
-
-
+  <img src="images/mug2.png" width="317px" />
 
 <br>
 
