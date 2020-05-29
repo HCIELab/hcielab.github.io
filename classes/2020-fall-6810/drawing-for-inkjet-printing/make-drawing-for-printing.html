@@ -88,7 +88,7 @@ For starters, we are going to build some simple touch buttons, sliders, and dial
 
 Touch-buttons consist of one shape + one wire that connects to the microcontroller.<br><br>
 
-<img src="images/touch-button-decorative1.png" width="300px"> <img src="images/touch-button-decorative2.png" width="300px"><br>
+<img src="images/touch-button-decorative1.png" width="300px"><br>
 
 <br><br>
 
@@ -115,17 +115,56 @@ Touch-dials consist of multiple touch buttons circularly arranged, i.e. several 
 <img src="images/dial.png" width="300px"><br>
 Example from the paper <a href="https://dl.acm.org/doi/10.1145/2971763.2971777">DuoSkin (ISWC 2016)</a><br><br>
 
-<h4>Let's create your first Touch-Button</h4><br>
+<h3>Can you print color and conductive elements together?</h3><br>
 
-Open your drawing program and draw a touch button with the correct wire thickness (at least 1mm) and connector pad size (at least 1cm x 1cm).  <br><br>
+Since the inkjet printer has 4 cartridges (one for each C, M, Y, K) and we are only using the K Cartridge for silver, you can still print color at the same time as the silver. <br><br>
+
+However, we cannot print them at the same time (same pass) but have to use two seperate passes, i.e. we first print all silver, take the paper out, reinsert, and then print the color. The reason for this is that if we overlay color over the silver in the drawing, the printer will only use the top most layer and ignore the layer underneath.<br><br>
+
+So to print color and silver you need to: <br>
+<ul>
+	<li>make one design file to see how it looks together</li>
+	<li>then split the design file into two: one for the silver, one for the color</li>
+	<li>print the silver design file first, then reinsert the paper, then print the color file</li>
+</ul><br>
+
+<img src="images/touch-button-decorative2.png" width="300px"><br>
+Silver touch button in the middle is overprinted with white in a second layer. In addition, the red flame is added as a decorative element (it has no input functionality).<br><br>
+
+<h4>Designing your first Touch-Button</h4><br>
+
+Open your drawing program and set the document color mode to CMYK.</br>
+Draw a touch button with the correct wire thickness (at least 1mm) and connector pad size (at least 1cm x 1cm).<br>
+Make sure all the silver you draw has the line/area color 'black (CMYK: 0,0,0,255)'.<br>
+The touch button should also be surrounded by a decorative color design to show that you can print color and silver together. <br><br>
 
 The shape of the touch button and is completely up to you -- be creative and please don't just make a rectangle. Also keep in mind that the wire does not have to be a straight line but can be any decorative pattern you'd like to use (e.g. a wavy line).  <br><br>
 
-Please limit the size of the touch button to something that is roughly the size of a finger tip (an area around 2cm x 2cm) and the wire length to no more than 5cm for now. <br><br>
+Please limit the size of the touch button to something that is roughly the size of a finger tip (an area around 2cm x 2cm) and the wire length to no more than 5cm for now.<br><br>
 
 Once you have your design, add it to <a href="https://drive.google.com/drive/folders/1MageOgstlli5Ze2GGVchak4iKyDtWwZK?usp=sharing">your google drive folder.</a><br><br>
 
-The teaching team will print it out for you right away and will test if it is functional.<br>
+The teaching team will print it out for you right away and will test if it is functional.<br><br>
+
+<h3>Printing your Design </h3><br>
+
+To print your design, we use the inkjet printer XX (add link).<br>
+For color printing, we bought some regular CMYK cartridges from here (add link).<br>
+For silver printing, we bought empty cartridges from here (add link) and seperately bought silver ink from here (add link).<br>
+We then filled the silver ink with a syringe into the empty cartridge as you can see below in the photo.<br>
+Note that if the silver is too long in the cartridge, it will eventually dry out and not print anymore.<br>
+Once the silver is loaded into the empty cartridge, we add it as the 'K' cartridge to our printer.<br>
+We then only have to open your drawing file and print it (and hope that you assigned the wire traces as true black (K) in your drawing so that the right cartridge will be used.<br><br>
+
+<img src="images/silver-ink.jpg" width="317px" />
+<img src="images/silver-inkjet-printing.png" width="317px" />
+
+<h3>Using a Multi-Meter to Test if your Touch Button Works</h3><br>
+
+
+
+<img src="images/multimeter.jpg" width="300px">
+
 
 <h2 class="headline">Step 2: Processing to Visualize Touch Button Input</h2>
 
