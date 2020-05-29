@@ -58,52 +58,48 @@
           <!-- Code in: Documents / Processing / SimpleWrite -->
           <!-- Code in: Documents / Arduino / serial-read -->
 
-In the next weeks, we are going to build a range of different physical user interfaces. Below, you see the basic pipeline we will cover before going into more advanced examples. <br><br>
+<h2 class="headline">Your Task for Today</h2>
 
-The pipeline consists of four steps:<br>
+You should hopefully received your package in the mail by now.</br>
+Today, we are going to wire up your touch button and connect it to Processing, i.e. when you push the physical touch button it will light up the corresponding digital touch button in Processing.<br>
+Your package also includes a printed electroluminescent display so that we can also show you how to communicate from Processing back to the ESP, i.e. when the digital button in Processing is clicked, your physical display will light up.<br>
+We will first prototype this with standard breadboard components (normal push button and LED) and then replace those elements with your printed electronics.<br><br>
 
-<ul>
-  <li>Fabricating the Sliders, Dials, and Multi-touch Pad (Printed Electronics)</li>
-  <li>Wiring up the Electronics and Performing Signal Processing on the Inputs from the User (Arduino)</li>
-  <li><b>Sending the results from the microcontroller to a User Interface (Arduino-Processing connection)</b></li>
-  <li>Displaying the Result in a graphical user interface on screen (Processing)</li>
-</ul>
-<br>
-
- <h3 class="headline">Reading input from the Microcontroller<br> and Displaying it in Processing</h3>
+ <h3 class="headline">Performing input on the Microcontroller<br> and Displaying it in Processing</h3>
 
 First, we are going to read some input from our microcontroller and display the resulting action in Processing.<br>
 In particular, we are going to wire up a button, and when the button is pressed, we will show this in Processing by coloring the corresponding button in the digital UI.<br><br>
 
-<h4>Wiring Up a Button</h4>
+<h4>Wiring Up a Button</h4><br>
 
 Let's start by wiring up a button.<br>
+If you haven't done this in a while, now is a good moment to familiarize yourself again with how to read a schematic and wire on the breadboard.<br><br>
 
 <img src="images/button-on-breadboard.jpg" width="250px"> <img src="images/button-on-breadboard-schematic.jpg" width="350px"><br><br>
 
-<h4>Create Microcontroller Script that Writes onto Serial Monitor</h4>
+<h4>Create Microcontroller Script that Writes onto Serial Monitor</h4><br>
 
 Next, we need to create the microcontroller script that reads the input from the button.<br>
 When the button is pushed, we want to write a message to the Serial port that indicates the push state.<br>
 Our seperate Processing application will then listen to the Serial port and whenever it sees a specific value, it will know if the button is pushed or not.<br><br>
 
-<b>Your task:</b> Write the Arduino script for reading the button input. When the button is pushed, write a 0 to the serial port using Serial.write(0). If the button is unpushed, write a 1 to the serial port using Serial.write(1). You can use any Serial baudrate you like, in our example we will use 9600. <br><br>
+<b>Your task:</b> Write the Arduino script for reading the button input. When the button is pushed, write a 0 to the serial port. If the button is unpushed, write a 1 to the serial port. Test your script by opening the Serial monitor and see if 1 and 0 are written depending on your button input.<br><br>
+
+<b>More Info on Serial:</b> You may want to look at the <a href="https://www.arduino.cc/reference/en/language/functions/communication/serial/">Serial reference in Arduino</a>. Remember from 6.08 that you first have to register the Serial connection in the setup function using <a href="https://www.arduino.cc/reference/en/language/functions/communication/serial/begin">Serial.begin()</a> and use one of the supported baud rates. You can find the baud rates in the Serial monitor. Since the baud rate determines the bit rate at which data is transmitted, a higher baud rate is better. Once you registered your Serial connection, you can write to it using <a href="https://www.arduino.cc/reference/en/language/functions/communication/serial/write">Serial.write()</a><br><br>
 
 <b>Important:</b> Once you confirmed that you button works, make sure you remove all Seriel.println debugging statements you may have used since they will otherwise add noise to the Serial stream the Processing application will listen to.<br><br>
 
-<img src="images/serial-write.png" width="300px">
+<h4>Create Processing Script that Listens to Serial Communication</h4>
 
-<h4>Create Processing Script that Listens to Serial Monitor</h4>
+Now that we are writing 0 and 1 to the Serial connection depending on whether the button is pressed or not pressed, we can write the Processing script that listens to the Serial connection and changes its visualization depending on the number read.<br><br>
 
-Now that we are writing 0 and 1 to the Serial Monitor depending on whether the button is pressed or not pressed, we can write the Processing script that listens to the Serial Monitor and changes its visualization depending on the number read.<br><br>
-
-To do this, you are going to use the Serial library.<br>
+To do this, open Processing and import the <a href="https://processing.org/reference/libraries/serial/index.html">Serial library</a>.<br>
 <code>import processing.serial.*;</code><br><br>
 
 Next, you need to create a new port by creating an object from this class: <br>
 <code>Serial myPort;</code><br><br>
 
-To initialize this object, you need a reference to the current application ('this'), a portname, and the baudrate to which the object should listen. You already know the baudrate (9600) and you can get the portname with this:<br><br>
+To initialize this object, you need a reference to the current application ('this'), a portname, and the baudrate to which the object should listen. You already know the baudrate and you can get the portname with this:<br><br>
 
 <code>String portName = Serial.list()[2]; //check which port you use: 0, 1, 2? it helps to verify you are listening to the right port with print(portName);</code><br><br>
 
@@ -116,63 +112,150 @@ In the draw function, you need to first check if the port is available, and then
 <code>
 int val;  <br>
 if ( myPort.available() > 0) {    // If data is available,<br>
-    val = myPort.read();         // read it and store it in val<br>
+    val = myPort.read();         // read it and store it in val, either 0 or 1<br>
   }<br>
 </code><br>
 
-Now you can do something based on the value:<br><br><br>
+Now you can do something based on the value.<br>
+Make your button from last week get colored green whenever your physical button is pushed (1), and let it return to silver whenever the button is unpushed (0).<br>
 
-<code>
-if (val == 0) {              // If the serial value is 0,<br>
-    fill(0);                   // set fill to black<br>
-  } <br>
-  else if (val == 1) {                       // If the serial value is not 0,<br>
-    fill(255);                 // set fill to light gray<br>
-  }<br>
-  rect(50, 50, 100, 100);<br>
-</code><br>
-
-Run the code and you should get a processing button that lights up black if your physical button is pushed and white if it is not pushed.<br><br>
+<br>
+<div style="background:#04a47c;padding:10px;">Checkoff 1: Show your working physical button that when pushed causes the Processing application to show the virtual button as pushed as well.</div><br><br>
 
 
- <h3 class="headline">Writing Output from Processing<br> and Using it on the Microcontroller</h3>
+<h4>Replacing the Standard Button with your Printed Touch Button</h4><br>
+
+We hope you received your custom touch button from last week. If not, your original package has a standard printed touch button (square) that you can use instead.<br><br>
+
+We are now going to replace the standard touch button with your custom touch button.<br>
+First, use the multimeter to check if you touch button is conductive and didn't break during transport.<br>
+If you don't remember how to use the multimeter, check last week's tutorial.<br><br>
+
+<img src="images/multimeter.jpg" width="300px"><br><br>
+
+Ok, if your multimeter shows low resistance, we are ready to wire up your touch button.<br>
+
+<b>Electronics:</b> To build the circuit to implement touch sensing you only need your touch sensor and one resistor (say some more why this is necessary). Low resistors (1kOhm - 100kOhm) are mostly used for sensing touch (see Figure below).
+
+<img src="images/touch-sensing-principle.png" width="300px"> <img src="images/touch-sensing-circuit.png" width="300px"><br><br>
+
+<img src="images/touch-sensor-on-breadboard.jpg" width="300px"> <img src="images/touch-sensor-on-breadboard-schematic.png" width="300px"><br><br>
+
+<b>Code:</b> Once you build your circuit, you can write the code to read input from your touch sensor. Capacitive touch sensing is luckily already supported by the Arduino Toolkit.<br><br>
+
+Download the latest <a href="https://github.com/PaulStoffregen/CapacitiveSensor"> library CapacitiveSensor for Arduino from here</a> and place it into your Documents / Arduino / Libraries folder (unzip it and rename it to 'CapacitiveSensor'). Restart your Arduino software, otherwise the library is not recognized.<br><br>
+
+First you need to import the library:<br>  
+<code>#include CapacitiveSensor.h</code><br>  <br>  
+
+Next, you need to create a new CapacitiveSensor object:<br>  
+<code>CapacitiveSensor sensor1 = CapacitiveSensor(sender, touch_pin_1);</code><br>  
+It takes as input the pin that has the high signal and the receiver pin.<br><br>  
+
+In the loop function, you are now ready to read from the sensor.<br>  <br>  
+
+<code>double analog_touch = sensor1.capacitiveSensor(samples_touch);</code><br>  
+The argument <b>samples</b> defines the sensitivity of the sensor.<br>  <br>  
+For touch sensing a low sensitivity is common with samples between 1 and 20. <br><br>
+
+If you print analog_touch to the Serial monitor and you touch your touch button, you should be able to see the values change quite drastically. Do some simple thresholding to determine when the button is pushed and when it is not pushed (e.g., values above XX equal pushed, values below XX equal unpushed). <br><br> 
+
+<div style="background:#04a47c;padding:10px;">Checkoff 2: Show your working touch sensor that when pushed, prints 'pushed' to the Serial monitor and otherwise prints 'unpushed'.</div><br>
+
+ <h3 class="headline">Performing Input in Processing<br> and Using it on the Microcontroller</h3>
 
 Let's do it the other way around and write some output from Processing onto the microcontroller.<br>
-In our simple example, we will light up an LED when the user clicks a button in the Processing UI.<br>
+In our simple example, we will light up an LED when the user clicks a button in the Processing UI, and then later replace it with our printed EL display.<br><br>
 
-<h4>Wiring Up an LED</h4>
+<h4>Wiring Up an LED and Write Basic On/Off Code</h4>
+
+Let's start by wiring up an LED on the breadboard and writing the basic code to turn the LED on/off. <br>
+If you haven't coded in Arduino for a while, you may want to look at 'Examples -> Blink' to see how to read input from a pin and turn your LED on/off.<br><br>
 
 <img src="images/led-on-breadboard.jpg" width="250px"> <img src="images/led-on-breadboard-schematic.png" width="350px"><br><br>
 
 <h4>Create Microcontroller Script that Reads from Serial Monitor</h4>
 
-This part is very similar to the previous code, just that instead of Serial.write() you are now going to use Serial.read() to determine if the LED should be high or low.<br><br>
+Once you confirmed that your LED works (i.e. you tested it turns on), we will now write a piece of Arduino code that will listen to the Serial communication and whenever it encounters a '2' it will light up the LED and when it encounters a '3' it will turn the LED off.<br><br> 
 
-<img src="images/serial-read.png" width="300px"><br><br>
+This part is very similar to the previous Arduino code, just that instead of Serial.write() you are now going to use <a href="https://www.arduino.cc/reference/en/language/functions/communication/serial/read">Serial.read()</a> to determine if a 2 or 3 was send and the LED should be on or off.<br><br>
 
-Complete the rest of the Arduino script for turning on/off your LED and test it manually by setting val to 0 or 1 manually. If the LED lights up, remove the line again and have it read from the Serial monitor.<br><br>
+Complete the rest of the Arduino script for turning on/off your LED by reading from the Serial connection and upload it to the microcontroller.<br>
+We will test this in a moment when we connect it to Processing.<br><br>
 
 <h4>Create Processing Script that Writes to Serial Monitor</h4>
 
-Once you uploaded your Arduino code, we are now ready to write a Processing script to write to the serial monitor if the LED should be on or off.<br>
-Whenever a button is clicked in the Processing UI, we want to turn on the LED. <br><br>
+Once you uploaded your Arduino code, we are now ready to write a Processing script to write to the serial connection the '2' or '3' values, which can then be used by the Arduino code to decide if the LED should be on or off.<br>
+Whenever a button is clicked in the Processing UI, we want to write a '2', otherwise a '3'. <br><br>
 
-The setup code is the same as above, but now you are using<br>
-<code>myPort.write(0); // 0 or 1 depending on state</code><br><br>
+The setup code is the same as in the previous Processing example above, but now you are using<br>
+<code>myPort.write(2); // 2 or 3 depending on state</code><br><br>
 
 <b>Your task:</b> Complete the Processing script so that when you click on a button, the LED comes on. <br><br>
 
-<b>Important:</b> Note that there is a 3-5 second delay before the LED comes on which is due to the Serial port speed.<br><br>
+<h4>Replacing the Standard LED with your Printed Display: Understanding EL Displays</h4><br>
+
+In your package, you also received a custom printed display.<br>
+This display is called electroluminescent display and we screen printed it from four different materials placed into four layers.<br>
+<br>
+
+<b>Materials and Layerstack:</b> An EL display contains (1) phosphor, which can glow when current is applied. To make it glow, the phosphor has to be sandwiched by a bottom and top electrodide. The bottom electrode can be a conductive material, such as (2) our silver ink (alternatively copper can be used for even higher conductivity). The top electrode cannot be made from silver since you would otherwise not see the phosphor anymore! Thus, the top electrode is made from a transparent conductive material called (3) PEDOT:PSS. Finally, since the phosphor and the electrodes are all conductive, we cannot lay them all on top of each other since this would create a short circuit. Therefore, we need to add (4) a dielectric insulating layer between the bottom electrode and the phosphor (conceptually, the dielectric could also be between the phosphor and the top electrode, but again then you wouldn't see anything anymore since the dieletric is not transparent). <br><br>
+
+You can buy the materials here: <br>
+<ul>
+	<li>copper ink (add link)</li>
+	<li>PEDOT:PSS (add link)</li>
+	<li>Phosphor (add link)</li>
+	<li>Dieletric (add link)</li>
+</ul>
+
+<img src="images/el-materials.png" width="400px"><br>
+<img src="images/el-layerstack.png" width="500px"><br><br>
+
+<b>Size of each layer:</b> Note that the dieletric layer is a bit larger than the other layers. Since the dieletric layer prevents everything from short circuiting, it should be a bit larger to make sure all other layers are really seperated from each other and not touching. <br><br>
+
+<img src="images/el-area-sizes.png" width="500px"><br><br>
+
+<b>Fabrication:</b> While the silver ink and PEDOT:PSS can be inkjet printed, the phosphor and dieletric have unfortunately too large particules in their inks, which clogg printer nozzles. We there screen printed the display you got. Below, you can see images of how we did it.<br><br>
+
+<img src="images/screen-printing.jpg" width="500px"><br><br>
+
+<b>Capabilities of the Display:</b> The display you got is a simple area display that can turn on/off but does not have pixels. Note that we can also create simple matrix displays as shown below. Unfortunately, to date, EL displays are still limited to single color only.<br><br>
+
+<b>Masking of Display:</b> Note that although we gave you a square display, you can create your own shape by masking the display, i.e. cutting a shape and attaching it to the display to cover the remaining area so that no light comes through.<br><br>
+
+<img src="images/printscreen1.jpg" width="220px">
+<img src="images/printscreen2.jpg" width="145px">
+<img src="images/printscreen3.jpg" width="345px"><br><br>
+
+<h4>Wiring up the EL Display</h4><br>
+
+With that information in mind, we are now ready to connect your EL display to the microcontroller.<br>
+First, use the multimeter to check if your display is conductive and didn't break during transport.<br>
+
+<img src="images/multimeter.jpg" width="300px"><br><br>
+
+Ok, if your multimeter shows low resistance, we are ready to wire up your EL display.<br>
+
+<b>Electronics:</b> To light up your EL display, you need to build the following circuit (add more information here).
+
+<img src="images/touch-sensing-circuit.png" width="300px"><br><br>
+
+<b>Code:</b> Once you build your circuit, you can write the code to light up your EL display (add more information here). <br><br>
+
+<h4>Connecting EL Display to Processing</h4><br>
+
+Now that you know your EL display is working properly, you can make it light up based on the information coming from the Serial communication. Replace the hard coded on/off for the EL display with the '2' or '3' date you are reading from the Serial monitor. <br><br>
+
+<h4>Bringing it all together</h4>
+
+In a final step, extend your code so that whenever your physical touch button is pressed, your EL display lights up. Note this does not require any serial communication, you can simple extend your Arduino script to also account for this, i.e. the EL display can be controlled both with the physical touch button AND with the digital button on screen.<br><br>
+
+<div style="background:#04a47c;padding:10px;">Checkoff 4: Show your working EL display that lights up both when the button in Processing is pushed or when the physical touch button is pushed.</div><br>
 
  <h3 class="headline">Conclusion</h3>
 
 Great, so now we can both read microcontroller input and display it in Processing and also use Processing to control our microcontroller. This will come in handy in the future when we want to build and test more advanced user interfaces.<br><br>
-
-
-
-
-
-
 
 <br>
 
