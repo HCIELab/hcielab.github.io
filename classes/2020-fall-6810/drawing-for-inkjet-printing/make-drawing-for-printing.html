@@ -79,7 +79,7 @@ Today, we will make the circuit design of your card and print it out with conduc
 
 <h3>What Input Elements can you use?</h3><br>
 
-For starters, we are going to build some simple touch buttons.<br>
+For starters, we your card is going to include only touch buttons and a simple area display.<br>
 For the problem set later, we will also ask you to create a slider or dial.<br><br>
 
 <h4>Touch Buttons</h4><br>
@@ -114,6 +114,18 @@ Touch-dials consist of multiple touch buttons circularly arranged, i.e. several 
 <img src="images/dial.png" width="300px"><br>
 Example from the paper <a href="https://dl.acm.org/doi/10.1145/2971763.2971777">DuoSkin (ISWC 2016)</a><br><br>
 
+<h4>Electroluminescent Area Display</h4><br>
+
+In your package next week, you will also received a custom printed display.<br>
+This display is called electroluminescent display and we screen printed it from four different materials printed into four layers.<br>
+<br>
+
+<b>Making Custom Shaped Displays:</b> The display you will get is a simple area display that can turn on/off but does not have pixels. Note that although we will send you a square display, you can create your own shape either in non-destructive way (allows for reuse) or destructive way. The non-destructive way requires you to mask the display, i.e. cutting a shape from e.g. from cardboard and attaching it to the display to cover the remaining area so that no light comes through. The destructive way includes cutting out the shape (making sure you are not cutting into the wire connection to the microcontroller and also make sure you unplugged the display before cutting since most scissors are conductive on their blades).<br><br>
+
+<img src="images/printscreen2.jpg" width="145px">
+<img src="images/printscreen3.jpg" width="345px"><br>
+Examples of masked and cut EL displays.<br><br>
+
 <h3>Can you print color and conductive elements together?</h3><br>
 
 Since the inkjet printer has 4 cartridges (one for each C, M, Y, K) and we are only using the K Cartridge for silver, you can still print color at the same time as the silver. <br><br>
@@ -134,14 +146,15 @@ Silver touch button in the middle is overprinted with white in a second layer. I
 
 Open your drawing program and set the document color mode to CMYK.</br>
 Draw a design that has at least three different touch buttons, one for a different song each.<br>
+It should also include the display that will blink to the beat of the long.<br>
 Make sure you use the correct wire thickness (at least 1mm) and connector pad size (at least 1cm x 1cm).<br>
 We recommend all your connector pads route to a common location where you will attach the microcontroller later.<br>
 Make sure all the silver you draw has the line/area color 'black (CMYK: 0,0,0,255)'.<br>
 The touch button should also be surrounded by a decorative color design to show that you can print color and silver together. <br><br>
 
-The shape of the touch buttons is completely up to you -- be creative and please don't just make a rectangle. Also keep in mind that the wire does not have to be a straight line but can be any decorative pattern you'd like to use (e.g. a wavy line).  <br><br>
+The shape of the touch buttons and display is completely up to you -- be creative and please don't just make a rectangle. Also keep in mind that the wire does not have to be a straight line but can be any decorative pattern you'd like to use (e.g. a wavy line).  <br><br>
 
-Please limit the size of the touch button to something that is roughly the size of a finger tip (an area around 2cm x 2cm) and the wire length to no more than 10cm for now.<br><br>
+Please limit the size of the touch button to something that is roughly the size of a finger tip (an area around 2cm x 2cm) and the wire length to no more than 10cm for now. The display that you will get shipped is 5x5cm in area and you can cut it into any shape you like (not cutting into the wires).<br><br>
 
 Once you have your design, add it to <a href="https://drive.google.com/drive/folders/1MageOgstlli5Ze2GGVchak4iKyDtWwZK?usp=sharing">your google drive folder.</a><br><br>
 
@@ -282,17 +295,6 @@ You can read more about it here <a href="http://jeffreythompson.org/collision-de
 
 <div style="background:#04a47c;padding:10px;">Checkoff 3: Show your vector graphics button.</div>
 
-<h5>Extend your Work Towards a Slider</h5>
-
-Now that you know how to make a touch button, extend this work towards a slider.<br><br>
-
-Create the design of the slider (at least 2 segments) in your drawing program and send it to the teaching team.<br><br>
-
-Then extend your Processing program to also include the slider.<br><br>
-
-
-<div style="background:#04a47c;padding:10px;">Checkoff 4: Show your Physical and Digital Slider</div>
-
 
 <h3>Processing Tutorials and Problem Set 1:</h3>
 
@@ -302,7 +304,28 @@ Alternatively, you can start with <a href="conductive-inkjet-design.html">Proble
 
 
 
+<!-- 
+<b>Materials and Layerstack:</b> An EL display contains (1) phosphor, which can glow when current is applied. To make it glow, the phosphor has to be sandwiched by a bottom and top electrodide. The bottom electrode can be a conductive material, such as (2) our silver ink (alternatively copper can be used for even higher conductivity). The top electrode cannot be made from silver since you would otherwise not see the phosphor anymore! Thus, the top electrode is made from a transparent conductive material called (3) PEDOT:PSS. Finally, since the phosphor and the electrodes are all conductive, we cannot lay them all on top of each other since this would create a short circuit. Therefore, we need to add (4) a dielectric insulating layer between the bottom electrode and the phosphor (conceptually, the dielectric could also be between the phosphor and the top electrode, but again then you wouldn't see anything anymore since the dieletric is not transparent). <br><br>
 
+You can buy the materials here: <br>
+<ul>
+	<li>copper ink (add link)</li>
+	<li>PEDOT:PSS (add link)</li>
+	<li>Phosphor (add link)</li>
+	<li>Dieletric (add link)</li>
+</ul>
+
+<img src="images/el-materials.png" width="400px"><br>
+<img src="images/el-layerstack.png" width="500px"><br><br>
+
+<b>Size of each layer:</b> Note that the dieletric layer is a bit larger than the other layers. Since the dieletric layer prevents everything from short circuiting, it should be a bit larger to make sure all other layers are really seperated from each other and not touching. <br><br>
+
+<img src="images/el-area-sizes.png" width="500px"><br><br>
+
+<b>Fabrication:</b> While the silver ink and PEDOT:PSS can be inkjet printed, the phosphor and dieletric have unfortunately too large particules in their inks, which clogg printer nozzles. We there screen printed the display you got. Below, you can see images of how we did it.<br><br>
+
+<img src="images/screen-printing.jpg" width="500px"><br><br>
+ -->
 
 
 <br>
