@@ -67,6 +67,8 @@ In particular, we are going to create an input menu on our fore arm and attach a
 
 <b>Amount of Current</b>: We are only going to use the output of the ESP32 (5V) for our devices. Since skin has a high resistance, the current is naturally limited and is considered physiologically safe for humans. At no point are you allowed to use anything else to connect to your on-skin device than the ESP32 we provided you.<br><br>
 
+<b>Body Location</b>: You are only allowed to apply the tattoo to your fore arm. Do not apply it in other body locations, such as the chest.<br><br>
+
 If you do not feel comfortable applying the tattoo to your skin, you can also apply it to an object in your surrounding and if that's not available, you can also apply it to a piece of paper. If you have any questions, please contact the teaching team.<br><br>
 
 <b>we decided against fabricating the Skintillates devices with inkjet printing because of the lack of data in the safety and long-term biocompatibility of these inks. also check the silver pen.</b>
@@ -76,6 +78,8 @@ If you do not feel comfortable applying the tattoo to your skin, you can also ap
 We first need to create the aesthetic and circuit design for our on-body user interface.<br>
 We will first only do the menu, and then do the bend sensor later.<br>
 In particular, our menu should have 6 buttons that have the following functions: XX, YY, ZZ.<br>
+We will also include one LED <a href="https://chibitronics.myshopify.com/collections/getting-started/products/red-yellow-and-blue-megapack-circuit-stickers">(see Chibitronics LED in your package)</a> to show that the Tattoo is working.<br>
+Make sure you also plan where the ESP will connect, i.e. you need to have sufficiently large connector pads (1cm x 1cm) for each wire coming from a button.<br>
 Note that you can cover parts of the circuit design if you put the conductive traces underneath the design parts. <br>These parts will be hidden from the user's eye since the art layer will overlay them in the final tattoo.<br><br>
 
 <img src="images/tattoo-art-and-electronics-layer.png" width="500px"><br>
@@ -105,7 +109,24 @@ Next, use the silver pen we provided you to sketch out the conductive traces.<br
 The paper backing and tattoo substrate are the white sheet, then you put your art layer and the conductive layer, and finally you close it off with the green adhesive sheet.<br>
 <a href="https://dl.acm.org/doi/10.1145/2901790.2901885">Paper Skintillates: Designing and Creating Epidermal Interactions</a><br><br>
 
-<h4>Transferring the Tattoo onto the Skin</h4><br>
+ <h3 class="headline">Add Electronic Components to Tattoo Design</h3><br>
+
+Once your artwork and conductive traces are drawn, add the electronic components onto the design.<br>
+In our case, we are only going to add a simple LED from Chibitronics.<br>
+This LED is already designed as a sticker and thus you can simply attach it to your circuit.<br><br>
+
+<img src="images/chibitronics-led1.png" width="250px">
+<img src="images/chibitronics-led2.png" width="180px"><br><br>
+
+
+The LED is made conductive on its backside using something <a href="https://www.amazon.com/gp/product/B075V5J7K6/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1">called Electrically Conductive Adhesive Transfer Tape or short: z-tape</a>. It has this name since its structure is vertically conecting circuit traces while horizontally isolating them. See image below of somethign similar called zebra-rubber, which has the same structure. Thus, if you have other electronic components in the future, that do not have a conductive adhesive already on them, you need to attach some z-tape to them.<br><br>
+
+<img src="images/zebrarubber.png" width="450px"><br>
+If you use zebra rubber or zebra tape on your phone, you can vertically transmit your touch. See how we move the slider with our finger here.<br><br>
+
+Electronic component height: to  minimize  the  added  thickness, only components with a thickness  of 500μm should be used. (not sure why this is necessary, I guess only if you put them right on the transfer tape, but if you mount them later onto the skin it shouldn't be an issue).<br><br>
+
+<h3 class="headline">Transferring the Tattoo onto the Skin</h3><br>
 
 Cut out a square area around your design on the white sheet. Put the remaining white sheet back into the box for later use.<br><br>
 
@@ -132,50 +153,44 @@ Then apply the tattoo adhesive side to your skin and cover with the wet cloth fo
 <img src="images/tattoo-transfer6.png" width="265px">
 <img src="images/tattoo-transfer7.png" width="235px"><br><br>
 
-<b>Cost:</b> A Skintillates tattoo that measures 6.5 in x 1.0 in would cost $0.23 in temporary tattoo paper and adhesive. It would take approximately 0.3g of silver screen-printing ink to fabricate the circuit, which would cost $1.2. With $0.50 allocated for two surface mount LEDs, the total cost of such a device is $1.83.<br><br>
+<h3 class="headline">Connect Tattoo to Microcontroller</h3><br>
 
+To connect to the remaining circuit, you will need to do the following steps:<br><br>
 
+First, attach the ESP with its breakout board to your arm as well.<br><br>
 
-
-
-
-
-
-(1) inkjet print art design on glossy side of paper.<br>
-(2) inkjet print electronics design. <br>
-(3) add electronic components with z-tape.<br>
-(4) add copper tape to the connectors to power circuit. <br>
-(2) remove backing from adhesive film and apply to design. <br>
-(1) cut out design. <br>
-(1) remove adhesive film to expose adhesive. <br>
-(1) hold tattoo in the right location. <br>
-(1) moist sponge. <br>
-(1) moist tattoo. <br>
-(1) remove paper. <br>
-(1) connect to remaining circuit (see below) <br><br>
-
-Surface mount 0603 LEDsand  resistors,  which  have  thickness  of500μm,  were  usedthroughout  this  study  to  minimize  the  added  thickness  inlocations  where  they  were  mounted.<br><br>
-
-<h4>Connect to Remaining Circuit</h4><br>
+Next, use copper tape to connect from the breakout board connectors to the connectors of your tattoo.<br><br>
 
 <img src="images/hardware-setup.png" width="450px"><br><br>
 
-<hr>
+<h3 class="headline">Program your Tattoo</h3><br>
 
-<br><br>
+Open the Arduino Programming environment and load the code your wrote last week for reading a touch button.<br><br>
+Make sure that if you use different pin numbers on your tattoo, you update those in your code.<br><br>
 
-<h4>Additional Design Options</h4><br>
+In case your touch button does not immediately work, we recommend you try to connect to the LED and make it blink.<br><br>
+
+If that also doesn't work, you may want to use your multimeter to check if you have any disconnects on your circuit tattoo.<br><br>
+
+If you have any disconnects, you can use the silver pen to fill in any gaps by retracing the circuit.<br><br>
+
+<div style="background:#04a47c;padding:10px;">Checkoff 1: Show your working tattoo to a member of the teaching team.</div><br><br>
+
+
+<h3 class="headline">Making a Bend Sensor</h3><br>
+
+
+
+
+
+<h3 class="headline">Integrating Displays</h3><br>
 
 <b>Blending the Art and Conductive Layer:</b> see below, (a) A dark colored pattern is printed on the art layer to completely cover the conductive layer, b) A lighter gradient color is printed on the art layer to allow the shape and silver color of the conductive layer to peek through, c) The pattern of the conductive layer is designed to complement the blue flower printed on the art layer, d) The silver conductive layer can be designed to be a design element. <br>
 <img src="images/overlaying-art-and-conductive-layer.png" width="350px"><br>
 <a href="https://dl.acm.org/doi/10.1145/2901790.2901885">Paper Skintillates: Designing and Creating Epidermal Interactions</a><br><br>
 
-<b>Multi-Layer Circuits:</b> see below, a) An exploded illustration of the different layers: a bottom layer consists of the basic art and conductive layer, while a second conductive layer is connected to the first layer through vias and the adhesive layer. b) a photograph of the two overlaying but insulated conductive layers, c) the multilayer display under operation while being compressed, showing that it maintains functionality while being flexed. This second conductive layer was printed on a separate temporary tattoo substrate, and was released from the paper backing onto the first conductive layer. In order to electrically connect the first and second conductive layers, we created electrical vias, which are openings that allow for electrical connections, by cutting holes in the second layer substrate at appropriate locations. (b) shows a close-up image of the dual-layer device. <br><br>
-
 <img src="images/tattoo-multi-layer-circuit.png" width="350px"><br>
 <a href="https://dl.acm.org/doi/10.1145/2901790.2901885">Paper Skintillates: Designing and Creating Epidermal Interactions</a><br><br>
-
-
 
 <img src="images/tattoo-leds.jpg" width="253px"> <img src="images/tattoo-examples.jpg" width="450px"><br>
 (left) programmable LED displays with customized aesthetic design, (middle) unclear, (right) strain gauges that respond to body movement e.g. to improve posture.<br>
@@ -184,6 +199,8 @@ Surface mount 0603 LEDsand  resistors,  which  have  thickness  of500μm,  were 
 <img src="images/skinmarks.jpg" width="650px"><br>
 <a href="https://dl.acm.org/doi/10.1145/3025453.3025704">Paper SkinMarks: Enabling Interactions on Body Landmarks Using Conformal Skin Electronics</a><br><br>
 <br>
+
+
 
         <br />
         <br />
