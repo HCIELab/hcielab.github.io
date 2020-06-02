@@ -232,7 +232,61 @@ Ok, if your multimeter shows low resistance, we are ready to wire up your EL dis
 
 Now that you know your EL display is working properly, you can make it light up based on the information coming from the Serial communication, i.e. the beat of the song. Replace the hard coded on/off for the EL display with the '2' or '3' date you are reading from the Serial monitor. <br><br>
 
-<h4>Bringing it all together</h4>
+<h2 class="headline">Miniatiarizing the Microcontroller</h4>
+
+Right now, we are using a pretty big and clunky microcontroller, which doesn't integrate well with our design.<br>
+In the final step today, we want to replace the big microcontroller with a smaller one: the ATTiny.<br>
+
+<img src="images/attiny.jpg" width="300px"><br><br>
+
+Looking at this image, you may have a few questions, such as how to know which pin is which since nothing is labeled and how to program the thing since there is no space for a USB cable connection!<br><br>
+
+<h4>Identifying Pins on the ATTiny</h4><br>
+
+To find our which pin is which, you first need to know where is the top left corner of the Attiny. If you look very closely, you can see a small dot on the top black surface. The small dot indicates the top left corner of the controller. Once you know which corner is the top left, you can search for the <a href="https://components101.com/microcontroller/attiny85-pinout-datasheet">data sheet of the ATTiny on google</a>.<br><br>
+
+<img src="images/attiny-top-left.png" width="200px"> <img src="images/attiny-datasheet.png" width="350px"><br><br>
+
+Ok great, so now you know where VCC and GND are and where the data pins are for analog and digital communication.<br>
+However, the question still remains, how to upload code.<br><br>
+
+<h4>Uploading Code to ATTiny</h4><br>
+
+There are several different ways how to program an ATTiny, one of the most straight forward is to use a device, such as the Tiny Programmer, see below.<br>
+
+<img src="images/attiny-programmer.png" width="200px"> <br><br>
+
+To program your ATTiny, you simply put it in the slot with the breadboard pins.<br>
+In the next step, you then connect jumper wires to go from the connecting pins to your breadboard.<br>
+You can use the USB connection on the Tiny Programmer to connect to your laptop.<br>
+
+<img src="images/tiny-programmer-in-action.png" width="500px"> <br><br>
+
+Once you confirmed that your code is correct and everything is working, you can move the ATTiny off the Tiny Programmer and put it onto your breadboard where it will keep looping its code there to perform its function.<br><br>
+
+<h4>How to get Rid of the Breadboard? SMD Components. </h4><br>
+
+Ok so this is already better than before, but still not great because we still have the breadboard there.<br>
+So far, you have used for the ATTiny is called a DIP (dual inline package) that has two rows of pins that needly fit into a breadboard. To make it even smaller, you can get the same ATTiny as an SMD (surface mount device), which means it will not have pins but instead needs to be soldered onto a PCB.<br><br>
+
+To produce the ATTiny as an SMD on a PCB, we used (this PCB manufacturing facility) and gave them (this specification) and (these design files). As a result, we got the following SMD component back.<br><br> 
+
+<img src="images/attiny-smd.jpg" width="300px"> <br><br>
+
+Ok, so now we are back at square one, how do we program the thing? Since it doesn't have pins anymore, it doesn't fit into the Tiny Programmer.<br>
+Lucky for us, there is <a href="https://www.amazon.com/gp/product/B00HHH65T4/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1">another device for this</a> that you can see below.<br><br>
+
+<img src="images/attiny-testclip.png" width="300px"> <br><br>
+
+To use it, you clamp the front onto your ATtiny.<br>
+Then you use jumper wires to connect the upper part back to the Tiny Programmer (Stefanie: I will try this out and update here once I know more).<br><br>
+
+<img src="images/attiny-testclip2.png" width="300px"> <br><br>
+
+Great, now we have a miniature microcontroller that we can put onto our card instead of the big microcontroller.<br>
+(Stefanie: If we want to do this part, we need to ask them to redraw their wire connections so they fit the ATTiny and not the ESP32. Perhaps this could be a good moment to use the silver pen?)<br> 
+
+ <h3 class="headline">Bringing it all together</h3>
 
 Now extend your code to include the three different touch buttons, i.e. each button should play a different song.<br><br>
 

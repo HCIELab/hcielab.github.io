@@ -128,9 +128,11 @@ Examples of masked and cut EL displays.<br><br>
 
 <h3>Can you print color and conductive elements together?</h3><br>
 
-Since the inkjet printer has 4 cartridges (one for each C, M, Y, K) and we are only using the K Cartridge for silver, you can still print color at the same time as the silver. <br><br>
+Since the inkjet printer has 2 cartridges (one for each CMY, and one for K) and we are only using the K Cartridge for silver, you can still print color at the same time as the silver. <br><br>
 
-However, we cannot print them at the same time (same pass) but have to use two seperate passes, i.e. we first print all silver, take the paper out, reinsert, and then print the color. The reason for this is that if we overlay color over the silver in the drawing, the printer will only use the top most layer and ignore the layer underneath.<br><br>
+However, we cannot print them at the same time (same pass) because in the printer driver we can either select to print grayscale, which will cause it to use the K cartridge with our silver, or we can print full color, which will cause it to use the CMY cartridge filled with the color.<br><br>
+
+Therefore, we do two seperate passes, i.e. we first print all silver, take the paper out, reinsert, and then print the color.<br><br>
 
 So to print color and silver you need to: <br>
 <ul>
@@ -142,12 +144,12 @@ So to print color and silver you need to: <br>
 <img src="images/touch-button-decorative2.png" width="300px"><br>
 Silver touch button in the middle is overprinted with white in a second layer. In addition, the red flame is added as a decorative element (it has no input functionality).<br><br>
 
-<h4>Making your Circuit Design</h4><br>
+<h2 class="headline">Making your Circuit Design</h2><br>
 
 Open your drawing program and set the document color mode to CMYK.</br>
 Draw a design that has at least three different touch buttons, one for a different song each.<br>
 It should also include the display that will blink to the beat of the long. Include the display as a square area of XXcm by XXcm so you will leave enough space for it. We will draw the mask layer seperately in a moment.<br>
-Make sure you use the correct wire thickness (at least 1mm) and connector pad size (at least 1cm x 1cm).<br>
+Make sure you use the correct wire thickness (at least 1mm) and connector pad size (at least 1cm x 1cm), and that you fill each touch button with a fill color (make CMYK = 100).<br>
 We recommend all your connector pads route to a common location where you will attach the microcontroller later.<br>
 Make sure all the silver you draw has the line/area color 'black (CMYK: 0,0,0,255)'.<br>
 The touch button should also be surrounded by a decorative color design to show that you can print color and silver together. <br><br>
