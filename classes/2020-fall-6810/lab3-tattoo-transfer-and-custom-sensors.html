@@ -49,31 +49,73 @@
       <section class="col-md-8 pull-right main-content">
 </br></br></br></br>
         <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2020)</a><br></h>
-        <h2 class="headline">On-Body User Interfaces using Tattoo Transfer Paper</h2>
+        <h2 class="headline">Tattoo Transfer Paper, Additional Sensors, and Signal Processing (or Rhino3D)</h2>
       
           <hr>
 
  <h3 class="headline">Your Task for Today</h3>
 
-Today, we want to move our circuits off the paper and onto our bodies.<br>
-In particular, we are going to create an input menu on our fore arm and attach a bend sensor that can recognize gestures performed by flexing our wrist as shown below.<br><br>
+Today, we want to move our circuits off the paper and onto other objects.<br>
+In particular, we are going to use tattoo transfer paper to transfer an inkjet printed circuit onto a leather armband.<br>
+The leather armband will have a menu created via touch buttons (perhaps include slider and multi-touch here?), and will have an inkjet-printed bend sensor that recognizes when the armband is put on and thus curved or removed from the arm and placed flat on the table.<br>
+In addition, it will have an IMU that can count steps.<br>
 
-<img src="images/on-body-menu.png" width="553px"><br>
+<img src="images/leather-armband.png" width="253px">
+
+<img src="images/on-body-menu.png" width="453px"><br>
 <img src="images/on-body-bend-sensor.png" width="553px"><br><br>
 
- <h3 class="headline">Safety</h3><br>
+ <h3 class="headline">First Experience with Tattoo Transfer: Decorative Artwork</h3><br>
 
-<b>Skin Safety of Materials</b>: We use materials for the substrate and traces that have been approved by the U.S. Food and Drug Administration (FDA)for safe usage on human skin. To minimize the possibility of negative skin-reaction, we use only commercially available temporary tattoo paper as the substrate, and amedical electrode grade silver screen-printing ink as the conductive material for the circuitry.<br><br>
+We recommend before you go down into the circuit design experience, you check out how the tattoo transfer paper works using a simple aesthetic design and a test object other than the leather armband. <br><br>
 
-<b>Amount of Current</b>: We are only going to use the output of the ESP32 (5V) for our devices. Since skin has a high resistance, the current is naturally limited and is considered physiologically safe for humans. At no point are you allowed to use anything else to connect to your on-skin device than the ESP32 we provided you.<br><br>
+<h4>Creating the Decorative Tattoo Design on the Tattoo Paper</h4><br>
 
-<b>Body Location</b>: You are only allowed to apply the tattoo to your fore arm. Do not apply it in other body locations, such as the chest.<br><br>
+Your tattoo transfer package contains two different types of sheets <a href="https://www.amazon.com/gp/product/B0043WJ3OA/ref=ppx_yo_dt_b_asin_title_o08_s00?ie=UTF8&psc=1">(Silhouette Inkjet Printable tattoo paper, $7.42 for four 8.5”x11” sheets)</a>.<br>
+The white sheet is the sheet on which we will create the design.<br>
+The greenish sheet is the adhesive sheet, which we will use later to transfer the tattoo onto the skin.<br><br>
 
-If you do not feel comfortable applying the tattoo to your skin, you can also apply it to an object in your surrounding and if that's not available, you can also apply it to a piece of paper. If you have any questions, please contact the teaching team.<br><br>
+First, take the white sheet, i.e. the temporary tattoo paper with its paper backing our of its packaging.<br>
+The white sheet has a <b>glossy side</b> and a non-glossy side.<br>
+You need to create your artwork on the <b>glossy side</b>.<br><br>
 
-<b>we decided against fabricating the Skintillates devices with inkjet printing because of the lack of data in the safety and long-term biocompatibility of these inks. also check the silver pen.</b>
+Before transferring your image, make sure the image is <b>mirrored</b>, since it will be flipped when you apply the paper to your skin. <br><br>
 
- <h3 class="headline">Designing your On-Body Interface</h3><br>
+Use the pens we provided to you to draw your design directly on the glossy side.<br> <br> 
+
+<h4>Transferring the Tattoo onto the Skin</h4><br>
+
+Cut out a square area around your design on the white sheet. Put the remaining white sheet back into the box for later use.<br><br>
+
+Next, cut our a similar sized area from the green sheet, which we will be used to form the adhesive layer. Put the remaining green sheet back into the box for later use.<br><br>
+
+When ink is dry, apply the green sheet (adhesive sheet) by peeling away the green backing and then place the sticky transparent film on to the top of the printed image.<br><br>
+
+<img src="images/tattoo-transfer2.png" width="250px"><br><br>
+
+Use a scraper tool or ruler to make sure the adhesive sheet is attached over the entire area, this is important so make sure you press on it properly across the entire area, otherwise parts of your tattoo will not have adhesive on them and will not stick to your skin.<br><br>
+
+Next, cut out the design around its outline using either a scissor, laser cutter, or paper plotter (the Silhouette has a 'Temporary Tattoo Paper' setting).<br><br>
+
+<img src="images/tattoo-transfer3.png" width="250px"><br><br>
+
+Remove the clear plastic from the adhesive layer (yes all that's left will be the glue), which exposes the adhesive.<br><br>
+
+<img src="images/tattoo-transfer4.png" width="250px"><br><br>
+
+Get a wet sponge or wet cloth ready.<br>
+Then apply the tattoo adhesive side to your skin and cover with the wet cloth for 10-15 seconds, you will know you are getting there when the paper backing slides off easily.<br><br>
+
+<img src="images/tattoo-transfer5.png" width="235px">
+<img src="images/tattoo-transfer6.png" width="265px">
+<img src="images/tattoo-transfer7.png" width="235px"><br><br>
+
+ <h3 class="headline">Designing the Interface</h3><br>
+
+Awesome, now that you have a sense how the Tattoo transfer process works, we can start with our real design.<br> 
+From now on, please do not apply the tattoo transfer paper to your skin anymore since we don't know if you may have any skin reactions to the silver.<br> <br> 
+
+
 
 We first need to create the aesthetic and circuit design for our on-body user interface.<br>
 We will first only do the menu, and then do the bend sensor later.<br>
@@ -198,6 +240,18 @@ If you have any disconnects, you can use the silver pen to fill in any gaps by r
 <img src="images/skinmarks.jpg" width="650px"><br>
 <a href="https://dl.acm.org/doi/10.1145/3025453.3025704">Paper SkinMarks: Enabling Interactions on Body Landmarks Using Conformal Skin Electronics</a><br><br>
 <br>
+
+ <h3 class="headline">Safety</h3><br>
+
+<b>Skin Safety of Materials</b>: We use materials for the substrate and traces that have been approved by the U.S. Food and Drug Administration (FDA)for safe usage on human skin. To minimize the possibility of negative skin-reaction, we use only commercially available temporary tattoo paper as the substrate, and amedical electrode grade silver screen-printing ink as the conductive material for the circuitry.<br><br>
+
+<b>Amount of Current</b>: We are only going to use the output of the ESP32 (5V) for our devices. Since skin has a high resistance, the current is naturally limited and is considered physiologically safe for humans. At no point are you allowed to use anything else to connect to your on-skin device than the ESP32 we provided you.<br><br>
+
+<b>Body Location</b>: You are only allowed to apply the tattoo to your fore arm. Do not apply it in other body locations, such as the chest.<br><br>
+
+If you do not feel comfortable applying the tattoo to your skin, you can also apply it to an object in your surrounding and if that's not available, you can also apply it to a piece of paper. If you have any questions, please contact the teaching team.<br><br>
+
+<b>we decided against fabricating the Skintillates devices with inkjet printing because of the lack of data in the safety and long-term biocompatibility of these inks. also check the silver pen.</b>
 
 
 
