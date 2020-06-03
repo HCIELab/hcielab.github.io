@@ -49,7 +49,7 @@
       <section class="col-md-8 pull-right main-content">
 </br></br></br></br>
         <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2020)</a><br></h>
-        <h2 class="headline">Tattoo Transfer Paper, Additional Sensors, and Signal Processing (or Rhino3D)</h2>
+        <h2 class="headline">Tattoo Transfer Paper and Signal Processing</h2>
       
           <hr>
 
@@ -57,8 +57,8 @@
 
 Today, we want to move our circuits off the paper and onto other objects.<br>
 In particular, we are going to use tattoo transfer paper to transfer an inkjet printed circuit onto a leather armband.<br>
-The leather armband will have a menu created via touch buttons (perhaps include slider and multi-touch here?), and will have an inkjet-printed bend sensor that recognizes when the armband is put on and thus curved or removed from the arm and placed flat on the table.<br>
-In addition, it will have an IMU that can count steps.<br>
+The leather armband will have a menu created via inkjet printed touch buttons (perhaps include slider and multi-touch here?), an inkjet-printed bend sensor that recognizes when the armband is put on and thus curved or removed from the arm and placed flat on the table, and an IMU attached to the circuit that can count steps.<br>
+After we made the hardware design, we will do some signal processing and show the sensed and processed signals in Processing.<br>
 
 <img src="images/leather-armband.png" width="253px">
 
@@ -69,10 +69,77 @@ In addition, it will have an IMU that can count steps.<br>
 
 We recommend before you go down into the circuit design experience, you check out how the tattoo transfer paper works using a simple aesthetic design and a test object other than the leather armband. <br><br>
 
-<h4>Creating the Decorative Tattoo Design on the Tattoo Paper</h4><br>
+<h2 class="headline">Transferring an Existing Tattoo Design</h2><br>
+
+In the first step, let's just learn how to transfer an existing tattoo so we get used to the process.<br>
+In your package, we already inkjet printed with regular CMY ink this decorative tattoo for you onto  <a href="https://www.amazon.com/gp/product/B0043WJ3OA/ref=ppx_yo_dt_b_asin_title_o08_s00?ie=UTF8&psc=1">this tattoo transfer paper.</a><br>
+Since this is only a decorative tattoo (no silver ink), you apply it to your skin if you like to.<br><br>
+
+<img src="images/tattoo-transfer.png" width="253px"><br><br>
+
+So now how do you get this tattoo on an object?<br>
+
+Cut out a square area around the design on the white sheet. Put the remaining white sheet back into the box for later use.<br><br>
+
+Next, cut our a similar sized area from the green sheet (the adhesive sheet), which we will use to form the adhesive layer. Put the remaining green sheet back into the box for later use.<br><br>
+
+Apply the green sheet (adhesive sheet) by peeling away the green backing and then place the sticky transparent film on to the top of the printed image.<br><br>
+
+<img src="images/tattoo-transfer2.png" width="250px"><br><br>
+
+Use a your fingers or a ruler to make sure the adhesive sheet is attached over the entire area, this is important so make sure you press on it properly across the entire area, otherwise parts of your tattoo will not have adhesive on them and will not stick to the object.<br><br>
+
+Next, cut out the design around its outline using a scissor.<br><br>
+
+<img src="images/tattoo-transfer3.png" width="250px"><br><br>
+
+Next, remove the clear plastic from the adhesive layer (yes all that's left will be the glue), which exposes the adhesive.<br><br>
+
+<img src="images/tattoo-transfer4.png" width="250px"><br><br>
+
+Get a wet sponge or wet cloth ready.<br>
+Then apply the tattoo adhesive side to your skin and cover with the wet cloth for 10-15 seconds, you will know you are getting there when the paper backing slides off easily.<br><br>
+
+<img src="images/tattoo-transfer5.png" width="235px">
+<img src="images/tattoo-transfer6.png" width="265px">
+<img src="images/tattoo-transfer7.png" width="235px"><br><br>
+
+Great, we hope it worked and you are ready to create your own design.<br><br>
+
+<h2 class="headline">Creating your Own Tattoo Design</h2>
+
+Ok, so in the next steps, we want to repeat the process but use a very simple decorative design you made.<br><br>
+
+Take the sharpie we added to your package and draw the 6.810 logo onto the tattoo transfer paper (the white sheet).<br>
+Important 1: You need to draw on the <b>glossy side</b> of the paper<br>
+Important 2: You need to <b>mirror</b> your image since it will be flipped when you apply the tattoo paper to your skin. If you don't mirror it you have the same problem as we below. I know this needs some head twisting when you draw it out, if it helps use a drawing program to see how it would look like mirrored.<br><br>
+
+Once you have drawn your own design, repeat the process as mentioned above and transfer the tattoo onto your skin or on an object of your choice (if you have nothing available, a shampoo bottle or other container will serve).<br><br>
+
+<img src="images/tattoo1.jpg" width="235px">
+<img src="images/tattoo2.jpg" width="180px">
+<img src="images/tattoo3.jpg" width="230px">
+
+<img src="images/tattoo4.jpg" width="235px">
+<img src="images/tattoo5.jpg" width="180px">
+<img src="images/tattoo6.jpg" width="205px">
+
+<img src="images/tattoo7.jpg" width="155px">
+<img src="images/tattoo8.jpg" width="235px">
+<img src="images/tattoo9.jpg" width="265px">
+
+<img src="images/tattoo10.jpg" width="235px">
+<img src="images/tattoo11.jpg" width="235px"><br>
+Note that this is wrong since the image was not mirrored during the design phase!<br><br>
+
+<h4>Applying the Circuit Design Tattoo to the Wrist Band</h4><br>
+
+To save us some time today, we already inkjet printed the circuit design for you today.<br>
+
+
 
 Your tattoo transfer package contains two different types of sheets <a href="https://www.amazon.com/gp/product/B0043WJ3OA/ref=ppx_yo_dt_b_asin_title_o08_s00?ie=UTF8&psc=1">(Silhouette Inkjet Printable tattoo paper, $7.42 for four 8.5”x11” sheets)</a>.<br>
-The white sheet is the sheet on which we will create the design.<br>
+The white sheet is the sheet on which you will create the design.<br>
 The greenish sheet is the adhesive sheet, which we will use later to transfer the tattoo onto the skin.<br><br>
 
 First, take the white sheet, i.e. the temporary tattoo paper with its paper backing our of its packaging.<br>
@@ -82,6 +149,11 @@ You need to create your artwork on the <b>glossy side</b>.<br><br>
 Before transferring your image, make sure the image is <b>mirrored</b>, since it will be flipped when you apply the paper to your skin. <br><br>
 
 Use the pens we provided to you to draw your design directly on the glossy side.<br> <br> 
+
+
+
+
+
 
 <h4>Transferring the Tattoo onto the Skin</h4><br>
 
