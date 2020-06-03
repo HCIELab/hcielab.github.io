@@ -275,8 +275,170 @@ Also we have only applied a very basic tresholding to the touch input. Those val
 
 <h3 class="headline">Bend Sensor</h3><br>
 
-The last thing we want to look at today is the bend sensor that is part of your arm band.<br><br>
+The last thing we want to look at today is the bend sensor that is part of your arm band.<br>
+The images below show inkjet printed bend sensors in a variety of different shapes.<br>
+The bend sensor is based on the paper <a href="https://dl.acm.org/doi/10.1145/3024969.3024989">Flexy (ACM TEI 2017)</a> <br><br>
 
+<img src="images/flexy.jpg" width="700px"><br><br>
+
+<h4>Drawing your Own Bend Sensor</h4>
+Before we wire up the bend sensor that is part of your armband, let's draw our own bend sensor.<br>
+How should a layout for a bend sensor look like?<br><br>
+
+<b>Basic Working Principle Bend Sensor</b><br>
+The bend sensors above are nothing more than silver inkjet printed partciles on paper. <br>
+Bending the paper in lets the tiny particles move closer to each other, bending the paper in the opposite direction lets the particles move apart from each other. One can measure this bending effect by <b>monitoring resistance</b>: <br><br>
+<b>bending in:</b> brings particles closer together and thus reduces resistance. <br>
+<b>bending out:</b> moves particles closer away from each other and thus increases resistance.<br>
+The higher the magnitude of flexing, the higher is the change in resistance.<br>
+This is the basic sensing principle behind <a href="https://en.wikipedia.org/wiki/Strain_gauge">resistive strain gauges.</a><br><br>
+
+<b>What determines bending accuracy and bending direction?</b><br>
+
+<ul>
+<li><b>number of sensing lines:</b> With more sensing lines, the resistance change to flexing is higher as compared to fewer sensing lines. Our sensor designs typically have 10 to 30 sensing lines.</li> 
+<li><b> line length:</b> the line length of our sensors varies between 2cm and 5cm. </li>
+<li><b>line width:</b> customize depending on the sensing material; more conductive materials such as silver nanoparticle ink, wider sensing lines result in a lower sensor response and are generally not preferred as more material is consumed with no advantage in sensing response. Instead, for applications that require less response range, fewer thin sensor lines can be drawn instead of a larger number of wide lines. </li>
+<li><b>line spacing:</b> linear and angular spacing between the sensor lines. Each of the sensor lines need not be parallel to each other and can be placed at different angular orientations. This enables sensing multi-axial deformations. In addition, the linear spacing between the sensor lines is kept much smaller than the sensor length. If the spacing is larger, then the change in resistance to flexing across sensor length is attenuated within the material laid out in perpendicular direction. </li>
+<li><b>composition:</b> how multiple sensing units within a geometry are laid spatially, e.g. two sensing units in a bird shape design are slightly curved to fit the wing shape better </li>
+<li><b>connecting traces:</b> traces connect the sensor design to the area on the substrate where contacts are tethered to a microcontroller; generally quite wide to have less resistance, and typically curved to avoid resistance change due to any uni-axial flexion.</li>
+</ul>
+<br>
+
+<b>Your Task: Draw your own bend sensor</b><br>
+
+Use the silver pen and draw your own bend sensor.<br>
+In particular, your bend sensor should measure (take one of Juergen's examples)</br>
+Sketch out the design.<br><br>
+
+
+<h4>Sensor Layout</h4>
+
+<b>Single Line:</b> The most basic design of a flex sensor is a single line of conductor, whose resistance is measured from its two ends. <br>
+<b>Two Parallel Lines:</b> The line can also be laid out in a U shape, resulting in two parallel lines responding to flexing with a higher response than a single line. <br>
+<b>Many Parallel Lines (what you see on the armband):</b> Eventually, an even longer line can be laid out in a zig-zag pattern of parallel lines to maximize the sensing lines subjected to bending in the parallel direction. <br><br>
+
+The image below illustrates this standard design that is also part of your armband. The sensor design senses bending predominantly along the direction of the parallel sensor lines, referred as the longitudinal axis.<br><br>
+
+<img src="images/flex-sensor-layout.png" width="300px"><br><br>
+
+<h4>Electronics</h4>
+The change in resistance can be measured either directly with a resistance meter or with a <b>standard voltage divider curcuit</b>.<br><br> 
+
+<img src="images/flex-sensor-layout-electronics.png" width="200px"> <img src="images/bend-sensor-schematic.png" width="300px"><br><br>
+
+The question now is what resistance values to chose for R1 and R2.<br>
+Actually, we only choose R1 since R2 is the resistance we want to measure in the end to determine how much the sensor was bend.<br>
+
+<b>Choosing R1</b><br>
+For R1, we want to choose a resistor that roughly matches the overall resistance of the bend sensor. <br>
+Michael: how do we know this? do we use the multimeter to measure at the two end points of the bend sensor?<br>
+In practice this means, that if in the flat state, the arm band has a resistance of 500Ω, we should use for R1 around 470Ω.<br> 
+
+<b>Calculating R2</b><br>
+
+To calculate R2, i.e. the change in resistance caused by flexing the sensor, we can use some math:<br><br>
+
+<img src="images/resistance-formula.png" width="200px"> <br><br>
+
+<b>R2:</b> the resistance of the printed sensor (varies as you bend it, so we want to measure this!)<br>
+<b>R1:</b> the known resistance (470Ω in our example)<br>
+<b>VCC:</b> supply voltage (5V from the Arduino)<br>
+<b>Vout:</b> measured voltage output (measured from pin A0, see schematic)<br><br>
+
+Implemented in piece of code this looks like this (perhaps have students implement this themselves):<br><br>
+
+<h4>Code</h4>
+
+<code>
+/*<br>
+  ReadAnalogVoltage<br>
+  Reads an analog input on pin 0, converts it to voltage, and prints the result to the serial monitor.<br>
+  Graphical representation is available using serial plotter (Tools > Serial Plotter menu)<br>
+  Attach the center pin of a potentiometer to pin A0, and the outside pins to +5V and ground.<br>
+*/<br><br>
+
+float R1 = 680;   //known resistance <br><br>
+
+void setup() {<br>
+  Serial.begin(9600);<br>
+}<br><br>
+
+void loop() {<br>
+  int sensorValue = analogRead(A0);<br>
+  // Convert the analog reading (which goes from 0 - 1023) to a voltage (0 - 5V):<br>
+  float voltage = sensorValue * (5.0 / 1023.0);<br>
+  Serial.println(voltage);<br><br>
+
+  float R2 = (voltage / (5 - voltage)) * R1;<br>
+  Serial.println(R2);<br>
+  delay(1000);<br>
+}
+      </code>
+ <br>
+<br>
+
+<h4>Your Task</h4><br>
+
+Wire up the bend sensor by building the circuit and write the code for reading the bend values.
+
+<div style="background:#04a47c;padding:10px;">Checkoff 3: Show that your bend sensor works and plots the correct values on the serial monitor.</div><br>
+
+
+
+
+
+
+
+The resistance of the pattern depends on the sensor dimensions by<br><br>
+
+<img src="images/sensor-layout-formula.png" width="100px"> <br><br>
+
+<b>L:</b> sensor length<br>
+<b>A:</b> cross-sectional area (number of lines * (line width * line thickness))<br>
+<b>𝜌𝜌:</b> resistivity of the sensing material<br><br>
+
+We present spatial arrangements of the sensor design in 1D & 2D for sensing surface deformations, in varied sensor geometries. For sensing more complex deformations of a 1D surface, a linear array of sensing units is presented. A radial array enables sensing of 2D deformations on a surface.<br><br>
+
+
+(left) An omni-directional flex sensor design (right) with intermediate tapping.<br>
+<img src="images/omni-directional-bend-sensor.png" width="500px"> <br><br>
+
+<h4>Example Bend Sensor Designs</h4><br>
+
+<img src="images/flexy.jpg" width="700px"><br><br>
+
+<b>Bird wing:</b> This design illustrates a composition of multiple sensing units. A flex sensor spanning each of the wings can capture flexion during wing flapping. Sensing lines in each unit span the wings partly and are slightly curved to better fit to the wing shape. (design dimensions: length = 45mm, width = 0.35mm, curved at 8°).<br><br>
+
+<b>Fish design:</b> This design illustrates how a sensor can mimic the visual appearance of the interactive object. We illustrate a sensor placed around the caudal fin (tail) of the fish. The sensor can sense the back and forth wavy movement of the tail. It has fewer sensing lines with varying spacing between them. (design dimensions: length of fin =30mm, width of fin = 44mm, line width = 0.5mm).<br><br>
+
+<b>Flower:</b> This design illustrates a circular arrangement of individual sensing units. The example design consists of five petals connected through a central unit. Each of the sensing units consists of varying line lengths to conform to the petal shape and is connected to the central connector. (design dimensions: length1 = 29.78mm, length2 = 35.36mm, length3 = 36.46mm, width =0.33mm).<br><br>
+
+<b>Crescent design:</b> This design illustrates embedding a flex sensing within an extremely curved surface. Length of the sensing lines is continuously varied to adapt to the crescent shape. (design dimensions: length of crescent: 77 mm, width of crescent: 22mm, line width: 0.35mm).<br><br>
+
+<b>Leaf design:</b> This design illustrates alignment of the sensing lines at an angle to better fit the target shape. A single sensor runs through the entire leaf shape. Intermediate tapping points can be added for granular sensing response. (design dimensions: leaf length: 80mm, width: 35mm, sensing lines aligned at 45°).<br><br>
+
+
+<table>
+	<tr>
+		<td>
+<img src="images/3d-geometry-measurement.png" width="260px"><br>
+Measuring the Curvature of objects with a single flex sensor.<br><br>
+</td>
+<td>
+
+<img src="images/inchworm-animation.png" width="200px"><br>
+A virtual inchworm animated with a single flex sensor.<br><br>
+</td>
+<td>
+<img src="images/origami-folding-guidance.png" width="210px"><br>
+Origami-Folding Tool that measures if you fold correctly.<br><br>
+</td>
+</tr>
+</table>
+
+
+<hr>
 
 
 
