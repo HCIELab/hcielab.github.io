@@ -195,6 +195,76 @@ To do a first test if your armband works, lets write some code that blinks the C
 
 Next, we will write both Arduino to read the sensor values and process them, and Processing code to visualize what the sensors are reading.<br><br>
 
+<h4>Printing a Float to Serial</h4><br>
+
+Last time we send a value via Serial it was only a 0 or 1 for button pressed or not pressed. However, if we want to visualize the actual sensor data, we need to send floats representing the sensor values.<br>
+Serial, however, can only transmit binary information, i.e. 0 or 1.<br>
+Thus, if we want to send a value through serial, we need to first convert it into binary information.<br>
+We already provide you with the code below <a href="http://www.varesano.net/blog/fabio/sending-float-variables-over-serial-without-loss-precision-arduino-and-processing">(tutorial here)</a>.<br><br>
+
+Arduino (float to binary):<br><br>
+
+<code>
+Serial.begin(9600);<br>
+float analog_touch = sensor1.capacitiveSensor(samples_touch);<br>
+serialFloatPrint(analog_touch);<br>
+delay(100);<br>
+}<br>
+
+void serialFloatPrint(float f) {<br>
+  byte * b = (byte *) &f;<br>
+  Serial.print("f:");<br>
+  Serial.write(b[0]);<br>
+  Serial.write(b[1]);<br>
+  Serial.write(b[2]);<br>
+  Serial.write(b[3]);<br>
+}
+</code><br>
+
+Processing (binary to float):<br><br>
+
+<code>
+void draw() {<br>
+  if(myPort.available() > 0) {<br>
+    char inByte = myPort.readChar();<br>
+    if(inByte == 'f') {<br>
+      // we expect data with this format f:XXXX<br>
+      myPort.readChar(); // discard ':'<br>
+      byte [] inData = new byte[4];<br>
+      myPort.readBytes(inData);<br><br>
+      
+      int intbit = 0;<br><br>
+      
+      intbit = (inData[3] << 24) | ((inData[2] & 0xff) << 16) | ((inData[1] & 0xff) << 8) | (inData[0] & 0xff);<br><br>
+      
+      float f = Float.intBitsToFloat(intbit);<br>
+      println(f);<br>
+    }<br>
+  }
+</code><br>
+
+If everything is working, you should see the float information run by in the Processing window.<br><br>
+
+<h4>Visualizing the Sensor Input At the Current Point in Time</h4><br>
+
+Next, we want to visualize the sensor input.<br>
+For starters, we just want to show the value at the current moment in real-time.<br><br>
+
+Reuse some of the code you wrote in lab 1 for drawing a rectangle and an output text. <br>
+Connect the rectangle height to the incoming float value.<br>
+When the float value is above a certain value, the bar should change color and the text should show 'touched' instead of 'hovered', also if the hand is not even close we want to write 'no input'.<br>
+Also indicate on the bar where your threshold is by drawing a line at the height of your cut off value for touched, hovered, and no touch.<br>
+
+<img src="images/visualize1-initial.png" width="200px"> 
+<img src="images/visualize2-hover.png" width="195px"> 
+<img src="images/visualize3-touched.png" width="200px"> <br><br>
+
+<h4>Visualizing the Sensor Input Over Time</h4><br>
+
+Next, we also want to wrote our own visualization over time, so we can keep track of how often the user has touched.<br><br>
+
+
+
 
 
 
