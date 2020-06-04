@@ -119,6 +119,87 @@ If you look closely in the images below, you can see there are two tubes (first 
 
 <h3 class="headline">Slicing for Dual Material Printing</h3><br>
 
+To convert a 3D model for 3D printing, you have to load it into a software called a Slicer.<br>
+A slicer takes your 3D model and slices it horizontally into a number of layers.<br>
+Each layer is then converted into a print path (a long line filling the layer) that the print head follows while laying down material.<br><br>
+
+The slicer we are going to use is called Cura for Ultimaker and you installed it prior to this lab.<br>
+Note that most branded 3D printers have their own slicer (e.g. the MakerBot 3D printer uses the MakerBot slicer).<br>
+However, there are also slicers that can be used for many different 3D printers, e.g. a slicer called Slic3r supports this.<br><br>
+
+Open Cura and load both of your 3D models into the view.<br>
+
+For starters, let try to configure this <a href="https://www.thingiverse.com/thing:744669">existing model of a game controller from Thingiverse</a>.<br>
+
+<img src="images/conductive-pla-game-controller.jpg" width="353px"><br>
+
+It consists of these two models:<br><br>
+
+<img src="images/game-controller1.png" width="353px">
+<img src="images/game-controller2.png" width="346px"><br><br>
+
+If you go to download, you can see that the two models come in .stl file format.<br>
+.stl file format is the format that the slicer takes as input.<br>
+So if you later 3D model something in a 3D editor, you have to make sure you export as .stl file.<br><br>
+
+<img src="images/game-controller-stl-files.png" width="453px"><br><br>
+
+Now that you downloaded the .stl files, you can load them into the slicer software Cura.<br>
+If they are misaligned, make sure to align them on top of each other by setting each of the 3D models x,y,z coordinates to 0,0,0.<br><br>
+
+<img src="images/cura-aligning-meshes1.png" width="553px"><br>
+<img src="images/cura-aligning-meshes2.png" width="553px"><br>
+
+Next, let's make sure we are going to use the correct 3D printer settings for slicing, i.e. there are different Ultimakers, e.g. Ultimaker 1,2,3, S5 etc and they all need different settings.<br>
+Click on the top left corner on the 3D printer name, then 'manage printers', in the opening window click on 'add' to add a new printer, and then open the 'add a non-networked printer' dialog.<br>
+In the dialog window, select the Ultimaker 3 Extended, which is the printer we are using for the class. Confirm the selection by clicking 'Add' and make sure that once the window closed, under 'local printers' the Ultimaker 3 Extended is now selected. Click 'close'. <br><br>
+
+<img src="images/cura-selecting-printer1.png" width="453px"><br>
+<img src="images/cura-selecting-printer2.png" width="453px"><br>
+<img src="images/cura-selecting-printer3.png" width="453px"><br>
+<img src="images/cura-selecting-printer4.png" width="453px"><br><br>
+
+Now that you have the 3D printer configured, we are ready to setup the materials for 3D printing, i.e. tell the slicer which extruder head will hold which material.<br>
+In our setup, we are using extruder 1 with regular white PLA filament, and extruder 2 with conductive PLA filament.<br><br>
+
+To do this, click on the top where it says (1) Generic PLA and select the white PLA from the list (see below).<br><br>
+Repeat the process with (2) and assign the conductive PLA (Michael: it is not in the list of materials, we may have to install the settings file for this first).<br>
+
+<img src="images/cura-extruder1-whitepla.png" width="553px"><br><br>
+<img src="images/cura-extruder2-conductivepla.png" width="553px"><br><br>
+
+Now that you have assigned each extruder a material, you are ready to go to the next step: assign your model geometry to an extruder and thereby to a material. Click on one of the two meshes and in the left toolbar, choose either 1 or 2 depending on which material you want to print it with. The visualization should update accordingly, i.e. in the view you now see that the inner part is colored black since it will be printed from the black conductive material.<br><br>
+
+<img src="images/cura-assign-material-to-mesh.png" width="553px"><br><br>
+
+We are all set for slicing now!<br>
+Click the slice button on the right side.<br>
+Once slicing has finished, it should tell you how long the model will print and how much material it will require.<br>
+Note that if you go to print settings and you change the quality from e.g. 'fast' to 'fine' the print time will more than double.<br>
+However, at the same time, you will also get a higher quality print since 'fine' uses a thinner layer height than 'fast'.<br><br>
+
+<img src="images/cura-fast.png" width="353px">
+<img src="images/cura-fine.png" width="353px"><br><br>
+
+
+Once you sliced, you can either save the file or preview it.<br>
+Let's look at preview for a moment.<br>
+The vertical slider allows you to step through each layer of your print and check if everything looks correct.<br><br>
+
+<img src="images/cura-layer-preview1.png" width="353px">
+<img src="images/cura-layer-preview2.png" width="353px"><br><br>
+
+The horizontal 'play' bar then plays an animation of how the print head will print that particular layer, pretty neat!<br><br>
+
+<img src="images/cura-layer-preview3.png" width="353px"><br><br>
+
+Once you are sure everything looks good, you can save the file.<br>
+Note that the file extension is .gcode, which is what the 3D printer takes as input.<br>
+
+
+
+
+
 
 
 
