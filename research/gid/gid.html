@@ -753,9 +753,13 @@
 		</h6>
 		We present G-ID, a method that utilizes the subtle patterns left by the 3D printing process to distinguish and identify objects that otherwise look similar to the human eye. The key idea is to mark different instances of a 3D model by varying slicing parameters that do not change the model geometry but can be detected as machine-readable differences in the print. As a result, G-ID does not add anything to the object but exploits the patterns appearing as a byproduct of slicing, an essential step of the 3D printing pipeline. 
 We introduce the G-ID slicing &amp; labeling interface that varies the settings for each instance, and the G-ID mobile app, which uses image processing techniques to retrieve the parameters and their associated labels from a photo of the 3D printed object. Finally, we evaluate our method&rsquo;s accuracy under different lighting conditions, when objects were printed with different filaments and printers, and with pictures taken from various positions and angles.
+  <br><br><br>
+  <span class="medium-headline">INTRODUCTION</span>
+
+  <div title="Page 2">
+
+
   <br>
-  <h2>INTRODUCTION</h2>
-<div title="Page 2">
 		  <div>
 		    <div>
 		      <p>Machine-readable tags have many applications ranging from package delivery and tracking, to interactive museum exhibits, and games. While in the last decades, researchers have mainly focused on developing 2D tags, the rise of 3D printing now enables researchers to investigate how to embed tags directly with the geometry of 3D objects. For instance, QR codes are no longer limited to 2D applications and can now also be used as part of a 3D object&rsquo;s surface geometry by modifying the 3D model.<br>
@@ -779,9 +783,13 @@ We introduce the G-ID slicing &amp; labeling interface that varies the settings 
   <li>An evaluation of the space of slicing parameters that can be varied to generate unique instances of a 3D model and the corresponding detection accuracy under different environmental and hardware-related conditions.</li>
 </ol>
 <p>We demonstrate these contributions with a diverse set of interactive applications.</p>
-<h2>
+
+<br>
+<span class="medium-headline">
+
 		G-ID: LABELING AND IDENTIFYING OBJECTS BY THEIR SLICING PARAMETERS
-	    </h2>
+		<br><br>
+	    </span>
 		The main contribution of G-ID is a framework to <em>label</em> and <em>identify</em> 3D printed objects by their distinct slicer settings.<br>
 G-ID <em>labels</em> 3D printed objects by intentionally varying the slicing settings of an unmodified 3D model which determine the path the extruder will follow. This allows G-ID to produce multiple instances that all have a unique artifact, e.g., the small grooves on the surfaces of the object that can be shaped differently when the print path is laid down. <br>
 G-ID then <em>identifies</em> the 3D printed object by such textures, i.e. after users take a picture of the object with a commodity camera, G-ID applies image processing techniques to first extract and then correlate the features with their initial slicing settings to retrieve the identifying label.<br>
@@ -808,7 +816,6 @@ G-ID then <em>identifies</em> the 3D printed object by such textures, i.e. after
         </strong>
         
       </p>
-      <p>&nbsp;</p>
       <p>#2 Enter Labels: We can now enter a label in the form of a text, an image, or a URL next to the preview of each instance. Since we want to give each key cover the name of one of our lab members, we enter one name per instance. We can update these labels later any time, for instance, when a new team member joins our lab and we need to reassign the key.</p>
         <p> #3 3D Printing: Upon clicking the “Export” button, each instance’s G-code file is saved, as well as a digital file (XML) that stores the object information and the entered label corresponding to each instance. We can now send the G-code files to our FDM printer to obtain the printed instances. We also transfer the digital file that stores the object information to our smartphone to be used later for identification. </p>
 		
@@ -816,6 +823,7 @@ G-ID then <em>identifies</em> the 3D printed object by such textures, i.e. after
       <p><b>Identification Interface (Mobile App + Object Alignment)</b> </p>
         <p>At the end of the semester when we update our key inventory, we use the G-ID mobile app on our phone to identify which of the returned keys belonged to whom. After launching the app, we first select the model we would like to scan, i.e., the key cover, from our object library (Figure 4a). The app then helps us to align the camera image with the object by showing an outline of the object on the screen, similar to how check cashing or document scanning apps work (Figure 4b). When the outlines are aligned in this human-in-the-loop setting, the app automatically captures and processes the image (Figure 4c). It then identifies the features in the photo associated with the surface-related slicing parameter settings, retrieves the user-assigned label, and shows it on the screen (Figure 1c). We check off the lab members who returned their keys and send a reminder to everyone else.        
       <p>        
+      	<br>
       <p><img src="images/Fig4-Handheld-phone.png" alt="mosculpt-runner" width="450" style="padding-bottom:0px; margin-bottom:10px"><br>
           <strong>Figure 4. G-ID mobile app for identifying instances: (a) select model from library, (b) face the object, (c) once outlines are aligned, the app automatically takes the image.  </strong>
         
@@ -824,10 +832,12 @@ G-ID then <em>identifies</em> the 3D printed object by such textures, i.e. after
       <p><b>Surface &amp; Interior: Detecting Infill Using a Light Source </b>
       <p>In the above described scenario, G-ID was able to successfully label each instance using only slicing parameters that affect the object&rsquo;s surface, such as the initial bottom line width and angle because the number of instances was small. However, for scenarios requiring more instances, G-ID can also sense the interior of objects (<em>infill</em>) at the expense of adding a small light source as described in the next scenario.</p>
       <p>For our department&rsquo;s annual celebration, we are asked to print a set of 300 coffee mugs as a giveaway. Each coffee mug, when inserted into a smart coffee machine (camera and light source below the tray table), automatically fills the mug with the user&rsquo;s preferred drink. Similar to the previous scenario, we use G-ID&rsquo;s labeling interface to generate the instances, but this time G-ID also varies the parameters <em>infill angle</em>, <em>infill pattern</em>, and <em>infill density</em> once it used up the parameter combinations available for the surface. As users insert their mug into the smart coffee machine, which has a stationary setup, the integrated light makes the infill visible due to the translucent nature of regular PLA 3D printing filament (Figure 5). G-ID takes a picture, extracts the infill angle, pattern, and density in addition to the previously mentioned bottom surface parameters, and after identification, pours the user&rsquo;s favorite drink.</p>
-      <p>&nbsp;</p>
+      
       <p><img src="images/Fig5-infill-mug-scenario.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
       <strong>Figure 5. By adding a light, we can also detect variations in infill, such as different infill angles, patterns, and densities, which allow for a larger number of instances. Here, the coffee maker recognizes the mug’s infill and pours the user’s preferred drink.</strong>      
-      <h2>SLICING PARAMETERS USED FOR LABELING</h2> 
+
+      <br><br><br>
+      <span class="medium-headline">SLICING PARAMETERS USED FOR LABELING</span> 
 
         <p>In the next section of the paper, we report on the types of slicing parameters for surface and infill that can be used for creating unique identifiers.</p>
         <p><b>Surface Parameters</b>
@@ -845,14 +855,18 @@ G-ID then <em>identifies</em> the 3D printed object by such textures, i.e. after
       <p>Next, we review slicing parameters that change an object&rsquo;s internal print path.</p>
       <p><i>Infill: Resolution, Angle, &amp; Pattern: </i>Three parameters influence how the infill is laid out. <em>Infill line distance</em> determines how much the lines of the infill are spaced out and thus determines the internal resolution. The denser the infill lines, the higher the infill density. <em>Infill angle</em> rotates the infill lines according to the direction specified in degrees. Different combinations of these two parameters are shown in Figure 8a. <em>Infill pattern</em> allows for different layouts of the print path (Figure 8b), such as grid or triangle shapes. 
 </p>
-      <p>&nbsp; </p>
+      
       <p><img src="images/Fig8-infill.png" alt="mosculpt-runner" width="450" style="padding-bottom:0px; margin-bottom:10px"><br>
         <strong>Figure 8. Cross-sections of the mug model show (a) different infill angles and densities, (b) different infill patterns.</strong>
       <p>      
       <p>
+      	<br>
 		<b>Selecting Parameters that Minimize Print Time &amp; Material</b>
-      <p>When the user enters the number of instances, G-ID varies those slicing settings first that have the least amount of impact on print time and required material. For instance, the bottom line angle does not add any print time, does not change the resolution, and does not require additional material, whereas changing the bottom width changes the resolution slightly. Infill parameters are varied afterwards since they affect most layers of the model, starting with the infill angle, followed by infill pattern and width.            
-	  <h2>DETECTING &amp; IDENTIFYING SLICING PARAMETERS</h2> 
+      <p>When the user enters the number of instances, G-ID varies those slicing settings first that have the least amount of impact on print time and required material. For instance, the bottom line angle does not add any print time, does not change the resolution, and does not require additional material, whereas changing the bottom width changes the resolution slightly. Infill parameters are varied afterwards since they affect most layers of the model, starting with the infill angle, followed by infill pattern and width.       
+
+
+      <br><br>     
+	  <span class="medium-headline">DETECTING &amp; IDENTIFYING SLICING PARAMETERS</span> 
 		    
 		    
       <p>To detect these slicing parameters on a 3D print, we apply common image processing techniques. Our pipeline is implemented using <em>OpenCV</em> and uses <em>SimpleElastix,</em> a state-of-the-art image registration library.</p>
@@ -881,7 +895,10 @@ G-ID then <em>identifies</em> the 3D printed object by such textures, i.e. after
 <p>&nbsp;</p>
 <p><img src="images/Fig10-image-processing.png" alt="mosculpt-runner" width="450" style="padding-bottom:0px; margin-bottom:10px"><br>
   <strong>Figure 10. Image processing to extract the components of the infill pattern: (a) photo, (b) contrast increased, (c) blurred, (d) binarized, and (e) matched to the template of the respective infill type: grid, triangles, trihexagon from top to bottom.</strong>
-<h2>Spacing of Slicing Parameters</h2>
+
+
+  <br><br>
+<span class="medium-headline">SPACING OF SLICING PARAMETERS</span>
 <p>We conducted an experiment to determine which parameter spacing can be reliably identified using our detection method. For the experiment, we printed a number of instances with different slicing settings and used our detection method to identify each pattern. Table 1 summarizes the results of this experiment under regular office light conditions. We focus this analysis on the parameters related to bottom surface and infill, which are seen from the object&rsquo;s base, and do not consider those related to the side (intermediate layers).<br>
   <br>
 <div>
@@ -984,11 +1001,13 @@ G-ID then <em>identifies</em> the 3D printed object by such textures, i.e. after
 <p><b>Results of the Experiments</b></p>
 <p>As expected, objects from the &ldquo;small&rdquo; category did not have sufficient base area to fit in enough infill units and thus not give satisfactory results. We therefore conclude that G-ID cannot be used for very small bases and excluded them from the rest of the analysis. We next discuss the results for each slicing parameter for the medium and large object category.
 </p>
-<p>&nbsp;</p>
+
 <p><img src="images/Fig12-combined-parameters.png" alt="mosculpt-runner" width="720" style="padding-bottom:0px; margin-bottom:10px"><br>
   <strong>Figure 11. Detection accuracies vs. parameter spacing between pairs of instances for the four slicing parameters 
 (bottom line angle &amp; width, as well as infill angle &amp;width). All plots have the same y-range.
 </strong></p>
+
+<br>
 <p><b>Bottom Line Angle &amp; Width</b></p>
 <p>The dashed lines in Figure 11a,b indicate that a spacing of 5°&nbsp;and 0.05 mm provides a classification accuracy of 100% for both the medium and large base area categories, respectively. Thus, a range of 0°-180° would give us 36 variations for the angle. However, we exclude the two degrees 0° and 90° from the bottom line angle range since these are reserved for error checking (as described in section &ldquo;Detecting Slicing Parameters&rdquo;), therefore we have 34 variations. A range of 0.35-0.6mm allows 36 variations for the width.</p>
 <p><b>Infill Angle &amp; Line Distance (Width)</b>
@@ -1004,13 +1023,21 @@ G-ID then <em>identifies</em> the 3D printed object by such textures, i.e. after
 <p>Based on the results, using a parameter spacing that works for both medium and large objects, we can achieve a total of 204 instances if we only use the camera, or 17,136 instances if we use both the camera and light (see Table 1). In comparison to other types of tags, we can say that these parameter spaces have a larger code capacity than a 1D barcode with 7 or 14 bits, respectively.</p>
 <b>Cross-Validation</b>
 <p>To cross-validate our parameter spacing, we printed another random set of 16 objects (10 large, 6 medium) from the same top 50 model list from Thingiverse (excluding the ones we used in the previous experiment) with white filament. Before printing, we randomly assigned each model a combination of slicing settings from the available parameter space and then tested if G-ID can identify them. Our second goal was to see if the parameter spacing still applies when multiple parameters are varied at the same time (our previous experiment only varied one slicing parameter per instance at a time). Among the 10 objects with large bottom area, all slicing parameters were correctly identified. Among the 6 objects from the medium category, 5 were correctly identified. In total, the detection accuracy is 93.75%. The falsely identified model had the smallest bottom surface area (1.4cm2), which confirms the fact that objects without sufficient surface area cannot be recognized.</p>
+<br>
 <p>
 <p><img src="images/Fig13-Pipeline-overview-system.png" alt="mosculpt-runner" width="480" style="padding-bottom:0px; margin-bottom:10px"><br>
   <strong>Figure 13. System overview. </strong><br>
-  <h2>System Implementation</h2>
+
+
+  <br><br>
+  <span class="medium-headline">SYSTEM IMPLEMENTATION</span>
+  <br>
   <p>An overview of the system is shown in Figure 13. G-ID&rsquo;s labeling interface for creating multiple instances runs on the browser and is based on WebGL. Once the user drags a 3D model (.stl) onto the canvas and enters the number of instances, the interface calls its backend written in Python, which is responsible for the distribution of the slicing parameters. Once the slicing parameters are determined for each individual instance, the backend calls the slicer <em>CuraEngine</em> to compute the G-code for each instance.</p>
   <p>After the instances are sliced with their individual slicer settings, the user is shown the 2D sliced layers as well as the 3D model. For rendering these previews, we use the JavaScript library <em>Three.js</em>. Finally, G-ID saves an .XML file with the slicing parameters, labels and the contour of the object&rsquo;s base as an image (created using an automated MATLAB script) for future identification with the G-ID mobile app.</p>
-  <h2>Evaluation</h2>
+
+  <br>
+  <span class="medium-headline">EVALUATION</span>
+  <br><br>
   <p><strong>Different Materials, Lighting Conditions, Thicknesses</strong></p>
   <p><em>Surface:</em> To see how the filament&rsquo;s color and different lighting affect the detection of surface parameters, we printed six instances of the key cover with eight different colors of Ultimaker PLA filaments (total of 48 instances) and using a dimmable LED lamp varied the light in the room from 0 – 500 lux (measured with lux meter Tacklife LM01). We picked the filament colors to be the primary and secondary colors of the RYB model, as well as white and black filament. We selected the light intensities to represent different low-light conditions. For slicing, we used surface parameters distributed evenly along bottom line angle and width within the allowed range from Table 1. The results are shown in Figure 14. All colors worked well for lighting conditions above 250 lux. This shows that our approach works well in classrooms (recommended light level: 250 lux) and offices/laboratories (recommended light level: 500 lux). The results also show that the camera needs more light to resolve the lines for lighter colors (i.e., white and yellow) than for darker colors. Since we used white filament for our parameter spacing evaluation, the results in Table 1 work even for worst-case scenarios. This also means that for other filament colors, an even smaller surface area would suffice for correct detection since the surface details can be better resolved.  </p>
   <p><img src="images/Fig14-Lighting.png" alt="mosculpt-runner" width="450" style="padding-bottom:0px; margin-bottom:10px"><br>
@@ -1040,7 +1067,10 @@ G-ID then <em>identifies</em> the 3D printed object by such textures, i.e. after
       </tr>
     </table>
     <p>Table 2: Polar angle <em>θ</em> vs. the percentage of identified objects.</p>
-    <h2>Application Scenarios</h2>
+
+    <br><br>
+    <span class="medium-headline">APPLICATION SCENARIOS</span>
+    <br><br>
     <p>Below, we outline three further example scenarios in addition to the two previously explained applications.<br>
       <em>Finding Optimal Print Settings:</em> G-ID can be used to identify which slicing parameters a particular 3D print was created with. In Figure 15, a maker is trying to find the best angle for optimizing mechanical strength, and prints the model multiple times with varying settings. Rather than carefully writing down which settings were used for which one, the maker can retrieve a particular setting from a print simply by taking a picture of it. It is unlikely that they users estimate these settings by eye correctly as seeing tiny differences is not trivial.</p>
     <p><img src="images/Fig15-Dinosaurs.png" alt="mosculpt-runner" width="450" style="padding-bottom:0px; margin-bottom:10px"><br>
@@ -1051,12 +1081,15 @@ G-ID then <em>identifies</em> the 3D printed object by such textures, i.e. after
     <p><img src="images/Fig17-Figurine_toys.png" alt="mosculpt-runner" width="510" style="padding-bottom:0px; margin-bottom:10px"><br>
       <strong>Figure 16. (a) Toys-to-life figurines are used to identify the player and display their info in the video game.</strong></p>
     <p><em>Labeling a Commercial 3D Print for Anti-Counterfeiting:</em> Online 3D printing services such as <em>3D Hubs</em> or <em>makexyz</em>  ensure to refund customers if they can show a 3D model was not printed according to the user&rsquo;s specifications. By slicing a model using certain settings and storing this information, they can verify that a returned object was indeed fabricated by them before a refund is approved. Let us assume a 3D model is leaked and frauds attempt to print a copy themselves and then return that to get a refund (although they never bought it in the first place). Businesses can use G-ID to cross-verify the print setting used to create the original.</p>
-    <h2>Discussion &amp; Limitations</h2>
+
+    <br><br>
+    <span class="medium-headline">DISCUSSION &amp; LIMITATIONS</span>
+    <br><br>
     <p>Next, we discuss limitations and future work for labeling and identifying objects by their slicing parameters.</p>
     <strong>Other Slicing Parameters </strong>
     <p>In this work, we focused on surface and infill parameters, which offer a large number of unique identifiable features. Other slicing parameters, such as those that create geometry that is removed after fabrication (e.g., those related to <em>support material</em> or <em>build plate adhesion</em>) are less suitable.</p>
     <p>However, for special materials, such as wood filaments, the shade of the object&rsquo;s color can be altered by varying the speed and temperature, which could be used to create differences among instances: the hotter/slower the extruder, the more the wood particles burn and the darker the resulting surface (Figure 17). However, since the changes affect the objects appearance, we do not consider them for our work.</p>
-    <p>&nbsp;</p>
+  
     <p><img src="images/Fig16-temperature-wood.png" alt="mosculpt-runner" width="440" style="padding-bottom:0px; margin-bottom:10px"><br>
       <strong>Figure 17. The hotter the nozzle, the darker the print’s finish.</strong></p>
     <strong>Rotational Symmetry of Outlines</strong>
@@ -1069,9 +1102,15 @@ G-ID then <em>identifies</em> the 3D printed object by such textures, i.e. after
     <p>FDM and SLA printing have been the most accessible consumer techniques for the last decade. Although SLA achieves better resolutions, individual layers on objects can still be distinct (Figure 19). As for DLP printing, the projected pattern creates rectangular voxels that cause the edges to look stepped; different voxel sizes thus lead to different appearances . Most printing methods use infill, so the general idea of varying infill still applies. We thus think our method will stay relevant. Even if printing imperfections become smaller in the future, there are two factors to consider: As 3D printers improve in resolution, camera resolution improves over time (see Samsung&rsquo;s latest 108MP sensor). Computer vision gets better too: Neural networks can now pick up details beyond what the human eye or traditional image processing can detect, e.g., they have been used to identify tiny defects in solar cells  or dents in cars.</p>
     <p><img src="images/Fig18-SLS.png" alt="mosculpt-runner" width="270" style="padding-bottom:0px; margin-bottom:10px"><br>
       <strong>Figure 19. Formlabs SLA print captured by a phone camera.</strong></p>
-    <h2>Conclusion &amp; FUTURE WORK</h2>
+
+      <br>
+
+    <span class="medium-headline">CONCLUSION &amp; FUTURE WORK</span>
+    <br><br>
     <p>We presented G-ID, a method that utilizes the subtle patterns left by the 3D printing process to identify objects and that provides both a labeling and identification interface for creating and detecting surface and infill parameters using only a commodity camera. We reported on the code capacity enabled by an off-the-shelf slicer. In the future, this can be scaled up by building a custom slicer for creating unique print paths that go beyond what current slicers offer, e.g., spatial pattern tiling could expand the number of encodings (2 different tiles would give more than 2042=41,616 combinations). Also, our current implementation uses optimization-based image registration, which takes a few seconds. In the future, we can enable continuous detection for faster image capturing using optimization-free contour matching methods.</p>
-    <h2>ACKNOWLEDGMENTS </h2>
+    <br>
+    <span class="medium-headline">ACKNOWLEDGMENTS </span>
+    <br>
     <p>We thank Alexandre Kaspar, Liane Makatura, Danielle Pace, and Jack Forman for the fruitful discussions. This work was supported in part by NSF Award IIS-1716413. Sriram Subramanian is grateful for the ERC Advanced Grant (#787413) and the RAEng Chairs in Emerging Technology Program.</p>
     <p>
       <br>
