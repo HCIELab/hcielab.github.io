@@ -144,8 +144,8 @@ So to print color and silver you need to: <br>
 <img src="images/touch-button-decorative2.png" width="300px"><br>
 Silver touch button in the middle is overprinted with white in a second layer. In addition, the red flame is added as a decorative element (it has no input functionality).<br><br>
 
-<h2 class="headline">Making your Circuit Design</h2><br>
-
+<h2 class="headline">Making your touch interface designs</h2><br>
+    
 Open your drawing program and set the document color mode to CMYK.</br>
 Draw a design that has at least three different touch buttons, one for a different song each.<br>
 It should also include the display that will blink to the beat of the long. Include the display as a square area of XXcm by XXcm so you will leave enough space for it. We will draw the mask layer seperately in a moment.<br>
@@ -211,7 +211,7 @@ While in this tutorial, we will measure it for you, your package contains a mult
 
 <img src="images/multimeter.jpg" width="300px"><br><br>  
 
-
+<!--
 <h2 class="headline">Laser Cutting the Mask Layer for your EL Display</h2>
 
 Next, design the mask layer for your EL display.<br>
@@ -232,10 +232,76 @@ You will then receive it with your next package.<br><br>
 <img src="images/laser-cutter.png" width="317px" />
 <img src="images/laser-cutter-cutting.png" width="317px" /><br><br>
 
+-->
 
+<h2 class="headline">Step 2: Connect the Sensors to your Micro-Controller</h2>
 
-<h2 class="headline">Step 2: Processing to Visualize Touch Button Input</h2>
+We will use the ESP32 microcontroller in this course to control printed sensors and displays. The ESP32 can be programmed with the ARDUINO IDE.<br><br>
 
+Go to <a href="https://www.arduino.cc/en/Main/Software">https://www.arduino.cc/en/Main/Software</a> and download the ARDUINO IDE. We will use this IDE to write code for the ESP32 microcontroller.<br><br>
+
+Follow these instructions to add the ESP32 library to the ARDUINO IDE: <a href="https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/">https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/</a><br><br>
+
+We will use in this course Arduino's capacitive sensing library. The circuit for a touch sensor only requires a resistor that is connected between two pins of the Arduino - the sender and the receiver. The receiver pin is also connected to the touch sensor. If you want to connect multiple touch sensors, you only use one sender pin that is connected with a resistor to multiple receiver pins.<br><br>
+<img src="images/capsense.gif" width="300px"><br><br>
+
+<b>Todo:</b> Use a breadboard to make 3 touch button circuits. Connect pin 2 (sender) with three 1 Megaohm resistors to the receiver pins 4, 5, and 6.<br><br>
+
+<b>Todo:</b> Use crocodile clamps to connect your printed touch sensors to the receiver pins (4, 5, and 6) of your touch sensing circuits.<br><br>
+
+Next, we will write a program that receives the sensor signals and plots them on your computer. The process the sensor signals, we will use the CapacitiveSensing library. To install it it, go to Sketch -> Inlcude Library -> Manage Libraries and search for the CapacitiveSensor library and install it. <br><br>
+
+This basic program can read one touch sensor and send it to Arduino's serial monitor. Extend it to read and print all 3 of your touch sensors. Each value should be seperated by a tabulator symbol Serial.print("\t"); and the line should finish with a (newline) <br><br>
+
+<code>
+
+/*******************************************************************************<br>
+* Capacitive Sensing for Touch and Proximity<br>
+*<br>
+* Prints the values of two capacitive sensors.<br>
+* sensor 1 with low sensitivity (touch)<br>
+*<br>
+*******************************************************************************/<br>
+#include &lt;CapacitiveSensor.h&gt;<br>
+<br>
+double analog_touch;<br>
+<br>
+int sender = 2;<br>
+<br>
+int touch_pin_1 = 4;<br>
+<br>
+int samples_touch = 10;<br>
+<br>
+CapacitiveSensor sensor1 = CapacitiveSensor(sender, touch_pin_1);<br>
+<br>
+void setup()<br>
+{<br>
+   Serial.begin(9600);<br>
+}<br>
+<br>
+void loop()<br>
+{<br>
+  <br>
+  // Send value 1<br>
+  analog_touch = sensor1.capacitiveSensor(samples_touch);<br>
+  Serial.println(analog_touch);<br>
+<br>
+<br>
+  delay(10);<br>
+}<br>
+
+</code>
+<br>
+Next, we will use the Serial plotter to visualize the received signals by clicking on Tools->Serial Plotter. Try touching the sensors and see how the signal changes when you touch the sensors. Also change the values of samples_touch and see how the value range changes.<br><br>
+
+We will use the serial messages in the next lab to trigger events when touching the sensors. Therfore, we need the messages to be encoded such that our digital UI can receive and identify the sensor signals. Rewrite the code such that it iterates over all sensors and outputs this message every 200ms:<br><br>
+
+(sensor ID),(is_touched)(newline)<br><br>
+    
+(sensor ID) is in [0..2] and represents the ID of the observed touch sensor<br>
+(is_touched) is in [0..1] and is 0 if the sensor is not touched, and 1 if it is touched<br>
+
+<!--
 Processing is a program that makes it easy to prototype user interfaces. Once you got your microcontroller in the mail, we will wire everything up and write code to send the touch button input directly to Processing, so that it can visualize if the button is pressed or not. Today, we are going to prepare the UI in Processing so you have everything ready when the rest comes in the mail.<br><br>
 
 <div style="background:#04a47c;padding:10px;">Checkoff 1: The Teaching Team printed your Touch Sensor and it works</div>
