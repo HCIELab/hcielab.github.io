@@ -63,77 +63,61 @@
 You should hopefully received your package in the mail by now.</br>
 The package includes your circuit design from last week and the EL displays was already in the very first package you got.<br><br>
 
-Today, we are going to wire up your card design and connect it to Processing: When you push the physical touch button it will light up the corresponding digital touch button in Processing and the corresponding song will play.<br><br>
+Today, we are going to connect your last lab's card design to Processing: When you push the physical touch button it will light up the corresponding digital touch button in Processing and the corresponding song will play.<br><br>
 
-While the song is playing, we will communicate from Processing back to the ESP to light up the display according to the beat of the song.<br><br>
+ <h3 class="headline">Connecting the Music Card to Processing</h3>
 
-We will first prototype this with standard breadboard components (normal push button and LED) and then replace those elements with your printed electronics, i.e. the printed touch button and EL display.<br><br>
+First, we are going to read the input from our music card that you created in the last lab and display the interaction with it in Processing.<br>
+In particular, we are going to wire up a button, and when the button is pressed, we will show this in Processing by coloring the corresponding button in the digital UI and starting a song.<br><br>
 
- <h3 class="headline">Performing input on the Microcontroller<br> and Displaying it in Processing</h3>
+<h4>Create Processing Script that Listens to Serial Communication</h4><br>
+    
+<a href="https://processing.org" target="_blank">Processing</a> is a user interface protoyping platform that is based on Java. It was created by MIT students in their spare time starting in Spring 2001 and is nowadays used by thousands of makers and UI designers. You can find useful information on how to use it in their <a href="https://processing.org/tutorials/" target="_blank">tutorial section</a>.<br><br>
 
-First, we are going to read some input from our microcontroller and display the resulting action in Processing.<br>
-In particular, we are going to wire up a button, and when the button is pressed, we will show this in Processing by coloring the corresponding button in the digital UI.<br><br>
+In the last lab, we encoded a touch event on the printed UI in the format:<br><br>
+(sensor ID),(is_touched)(newline)<br><br>
+    
+(sensor ID) is in [0..2] and represents the ID of the observed touch sensor<br>
+(is_touched) is in [0..1] and is 0 if the sensor is not touched, and 1 if it is touched<br><br>
 
-<h4>Wiring Up a Button</h4><br>
-
-Let's start by wiring up a button.<br>
-If you haven't done this in a while, now is a good moment to familiarize yourself again with how to read a schematic and wire on the breadboard.<br><br>
-
-<img src="images/button-on-breadboard.jpg" width="250px"> <img src="images/button-on-breadboard-schematic.jpg" width="350px"><br><br>
-
-<h4>Create Microcontroller Script that Writes onto Serial Monitor</h4><br>
-
-Next, we need to create the microcontroller script that reads the input from the button.<br>
-When the button is pushed, we want to write a message to the Serial port that indicates the push state.<br>
-Our seperate Processing application will then listen to the Serial port and whenever it sees a specific value, it will know if the button is pushed or not.<br><br>
-
-<b>Your task:</b> Write the Arduino script for reading the button input. When the button is pushed, write a 0 to the serial port. If the button is unpushed, write a 1 to the serial port. Test your script by opening the Serial monitor and see if 1 and 0 are written depending on your button input.<br><br>
-
-<b>More Info on Serial:</b> You may want to look at the <a href="https://www.arduino.cc/reference/en/language/functions/communication/serial/">Serial reference in Arduino</a>. Remember from 6.08 that you first have to register the Serial connection in the setup function using <a href="https://www.arduino.cc/reference/en/language/functions/communication/serial/begin">Serial.begin()</a> and use one of the supported baud rates. You can find the baud rates in the Serial monitor. Since the baud rate determines the bit rate at which data is transmitted, a higher baud rate is better. Once you registered your Serial connection, you can write to it using <a href="https://www.arduino.cc/reference/en/language/functions/communication/serial/write">Serial.write()</a><br><br>
-
-<b>Important:</b> Once you confirmed that you button works, make sure you remove all Seriel.println debugging statements you may have used since they will otherwise add noise to the Serial stream the Processing application will listen to.<br><br>
-
-<h4>Create Processing Script that Listens to Serial Communication</h4>
-
-Now that we are writing 0 and 1 to the Serial connection depending on whether the button is pressed or not pressed, we can write the Processing script that listens to the Serial connection and changes its visualization depending on the number read.<br><br>
+Now that we are writing Serial message depending on whether the button is pressed or not pressed, we can write the Processing script that listens to the Serial communication and changes its visualization depending on the number read.<br><br>
 
 To do this, open Processing and import the <a href="https://processing.org/reference/libraries/serial/index.html">Serial library</a>.<br>
-<code>import processing.serial.*;</code><br><br>
+<pre>import processing.serial.*;</pre><br><br>
 
 Next, you need to create a new port by creating an object from this class: <br>
-<code>Serial myPort;</code><br><br>
+<pre>Serial myPort;</pre><br><br>
 
 To initialize this object, you need a reference to the current application ('this'), a portname, and the baudrate to which the object should listen. You already know the baudrate and you can get the portname with this:<br><br>
 
-<code>String portName = Serial.list()[2]; //check which port you use: 0, 1, 2? it helps to verify you are listening to the right port with print(portName);</code><br><br>
-
+<pre>// check which port you use: 0, 1, 2?
+// it helps to verify you are listening to the right port with print(portName);
+String portName = Serial.list()[2];</pre><br><br>
 Now you can initialize your Serial connection:<br><br>
 
-<code>myPort = new Serial(this, portName, 9600);</code><br><br>
+<pre>myPort = new Serial(this, portName, 9600);</pre><br><br>
 
-In the draw function, you need to first check if the port is available, and then you can read the value from the port:<br><br>
+In the draw function, you need to first check if there is data on the port available, and then you can read the value from the port.<br><br>
 
-<code>
-int val;  <br>
-if ( myPort.available() > 0) {    // If data is available,<br>
-    val = myPort.read();         // read it and store it in val, either 0 or 1<br>
-  }<br>
-</code><br>
+<pre>int val;
+if ( myPort.available() > 4) { // If there is a message with at least 4 characters,
+    String val = myPort.readStringUntil(';'); // reads a String until the character ';' is found
+  }</pre>
 
-Now you can do something based on the value.<br>
-Make your button from last week get colored green whenever your physical button is pushed (1), and let it return to silver whenever the button is unpushed (0).<br><br>
+Now you can do something based on the String.<br><br>
+    
+In the last lab, we encoded a touch event on the printed UI in the format:<br><br>
+(sensor ID),(is_touched);<br><br>
 
-<h4>Playing Music when Button is pushed</h4><br>
+Todo: Rewrite the code such that it stores the touch events of the 3 touch buttons in Processing (3 boolean values). You might have to split the String into (sensor ID) and (is_touched) or you want to access the elements of the String. Use the Java reference for Strings to find the right command. Set the background of your Processing to black and let it change its color everytime a button is pressed.<br><br>
+    
+<h4>Connecting your physical music card to Processing</h4><br>
 
-Playing music in Processing is straight forward.<br>
-You can either use your own mp3 files or download ours from here (add link).<br><br>
-
-To play music in processing, you need to place the mp3 files into your project folder.<br>
-You can then use the <a href="https://processing.org/reference/libraries/sound/SoundFile.html">SoundFile class refernece</a> to figure out how to play a song.<br><br>
-
+Connect your music card and Arduino Nano to your computer and upload the program that we haven written in the last Lab. When touching one off the sensor, your Arduino should send a message to your computer that the Processing script can understand and change its background color.
+    
 <br>
-<div style="background:#04a47c;padding:10px;">Checkoff 1: Show your working physical button that when pushed causes the Processing application to show the virtual button as pushed as well and that starts playing one of the songs.</div><br><br>
-
+<div style="background:#04a47c;padding:10px;">Checkoff 1: Show your working physical button that when pushed causes the Processing application to change its background color.</div><br><br>
+<!--
 <h4>Replacing the Standard Button with your Printed Touch Button</h4><br>
 
 We hope you received your custom touch button from last week. If not, your original package has a standard printed touch button (square) that you can use instead.<br><br>
@@ -204,6 +188,8 @@ Whenever a button is clicked in the Processing UI, we want to write a '2', other
 The setup code is the same as in the previous Processing example above, but now you are using<br>
 <code>myPort.write(2); // 2 or 3 depending on state</code><br><br>
 
+        <!--
+    
 <h4>Blinking LED to Beat</h4><br>
 
 To blink the LED to the beat, we prepared this custom Processing script for you.<br>
@@ -228,9 +214,11 @@ Ok, if your multimeter shows low resistance, we are ready to wire up your EL dis
 
 <b>Code:</b> Once you build your circuit, you can write the code to light up your EL display (add more information here). <br><br>
 
+    
 <h4>Connecting EL Display to Processing</h4><br>
 
 Now that you know your EL display is working properly, you can make it light up based on the information coming from the Serial communication, i.e. the beat of the song. Replace the hard coded on/off for the EL display with the '2' or '3' date you are reading from the Serial monitor. <br><br>
+
 
 <h2 class="headline">Miniatiarizing the Microcontroller</h4>
 
@@ -296,6 +284,7 @@ ztape is a special tape that conducts vertically but isolates horizontally.<br>
 Once the ztape is on, you can peel back the other side of the ztape layer and attach it to your card.<br>
 (Stefanie: If we want to do this part, we need to ask them to redraw their wire connections so they fit the ATTiny and not the ESP32. Perhaps this could be a good moment to use the silver pen?)<br><br> 
 
+-->
 
  <h3 class="headline">Bringing it all together</h3>
 
