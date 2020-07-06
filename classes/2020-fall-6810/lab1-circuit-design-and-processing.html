@@ -49,169 +49,226 @@
       <section class="col-md-8 pull-right main-content">
 </br></br></br></br>
         <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2020)</a><br></h>
-        <h2 class="headline">Ink-jet Printed Sensors and Displays</h2>
+        <h2 class="headline">Inkjet Printed Sensors and Introduction to Processing</h2>
 
-  <img src="images/silver-printing.jpg" width="317px" />
+  <!-- <img src="images/silver-printing.jpg" width="317px" /> -->
           <br>
 
 
-<h2 class="headline">Interactive Music Card</h2>
+<!-- <h2 class="headline">Interactive Music Card</h2> -->
 
-We are going to create an interactive music card with touch buttons, sliders, and electroluminescent displays to play your favorite music. We will first talk about how to print interactive elements with an ink-jet printer and integrate them onto a flexible paper. <br><br>
-
+In lab 1 and lab 2, we are going to create the interactive music card shown below. Underneath the visual design, the music card has an inkjet printed circuit with touch buttons and sliders that allow the user to play songs and control the volume. The card is connected to a microcontroller for analyzing user input and then sends the signals to a program called Processing for visualizing user input on screen.<br><br>
+<!-- 
 <img src="images/music-card1.png" width="200px" />
 <img src="images/music-card2.png" width="200px" />
 <img src="images/music-card3.png" width="200px" />
+ -->
+<img src="images/birthday-card2.jpg" width="350px" />
+
+
 
 <h2 class="headline">Your Task for Today</h2>
 
-Today, we will make the circuit design of your card and print it out with conductive inkjet printing to make sure you have your design program setup correctly. Once you have your circuit design working, we will setup the touch buttons in Processing so when you give physical input you can also see it on the screen.</br><br>
+<b>(1) Circuit Design:</b> You will first draw the circuit design of your card by creating a 2D drawing of the wires and interactive touch and slider areas.<br>
+<b>(2) Conductive Silver Inkjet Printing:</b> Next, you will print your design with conductive inkjet printing.<br>
+<b>(3) Wiring up the Circuit:</b> In the next step, you will wire up your circuit using a breadboard and an ESP32 microcontroller.<br>
+<b>(4) Visualizing User Input:</b> Finally, we will setup the touch buttons and sliders in a programming environment called Processing, which will visualize when physical input on the touch buttons and sliders on screen and also play the corresponding songs. 
+
+</br><br>
 
 <hr>
 
-<h2 class="headline">Step 1: Create Circuit Design with Touch Buttons</h2>
+<h2 class="headline">(1) Circuit Design</h2>
 
-<h3>Specifications for Conductive Inkjet Printing</h3><br>
+<h4>Download and Open Visual Design File</h4>
+To get started, download the visual design of our music card <a href="images/birthday-card2.jpg">here.</a><br><br>
 
-<b>Thickness of Wires:</b> Your wires should be at least 1mm thick. Make sure to check this in your drawing program. <br><br>
+<h4>Where to Add the Touch Button and Slider</h4>
 
-<b>Connector Pads for Wires:</b> The end of your wire that connects to the microcontroller, needs a connector pad that is large enough to connect to conductive tape. The connector pad should be 1cm x 1cm to be on the safe side.<br><br>
+For our interactive card, we want to add three touch buttons, one on each note.<br>
+In addition, the piano area should serve as a slider, i.e. if we drag our finger from left to right, the volume will increase.<br><br>
 
-<h3>What Input Elements can you use?</h3><br>
+<img src="images/birthday-card2.jpg" width="350px" />
+<img src="images/lab1-design-planning.png" width="335px" /><br><br>
 
-For starters, we your card is going to include only touch buttons and a simple area display.<br>
-For the problem set later, we will also ask you to create a slider or dial.<br><br>
+<h4>Draw the Touch Buttons and Their Wires</h4><br>
 
-<h4>Touch Buttons</h4><br>
+Touch-buttons consist of one shape + one wire that one one end connects to the shape and on the other end connects to a connector pad, which will in turn connect to the microcontroller.<br>
+We can later sense the user's touch using a principle called <b>capacitive touch sensing</b>, which requires only one electrode (i.e. one area printed with conductive ink).<br><br>
 
-Touch-buttons consist of one shape + one wire that connects to the microcontroller.<br>
-We can sense a user's touch using a principle called <b>capacitive touch sensing</b>, which requires only one electrode.<br><br>
+<!-- <img src="images/touch-button-decorative1.png" width="300px"><br><br> -->
+<img src="images/lab1-design-planning-touchbutton-wire.png" width="400px"><br><br>
 
-<img src="images/touch-button-decorative1.png" width="300px"><br>
+With your drawing program open, let's draw the touch buttons and their wires. <br>
+Make sure you follow the specifications, which are:<br><br>
 
-<br><br>
+<b>Set Document Color Mode to CMYK:</b> Since we will print our document later, please set the document color mode to CMYK (not RGB, which is for on-screen documents).<br><br>
 
-<h4>Touch Sliders (aka multiple touch buttons linearly arranged)</h4><br>
+<b>Set Units to mm:</b> First, if your drawing is still set to 'pts' as a measurement unit, set it to mm or inch.<br><br>
+
+<b>Color of Lines:</b> The color for all your circuit design should be set to black (CMYK: 0,0,0,255).<br><br>
+
+<b>Create a New Layer:</b> Make sure all your circuit design is on a new layer, i.e. later we need to export two files seperately, the visual design in one pdf and the circuit design in a seperate pdf. Using a seperate layer for each allows you to turn each part of the design on/off quickly for export.<br><br>
+
+<b>Area of Touch Button:</b> A touch button should be large enough for a user's finger (size of a finger tip is an area around 2cm x 2cm). In the design we gave you, the size of each note body is roughly the size of a finger pad, so as long as you trace the note it should be fine.<br><br>
+
+<b>Thickness of Wires:</b> Your wires should be at least 1mm thick. Make sure to check this in your drawing program. We typically draw 'rectangles' for the wires rather than 'lines' since a rectangle allows us to see its 'width' in the shape properties. The thickness of the wire determines its conductivity (larger cross-section = hire conductivity), with 1mm we are on the safe side given the conductive ink we use and its resistance.<br><br>
+
+<b>Connector Pads for Wires:</b> One end of your wire connects to your touch button. The other end of your wire will connect to your microcontroller later. We recommend you route all your wires that connect to the microcontroller to the right side of the card and we will connect the microcontroller there. The connector pad for the microcontroller needs to be large enough to connect to conductive tape (more on this later). The connector pad should be 1cm x 1cm to be on the safe side.<br><br>
+
+
+<h4>Draw the Touch Slider and the Corresponding Wires</h4><br>
 
 Touch-sliders consist of multiple touch buttons linearly arranged, i.e. several shapes and each shape has its own wire that connects to the micro-controller.<br><br>
 
 <b>Discrete vs. Continous Sliders:</b><br>
 
 In the discrete slider design, the finger tends to be only over one of the slider segments. <br>
-In the continous design, the finger tends to touch two adjacent slider segements. <br><br>
+In the continous design, the finger tends to touch two adjacent slider segments, <span style="color:red">which you can use to provide more continous transitions.</span> <br><br>
 
 <img src="images/slider-designs1.png" width="300px"><br>
 From the paper <a href="https://dl.acm.org/doi/10.1145/2971763.2971777">DuoSkin (ISWC 2016)</a><br><br>
 
-<b>Continous Sliders (Different Aesthetic Design Options):</b><br>
-<img src="images/slider-designs3.png" width="300px"> <img src="images/slider-designs2.png" width="300px"><br>
-From the paper <a href="https://dl.acm.org/doi/10.1145/2971763.2971777">DuoSkin (ISWC 2016)</a><br><br>
+Add the touch slider to your drawing.<br><br>
 
-<h4>Dials (aka multiple touch buttons circularly arranged)</h4><br>
+<b>Type of Slider:</b> For today, we will create a discrete slider, i.e. the segments do not overlap.<br><br>
 
-Touch-dials consist of multiple touch buttons circularly arranged, i.e. several shapes and each shape has its own wire that connects to the micro-controller.<br><br>
+<b>Number of Slider Segments:</b> We will create five slider segments that make up the slider. More slider segments allow for higher resolution, but also need more space for wiring, connector pads, and more input pins on the microcontroller.<br><br>
 
-<img src="images/dial.png" width="300px"><br>
-Example from the paper <a href="https://dl.acm.org/doi/10.1145/2971763.2971777">DuoSkin (ISWC 2016)</a><br><br>
+<b>Line Width, Connector Pad etc.:</b> You need to follow the same specification as above, i.e. use the same wire thickness and the same connector pad size.<br><br>
 
-<h4>Electroluminescent Area Display</h4><br>
 
-In your package next week, you will also received a printed display.<br>
-This display is called electroluminescent display and we screen printed it from four different materials printed into four layers.<br>
-<br>
+<img src="images/lab1-design-planning-touchbutton-wire-slider2.png" width="500px"><br><br>
 
-<b>Making Custom Shaped Displays:</b> The display you will get is a simple area display that can turn on/off but does not have pixels. Note that although we will send you a square display, you can create your own shape either in non-destructive way (allows for reuse) or destructive way. The non-destructive way requires you to mask the display, i.e. cutting a shape from e.g. from cardboard and attaching it to the display to cover the remaining area so that no light comes through. The destructive way includes cutting out the shape (making sure you are not cutting into the wire connection to the microcontroller and also make sure you unplugged the display before cutting since most scissors are conductive on their blades). Since we want you to reuse the display some time, we will use the non-destructive way, i.e. we will laser cut a mask layer in a moment.<br><br>
+<h4>Exporting your Design for Printing</h4><br>
 
-<img src="images/printscreen2.jpg" width="145px">
-<img src="images/printscreen3.jpg" width="345px"><br>
-Examples of masked and cut EL displays.<br><br>
+Before export, double check that all your circuit lines are pure black, i.e. CMY = 0 and K = 100.<br><br>
 
-<h3>Can you print color and conductive elements together?</h3><br>
+<img src="images/lab1-cmyk.png" width="250px"><br><br>
 
-Since the inkjet printer has 2 cartridges (one for each CMY, and one for K) and we are only using the K Cartridge for silver, you can still print color at the same time as the silver. <br><br>
+Next, export your design in two seperate files:<br>
+<b>File 1:</b> visual-design.pdf<br>
+<b>File 2:</b> circuit-design.pdf<br><br>
 
-However, we cannot print them at the same time (same pass) because in the printer driver we can either select to print grayscale, which will cause it to use the K cartridge with our silver, or we can print full color, which will cause it to use the CMY cartridge filled with the color.<br><br>
+Once you have your design, add it to your student folder here in the <a href="https://drive.google.com/drive/folders/1MageOgstlli5Ze2GGVchak4iKyDtWwZK?usp=sharing">6.810 google drive folder.</a><br><br>
+
+<img src="images/lab1-exporting-design-visual.png" width="317px" />
+<img src="images/lab1-exporting-design-circuit.png" width="317px" />
+
+
+<h2 class="headline">(2) Conductive Silver Inkjet Printing</h2>
+
+We can use the same 2D printer to print both your design files (i.e. circuit and visual).<br>
+The reason we can do this is that most 2D printers have two cartridges: a CMY cartridge for color printing and a K-cartridge for black.<br>
+Before class, the teaching team emptied the 'K' cartridge and filled it with silver ink, so anything in your drawing that is 'K' (pure black) will be printed in silver.<br><br>
+
+<img src="images/lab1-printing-explained.png" width="437px" />
+<img src="images/lab1-silver-inkjet-printer-cartridge.jpg" width="267px" /><br><br>
+
+<h4>Buying Materials and Preparing the Printer</h4><br>
+
+While we have already done this for you, we provide you here with the details in case you want to try this yourself in the future:<br><br>
+
+<b>2D Printer:</b> Canon Pixma (other 2D printers may work as well but it depends on their nozzle diameter, i.e. the silver may clock them if they are too small.<br><br>
+
+<b>Color Inks:</b> Regular CMYK cartridges from <span style="color:red">here (add link).</span><br><br>
+
+<b>Silver Ink:</b> We bought empty cartridges <span style="color:red">from here (add link)</span> and seperately bought silver ink <span style="color:red">from here (add link).</span><br><br>
+
+<b>Syringe:</b> To fill the silver into the cartridge, you need a syringe. We bought syringens  <span style="color:red">from here (add link)</span><br><br>
+
+<b>Paper:</b> With the silver ink we use, we cannot print on any paper but need a special sheet, which chemically cures the silver ink once it adheres to the sheet. We use the following sheets <span style="color:red">from here (add link)</span><br><br>
+
+<b>Drying out:</b> Note that if the silver is too long in the cartridge, it will eventually dry out and not print anymore.<br><br>
+
+<h4>Printing your Design in Two Passes ('Color' vs. 'Grayscale' mode)</h4><br>
+
+While we can use the same printer for both visual and circuit design, we cannot print color (CMY) and silver (K) at the same time (same pass).<br>
+The reason is that in order to 'force' the printer to use the 'K' cartridge, we need to select 'grayscale' in the printer driver and that naturally doesn't allow for color.<br> On the contrary, in order to 'force' the printer to use the 'CMY' cartridge, we select full color, which then would try to print the black wires and touch areas with the 'CMY' catridge rather than using the 'K' cartridge that is filled with silver.<br><br> 
 
 Therefore, we do two seperate passes, i.e. we first print all silver, take the paper out, reinsert, and then print the color.<br><br>
 
-So to print color and silver you need to: <br>
-<ul>
-	<li>make one design file to see how it looks together</li>
-	<li>then split the design file into two: one for the silver, one for the color</li>
-	<li>print the silver design file first, then reinsert the paper, then print the color file</li>
-</ul><br>
+<h4>Print Settings for Printing Silver</h4><br>
 
-<img src="images/touch-button-decorative2.png" width="300px"><br>
-Silver touch button in the middle is overprinted with white in a second layer. In addition, the red flame is added as a decorative element (it has no input functionality).<br><br>
+Open your Circuit Design File.<br><br>
 
-<h2 class="headline">Making your touch interface designs</h2><br>
-    
-Open your drawing program and set the document color mode to CMYK.</br>
-Draw a design that has at least three different touch buttons, one for a different song each.<br>
-It should also include the display that will blink to the beat of the long. Include the display as a square area of XXcm by XXcm so you will leave enough space for it. We will draw the mask layer seperately in a moment.<br>
-Make sure you use the correct wire thickness (at least 1mm) and connector pad size (at least 1cm x 1cm), and that you fill each touch button with a fill color (make CMYK = 100).<br>
-We recommend all your connector pads route to a common location where you will attach the microcontroller later.<br>
-Make sure all the silver you draw has the line/area color 'black (CMYK: 0,0,0,255)'.<br>
-The touch button should also be surrounded by a decorative color design to show that you can print color and silver together. <br><br>
+Go to print, and from the 'Printer' dropdown select the 'Canon iP110 series'.<br><br>
+<img src="images/lab1-printer.png" width="517px" /><br><br>
 
-<img src="images/Cool_Jams.jpg" width="300px"><br>
+Next, click 'setup' (bottom left corner), then 'continue'.<br><br>
 
-The shape of the touch buttons and display is completely up to you -- be creative and please don't just make a rectangle. Also keep in mind that the wire does not have to be a straight line but can be any decorative pattern you'd like to use (e.g. a wavy line).  <br><br>
+<img src="images/settings2.png" width="517px" /><br><br>
 
-Please limit the size of the touch button to something that is roughly the size of a finger tip (an area around 2cm x 2cm) and the wire length to no more than 10cm for now. The display that you will get shipped is 5x5cm in area and you can cut it into any shape you like (not cutting into the wires).<br><br>
+Go to 'Quality and Media' in the dropdown, then select 'Media Type' and 'Photo paper' and 'Photo Paper Plus Glossy 2'.<br><br>
+<img src="images/settings3.png" width="517px" /><br><br>
 
-Once you have your design, add it to <a href="https://drive.google.com/drive/folders/1MageOgstlli5Ze2GGVchak4iKyDtWwZK?usp=sharing">your google drive folder.</a><br><br>
+Then go to 'Print Quality' and select 'Custom' and put the resolution to the highest 'Fine' setting.<br><br>
 
-The teaching team will print it out for you right away and will test if it is functional.<br><br>
+<img src="images/settings4.png" width="517px" />
+<img src="images/settings5.png" width="517px" /><br><br>
 
-<h2 class="headline">Printing your Design </h2>
-
-To print your design, we use the inkjet printer XX (add link).<br>
-For color printing, we bought some regular CMYK cartridges from here (add link).<br>
-For silver printing, we bought empty cartridges from here (add link) and seperately bought silver ink from here (add link).<br>
-We then filled the silver ink with a syringe into the empty cartridge as you can see below in the photo.<br>
-Note that if the silver is too long in the cartridge, it will eventually dry out and not print anymore.<br>
-Once the silver is loaded into the empty cartridge, we add it as the 'K' cartridge to our printer.<br>
-We then only have to open your drawing file and print it (and hope that you assigned the wire traces as true black (K) in your drawing so that the right cartridge will be used.<br><br>
-
-<img src="images/silver-ink.jpg" width="317px" />
-<img src="images/silver-inkjet-printing.png" width="317px" /><br><br>
-
-<b>Print Settings</b><br><br>
-
-<img src="images/settings1.png" width="317px" />
-<img src="images/settings2.png" width="317px" /><br>
-Make sure drawing is set to 100% for C, M, Y, K. Then go to print, and click 'setup' (bottom left corner), then 'continue'.<br><br>
-
-
-<img src="images/settings3.png" width="317px" />
-<img src="images/settings4.png" width="317px" />
-<br>
-Go to 'Quality and Media' in the dropdown, then select 'Media Type' and 'Photo paper' and 'Photo Paper Plus Glossy 2'. Then go to 'Print Quality' and select 'Custom' and put the resolution to the highest 'Fine' setting.<br><br>
-
-<img src="images/settings5.png" width="317px" />
-<img src="images/settings6.png" width="317px" /><br>
 Don't forget to click the checkbox for 'Grayscale' Printing, since we want to use the 'K' cartridge, which has the silver loaded.<br><br>
 
+<img src="images/settings6.png" width="517px" /><br><br>
+
+Next, insert the paper.<br>
+The paper has two sides, a sticky side and a non-sticky side.<br>
+The sticky side should be facing up.<br>
+If you are not sure which side is which, you can lick your finger and touch each side of the paper in the corner. The sticky side will have a white shine and the other side will show nothing. So the white shine should be facing up.<br>
+
+<img src="images/lab1-insert-paper.jpg" width="337px" />
+<img src="images/lab1-insert-paper-test.jpg" width="307px" /><br><br>
+
+Now you are ready to hit the print button. <br><br>
+
+<img src="images/lab1-print1.jpg" width="437px" />
+<!-- <img src="images/lab1-print2.jpg" width="337px" /> -->
+<img src="images/lab1-print3.jpg" width="237px" /><br><br>
 
 
-<h3>Using a Multi-Meter to Test if your Touch Button Works</h3><br>
+<h4>Test if your Silver Print Works with a Multi-Meter</h4><br>
 
-Digital multimeters (DMM) are an indispensable tool that you can use to diagnose circuits, i.e. see if they work.<br>
-To test if the conductive inkjet printing was successful, i.e. the silver was deposited over the entire area and there are no gaps, we use the multimeter to check the resistance of the trace.<br><br> 
+Before we print the color layer, let's first check if the silver layer is conductive or if anything went wrong during the print.<br>
+The print is successful, i.e. highly conductive and resistance low if silver was deposited over the entire area.<br>
+The print was unsucessful if there are many tiny gaps, i.e. conductance will be low and resistance high.<br><br>
 
-If the resistance is high, the print didn't work.<br>
-If the resistance is low, everything went fine and the trace is nicely connected.<br><br> 
+Resistance is also influenced by the lenght of the wire and its thickness as mentioned above.
+A wider trace allows the current to flow better and thus leads to higher conductivity, whereas as longer trace <span style="color:red">fill me out</span>.<br> <br> 
 
-The resistance of your touch button is not only affected by the print quality, but also by the length and width of your wire (crosssection of the wire), a wider trace allows the current to flow better and thus leads to higher conductivity.<br> <br> 
+To check the resistance, we can use a Digital multimeter (DMM).<br><br>
 
-To use the multi-meter, we set if to XX sensitivity and then hold the plus measurement point on the touch button and the minus on the connector pad.<br>
+To use the multi-meter, we set if to <span style="color:red">XX sensitivity</span> and then hold the plus measurement point on the touch button and the minus on the connector pad.<br>
 As a result, we will see the resistance in the display.<br>
 Resistance below XX is great, above YY is not good. <br><br>   
 
-While in this tutorial, we will measure it for you, your package contains a multimeter so you can check this at home by yourself in the future.<br><br>  
-
 <img src="images/multimeter.jpg" width="300px"><br><br>  
+
+<h4>Print Settings for Printing Color</h4><br>
+
+Open your Visual Design File.<br><br>
+
+<span style="color:red">Repeat the steps from above (i..e choose glossy paper, high quality print etc) but do <b>not</b> hit the 'grayscale' checkbox since we want to print in color this time.<br><br>
+
+Next, insert the paper into the printer again.<br>
+Insert the paper in the same orientation as it came out, otherwise your drawing may be flipped.<br>
+The silver side should be facing upwards, so that you are printing directly on top of the silver.<br><br></span>
+
+<span style="color:red">How about black printing in color?</span>
+<span style="color:red">You also need to mirror your design (but you need to flip the conductive design, not the visual design).</span>
+In the printer settings, select regular paper and disable 'grayscale' printing.<br><br>
+
+Once you have it printed it should look like this. <br>
+Note that the silver side should be facing downwards, i.e. away from the visual design layer.<br><br>
+
+<img src="images/lab1-printedcolor2.jpg" width="537px" /><br><br>
+
+Take a pair of scissors and cut both into shape.<br><br>
+
+<img src="images/lab1-printedcolor3.jpg" width="437px" /><br><br>
+
+Next, glue them together.
+
+
 
 <!--
 <h2 class="headline">Laser Cutting the Mask Layer for your EL Display</h2>
@@ -318,6 +375,61 @@ If sensor 0 gets touched, this message is sent once:<br>
 
 If sensor 0 is touched and the user lifts the finger again, this message is sent once:<br>
 <pre><code>0,0</code></pre>
+
+
+<!-- 
+<b>Continous Sliders (Different Aesthetic Design Options):</b><br>
+<img src="images/slider-designs3.png" width="300px"> <img src="images/slider-designs2.png" width="300px"><br>
+From the paper <a href="https://dl.acm.org/doi/10.1145/2971763.2971777">DuoSkin (ISWC 2016)</a><br><br>
+
+
+<h4>Dials (aka multiple touch buttons circularly arranged)</h4><br>
+
+Touch-dials consist of multiple touch buttons circularly arranged, i.e. several shapes and each shape has its own wire that connects to the micro-controller.<br><br>
+
+<img src="images/dial.png" width="300px"><br>
+Example from the paper <a href="https://dl.acm.org/doi/10.1145/2971763.2971777">DuoSkin (ISWC 2016)</a><br><br>
+
+<h4>Electroluminescent Area Display</h4><br>
+
+In your package next week, you will also received a printed display.<br>
+This display is called electroluminescent display and we screen printed it from four different materials printed into four layers.<br>
+<br>
+
+<b>Making Custom Shaped Displays:</b> The display you will get is a simple area display that can turn on/off but does not have pixels. Note that although we will send you a square display, you can create your own shape either in non-destructive way (allows for reuse) or destructive way. The non-destructive way requires you to mask the display, i.e. cutting a shape from e.g. from cardboard and attaching it to the display to cover the remaining area so that no light comes through. The destructive way includes cutting out the shape (making sure you are not cutting into the wire connection to the microcontroller and also make sure you unplugged the display before cutting since most scissors are conductive on their blades). Since we want you to reuse the display some time, we will use the non-destructive way, i.e. we will laser cut a mask layer in a moment.<br><br>
+
+<img src="images/printscreen2.jpg" width="145px">
+<img src="images/printscreen3.jpg" width="345px"><br>
+Examples of masked and cut EL displays.<br><br>
+
+Please limit the size of the touch button to something that is roughly the size of a finger tip (an area around 2cm x 2cm) and the wire length to no more than 10cm for now. The display that you will get shipped is 5x5cm in area and you can cut it into any shape you like (not cutting into the wires).<br><br>
+
+ -->
+
+<!-- <h2 class="headline">Making your touch interface designs</h2><br>
+    
+Open your drawing program and set the document color mode to CMYK.</br>
+Draw a design that has at least three different touch buttons, one for a different song each.<br>
+It should also include the display that will blink to the beat of the long. Include the display as a square area of XXcm by XXcm so you will leave enough space for it. We will draw the mask layer seperately in a moment.<br>
+Make sure you use the correct wire thickness (at least 1mm) and connector pad size (at least 1cm x 1cm), and that you fill each touch button with a fill color (make CMYK = 100).<br>
+We recommend all your connector pads route to a common location where you will attach the microcontroller later.<br>
+Make sure all the silver you draw has the line/area color 'black (CMYK: 0,0,0,255)'.<br>
+The touch button should also be surrounded by a decorative color design to show that you can print color and silver together. <br><br>
+ -->
+<!-- <img src="images/Cool_Jams.jpg" width="300px"><br> -->
+
+
+<!-- 
+<img src="images/silver-ink.jpg" width="317px" />
+<img src="images/silver-inkjet-printing.png" width="317px" /><br><br>
+ -->
+
+<!-- <img src="images/touch-button-decorative2.png" width="300px"><br>
+Silver touch button in the middle is overprinted with white in a second layer. In addition, the red flame is added as a decorative element (it has no input functionality).<br><br>
+ -->
+
+<!-- The shape of the touch buttons and display is completely up to you -- be creative and please don't just make a rectangle. Also keep in mind that the wire does not have to be a straight line but can be any decorative pattern you'd like to use (e.g. a wavy line).  <br><br> -->
+
 <!--
 Processing is a program that makes it easy to prototype user interfaces. Once you got your microcontroller in the mail, we will wire everything up and write code to send the touch button input directly to Processing, so that it can visualize if the button is pressed or not. Today, we are going to prepare the UI in Processing so you have everything ready when the rest comes in the mail.<br><br>
 
