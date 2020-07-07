@@ -69,13 +69,19 @@ Today, we are going to connect your last lab's card design to Processing: When y
 
 First, we are going to read the input from our music card that you created in the last lab and display the interaction with it in Processing.<br>
 In particular, we are going to wire up a button, and when the button is pressed, we will show this in Processing by coloring the corresponding button in the digital UI and starting a song.<br><br>
+    
+<h4>Connecting your physical music card to Processing</h4><br>
 
+Connect your music card and ESP32 to your computer viq USB and upload the program that we haven written in the last Lab. When touching one of the sensor, your ESP should send a message to your computer that the Processing script can understand and change its background color.<br><br>
+
+<img src="images/lab2/connect_card.jpg" width="300px"><br clear=all><br>
+    
 <h4>Create Processing Script that Listens to Serial Communication</h4><br>
     
-<a href="https://processing.org" target="_blank">Processing</a> is a user interface protoyping platform that is based on Java. It was created by MIT students in their spare time starting in Spring 2001 and is nowadays used by thousands of makers and UI designers. You can find useful information on how to use it in their <a href="https://processing.org/tutorials/" target="_blank">tutorial section</a>.<br><br>
+<a href="https://processing.org" target="_blank">Processing</a> is a user interface protoyping platform that is based on Java. It was created by MIT students (and others) in their spare time starting in Spring 2001 and is nowadays used by thousands of makers and UI designers. You can find useful information on how to use it in their <a href="https://processing.org/tutorials/" target="_blank">tutorial section</a>.<br><br>
 
 In the last lab, we encoded a touch event on the printed UI in the format:<br><br>
-(sensor ID),(is_touched)(newline)<br><br>
+(sensor ID),(is_touched);<br><br>
     
 (sensor ID) is in [0..2] and represents the ID of the observed touch sensor<br>
 (is_touched) is in [0..1] and is 0 if the sensor is not touched, and 1 if it is touched<br><br>
@@ -90,12 +96,13 @@ Next, you need to create a new port by creating an object from this class: <br>
 
 To initialize this object, you need a reference to the current application ('this'), a portname, and the baudrate to which the object should listen. You already know the baudrate and you can get the portname with this:<br><br>
 
+<pre>myPort = new Serial(this, portName, 9600);</pre><br><br>
+    
+Now you can initialize your Serial connection:<br><br>
+    
 <pre>// check which port you use: 0, 1, 2?
 // it helps to verify you are listening to the right port with print(portName);
 String portName = Serial.list()[2];</pre><br><br>
-Now you can initialize your Serial connection:<br><br>
-
-<pre>myPort = new Serial(this, portName, 9600);</pre><br><br>
 
 In the draw function, you need to first check if there is data on the port available, and then you can read the value from the port.<br><br>
 
@@ -109,7 +116,14 @@ Now you can do something based on the String.<br><br>
 In the last lab, we encoded a touch event on the printed UI in the format:<br><br>
 (sensor ID),(is_touched);<br><br>
 
-Todo: Rewrite the code such that it stores the touch events of the 3 touch buttons in Processing (3 boolean values). You might have to split the String into (sensor ID) and (is_touched) or you want to access the elements of the String. Use the Java reference for Strings to find the right command. Set the background of your Processing to black and let it change its color everytime a button is pressed.<br><br>
+Your task is to visualize the incoming serial messages in a Processing Script. We will see 3 bars that go up and down if one or multiple of the physical buttons get touched. It should look like this:<br><br>
+    
+<img src="images/lab2/processing_bars.png" width="300px"><br clear=all><br>
+    
+We created a Processing script for you that has the bars already implemented but lacks the Serial Communication.<br>
+You can download the script here: <a href="images/lab2/Serial_Processing.zip">SCRIPT</a><br><br>
+    
+Your task is to add the Serial communcation that receives the touch signal from your printed touch sensors and show their state with the 3 bars, i.e. a high bars shows that the sensor is touched and a low bar shows that the sensor is not touched. You can use the 3 boolean variables touch_0, touch_1, and touch_2 in the script to this end. <br><br>
     
 <h4>Connecting your physical music card to Processing</h4><br>
 
