@@ -73,7 +73,8 @@ In lab 1 and lab 2, we are going to create the interactive music card shown belo
 <b>(1) Circuit Design:</b> You will first draw the circuit design of your card by creating a 2D drawing of the wires and interactive touch and slider areas.<br>
 <b>(2) Conductive Silver Inkjet Printing:</b> Next, you will print your design with conductive inkjet printing.<br>
 <b>(3) Wiring up the Circuit:</b> In the next step, you will wire up your circuit using a breadboard and an ESP32 microcontroller.<br>
-<b>(4) Visualizing User Input:</b> Finally, we will setup the touch buttons and sliders in a programming environment called Processing, which will visualize when physical input on the touch buttons and sliders on screen and also play the corresponding songs. 
+<b>(4) Sensing the Touch Signals:</b> Next, you will sense the touch signals using the CapacitiveSensor Library and apply filtering to the signals.<br>
+<b>(5) Visualizing User Input:</b> Finally, we will setup the touch buttons and sliders in a programming environment called Processing, which will visualize when physical input on the touch buttons and sliders on screen and also play the corresponding songs. 
 
 </br><br>
 
@@ -115,7 +116,15 @@ Make sure you follow the specifications, which are:<br><br>
 
 <b>Thickness of Wires:</b> Your wires should be at least 1mm thick. Make sure to check this in your drawing program. We typically draw 'rectangles' for the wires rather than 'lines' since a rectangle allows us to see its 'width' in the shape properties. The thickness of the wire determines its conductivity (larger cross-section = hire conductivity), with 1mm we are on the safe side given the conductive ink we use and its resistance.<br><br>
 
-<b>Connector Pads for Wires:</b> One end of your wire connects to your touch button. The other end of your wire will connect to your microcontroller later. We recommend you route all your wires that connect to the microcontroller to the right side of the card and we will connect the microcontroller there. The connector pad for the microcontroller needs to be large enough to connect to conductive tape (more on this later). The connector pad should be 1cm x 1cm to be on the safe side.<br><br>
+<b>Connector Pads for Wires:</b> One end of your wire connects to your touch button. The other end of your wire will connect to your microcontroller later. 
+<ul>
+<li>We recommend you route all your wires that connect to the microcontroller to the right side of the card and we will connect the microcontroller there.</li>
+<li>The connector pad for the microcontroller needs to be large enough to connect to conductive tape (more on this later), i.e. it should be 1cm x 1cm to be on the safe side.</li>
+<li>Make sure your connector pads are as close to the boundary of the card as possible. We will later connect them to crocodile clamps for connecting to the circuit, if they are too far away the crocodile clamps cannot reach them (left image below is not good, right side is better).</li>
+<ul><br>
+
+<img src="images/lab1-crocodile-clamps1.jpg" width="300px">
+<img src="images/lab1-crocodile-clamps2.jpg" width="300px"><br><br>
 
 
 <h4>Draw the Touch Slider and the Corresponding Wires</h4><br>
@@ -283,65 +292,56 @@ Next, glue them together.<br><br>
 
 <h2 class="headline">(3) Wiring Up the Circuit</h2>
 
-
 <h4>ESP Micro-Controller</h4><br>
 
+We will use the ESP32 micro-controller in this course to control the printed sensors and displays (same as in 6.08). Here is the pin out again for your reference.<br>
 
-We will use the ESP32 micro-controller in this course to control the printed sensors and displays (same as in 6.08).<br><br>
-
-<img src="images/esp-microcontroller.jpg" width="257px" />
 <img src="images/esp32_pinout.png" width="657px" /><br><br>
 
-<h4>Download Arduino IDE</h4><br>
+<h4>Setting up the ESP Microcontroller</h4><br>
 
-If you haven't, please download the Arduino IDE here: <a href="https://www.arduino.cc/en/Main/Software">https://www.arduino.cc/en/Main/Software</a> <br>
-If you have an old install, we recommend you delete it and reinstall so you have the latest version.<br><br>
+If you did your homework, you should already be all set.<br>
+If for whatever reason you were not able to do it yet, you can find the <a href="esp-setup.html">install instructions here.</a><br><br>
 
-<h4>Make sure your ESP is connected</h4><br>
+<h4>Connecting your Printed Circuit to a Breadboard and to the ESP</h4><br>
 
+We will use crocodile clamps to connect our card to a breadboard.<br>
+One side of the crocodile clamp goes onto the connector pad.<br>
+The other side should clip onto the end of a regular breadboard wire.<br>
+The regular breadboard wire can then be used to connect to the breadboard.<br>
+From there you can do your normal breadboarding to connect to the ESP.<br>
+To get started, use the first crocodile clamp and connect it to the card and a wire for breadboarding.<br><br>
 
+<img src="images/lab1-crocodile-clamp-wire.jpg" width="557px" /><br><br>
 
+<h4>Build Circuit for Touch Sensing</h4><br>
 
-<!--
-<h2 class="headline">Laser Cutting the Mask Layer for your EL Display</h2>
+We will implement touch sensing based on the principle of capacitive touch sensing.<br><br>
 
-Next, design the mask layer for your EL display.<br>
-You could cut it out with scissor, a cutting plotter, or a laser cutter.<br>
-For today, we will use a laser cutter.<br><br>
+The circuit for capacitive touch sensing only requires a <b>resistor connected between two pins - a sender and a receiver pin</b>. <br>
+The <b>receiver pin is also connected to the touch sensor</b>.<br><br>
 
-To make a file for laser cutting, you need to stick to a few specifications.<br>
-The document you will create your mask layer in has to be RGB mode.<br>
-The line color has to be pure red (R=255, G=0, B=0).<br>
-The line thickness needs to be 0.0001mm or less.<br><br>
+Let's create our first touch button circuit.<br>
+We will use <b>pin 2 as the sender</b> and <b>pin 4 as the receiver</b> (you can of course use other pins as well but et's stick with 2 and 4 for this example).<br>
+We will use one <b>1 Megaohm resistor</b>.<br><br>
 
-<img src="images/exercise-drawing.png" width="217px" /><br><br>
+<img src="images/capsense.png" width="300px"><br><br>
 
-Once you create the mask layer, send us the file. <br>
-We will then help you to log in remotely into our laser cutter computer to cut the file under our guidance.<br>
-You will then receive it with your next package.<br><br>
+<h2 class="headline">(4) Sensing the Touch Signals</h2>
 
-<img src="images/laser-cutter.png" width="317px" />
-<img src="images/laser-cutter-cutting.png" width="317px" /><br><br>
+<h4>Install Arduino Capacitive Sensing Library</h4><br>
 
--->
+Next, we will write a program that receives the touch sensor signal and plots them on our computer.<br>
 
+To process the sensor signals, we will use the <b><a href="https://playground.arduino.cc/Main/CapacitiveSensor/">CapacitiveSensor library</a></b>.<br>
+To install it it, go to <b>Sketch -> Include Library -> Manage Libraries</b> and search for the <b>CapacitiveSensor</b> library and install it.<br><br>
 
+<img src="images/capacitivesensorlibrary.png" width="650px"><br><br>
 
+<h4>Write Code to Read Touch Signal</h4><br>
 
-<!--Follow these instructions to add the ESP32 library to the ARDUINO IDE: <a href="https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/">https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/</a><br><br> -->
-
-We will use in this course Arduino's capacitive sensing library. The circuit for a touch sensor only requires a resistor that is connected between two pins of the Arduino - the sender and the receiver. The receiver pin is also connected to the touch sensor. If you want to connect multiple touch sensors, you only use one sender pin that is connected with a resistor to multiple receiver pins.<br><br>
-<img src="images/capsense.gif" width="300px"><br><br>
-
-<b>Todo:</b> Use a breadboard to make 3 touch button circuits. Connect pin 2 (sender) with three 1 Megaohm resistors to the receiver pins 4, 5, and 6.<br><br>
-
-<b>Todo:</b> Use crocodile clamps to connect your printed touch sensors to the receiver pins (4, 5, and 6) of your touch sensing circuits.<br><br>
-
-Next, we will write a program that receives the sensor signals and plots them on your computer. The process the sensor signals, we will use the CapacitiveSensing library. To install it it, go to Sketch -> Inlcude Library -> Manage Libraries and search for the CapacitiveSensor library and install it. <br><br>
-
-This basic program can read one touch sensor and send it to Arduino's serial monitor. Extend it to read and print all 3 of your touch sensors. Each value should be seperated by a tabulator symbol Serial.print("\t"); and the line should finish with a (newline) <br><br>
-
-You will have to look up new function for the Serial communication. Use the arduino reference to find what you need: <a href="https://www.arduino.cc/reference/en/language/functions/communication/serial/">https://www.arduino.cc/reference/en/language/functions/communication/serial/</a><br><br>
+The basic program below can read one touch sensor and send it to Arduino's serial monitor.<br>
+You can download this starter code <a href="images/touch-button.zip">here</a> or alternative you can copy paste from this website.<br>
 
 <code><pre>
 
@@ -382,14 +382,55 @@ void loop()
 </code>
 <br>
 
-Next, we will use the Serial plotter to visualize the received signals by clicking on Tools->Serial Plotter. Try touching the sensors and see how the signal changes when you touch the sensors. Also change the values of samples_touch and see how the value range changes.<br><br>
+Open the code in your Arduino IDE and upload it to your microcontroller.<br>
+Open the serial monitor, you should see a bunch of numbers fly by.<br>
+If you touch you touch sensor the values should change significantly (remember to not touch the silver side directly but to interact on the side the silver was <b>not</b> printed on, i.e where your visual design is).<br><br>
 
-We will use the serial messages in the next lab to trigger events when touching the sensors. Therfore, we need the messages to be encoded such that our digital UI can receive and identify the sensor signals. Rewrite the code such that it iterates over all sensors and outputs this message every 200ms:<br><br>
+<img src="images/lab1-touching-plotting.png" width="680px"><br><br>
 
-(sensor ID),(is_touched)(newline)<br><br>
+<h4>Extend Circuit to all Three Touch Sensors</h4><br>
+
+Since we have three notes that serve as touch buttons, we need to both extend our circuit as well as out code to read those touch signals as well.<br><br>
+
+Use a breadboard to make 3 touch button circuits, each connecting to one of the notes.<br>
+Note that you can use the <b>same sender pin</b> for all three touch buttons.<br>
+Only the receiver pin has to vary, i.e. one for each touch signal you want to read.<br>
+Also each touch sensor needs its own 1 Megaohm resistor.<br>
+Connect pin 2 (sender) with three 1 Megaohm resistors to the receiver pins 4 (already done), 17, and 18.<br>
+Then connect pin 4 (already done), 17, and 18 with a wire and crocodile clamp to the touch sensors.<br><br>
+
+<h4>Extend Code to all Three Touch Sensors</h4><br>
+
+Next, extend your code to read and print all 3 of your touch sensors.<br>
+When you print your touch values, please <b>use Serial.print()</b> not Serial.println().<br>
+Each value should be seperated by a tabulator symbol Serial.print(","); and the line should finish with a new line Serial.print("\n"). <br><br>
+
+<h4>Plotting Signals on the Serial Plotter</h4><br>
+
+Next, we will use the Serial plotter to visualize the received signals by clicking on <b>Tools->Serial Plotter</b>.<br>
+Because of the formatting we used (comma seperated using Serial.print()), we can see all three variables plotted at the same time.<br><br>
+
+Try touching the sensors and see how the signal changes when you touch the sensors.<br>
+Below you see how we touch the button 1 first, then button 2 and finally button 3.<br><br>
+
+<img src="images/lab1-plotting-signals.png" width="680px"><br><br>
+
+Also change the values of samples_touch and see how the value range changes.<br>
+Below are two examples with higher numbers for samples_touch.<br>
+
+<img src="images/lab1-plotting-signals2.png" width="680px"><br><br>
+<img src="images/lab1-plotting-signals3.png" width="680px"><br><br>
+
+<h4>Thresholding Touch Signals: Touched or not Touched?</h4><br>
+
+Next, we want to rewrite our code so to not return the raw signal values but to return if a button was touched or not touched.<br><br>
+
+For each sensor, we want to reformat our output so that:
+
+<code>(sensor ID),(is_touched)(newline)</code><br><br>
     
-(sensor ID) is in [0..2] and represents the ID of the observed touch sensor<br>
-(is_touched) is in [0..1] and is 0 if the sensor is not touched, and 1 if it is touched<br><br>
+(sensor ID) is either 0, 1 or 2 and represents the ID of the observed touch sensor.<br>
+(is_touched) is either 0 or 1 (0 if the sensor is not touched, and 1 if it is touched).<br><br>
 
 A sample output for touching only sensor 0 should look like:<br>
 <pre><code>0,1
@@ -397,14 +438,73 @@ A sample output for touching only sensor 0 should look like:<br>
 2,0
 </code></pre>
 
-Next, we want to send this data only if the sensor state changes, i.e. a sensors gets touched or the touch event ends. Change the code such that it tracks in which state each sensors is currently. Instead of sending the sensor state every 200ms, check for a state change and send the Serial message only then. <br><br>
-Example:<br>
-If sensor 0 gets touched, this message is sent once:<br>
+The sensor ID is easy to plot, but how do we know if the sensor is touched or not?<br>
+As you saw in the serial plotter, the values for each sensor can vary pretty wildly depending on <span style="color:red">Michael can you list some factors?</span>.<br><br>
+
+We will do more filtering of signals later, for now you can use a simple if/then statement and make a rough estimate in which range your sensor signal falls for each touch button (look at the serial plotter for some help in determining the range).<br><br>
+
+Rewrite the code such that it iterates over all sensors and outputs every 200ms the correct output.<br>
+We are still writing to the Serial Monitor, so use strings for your numbers.<br><br>
+
+<h4>Serial Messages only when Button State Changes</h4><br>
+
+Next, we want to plot data only if the sensor state changes, i.e. a sensors was not touched before but is now being touched, or the sensor was touched but the user just released the finger.<br><br> 
+
+Change the code such that it tracks in which state each sensors is currently in.<br> 
+Check for a state change and send the Serial message only then. <br><br>
+Example:<br><br>
+
+If sensor 0 gets touched, this message is printed once:<br>
 <pre><code>0,1</code></pre>
 
-If sensor 0 is touched and the user lifts the finger again, this message is sent once:<br>
+If sensor 0 is touched and the user lifts the finger again, this message is printed once:<br>
 <pre><code>0,0</code></pre>
 
+<br>
+
+<h4>Serial Communication to Send Touch Signals to Processing</h4><br>
+
+Let's zoom out for a moment.<br>
+What we have done so far is that we have written a program for our microcontroller in the Arduino Programming Environment.<br>
+We have then uploaded that program onto our ESP microcontroller.<br>
+The microcontroller is constantly running our program on its built-in processor going through the loop() function, reading the sensor signals and thresholding them.<br>
+It then communicates the sensor signals in the format we defined back to our laptop using Serial communication through the USB cable.<br>
+So far, we have only used the Arduino IDE to 'listen' to the Serial communication from the USB cable and to show the values in the Serial Monitor or the Serial Plotter.<br>
+However, since any software can listen to the Serial Communication, we can also write programs in other programming languages and IDEs to read and do something with the sensor signals.<br><br>
+
+In the next lab, we are going to write a program in Processing.<br>
+Processing is a programming environment that makes it very easy to built on-screen UIs.<br>
+For our purposes, we will build a digital version of our music card that will highlight the corresponding areas on the card when you push the button on the physical card and will also play the corresponding song.<br><br>
+
+<span style="color:red">we still have to change the signal to plot not as a string "1" but as an integer 1, we can do this at the start of the next lab.</span>
+
+<!--
+<h2 class="headline">Laser Cutting the Mask Layer for your EL Display</h2>
+
+Next, design the mask layer for your EL display.<br>
+You could cut it out with scissor, a cutting plotter, or a laser cutter.<br>
+For today, we will use a laser cutter.<br><br>
+
+To make a file for laser cutting, you need to stick to a few specifications.<br>
+The document you will create your mask layer in has to be RGB mode.<br>
+The line color has to be pure red (R=255, G=0, B=0).<br>
+The line thickness needs to be 0.0001mm or less.<br><br>
+
+<img src="images/exercise-drawing.png" width="217px" /><br><br>
+
+Once you create the mask layer, send us the file. <br>
+We will then help you to log in remotely into our laser cutter computer to cut the file under our guidance.<br>
+You will then receive it with your next package.<br><br>
+
+<img src="images/laser-cutter.png" width="317px" />
+<img src="images/laser-cutter-cutting.png" width="317px" /><br><br>
+
+-->
+
+
+
+
+<!--Follow these instructions to add the ESP32 library to the ARDUINO IDE: <a href="https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/">https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/</a><br><br> -->
 
 <!-- 
 <b>Continous Sliders (Different Aesthetic Design Options):</b><br>
