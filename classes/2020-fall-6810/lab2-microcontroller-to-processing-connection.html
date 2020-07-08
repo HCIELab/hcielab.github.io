@@ -70,7 +70,7 @@ Today, we are going to connect your last lab's card design to Processing: When y
 First, we are going to read the input from our music card that you created in the last lab and display the interaction with it in Processing.<br>
 In particular, we are going to wire up a button, and when the button is pressed, we will show this in Processing by coloring the corresponding button in the digital UI and starting a song.<br><br>
     
-<h4>Connecting your physical music card to Processing</h4><br>
+<h4>Connecting your Physical Music Card to Processing</h4><br>
 
 Connect your music card and ESP32 to your computer viq USB and upload the program that we haven written in the last Lab. When touching one of the sensor, your ESP should send a message to your computer that the Processing script can understand and change its background color.<br><br>
 
@@ -107,7 +107,7 @@ String portName = Serial.list()[2];</pre><br><br>
 In the draw function, you need to first check if there is data on the port available, and then you can read the value from the port.<br><br>
 
 <pre>int val;
-if ( myPort.available() > 4) { // If there is a message with at least 4 characters,
+if ( myPort.available() > 4) { // If there is a message with at least 4 characters
     String val = myPort.readStringUntil(';'); // reads a String until the character ';' is found
   }</pre>
 
@@ -125,9 +125,14 @@ You can download the script here: <a href="images/lab2/Serial_Processing.zip">SC
     
 Your task is to add the Serial communcation that receives the touch signal from your printed touch sensors and show their state with the 3 bars, i.e. a high bars shows that the sensor is touched and a low bar shows that the sensor is not touched. You can use the 3 boolean variables touch_0, touch_1, and touch_2 in the script to this end. <br><br>
     
-<h4>Connecting your physical music card to Processing</h4><br>
+You will have to split the incoming message into its two parts (sensor_ID) and (is_touched). Use the String split function to do that. You can find information on how to use it in the <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html" target="_blank"> Java String reference</a>.<br><br>
+<pre>String[] sensor_data = val.split(",");</pre><br>
+    
+<h4>Combine the Physical Interface with a Digital Application</h4><br>
 
-Connect your music card and Arduino Nano to your computer and upload the program that we haven written in the last Lab. When touching one off the sensor, your Arduino should send a message to your computer that the Processing script can understand and change its background color.
+We created the skeleton of a music interface for you. First step is to download here and confirm that you can run it.<br><br>
+    
+Next, we want to implement touch buttons in the UI that start/pause the music, and two buttons for moving to the next or the previous song. 
     
 <br>
 <div style="background:#04a47c;padding:10px;">Checkoff 1: Show your working physical button that when pushed causes the Processing application to change its background color.</div><br><br>
