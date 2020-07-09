@@ -22,6 +22,10 @@ Serial myPort;
 boolean released = true;
 String val;
 
+boolean touchButton0_touched;
+boolean touchButton1_touched;
+boolean touchButton2_touched;
+
 //settings() runs before setup and lets you put a variable in size
 void settings(){
   img = loadImage("card.png");//loads image
@@ -35,26 +39,31 @@ void setup() {
   control = new Controls();
   
   //initialize Serial port
-  String [] portName = Serial.list(); //check which port you use: 0, 1, 2? it helps to verify you are listening to the right port with 
-  myPort = new Serial(this, portName[portName.length-1], 9600);
-  
+  String portName = Serial.list()[2];; //check which port you use: 0, 1, 2? it helps to verify you are listening to the right port with 
+  myPort = new Serial(this, portName, 9600);
+ 
+ 
   /* ********************************************************************/
   // Todo: Add touch buttons here
   /* ********************************************************************/
   
   //(a,b,c,d,type) These are coordinates for an ellipse
   //(a,b) is the upper right corner, (c,d) is the lower right corner of the ellipse
+  myButtons.add(new Button(90.0, 170.0, 170, 250, "Ellipse"));//previous
   myButtons.add(new Button(320.0, 180.0, 400, 260, "Ellipse"));//play/pause
+  myButtons.add(new Button(490.0, 290.0, 570, 370, "Ellipse"));//next
   
   music = new Audio(this);
   
-  println("Serial message: 0,1");
+  //println("Serial message: 0,1");
 }
 
 void draw() {
   
   background(0);
   image(img, 0, 0);
+
+  
   control_mode = control.getMode();
   if(control_mode!= "Hide"){
     //You can show or hide the interactive elements here!
@@ -67,14 +76,48 @@ void draw() {
   //Put your touch interface interaction triggers here
   *********************************************************************/
   
-  if ( myPort.available() > 4) {
-    val = myPort.readStringUntil(';');
-    String[] msg = val.split(",");
-    switch(msg[0]) {
-       case "0": if(msg[1].equals("1")) 
-                   music.play();
-                 break;
+  if (myPort.available() >= 4) { // If there is a message with at least 4 characters
+    String val = myPort.readStringUntil(';'); // reads a String until the character ';' is found
+    print(val);  
+    
+    String[] splitString = val.split(",");
+    String sensor_ID = splitString[0];
+    
+    String intermediate = splitString[1];
+    String[] splitString2 = intermediate.split(";");
+    String is_touched = splitString2[0];
+    
+    if(sensor_ID.equals("0") && is_touched.equals("1")) {
+      music.back();
     }
+    
+    if(sensor_ID.equals("0") && is_touched.equals("0")) {
+      //do nothing
+    }
+    
+    if(sensor_ID.equals("1") && is_touched.equals("1")) {
+      if(!music.isPlaying()){
+            music.play();
+      }
+      else {
+        music.pause();
+      }
+    }
+    else if(sensor_ID.equals("1") && is_touched.equals("0")) {
+      touchButton1_touched = false;
+    }
+    
+    if(sensor_ID.equals("2") && is_touched.equals("1")) {
+      music.forward();
+    }
+    else if(sensor_ID.equals("2") && is_touched.equals("0")) {
+      //do nothing
+    }
+    
+    print("Sensors");
+    print(sensor_ID);
+    print(is_touched);
+    
   }
   
   
@@ -96,12 +139,15 @@ void mousePressed(MouseEvent evt){
           switch(i) {
            // case 0 adds the play/pause function to the button that was
            // declared first
-           case 0 : if(!music.isPlaying())
+           case 0 : music.back(); break;
+           case 1 : if(!music.isPlaying())
                       music.play();
                     else 
                       music.pause();
                     break;
+           case 2 : music.forward(); break;
           }
+          
         } 
         
       }

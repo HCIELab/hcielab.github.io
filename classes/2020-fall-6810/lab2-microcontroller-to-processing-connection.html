@@ -265,58 +265,80 @@ Then in the 'Libraries' Tab, search for 'sound' and install the one that is offi
 <h4>Run Skeleton Code</h4><br>
 
 Once you have the library installed, download the <a href="software/music_card_nosolution.zip">skeleton code from here</a>.<br>
-Inside the folder, open and run the <b>music_card_nosolution.pde</b>.<br><br>
+Inside the folder, open and run the <b>music_card_nosolution.pde</b>.<br>
+You should see the music card being loaded into your application. If you don't see it, please let us know.<br><br>
     
-<h4>Add Touch Buttons</h4><br>
+<img src="images/lab2-loadedcard.png" width="600px"><br><br>
 
-Next, we want to implement touch buttons in the UI that start/pause the music, and two buttons for moving to the next or the previous song<br><br>
+<h4>Add Touch Buttons onto the Card</h4><br>
+
+Next, we want to mark the three notes as digital touch buttons.<br>
+We will use the: <br>
+<ul>
+  <li>left touch button for previous song</li>
+  <li>middle touch button for play/pause</li>
+  <li>right touch button for next song</li>
+</ul>
+
+<br>
+
+To make this easier for you, we already implemented a class 'Buttons' for you.<br>
+You can make a new button with:<br><br>
+
+<pre><span style="red">myButtons.add(new Button(x_top_left, y_top_left, x_bottom_right, y_bottom_right, drawing-mode));</span></pre>
+
+Please add your buttons to line 47 onwards.<br>
+One of the buttons is already defined there:<br><br>
+
+<pre>myButtons.add(new Button(80.0, 160.0, 160, 240, "Ellipse")); //line 47</pre><br>
     
-We start by adding digital buttons to the music card UI. We created a class "Buttons" that lets you create buttons in Processing:
-<pre>myButtons.add(new Button(80.0, 160.0, 160, 240, "Ellipse")); //line 45</pre>
-    
-The parameters (a,b,c,d,type) are necessary to define an ellipse shaped button. (a,b) is the upper left corner, and (c,d) is the lower right corner of a rectangle that covers the ellipse. "type" lets you set it to be an ellipse. You don't have to change anything about the type.<br><br>
-Now, add 3 buttons to the UI (line 45). Your final result should look like this:<br><br>
+Your final result should look like this:<br><br>
     
 <img src="images/lab2/card_buttons.png" width="300px"><br clear=all><br>
 
-Next, we want to assign 3 functions to these buttons: "play/pause", "next song", and "previous song". We created a music class that loads several example songs in your project folder and has the functions:<br><br>
+<h4>Create Touch Events for Playing / Pausing the Music and Next/Previous Song</h4><br>
+
+To create events on mouse click, we need to implement several mousePressed() events.<br>
+We already did this for you in the code further down in the class.<br>
+
+<img src="images/lab2-button-presses.png" width="600px"><br clear=all><br>
+
+We first iterate over all the buttons you created and then depending on the button ID, we want to execute a music functions.<br>
+We created a music class that loads several example songs in your project folder and has the functions:<br><br>
 <pre>music.play();
 music.pause();
 music.back();
 music.forward();</pre><br>
-    
-Find the mousePressed(MouseEvent evt) function and add a next song, and previous song button functionality to the left most and right most button. The button in the middle sould be the play button. We implement as an example the play/pause button:<br><br>
-<pre>switch(i) {
-           case 0 : if(!music.getPlaying())
-                      music.play();
-                    else 
-                      music.pause();
-                    break;
-          }</pre>
+
+You can see in the switch/case code that we already assigned the middle button to play and pause music.<br><br>
+
+Extend the code to also go to the next and previous songs.<br><br>
+
+<h4>Hide the Touch Buttons</h4><br>
+
+While we want to have a touch button on each note, we don't want to see the white ellipses since they make the card look less good.<br>
+We already implemented this for you:<br>
+Press the 'h' key on your keyboard while your program runs.<br>
+It while hide the buttons but you can still click on them.<br>
+If you want to see them again, press 's' (for show).<br><br>
+
+<h4>Now let's play some music from the Inkjet Printed Physical Card</h4><br>
+
+Now that we have a great debugging UI that we can control digitally and we tested that everything works, we also want to play some music from the physical card.<br><br>
+
+For this, we need to connect your serial communication messages from the printed music card to the digital UI.<br>
+We have implemented the Serial communication and the message decoding in the previous exercise. <br>
+Add this code to the music card UI and instead of increasing the height of your bar you are now calling the music functions. <br><br>
+
+Once your card is working, show it to the teaching team.<br><br>
+
+<h3 class="headline">Conclusion</h3>
+
+Great, so now we can read microcontroller input and display it in Processing. <br>
+This will come in handy in the future when we want to build and test more advanced user interfaces.<br><br>
+
 <br>
-    
-The digital UI is now almost ready. However, we don't want to see the white ellipses all the time but only the music card design. Try pressing the 'h' key on your keyboard while your program runs. It while hide the buttons but you can still click on them. If you want to see them again, press 's' (for show).<br><br>
 
-Great! Now it is time to connect your serial communication messages from the printed music card to the digital UI. To do that, we have to write code to listen to a serial port, decode the messages from the previous lab and assign them to the music class in your digital UI. But everything step by step.<br><br>
-
-We have implemented the Serial communication and the message decoding in the previous exercise. Add this code to the music card UI and add a command that prints the Serial message everytime you receive something. Make sure that the printed music card is connected properly and you listen to the right port.<br><br>
-<pre>println("Serial message:" + val)</pre>
-
-Check if you receive the messages:<br><br>
-<img src="images/lab2/Serial_message.png" width="300px"><br clear=all><br>
-    
-Now, use the (sensor_ID) to address the right button and the (is_touched) message to trigger it. We implemented this already with the first button and let it start the playback of the music.<br><br>
-<pre>if ( myPort.available() > 4) {
-    val = myPort.readStringUntil(';');
-    String[] msg = val.split(",");
-    switch(msg[0]) {
-       case "0": if(msg[1].equals("1")) 
-                   music.play();
-                 break;
-    }
-  }</pre><br><br>
-
-Remember that msg[0] is the (sensor_ID) and msg[1] is the (is_touched) event. 
     
 <!--   This means that when touching one of the touch buttons, your ESP should send a message to your computer that the Processing script can understand and change its background color.
  -->
@@ -491,15 +513,11 @@ Once the ztape is on, you can peel back the other side of the ztape layer and at
 
 -->
 
- <h3 class="headline">Bringing it all together</h3>
+<!--  <h3 class="headline">Bringing it all together</h3>
+
+ -->
 
 
-
- <h3 class="headline">Conclusion</h3>
-
-Great, so now we can both read microcontroller input and display it in Processing and also use Processing to control our microcontroller. This will come in handy in the future when we want to build and test more advanced user interfaces.<br><br>
-
-<br>
 
         <br />
         <br />
