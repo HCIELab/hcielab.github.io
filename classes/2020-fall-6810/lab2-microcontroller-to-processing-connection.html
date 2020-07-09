@@ -60,56 +60,107 @@
 
 <h2 class="headline">Your Task for Today</h2>
 
-You should hopefully received your package in the mail by now.</br>
-The package includes your circuit design from last week and the EL displays was already in the very first package you got.<br><br>
+In the last lab, we have already done steps 1-4 to get our interactive music card going.<br>
+Today, we are going to connect your last lab's card design to Processing: When you push the physical touch button it will light up the corresponding digital touch button in Processing and the associated song will play.<br><br>
 
-Today, we are going to connect your last lab's card design to Processing: When you push the physical touch button it will light up the corresponding digital touch button in Processing and the corresponding song will play.<br><br>
+<b>(done) (1) Circuit Design :</b> You will first draw the circuit design of your card by creating a 2D drawing of the wires and interactive touch and slider areas.<br>
+<b>(done) (2) Conductive Silver Inkjet Printing:</b> Next, you will print your design with conductive inkjet printing.<br>
+<b>(done) (3) Wiring up the Circuit:</b> In the next step, you will wire up your circuit using a breadboard and an ESP32 microcontroller.<br>
+<b>(done) 4) Sensing the Touch Signals:</b> Next, you will sense the touch signals using the CapacitiveSensor Library and apply filtering to the signals.<br>
+<b>(today) (5) Visualizing User Input:</b> Finally, we will setup the touch buttons and sliders in a programming environment called Processing, which will visualize when physical input on the touch buttons and sliders on screen and also play the corresponding songs. <br><br>
 
- <h3 class="headline">Connecting the Music Card to Processing</h3>
+<h4>Make sure everything from last lab is still working</h4><br>
 
-First, we are going to read the input from our music card that you created in the last lab and display the interaction with it in Processing.<br>
-In particular, we are going to wire up a button, and when the button is pressed, we will show this in Processing by coloring the corresponding button in the digital UI and starting a song.<br><br>
-    
-<h4>Connecting your Physical Music Card to Processing</h4><br>
+Before getting started with the new content, let's first make sure everything from last time is still working and no wires came lose.<br> 
+To do this, connect your music card and ESP32 again to your computer via USB and upload the program that you haven written in the last lab.<br> 
+Double check that everything is still working, i.e. when touching one of the touch buttons you should see the touch signals show on the Serial monitor.<br><br>
 
-Connect your music card and ESP32 to your computer viq USB and upload the program that we haven written in the last Lab. When touching one of the sensor, your ESP should send a message to your computer that the Processing script can understand and change its background color.<br><br>
+ <h3 class="headline">(5) Visualizing User Input with Processing</h3><br>
 
-<img src="images/lab2/connect_card.jpg" width="300px"><br clear=all><br>
-    
-<h4>Create Processing Script that Listens to Serial Communication</h4><br>
-    
+
+<h4>Receiving Touch Input in Processing:<br> Create Processing Script that Listens to Serial Communication</h4><br>
+
+In the last lab, we sent the touch input to the Arduino IDE and plotted it in the Serial Monitor or Serial Plotter.<br>
+Since Arduino has no libraries for graphical user interfaces, we now want to instead send our touch input to Processing.<br>
+<br>
+
 <a href="https://processing.org" target="_blank">Processing</a> is a user interface protoyping platform that is based on Java. It was created by MIT students (and others) in their spare time starting in Spring 2001 and is nowadays used by thousands of makers and UI designers. You can find useful information on how to use it in their <a href="https://processing.org/tutorials/" target="_blank">tutorial section</a>.<br><br>
 
-In the last lab, we encoded a touch event on the printed UI in the format:<br><br>
-(sensor ID),(is_touched);<br><br>
-    
-(sensor ID) is in [0..2] and represents the ID of the observed touch sensor<br>
-(is_touched) is in [0..1] and is 0 if the sensor is not touched, and 1 if it is touched<br><br>
+In the last lab, we encoded a touch event in the format:<br><br>
 
-Now that we are writing Serial message depending on whether the button is pressed or not pressed, we can write the Processing script that listens to the Serial communication and changes its visualization depending on the number read.<br><br>
+<code>(sensor ID),(is_touched)(newline)</code><br><br>
+    
+(sensor ID) is either 0, 1 or 2 and represents the ID of the observed touch sensor.<br>
+(is_touched) is either 0 or 1 (0 if the sensor is not touched, and 1 if it is touched).<br><br>
+
+And wrote it to the Serial port using <code>Serial.print()</code>.<br><br>
+
+In order to use this information in Processing, we need to write a Processing script that listens to the Serial communication.<br><br>
 
 To do this, open Processing and import the <a href="https://processing.org/reference/libraries/serial/index.html">Serial library</a>.<br>
-<pre>import processing.serial.*;</pre><br><br>
+<pre>import processing.serial.*;</pre><br>
 
-Next, you need to create a new port by creating an object from this class: <br>
-<pre>Serial myPort;</pre><br><br>
+Next, you need to create a new port that can be used for communication by creating an object from this class: <br>
+<pre>Serial myPort;</pre><br>
 
-To initialize this object, you need a reference to the current application ('this'), a portname, and the baudrate to which the object should listen. You already know the baudrate and you can get the portname with this:<br><br>
+To define the port, you need to define three things: (1) you need to tell the port which application will listen to it, you can do this with a reference to the current application ('this'), (2) you need to tell the port its portname, and (3) you need to tell the port at which baudrate it should listen to be able to decode the messages. <br><br>
 
-<pre>myPort = new Serial(this, portName, 9600);</pre><br><br>
+<pre>myPort = new Serial(this, portName, baudrate);</pre><br>
     
-Now you can initialize your Serial connection:<br><br>
-    
+For the <code>portName,</code> you can get a list of all avaialble ports from the Serial library.<br> 
+By accessing different buckets of the list, you can get access to the name of each port.<br>
+Check if the correct portname is in bucket 0, 1, or 2 by printing it.<br><br>
+
 <pre>// check which port you use: 0, 1, 2?
-// it helps to verify you are listening to the right port with print(portName);
-String portName = Serial.list()[2];</pre><br><br>
+String portName = Serial.list()[2];
+print(portName);</pre><br>
 
+For the <code>baudrate</code>, you already know this from your Arduino program that you uploaded to the microcontroller.<br>
+Check in your Arduino program with which baudrate you initialized the Serial communication.<br>
+If you use a different baudrate that you wrote into the Arduino program, you will only get a lot of random stuff back.<br><br>
+
+Now that your port is defined, we are ready to listen to it and check if data is available, but before we do this let's briefly look at the Processing program structure.<br><br>
+
+<h4>Processing Program Structure: setup() and draw() functions</h4><br>
+
+Similar to Arduino, every Processing program has two functions: one that is run only once (setup()) and one that is looping forever (draw()).<br><br>
+
+Before we move to the next step, let's create a setup function:<br><br>
+
+<pre>
+void setup() { // runs only once
+  
+}
+</pre><br>
+
+and move all your setup code for defining the port there.<br><br>
+
+Next, create an empty draw function:<br>
+
+<pre>
+void draw() { //runs infinitely
+  
+}
+</pre><br>
+
+We are going to fill this in the next step.<br><br>
+
+<h4>Reading Data from the Serial Port</h4><br>
+
+Now that we have the port defined, we can see if data is available.<br>
 In the draw function, you need to first check if there is data on the port available, and then you can read the value from the port.<br><br>
 
 <pre>int val;
-if ( myPort.available() > 4) { // If there is a message with at least 4 characters
+if (myPort.available() > 4) { // If there is a message with at least 4 characters because we are sending in the format [sensorNumber comma touched semicolon] with one character each
     String val = myPort.readStringUntil(';'); // reads a String until the character ';' is found
-  }</pre>
+  }</pre><br>
+
+Note that we use <code>myPort.readStringUntil()</code>, which we can do because we are sending a string on the serial port from our Arduino program that is looping on the microcontroller. If we send other data-types, we would have to use a different function so Processing knows how to convert the un-typed data that is coming through the port at the specific baudrate.<br><br>
+
+Next, check if this is working. We recommend you print() the String value to the Processing command line, run your Processing program, and touch your touch sensor to see if something gets printed on the Processing command line. If that doesn't work for you, now would be a good moment to get some help.<br><br>
+
+<h4>Visualizing the Incoming Touch Sensor Data</h4><br>
+
 
 Now you can do something based on the String.<br><br>
     
@@ -181,7 +232,10 @@ Now, use the (sensor_ID) to address the right button and the (is_touched) messag
 
 Remember that msg[0] is the (sensor_ID) and msg[1] is the (is_touched) event. 
     
+<!--   This means that when touching one of the touch buttons, your ESP should send a message to your computer that the Processing script can understand and change its background color.
+ -->
 
+<!--  In particular, we are going to wire up a button, and when the button is pressed, we will show this in Processing by coloring the corresponding button in the digital UI and starting a song.<br><br>
 <!--
 <h4>Replacing the Standard Button with your Printed Touch Button</h4><br>
 
