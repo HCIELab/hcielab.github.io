@@ -151,7 +151,7 @@ Now that we have the port defined, we can see if data is available.<br>
 In the draw function, you need to first check if there is data on the port available, and then you can read the value from the port.<br><br>
 
 <pre>int val;
-if (myPort.available() > 4) { // If there is a message with at least 4 characters because we are sending in the format [sensorNumber comma touched semicolon] with one character each
+if (myPort.available() >= 4) { // If there is a message with at least 4 characters because we are sending in the format [sensorNumber comma touched semicolon] with one character each
     String val = myPort.readStringUntil(';'); // reads a String until the character ';' is found
   }</pre><br>
 
@@ -159,25 +159,98 @@ Note that we use <code>myPort.readStringUntil()</code>, which we can do because 
 
 Next, check if this is working. We recommend you print() the String value to the Processing command line, run your Processing program, and touch your touch sensor to see if something gets printed on the Processing command line. If that doesn't work for you, now would be a good moment to get some help.<br><br>
 
-<h4>Visualizing the Incoming Touch Sensor Data</h4><br>
+<h4>Creating a Visualization for the Incoming Touch Sensor Data</h4><br>
+
+Now we can do something based on the incoming Strings.<br>
+In the next step, we want to create a bar that goes up and down depending on if the sensor is touched or not.<br>
+Let's start with a single bar for touch sensor 1 and we can do the rest later.<br>
 
 
-Now you can do something based on the String.<br><br>
-    
-In the last lab, we encoded a touch event on the printed UI in the format:<br><br>
-(sensor ID),(is_touched);<br><br>
+<img src="images/lab2-bar-down.png" width="300px">
+<img src="images/lab2-bar-up.png" width="300px"><br>
 
-Your task is to visualize the incoming serial messages in a Processing Script. We will see 3 bars that go up and down if one or multiple of the physical buttons get touched. It should look like this:<br><br>
-    
-<img src="images/lab2/processing_bars.png" width="300px"><br clear=all><br>
-    
-We created a Processing script for you that has the bars already implemented but lacks the Serial Communication.<br>
-You can download the script here: <a href="images/lab2/Serial_Processing.zip">SCRIPT</a><br><br>
-    
-Your task is to add the Serial communcation that receives the touch signal from your printed touch sensors and show their state with the 3 bars, i.e. a high bars shows that the sensor is touched and a low bar shows that the sensor is not touched. You can use the 3 boolean variables touch_0, touch_1, and touch_2 in the script to this end. <br><br>
-    
-You will have to split the incoming message into its two parts (sensor_ID) and (is_touched). Use the String split function to do that. You can find information on how to use it in the <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html" target="_blank"> Java String reference</a>.<br><br>
-<pre>String[] sensor_data = val.split(",");</pre><br>
+Let's first create the bar with a fixed width of 100px and a fixed height of 300px.<br>
+Here are some useful references:<br><br>
+
+For setting the size of your application window:<br>
+<ul>
+  <li><a href="https://processing.org/reference/size_.html">size()</li>
+</ul>
+<br>
+
+For drawing the rectangle:<br>
+
+<ul>
+  <li><a href="https://processing.org/reference/rect_.html">Rect</a></li>
+  <li><a href="https://processing.org/reference/rectMode_.html">RectMode</a></li>
+</ul>
+<br>
+
+For coloring the bar and the background, you may want to look at:<br>
+<ul>
+  <li><a href="https://processing.org/reference/fill_.html">Fill</a></li>
+  <li><a href="https://processing.org/reference/background_.html">Background</a></li>
+</ul>
+
+<br>
+
+Once you are done it should look like this:<br><br>
+
+<img src="images/lab2-bar-up.png" width="300px"><br>
+
+Next, we can connect the height of the bar to the incoming touch sensor data coming from the serial messages in our Processing Script.<br>
+But before we can do this, we first have to do some String Processing on the incoming message.<br><br>
+
+<h4>Splitting the Incoming Message String into Individual Values</h4><br>
+
+What we are currently printing to the command line are String in the format of "0,1;" (sensor_ID) and (is_touched).<br>
+However, to analyze this data in our code we have to split it again in two individual values.<br><br>
+
+Use the String split() function to do that.<br>
+You can find information on split() and how to use it in the <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html" target="_blank">Java String reference</a>.<br>
+Once you have both the <code>sensor_ID</code> and <code>is_touched</code> seperated, we recommend you check that this worked by printing them to the command line before moving on.<br><br>
+
+<h4>Connecting the Incoming Touch Signals to the Visualization</h4><br>
+
+Next, we will connect the height of the bar to the incoming touch signal.<br>
+A high bar shows that the sensor is being touched.<br>
+A low bar shows that the sensor is not being touched.<br><br>
+
+<b>Tips</b>
+<ul>
+  <li>If you plan to use a boolean in Processing, the datatype is spelled out <code>boolean myVariable;</code> not <code>bool</code> like in Arduino.</li>
+  <li>If you do a String comparison, remember you cannot use <code>stringVariable == "StringValue"</code>, instead you need to use <code>equals()</code>, check the reference here <a href="https://processing.org/reference/String_equals_.html">equals()</a></li>
+  <li>Don't forget to clear the background at the beginning of the draw() function. Otherwise, you are just drawing each update on top of the previous update, so you may actually not see the bar changing since a shorter bar overlaid over a longer bar is not visible. Use <code>background(255,255,255);</code> or any other color you like.</li>
+</ul>
+
+<br><br>
+
+Once you are done, it should look like this:<br><br>
+
+<img src="images/lab2-bar-down.png" width="300px">
+<img src="images/lab2-bar-up.png" width="300px"><br>
+
+ 
+<h4>Extend Visualization to Three Bars</h4><br>
+
+Next, we want to extend our user interface to have a bar for all three touch sensors.<br>
+It should look like this and work for touching each touch sensor individually:<br><br>
+
+<img src="images/lab2/processing_bars.png" width="300px"><br><br>
+
+<h4>Extend to Multiple Simultaenous Touch Inputs</h4><br>
+
+Next, we want to also allow for simultaenous touch input.<br>
+This means that if two or three touch buttons get pressed simultaenously, two or three bars should go up.<br>
+Extend your code to include this functionality.<br><br>
+
+
+
+    <img src="images/lab2-colorbars.png" width="300px"><br clear=all><br>
+
+<!-- We created a Processing script for you that has the bars already implemented but lacks the Serial Communication.<br> -->
+<!-- You can download the script here: <a href="images/lab2/Serial_Processing.zip">SCRIPT</a><br><br>     -->
+
     
 <h4>Combine the Physical Interface with a Digital Application</h4><br>
 
