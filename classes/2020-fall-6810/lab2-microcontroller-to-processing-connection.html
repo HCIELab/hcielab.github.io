@@ -234,28 +234,41 @@ Once you are done, it should look like this:<br><br>
 <h4>Extend Visualization to Three Bars</h4><br>
 
 Next, we want to extend our user interface to have a bar for all three touch sensors.<br>
-It should look like this and work for touching each touch sensor individually:<br><br>
+It should look like the image below.<br>
 
-<img src="images/lab2/processing_bars.png" width="300px"><br><br>
+<img src="images/lab2-three-bars-one-touched.png" width="300px"><br><br>
 
-<h4>Extend to Multiple Simultaenous Touch Inputs</h4><br>
+Touching multiple touch sensors simultaenously already works because we are reading messages from the serial port at such a high speed that they come after one another.
+<br><br>
 
-Next, we want to also allow for simultaenous touch input.<br>
-This means that if two or three touch buttons get pressed simultaenously, two or three bars should go up.<br>
-Extend your code to include this functionality.<br><br>
+<img src="images/lab2-three-bars-multiple-touched.png" width="300px"><br><br>
 
-
-
-    <img src="images/lab2-colorbars.png" width="300px"><br clear=all><br>
 
 <!-- We created a Processing script for you that has the bars already implemented but lacks the Serial Communication.<br> -->
 <!-- You can download the script here: <a href="images/lab2/Serial_Processing.zip">SCRIPT</a><br><br>     -->
 
-    
-<h4>Combine the Physical Interface with a Digital Application</h4><br>
+<h4>Let's Integrate this with our Music Card</h4><br>
 
-We created the skeleton of a music interface for you. First step is to download the skeleton <a href="software/music_card_nosolution.zip">"here"</a> and confirm that you can run it.<br><br>
+Now that we have basic touch input working in Processing, we can connect it to our music card.<br><br>
+
+We already created the skeleton of a music interface for you. <br>
+But before we can use it and play music, we need to install Processings Sound Library.<br><br>
+
+<h4>Install Processing 3 Sound Library</h4><br>
+
+To install the Processing Sound Library, go to <b>Sketch -> Import Library -> Add Library</b>.<br>
+Then in the 'Libraries' Tab, search for 'sound' and install the one that is officially from Processing (see image below).<br><br>
+
+<img src="images/lab2-add-library.png" width="300px"><br><br>
+<img src="images/lab2-add-library-sound.png" width="600px"><br><br>
+
+<h4>Run Skeleton Code</h4><br>
+
+Once you have the library installed, download the <a href="software/music_card_nosolution.zip">skeleton code from here</a>.<br>
+Inside the folder, open and run the <b>music_card_nosolution.pde</b>.<br><br>
     
+<h4>Add Touch Buttons</h4><br>
+
 Next, we want to implement touch buttons in the UI that start/pause the music, and two buttons for moving to the next or the previous song<br><br>
     
 We start by adding digital buttons to the music card UI. We created a class "Buttons" that lets you create buttons in Processing:
