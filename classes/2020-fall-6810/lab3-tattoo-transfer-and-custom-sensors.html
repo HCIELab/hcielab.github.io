@@ -49,403 +49,116 @@
       <section class="col-md-8 pull-right main-content">
 </br></br></br></br>
         <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2020)</a><br></h>
-        <h2 class="headline">Tattoo Transfer Paper and Signal Visualization</h2>
+        <h2 class="headline">Fabrication and Control of Electroluminescent Displays</h2>
       
           <hr>
 
  <h3 class="headline">Your Task for Today</h3>
 
-Today, we want to move our circuits off the paper and onto other objects.<br>
-In particular, we are going to use tattoo transfer paper to transfer an inkjet printed circuit onto a leather armband.<br>
-The leather armband will have a menu created via inkjet printed touch buttons (perhaps include slider and multi-touch here?), an inkjet-printed bend sensor that recognizes when the armband is put on and thus curved or removed from the arm and placed flat on the table, and an IMU attached to the circuit that can count steps.<br>
-After we made the hardware design, we will do some signal processing and show the sensed and processed signals in Processing.<br>
+In the next two labs, we will build an interactive mug. It can sense its own temperature and display how hot it is with an electroluminescent display that we will print in this lab. The final product should look like this:<br><br>
 
-<img src="images/leather-armband.png" width="253px">
+(insert picture of the mug here)<br><br>
+    
+For today, we will focus on printing the electroluminescent display and building the controller circuit to turn it on and off.<br>
+Recall from lecture (insert which lecture) that electroluminescent displays consist of 4 layers: two conductive layers that sandwich the light emitting phosphor layer. To avoid shorts, we also have a insulating dielectric layer that prevents the two conductive layers from touch.<br><br>
+    
+We will use these materials to build a display today:<br>
+    (1) transparent sheets coated with ITO.<br>
+    (2) screen printed blue phosphor<br>
+    (3) screen printed dielectric<br>
+    (4) screen printed silver nano-particle ink as the bottom electrode<br><br>
+    
+We sent you two precoated sheets that already contain the ITO, phosphor, and insulator layer. Your task is to add the last missing layer: the silver conductor. The displays will only emit light in these areas where you print silver and will stay dark everywhere else.<br>
 
-<img src="images/on-body-menu.png" width="453px"><br>
-<img src="images/on-body-bend-sensor.png" width="553px"><br><br>
+  <img src="images/lab3/EL_schematic.png" width="500px"> <br><br>
+    
+As you have seen in the photo, we want to print a display shaped as a steaming coffee mug. So, in order to give the display this shape, we will fabricate a stencil that will give the display its shape. Next, we will apply the stencil onto the sample that we sent you in your fabrication bags. And finally, we will screen print onto the stencils with conductive silver nano-particle ink. So, let's get started with fabricating the stencil.<br>
+    
+<h2>Preparing the display sample</h2>
+    You will notice that the printed layers (white) do not cover the entire sample. There is a bar that is still transparent. This area allows us to get access to the ITO layer. We will connect our power supply to the ITO. The best way to do that here is to use copper tape.<br><br>
+    Take the copper take from your fabrication bag and glue the tape over the entire bar such that it is completely covered and make it even a bit longer (about 1" (2.5cmn)). The copper tape connects to the ITO and we need this little flap to connect it to a power supply later in the tutorial.
+    
+<h2>Fabricating a stencil</h2>
+    
+This part of the tutorial involves laser cutting the stencil out of a transparent adhesive sheet. <br><br>
+    
+Step 1: Download the svg file of the coffee mug design here. (ask Ticha to make one)<br><br>
+Next, open the file in your favorite vector design program (e.g. Adobe Illustrator, InkScape,...). We will show the rest of this lab with Illustrator but the basic operations are the same in each program. The mug should look like this:<br><br>
+   
+  <img src="images/lab3/mug.svg" width="200px"> <br><br>
+    
+Open the svg file and check if the mug design has the right size. It should be around 2"x2", 5x5cm or 500x500 pixel.<br><br>
+    <img src="images/lab3/ill_size.png" width="200px"> <br><br>
 
- <h3 class="headline">First Experience with Tattoo Transfer: Decorative Artwork</h3><br>
+Fun facts about laser cutting: A laser cutter operates in two different modes (1) raster, and (2) vector. In "Raster" mode, the laser moves from the top of the esign down to the bottom line by line, i.e. it does not follow the outlines of a shape. If we want the laser to follow the design's outline, we have to choose the "vector" mode. If you use a Universal laser cutter you have to do two things:<br><br>
 
-We recommend before you go down into the circuit design experience, you check out how the tattoo transfer paper works using a simple aesthetic design and a test object other than the leather armband. <br><br>
+First, you have to change the color of the outlines to red. Select all lines of the coffee mug and change their color to Red.<br><br>
+    <img src="images/lab3/ill_color.png" width="300px"> <br><br>
+Next, you have to set the line thickness. Set it to 0.001 (or hairline in other graphic editors).<br><br>
+    <img src="images/lab3/ill_stroke.png" width="200px"> <br><br>
+    
+These two parameters tell the driver of the laser cutter to treat it as a vector and not as a rasterized image. Good!<br>
+    Now, click on print and select the laser cutter as the printer. 
+    
+    (Add the other steps to laser cut a stencil here)
+<h2>Applying the stencil on the El display sample</h2>
+    Take the stencil out of the laser cutter. Next, we want to apply it onto our EL display sample. To this end, first peel the protective layer from the back side of the foil. The foil should be adhesive on one side. Now, try to stick the stencil as good as you can on top of the display sample. Make sure that the cut out coffee mug covers the white areas completely and don't cover the area where you put the copper tape before.<br><br>
+<h2>Spray/Screen print the silver ink on your stencil</h2>
+    Great you printed the silver onto the sample. It is still wet though and not conductive.<br>
+    This ink needs thermal treatment to make the silver particles fuse together and become conductive. Take the heat gun in the workshop and set it to exactly 120C (250F). Heat the sample for about 3 minutes. <br><br>
+    Next, we have to test if the silver is nice and conductive. As in lab 1, get a multimeter and check if the layer is conductive. You should read something around 1Ohm resistance.<br><br>
+    Congratulations. You fabricated your first flexible electroluminescent display. Let's connect it to a power supply and light it up!
+<h2>Connecting it to the Power Supply</h2>
+EL displays require an alternating current between the two elecrodes to excite the phosphor and make it light up. Therfore, just connecting it to a 12V DC power supply won;t do the trick.<br><br>
+    We use an inverter to generate 110V AC from a 12V DC power supply.<br><br>
+    Warning! The 110V are low current and not really dangerous, but they can give you an unpleasant shock. Therfore, never plug it in when the electrodes are exposed our you hold the display in your hands! Trust me!<br><br>
+    
+    The inverter is in your fabrication bag. Take it out along with the 12V power supply that we also put in the bag. Your first step is to connect the inverter to the power supply (but leave the power supply unplugged).<br><br>
+    (picture here)<br><br>
+    
+    Now, take your EL display and put some copper tape on the silver (and only the silver) layer that you just printed. Again, leave a little flap that makes it easier to connect a crocodile connector to it. <br><br>
+    Next, take two crocodile wires and connect the two electrodes of your display to the two wires of the inverter. The order doesn't matter.<br><br>
+    Turn the display around such that you see the top side. The silver should be on the bottom now and you can't see anymore. <br><br>
+    When this is done, there is only one thing left. Plug in the power supply to your power outlet. You should see a bright EL display in the shape of the coffee mug now. If you see that, congratulations. If not, check if all wires are connected properly or ask for some help from the TAs.<br><br>
+    
+    <h2>Building the control circuit for EL Displays</h2>
+    The goal of this final part of the lab is to build a control circuit that lets you turn on and off the display and even set it's brightness (e.g. dimming it down). The ESP32 does not have a suitable AC switch built-in. Thus, we have to build or own. We will use a Triac to switch it and an optocoupler to control the triac from the ESP32. Below you see the schematic of the circuit. Get yourself a breadboard, wires and the components and start building it.
+    <h2>Write the controller program</h2>
+    Great! We can now control EL displays with the pins of the microcontroller. Next, we have to write a script that lets the display blink. This is very simple with the circuit you already built. Check again, to which pin you connected the optocoupler and us digitalWrite(pin,HIGH) to turn it on, and digitalWrite(pin,LOW) to turn it off.<br><br>
+    You can also dim it by using the PWM signal of the ESP pins. Replace the digitalWrite command with these two commands:<br><br>
+    <pre>// the number of the LED pin
+const int ledPin = 16;  // 16 corresponds to GPIO16
 
-<h2 class="headline">Transferring an Existing Tattoo Design</h2><br>
-
-In the first step, let's just learn how to transfer an existing tattoo so we get used to the process.<br>
-In your package, we already inkjet printed with regular CMY ink this decorative tattoo for you onto  <a href="https://www.amazon.com/gp/product/B0043WJ3OA/ref=ppx_yo_dt_b_asin_title_o08_s00?ie=UTF8&psc=1">this tattoo transfer paper.</a><br>
-Since this is only a decorative tattoo (no silver ink), you apply it to your skin if you like to.<br><br>
-
-<img src="images/tattoo-transfer.png" width="253px"><br><br>
-
-So now how do you get this tattoo on an object?<br>
-
-Cut out a square area around the design on the white sheet. Put the remaining white sheet back into the box for later use.<br><br>
-
-Next, cut our a similar sized area from the green sheet (the adhesive sheet), which we will use to form the adhesive layer. Put the remaining green sheet back into the box for later use.<br><br>
-
-Apply the green sheet (adhesive sheet) by peeling away the green backing and then place the sticky transparent film on to the top of the printed image.<br><br>
-
-<img src="images/tattoo-transfer2.png" width="250px"><br><br>
-
-Use a your fingers or a ruler to make sure the adhesive sheet is attached over the entire area, this is important so make sure you press on it properly across the entire area, otherwise parts of your tattoo will not have adhesive on them and will not stick to the object.<br><br>
-
-Next, cut out the design around its outline using a scissor.<br><br>
-
-<img src="images/tattoo-transfer3.png" width="250px"><br><br>
-
-Next, remove the clear plastic from the adhesive layer (yes all that's left will be the glue), which exposes the adhesive.<br><br>
-
-<img src="images/tattoo-transfer4.png" width="250px"><br><br>
-
-Get a wet sponge or wet cloth ready.<br>
-Then apply the tattoo adhesive side to your skin and cover with the wet cloth for 10-15 seconds, you will know you are getting there when the paper backing slides off easily.<br><br>
-
-<img src="images/tattoo-transfer5.png" width="235px">
-<img src="images/tattoo-transfer6.png" width="265px">
-<img src="images/tattoo-transfer7.png" width="235px"><br><br>
-
-Great, we hope it worked and you are ready to create your own design.<br><br>
-
-<h2 class="headline">Creating your Own Tattoo Design</h2>
-
-Ok, so in the next steps, we want to repeat the process but use a very simple decorative design you made.<br><br>
-
-Take the sharpie we added to your package and draw the 6.810 logo onto the tattoo transfer paper (the white sheet).<br>
-Important 1: You need to draw on the <b>glossy side</b> of the paper<br>
-Important 2: You need to <b>mirror</b> your image since it will be flipped when you apply the tattoo paper to your skin. If you don't mirror it you have the same problem as we below. I know this needs some head twisting when you draw it out, if it helps use a drawing program to see how it would look like mirrored.<br><br>
-
-Once you have drawn your own design, repeat the process as mentioned above and transfer the tattoo onto your skin or on an object of your choice (if you have nothing available, a shampoo bottle or other container will serve).<br><br>
-
-<img src="images/tattoo1.jpg" width="235px">
-<img src="images/tattoo2.jpg" width="180px">
-<img src="images/tattoo3.jpg" width="230px">
-
-<img src="images/tattoo4.jpg" width="235px">
-<img src="images/tattoo5.jpg" width="180px">
-<img src="images/tattoo6.jpg" width="205px">
-
-<img src="images/tattoo7.jpg" width="155px">
-<img src="images/tattoo8.jpg" width="235px">
-<img src="images/tattoo9.jpg" width="265px">
-
-<img src="images/tattoo10.jpg" width="235px">
-<img src="images/tattoo11.jpg" width="235px"><br>
-Note that this is wrong since the image was not mirrored during the design phase!<br><br>
-
-<div style="background:#04a47c;padding:10px;">Checkoff 1: Show that you applied both tattoos (the one we gave you and your own) to an object of your choice.</div><br>
-
-<h2 class="headline">Applying Circuit Design Tattoo to the Leather Arm Band</h2><br>
-
-We are now going to use some tattoos that have silver inkjet printed traces.<br>
-Please do not apply these tattoos to your skin anymore since we don't know if you may have any skin reactions to the silver.<br> <br> 
-
-To save us some time today, we already inkjet printed the circuit design for you today.<br>
-If you want to see the design file that we used for printing, you can open the circuitdesign.ai (add link) and you can also see the design file below, both virtual and then the printed tattoo transfer paper sheet you have in your package.<br><br>
-
-You can see that our design contains touch buttons for the menu, a bend sensor (the wavy lines, more on this later), and also a placeholder to attach an IMU later.<br><br>
-
-Once you feel comfortable with the tattoo application process, please take the circuit design for the armband and apply it to it as shown in the image below.<br><br>
-
-<img src="images/tattoo-art-and-electronics-layer.png" width="500px"><br>
-(left) The art layer (in black) and the electrical traces (in red and blue). <a href="https://dl.acm.org/doi/10.1145/2901790.2901885">Paper Skintillates</a><br><br>
-
-You can also see the layering here explained:<br><br>
-
-<img src="images/tattoo-layering.png" width="450px"><br>
-The paper backing and tattoo substrate are the white sheet, then you put your art layer and the conductive layer, and finally you close it off with the green adhesive sheet.<br>
-
-<h2 class="headline">Testing the Circuit</h2><br>
-
-Once you applied the circuit you want to make sure all the wires are in-tact.<br>
-Use your multimeter to probe each wire.<br>
-If you find that a wire is broken, you can use the silver pen and add some silver in those locations where particles didn't correctly transfer to fix it.<br><br>
-
-<img src="images/multimeter.jpg" width="250px">
-<img src="images/drawing-with-silverpen.jpg" width="250px"><br><br>
-
-
-<h2 class="headline">Adding IMU and LED</h2><br>
-
-Once you confirmed that everything works, you are ready to add the electronic components onto the armband.<br>
-In our case, we are only going to add an IMU and a simple LED in this step.<br>
-Remember that you need to use z-tape to attach the components to the circuit: apply z-tape to the back of the individual components PCB boards and then attach it to the armband carefully. <br><br>
-
-<b>Important:</b> For the microcontroller, we are not yet going to attach it to the circuit and instead are going to use the Attiny as a dual-inline package for now to program it with the Tiny Programmer and later replace it with our SMD version..<br>
-
-<img src="images/morphsensor-IMU.jpg" width="200px">
-<!-- <img src="images/morphsensor-attiny.jpg" width="250px"><br> -->
-
-<img src="images/chibitronics-led1.png" width="200px">
-<img src="images/chibitronics-led2.png" width="180px"><br><br>
-
-<h2 class="headline">Connecting to Tiny Programmer</h2><br>
-
-As last time, we are going to use some conductive copper tape to connect to the jumper wires and then connect the jumper wires to the Tiny Programmer with our ATtiny on board.<br><br>
-
-<img src="images/tiny-programmer-in-action.png" width="400px"> <br><br>
-
-<h3 class="headline">Blinking the LED</h3><br>
-
-To do a first test if your armband works, lets write some code that blinks the Chibitronics LED.<br><br>
-
-<div style="background:#04a47c;padding:10px;">Checkoff 2: Show that your Armband's LED blinks.</div><br>
-
-
-<h3 class="headline">Signal Processing and Visualizing Sensor Output</h3><br>
-
-Next, we will write both Arduino to read the sensor values and process them, and Processing code to visualize what the sensors are reading.<br><br>
-
-<h4>Printing a Float to Serial</h4><br>
-
-Last time we send a value via Serial it was only a 0 or 1 for button pressed or not pressed. However, if we want to visualize the actual sensor data, we need to send floats representing the sensor values.<br>
-Serial, however, can only transmit binary information, i.e. 0 or 1.<br>
-Thus, if we want to send a value through serial, we need to first convert it into binary information.<br>
-We already provide you with the code below <a href="http://www.varesano.net/blog/fabio/sending-float-variables-over-serial-without-loss-precision-arduino-and-processing">(tutorial here)</a>.<br><br>
-
-Arduino (float to binary):<br><br>
-
-<code>
-Serial.begin(9600);<br>
-float analog_touch = sensor1.capacitiveSensor(samples_touch);<br>
-serialFloatPrint(analog_touch);<br>
-delay(100);<br>
-}<br>
-
-void serialFloatPrint(float f) {<br>
-  byte * b = (byte *) &f;<br>
-  Serial.print("f:");<br>
-  Serial.write(b[0]);<br>
-  Serial.write(b[1]);<br>
-  Serial.write(b[2]);<br>
-  Serial.write(b[3]);<br>
+// setting PWM properties
+const int freq = 5000;
+const int ledChannel = 0;
+const int resolution = 8;
+ 
+void setup(){
+  // configure LED PWM functionalitites
+  ledcSetup(ledChannel, freq, resolution);
+  
+  // attach the channel to the GPIO to be controlled
+  ledcAttachPin(ledPin, ledChannel);
 }
-</code><br>
-
-Processing (binary to float):<br><br>
-
-<code>
-void draw() {<br>
-  if(myPort.available() > 0) {<br>
-    char inByte = myPort.readChar();<br>
-    if(inByte == 'f') {<br>
-      // we expect data with this format f:XXXX<br>
-      myPort.readChar(); // discard ':'<br>
-      byte [] inData = new byte[4];<br>
-      myPort.readBytes(inData);<br><br>
-      
-      int intbit = 0;<br><br>
-      
-      intbit = (inData[3] << 24) | ((inData[2] & 0xff) << 16) | ((inData[1] & 0xff) << 8) | (inData[0] & 0xff);<br><br>
-      
-      float f = Float.intBitsToFloat(intbit);<br>
-      println(f);<br>
-    }<br>
+ 
+void loop(){
+  // increase the LED brightness
+  for(int dutyCycle = 0; dutyCycle <= 255; dutyCycle++){   
+    // changing the LED brightness with PWM
+    ledcWrite(ledChannel, dutyCycle);
+    delay(15);
   }
-</code><br>
 
-If everything is working, you should see the float information run by in the Processing window.<br><br>
-
-<h4>Visualizing the Sensor Input At the Current Point in Time</h4><br>
-
-Next, we want to visualize the sensor input.<br>
-For starters, we just want to show the value at the current moment in real-time.<br><br>
-
-Reuse some of the code you wrote in lab 1 for drawing a rectangle and an output text. <br>
-Connect the rectangle height to the incoming float value.<br>
-When the float value is above a certain value, the bar should change color and the text should show 'touched' instead of 'hovered', also if the hand is not even close we want to write 'no input'.<br>
-Also indicate on the bar where your threshold is by drawing a line at the height of your cut off value for touched, hovered, and no touch.<br>
-
-<img src="images/visualize1-initial.png" width="200px"> 
-<img src="images/visualize2-hover.png" width="195px"> 
-<img src="images/visualize3-touched.png" width="200px"> <br><br>
-
-<h4>Visualizing the Sensor Input Over Time</h4><br>
-
-Next, we also want to wrote our own visualization over time, so we can keep track of how often the user has touched.<br>
-Extend your code to also contain a line graph. We recommend you make use of the line() function in Processing for this.<br>
-Your graph should color different no input, hover, and touch.<br><br>
-
-<img src="images/overtime1.png" width="150px"> 
-<img src="images/overtime2.png" width="205px"> 
-<img src="images/overtime3.png" width="270px"> <br><br>
-
-You probably already noticed that you have to apply a scaling factor to the touch input otherwise you values are probably  plitted outside of the window and you can't see them. If you apply to much scaling however, your values are squeezed together too much and you can see the data anymore.<br><br>
-
-Also we have only applied a very basic tresholding to the touch input. Those values can change depending on if the user's finger is wet or not and what the environmental moisture is. In the next lab we will apply some advanced techniques, such as adaptive tresholding to clean up the input signal.<br><br>
-
-<h3 class="headline">Bend Sensor</h3><br>
-
-The last thing we want to look at today is the bend sensor that is part of your arm band.<br>
-The images below show inkjet printed bend sensors in a variety of different shapes.<br>
-The bend sensor is based on the paper <a href="https://dl.acm.org/doi/10.1145/3024969.3024989">Flexy (ACM TEI 2017)</a> <br><br>
-
-<img src="images/flexy.jpg" width="700px"><br><br>
-
-<h4>Drawing your Own Bend Sensor</h4>
-Before we wire up the bend sensor that is part of your armband, let's draw our own bend sensor.<br>
-How should a layout for a bend sensor look like?<br><br>
-
-<b>Basic Working Principle Bend Sensor</b><br>
-The bend sensors above are nothing more than silver inkjet printed partciles on paper. <br>
-Bending the paper in lets the tiny particles move closer to each other, bending the paper in the opposite direction lets the particles move apart from each other. One can measure this bending effect by <b>monitoring resistance</b>: <br><br>
-<b>bending in:</b> brings particles closer together and thus reduces resistance. <br>
-<b>bending out:</b> moves particles closer away from each other and thus increases resistance.<br>
-The higher the magnitude of flexing, the higher is the change in resistance.<br>
-This is the basic sensing principle behind <a href="https://en.wikipedia.org/wiki/Strain_gauge">resistive strain gauges.</a><br><br>
-
-<b>What determines bending accuracy and bending direction?</b><br>
-
-<ul>
-<li><b>number of sensing lines:</b> With more sensing lines, the resistance change to flexing is higher as compared to fewer sensing lines. Our sensor designs typically have 10 to 30 sensing lines.</li> 
-<li><b> line length:</b> the line length of our sensors varies between 2cm and 5cm. </li>
-<li><b>line width:</b> customize depending on the sensing material; more conductive materials such as silver nanoparticle ink, wider sensing lines result in a lower sensor response and are generally not preferred as more material is consumed with no advantage in sensing response. Instead, for applications that require less response range, fewer thin sensor lines can be drawn instead of a larger number of wide lines. </li>
-<li><b>line spacing:</b> linear and angular spacing between the sensor lines. Each of the sensor lines need not be parallel to each other and can be placed at different angular orientations. This enables sensing multi-axial deformations. In addition, the linear spacing between the sensor lines is kept much smaller than the sensor length. If the spacing is larger, then the change in resistance to flexing across sensor length is attenuated within the material laid out in perpendicular direction. </li>
-<li><b>composition:</b> how multiple sensing units within a geometry are laid spatially, e.g. two sensing units in a bird shape design are slightly curved to fit the wing shape better </li>
-<li><b>connecting traces:</b> traces connect the sensor design to the area on the substrate where contacts are tethered to a microcontroller; generally quite wide to have less resistance, and typically curved to avoid resistance change due to any uni-axial flexion.</li>
-</ul>
-<br>
-
-<b>Your Task: Draw your own bend sensor</b><br>
-
-Use the silver pen and draw your own bend sensor.<br>
-In particular, your bend sensor should measure (take one of Juergen's examples)</br>
-Sketch out the design.<br><br>
-
-
-<h4>Sensor Layout</h4>
-
-<b>Single Line:</b> The most basic design of a flex sensor is a single line of conductor, whose resistance is measured from its two ends. <br>
-<b>Two Parallel Lines:</b> The line can also be laid out in a U shape, resulting in two parallel lines responding to flexing with a higher response than a single line. <br>
-<b>Many Parallel Lines (what you see on the armband):</b> Eventually, an even longer line can be laid out in a zig-zag pattern of parallel lines to maximize the sensing lines subjected to bending in the parallel direction. <br><br>
-
-The image below illustrates this standard design that is also part of your armband. The sensor design senses bending predominantly along the direction of the parallel sensor lines, referred as the longitudinal axis.<br><br>
-
-<img src="images/flex-sensor-layout.png" width="300px"><br><br>
-
-<h4>Electronics</h4>
-The change in resistance can be measured either directly with a resistance meter or with a <b>standard voltage divider curcuit</b>.<br><br> 
-
-<img src="images/flex-sensor-layout-electronics.png" width="200px"> <img src="images/bend-sensor-schematic.png" width="300px"><br><br>
-
-The question now is what resistance values to chose for R1 and R2.<br>
-Actually, we only choose R1 since R2 is the resistance we want to measure in the end to determine how much the sensor was bend.<br>
-
-<b>Choosing R1</b><br>
-For R1, we want to choose a resistor that roughly matches the overall resistance of the bend sensor. <br>
-Michael: how do we know this? do we use the multimeter to measure at the two end points of the bend sensor?<br>
-In practice this means, that if in the flat state, the arm band has a resistance of 500Ω, we should use for R1 around 470Ω.<br> 
-
-<b>Calculating R2</b><br>
-
-To calculate R2, i.e. the change in resistance caused by flexing the sensor, we can use some math:<br><br>
-
-<img src="images/resistance-formula.png" width="200px"> <br><br>
-
-<b>R2:</b> the resistance of the printed sensor (varies as you bend it, so we want to measure this!)<br>
-<b>R1:</b> the known resistance (470Ω in our example)<br>
-<b>VCC:</b> supply voltage (5V from the Arduino)<br>
-<b>Vout:</b> measured voltage output (measured from pin A0, see schematic)<br><br>
-
-Implemented in piece of code this looks like this (perhaps have students implement this themselves):<br><br>
-
-<h4>Code</h4>
-
-<code>
-/*<br>
-  ReadAnalogVoltage<br>
-  Reads an analog input on pin 0, converts it to voltage, and prints the result to the serial monitor.<br>
-  Graphical representation is available using serial plotter (Tools > Serial Plotter menu)<br>
-  Attach the center pin of a potentiometer to pin A0, and the outside pins to +5V and ground.<br>
-*/<br><br>
-
-float R1 = 680;   //known resistance <br><br>
-
-void setup() {<br>
-  Serial.begin(9600);<br>
-}<br><br>
-
-void loop() {<br>
-  int sensorValue = analogRead(A0);<br>
-  // Convert the analog reading (which goes from 0 - 1023) to a voltage (0 - 5V):<br>
-  float voltage = sensorValue * (5.0 / 1023.0);<br>
-  Serial.println(voltage);<br><br>
-
-  float R2 = (voltage / (5 - voltage)) * R1;<br>
-  Serial.println(R2);<br>
-  delay(1000);<br>
-}
-      </code>
- <br>
-<br>
-
-<h4>Your Task</h4><br>
-
-Wire up the bend sensor by building the circuit and write the code for reading the bend values.
-
-<div style="background:#04a47c;padding:10px;">Checkoff 3: Show that your bend sensor works and plots the correct values on the serial monitor.</div><br>
-
-
-
-
-
-
-
-The resistance of the pattern depends on the sensor dimensions by<br><br>
-
-<img src="images/sensor-layout-formula.png" width="100px"> <br><br>
-
-<b>L:</b> sensor length<br>
-<b>A:</b> cross-sectional area (number of lines * (line width * line thickness))<br>
-<b>𝜌𝜌:</b> resistivity of the sensing material<br><br>
-
-We present spatial arrangements of the sensor design in 1D & 2D for sensing surface deformations, in varied sensor geometries. For sensing more complex deformations of a 1D surface, a linear array of sensing units is presented. A radial array enables sensing of 2D deformations on a surface.<br><br>
-
-
-(left) An omni-directional flex sensor design (right) with intermediate tapping.<br>
-<img src="images/omni-directional-bend-sensor.png" width="500px"> <br><br>
-
-<h4>Example Bend Sensor Designs</h4><br>
-
-<img src="images/flexy.jpg" width="700px"><br><br>
-
-<b>Bird wing:</b> This design illustrates a composition of multiple sensing units. A flex sensor spanning each of the wings can capture flexion during wing flapping. Sensing lines in each unit span the wings partly and are slightly curved to better fit to the wing shape. (design dimensions: length = 45mm, width = 0.35mm, curved at 8°).<br><br>
-
-<b>Fish design:</b> This design illustrates how a sensor can mimic the visual appearance of the interactive object. We illustrate a sensor placed around the caudal fin (tail) of the fish. The sensor can sense the back and forth wavy movement of the tail. It has fewer sensing lines with varying spacing between them. (design dimensions: length of fin =30mm, width of fin = 44mm, line width = 0.5mm).<br><br>
-
-<b>Flower:</b> This design illustrates a circular arrangement of individual sensing units. The example design consists of five petals connected through a central unit. Each of the sensing units consists of varying line lengths to conform to the petal shape and is connected to the central connector. (design dimensions: length1 = 29.78mm, length2 = 35.36mm, length3 = 36.46mm, width =0.33mm).<br><br>
-
-<b>Crescent design:</b> This design illustrates embedding a flex sensing within an extremely curved surface. Length of the sensing lines is continuously varied to adapt to the crescent shape. (design dimensions: length of crescent: 77 mm, width of crescent: 22mm, line width: 0.35mm).<br><br>
-
-<b>Leaf design:</b> This design illustrates alignment of the sensing lines at an angle to better fit the target shape. A single sensor runs through the entire leaf shape. Intermediate tapping points can be added for granular sensing response. (design dimensions: leaf length: 80mm, width: 35mm, sensing lines aligned at 45°).<br><br>
-
-
-<table>
-	<tr>
-		<td>
-<img src="images/3d-geometry-measurement.png" width="260px"><br>
-Measuring the Curvature of objects with a single flex sensor.<br><br>
-</td>
-<td>
-
-<img src="images/inchworm-animation.png" width="200px"><br>
-A virtual inchworm animated with a single flex sensor.<br><br>
-</td>
-<td>
-<img src="images/origami-folding-guidance.png" width="210px"><br>
-Origami-Folding Tool that measures if you fold correctly.<br><br>
-</td>
-</tr>
-</table>
-
-
-<hr>
-
-
-
-
-
-
-<div style="background:#04a47c;padding:10px;">Checkoff 3: Show your Processing visualization to a member of the teaching team.</div><br><br>
+  // decrease the LED brightness
+  for(int dutyCycle = 255; dutyCycle >= 0; dutyCycle--){
+    // changing the LED brightness with PWM
+    ledcWrite(ledChannel, dutyCycle);   
+    delay(15);
+  }
+}</pre>
+
+<div style="background:#04a47c;padding:10px;">Checkoff 3: Show your EL display and let it blink</div><br><br>
 
 <!-- 
  <h3 class="headline">Safety</h3><br>
