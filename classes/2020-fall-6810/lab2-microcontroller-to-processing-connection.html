@@ -65,9 +65,10 @@ Today, we are going to connect your last lab's card design to Processing: When y
 
 <b>(done) (1) Circuit Design :</b> You will first draw the circuit design of your card by creating a 2D drawing of the wires and interactive touch and slider areas.<br>
 <b>(done) (2) Conductive Silver Inkjet Printing:</b> Next, you will print your design with conductive inkjet printing.<br>
-<b>(done) (3) Wiring up the Circuit:</b> In the next step, you will wire up your circuit using a breadboard and an ESP32 microcontroller.<br>
-<b>(done) 4) Sensing the Touch Signals:</b> Next, you will sense the touch signals using the CapacitiveSensor Library and apply filtering to the signals.<br>
-<b>(today) (5) Visualizing User Input:</b> Finally, we will setup the touch buttons and sliders in a programming environment called Processing, which will visualize when physical input on the touch buttons and sliders on screen and also play the corresponding songs. <br><br>
+<b>(done) (3) Wiring up the Button:</b> In the next step, you will wire up your button using a breadboard and an ESP32 microcontroller.<br>
+<b>(done) (4) Sensing the Touch Signals:</b> Next, you will sense the touch signals using the CapacitiveSensor Library and apply filtering to the signals.<br>
+<b>(today) (5) Visualizing User Input:</b> Next, we will setup the touch buttons <!-- and sliders --> in a programming environment called Processing, which will visualize when physical input on the touch buttons <!-- and sliders --> on screen and also play the corresponding songs. <br>
+<b>(today) (6) Wiring up the Slider:</b> Next, you will wire up your slider using a breadboard and an ESP32 microcontroller, similar to the Step 3 that you have already done. <br><br>
 
 <h4>Make sure everything from last lab is still working</h4><br>
 
@@ -331,6 +332,46 @@ We have implemented the Serial communication and the message decoding in the pre
 Add this code to the music card UI and instead of increasing the height of your bar you are now calling the music functions. <br><br>
 
 Once your card is working, show it to the teaching team.<br><br>
+
+
+<h3 class="headline">(6) Wiring Up the Slider</h3>
+
+<h4>ESP Micro-Controller</h4><br>
+
+We will still be using the ESP32 mirco-controller for this part. Here is the pin out again for your reference.<br>
+
+<img src="images/esp32_pinout.png" width="657px" /><br><br>
+
+<h4>Setting up the ESP Microcontroller</h4><br>
+
+If you did your homework, you should already be all set.<br>
+If for whatever reason you were not able to do it yet, you can find the <a href="esp-setup.html">install instructions here.</a><br><br>
+
+<h4>Connecting your Adjacent Slider Segments to a Breadboard and to the ESP</h4><br>
+
+Similar to connecting the button, we will use crocodile clamps to connect our card to a breadboard.<br>
+One side of the crocodile clamp goes onto the one of the two silder segments' connector pad.<br>
+The other side should clip onto the end of a regular breadboard wire.<br>
+The regular breadboard wire can then be used to connect to the breadboard.<br>
+From there you can do your normal breadboarding to connect to the ESP.<br>
+To get started, use the first crocodile clamp and connect it to the connector pad of the first silder segment and a wire for breadboarding.<br>
+Then repeat the same connecting procedure for the second (and adjacent) silder segment, while keeping the first slider segment connected.<br><br>
+
+<h4>Build Circuit for Slider Sensing</h4><br>
+
+We will implement slider sensing based on the principle of capacitive touch sensing.<br><br>
+
+The circuit for capacitive touch sensing only requires a <b>resistor connected between two pins - a sender and a receiver pin</b>. <br>
+The <b>receiver pin is also connected to the touch sensor</b>.<br><br>
+
+Let's create our first slider segment circuit.<br>
+We will use <b>pin 2 as the sender</b> and <b>pin 4 as the receiver</b> (you can of course use other pins as well but et's stick with 2 and 4 for this example).<br>
+We will use one <b>1 Megaohm resistor</b>.<br><br>
+
+<img src="images/capsense.png" width="300px"><br><br>
+
+Then build the same circuit for the second (and adjacent) silder segment with two other pins on ESP32, while keeping the first slider segment circuit connected.<br><br>
+
 
 <h3 class="headline">Conclusion</h3>
 
