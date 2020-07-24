@@ -61,25 +61,33 @@
 
     
 For today, we will focus on printing the electroluminescent display and building the controller circuit to turn it on and off.<br>
-Recall from lecture (insert which lecture) that electroluminescent displays consist of 4 layers: two conductive layers that sandwich the light emitting phosphor layer. To avoid shorts, we also have a insulating dielectric layer that prevents the two conductive layers from touch.<br><br>
-    
-We will use these materials to build a display today:<br>
-    (1) transparent sheets coated with ITO.<br>
-    (2) screen printed blue phosphor<br>
-    (3) screen printed dielectric<br>
-    (4) screen printed silver nano-particle ink as the bottom electrode<br><br>
-    
-We sent you two precoated sheets that already contain the ITO, phosphor, and insulator layer. Your task is to add the last missing layer: the silver conductor. The displays will only emit light in these areas where you print silver and will stay dark everywhere else.<br>
+Recall from the 'display' lecture that electroluminescent displays consist of 4 layers: two conductive layers that sandwich the light emitting phosphor layer. The top conductive layer is transparent (ITO on transparent substrate) otherwise you wouldn't be able to see the phosphor glow. The bottom conductive layer is silver. To avoid shorts, we also have an insulating dielectric layer that prevents the two conductive layers from touch.<br><br>
 
-  <img src="images/lab3/EL_schematic.png" width="500px"> <br><br>
+When you look from the top, the display layers would look like this.<br><br>
+
+<img src="images/el-display.png" width="500px"> <br><br>
+
+However, for ease of fabrication, we will fabricate the display up-side-down, i.e., we will start with the ITO sheet (ITO on transparent substrate), then add the phosphor, then add the dielectric, then add the silver last.<br><br>
+
+ <img src="images/lab3/EL_schematic.png" width="500px"> <br><br>
+
+<h3 class="headline">Fabricating the Display:<br> ITO, Phosphor, Dieletric: Done, Silver: Missing.</h3>
+
+We already prepared three of the layers for you.<br>
+Before class, we took the transparent ITO sheet, and already put phosphor and the dieletric insulator on it.<br>
+Your task is to add the last missing layer: the silver conductor.<br>
+The reason we prepared the other layers for you is that it would otherwise take too much time in class, since after each layer you have to wait for the layer to dry.<br>
+For your group project, feel free to ask us how to do the remaining layers as well.<br><br>
+
+As you can see in the photo, we want to print a display shaped as a steaming coffee mug. <br>
+Looking at the square-shaped display we gave you, you may be wondering how we can transform that square to the coffee-mug shape?<br>
+The trick here is that the displays will only emit light in those areas where you print silver and will stay dark everywhere else. The reason for this is that only where you put silver, you will actually have a bottom electrode (ITO sheet) and a top electrode (silver). All other areas only have a bottom electrode and thus will not light up.<br><br> 
+
+In order for you to be able to apply the silver in the form of the coffee mug, we will use a laser cutter to fabricate a stencil that will give the display its shape. Once you have the stencil, we will place it on the other display layers and then use airbrushing of copper ink to spray the layer.
+  
+<h2>Laser Cutting a Stencil for Spraying Silver</h2>
     
-As you have seen in the photo, we want to print a display shaped as a steaming coffee mug. So, in order to give the display this shape, we will fabricate a stencil that will give the display its shape. Next, we will apply the stencil onto the sample that we sent you in your fabrication bags. And finally, we will screen print onto the stencils with conductive silver nano-particle ink. So, let's get started with fabricating the stencil.<br>
-    
-<h2>Preparing the display sample</h2>
-    You will notice that the printed layers (white) do not cover the entire sample. There is a bar that is still transparent. This area allows us to get access to the ITO layer. We will connect our power supply to the ITO. The best way to do that here is to use copper tape.<br><br>
-    Take the copper take from your fabrication bag and glue the tape over the entire bar such that it is completely covered and make it even a bit longer (about 1" (2.5cmn)). The copper tape connects to the ITO and we need this little flap to connect it to a power supply later in the tutorial.
-    
-<h2>Fabricating a stencil</h2>
+
     
 This part of the tutorial involves laser cutting the stencil out of a transparent adhesive sheet. <br><br>
     
@@ -102,6 +110,10 @@ These two parameters tell the driver of the laser cutter to treat it as a vector
     Now, click on print and select the laser cutter as the printer. 
     
     (Add the other steps to laser cut a stencil here)
+
+
+
+
 <h2>Applying the stencil on the El display sample</h2>
     Take the stencil out of the laser cutter. Next, we want to apply it onto our EL display sample. To this end, first peel the protective layer from the back side of the foil. The foil should be adhesive on one side. Now, try to stick the stencil as good as you can on top of the display sample. Make sure that the cut out coffee mug covers the white areas completely and don't cover the area where you put the copper tape before.<br><br>
 <h2>Spray/Screen print the silver ink on your stencil</h2>
@@ -122,6 +134,14 @@ EL displays require an alternating current between the two elecrodes to excite t
     Turn the display around such that you see the top side. The silver should be on the bottom now and you can't see anymore. <br><br>
     When this is done, there is only one thing left. Plug in the power supply to your power outlet. You should see a bright EL display in the shape of the coffee mug now. If you see that, congratulations. If not, check if all wires are connected properly or ask for some help from the TAs.<br><br>
     
+
+<br>
+    
+<h2>Preparing the display sample</h2>
+    You will notice that the printed layers (white) do not cover the entire sample. There is a bar that is still transparent. This area allows us to get access to the ITO layer. We will connect our power supply to the ITO. The best way to do that here is to use copper tape.<br><br>
+    Take the copper take from your fabrication bag and glue the tape over the entire bar such that it is completely covered and make it even a bit longer (about 1" (2.5cmn)). The copper tape connects to the ITO and we need this little flap to connect it to a power supply later in the tutorial.
+
+
     <h2>Building the control circuit for EL Displays</h2>
     The goal of this final part of the lab is to build a control circuit that lets you turn on and off the display and even set it's brightness (e.g. dimming it down). The ESP32 does not have a suitable AC switch built-in. Thus, we have to build or own. We will use a Triac to switch it and an optocoupler to control the triac from the ESP32. Below you see the schematic of the circuit. Get yourself a breadboard, wires and the components and start building it.
     <h2>Write the controller program</h2>
