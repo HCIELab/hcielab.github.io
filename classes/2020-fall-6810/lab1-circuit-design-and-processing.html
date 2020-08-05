@@ -64,7 +64,7 @@ In lab 1 and lab 2, we are going to create the interactive music card shown belo
 <img src="images/music-card3.png" width="200px" />
  -->
 <img src="images/music-card-design.png" width="285px" />
-<img src="images/lab1-design-planning.png" width="275px" />
+<img src="images/lab1-design-planning_new.png" width="275" />
 <img src="images/lab1-print3.jpg" width="155px" />
 
 
@@ -90,8 +90,8 @@ To get started, download the visual design of our music card <a href="images/mus
 For our interactive card, we want to add three touch buttons, one on each note.<br>
 In addition, the piano area should serve as a slider, i.e. if we drag our finger from left to right, the volume will increase.<br><br>
 
-<img src="images/birthday-card2.jpg" width="350px" />
-<img src="images/lab1-design-planning.png" width="335px" /><br><br>
+<img src="images/music-card-design.png" width="350px" />
+<img src="images/lab1-design-planning_new.png" width="335px" /><br><br>
 
 <h4>Draw the Touch Buttons and Their Wires</h4><br>
 
@@ -99,7 +99,7 @@ Touch-buttons consist of one shape + one wire that one one end connects to the s
 We can later sense the user's touch using a principle called <b>capacitive touch sensing</b>, which requires only one electrode (i.e. one area printed with conductive ink).<br><br>
 
 <!-- <img src="images/touch-button-decorative1.png" width="300px"><br><br> -->
-<img src="images/lab1-single-touch-button.png" width="400px"><br><br>
+<img src="images/lab1-single-touch-button_new.png" width="400px"><br><br>
 
 With your drawing program open, let's draw the touch buttons and their wires. <br>
 Make sure you follow the specifications, which are:<br><br>
@@ -148,7 +148,7 @@ Add the touch slider to your drawing.<br><br>
 <b>Line Width, Connector Pad etc.:</b> You need to follow the same specification as above, i.e. use the same wire thickness and the same connector pad size.<br><br>
 
 
-<img src="images/lab1-slider-segments_2.png" width="500px"><br><br>
+<img src="images/lab1-slider-segments_new.png" width="500px"><br><br>
 
 <h4>Check your Design Before Printing</h4><br>
 
@@ -165,8 +165,8 @@ Once you have your design, add it to your student folder here in the <a href="ht
 
 Once you have our ok, you can come in to print from your computer.<br><br>
 
-<img src="images/lab1-exporting-design-visual.png" width="317px" />
-<img src="images/lab1-exporting-design-circuit_2.png" width="317px" /><br><br>
+<img src="images/music-card-design.png" width="317px" />
+<img src="images/lab1-exporting-design-circuit_new.png" width="317px" /><br><br>
 
 Note, that if your <b>visual design</b> contains any pure black (K = 100), it will not be printed at all.<br>
 To have black in your visual design, you need to set the area to C = 100, M = 100, Y = 100, which results in a close alternative to black.<br><br>
@@ -301,9 +301,9 @@ Next, glue them together.<br><br>
 
 <h4>ESP Micro-Controller</h4><br>
 
-We will use the ESP32 micro-controller in this course to control the printed sensors and displays (same as in 6.08). Here is the pin out again for your reference.<br>
+We will use the ESP32 micro-controller in this course to control the printed sensors and displays (same as in 6.08). Here is the pin out again for your reference. <b>You would notice that there are some pins that labelled with "TOUCHX". They are optimized for capacitive sensing therefore return more clean signals (i.e. when used as receivers). However, do not use the pin0 (TOUCH1) as receiver at any time, as the pin is not configured correctly on this version of ESP32 board and will significantly slow down the signal recording.</b> <br>
 
-<img src="images/esp32_pinout.png" width="657px" /><br><br>
+<img src="images/esp32-pinout.png" width="500px" /><br><br>
 
 <h4>Setting up the ESP Microcontroller</h4><br>
 
@@ -330,7 +330,7 @@ The <b>receiver pin is also connected to the touch sensor</b>.<br><br>
 
 Let's create our first touch button circuit.<br>
 We will use <b>pin 2 as the sender</b> and <b>pin 4 as the receiver</b> (you can of course use other pins as well but et's stick with 2 and 4 for this example).<br>
-We will use one <b>1 Megaohm resistor</b>.<br><br>
+We will use one <b>100k Ohm resistor</b>.<br><br>
 
 <img src="images/capsense.png" width="300px"><br><br>
 
@@ -344,6 +344,8 @@ To process the sensor signals, we will use the <b><a href="https://playground.ar
 To install it it, go to <b>Sketch -> Include Library -> Manage Libraries</b> and search for the <b>CapacitiveSensor</b> library and install it.<br><br>
 
 <img src="images/capacitivesensorlibrary.png" width="650px"><br><br>
+
+If the installed library somehow does not for you, and returns some error message like "'XXX' does not name a type" upon compiling, go to the library's <b><a href="https://github.com/PaulStoffregen/CapacitiveSensor">GitHub repo</a></b> and download it as a .zip file. Remove the previously installed library first, then re-install it via the .zip file. The instructions to do so can be found <b><a href="https://www.arduino.cc/en/guide/libraries#toc4">here.</a></b> <br><br>
 
 <h4>Write Code to Read Touch Signal</h4><br>
 
