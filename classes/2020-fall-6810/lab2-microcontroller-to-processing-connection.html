@@ -67,8 +67,8 @@ Today, we are going to connect your last lab's card design to Processing: When y
 <b>(done) (2) Conductive Silver Inkjet Printing:</b> Next, you will print your design with conductive inkjet printing.<br>
 <b>(done) (3) Wiring up the Button:</b> In the next step, you will wire up your button using a breadboard and an ESP32 microcontroller.<br>
 <b>(done) (4) Sensing the Touch Signals:</b> Next, you will sense the touch signals using the CapacitiveSensor Library and apply filtering to the signals.<br>
-<b>(today) (5) Visualizing User Input:</b> Next, we will setup the touch buttons <!-- and sliders --> in a programming environment called Processing, which will visualize when physical input on the touch buttons <!-- and sliders --> on screen and also play the corresponding songs. <br>
-<b>(today) (6) Wiring up the Slider:</b> Next, you will wire up your slider using a breadboard and an ESP32 microcontroller, similar to the Step 3 that you have already done. <br><br>
+<b>(today) (5) Visualizing User Input:</b> Next, you will setup the touch buttons <!-- and sliders --> in a programming environment called Processing, which will visualize when physical input on the touch buttons <!-- and sliders --> on screen and also play the corresponding songs. <br>
+<b>(today) (6) Wiring up and Visualizing the Slider for Volume Control:</b> Next, you will add the slider to UI and use it to control the music volume. Once finished, wire up your "physical" slider to the existing circuit, similar to the Step 3 that you have already done. Finally, you will add the slider to visualize when physical input on the slider on the screen and also change volume accordingly.<br><br>
 
 <h4>Make sure everything from last lab is still working</h4><br>
 
@@ -309,7 +309,8 @@ We created a music class that loads several example songs in your project folder
 <pre>music.play();
 music.pause();
 music.back();
-music.forward();</pre><br>
+music.forward();
+</pre><br>
 
 You can see in the switch/case code that we already assigned the middle button to play and pause music.<br><br>
 
@@ -320,7 +321,7 @@ Extend the code to also go to the next and previous songs.<br><br>
 While we want to have a touch button on each note, we don't want to see the white ellipses since they make the card look less good.<br>
 We already implemented this for you:<br>
 Press the 'h' key on your keyboard while your program runs.<br>
-It while hide the buttons but you can still click on them.<br>
+It will hide the buttons but you can still click on them.<br>
 If you want to see them again, press 's' (for show).<br><br>
 
 <h4>Now let's play some music from the Inkjet Printed Physical Card</h4><br>
@@ -334,43 +335,94 @@ Add this code to the music card UI and instead of increasing the height of your 
 Once your card is working, show it to the teaching team.<br><br>
 
 
-<h3 class="headline">(6) Wiring Up the Slider</h3>
+<h3 class="headline">(6) Wiring up and Visualizing the Slider for Volume Control</h3> <br>
 
-<h4>ESP Micro-Controller</h4><br>
+<h4>Connect the Physical Slider to the Main Circuit.</h4><br>
+We start the section by wiring up the inkjet printed physical slider to ESP32, and extend code for it on the Arduino IDE. <br>
+Here is the pin out again for your reference, try to use the pins with "TOUCHX" labels for better signal quality: <br><br>
 
-We will still be using the ESP32 mirco-controller for this part. Here is the pin out again for your reference.<br>
+<img src="images/esp32-pinout.png" width="500px" /><br><br>
 
-<img src="images/esp32_pinout.png" width="657px" /><br><br>
+Each slider segment should be wired to the ESP32 just like one button, with one 100K Ohm resistor. They can all share the same sender pin with the previously wired button. <br><br>
 
-<h4>Setting up the ESP Microcontroller</h4><br>
+<h4>Thresholding Slider Signals: How much space is it touched?</h4><br>
 
-If you did your homework, you should already be all set.<br>
-If for whatever reason you were not able to do it yet, you can find the <a href="esp-setup.html">install instructions here.</a><br><br>
+Once finished with the wiring, you should extend the Arduino code so that they read the values correctly. <br>
+Unlike the button, which returns binary values 0 or 1 to indicate if it is pressed, we would like to have each slider segment return a continuous value from 0.0 to 1.0 when pressed, so that at the end we will have a more continuous and smooth control over the music volume. <br>
+This can be achieved by looking at "how much" the slider segment is touched. <br>
+When you look at the raw touch signals, you would notice that the raw value has a strong correlation of how much space of the sensor is touched, i.e. the larger space the higher the value is. <br>
+As a result, you can achieve the continuous value for each slider segment via 2 parameters: 1) threshold to see if it is touched, and 2) the roughly "max touch value" of the slider segment when "fully touched". <br>
+You can then calculate and print the percentage by "raw_value / max_touch_value" in real-time if the value surpass the "touched" threshold. <br><br>
 
-<h4>Connecting your Adjacent Slider Segments to a Breadboard and to the ESP</h4><br>
+We would then format the code to the Serial port so that we can read them from Processing. <br>
+For this part, you can either use the same format as the touch button, or you can be creative and come up with your own formating. Do make sure each silder segment has its own continuous value when touched.  <br><br>
 
-Similar to connecting the button, we will use crocodile clamps to connect our card to a breadboard.<br>
-One side of the crocodile clamp goes onto the one of the two silder segments' connector pad.<br>
-The other side should clip onto the end of a regular breadboard wire.<br>
-The regular breadboard wire can then be used to connect to the breadboard.<br>
-From there you can do your normal breadboarding to connect to the ESP.<br>
-To get started, use the first crocodile clamp and connect it to the connector pad of the first silder segment and a wire for breadboarding.<br>
-Then repeat the same connecting procedure for the second (and adjacent) silder segment, while keeping the first slider segment connected.<br><br>
+For each sensor (slider segment), we could format our output like before so that:
 
-<h4>Build Circuit for Slider Sensing</h4><br>
+<code>(sensor ID),(how_much_touched);</code><br><br>
+    
+(sensor ID) is from 3 - 7, and represents the ID of the observed touch sensor (slider segments).<br>
+(is_touched) is ranging from 0.00 to 1.00 to indicate how much space the sensor is touched.<br><br>
 
-We will implement slider sensing based on the principle of capacitive touch sensing.<br><br>
+A sample output hould look like:<br>
+<pre><code>3,0.78;
+3,0.86;
+5,0.64;
+7,0.97;
+</code></pre> 
+The output should print continuously as long as the corresponding slider segment is touched. <br>
 
-The circuit for capacitive touch sensing only requires a <b>resistor connected between two pins - a sender and a receiver pin</b>. <br>
-The <b>receiver pin is also connected to the touch sensor</b>.<br><br>
+<br>
+<h4>Add Slider onto the Card</h4><br>
 
-Let's create our first slider segment circuit.<br>
-We will use <b>pin 2 as the sender</b> and <b>pin 4 as the receiver</b> (you can of course use other pins as well but et's stick with 2 and 4 for this example).<br>
-We will use one <b>1 Megaohm resistor</b>.<br><br>
+After finishing the physical slider connection and its Arduino code, let's look at the Processing UI side! <br>
+We start by adding one digital slider onto the music card as a test, which can be used to control the music volume by mouse dragging.<br>
 
-<img src="images/capsense.png" width="300px"><br><br>
+To make this easier for you, we already implemented a class 'Slider' for you.<br>
+You can make a new slider with:<br><br>
 
-Then build the same circuit for the second (and adjacent) silder segment with two other pins on ESP32, while keeping the first slider segment circuit connected.<br><br>
+<pre><span style="red">mySliders.add(new Slider(start_x, start_y, end_x, end_y));</span></pre>
+
+Please add one slider to the code, just like how you added the button. Don't forget to add corresponding code to draw() function so that it can be displayed when it's not in "hide" mode.<br>
+
+Your result should look somewhat like this, and you can control it by dragging your mouse (with left mouse button pressed): <br>
+
+<img src="images/lab2-volume-low_UI.png" width="300px">
+<img src="images/lab2-volume-middle_UI.png" width="300px">
+<!-- <img src="images/lab2-volume-high_UI.png" width="200px"> -->
+<br><br>
+
+<h4>Create Slider Events for the Music Volume Control</h4><br>
+
+To create events on mouse drag, we need to implement several mouseDragged() events.<br>
+We already did some parts of it for you in the code further down in the class.<br>
+Please go ahead and extend the code so that it changes the music volume based on the slider level. <br>
+You might find the following functions from "Audio" and "Slider" classes to be useful: <br>
+<br><pre>
+music.changeVolume(double intensity);
+Slider.getIntensity();</pre><br>
+
+<h4>Hide the Slider</h4><br>
+
+Similar to the previously added buttons, you can hide the Slider by pressing the 'h' key on your keyboard while your program runs.<br>
+If you want to see them again, press 's' (for show).<br><br>
+
+<h4>Now Let's Change Music Volume from the Inkjet Printed Physical Card</h4><br>
+
+Now that we have a great debugging UI that we can control digitally and we tested that everything works, we also want to extend the music volume control to the physical card.<br><br>
+
+For this, we need to connect your serial communication messages from the printed music card to the digital UI.<br>
+As shown in the previous steps, we have implemented the Serial communication and the message decoding in the previous exercise. <br>
+A bit different from the buttons. For the slider, we would convert the silder segment values (potentially 5 of them in our case) into one value ranging from 0.00 to 1.00.<br>
+You don't have to over-complicated it, some straght-forward linear interpolation will do, as long as the value is overall continuous. <br>
+Use that value to control the music volume. Whenever the physical slider is touched / dragged, there should some visualization on the UI to indicate the volume changing level. <br>
+You can do it by drawing a rect in real-time whenever the slider is touched, with its width corresponding to the music volume level. <br>
+<img src="images/lab2-volume-low.png" width="300px">
+<img src="images/lab2-volume-middle.png" width="300px">
+<!-- <img src="images/lab2-volume-high_UI.png" width="200px"> -->
+<br><br>
+
+Once your card is working, show it to the teaching team.<br><br>
 
 
 <h3 class="headline">Conclusion</h3>
