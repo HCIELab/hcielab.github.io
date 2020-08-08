@@ -252,32 +252,42 @@ Therefore, just connecting it to a <span style="color:red">DC power supply, like
 We therefore use an inverter to generate <span style="color:red">AC from your DC power supply</span>.<br>
 <!-- <span style="color:red">Warning! The 110V are low current and not really dangerous, but they can give you an unpleasant shock.</span> Therefore, never plug the display in when the electrodes are exposed <span style="color:red">(what does this mean?)</span>. Also never hold the display in your hands when the electrodes are exposed and the display is plugged in!<br><br>
  -->    
-There is a <b>3V inverter</b> in your fabrication bag. <br>
-
+There is a <b>3V inverter</b> in your fabrication bag that can convert the 3V DC from your ESP into 3V AC. <br>
 
 <img src="images/3vinverter.jpg" width="400px"><br><br>
 
-<span style="color:red">Your first step is to connect the inverter to your power supply, i.e. GND and 3.3V from your ESP microcontroller. To connect it, cut off the wire ends to expose the copper from the wire and plug these into the breadboard or attach them first to a crocodile clamp and then the crocodile clamp to a wire that goes into your breadboard. Note that you only need the red/black wire combination, you can ignore the other wire which is (what Michael?).</span>.<br><br>
 
-    (schematic here)<br><br>
+Your first step is to connect the inverter to your microcontroller.<br>
+Cut off the wire ends from the red/black wire to expose the copper from the wire ends (let's use the convention: black = GND, red = 3V).<br>
+Next connect the red wire to your microcontrollers 3V (not 5V!) and GND.<br>
+You may use some crocodile clamps to make your life easier or plug directly into the breadboard.<br><br>
 
-Now that the power is connected to the inverter, the inverter still has to get connected to the EL display.<br>
-Connect the inverter to the two crocodile clamps that are attached to your EL display.<br>
+    <span style="color:red">(schematic here)</span><br><br>
 
-Turn the display around such that you see the top side. <br>
-The silver should be on the bottom now and you can't see anymore. <br><br>
+Now you have the connection so that the 3V DC from the microcontroller can reach the inverter.<br>
+The other wire (double black wire) coming out from inverter will output the AC current that will then go to your display.<br>
+Cut off the wire ends from the black/black wire to expose the copper from the wire ends.<br>
+Then connect the wires coming from your EL display to the these two wires (use crocodile clamps or plug into breadboard).<br><br>
+
+Now you are ready to power on your display.<br>
+First, turn the display around such that you see the top side. <br>
+The silver should be on the bottom now and you can't see it anymore. <br><br>
 
 When this is done, plug your ESP microcontroller into your computer. <br>
 You should see a bright EL display in the shape of the coffee mug now. <br>
 If you see that, congratulations. <br>
 If not, check if all wires are connected properly or ask for some help from the TAs.<br><br>
     
+<img src="images/el-display-on.jpg" width="400px"><br><br>
+
+
 <h3 class="headline">Building the control circuit for EL Displays</h3>
 
-So now you can turn on/off your display by plugging and unplugging it. 
-That's ok but it would be nicer to do this via code from the microcontroller and not by physically plugging/unplugging the display.
+So now you can turn on/off your display by plugging and unplugging either the display or the micrcontroller.<br> 
+That's ok but it would be nicer to do this via code and not by physically plugging/unplugging.<br>
 The goal of this final part of the lab is to build a control circuit that lets you do exactly this. <br><br>
 
+To turn on/off the display via code, we need an AC switch.<br>
 The ESP32 microcontroller does not have a suitable AC switch built-in. Thus, we have to build our own. <br>
 Our switch will consist of a <b>triac</b> and an <b>optocoupler</b>.<br><br>
 
