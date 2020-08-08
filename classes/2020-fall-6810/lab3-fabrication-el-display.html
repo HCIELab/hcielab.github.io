@@ -281,17 +281,20 @@ A <b>triac</b> is similar to a transistor but also block alternating current (AC
     
 <img src="images/lab3/Triac.png" width="100px"><img src="images/lab3/triac_image.png" width="200px"><br><br>
     
-An <b>optocoupler</b>
-
-
-Below you see the schematic of the circuit that can switch a low voltage AC circuit. The 3.3V comes from a pin of your ESP32. <br>
-<img src="images/lab3/triac_circuit.PNG" width="500px"><br><br>
-    
-<span style="color:red">Most likely, you can spot already something dangerous here. Your low voltage ESP32 is directly connected to a 110V power supply which might possible burn your microcontroller (Stefanie: why is this connected?)</span>. To prevent this, we want to isolate the trigger circuit that controls the AC switch from the high voltage circuit. Luckily there exists a components that can do exactly that. It's also a (soemtimes) triac but instead of being triggered with a physical wire (Gate) it contains a LED and a photo-triac and both components are galvanically isolated. You can see how the symbol and the component looks like:<br><br>
+An <b>optocoupler</b> is needed to ensure that our control circuit that is run by 3.3V from the micrcontroller and the 110V power circuit that supplies the power for turning on/off the displays do not interfere with each other. If the low voltage ESP32 is directly <span style="color:red">connected to the 110V power supply it might possibly burn your microcontroller (I thought this all runs from the microcontroller?)</span>. To prevent this, we want to isolate the trigger circuit that controls the AC switch from the high voltage circuit. For this purpose, we can use an optocupler. You can see how the symbol and the component looks like:<br><br>
     
 <img src="images/lab3/opto_symbol.PNG" width="200px"><img src="images/lab3/opto_img.PNG" width="200px"><br><br>
 
-The optocupler is controlled by the ESP32 and protects it from any high voltage and the optocoupler on the other hand can control the triac and open and close the AC switch. <br>
+We will setup the components to work together in the following way:<br>
+(1) the ESP32 controls the optocoupler and thereby protects itself from any high voltage.<br> 
+(2) The optocoupler then controls the triac to open and close the AC switch to let power through or cut if off. <br>
+
+<!-- Below you see the schematic of the circuit that can switch a low voltage AC circuit. The 3.3V comes from a pin of your ESP32. <br> -->
+
+<!-- <img src="images/lab3/triac_circuit.PNG" width="500px"><br><br> -->
+    
+ <!-- It's also a (sometimes) triac but instead of being triggered with a physical wire (Gate) it contains a LED and a photo-triac and both components are galvanically isolated.  -->
+
 Bringing it all together, our AC switch circuit should look like this:<br><br>
     
 <img src="images/lab3/optotriac_circuit.PNG" width="600px"><br><br>    
