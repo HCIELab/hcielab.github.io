@@ -240,7 +240,7 @@ Now connect that crocodile clamp to one of the wires of the inverter, it doesn't
 To connect the ITO sheet, look at your display again and you will see that the printed layers do not cover the entire sheet.<br>
 There is a bar that is still transparent. <br>
 This area allows us to get access to the ITO layer.<br> 
-Attach some copper tape there, i.e. glue the tape over the entire bar such that it is completely covered and make it even a bit longer (about 1" (2.5cmn).<br>
+Attach some copper tape there, i.e. glue the tape over the entire bar such that it is completely covered and make it even a bit longer (about 1" (2.5cm).<br>
 Next, connect a crocodile clamp to the copper tape and connect the other side of the crocodile clamp to the other side of the inverter.<br><br>
 
 <h3 class="headline">Powering Your EL Display</h3>
@@ -270,20 +270,24 @@ If not, check if all wires are connected properly or ask for some help from the 
     
 <h3 class="headline">Building the control circuit for EL Displays</h3>
 
-So now you can turn on/off your display by plugging and unplugging it, but we also want to be able to control it digitally with a microcontroller. <br>
-In addition, it would be nice to not just turn it on/off but also set the displays brightness (e.g. dimming it down).<br>
+So now you can turn on/off your display by plugging and unplugging it. 
+That's ok but it would be nicer to do this via code from the microcontroller and not by physically plugging/unplugging the display.
 The goal of this final part of the lab is to build a control circuit that lets you do exactly this. <br><br>
 
 The ESP32 microcontroller does not have a suitable AC switch built-in. Thus, we have to build our own. <br>
-Our swicth will consist of a triac and an optocoupler. A triac is similar to a transistor but also block alternating current (AC) while transistor can only block direct cuurent (DC). It's pins and how you add it to a circuit is similar to a transistor though. It has two connectors for + and GND and a Gate that can trigger it to let current pass through or block it. The symbol and a picture of the triac that we will use in this lab is below:<br><br>
+Our switch will consist of a <b>triac</b> and an <b>optocoupler</b>.<br><br>
+
+A <b>triac</b> is similar to a transistor but also block alternating current (AC) while a transistor can only block direct current (DC). By switching the triac on/off, we can thus block the AC current coming from the power supply, which allows us to turn the display on/off under computer control. The triac's pins and how you add it to a circuit is similar to a transistor though. It has two connectors for + and GND and a Gate that can trigger it to let current pass through or block it. The symbol and a picture of the triac that we will use in this lab is below:<br><br>
     
 <img src="images/lab3/Triac.png" width="100px"><img src="images/lab3/triac_image.png" width="200px"><br><br>
     
+An <b>optocoupler</b>
+
 
 Below you see the schematic of the circuit that can switch a low voltage AC circuit. The 3.3V comes from a pin of your ESP32. <br>
 <img src="images/lab3/triac_circuit.PNG" width="500px"><br><br>
     
-Most likely, you can spot already something dangerous here. Your low voltage ESP32 is directly connected to a 110V power supply which might possible burn your microcontroller. To prevent this, we want to isolate the trigger circuit that controls the AC switch from the high voltage circuit. Luckily there exists a components that can do exactly that. It's also a (soemtimes) triac but instead of being triggered with a physical wire (Gate) it contains a LED and a photo-triac and both components are galvanically isolated. You can see how the symbol and the component looks like:<br><br>
+<span style="color:red">Most likely, you can spot already something dangerous here. Your low voltage ESP32 is directly connected to a 110V power supply which might possible burn your microcontroller (Stefanie: why is this connected?)</span>. To prevent this, we want to isolate the trigger circuit that controls the AC switch from the high voltage circuit. Luckily there exists a components that can do exactly that. It's also a (soemtimes) triac but instead of being triggered with a physical wire (Gate) it contains a LED and a photo-triac and both components are galvanically isolated. You can see how the symbol and the component looks like:<br><br>
     
 <img src="images/lab3/opto_symbol.PNG" width="200px"><img src="images/lab3/opto_img.PNG" width="200px"><br><br>
 
@@ -302,6 +306,8 @@ This is very simple with the circuit you already built.<br>
 Check again, to which pin you connected the optocoupler and us this pin to turn it on and off<br><br>
 
 <h3 class="headline">Write a Program to Dim the Display</h3>
+
+In addition, it would be nice to not just turn it on/off but also set the displays brightness (e.g. dimming it down).<br>
 
 You can also dim it by using the PWM signal of the ESP pins. You already know from 6.08 how to create a PWM signal on a pin. Use it to let the display increase and decrease in brightness. The increase from 0% to 100% duty cycle should take 2 seconds and then dim it down again in another 2 seconds. And let it repeat this blinking infinitely.<br>
 <!--
