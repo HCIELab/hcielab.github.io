@@ -228,27 +228,26 @@ You will later replicate the electronics when you are back in your dorm room.<br
 
 <h3 class="headline">Connecting your EL Display to a Power Supply</h3>
 
-Let's connect your display to a power supply and light it up!<br>
+Let's connect your display to a power supply, i.e. your ESP32 microcontroller, and light it up!<br>
 EL displays require an alternating current between the two elecrodes to excite the phosphor and make it light up.<br>
-Therefore, just connecting it to a <span style="color:red">12V DC power supply (I thought Arduino is 5V? Arduino is DC? We should explain this more here, this is not obvious.)</span> won't do the trick.<br><br>
+Therefore, just connecting it to a <span style="color:red">DC power supply, like your ESP connected to a USB port,</span> won't do the trick.<br><br>
 
-We therefore use an inverter to generate 110V AC from a 12V DC power supply.<br>
-<span style="color:red">Warning! The 110V are low current and not really dangerous, but they can give you an unpleasant shock.</span> Therefore, never plug the display in when the electrodes are exposed <span style="color:red">(what does this mean?)</span>. Also never hold the display in your hands when the electrodes are exposed and the display is plugged in!<br><br>
-    
-The inverter is in your fabrication bag. <br>
-Take it out along with the 12V power supply that we also put in the bag. <br>
-Your first step is to connect the inverter to the power supply <span style="color:red">(unclear for students how to do this, add details)</span> (but leave the power supply unplugged).<br><br>
+We therefore use an inverter to generate <span style="color:red">AC from your DC power supply</span>.<br>
+<!-- <span style="color:red">Warning! The 110V are low current and not really dangerous, but they can give you an unpleasant shock.</span> Therefore, never plug the display in when the electrodes are exposed <span style="color:red">(what does this mean?)</span>. Also never hold the display in your hands when the electrodes are exposed and the display is plugged in!<br><br>
+ -->    
+There is a 3V inverter in your fabrication bag. <br>
+<span style="color:red">Your first step is to connect the inverter to your power supply, i.e. GND and 3.3V from your ESP microcontroller.</span>.<br><br>
 
-    (picture here)<br><br>
+    (schematic here)<br><br>
 
-Now that the power supply is connected to the inverter, the inverter still has to get connected to the EL display.<br>
+Now that the power is connected to the inverter, the inverter still has to get connected to the EL display.<br>
 First, we need to find a way to attach two wires to the EL display: one to the silver layer and one to the ITO sheet.<br>
 
 <img src="images/el-display-wires.png" width="600px"><br><br>
 
 To do this, take your EL display and put some copper tape on the silver (and only the silver) layer that you just sprayed.<br>
 Leave a little flap that makes it easier to connect a crocodile connector to it. <br>
-Now connect that crocodile clamp to one of the wires of the inverted, it doesn't matter which one.<br><br>
+Now connect that crocodile clamp to one of the wires of the inverter, it doesn't matter which one.<br><br>
 
 To connect the ITO sheet, look at your display again and you will see that the printed layers do not cover the entire sheet.<br>
 There is a bar that is still transparent. <br>
@@ -259,7 +258,7 @@ Next, connect a crocodile clamp to the copper tape and connect the other side of
 Turn the display around such that you see the top side. <br>
 The silver should be on the bottom now and you can't see anymore. <br><br>
 
-When this is done, plug in the power supply to your power outlet. <br>
+When this is done, plug your ESP microcontroller into your computer. <br>
 You should see a bright EL display in the shape of the coffee mug now. <br>
 If you see that, congratulations. <br>
 If not, check if all wires are connected properly or ask for some help from the TAs.<br><br>
