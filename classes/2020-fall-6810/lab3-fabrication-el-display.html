@@ -193,25 +193,17 @@ EL displays require an alternating current between the two elecrodes to excite t
 Therefore, just connecting it to a DC power supply, like the 3.3V DC from your ESP32, won't do the trick.<br><br>
 
 We therefore use an inverter to generate 110V AC from your 3.3V DC ESP32 power supply.<br>
-<!-- <span style="color:red">Warning! The 110V are low current and not really dangerous, but they can give you an unpleasant shock.</span> Therefore, never plug the display in when the electrodes are exposed <span style="color:red">(what does this mean?)</span>. Also never hold the display in your hands when the electrodes are exposed and the display is plugged in!<br><br>
- -->    
+The 110V are low current and not really dangerous, but you can get a little shock when touch both electrodes. Therefore, never plug the display in while you are working on the circuit and you are touching the wires. <br><br>    
 
 <img src="images/lab3/inverter.png" width="400px"><br><br>
 
-Your first step is to connect the 110V inverter output to the display. Use jumper wires to stick them into the white connector of the inverter. Since you have exposed wires now, you can use crocodile wires to connect them to the copper flaps of your display. be careful that you don't rip them off when working with the wires.
+Your first step is to connect the 110V inverter output to the display. Use jumper wires to stick them into the white connector of the inverter. Since you have exposed wires now, you can use crocodile wires to connect them to the copper flaps of your display. Be careful that you don't rip them off when working with the wires.
 Next, you have to connect the inverter to the 3.3V power supply of your microcontroller. Use jumper wires again to stick them into the white connector element. Let's keep the convention that black wires are GND and red wires are +3.3V. <br>
-Next connect the red wire to your microcontrollers 3V and and black to the ESP32's GND.<br>
+Next connect the red wire to your microcontrollers 3.3V and and black to the ESP32's GND.<br><br>
 
-    <span style="color:red">(schematic here)</span><br><br>
-
-Now you have the connection so that the 3V DC from the microcontroller can reach the inverter.<br>
-The other wire (double black wire) coming out from inverter will output the AC current that will then go to your display.<br>
-Cut off the wire ends from the black/black wire to expose the copper from the wire ends.<br>
-Then connect the wires coming from your EL display to the these two wires (use crocodile clamps or plug into breadboard).<br><br>
-
-Now you are ready to power on your display.<br>
+Great! You are ready to power on your display.<br>
 First, turn the display around such that you see the top side. <br>
-The silver should be on the bottom now and you can't see it anymore. <br><br>
+The copper should be on the bottom now and you can't see it anymore. <br><br>
 
 When this is done, plug your ESP microcontroller into your computer. <br>
 You should see a bright EL display in the shape of the coffee mug now. <br>
@@ -251,7 +243,7 @@ We will setup the components to work together in the following way:<br>
 
 Bringing it all together, our AC switch circuit should look like this:<br><br>
     
-<img src="images/lab3/optotriac_circuit.PNG" width="600px"><br><br>    
+<img src="images/lab3/optotriac_circuit.PNG" width="700px"><br><br>    
 
 <span style="color:red">what is the 330ohm resistor for?</span>
 
