@@ -164,53 +164,43 @@ For the phosphor and dieletric layers, you will spray your entire strip from lef
 <b>Spraying the Copper Layer:</b><br>
 Before we can spray the copper layer, you need to apply the stencil (we will do this together when you come in for spraying).<br>
 First peel the protective layer from the back side of the foil. <br>
-The foil should be adhesive on one side. <br>
-Stick the stencil as good as you can on top of the display sample.<br>
+The foil is adhesive on one side. <br>
+Stick the stencil on top of the display sample but don't apply to much pressure so you don't damage the underlying layers.<br>
 Make sure that the cut out coffee mug covers the white areas completely.<br><br>
 
 
 <h3 class="headline">Testing if the Copper Layer is Conductive</h3>
 
  Once all four layers are sprayed, a good first test is to see if the copper layer is conductive. <br>
- As in lab 1, use a multimeter and check if the layer is conductive (we expect the last student from the team who sprayed the copper to check all the displays for the team).<br> 
+ As in lab 1, use a multimeter and check if the layer is conductive (we expect the last student from the team who sprayed the copper to check all the displays for the team). The tips of the multimeter are quite pointy and you can damage the layers if you press too harshly on the copper. <br> 
  You should read something around 5-20&#8486; resistance.<br><br>
-    
-Next, 
 
 <h3 class="headline">Attaching Wires to your Display</h3>
 Next, we will add some wires to your displays so we can power it up.<br>
-As you can see below, we need to find a way to attach two wires to the EL display: one to the silver layer and one to the ITO sheet (i.e. one for ground and one for power).<br>
+As you can see below, we need to find a way to attach two wires to the EL display: (1) to the copper layer and (2) to the ITO sheet (i.e. one for GND and one for power).<span style="color: red">Replace image with photo</span><br>
 
 <img src="images/el-display-wires.png" width="600px"><br><br>
 
-To do this, take your EL display and put some copper tape on the silver (and only the silver) layer that you just sprayed.<br>
-Leave a little flap that makes it easier to connect a crocodile connector to it. <br>
-Now connect that crocodile clamp to one of the wires of the inverter, it doesn't matter which one.<br><br>
-
-To connect the ITO sheet, look at your display again and you will see that the printed layers do not cover the entire sheet.<br>
-There is a bar that is still transparent. <br>
-This area allows us to get access to the ITO layer.<br> 
-Attach some copper tape there, i.e. glue the tape over the entire bar such that it is completely covered and make it even a bit longer (about 1" (2.5cm).<br>
-Next, connect a crocodile clamp to the copper tape and connect the other side of the crocodile clamp to the other side of the inverter.<br><br>
+<span style="color: red">While adding wires, make sure to avoid bending or folding your display. ITO is a quite brittle material. While it can withstand a certain degree of bending, it can easily break if you bend it too much and it will definitly break if you fold it.</span><br><br>
+    
+Our first goal is to connect to the ITO. To do this, take your EL display and remove the protective tape on the bottom of the display. You should see now a clean and exposed area of ITO (the clear PET sheet). Get some copper foil and apply one strip over the whole length from left to right on the ITO. Leave a little flap that makes it easier to connect a crocodile connector to it. <br><br>
+Next, we have to connect to the copper layer. This one is already exposed so you just have to apply some copper tape right at the center of the coffee mug. Again, take one strip of copper tape but try to make it as large as the coffee mug. It is good practice to cover a large area to ensure a good connection. Again, leave a little flap that makes it easy to connect to it with crocodile wires. 
 
 <h3 class="headline">Powering Your EL Display</h3>
 
 Let's connect your display to a power supply, i.e. your ESP32 microcontroller, and light it up!<br>
 EL displays require an alternating current between the two elecrodes to excite the phosphor and make it light up.<br>
-Therefore, just connecting it to a <span style="color:red">DC power supply, like your ESP connected to a USB port,</span> won't do the trick.<br><br>
+Therefore, just connecting it to a DC power supply, like the 3.3V DC from your ESP32, won't do the trick.<br><br>
 
-We therefore use an inverter to generate <span style="color:red">AC from your DC power supply</span>.<br>
+We therefore use an inverter to generate 110V AC from your 3.3V DC ESP32 power supply.<br>
 <!-- <span style="color:red">Warning! The 110V are low current and not really dangerous, but they can give you an unpleasant shock.</span> Therefore, never plug the display in when the electrodes are exposed <span style="color:red">(what does this mean?)</span>. Also never hold the display in your hands when the electrodes are exposed and the display is plugged in!<br><br>
  -->    
-There is a <b>3V inverter</b> in your fabrication bag that can convert the 3V DC from your ESP into 3V AC. <br>
 
-<img src="images/3vinverter.jpg" width="400px"><br><br>
+<img src="images/lab3/inverter.png" width="400px"><br><br>
 
-
-Your first step is to connect the inverter to your microcontroller.<br>
-Cut off the wire ends from the red/black wire to expose the copper from the wire ends (let's use the convention: black = GND, red = 3V).<br>
-Next connect the red wire to your microcontrollers 3V (not 5V!) and GND.<br>
-You may use some crocodile clamps to make your life easier or plug directly into the breadboard.<br><br>
+Your first step is to connect the 110V inverter output to the display. Use jumper wires to stick them into the white connector of the inverter. Since you have exposed wires now, you can use crocodile wires to connect them to the copper flaps of your display. be careful that you don't rip them off when working with the wires.
+Next, you have to connect the inverter to the 3.3V power supply of your microcontroller. Use jumper wires again to stick them into the white connector element. Let's keep the convention that black wires are GND and red wires are +3.3V. <br>
+Next connect the red wire to your microcontrollers 3V and and black to the ESP32's GND.<br>
 
     <span style="color:red">(schematic here)</span><br><br>
 
