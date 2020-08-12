@@ -100,27 +100,28 @@ And wrote it to the Serial port using <code>Serial.print()</code>.<br><br>
 
 In order to use this information in Processing, we need to write a Processing script that listens to the Serial communication.<br><br>
 
-To do this, open Processing and import the <a href="https://processing.org/reference/libraries/serial/index.html">Serial library</a>.<br>
+To do this, open Processing, create a new program, and import the <a href="https://processing.org/reference/libraries/serial/index.html">Serial library</a>.<br>
 <pre>import processing.serial.*;</pre><br>
 
 Next, you need to create a new port that can be used for communication by creating an object from this class: <br>
 <pre>Serial myPort;</pre><br>
 
-To define the port, you need to define three things: (1) you need to tell the port which application will listen to it, you can do this with a reference to the current application ('this'), (2) you need to tell the port its portname, and (3) you need to tell the port at which baudrate it should listen to be able to decode the messages. <br><br>
+To create the port, you need to define three things: (1) you need to tell the port which application will listen to it (i.e. 'this' one), (2) you need to tell the port its portname, and (3) you need to tell the port at which baudrate it should listen to be able to decode the messages. <br><br>
 
 <pre>myPort = new Serial(this, portName, baudrate);</pre><br>
     
-For the <code>portName,</code> you can get a list of all avaialble ports from the Serial library.<br> 
+For the <code>portName,</code> you can get a list of all available ports from the Serial library (see below).<br> 
 By accessing different buckets of the list, you can get access to the name of each port.<br>
+The correct port is the one you also used in your Arduino program, i.e. this is where the microcontroller is connected to your laptop.<br>
 Check if the correct portname is in bucket 0, 1, or 2 by printing it.<br><br>
 
 <pre>// check which port you use: 0, 1, 2?
 String portName = Serial.list()[2];
 print(portName);</pre><br>
 
-For the <code>baudrate</code>, you already know this from your Arduino program that you uploaded to the microcontroller.<br>
+For the <code>baudrate</code>, you also already know this from your Arduino program that you uploaded to the microcontroller.<br>
 Check in your Arduino program with which baudrate you initialized the Serial communication.<br>
-If you use a different baudrate that you wrote into the Arduino program, you will only get a lot of random stuff back.<br><br>
+If you use a different baudrate than you wrote into the Arduino program, you will only get a lot of random stuff back since your Processing application will not know how to 'translate' the messages that are coming from the microcontroller since it would 'speak' at a different frequency than the Processing application would 'listen'.<br><br>
 
 Now that your port is defined, we are ready to listen to it and check if data is available, but before we do this let's briefly look at the Processing program structure.<br><br>
 
@@ -136,7 +137,7 @@ void setup() { // runs only once
 }
 </pre><br>
 
-and move all your setup code for defining the port there.<br><br>
+Move all your code for defining the port into the setup() funtion since we only need to define the port once.<br><br>
 
 Next, create an empty draw function:<br>
 
@@ -146,7 +147,7 @@ void draw() { //runs infinitely
 }
 </pre><br>
 
-We are going to fill this in the next step.<br><br>
+We are going to fill this in the next step with the code that will continously listen to the port and see if any new messages are there from the microcontroller.<br><br>
 
 <h4>Reading Data from the Serial Port</h4><br>
 
