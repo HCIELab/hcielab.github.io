@@ -392,20 +392,34 @@ A sample output hould look like:<br>
 The output should print continuously as long as the corresponding slider segment is touched. <br>
 
 <br>
+
+<h4>Create Slider Visualization</h4><br>
+
+Now that the slider segment values are printing to the Serial port, we can read them from Processing.<br>
+<span style="color:red">Open your Processing program that had the three touch bars and add a horizontal bar for the slider.<br> 
+The bar represents the entire slider. Thus, if the finger is on the left side of slider, the bar should be short and if the finger slides more to the right side of the slider, the bar should be long.</span><br><br>
+
+However, before we can render the current slider value on the bar, we will have to do something with the five seperate slider segment values and combine them into one value that represents the overall slider position ranging from 0.00-1.00 (0-100 percent).<br>
+You don't have to over-complicate it, some straght-forward linear interpolation will do, as long as the value is overall continuous.<br>  <span style="color:red">can you say a bit more how you did this? what did you average together?</span><br>
+
+<img src="images/lab2-slider-viz.png" width="300px"><br><br>
+
 <h4>Add Slider onto the Card</h4><br>
 
-After finishing the physical slider connection and its Arduino code, let's look at the Processing UI side! <br>
-We start by adding one digital slider onto the music card as a test, which can be used to control the music volume by mouse dragging.<br>
+Now that you know the slider values can be visualized in Processing, let's add it to the music card to control the music volume.<br> Open the music card code again.<br><br>
 
-To make this easier for you, we already implemented a class 'Slider' for you.<br>
+We already implemented a class 'Slider' for you.<br>
 You can make a new slider with:<br><br>
 
 <pre><span style="red">mySliders.add(new Slider(start_x, start_y, end_x, end_y));</span></pre>
 
-Please add one slider to the code, just like how you added the button. Don't forget to add corresponding code to draw() function so that it can be displayed when it's not in "hide" mode.<br>
+Please add one slider to the code, just like how you added the button. <br>
+Add code to the draw() function to display the slider when it is not in "hide" mode.<br><br>
 
-Your result should look somewhat like this, and you can control it by dragging your mouse (with left mouse button pressed): <br>
+Your result should look like this.<br>
+You should be able to control the slider by dragging your mouse (with left mouse button pressed): <br><br>
 
+Dragging the mouse on the slider from left to right:<br>
 <img src="images/lab2-volume-low_UI.png" width="300px">
 <img src="images/lab2-volume-middle_UI.png" width="300px">
 <!-- <img src="images/lab2-volume-high_UI.png" width="200px"> -->
@@ -416,10 +430,12 @@ Your result should look somewhat like this, and you can control it by dragging y
 To create events on mouse drag, we need to implement several mouseDragged() events.<br>
 We already did some parts of it for you in the code further down in the class.<br>
 Please go ahead and extend the code so that it changes the music volume based on the slider level. <br>
-You might find the following functions from "Audio" and "Slider" classes to be useful: <br>
+You might find the following functions from the "Audio" and "Slider" classes useful: <br>
 <br><pre>
 music.changeVolume(double intensity);
-Slider.getIntensity();</pre><br>
+Slider.getIntensity();</pre><br><br>
+
+Once you finished your code, test if the music volume actually changes by first playing a song with the virtual touch button and then dragging the slider to adjust the music volume. If everything works, move on.<br><br>
 
 <h4>Hide the Slider</h4><br>
 
@@ -428,25 +444,20 @@ If you want to see them again, press 's' (for show).<br><br>
 
 <h4>Now Let's Change Music Volume from the Inkjet Printed Physical Card</h4><br>
 
-Now that we have a great debugging UI that we can control digitally and we tested that everything works, we also want to extend the music volume control to the physical card.<br><br>
+Now that we can control the slider digitally, we also want to adjust the volume of the music from the physical card.<br><br>
+Copy over your code from the other Processing application you just wrote and integrate it into the music card.<br>
 
-For this, we need to connect your serial communication messages from the printed music card to the digital UI.<br>
-As shown in the previous steps, we have implemented the Serial communication and the message decoding in the previous exercise. <br>
-A bit different from the buttons. For the slider, we would convert the silder segment values (potentially 5 of them in our case) into one value ranging from 0.00 to 1.00.<br>
-You don't have to over-complicated it, some straght-forward linear interpolation will do, as long as the value is overall continuous. <br>
-Use that value to control the music volume. Whenever the physical slider is touched / dragged, there should some visualization on the UI to indicate the volume changing level. <br>
-You can do it by drawing a rect in real-time whenever the slider is touched, with its width corresponding to the music volume level. <br>
 <img src="images/lab2-volume-low.png" width="300px">
 <img src="images/lab2-volume-middle.png" width="300px">
 <!-- <img src="images/lab2-volume-high_UI.png" width="200px"> -->
 <br><br>
 
-Once your card is working, show it to the teaching team.<br><br>
+Now test if everything works by using your physical printed card to play/pause songs and the physical slider to adjust the music volume. If it works, congrats, you are done :)!<br><br>
 
 
 <h3 class="headline">Conclusion</h3>
 
-Great, so now we can read microcontroller input and display it in Processing. <br>
+Now we can read microcontroller input and display it in Processing. <br>
 This will come in handy in the future when we want to build and test more advanced user interfaces.<br><br>
 
 <br>
