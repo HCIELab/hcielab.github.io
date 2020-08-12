@@ -155,18 +155,23 @@ Now that we have the port defined, we can see if data is available.<br>
 In the draw function, you need to first check if there is data on the port available, and then you can read the value from the port.<br><br>
 
 <pre>int val;
-if (myPort.available() >= 4) { // If there is a message with at least 4 characters because we are sending in the format [sensorNumber comma touched semicolon] with one character each
-    String val = myPort.readStringUntil(';'); // reads a String until the character ';' is found
+
+// If there is a message with at least 4 characters 
+// remember we are sending in the format: <i>sensorNumber comma touched semicolon</i> with one character each
+if (myPort.available() >= 4) { 
+
+    // read a String until the character ';' is found, which indicates the end of our message
+    String val = myPort.readStringUntil(';'); 
   }</pre><br>
 
 Note that we use <code>myPort.readStringUntil()</code>, which we can do because we are sending a string on the serial port from our Arduino program that is looping on the microcontroller. If we send other data-types, we would have to use a different function so Processing knows how to convert the un-typed data that is coming through the port at the specific baudrate.<br><br>
 
-Next, check if this is working. We recommend you print() the String value to the Processing command line, run your Processing program, and touch your touch sensor to see if something gets printed on the Processing command line. If that doesn't work for you, now would be a good moment to get some help.<br><br>
+Next, check if this is working. We recommend you <a href="https://processing.org/reference/print_.html">print()</a> the String value to the Processing command line, run your Processing program, and touch your touch sensor to see if something gets printed on the Processing command line. If that doesn't work for you, now would be a good moment to get some help.<br><br>
 
 <h4>Creating a Visualization for the Incoming Touch Sensor Data</h4><br>
 
 Now we can do something based on the incoming Strings.<br>
-In the next step, we want to create a bar that goes up and down depending on if the sensor is touched or not.<br>
+In the next step, we want to create a bar that goes up if the touch sensor is touched and down if the sensor is not touched.</br>
 Let's start with a single bar for touch sensor 1 and we can do the rest later.<br>
 
 
@@ -190,7 +195,7 @@ For drawing the rectangle:<br>
 </ul>
 <br>
 
-For coloring the bar and the background, you may want to look at:<br>
+For coloring the bar and the background:<br>
 <ul>
   <li><a href="https://processing.org/reference/fill_.html">Fill</a></li>
   <li><a href="https://processing.org/reference/background_.html">Background</a></li>
@@ -207,12 +212,12 @@ But before we can do this, we first have to do some String Processing on the inc
 
 <h4>Splitting the Incoming Message String into Individual Values</h4><br>
 
-What we are currently printing to the command line are String in the format of "0,1;" (sensor_ID) and (is_touched).<br>
-However, to analyze this data in our code we have to split it again in two individual values.<br><br>
+What we are currently printing to the command line are String in the format of "0,1;" (sensor_ID,is_touched;).<br>
+However, to analyze this data in our code we have to split it again into two individual values so we can check the sensor_ID and and if the sensor is touched or not with an if/else statement.<br><br>
 
 Use the String split() function to do that.<br>
 You can find information on split() and how to use it in the <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html" target="_blank">Java String reference</a>.<br>
-Once you have both the <code>sensor_ID</code> and <code>is_touched</code> seperated, we recommend you check that this worked by printing them to the command line before moving on.<br><br>
+Once you have both the <code>sensor_ID</code> and <code>is_touched</code> separated, we recommend you check that this worked by printing them to the command line before moving on.<br><br>
 
 <h4>Connecting the Incoming Touch Signals to the Visualization</h4><br>
 
@@ -231,6 +236,7 @@ A low bar shows that the sensor is not being touched.<br><br>
 
 Once you are done, it should look like this:<br><br>
 
+Left: not touched, right: touched.<br>
 <img src="images/lab2-bar-down.png" width="300px">
 <img src="images/lab2-bar-up.png" width="300px"><br>
 
@@ -238,13 +244,15 @@ Once you are done, it should look like this:<br><br>
 <h4>Extend Visualization to Three Bars</h4><br>
 
 Next, we want to extend our user interface to have a bar for all three touch sensors.<br>
-It should look like the image below.<br>
+It should look like the image below.<br><br>
 
+Only touch button 1 is touched, touch button 2 and 3 are not touched.<br>
 <img src="images/lab2-three-bars-one-touched.png" width="300px"><br><br>
 
 Touching multiple touch sensors simultaenously already works because we are reading messages from the serial port at such a high speed that they come after one another.
 <br><br>
 
+Only touch button 1 and 2 are touched, touch button 3 is not touched.<br>
 <img src="images/lab2-three-bars-multiple-touched.png" width="300px"><br><br>
 
 
