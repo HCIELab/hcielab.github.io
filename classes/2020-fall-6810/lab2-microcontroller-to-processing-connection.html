@@ -338,37 +338,51 @@ Now that we have the user interface that we can control digitally and we tested 
 We have already implemented the Serial communication and the message decoding in the previous exercise, i.e. the Processing application you wrote for displaying the touch bars that go up and down. <br>
 Add this code to the music card UI and instead of increasing the height of your bar you are now calling the music functions. <br><br>
 
+Once you have finished the code, try if it works by touching the notes of your printed music card to play/pause the song and go to the next/previous song.<br><br>
+
 <h3 class="headline">(6) Wiring up and Visualizing the Slider for Volume Control</h3> <br>
 
+Now that we have successfully wired up the touch buttons, processed the touch signals, and visualized them in Processing, we want to do the same three things for the touch slider.<br><br>
+
 <h4>Connect the Physical Slider to the Main Circuit.</h4><br>
-We start the section by wiring up the inkjet printed physical slider to ESP32, and extend code for it on the Arduino IDE. <br>
-Here is the pin out again for your reference, try to use the pins with "TOUCHX" labels for better signal quality: <br><br>
+
+Start by wiring up each slider segment exactly the way how you wired up the individual touch buttons.<br>
+Remember they can all use the same sender pin but need a different receiver pin.<br>
+<a href="lab1-circuit-design-and-processing.html">Refer to Lab 1</a> if you don't remember how this works.<br><br>
+
+Here is the pin out again for your reference, <span style="color:red">try to use the pins with "TOUCHX" labels for better signal quality:</span> <br><br>
 
 <img src="images/esp32-pinout.png" width="500px" /><br><br>
 
-Each slider segment should be wired to the ESP32 just like one button, with one 100K Ohm resistor. They can all share the same sender pin with the previously wired button. <br><br>
-
 <h4>Thresholding Slider Signals: How much space is it touched?</h4><br>
 
-Once finished with the wiring, you should extend the Arduino code so that they read the values correctly. <br>
-Unlike the button, which returns binary values 0 or 1 to indicate if it is pressed, we would like to have each slider segment return a continuous value from 0.0 to 1.0 when pressed, so that at the end we will have a more continuous and smooth control over the music volume. <br>
-This can be achieved by looking at "how much" the slider segment is touched. <br>
-When you look at the raw touch signals, you would notice that the raw value has a strong correlation of how much space of the sensor is touched, i.e. the larger space the higher the value is. <br>
-As a result, you can achieve the continuous value for each slider segment via 2 parameters: 1) threshold to see if it is touched, and 2) the roughly "max touch value" of the slider segment when "fully touched". <br>
+Once finished with the wiring, extend the Arduino code so that it can also read each slider segment's touch signal.<br><br>
+
+For the touch buttons, we were merely interested if the button is touched or not, thus we converted the touch signal into a <b>binary value 0 or 1</b> to indicated if it is pressed or not.<br>
+Remember that for the slider we want to do something more sophisticated, i.e. have a continous signal that allows us to smoothly adjust the music volume (rather than jumping from one discrete noise level to the next).<br>
+Thus, each slider segment should return a <b>continuous value from 0.0 to 1.0</b> when touched depending on the area of overlap with the finger. <br><br>
+
+We can see by 'how much' a slider segment is touched by looking at the raw touch signals coming from the microcontroller.<br>
+When looking at the Serial Plotter, you will notice that the raw value has a strong correlation with how much space of the sensor is touched, i.e. the larger the area the higher the value is. <br><br>
+
+Thus, you can compute continuous value for each slider segment via 2 parameters (see below): <br>
+1) threshold to see if it is touched or not (i.e. 'min touch value'), and <br>
+2) the 'max touch value' of the slider segment when fully touched. <br><br>
+
 You can then calculate and print the percentage by "raw_value / max_touch_value" in real-time if the value surpass the "touched" threshold. <br><br>
 
 <img src="images/lab2-slider-value.png" width="600px" /><br><br>
 
-We would then format the code to the Serial port so that we can read them from Processing. <br>
-For this part, you can either use the same format as the touch button, or you can be creative and come up with your own formating. Do make sure each silder segment has its own continuous value when touched.  <br><br>
+Once you have the continous signal for each slider segment, you need to format the result and write it to the Serial port so that we can read it from Processing. <br>
 
-For each sensor (slider segment), we could format our output like before so that:
+For each sensor (slider segment), format the output like we did before for the touch button so that:
 
 <code>(sensor ID),(how_much_touched);</code><br><br>
     
-(sensor ID) is from 3 - 7, and represents the ID of the observed touch sensor (slider segments).<br>
+(sensor ID) is from 3 - 7, and represents the ID of each slider segment.<br>
 (is_touched) is ranging from 0.00 to 1.00 to indicate how much space the sensor is touched.<br><br>
 
+<span style="color:red">is this a realistic example? I thought max 2 slider segments will be touched?</span><br>
 A sample output hould look like:<br>
 <pre><code>3,0.78;
 3,0.86;
