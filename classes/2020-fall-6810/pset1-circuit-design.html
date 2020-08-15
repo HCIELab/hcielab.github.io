@@ -81,8 +81,8 @@ Once both sheets are printed, you layer them on top of each other to build the f
 In the user interface, the user should be able to enter:<br>
 
 <ul>
-	<li>the desired number of electrodes in x-direction (default value: 5)</li>
-	<li>the desired number of electrodes in y-direction (default value: 5)</li>
+	<li>the desired number of electrodes in x-direction (default value: 10 electrodes)</li>
+	<li>the desired number of electrodes in y-direction (default value: 10 electrodes)</li>
 	<li>the size of the electrode in mm (default value: 4mm)</li>
 	<li>the spacing between adjacent electrodes in mm (default value: 1mm)</li>
 	<li>the thickness of the wires in mm (default value: 0.35mm)</li>
@@ -90,7 +90,16 @@ In the user interface, the user should be able to enter:<br>
 </ul>
 <br>
 
-In addition, the user interface should have:<br>
+The user interface should only allow the user to input reasonable numbers into the fields:<br>
+
+<ul>
+	<li>for each input field listed above, think about what is a reasonable lower and upper bound (i.e. min/max values)</li>
+	<li>write a short explanation why you picked the lower/upper bounds for each field and submit it using this google form</li>
+	<li>implement the lower/upper bounds in your user interface, i.e. the user should either not be able to enter values outside the lower/upper bounds (i.e. you only offer a selection of valid numbers) or if your UI allows to enter any value then your user interface should show the user a warning that the value is invalid and reset to the last valid value</li>
+</ul>
+<br>
+
+Finally, the user interface should have some preview and export functions:<br>
 
 <ul>
 	<li>one checkbox called 'show top layer' and one checkbox called 'show bottom layer', toggling the checkbox should hide/show the respective electrode layers so the layers can be looked at individually</li>
@@ -108,7 +117,7 @@ You may find it helpful to look at the following Processing classes:<br>
 <br>
 
 When you are done, it should look something like the images below.<br>
-Make sure you test your user interface by exporting several different multi-touch pad sizes, e.g. <span style="color:red">4x10, 6x12, 15x15.</span><br><br>
+Make sure you test your user interface by exporting several different multi-touch pad sizes, e.g. <span style="color:red">4x10, 6x12, 20x20.</span><br><br>
 
 <span style="color:red">insert Dani's updated UI here</span><br>
 <img src="images/pset1-processing-output.png" width="350px">
@@ -116,17 +125,16 @@ Make sure you test your user interface by exporting several different multi-touc
 <br><br>
 
 
-
-<li></li>
-
 <h3>(2) Inkjet Printing</h3>
 
-Once you feel your circuit design looks right, inkjet print it.<br>
-You will need two sheets, one for the columns and one for the rows.<br>
+Once your circuit design tool is ready, export a multi-touch pad of <span style="color:red">9x8 electrodes</span> from your user interface.<br><br>
+
+Go to a fabrication office hour to inkjet print your multi-touch pad.<br>
+Remember you need to print two sheets, one for column and one for rows.<br><br>
 
 <h3>(3) Assemble Fabricated Touchpad Parts</h3>
 
-Once you printed both sheets, you can glue them together using a thin adhesive foil.
+Once you printed both sheets, you can glue them together using a <span style="color:red">thin adhesive foil or spray glue.</span>
 
 <h3>(4) Connect to FCP chip</h3>
 
