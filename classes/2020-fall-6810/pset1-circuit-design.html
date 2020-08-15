@@ -73,12 +73,12 @@ In the first part of the problem set, you are going to do four steps:
 Before you get started, check if you have all of the following:<br>
 
 <ul>
-	<li>ESP32 microcontroller</li>
+	<li>ESP32 microcontroller, breadboard, and wires</li>
 	<li>one multiplexer</li>
 	<li>two FPC connectors</li>
-	<li><span style="color:red">20 XX ohm resistors</span></li>
+	<li><span style="color:red">20 x 100Kohm resistors</span></li>
 	<li>two transparent sheets for conductive inkjet printing</li>
-</ul>
+</ul><br>
 
 <img src="images/pset1-resistor-multiplexer.jpg" width="380px">
 <img src="images/pset1-transparent-sheets.jpg" width="300px">
@@ -99,12 +99,12 @@ Once both sheets are printed, you layer them on top of each other to build the f
 In the user interface, the user should be able to enter:<br>
 
 <ul>
-	<li>the desired number of electrodes in x-direction (default value: 10 electrodes)</li>
-	<li>the desired number of electrodes in y-direction (default value: 10 electrodes)</li>
-	<li>the size of the electrode in mm (default value: 4mm)</li>
-	<li>the spacing between adjacent electrodes in mm (default value: 1mm)</li>
-	<li>the thickness of the wires in mm (default value: 0.35mm)</li>
-	<li>the spacing of wires on the FPC connector in mm (to find the correct value, measure the FPC connector)</li>
+	<li>the desired number of electrodes in x-direction <span style="color:red">(default value: 10 electrodes)</span></li>
+	<li>the desired number of electrodes in y-direction <span style="color:red">(default value: 10 electrodes)</span></li>
+	<li>the size of the electrode in mm <span style="color:red">(default value: 4mm)</span></li>
+	<li>the spacing between adjacent electrodes in mm <span style="color:red">(default value: 1mm)</span></li>
+	<li>the thickness of the wires in mm <span style="color:red">(default value: 0.35mm)</span></li>
+	<li>the spacing of wires on the FPC connector in mm <span style="color:red">(to find the correct value, look at the data sheet of the FPC connector)</span></li>
 </ul>
 <br>
 
@@ -113,7 +113,7 @@ The user interface should only allow the user to input reasonable numbers into t
 <ul>
 	<li>for each input field listed above, think about what is a reasonable lower and upper bound (i.e. min/max values)</li>
 	<li>write a short explanation why you picked the lower/upper bounds for each field and submit it using this google form</li>
-	<li>implement the lower/upper bounds in your user interface, i.e. the user should either not be able to enter values outside the lower/upper bounds (i.e. you only offer a selection of valid numbers) or if your UI allows to enter any value then your user interface should show the user a warning that the value is invalid and reset to the last valid value</li>
+	<li>implement the lower/upper bounds in your user interface, i.e. the user should either not be able to enter values outside the lower/upper bounds (i.e. you only offer a selection of valid numbers) or if your UI allows to enter any value then your user interface should show the user a warning that the value is invalid and reset to the last valid value <span style="color:red">check if that's possible in Processing</span></li>
 </ul>
 <br>
 
@@ -135,7 +135,8 @@ You may find it helpful to look at the following Processing classes:<br>
 <br>
 
 When you are done, it should look something like the images below.<br>
-Make sure you test your user interface by exporting several different multi-touch pad sizes, e.g. <span style="color:red">4x10, 6x12, 20x20.</span><br><br>
+Make sure you test your user interface by exporting several different multi-touch pad sizes, e.g. <span style="color:red">4x10, 6x12, 20x20.</span><br>
+If you are unsure if everything has the right dimension, use a regular color printer to print out your design and measure it with a ruler.<br>
 
 <span style="color:red">insert Dani's updated UI here</span><br>
 <img src="images/pset1-processing-output.png" width="350px">
@@ -154,7 +155,7 @@ Remember you need to print two sheets, one for column and one for rows.<br><br>
 
 Once you printed both sheets, you can glue them together using a <span style="color:red">thin adhesive foil or spray glue.</span><br><br>
 
-<h3>(4) Connect Top and Bottom Electrode Layers to FCP chips</h3>
+<h3>(4) Connect Top and Bottom Electrode Layers to FPC chips</h3>
 
 Next, clip on both FCP chips to make sure you got the connection pads right.<br>
 <span style="color:red">say a few words what the FCP chips are for.</span><br><br>
@@ -169,13 +170,12 @@ Finally, build the sensing circuit.<br>
 
 We will give 25 pts in total:
 <ul>
-	<li>5 pts: you finished all for steps of the task.</li>
-	<li>5 pts: circuit design: are all measurements correct, i.e. do the diamonds have the right size, is the spacing correct, do the wires actually connect to the FCP correctly.</li>
-	<li>5 pts: inkjet printing: the print is highly conductive and all columns and rows have a low resistance.</li>
-	<li>5 pts: assembly: did you assemble the layers correctly, are they correctly aligned, are the sheets stacked in the correct way.</li>
-	<li>5 pts: connect to FCP: your multi-touch pad connects correctly to the FCP chips, nothing is misaligned.</li>
+	<li>does the Processing UI have input elements that correctly set the number of electrodes, size of electrodes, spacing of electrodes, wire thickness and spacing on the FPC connector or are these values hardcoded in the code? (5 pts)</li>
+	<li>does the Processing UI have lower and upper bounds for each input field and are the selected lower and upper bounds well reasoned based on fabrication and hardware part constraints of the electronic parts you have available for the pset as indicated by the answers you gave in the google spreadsheet (5 pts)</li>
+	<li>does the Processing UI export function export a drawing in the correct dimensions into two seperate .pdf files that are named correctly and that have the correct settings for conductive inkjet printing, are the toggle functions for showing/hiding layers implemented (5 pts)</li>
+	<li>did you finish assembling your multi-touch pad, i.e. did you inkjet print both the top and bottom electrode layer, glued them together, and connected the FPC chips? (5 pts)</li>
+	<li>did you correctly build the multi-touch sensing circuit using the multiplexer, resistors and ESP? (5 pts)</li>
 </ul>
-
 
 
         <br />
