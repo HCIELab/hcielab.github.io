@@ -244,24 +244,38 @@ Next, we have to connect to the copper layer. This one is already exposed so you
 
 <h3 class="headline">Powering Your EL Display</h3>
 
-Let's connect your display to a power supply, i.e. your ESP32 microcontroller, and light it up!<br>
 EL displays require an alternating current between the two elecrodes to excite the phosphor and make it light up.<br>
 Therefore, just connecting it to a DC power supply, like the 3.3V DC from your ESP32, won't do the trick.<br><br>
 
 We therefore use an inverter to generate 110V AC from your 3.3V DC ESP32 power supply.<br>
-The 110V are low current and not really dangerous, but you can get a little shock when touch both electrodes. Therefore, never plug the display in while you are working on the circuit and you are touching the wires. <br><br>    
+The 110V are low current and not really dangerous, but you can get a little shock when you touch both electrodes.<br><br>
+
+<span style="color:red">While building your circuit, you must adhere to the following rules:
+<ul>
+  <li>never touch the display or any part of the circuit while your microcontroller is connected to power</li>
+  <li>unplug the microcontroller from your laptop <b>before</b> you do any wiring, only after it is unplugged you are allowed to touch the circuit and exchange wires and components</li>
+  <li>once you are done wiring and you have made sure you are not touching any part of the circuit anymore, plug the microcontroller back in</li>
+</ul>
+</span><br>
 
 <img src="images/lab3/inverter.png" width="400px"><br><br>
 
-Your first step is to connect the 110V inverter output to the display. Use jumper wires to stick them into the white connector of the inverter. Since you have exposed wires now, you can use crocodile wires to connect them to the copper flaps of your display. Be careful that you don't rip them off when working with the wires.
-Next, you have to connect the inverter to the 3.3V power supply of your microcontroller. Use jumper wires again to stick them into the white connector element. Let's keep the convention that black wires are GND and red wires are +3.3V. <br>
+Your first step is to connect the 110V AC inverter output to the display.<br> 
+Use two jumper wires and stick them into the white connector of the black output wires of the inverter.<br> 
+The other end of the jumper wires then goes onto a crocodile clamp each.<br>
+The crocodile clamps can then connect to the copper flaps of your display (one goes to the top flap and one to the bottom flap).<br> 
+Be careful that you don't rip off the flaps when working with the wires.<br><br>
+
+Next, you have to connect the inverter to the 3.3V power supply of your microcontroller.<br>
+Use two jumper wires again to stick them into the white connector of the red/black wire of the interverter.<br> 
+Let's keep the convention that black wires are GND and red wires are +3.3V.<br>
 Next connect the red wire to your microcontrollers 3.3V and and black to the ESP32's GND.<br><br>
 
-Great! You are ready to power on your display.<br>
-First, turn the display around such that you see the top side. <br>
+Once you are done wiring, turn the display around such that you see the top side. <br>
 The copper should be on the bottom now and you can't see it anymore. <br><br>
 
-When this is done, plug your ESP microcontroller into your computer. <br>
+When this is done, make sure you are not touching the circuit anymore at any place.<br>
+Then plug your ESP microcontroller into your computer. <br>
 You should see a bright EL display in the shape of the coffee mug now. <br>
 If you see that, congratulations. <br>
 If not, check if all wires are connected properly or ask for some help from the TAs.<br><br>
