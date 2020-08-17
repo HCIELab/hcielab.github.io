@@ -56,76 +56,140 @@
 
           <hr>
 
-In this problem set series, you will create the multi-touch pad shown above.
-
-<ul>
-	<li>pset 1: create the 2D circuit drawing and fabricate it with silver inkjet printing</li>
-	<li>pset 2: analyze the touch data</li>
-	<li>pset 3: visualized the data with Processing in 2D and 3D</li>
-</ul>
-
-<img src="images/silver-inkjet-printing.png" width="350px">
-<img src="images/pset-electronics2.png" width="350px">
-<img src="images/pset-processing1.png" width="350px">
-<img src="images/pset-processing2.png" width="350px">
-
-
-
 <h2 class="headline">Problem Set 1</h2>
 
 In the first part of the problem set, you are going to do four steps:
 <ul>
-	<li>(1) Make the Circuit Drawing</li>
-	<li>(2) Inkjet Print your Circuit Drawing</li>
-	<li>(3) Assemble the Fabricated Parts of your Multi-touch Pad</li>
-	<li>(4) Connect the Multi-Touch wires to a FCP chip</li>
+	<li>(1) Create Processing User Interface for Generating Fabrication Files</li>
+	<li>(2) Inkjet Print Top and Bottom Electrode Layers</li>
+	<li>(3) Assemble Top and Bottom Electrode Layers</li>
+	<li>(4) Connect Top and Bottom Electrode Layers to FCP chips</li>
+	<li>(5) Build Multi-Touch Sensing Circuit</li>
 </ul>
 
-<h3>(1) Circuit Design</h3>
 
-As explained in lecture, your multi-touch pad has two layers that are printed seperately.<br>
-The horizontal row of pixels is printed on one sheet, the vertical row of pixels is printed on a second sheet.<br>
-Each row/column consists of multipe pixels and has a single wire at the end.<br>
+<h3>Check before you start: Do you have all the hardware?</h3>
 
-<ul><b>Overall Touch Pad Dimensions:</b>
-	<li>Number of Electrodes: Your touchpad should have 10 x 10 electrodes</li>
-	<li>Size of Diamonds: each diamonds should be 4 by 4 mm</li>
-	<li>Thickness of Wires: make <span style="color:red">them 0.35mm thick (in lab 1 we say 1mm).</span></li>
+Before you get started, check if you have all of the following:<br>
+
+<ul>
+	<li>ESP32 microcontroller, breadboard, and wires</li>
+	<li>one multiplexer</li>
+	<li>two FPC connectors</li>
+	<li><span style="color:red">20 x 100Kohm resistors</span></li>
+	<li>two transparent sheets for conductive inkjet printing</li>
+</ul><br>
+
+<img src="images/pset1-resistor-multiplexer.jpg" width="380px">
+<img src="images/pset1-transparent-sheets.jpg" width="300px">
+
+
+<h3>(1) Processing User Interface for <br>Generating Fabrication Files</h3>
+
+In the first part of this problem set, you will write a user interface in Processing that will automatically generate the fabrication files for making multi-touch pads of different dimensions. In particular, a user will be able to input parameters, such as the width and height of the multi-touch pad and then automatically receive the matching fabrication files, i.e. a 2D drawing of the required circuit in .pdf file format that the user can send to their 2D printer for conductive inkjet printing.<br><br>
+
+As explained in lecture, your multi-touch pad has two layers that are printed separately.<br>
+Each row/column consists of multiple electrodes and has a single wire at the end.<br>
+The horizontal row of electrodes is printed on one sheet, the vertical row of electrodes is printed on a second sheet.<br>
+Once both sheets are printed, you layer them on top of each other to build the final circuit.<br><br>
+
+<img src="images/pset1-multitouch-pad-explanation1.png" width="200px">
+<img src="images/pset1-multitouch-pad-explanation2.png" width="400px"><br><br>
+
+In the user interface, the user should be able to enter:<br>
+
+<ul>
+	<li>the desired number of electrodes in x-direction <span style="color:red">(default value: 10 electrodes)</span></li>
+	<li>the desired number of electrodes in y-direction <span style="color:red">(default value: 10 electrodes)</span></li>
+	<li>the size of the electrode in mm <span style="color:red">(default value: 4mm)</span></li>
+	<li>the spacing between adjacent electrodes in mm <span style="color:red">(default value: 1mm)</span></li>
+	<li>the thickness of the wires in mm <span style="color:red">(default value: 0.35mm)</span></li>
+	<li>the spacing of wires on the FPC connector in mm <span style="color:red">(to find the correct value, look at the data sheet of the FPC connector)</span></li>
 </ul>
-
-<ul><b>Measurements for Rows/Columns:</b>
-	<li>Spacing of Diamonds: diamonds on the same row/column should be spaced 1mm apart (i.e. the gap is 1mm between two adjacent shapes).</li>
-	<li>Spacing between Rows/Columns: there should be a 1mm gap between two rows/columns.</li>
-</ul>
-
-<li></li>
-
-<h3>(2) Inkjet Printing</h3>
-
-Once you feel your circuit design looks right, inkjet print it.<br>
-You will need two sheets, one for the columns and one for the rows.<br>
-
-<h3>(3) Assemble Fabricated Touchpad Parts</h3>
-
-Once you printed both sheets, you can glue them together using a thin adhesive foil.
-
-<h3>(4) Connect to FCP chip</h3>
-
-Finally, clip on both FCP chips to make sure you got the connection pads right.
-
 <br>
+
+The user interface should only allow the user to input reasonable numbers into the fields:<br>
+
+<ul>
+	<li>for each input field listed above, think about what is a reasonable lower and upper bound (i.e. min/max values)</li>
+	<li>write a short explanation why you picked the lower/upper bounds for each field and submit it using this google form</li>
+	<li>implement the lower/upper bounds in your user interface, i.e. the user should either not be able to enter values outside the lower/upper bounds (i.e. you only offer a selection of valid numbers) or if your UI allows to enter any value then your user interface should show the user a warning that the value is invalid and reset to the last valid value <span style="color:red">check if that's possible in Processing</span></li>
+</ul>
+<br>
+
+Finally, the user interface should have some preview and export functions:<br>
+
+<ul>
+	<li>one checkbox called 'show top layer' and one checkbox called 'show bottom layer', toggling the checkbox should hide/show the respective electrode layers so the layers can be looked at individually</li>
+	<li>an export button, which when clicked saves the generated electrodes into <span style="color:red">two .pdf files</span> (called bottom-electrodes.pdf and top-electrodes.pdf), one for the rows of electrodes (bottom sheet) and one for the columns (top sheet)</li>
+	<li>make sure the exported files have all settings correctly set for conductive inkjet printing</li>
+</ul>
+<br>
+
+You may find it helpful to look at the following Processing classes:<br>
+
+<ul>
+	<li><a href="https://processing.org/reference/PGraphics.html">PGraphics</a></li>
+	<li><a href="https://processing.org/reference/PImage.html">PImage</a></li>
+</ul>
+<br>
+
+When you are done, it should look something like the images below.<br>
+Make sure you test your user interface by exporting several different multi-touch pad sizes, e.g. <span style="color:red">4x10, 6x12, 20x20.</span><br>
+If you are unsure if everything has the right dimension, use a regular color printer to print out your design and measure it with a ruler.<br>
+
+<span style="color:red">insert Dani's updated UI here</span><br>
+<img src="images/pset1-processing-output.png" width="350px">
+
+<br><br>
+
+
+<h3>(2) Inkjet Print Top and Bottom Electrode Layers</h3>
+
+Once your circuit design tool is ready, export a multi-touch pad of <span style="color:red">9x8 electrodes</span> from your user interface.<br><br>
+
+Go to a fabrication office hour to inkjet print your multi-touch pad.<br>
+Remember you need to print two sheets, one for column and one for rows.<br><br>
+
+<h3>(3) Assemble Top and Bottom Electrode Layers</h3>
+
+Once you printed both sheets, you can glue them together using a <span style="color:red">thin adhesive foil or spray glue.</span><br><br>
+
+<h3>(4) Connect Top and Bottom Electrode Layers to FPC chips</h3>
+
+Next, clip on both FCP chips to make sure you got the connection pads right.<br>
+<span style="color:red">say a few words what the FCP chips are for.</span><br><br>
+
+
+<h3>(5) Build Multi-Touch Sensing Circuit</h3>
+
+Finally, build the sensing circuit.<br>
+<span style="color:red">add schematic here.</span><br><br>
+
+<h3>Upload your Code and Design Files, Show Hardware to TA</h3>
+
+For grading, please upload the following to your google drive student folder:<br>
+
+<ul>
+	<li>the .pde file of your Processing program</li>
+	<li>the two .pdf files you used for conductive inkjet printing</li>
+	<li>3-5 photos showing your assembled circuit from different perspectives (include top view + side views)</li>
+	<li><span style="color:red">bring your assembled multi-touch pad to your spray session</span></li>
+</ul>
+
+<span style="color:red">add schematic here.</span><br><br>
+
 
 <h3>Grading</h3>
 
 We will give 25 pts in total:
 <ul>
-	<li>5 pts: you finished all for steps of the task.</li>
-	<li>5 pts: circuit design: are all measurements correct, i.e. do the diamonds have the right size, is the spacing correct, do the wires actually connect to the FCP correctly.</li>
-	<li>5 pts: inkjet printing: the print is highly conductive and all columns and rows have a low resistance.</li>
-	<li>5 pts: assembly: did you assemble the layers correctly, are they correctly aligned, are the sheets stacked in the correct way.</li>
-	<li>5 pts: connect to FCP: your multi-touch pad connects correctly to the FCP chips, nothing is misaligned.</li>
+	<li>does the Processing UI have input elements that correctly set the number of electrodes, size of electrodes, spacing of electrodes, wire thickness and spacing on the FPC connector or are these values hardcoded in the code? (5 pts)</li>
+	<li>does the Processing UI have lower and upper bounds for each input field? are the selected lower and upper bounds well reasoned based on what makes sense given the hardware parts you have available for the pset, the sensing principle we use, and given that a human is touching the multi-touch pad? (5 pts)</li>
+	<li>does the Processing UI export function export a drawing in the correct dimensions into two seperate .pdf files that are named correctly and that have the correct settings for conductive inkjet printing? are the toggle functions for showing/hiding layers implemented? (5 pts)</li>
+	<li>did you finish assembling your multi-touch pad, i.e. did you inkjet print both the top and bottom electrode layer, glued them together, and connected the FPC chips? (5 pts)</li>
+	<li>did you correctly build the multi-touch sensing circuit using the multiplexer, resistors and ESP? (5 pts)</li>
 </ul>
-
 
 
         <br />
