@@ -248,14 +248,14 @@ Let's connect your display to a power supply, i.e. your ESP32 microcontroller, a
 EL displays require an alternating current between the two elecrodes to excite the phosphor and make it light up.<br>
 Therefore, just connecting it to a DC power supply, like the 3.3V DC from your ESP32, won't do the trick.<br><br>
 
-We therefore use an inverter to generate 110V AC from your 3.3V DC ESP32 power supply.<br>
-The 110V are low current and not really dangerous, but you can get a little shock when touch both electrodes. Therefore, never plug the display in while you are working on the circuit and you are touching the wires. <br><br>    
+We therefore use an inverter to generate 50V AC from a 1.2V AA battery.<br>
+The 50V are low current and not really dangerous, but you might feel a little sensation at the tips of your fingers when touching them. Therefore, never plug the display in while you are working on the circuit and you are touching the wires! <br><br>    
 
 <img src="images/lab3/inverter.png" width="400px"><br><br>
 
-Your first step is to connect the 110V inverter output to the display. Use jumper wires to stick them into the white connector of the inverter. Since you have exposed wires now, you can use crocodile wires to connect them to the copper flaps of your display. Be careful that you don't rip them off when working with the wires.
-Next, you have to connect the inverter to the 3.3V power supply of your microcontroller. Use jumper wires again to stick them into the white connector element. Let's keep the convention that black wires are GND and red wires are +3.3V. <br>
-Next connect the red wire to your microcontrollers 3.3V and and black to the ESP32's GND.<br><br>
+Your first step is to connect the 50V inverter output to the display. Use jumper wires to stick them into the white connector of the inverter. Since you have exposed wires now, you can use crocodile wires to connect them to the copper flaps of your display. Be careful that you don't rip them off when working with the wires.
+Next, you have to connect the inverter to the 1.2V battery holder. Use jumper wires again to stick them into the white connector element. Let's keep the convention that black wires are GND and red wires are +1.2V. <br>
+Next connect the red wire to the + pol of your battery and black to -.<br><br>
 
 Great! You are ready to power on your display.<br>
 First, turn the display around such that you see the top side. <br>
@@ -283,7 +283,7 @@ A <b>triac</b> is similar to a transistor but also block alternating current (AC
     
 <img src="images/lab3/Triac.png" width="100px"><img src="images/lab3/triac_image.png" width="200px"><br><br>
     
-    The ESP32 is rated only up to 12V so a higher voltage could potentially damage the microcontroller's components. Therefore, we have to isolate the ESP32 from the 110V power supply. For this purpose, we will use an <b>optocoupler</b>. An optocoupler houses an LED and a photo-triac. When the LED turns on, it activates the opto-triac and let's energy flow. Both components are not directly connected through a wire but galvanically isoltaed. The trigger mechanism works purely through light. This safety measurement ensures that no voltage of the 110V power supply can jump over to the microcontroller. You can see how the symbol and the component looks like:<br><br>
+    The ESP32 is rated only up to 12V so a higher voltage could potentially damage the microcontroller's components. Therefore, we have to isolate the ESP32 from the 50V power supply. For this purpose, we will use an <b>optocoupler</b>. An optocoupler houses an LED and a photo-triac. When the LED turns on, it activates the opto-triac and let's energy flow. Both components are not directly connected through a wire but galvanically isoltaed. The trigger mechanism works purely through light. This safety measurement ensures that no voltage of the 50V power supply can jump over to the microcontroller. You can see how the symbol and the component looks like:<br><br>
     
 <img src="images/lab3/opto_symbol.PNG" width="200px"><img src="images/lab3/opto_img.PNG" width="200px"><br><br>
 
