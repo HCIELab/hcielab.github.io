@@ -394,16 +394,25 @@ If you connect everything correctly and the silver printed circuit design is in 
 
 <img src="images/lab2-slider-segments-raw-value.png" width="600px" /><br><br>
 
-Once you have the continous signal for each slider segment, you need to format the result into one "slider value" and write it to the Serial port so that we can read it from Processing. This part will be done in the Arduino code. <br>
+Once you have the continous signal for each slider segment, you need to format the result into one "slider value" and write it to the Serial port so that we can read it from Processing. This part will be done in the Arduino code. <br><br>
 
-For the slider, format the output like we did before for the touch button so that:
+The task here is to convert the five seperate slider segment values (all from 0.00-1.00) and combine them into one value that represents the overall slider position ranging from 0.00-1.00 (0-100 percent).<br>
+
+You don't have to over-complicate it, some straght-forward linear interpolation will do, as long as the value is overall continuous. You can also assume that at any given time, there will be at most 2 adjunct slider segments been touched (i.e. only one finger on the slider at any given time). <br><br>
+
+For example, each slider segment is representing 20% (0.2) of the overall volume, when only one slider segment is touched, you can calculate the overall slider value based on 1) the touched slider segment's value (0.00-1.00) and 2) the touched slider segment's order (0 to 4). <br>
+More specifically, <b> slider_value = slider_segment_value * 0.2 + slider_segment_order * 0.2 </b>, e.g. the second slider segemnt touched with the value 0.80, the overall slider value would be 0.80 * 0.2 + 1 * 0.2 = 0.36; the third slider segemnt touched with the value 0.80, the overall slider value would be 0.80 * 0.2 + 2 * 0.2 = 0.56. <br><br>
+
+When two adjunct slider segments are touched, you can calculate the overall slider value based on 1) the value of both touched slider segments (with linear interpolation) and 2) the order of the slider segment representing higher volume (1 to 4). <br>
+More specifically, <b> slider_value = ((1.0 - slider_segment_value_lower_order) + slider_segment_value_higher_order) / 2 * 0.2 + slider_segment_higher_order * 0.2 </b>, e.g. the second slider segemnt touched with the value 0.20, and the third slider segemnt touched with the value 0.60, the overall slider value would be ((1 - 0.20) + 0.60) / 2 * 0.2 + 2 * 0.2 = 0.54. <br><br>
+
+For the calculated slider value, format the output like we did before for the touch button so that:
 
 <code>(sensor ID),(slider_value);</code><br><br>
     
 (sensor ID) is 3, and represents the ID of the slider.<br>
 (slider_value) is ranging from 0.00 to 1.00 to indicate how much space the sensor is touched.<br><br>
 
-<span style="color:red">is this a realistic example? I thought max 2 slider segments will be touched?</span><br>
 A sample output hould look like:<br>
 <pre><code>3,0.78;
 3,0.86;
@@ -416,11 +425,8 @@ The output should print continuously as long as the slider is touched. <br>
 <h4>Create Slider Visualization</h4><br>
 
 Now that the slider values are printing to the Serial port, we can read them from Processing.<br>
-<span style="color:red">Open your Processing program that had the three touch bars and add a horizontal bar for the slider.<br> 
-The bar represents the entire slider. Thus, if the finger is on the left side of slider, the bar should be short and if the finger slides more to the right side of the slider, the bar should be long.</span><br><br>
-
-However, before we can render the current slider value on the bar, we will have to do something with the five seperate slider segment values and combine them into one value that represents the overall slider position ranging from 0.00-1.00 (0-100 percent).<br>
-You don't have to over-complicate it, some straght-forward linear interpolation will do, as long as the value is overall continuous.<br>  <span style="color:red">can you say a bit more how you did this? what did you average together?</span><br>
+Open your Processing program that had the three touch bars and add a horizontal bar for the slider.<br> 
+The bar represents the entire slider. Thus, if the finger is on the left side of slider, the bar should be short and if the finger slides more to the right side of the slider, the bar should be long.<br><br>
 
 <img src="images/lab2-slider-visulization-low.png" width="300px">
 <img src="images/lab2-slider-visulization-high.png" width="300px"><br><br>
