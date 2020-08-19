@@ -78,6 +78,7 @@ At the end of Lab 2, upload to your student google drive:
 <ul>
   <li>the Processing code (.pde) you wrote for Serial communication that displays the three touch bars and the slider bar</li>
   <li>the Processing code (.pde) of the completed music card application</li>
+  <li>the Arduino code you wrote for Serial Communication (.ino file format) with the slider added</li>
   <li>a short video (.mov or .mp4, max. 1 minute) showing how you use each function of the printed music card, i.e. touch the buttons with your finger to play/pause a song, go to the previous/next song, and adjust the volume</li>
 </ul><br>
 
@@ -389,23 +390,26 @@ You can then calculate and print the percentage by "raw_value / max_touch_value"
 
 <img src="images/lab2-slider-value.png" width="600px" /><br><br>
 
-Once you have the continous signal for each slider segment, you need to format the result and write it to the Serial port so that we can read it from Processing. <br>
+If you connect everything correctly and the silver printed circuit design is in good quality, the threshold value can be shared among silder segments (since all segments are the same size etc.). If not, you should set different threshold values for different silder segments. You can check this by ploting out the silder segments' raw values. <br><br>
 
-For each sensor (slider segment), format the output like we did before for the touch button so that:
+<img src="images/lab2-slider-segments-raw-value.png" width="600px" /><br><br>
 
-<code>(sensor ID),(how_much_touched);</code><br><br>
+Once you have the continous signal for each slider segment, you need to format the result into one "slider value" and write it to the Serial port so that we can read it from Processing. This part will be done in the Arduino code. <br>
+
+For the slider, format the output like we did before for the touch button so that:
+
+<code>(sensor ID),(slider_value);</code><br><br>
     
-(sensor ID) is from 3 - 7, and represents the ID of each slider segment.<br>
-(is_touched) is ranging from 0.00 to 1.00 to indicate how much space the sensor is touched.<br><br>
+(sensor ID) is 3, and represents the ID of the slider.<br>
+(slider_value) is ranging from 0.00 to 1.00 to indicate how much space the sensor is touched.<br><br>
 
 <span style="color:red">is this a realistic example? I thought max 2 slider segments will be touched?</span><br>
 A sample output hould look like:<br>
 <pre><code>3,0.78;
 3,0.86;
-5,0.64;
-7,0.97;
+3,0.97;
 </code></pre> 
-The output should print continuously as long as the corresponding slider segment is touched. <br>
+The output should print continuously as long as the slider is touched. <br>
 
 <br>
 
@@ -418,7 +422,8 @@ The bar represents the entire slider. Thus, if the finger is on the left side of
 However, before we can render the current slider value on the bar, we will have to do something with the five seperate slider segment values and combine them into one value that represents the overall slider position ranging from 0.00-1.00 (0-100 percent).<br>
 You don't have to over-complicate it, some straght-forward linear interpolation will do, as long as the value is overall continuous.<br>  <span style="color:red">can you say a bit more how you did this? what did you average together?</span><br>
 
-<img src="images/lab2-slider-viz.png" width="300px"><br><br>
+<img src="images/lab2-slider-visulization-low.png" width="300px">
+<img src="images/lab2-slider-visulization-high.png" width="300px"><br><br>
 
 <h4>Add Slider onto the Card</h4><br>
 
@@ -479,6 +484,7 @@ At the end of Lab 2, upload to your student google drive:
 <ul>
   <li>the Processing code (.pde) you wrote for Serial communication that displays the three touch bars and the slider bar</li>
   <li>the Processing code (.pde) of the completed music card application</li>
+  <li>the Arduino code you wrote for Serial Communication (.ino file format) with the slider added </li>
   <li>a short video (.mov or .mp4, max. 1 minute) showing how you use each function of the printed music card, i.e. touch the buttons with your finger to play/pause a song, go to the previous/next song, and adjust the volume</li>
 </ul><br>
 
