@@ -416,7 +416,7 @@ Let's look at the most easy example, i.e. only one slider segment is touched.<br
 Since we have 5 slider segments in our example, each slider segment is representing 20% (0.2) of the overall music volume.<br>
 Thus, when we know slider segment 3 is touched, it must be a music volume between 40-60%.<br>
 To figure out the exact value between 40-60%, we can then look at the slider segments value.<br>
-Let's assume, we read a value of 0.2 from the slider segment 3, we can then conclude that we are at 20% of the overall range from 40-60%, i.e. 20% of 20 (60%-40%) = 4, 40% + 4% = 44%). <br><br>
+Let's assume, we read a value of 0.2 from the slider segment 3, we can then conclude that we are at 1/5th of the overall range from 40-60%, i.e. 1/5th of 20 = 4, 40% + 4% = 44%). <br><br>
 
 Thus, when only one slider segment is touched, we can calculate the overall slider value based on:<br> 
 1) the touched slider segment's order (0 to 4 representing 0-20%, 20-40%, 40%-60%, etc.) <br>
@@ -427,8 +427,10 @@ Thus, when only one slider segment is touched, we can calculate the overall slid
 <!-- <b> slider_value = slider_segment_value * 0.2 + slider_segment_order * 0.2 </b>, e.g. the second slider segemnt touched with the value 0.80, the overall slider value would be 0.80 * 0.2 + 1 * 0.2 = 0.36; the third slider segemnt touched with the value 0.80, the overall slider value would be 0.80 * 0.2 + 2 * 0.2 = 0.56. <br><br> -->
 
 <b>Global Slider Value When Two Slider Segments are Touched</b><br>
-When two adjunct slider segments are touched, we need to slightly extends our calculating of the overall slider value.<br>
-First, we want to determine how much each of the two slider segments is touched.<br><br>
+When two adjunct slider segments are touched, we need to slightly extend our calculation of the overall slider value.<br>
+First, we want to determine how much each of the two slider segments is touched:<br><br>
+
+<img src="images/lab1-exporting-design-circuit_new.png" width="300px"><br><br>
 
 For slider segment 1, consider what happens as we slide from left to right towards slider segment 2.<br>
 First, the slider value of segment 1 will get higher as more and more area of our finger overlaps with the slider segment.<br>
@@ -440,8 +442,7 @@ e.g. segment1 = 0.25 && segment2 is touched then segment1 = 100-0.25 (results in
 For slider segment 2, we can simply read the regular value and use it.<br><br>
 
 Next, we still have to map the two slider values to an overall slider value.<br>
-For this, we first compute the mean of both values and then map the resulting number onto the value range of slider segment 1.<br>
-For instance, if slider segment 1 is 0-20% and slider segment 2 is 20-40%, the overall slider value cannot exceed 20% if both segments are touched.<br>  
+For this, we first compute the mean of both values and then map the resulting number onto the value range of slider segment 1 (yes that's right since we haven't reach the end of slider 1 yet).<br><br>
 
 <!-- 
 
@@ -458,7 +459,7 @@ For the calculated slider value, format the output like we did before for the to
 <code>(sensor ID),(slider_value);</code><br><br>
     
 (sensor ID) is 3, and represents the ID of the slider.<br>
-(slider_value) is ranging from 0.00 to 1.00 to indicate how much space the sensor is touched.<br><br>
+(slider_value) is ranging from 0.00 to 1.00 to indicate the overall slider position.<br><br>
 
 A sample output hould look like:<br>
 <pre><code>3,0.78;
@@ -519,7 +520,7 @@ If you want to see them again, press 's' (for show).<br><br>
 <h4>Now Let's Change Music Volume from the Inkjet Printed Physical Card</h4><br>
 
 Now that we can control the slider digitally, we also want to adjust the volume of the music from the physical card.<br><br>
-Copy over your code from the other Processing application you just wrote and integrate it into the music card.<br>
+Copy over your code that reads the slider value for the Serial Port from the other Processing application you just wrote and integrate it into the music card.<br>
 
 <img src="images/lab2-volume-low.png" width="300px">
 <img src="images/lab2-volume-middle.png" width="300px">
@@ -527,9 +528,6 @@ Copy over your code from the other Processing application you just wrote and int
 <br><br>
 
 Now test if everything works by using your physical printed card to play/pause songs and the physical slider to adjust the music volume. If it works, congrats, you are done :)!<br><br>
-
-Now we can read microcontroller input and display it in Processing. <br>
-This will come in handy in the future when we want to build and test more advanced user interfaces.<br><br>
 
 <h2 class="headline">Deliverables Lab 2 (due Friday, Sept. 11, 2020, 11.59pm)</h2>
 
