@@ -74,7 +74,7 @@ In lab 1 and lab 2, we are going to create the interactive music card shown belo
 <b>(2) Conductive Silver Inkjet Printing:</b> Next, you will print your design with conductive inkjet printing.<br>
 <b>(3) Wiring up the Buttons:</b> In the next step, you will wire up your touch buttons using a breadboard and an ESP32 microcontroller.<br>
 <b>(4) Sensing the Touch Signals:</b> Next, you will sense the touch signals using capacitive touch sensing (through Arduino's CapacitiveSensor Library) and apply filtering to the signals.<br>
-<b>(5) (next lab, not today) Visualizing User Input:</b> We will then setup the touch buttons and sliders in a programming environment called Processing, which will visualize on screen when someone touches the touch buttons and sliders and will also play the corresponding songs from the music card. 
+<b>(5) (next lab, not today) Visualizing User Input:</b> We will then setup the touch buttons and sliders in a programming environment called Processing, which will visualize on screen when someone touches the touch buttons and sliders and will also play the corresponding songs from the music card. <br>
 <b>(6) (next lab, not today) Wiring up and Visualizing the Slider:</b> Finally, you will add the slider to your circuit and user interface and use it to control the music volume.<br>
 
 <h2 class="headline">Deliverables Lab 1 (due Friday, Sept. 11, 2020, 11.59pm)</h2>
@@ -95,7 +95,7 @@ To get started, download the visual design of our music card <a href="images/lab
 <h4>Where to Add the Touch Button and Slider</h4>
 
 For our interactive card, we want to add three touch buttons, one on each note (we will later use them to go to the next/previous song and pause/play the song).<br>
-In addition, the piano area should serve as a volume slider, i.e. if we drag our finger from left to right, the volume will increase.<br><br>
+In addition, the piano area should serve as a volume slider, i.e. if we drag our finger from left to right, the volume of the music that is playing will increase.<br><br>
 
 <img src="images/music-card-design.png" width="350px" />
 <img src="images/lab1-design-planning_new.png" width="335px" /><br><br>
@@ -108,30 +108,31 @@ One end of the wire connects to the touch button shape and the other end connect
 <!-- <img src="images/touch-button-decorative1.png" width="300px"><br><br> -->
 <img src="images/lab1-single-touch-button_new.png" width="400px"><br><br>
 
-We can later sense the user's touch using a principle called <b>capacitive touch sensing</b>, which as discussed in lecture requires only one electrode (i.e. the touch button) and the other electrode is your finger.<br> Below is the image from lecture as a reminder of how this worked.<br><br>
+We can later sense the user's touch using a principle called <b>capacitive touch sensing</b>, which as discussed in lecture requires only one electrode (i.e. the touch button) and the other electrode is your finger.<br> Below is the image from lecture as a reminder of how this works.<br><br>
 
 <img src="images/lab1-touch-example-lecture.png" width="600px"><br><br>
 
 
 With your drawing program open, let's draw the touch buttons and their wires for each of the three notes. <br>
-Make sure you follow the specifications, which are:<br><br>
+While drawing, make sure you follow the specifications, which are:<br><br>
 
 <b>Set Document Color Mode to CMYK:</b> Since we will print our document later, please set the document color mode to CMYK (not RGB, which is for on-screen documents).<br><br>
 
 <b>Set Units to mm:</b> If your drawing is still set to 'pts' as a measurement unit, set it to mm or inch.<br><br>
 
-<b>Color of Lines/Shapes:</b> The color for all your circuit design should be set to black (CMYK: 0,0,0,255) since we will use the 'K' cartridge for printing the silver ink.<br><br>
+<b>Color of Lines/Shapes:</b> <span style="color:red">The color for all your circuit design should be set to black (CMYK: 0,0,0,255) since we will use the 'K' cartridge for printing the silver ink.</span><br><br>
 
-<b>Create a New Layer:</b> Make sure all your circuit design is on a new layer, i.e. later we need to export two files seperately, the visual design in one pdf and the circuit design in a seperate pdf. Using a seperate layer for each allows you to turn each part of the design on/off quickly for export.<br><br>
+<b>Create a New Layer:</b> Make sure your circuit design is on a new separate layer than the existing visual design. Later we need to export two files seperately, the visual design in one pdf and the circuit design in a seperate pdf. Using a seperate layer for each allows you to turn each part of the design on/off quickly for export.<br><br>
 
 <b>Area of Touch Button:</b> A touch button should be large enough for a user's finger (size of a finger tip is an area around 2cm x 2cm). In the design we gave you, the size of each note body is roughly the size of a finger pad, so as long as you trace the note it should be fine.<br><br>
 
 <b>Thickness of Wires:</b> Your wires should be 1mm thick. Make sure to check this in your drawing program. We typically draw 'rectangles' for the wires rather than 'lines' since a rectangle allows us to see its 'width' in the shape properties. The thickness of the wire determines its conductivity (larger cross-section = hire conductivity), with 1mm we are on the safe side given the conductive ink we use and its resistance.<br><br>
 
-<b>Connector Pads for Wires:</b> One end of your wire connects to your touch button. The other end of your wire will connect to a connector pad which we will later use to connect to the ESP microcontroller. The connector pad for the microcontroller needs to be large enough to connect to <span style="color:red">conductive tape (more on this later)</span>, i.e. it should be 1cm x 1cm to be on the safe side. We recommend you route all your wires to the right side of the card and we will connect the microcontroller there.<br><br>
+<b>Connector Pads for Wires:</b> One end of your wire connects to your touch button. The other end of your wire will connect to a connector pad which we will later use to connect to the ESP microcontroller. The connector pad for the microcontroller needs to be large enough to connect to a crocodile clamp. The connector pad should be 1cm x 1cm to be on the safe side. We recommend you route all your wires to the right side of the card and we will connect the microcontroller there. Make sure your connector pads are close enough to the border so that a crocodile clamp can reach it (see image below).<br><br>
 
 <!-- Make sure your connector pads are as close to the boundary of the card as possible. We will later connect them to crocodile clamps for connecting to the circuit, if they are too far away the crocodile clamps cannot reach them (left image below is not good, right side is better). -->
 
+Left: connector pad not close enough to border, crocodile clamp can barely reach it. Right side: better.<br>
 <img src="images/lab1-crocodile-clamps1.jpg" width="300px">
 <img src="images/lab1-crocodile-clamps2.jpg" width="300px"><br><br>
 
@@ -139,12 +140,12 @@ Make sure you follow the specifications, which are:<br><br>
 <h4>Draw the Touch Slider and the Corresponding Wires</h4><br>
 
 Great, now that you have the three touch buttons of the notes connected, we can move on and draw the circuit for the slider.<br>
-Touch-sliders consist of multiple touch buttons linearly arranged, i.e. several shapes and each shape has its own wire that connects to the micro-controller.<br><br>
+Touch-sliders consist of multiple touch buttons linearly arranged, i.e. several segments and each segment has its own wire that connects to the micro-controller.<br><br>
 
 <b>Discrete vs. Continous Sliders:</b><br>
 
 In the discrete slider design, the finger tends to be only over one of the slider segments. <br>
-In the continous design, the finger tends to touch two adjacent slider segments. By knowing how much each finger touches each part of the sensor, we can extrapolate a continous transitions between the segments.<br><br>
+In the continous design, the finger tends to touch two adjacent slider segments. By knowing how much the finger touches each slider segment, we can extrapolate a continous transitions between the segments.<br><br>
 
 <img src="images/slider-designs1.png" width="300px"><br>
 From the paper <a href="https://dl.acm.org/doi/10.1145/2971763.2971777">DuoSkin (ISWC 2016)</a><br><br>
@@ -153,7 +154,7 @@ From the paper <a href="https://dl.acm.org/doi/10.1145/2971763.2971777">DuoSkin 
 
 <b>Number of Slider Segments:</b> We will create five slider segments that make up the slider. More slider segments allow for higher resolution, but also need more space for wiring, connector pads, and more input pins on the microcontroller. Below you see an image that already has two slider segments marked up, you need to divide the remaining 'piano' area to form another three slider segments and connect them via wires to some additional connector pads. When you draw your slider segments, pay close attention that each slider segment overlaps with each oder, i.e. you can see how the front of the first segment reaches deep into the second segment to maximize overlap.<br><br>
 
-<b>Line Width, Connector Pad etc.:</b> You need to follow the same specification as above, i.e. use the same wire thickness (1mm) and the same connector pad size (1cmx1cm).<br><br>
+<b>Line Width, Connector Pad etc.:</b> You need to follow the same specification as above, i.e. use the same wire thickness (1mm) and the same connector pad size (1cm x 1cm).<br><br>
 
 
 <img src="images/lab1-slider-segments_new.png" width="350px">
@@ -162,19 +163,19 @@ From the paper <a href="https://dl.acm.org/doi/10.1145/2971763.2971777">DuoSkin 
 
 <h4>Check your Design Before Printing</h4><br>
 
-Before printing, double check that all your circuit lines are pure black, i.e. CMY = 0 and K = 100.<br><br>
+Before printing, <span style="color:red">double check that all your circuit lines are pure black, i.e. CMY = 0 and K = 100.</span><br><br>
 
 <img src="images/lab1-cmyk.png" width="250px"><br><br>
 
-Also double check that your design has two seperate layers:<br>
+Also double check that your design has two separate layers:<br>
 <b>Layer 1:</b> visual design<br>
 <b>Layer 2:</b> circuit design<br><br>
 
-You need to be able to turn them on/off individually since we will print the circuit in a first pass, then reinsert the paper and then print the visual design on the other side of the paper.<br>
+You need to be able to turn them on/off individually since we will print the circuit in a first pass, then reinsert the paper and then print the visual design on the other side of the paper. Printing on the same side of paper does not work since the visual ink is not able to cover up the silver. Also for capacitive touch sensing, we never want to touch the silver directly, so it is better to flip the paper and interact on the other side where the visual design was printed.<br><br>
 
-Once you have your design, add it to your student google drive folder and let us know on slack that you are ready to have your design checked by us.<br><br>
+<div style="background:#04a47c;padding:10px;">Once you have your design, add it to your student google drive folder and let us know on slack that you are ready to have your design checked by us.</div><br><br>
 
-Once you have our ok, you can come in to print.<br>
+Once you have our ok, <a href="https://docs.google.com/spreadsheets/d/1D5WDSVnoo7_nljYBE96kVc2roTcheib4fP57s_PL0Ho/edit?usp=sharing">please book an OH slot and come in to print</a>.<br>
 You can either print from your own laptop or use the computer we have in the workshop.<br><br>
 
 If you want to print from your own laptop, please make sure you install the printer driver for the <span style="color:red"><a href="https://www.usa.canon.com/internet/portal/us/home/support/details/printers/mobile-compact-printer/pixma-tr150">Canon PIXMA TR150 Printer</a></span> and a second printer driver for the <a href="https://epson.com/Support/Printers/All-In-Ones/ET-Series/Epson-ET-2760/s/SPT_C11CG22203">Epson EcoTank ET-2760.</a><br><br>
@@ -192,8 +193,8 @@ So anything in your drawing that is 'K' (pure black) will be printed in silver a
 <img src="images/lab1-silver-inkjet-printer-cartridge.jpg" width="267px" /><br><br>
 
 For our class, however, we are using two 2D inkjet printers, one for the circuit printing and one for the visual design.<br>
-The reason for this is that the printer drivers of our inkjet printers do not support printing 'with only the CMY cartridge', they will always use the K-cartridge as well for part of the print.<br>
-Therefore, we use two printers: In one printer, we use the CMY cartridge as original intended for color printing. In the other printer, we empty the CMY cartridge and replace it with silver ink. The "K" (Black) cartridge remains in its original form. <br><br> 
+<span style="color:red">The reason for this is that the printer drivers of our inkjet printers do not support printing 'with only the CMY cartridge' (Stefanie: do you mean with only 'K'?), they will always use the K-cartridge (Stefanie: CMY?) as well for part of the print.</span><br>
+Therefore, we use two printers: In one printer, we use the CMY cartridge as original intended for color printing. In the other printer, we empty the CMY cartridge and replace it with silver ink. The "K" (Black) cartridge remains in its original form, i.e. contains black ink. <br><br> 
 
 <h4>Buying Materials and Preparing the Printer</h4><br>
 
