@@ -101,9 +101,10 @@ In the user interface, the user should be able to enter:<br>
 <ul>
 	<li>the desired number of electrodes in x-direction (default value: 10 electrodes)</li>
 	<li>the desired number of electrodes in y-direction (default value: 10 electrodes)</li>
-	<li>the size of the electrode in mm <span style="color:red">(default value: 4mm)</span></li>
-	<li>the spacing between adjacent electrodes in mm <span style="color:red">(default value: 1mm)</span></li>
-	<li>the thickness of the wires in mm <span style="color:red">(default value: 0.35mm)</span></li>
+	<li>the size of the electrode in mm (default value: 6mm)</li>
+	<li>the spacing between adjacent electrodes in mm (default value: 1mm)</li>
+	<li>the spacing between non-connected electrodes, i.e. rows and columns, in mm (default value: 0.5mm)</li>
+	<li>the thickness of the wires in mm (default value: 0.35mm)</li>
 	<li>the spacing of wires on the FPC connector in mm <span style="color:red">(to find the correct value, look at the data sheet of the FPC connector)</span></li>
 </ul>
 <br>
@@ -146,7 +147,7 @@ If you are unsure if everything has the right dimension, use a regular color pri
 
 <h3>(2) Inkjet Print Top and Bottom Electrode Layers</h3>
 
-Once your circuit design tool is ready, export a multi-touch pad of <span style="color:red">9x8 electrodes</span> from your user interface.<br><br>
+Once your circuit design tool is ready, export a multi-touch pad of 9x8 electrodes from your user interface.<br><br>
 
 Go to a fabrication office hour to inkjet print your multi-touch pad.<br>
 Remember you need to print two sheets, one for column and one for rows.<br><br>
@@ -158,13 +159,15 @@ Once you printed both sheets, you can glue them together using a <span style="co
 <span style="color:red">are we glueing only the electrode touch area but not where the wires are routing to the FPC connectors?</span><br><br>
 
 
-<h3>(4) FPC connectors</h3>
+<h3>(4) Solder and Connect the FPC Connectors</h3>
 
 <span style="color:red">are we doing this before we glue the sheets together or afterwards?</span>
 
 Next, you need to connect your inkjet printed circuit to a breadboard.<br>
 In the labs, we used crocodile clamps but the use of crocodile clamps for such fine spacings as we have here is really impractical (and perhaps even impossible).<br>
 For this reason, we will use a FPC connector.<br>
+Flexible Printed Circuit (FPC) Connectors are used for connecting (surprise) flexible printed circuits to the rest of the rigid circuit.<br> In our case, connect the silver printed circuits to the main circuit.<br><br>
+
 The FCP connector has high resolution connectors on one side, which we will use to connect to the inkjet printed circuit, and on the other side has more widely spaced connectors, which we can use to connect to our breadboard.<br><br>  
 
 We bought you <a href="https://www.amazon.com/gp/product/B07VCJG54G/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1">two FPC connectors from here.</a><br>
@@ -177,7 +180,7 @@ You have some header pins in your fabrication bag.<br>
 
 <img src="images/pset1/headerpins.png" width="150px"><br><br>
 
-Go to an office hour to solder on the header pins.<br><br>
+Go to an office hour to solder on the header pins (note that the multiplexer in the next step also needs soldering, so you may want to do both solder todos in one sitting rather than coming in twice).<br><br>
 
 <img src="images/pset1/fpc-with-headers.jpg" width="300px"><br><br>
 
@@ -197,11 +200,39 @@ You have to insert it so that the conductive side with the silver traces is faci
 
 Once you are done with one of the sheets, repeat the procedure with the second sheet and FPC connector.<br><br>
 
-<h3>(5) Connect Top and Bottom Electrode Layers to FPC chips</h3>
+<!-- Next, clip on both FCP breakout boards (with 1.0mm connector) to make sure you got the connection pads right.<br> -->
 
-Next, clip on both FCP breakout boards (with 1.0mm connector) to make sure you got the connection pads right.<br>
-Flexible Printed Circuit (FPC) Connector is used for connecting flexible Printed Circuit to the rest of the circuit. In our case, connect the silver printed circuits to the main circuit.
 <!-- <span style="color:red">say a few words what the FCP chips are for.</span><br><br> -->
+
+
+<h3>(4) Solder the Multiplexer</h3>
+
+For our multi-touch pad, we will also use a multiplexer.<br>
+We bought you one <a href="https://www.amazon.com/gp/product/B07K7JF3HX/ref=ppx_od_dt_b_asin_title_s00?ie=UTF8&psc=1">from here.</a><br><br>
+
+A multiplexer allows to select between multiple inputs and creates an output using a single line.<br>
+This comes very handy for our application: Since we will have one signal coming from each row and each column of our multi-touch pad, we would quickly exhaust all of the available pins on the ESP microcontroller.<br>
+Instead, we use a multiplexer, i.e. we route all the signals to the multiplexer and then connect the multiplexer to the ESP using a single pin.<br>
+Because of this capability, the multiplexer is also know as a 'data selector'.<br><br>
+
+Below you see this behavior as a schematic.<br>
+On the left side you see what we already talked about: there are two ore more inputs and the multiplexer selects one of them and outputs it through a single output pin.<br>
+The right side provides more information: it shows that the selector tells the multiplexer which signal it should output.<br>
+Later when we program the multiplexer, we thus have to keep in mind that we need one input pin to tell the multiplexer which signal to select, one output pin for the output signal, and a number of other inputs, one for each row/column from the multi-touch pad.<br><br>
+
+<img src="images/pset1/multiplexer-schematic-explained.png" width="450px"> <br><br>
+
+The multiplexer we bought again has no headers yet, so you need to add them yourself.<br>
+You have some header pins in your fabrication bag.<br>
+
+Go to an office hour to solder on the header pins.<br><br>
+
+<img src="images/pset1/multiplexer-no-headers.png" width="150px"> 
+<img src="images/pset1/headerpins.png" width="150px"><br><br>
+
+After you are done soldering, it should look like this:<br><br>
+
+<img src="images/pset1/multiplexer.jpg" width="300px"> <br><br>
 
 
 <h3>(5) Build Multi-Touch Sensing Circuit</h3>
