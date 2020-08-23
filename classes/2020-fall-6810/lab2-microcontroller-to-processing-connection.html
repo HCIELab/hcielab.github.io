@@ -62,15 +62,15 @@
 
 In the last lab, we have already done steps 1-4 to get our interactive music card going.<br><br>
 
-<b>(last lab) (1) Circuit Design:</b> You will first draw the circuit design of your card by creating a 2D drawing of the wires and interactive touch and slider areas.<br>
-<b>(last lab) (2) Conductive Silver Inkjet Printing:</b> Next, you will print your design with conductive inkjet printing.<br>
-<b>(last lab) (3) Wiring up the Buttons:</b> In the next step, you will wire up your touch buttons using a breadboard and an ESP32 microcontroller.<br>
-<b>(last lab) (4) Sensing the Touch Signals:</b> Next, you will sense the touch signals using capacitive touch sensing (through Arduino's CapacitiveSensor Library) and apply filtering to the signals.<br><br>
+<b>(last lab) (1) Circuit Design:</b> You drew the circuit design of your card by creating a 2D drawing of the wires and interactive touch and slider areas.<br>
+<b>(last lab) (2) Conductive Silver Inkjet Printing:</b> You printed your design with conductive inkjet printing.<br>
+<b>(last lab) (3) Wiring up the Buttons:</b> You wired up your touch buttons using a breadboard and an ESP32 microcontroller.<br>
+<b>(last lab) (4) Sensing the Touch Signals:</b> You sensed the touch signals using capacitive touch sensing (through Arduino's CapacitiveSensor Library) and applied filtering to the signals.<br><br>
 
 Today, we are going to connect your card to Processing: When you push the physical touch button it will light up the corresponding digital touch button in Processing and the associated song will play. We will also extend the circuit and signal processing to include the touch slider for the music volume, which we haven't wired up yet.<br><br>
 
-<b>(today) (5) Visualizing User Input:</b> Next, you will setup the touch buttons <!-- and sliders --> in a programming environment called Processing, which will visualize when physical input on the touch buttons <!-- and sliders --> on screen and also play the corresponding songs. <br>
-<b>(today) (6) Wiring up and Visualizing the Slider:</b> Finally, you will add the slider to your circuit and user interface and use it to control the music volume.<br>
+<b>(5) Visualizing User Input:</b> Next, you will setup the touch buttons <!-- and sliders --> in a programming environment called Processing, which will visualize when physical input on the touch buttons <!-- and sliders --> on screen and also play the corresponding songs. <br>
+<b>(6) Wiring up and Visualizing the Slider:</b> Finally, you will add the slider to your circuit and user interface and use it to control the music volume.<br>
 
 <h2 class="headline">Deliverables Lab 2 (due Friday, Sept. 11, 2020, 11.59pm)</h2>
 
@@ -113,7 +113,15 @@ In the last lab, we encoded a touch event in the format:<br><br>
 
 And wrote it to the Serial port using <code>Serial.print()</code>.<br><br>
 
-In order to use this information in Processing, we need to write a Processing script that listens to the Serial communication.<br><br>
+The resulting messages looked like this:<br><br>
+
+If sensor 0 gets touched, this message is printed once:<br>
+<pre><code>0,1;</code></pre>
+
+Then when the user lifts the finger again, this message is printed once:<br>
+<pre><code>0,0;</code></pre>
+
+To use this information in Processing for our graphical user interface, we need to write a Processing script that listens to the Serial communication.<br><br>
 
 To do this, open Processing, create a new program, and import the <a href="https://processing.org/reference/libraries/serial/index.html">Serial library</a>.<br>
 <pre>import processing.serial.*;</pre><br>
@@ -121,7 +129,7 @@ To do this, open Processing, create a new program, and import the <a href="https
 Next, you need to create a new port that can be used for communication by creating an object from this class: <br>
 <pre>Serial myPort;</pre><br>
 
-To create the port, you need to define three things: (1) you need to tell the port which application will listen to it (i.e. 'this' one), (2) you need to tell the port its portname, and (3) you need to tell the port at which baudrate it should listen to be able to decode the messages. <br><br>
+To create the port, you need to define three things: (1) you need to tell the port which application will listen to it (i.e. 'this' one), (2) you need to tell the port its portname (same as you used in Arduino), and (3) you need to tell the port at which baudrate it should listen to be able to decode the messages (same as you used in Arduino). <br><br>
 
 <pre>myPort = new Serial(this, portName, baudrate);</pre><br>
     
@@ -181,13 +189,13 @@ if (myPort.available() >= 4) {
 
 Note that we use <code>myPort.readStringUntil()</code>, which we can do because we are sending a string on the serial port from our Arduino program that is looping on the microcontroller. If we send other data-types, we would have to use a different function so Processing knows how to convert the un-typed data that is coming through the port at the specific baudrate.<br><br>
 
-Next, check if this is working. We recommend you <a href="https://processing.org/reference/print_.html">print()</a> the String value to the Processing command line, run your Processing program, and touch your touch sensor to see if something gets printed on the Processing command line. If that doesn't work for you, now would be a good moment to get some help.<br><br>
+Next, check if this is working. We recommend you <a href="https://processing.org/reference/print_.html">print()</a> the String value to the Processing command line, run your Processing program, and touch your touch sensor to see if something gets printed on the Processing command line. If that doesn't work, now would be a good moment to get some help.<br><br>
 
 <h4>Creating a Visualization for the Incoming Touch Sensor Data</h4><br>
 
 Now we can do something based on the incoming Strings.<br>
 In the next step, we want to create a bar that goes up if the touch sensor is touched and down if the sensor is not touched.</br>
-Let's start with a single bar for touch sensor 1 and we can do the rest later.<br>
+Let's start with a single bar for touch sensor 1 and we can do the rest later.<br><br>
 
 
 <img src="images/lab2-bar-down.png" width="300px">
@@ -223,7 +231,7 @@ Once you are done it should look like this:<br><br>
 <img src="images/lab2-bar-up.png" width="300px"><br>
 
 Next, we can connect the height of the bar to the incoming touch sensor data coming from the serial messages in our Processing Script.<br>
-But before we can do this, we first have to do some String Processing on the incoming message.<br><br>
+But before we can do this, we first have to do some String Processing on the incoming message since the message is still a single string in the format of e.g., <pre><code>0,1;</code></pre> Therefore, we need to split up the message.<br><br>
 
 <h4>Splitting the Incoming Message String into Individual Values</h4><br>
 
@@ -264,8 +272,8 @@ It should look like the image below.<br><br>
 Only touch button 1 is touched, touch button 2 and 3 are not touched.<br>
 <img src="images/lab2-three-bars-one-touched.png" width="300px"><br><br>
 
-Touching multiple touch sensors simultaenously already works because we are reading messages from the serial port at such a high speed that they come after one another.
-<br><br>
+Touching multiple touch sensors simultaenously already works although we can only read one message at a time.<br>
+The reason it still works is that we are reading messages at such a high speed that the processing gap is not visible to the human eye.<br><br>
 
 Only touch button 1 and 2 are touched, touch button 3 is not touched.<br>
 <img src="images/lab2-three-bars-multiple-touched.png" width="300px"><br><br>
