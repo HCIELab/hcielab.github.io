@@ -58,7 +58,17 @@
     <span style="color:red">(insert picture of the mug here)</span><br><br>
 
     In this lab, you will make the display yourself from scratch using airbrushing.<br>
-    Next lab, you will inkjet print the remaining circuit and assemble the remaining parts of the design.<br><br>
+    Next lab, you will inkjet print the remaining circuit and assemble the remaining parts of the design.<br>
+
+<h2 class="headline">Deliverables Lab 3 (due Friday, Sept. 25, 2020, 11.59pm)</h2>
+
+At the end of Lab 3, upload to your student google drive:
+<ul>
+  <li>the Arduino code (.ino) for dimming your display</li>
+  <li>2-3 photos (.jpg or .png) from different angles of your circuit</li>
+  <li>a short video (.mov or .mp4, max. 1 minute) showing how you display dims and performs a full cycle from bright to dark and dark to bright again</li>
+</ul><br>
+
 
  <h3 class="headline">Your Task for Lab 3: <br>Fabrication and Control of Electroluminescent Displays</h3>
     
@@ -415,93 +425,16 @@ If the turning on and off happens very fast, it's invisble to the human eye and 
 
  Use PWM to let the display increase and decrease in brightness. The increase from 0% to 100% duty cycle should take 2 seconds and then dim it down again in another 2 seconds. Finally, let the display repeat this dimming infinitely.<br>
 
-<!--
-Replace the digitalWrite command with these two commands: <span style="color:red">students know PWM from 6.08, so we could just have them do it themselves.</span><br><br>
-    <pre>// the number of the LED pin
-const int ledPin = 16;  // 16 corresponds to GPIO16
+<h2 class="headline">Deliverables Lab 3 (due Friday, Sept. 25, 2020, 11.59pm)</h2>
 
-// setting PWM properties
-const int freq = 5000;
-const int ledChannel = 0;
-const int resolution = 8;
- 
-void setup(){
-  // configure LED PWM functionalitites
-  ledcSetup(ledChannel, freq, resolution);
-  
-  // attach the channel to the GPIO to be controlled
-  ledcAttachPin(ledPin, ledChannel);
-}
- 
-void loop(){
-  // increase the LED brightness
-  for(int dutyCycle = 0; dutyCycle <= 255; dutyCycle++){   
-    // changing the LED brightness with PWM
-    ledcWrite(ledChannel, dutyCycle);
-    delay(15);
-  }
+At the end of Lab 3, upload to your student google drive:
+<ul>
+  <li>the Arduino code (.ino) for dimming your display</li>
+  <li>2-3 photos (.jpg or .png) from different angles of your circuit</li>
+  <li>a short video (.mov or .mp4, max. 1 minute) showing how you display dims and performs a full cycle from bright to dark and dark to bright again</li>
+</ul><br>
 
-  // decrease the LED brightness
-  for(int dutyCycle = 255; dutyCycle >= 0; dutyCycle--){
-    // changing the LED brightness with PWM
-    ledcWrite(ledChannel, dutyCycle);   
-    delay(15);
-  }
-}</pre>
--->
-
-    
-
- 
-
-
-
-
-
-
-<!-- 
- <h3 class="headline">Safety</h3><br>
-
-<b>Skin Safety of Materials</b>: We use materials for the substrate and traces that have been approved by the U.S. Food and Drug Administration (FDA)for safe usage on human skin. To minimize the possibility of negative skin-reaction, we use only commercially available temporary tattoo paper as the substrate, and amedical electrode grade silver screen-printing ink as the conductive material for the circuitry.<br><br>
-
-<b>Amount of Current</b>: We are only going to use the output of the ESP32 (5V) for our devices. Since skin has a high resistance, the current is naturally limited and is considered physiologically safe for humans. At no point are you allowed to use anything else to connect to your on-skin device than the ESP32 we provided you.<br><br>
-
-<b>Body Location</b>: You are only allowed to apply the tattoo to your fore arm. Do not apply it in other body locations, such as the chest.<br><br>
-
-If you do not feel comfortable applying the tattoo to your skin, you can also apply it to an object in your surrounding and if that's not available, you can also apply it to a piece of paper. If you have any questions, please contact the teaching team.<br><br>
-
-<b>we decided against fabricating the Skintillates devices with inkjet printing because of the lack of data in the safety and long-term biocompatibility of these inks. also check the silver pen.</b> -->
-
-
-<!-- <h3 class="headline">More Inspiration for the Future</h3><br>
-
-<img src="images/tattoo-leds.jpg" width="253px"> <img src="images/tattoo-examples.jpg" width="450px"><br>
-(left) programmable LED displays with customized aesthetic design, (middle) unclear, (right) strain gauges that respond to body movement e.g. to improve posture.<br>
-<a href="https://dl.acm.org/doi/10.1145/2901790.2901885">Paper Skintillates: Designing and Creating Epidermal Interactions</a><br><br>
-
-<img src="images/skinmarks.jpg" width="650px"><br>
-<a href="https://dl.acm.org/doi/10.1145/3025453.3025704">Paper SkinMarks: Enabling Interactions on Body Landmarks Using Conformal Skin Electronics</a><br><br>
-
-<b>Blending the Art and Conductive Layer:</b> see below, (a) A dark colored pattern is printed on the art layer to completely cover the conductive layer, b) A lighter gradient color is printed on the art layer to allow the shape and silver color of the conductive layer to peek through, c) The pattern of the conductive layer is designed to complement the blue flower printed on the art layer, d) The silver conductive layer can be designed to be a design element. <br>
-<img src="images/overlaying-art-and-conductive-layer.png" width="350px"><br>
-<a href="https://dl.acm.org/doi/10.1145/2901790.2901885">Paper Skintillates: Designing and Creating Epidermal Interactions</a><br><br>
- -->
-
-
-<!-- 
-We first need to create the aesthetic and circuit design for our on-body user interface.<br>
-We will first only do the menu, and then do the bend sensor later.<br>
-In particular, our menu should have 6 buttons that have the following functions: XX, YY, ZZ.<br>
-We will also include one LED <a href="https://chibitronics.myshopify.com/collections/getting-started/products/red-yellow-and-blue-megapack-circuit-stickers">(see Chibitronics LED in your package)</a> to show that the Tattoo is working.<br>
-Make sure you also plan where the ESP will connect, i.e. you need to have sufficiently large connector pads (1cm x 1cm) for each wire coming from a button.<br>
-Note that you can cover parts of the circuit design if you put the conductive traces underneath the design parts. <br>These parts will be hidden from the user's eye since the art layer will overlay them in the final tattoo.<br><br> -->
-
-
-
-<!-- If you have a 2D printer at home, you can 2D print the visual design onto the tattoo transfer paper, so you can make a more complex design. Open your drawing program, and create the design. Note however, that you will need to hand-draw the conductive traces with the silver pen we provided you.<br><br>
- -->
-<!-- If you don't have a 2D printer at home, you need to handdraw the design. To plan our your design, we recommend you either use a drawing program or a seperate piece of paper. You will use some color pens and the silver pen we provided you to draw your design.<br><br>
- -->
+<hr>
 
 
         <br />
@@ -511,24 +444,6 @@ Note that you can cover parts of the circuit design if you put the conductive tr
 
       <aside class="col-md-4 pull-left">
          <br /> <br /> <br /> <br />
-<!-- 				 <h4>Pset Steps</h4><br>
-				 <ul>
-		 			<li><a href="#pset1">pset1 (due Sept. 21, 11.59pm): laser cut and bend the acrylic base</a><br /></li>
-		 			<li><a href="#pset2">pset2 (due Oct. 5, 1pm): insert LEDs, add USB connecting and solder everything</a><br /></li>
-		 			<li><a href="#pset3">pset3 (due Oct. 19, 1pm): write touch recognition so that you can determine (x,y) location of each finger</a><br /></li>
-		 			<li><a href="#pset4">pset4 (due Oct. 26, 1pm): add an application of your choice</a><br /></li>
-				</ul>
-				<br /> <br /> <br /> <br />
-        <img src="../2018-fall-6810/images/multi-touch-pad/iap1.jpg" width="220px">
-
-		<img src="../2018-fall-6810/images/multi-touch-pad/iap2.jpg" width="220px">
-
-		<img src="../2018-fall-6810/images/multi-touch-pad//iap3.jpg" width="220px">
-
-		<img src="../2018-fall-6810/images/multi-touch-pad/iap4.jpg" width="220px">
-
-		<img src="../2018-fall-6810/images/multi-touch-pad/iap5.jpg" width="220px">
- -->
 
 
 
