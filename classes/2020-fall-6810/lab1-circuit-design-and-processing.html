@@ -341,8 +341,8 @@ If for whatever reason you were not able to do it yet, you can find the <a href=
 
 <h4>Connecting your Printed Circuit to a Breadboard and to the ESP</h4><br>
 
-We will use crocodile clamps to connect our card to a breadboard.<br>
-One side of the crocodile clamp goes onto the connector pad.<br>
+We will use crocodile clamps to connect the touch buttons and slider segments to a breadboard.<br>
+One side of the crocodile clamp goes onto the connector pad of each touch button and slider segment.<br>
 The other side should clip onto the end of a regular breadboard wire.<br>
 The regular breadboard wire can then be used to connect to the breadboard.<br>
 From there you can do your normal breadboarding to connect to the ESP.<br>
@@ -354,16 +354,16 @@ To get started, use the first crocodile clamp and connect it to the card and a w
 
 We will implement touch sensing based on the principle of capacitive touch sensing.<br><br>
 
-The circuit for capacitive touch sensing requires a sender pin, which outputs a signal, and a receiver pin, which listens to the signal. The conductive touch buttons and slider segments are connected between the sender and receiver pin, i.e. when a user touches the touch button, the signal will change and thus the receiver pin will receive a different signal, which we can further analyze in our code. The circuit also requires a resistor <span style="color:red">add why that is necessary</span>.<br>
+The circuit for capacitive touch sensing requires a sender pin, which outputs a signal, and a receiver pin, which listens to the signal. The conductive touch buttons and slider segments are connected between the sender and receiver pin, i.e. when a user touches the touch button, the signal will change and thus the receiver pin will receive a different signal, which we can further analyze in our code. The circuit also requires a resistor.<br><br>
 
-<span style="color:red">update figure with correct resistor</span><br>
 <img src="images/lab1-circuit.png" width="300px"><br><br>
 
 <img src="images/capsense.png" width="300px"><br><br>
 
 Let's put this into practice and create our first touch button circuit.<br>
-We will use <b>pin 2 as the sender</b> and <b>pin 4 as the receiver</b> (see image). Yyou can of course use other pins as well but et's stick with 2 and 4 for this example.<br>
-We will use one <b>100k Ohm resistor</b> because <span style="color:red">why this value and not another</span>.<br><br>
+We will use <b>pin 2 as the sender</b> and <b>pin 4 as the receiver</b> (see image).<br> 
+You can of course use other pins as well but let's stick with 2 and 4 for this example.<br>
+We will use one <b>100k Ohm resistor</b>.<br><br>
 
 <h2 class="headline">(4) Sensing the Touch Signals</h2>
 
@@ -397,7 +397,6 @@ You can download this starter code <a href="images/touch-button.zip">here</a> or
 
 double analog_touch;
 
-<span style="color:red">(check pin numbers with ESP reference sheets) </span>
 int sender = 2;
 
 int touch_pin_1 = 4;
@@ -428,21 +427,23 @@ void loop()
 Open the code in your Arduino IDE and upload it to your microcontroller.<br>
 Open the serial monitor, you should see a bunch of numbers fly by.<br>
 If you touch your touch sensor, the values should change significantly.<br> 
-Remember to not touch the silver side directly but to interact on the side of the visual design, i.e. the side that has no silver. If you touch the silver directly <span style="color:red">you are basically short circuiting the circuit.</span><br><br>
+Remember to not touch the silver side directly but to interact on the side of the visual design, i.e. the side that has no silver. <br><br>
 
 <img src="images/lab1-touching-plotting.png" width="680px"><br><br>
 
 <h4>Extend Circuit to all Three Touch Sensors</h4><br>
 
-Since we have three notes that serve as touch buttons, we need to both extend our circuit as well as out code to read those touch signals as well.<br><br>
+Since we have three notes that serve as touch buttons, we need to both extend our circuit as well as our code to read those touch signals as well.<br><br>
 
 Use a breadboard to make 3 touch button circuits, each connecting to one of the notes.<br>
 Note that you can use the <b>same sender pin</b> for all three touch buttons.<br>
 Only the receiver pin has to vary, i.e. you need one receiver pin for each touch signal you want to read.<br>
 Also each touch sensor needs its own 100k Ohm resistor.<br>
-Connect pin 2 (sender) with three 100k Ohm resistor to the receiver pins 4 (already done), 17, and 18.<br>
-Then connect pin 4 (already done), 17, and 18 with a wire and crocodile clamp to the touch sensors.<br><br>
+Choose any suitable receiver pin number you like.<br><br>
 
+<!-- Connect pin 2 (sender) with three 100k Ohm resistor to the receiver pins 4 (already done), 17, and 18.<br>
+Then connect pin 4 (already done), 17, and 18 with a wire and crocodile clamp to the touch sensors.<br><br>
+ -->
 <h4>Extend Code to all Three Touch Sensors</h4><br>
 
 Next, extend your code to read and print all 3 of your touch sensors.<br>
@@ -483,11 +484,11 @@ A sample output for touching only sensor 0 should look like:<br>
 </code></pre>
 
 The sensor ID is easy to plot, but how do we know if the sensor is touched or not?<br>
-As you saw in the serial plotter, the values for each sensor can vary pretty wildly depending on <span style="color:red">Michael can you list some factors?</span>.<br><br>
+As you saw in the serial plotter, the values for each sensor can vary pretty wildly as mentioned in lecture.<br><br>
 
 We will do more filtering of signals later, for now you can use a simple if/then statement and make a rough estimate in which range your sensor signal falls for each touch button (look at the serial plotter for some help in determining the range).<br><br>
 
-Rewrite the code such that it iterates over all sensors and outputs every 200ms the correct output.<br>
+Rewrite the code such that it iterates over all sensors and outputs every 200ms the correct output (see sample output above again for correct formatting).<br>
 We are still writing to the Serial Monitor, so use strings for your numbers.<br><br>
 
 <h4>Print Serial Messages only when Button State Changes</h4><br>
