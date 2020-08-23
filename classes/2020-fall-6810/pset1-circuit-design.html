@@ -114,7 +114,7 @@ The user interface should only allow the user to input reasonable numbers into t
 <ul>
 	<li>for each input field listed above, think about what is a reasonable lower and upper bound (i.e. min/max values)</li>
 	<li>write a short explanation why you picked the lower/upper bounds for each field and submit it using this google form</li>
-	<li>implement the lower/upper bounds in your user interface, i.e. the user should either not be able to enter values outside the lower/upper bounds (i.e. you only offer a selection of valid numbers) or if your UI allows to enter any value then your user interface should show the user a warning that the value is invalid and reset to the last valid value <span style="color:red">check if that's possible in Processing</span></li>
+	<li>implement the lower/upper bounds in your user interface, i.e. the user should either not be able to enter values outside the lower/upper bounds (i.e. you only offer a selection of valid numbers) or if your UI allows to enter any value then your user interface should show the user a warning that the value is invalid and reset to the last valid value</li>
 </ul>
 <br>
 
@@ -127,6 +127,8 @@ Finally, the user interface should have some preview and export functions:<br>
 </ul>
 <br>
 
+<b>Useful References</b><br>
+
 You may find it helpful to look at the following Processing classes:<br>
 
 <ul>
@@ -134,6 +136,18 @@ You may find it helpful to look at the following Processing classes:<br>
 	<li><a href="https://processing.org/reference/PImage.html">PImage</a></li>
 </ul>
 <br>
+
+For the UI elements, we do not use an external library and instead use a simple trick:<br>
+We draw them as shapes (e.g. rectangles), add a text where needed to display numbers, and then use mouse-click and drag events to update the UI elements.<br>
+
+<ul>
+	<li><a href="https://processing.org/reference/rect_.html">Rect</a></li>
+	<li><a href="https://processing.org/tutorials/text/">Text and Fonts Tutorial</a></li>
+	
+</ul>
+<br>
+
+<b>Testing your Program</b><br>
 
 When you are done, it should look something like the images below.<br>
 Make sure you test your user interface by exporting several different multi-touch pad sizes, e.g. <span style="color:red">4x10, 6x12, 20x20.</span><br>
@@ -260,7 +274,7 @@ You need to connect to power and GND, as well as to pin <span style="color:red">
 Next, we need to setup an output pin.
 
 <span style="color:red">where do the resistors go? <br>
-Below it looks like the multi-plexer is the sender and the remaining lines are receiver?<br>
+Below it looks like the multiplexer is the sender and the remaining lines are receiver?<br>
 Why would that make sense?<br>
 And how are we tackling the many lines for the receiver pins? Why not use another multiplexer?
 
