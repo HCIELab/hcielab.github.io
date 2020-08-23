@@ -361,18 +361,22 @@ If it still does not work, ask for some help from the TAs.<br><br>
 <h3 class="headline">Building the control circuit for EL Displays</h3>
 
 Now you can turn on/off your display by plugging and unplugging the battery.<br> 
-That's ok but it would be nicer to do this via code and not by physically plugging/unplugging.<br>
+That's ok but it would be nicer to do this via code and not by physically plugging/unplugging the battery.<br>
 The goal of this final part of the lab is to build a control circuit that lets you do exactly this. <br><br>
 
-To turn on/off the display via code, we need an AC switch.<br>
+<b>Switch to Turn On/Off Display</b><br>
+To turn on/off the display via code, we need an switch.<br>
+In our case, since we use AC not DC, we need an AC switch.<br>
 The ESP32 microcontroller does not have a suitable AC switch built-in. Thus, we have to build our own. <br>
 Our switch will consist of a <b>triac</b> and an <b>optocoupler</b>.<br><br>
 
-A <b>triac</b> is similar to a transistor but also block alternating current (AC) while a transistor can only block direct current (DC). By switching the triac on/off, we can thus block the AC current coming from the power supply, which allows us to turn the display on/off under computer control. The triac's pins and how you add it to a circuit is similar to a transistor though. It has two connectors for + and GND and a Gate that can trigger it to let current pass through or block it. The symbol and a picture of the triac that we will use in this lab is below:<br><br>
+A <b>triac</b> is similar to a transistor but also blocks alternating current (AC) while a transistor can only block direct current (DC). By switching the triac on/off, we can thus block the AC current coming from the power supply (i.e. our battery), which allows us to turn the display on/off under computer control. The triac's pins and how you add it to a circuit is similar to a transistor. It has two connectors for + and GND and a Gate that can trigger it to let current pass through or block it. The symbol and a picture of the triac that we will use in this lab are below:<br><br>
     
 <img src="images/lab3/Triac.png" width="100px"><img src="images/lab3/triac_image.png" width="200px"><br><br>
     
-    The ESP32 is rated only up to 12V so a higher voltage could potentially damage the microcontroller's components. Therefore, we have to isolate the ESP32 from the 50V power supply. For this purpose, we will use an <b>optocoupler</b>. An optocoupler houses an LED and a photo-triac. When the LED turns on, it activates the opto-triac and let's energy flow. Both components are not directly connected through a wire but galvanically isoltaed. The trigger mechanism works purely through light. This safety measurement ensures that no voltage of the 50V power supply can jump over to the microcontroller. You can see how the symbol and the component looks like:<br><br>
+<b>Isolating the Microcontroller Control Circuit from the Power Circuit</b><br>
+
+    The ESP32 is rated only up to 12V so a higher voltage like the 50V AC we use could potentially damage the microcontroller's components. Therefore, we have to isolate the ESP32 from the 50V AC power supply. For this purpose, we will use an <b>optocoupler</b>, which uses optical signaling rather than electrical signaling, which allows it to isolate each part of the circuit while still enabling communication between the two. An optocoupler houses an LED and a photo-triac. When the LED turns on, it activates the photo-triac and energy then flows. Both components are optically connected but not electronically connected through a wire. The trigger mechanism works purely through light. This safety measurement ensures that no voltage of the 50V power supply can jump over to the microcontroller. You can see how the symbol and the component looks like:<br><br>
     
 <img src="images/lab3/opto_symbol.PNG" width="200px"><img src="images/lab3/opto_img.PNG" width="200px"><br><br>
 
@@ -380,7 +384,7 @@ We will setup the components to work together in the following way:<br>
 (1) the ESP32 controls the optocoupler and thereby protects itself from any high voltage.<br> 
 (2) The optocoupler then controls the triac to open and close the AC switch to let power through or cut if off. <br><br>
 
-We have to add a few resistors to the circuit to limit the current at the optocoupler's LED and the triac to prevent it from being damaged. The final circuit looks like this:<br>
+We have to add a few resistors to the circuit. First, these resistors limit the current that reaches the optocoupler's LED and prevents it from blowing up.<br> In addition, it limits the current that reaches the triac to prevent it from being damaged. The final circuit looks like this:<br>
 
  <!-- It's also a (sometimes) triac but instead of being triggered with a physical wire (Gate) it contains a LED and a photo-triac and both components are galvanically isolated.  -->
 
@@ -388,24 +392,28 @@ Bringing it all together, our AC switch circuit should look like this:<br><br>
     
 <img src="images/lab3/optotriac_circuit.PNG" width="700px"><br><br>   
 
-Get yourself a breadboard, wires and the components and start building it. You might have to find out which way around you have to add the optocoupler. Note the little dot on its top. Look at the datasheet where the pins are: <a href="https://www.mouser.com/datasheet/2/308/MOC3163M-D-1811983.pdf" target="_blank">Datasheet</a><br><br>
+Get yourself a breadboard, wires and the components and build it.<br>
+<span style="color:red">Note that the optocoupler has to be plugged in in a specific orientation.</span> Look at the <a href="https://www.mouser.com/datasheet/2/308/MOC3163M-D-1811983.pdf" target="_blank">datasheet of the optocoupler here</a> to find out where the pins are. <br> The little dot on its top indicates the top left corner of the component. <br><br>
 
 <h3 class="headline">Write a Program to turn the Display On/Off</h3>
 
 Now that we have wired up our control circuit, we still have to write the code for it.<br>
 As an example, we will write a script that lets the display blink. <br>
 This is very simple with the circuit you already built.<br>
-Check again, to which pin you connected the <span style="color:red">optocoupler</span> and us this pin to turn it on and off<br><br>
+Check again, to which pin you connected the <b>optocoupler</b> and use this pin to turn it on and off.<br><br>
 
 <h3 class="headline">Write a Program to Dim the Display</h3>
 
-In addition, it would be nice to not just turn it on/off but also set the displays brightness (e.g. dimming it down).<br><br>
+Finally, we want to not just turn the display on/off but also set the displays brightness (e.g. dimming it down).<br><br>
 
-You should remember from 6.08 that you can use pulse-width-modulation to dim light sources like an LED. Just a short recap, PWM means that you turn off and on a signal for a ceratin duty cycle (see Figure below). The longer the singal is turned off in one cycle that darker the light source will be. And if the tunring on and off happens very fast, it's invisble to the human eye and you can control the perceived brightness of a light source. <br><br>  
+In 6.08 (pre-requisit for this class), you already learned about pulse-width-modulation to dim light sources like an LED.<br>
+A short recap: PWM means that you turn off and on a signal for a ceratin duty cycle (see Figure below).<br> 
+The longer the signal is turned off in one cycle the darker the light source will be.<br>
+If the turning on and off happens very fast, it's invisble to the human eye and you can control the perceived brightness of a light source. <br><br>  
     
 <img src="images/lab3/pwm.png" width="300px"><br><br>
 
- Use it to let the display increase and decrease in brightness. The increase from 0% to 100% duty cycle should take 2 seconds and then dim it down again in another 2 seconds. And let it repeat this blinking infinitely.<br>
+ Use PWM to let the display increase and decrease in brightness. The increase from 0% to 100% duty cycle should take 2 seconds and then dim it down again in another 2 seconds. Finally, let the display repeat this dimming infinitely.<br>
 
 <!--
 Replace the digitalWrite command with these two commands: <span style="color:red">students know PWM from 6.08, so we could just have them do it themselves.</span><br><br>
@@ -441,7 +449,6 @@ void loop(){
   }
 }</pre>
 -->
-<div style="background:#04a47c;padding:10px;">Checkoff 3: Show your EL display and let it blink</div><br><br>
 
     
 
