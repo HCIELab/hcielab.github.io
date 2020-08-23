@@ -379,40 +379,79 @@ Remember, use the pins with "TOUCHX" labels for better signal quality but <b>do 
 
 <img src="images/esp32-pinout.png" width="500px" /><br><br>
 
-<h4>Thresholding Slider Signals: How much space is it touched?</h4><br>
+<h4>Thresholding Slider Signals: How much is each segment touched?</h4><br>
 
-Once finished with the wiring, extend the Arduino code so that it can also read each slider segment's touch signal.<br><br>
+Once finished with the wiring, extend the <b>Arduino code</b> so that it can also read each slider segment's touch signal.<br><br>
 
 For the touch buttons, we were merely interested if the button is touched or not, thus we converted the touch signal into a <b>binary value 0 or 1</b> to indicated if it is pressed or not.<br>
-Remember that for the slider we want to do something more sophisticated, i.e. have a continous signal that allows us to smoothly adjust the music volume (rather than jumping from one discrete noise level to the next).<br>
-Thus, each slider segment should return a <b>continuous value from 0.0 to 1.0</b> when touched depending on the area of overlap with the finger. <br><br>
+Remember that for the slider we want to do something more sophisticated, i.e. have a continuous signal that allows us to smoothly adjust the music volume (rather than jumping from one discrete noise level to the next).<br>
+Thus, each slider segment should return a <b>continuous value from 0.0 to 1.0</b> when touched depending on the area the finger overlaps with the slider segment.<br><br>
 
 We can see by 'how much' a slider segment is touched by looking at the raw touch signals coming from the microcontroller.<br>
-When looking at the Serial Plotter, you will notice that the raw value has a strong correlation with how much space of the sensor is touched, i.e. the larger the area the higher the value is. <br><br>
+When looking at the Serial Plotter, you will notice that the raw value has a strong correlation with how much space of the slider segment is touched, i.e. the larger the area the higher the value is. <br><br>
 
-Thus, you can compute continuous value for each slider segment via 2 parameters (see below): <br>
+Thus, you can compute a continuous value for each slider segment via 2 parameters (see below): <br>
 1) threshold to see if it is touched or not (i.e. 'min touch value'), and <br>
 2) the 'max touch value' of the slider segment when fully touched. <br><br>
 
-You can then calculate and print the percentage by "raw_value / max_touch_value" in real-time if the value surpass the "touched" threshold. <br><br>
+You can then calculate the continuous value from 0.0 - 1.0 using the formula "raw_value / max_touch_value" and print the value whenever the value surpasses the "min-touch value" threshold. <br><br>
 
 <img src="images/lab2-slider-value.png" width="600px" /><br><br>
 
-If you connect everything correctly and the silver printed circuit design is in good quality, the threshold value can be shared among silder segments (since all segments are the same size etc.). If not, you should set different threshold values for different silder segments. You can check this by ploting out the silder segments' raw values. <br><br>
+For our example, we assume that each of your slider segments behaves the same, i.e. has the same threshold for being touched and the same max touch value. This should be the case since all of your slider segments have the same size, and while each has a slightly different wire length this should be negligible. In our example, we thus share the threshold values among all slider segments. If your slider segments have vastly different values (e.g. because of some damage to the slider segments' silver area), you need to create separate thresholds for each segment. You can check this by ploting out each silder segments' raw values. <br><br>
 
+Below: Individually touching each of the slider segments.<br>
 <img src="images/lab2-slider-segments-raw-value.png" width="600px" /><br><br>
 
-Once you have the continous signal for each slider segment, you need to format the result into one "slider value" and write it to the Serial port so that we can read it from Processing. This part will be done in the Arduino code. <br><br>
+<b>Computing Global Slider Value</b><br>
+Once you have the continous signal (0.0 - 1.0) for each slider segment, you need to compute the overall slider value.<br>
+In our Arduino code, we can then write the overall slider value to the Serial port so that we can read it from Processing.<br><br>
 
 The task here is to convert the five seperate slider segment values (all from 0.00-1.00) and combine them into one value that represents the overall slider position ranging from 0.00-1.00 (0-100 percent).<br>
 
-You don't have to over-complicate it, some straght-forward linear interpolation will do, as long as the value is overall continuous. You can also assume that at any given time, there will be at most 2 adjunct slider segments been touched (i.e. only one finger on the slider at any given time). <br><br>
+You don't have to over-complicate it, some straght-forward linear interpolation will do, as long as the value is overall continuous. You can also assume that at any given time, there will be at most 2 adjunct slider segments been touched (i.e. the user will only use one finger on the slider at any given time and the one finger will touch at max two adjacent slider segments since we made each segment roughly the size of the finger). <br><br>
 
-For example, each slider segment is representing 20% (0.2) of the overall volume, when only one slider segment is touched, you can calculate the overall slider value based on 1) the touched slider segment's value (0.00-1.00) and 2) the touched slider segment's order (0 to 4). <br>
-More specifically, <b> slider_value = slider_segment_value * 0.2 + slider_segment_order * 0.2 </b>, e.g. the second slider segemnt touched with the value 0.80, the overall slider value would be 0.80 * 0.2 + 1 * 0.2 = 0.36; the third slider segemnt touched with the value 0.80, the overall slider value would be 0.80 * 0.2 + 2 * 0.2 = 0.56. <br><br>
+<b>Global Slider Value When Only One Slider Segment is Touched</b><br>
+Let's look at the most easy example, i.e. only one slider segment is touched.<br>
+Since we have 5 slider segments in our example, each slider segment is representing 20% (0.2) of the overall music volume.<br>
+Thus, when we know slider segment 3 is touched, it must be a music volume between 40-60%.<br>
+To figure out the exact value between 40-60%, we can then look at the slider segments value.<br>
+Let's assume, we read a value of 0.2 from the slider segment 3, we can then conclude that we are at 20% of the overall range from 40-60%, i.e. 20% of 20 (60%-40%) = 4, 40% + 4% = 44%). <br><br>
 
-When two adjunct slider segments are touched, you can calculate the overall slider value based on 1) the value of both touched slider segments (with linear interpolation) and 2) the order of the slider segment representing higher volume (1 to 4). <br>
-More specifically, <b> slider_value = ((1.0 - slider_segment_value_lower_order) + slider_segment_value_higher_order) / 2 * 0.2 + slider_segment_higher_order * 0.2 </b>, e.g. the second slider segemnt touched with the value 0.20, and the third slider segemnt touched with the value 0.60, the overall slider value would be ((1 - 0.20) + 0.60) / 2 * 0.2 + 2 * 0.2 = 0.54. <br><br>
+Thus, when only one slider segment is touched, we can calculate the overall slider value based on:<br> 
+1) the touched slider segment's order (0 to 4 representing 0-20%, 20-40%, 40%-60%, etc.) <br>
+2) the touched slider segment's value (0.00-1.00 representing intermediate values) <br> <br>
+
+<!-- We can you the following formula:
+ -->
+<!-- <b> slider_value = slider_segment_value * 0.2 + slider_segment_order * 0.2 </b>, e.g. the second slider segemnt touched with the value 0.80, the overall slider value would be 0.80 * 0.2 + 1 * 0.2 = 0.36; the third slider segemnt touched with the value 0.80, the overall slider value would be 0.80 * 0.2 + 2 * 0.2 = 0.56. <br><br> -->
+
+<b>Global Slider Value When Two Slider Segments are Touched</b><br>
+When two adjunct slider segments are touched, we need to slightly extends our calculating of the overall slider value.<br>
+First, we want to determine how much each of the two slider segments is touched.<br><br>
+
+For slider segment 1, consider what happens as we slide from left to right towards slider segment 2.<br>
+First, the slider value of segment 1 will get higher as more and more area of our finger overlaps with the slider segment.<br>
+Then, as we move towards the slider segment 2, the value of slider segment 1 decreases again as more and more of our finger leaves the slider segment 1 and instead overlaps with the slider segment 2.<br>
+Thus, once we know that the finger touches the slider segment 2, a lower sensor value of segment 1 actually means a higher slider value and not a lower one!<br>
+To compensate for this, if we detect that segment 2 is touched, we subtract the segment 1 slider value from 100.<br>
+e.g. segment1 = 0.25 && segment2 is touched then segment1 = 100-0.25 (results in 0.75).<br><br>
+
+For slider segment 2, we can simply read the regular value and use it.<br><br>
+
+Next, we still have to map the two slider values to an overall slider value.<br>
+For this, we first compute the mean of both values and then map the resulting number onto the value range of slider segment 1.<br>
+For instance, if slider segment 1 is 0-20% and slider segment 2 is 20-40%, the overall slider value cannot exceed 20% if both segments are touched.<br>  
+
+<!-- 
+
+More specifically,
+
+  slider_value = ((1.0 - slider_segment_value_lower_order) + slider_segment_value_higher_order) / 2 
+
+  * 0.2 + slider_segment_higher_order * 0.2 ,
+
+   e.g. the second slider segemnt touched with the value 0.20, and the third slider segemnt touched with the value 0.60, the overall slider value would be ((1 - 0.20) + 0.60) / 2 * 0.2 + 2 * 0.2 = 0.54. <br><br> -->
 
 For the calculated slider value, format the output like we did before for the touch button so that:
 
