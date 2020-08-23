@@ -307,40 +307,60 @@ To connect to the copper layer, we attach a small copper tape flap, which we can
 <h3 class="headline">Powering Your EL Display</h3>
 
 EL displays require an alternating current between the two elecrodes to excite the phosphor and make it light up.<br>
-Therefore, just connecting it to a DC power supply, like the 3.3V DC from your ESP32, won't do the trick.<br><br>
+Therefore, just connecting it to a DC power supply, like the 3.3V DC from your ESP32, won't do the trick.<br>
+We therefore use an inverter to generate AC current from DC.<br><br>
 
-We therefore use an inverter to generate 50V AC from a 1.2V AA battery.<br>
-The 50V are low current and not really dangerous, but you might feel a little sensation at the tips of your fingers when touching them. Therefore, never plug the display in while you are working on the circuit and you are touching the wires! <br><br>    
+<span style="color:red">In this tutorial, we will generate 50V AC from a 1.2V AA battery using our inverter.<br>
+50V AC is the maximum allowed voltage for class activities.<br>
+You are not allowed to use the inverter with anything else than the 1.2V AA battery we provided for you.<br> </span><br>
 
-<img src="images/lab3/inverter.png" width="400px"><br><br>
-
-Your first step is to connect the 50V inverter output to the display. Use jumper wires to stick them into the white connector of the inverter. Since you have exposed wires now, you can use crocodile wires to connect them to the copper flaps of your display. Be careful that you don't rip them off when working with the wires.
-Next, you have to connect the inverter to the 1.2V battery holder (with not battery in it!). Use jumper wires again to stick them into the white connector element. Let's keep the convention that black wires are GND and red wires are +1.2V. <br>
-Next connect the red wire to the + pol of your battery holder and black to -.<br><br>
+Our 50V AC are low current and not really dangerous, but you might feel a little sensation at the tips of your fingers when touching the circuit. Therefore, never plug the display in while you are working on the circuit and you are touching the wires! <br><br>    
 
 <span style="color:red">While building your circuit, you must adhere to the following rules:
 <ul>
-  <li>never touch the display or any part of the circuit while your microcontroller is connected to power</li>
-  <li>unplug the microcontroller from your laptop <b>before</b> you do any wiring, only after it is unplugged you are allowed to touch the circuit and exchange wires and components</li>
-  <li>once you are done wiring and you have made sure you are not touching any part of the circuit anymore, plug the microcontroller back in</li>
+  <li>never touch the display or any part of the circuit while the battery is plugged in, i.e. the circuit is powered</li>
+  <li>unplug the battery <b>before</b> you do any wiring, only after it is unplugged you are allowed to touch the circuit and exchange wires and components</li>
+  <li>once you are done wiring and you have made sure you are not touching any part of the circuit anymore, plug the battery back in</li>
 </ul> 
 </span><br>
 
+
+<img src="images/lab3/inverter.png" width="400px"><br><br>
+
+<b>Connecting Inverter Output to Display</b><br>
+First, connect the inverter 'output' (50V AC) to the display.<br>
+As you can see in the image above, the inverter output are the two black wires from the inverter.<br>
+Connect jumper wires to each inverter output cable by sticking them into the white connector of the inverter.<br><br>
+
+Next, use crocodile clamps.<br>
+Connect one end of the crocodile clamp to the jumper wire.<br>
+The other end of the crocodile clamp goes onto the little copper flap on your display.<br>
+Be careful that you don't rip of the copper flap while working with the wires.<br><br>
+
+<b>Connecting Inverter Input to Battery</b><br>
+Next, connect the inverter input to the 1.2V battery holder <span style="color:red">(remove the battery before you do any wiring! we never wire while we have power on).</span><br>
+The inverter input is the black/red cable, see image above.<br>
+To connect to the inverter, use jumper wires again and stick them into the white connector element.<br>
+Next, use a crocodile clamp to connect the red wire to the + pol of your battery holder and another crocodile clamp to connect black to -.<br><br>
+
+<b>Powering up the Display</b><br>
 Once you are done wiring, turn the display around such that you see the top side. <br>
 The copper should be on the bottom now and you can't see it anymore. <br><br>
 
 When this is done, make sure you are not touching the circuit anymore at any place.<br>
-Then the AA battery into the battery holder. <br>
+Then insert the AA battery into the battery holder. <br>
 You should see a bright EL display in the shape of the coffee mug now. <br>
 If you see that, congratulations. <br>
-If not, check if all wires are connected properly or ask for some help from the TAs.<br><br>
+If not, remove the battery, then check if all wires are connected properly, and try again.<br>
+If it still does not work, ask for some help from the TAs.<br><br>
     
+ <span style="color:red">Replace this image</span><br>   
 <img src="images/el-display-on.jpg" width="400px"><br><br>
 
 
 <h3 class="headline">Building the control circuit for EL Displays</h3>
 
-So now you can turn on/off your display by plugging and unplugging either the display or the micrcontroller.<br> 
+Now you can turn on/off your display by plugging and unplugging the battery.<br> 
 That's ok but it would be nicer to do this via code and not by physically plugging/unplugging.<br>
 The goal of this final part of the lab is to build a control circuit that lets you do exactly this. <br><br>
 
