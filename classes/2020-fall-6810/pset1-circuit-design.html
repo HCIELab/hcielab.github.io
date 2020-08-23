@@ -76,7 +76,7 @@ Before you get started, check if you have all of the following:<br>
 	<li>ESP32 microcontroller, breadboard, and wires</li>
 	<li>one multiplexer</li>
 	<li>two FPC connectors</li>
-	<li><span style="color:red">20 x 100Kohm resistors</span></li>
+	<li>ca. 20 x 100Kohm resistors (one for each row and one for each column)</li>
 	<li>two transparent sheets for conductive inkjet printing</li>
 </ul><br>
 
@@ -99,8 +99,8 @@ Once both sheets are printed, you layer them on top of each other to build the f
 In the user interface, the user should be able to enter:<br>
 
 <ul>
-	<li>the desired number of electrodes in x-direction <span style="color:red">(default value: 10 electrodes)</span></li>
-	<li>the desired number of electrodes in y-direction <span style="color:red">(default value: 10 electrodes)</span></li>
+	<li>the desired number of electrodes in x-direction (default value: 10 electrodes)</li>
+	<li>the desired number of electrodes in y-direction (default value: 10 electrodes)</li>
 	<li>the size of the electrode in mm <span style="color:red">(default value: 4mm)</span></li>
 	<li>the spacing between adjacent electrodes in mm <span style="color:red">(default value: 1mm)</span></li>
 	<li>the thickness of the wires in mm <span style="color:red">(default value: 0.35mm)</span></li>
@@ -155,7 +155,44 @@ Remember you need to print two sheets, one for column and one for rows.<br><br>
 
 Once you printed both sheets, you can glue them together using a <span style="color:red">thin adhesive foil or spray glue.</span><br><br>
 
-<h3>(4) Connect Top and Bottom Electrode Layers to FPC chips</h3>
+<h3>(4) FPC connectors</h3>
+
+Next, you need to connect your inkjet printed circuit to a breadboard.<br>
+In the labs, we used crocodile clamps but the use of crocodile clamps for such fine spacings as we have here is really impractical (and perhaps even impossible).<br>
+For this reason, we will use a FPC connector.<br>
+The FCP connector has high resolution connectors on one side, which we will use to connect to the inkjet printed circuit, and on the other side has more widely spaced connectors, which we can use to connect to our breadboard.<br><br>  
+
+We bought you <a href="https://www.amazon.com/gp/product/B07VCJG54G/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1">two FPC connectors from here.</a><br>
+When you buy them, they look like the image below.<br>
+
+<img src="images/pset1/fpc-without-headers.png" width="300px"><br><br>
+
+Note that they don't yet have header pins on them, so you need to add them yourself.<br>
+You have some header pins in your fabrication bag.<br>
+
+<img src="images/pset1/headerpins.png" width="150px"><br><br>
+
+Go to an office hour to solder on the header pins.<br><br>
+
+<img src="images/pset1/fpc-with-headers.jpg" width="300px"><br><br>
+
+Next, connect the FPC connector to your inkjet printed circuit.<br>
+Before you can do this, you need to first cut out the multitouch pad.<br> 
+In particular, when you cut out the connector area pay extra attention that it is exactly the size that will fit inside the FPC connector (see images below).<br>
+Also check that the little pins inside the FPC connector head align with the traces on the piece you are cutting out.<br><br>
+
+<!-- <img src="images/pset1/cutting-inkjet-printed.jpg" width="270px">
+ --><img src="images/pset1/aligning-inkjet-print-with-fpc.jpg" width="390px">
+<img src="images/pset1/fpc-connector-slot.jpg" width="330px"><br><br>
+
+When you connect your FPC connector, note that it matters in <span style="color:red">which direction you insert the multi-touch pad into the FPC connector.</span> <br>
+You have to insert it so that the conductive side with the silver traces is facing the breakout board, i.e. the non-conductive side is facing the headerpins.<br><br>
+
+<span style="color:red">What do I have to do to connect it to the FPC?</span>
+
+
+
+<h3>(5) Connect Top and Bottom Electrode Layers to FPC chips</h3>
 
 Next, clip on both FCP breakout boards (with 1.0mm connector) to make sure you got the connection pads right.<br>
 Flexible Printed Circuit (FPC) Connector is used for connecting flexible Printed Circuit to the rest of the circuit. In our case, connect the silver printed circuits to the main circuit.
