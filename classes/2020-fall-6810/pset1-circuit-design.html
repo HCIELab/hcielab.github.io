@@ -74,9 +74,9 @@ Before you get started, check if you have all of the following:<br>
 
 <ul>
 	<li>ESP32 microcontroller, breadboard, and wires</li>
-	<li>one multiplexer</li>
+	<li>one 16-channel multiplexer</li>
 	<li>two FPC connectors</li>
-	<li>ca. 20 x 100Kohm resistors (one for each row and one for each column)</li>
+	<li>ca. 10 x 100Kohm resistors (one for each receiver pin)</li>
 	<li>two transparent sheets for conductive inkjet printing</li>
 </ul><br>
 
@@ -91,39 +91,59 @@ In the first part of this problem set, you will write a user interface in Proces
 As explained in lecture, your multi-touch pad has two layers that are printed separately.<br>
 Each row/column consists of multiple electrodes and has a single wire at the end.<br>
 The horizontal row of electrodes is printed on one sheet, the vertical row of electrodes is printed on a second sheet.<br>
-Once both sheets are printed, you layer them on top of each other to build the final circuit.<br><br>
+Once both sheets are printed, you layer them on top of each other to build the final circuit.<br>
+We will be using the classical two-layered diamond pattern that is commonly used for mutual-capacitive touch sensing. <br><br>
 
 <img src="images/pset1-multitouch-pad-explanation1.png" width="200px">
 <img src="images/pset1-multitouch-pad-explanation2.png" width="400px"><br><br>
 
-In the user interface, the user should be able to enter:<br>
+Since the multi-touch pad design is down in metric system (e.g. in millimeter), and the Processing handles everything in "pixel", you should first figure out a conversion factor between pixel and millimeter before you implement the design. <br>
+The Processing scales its sketch window to either <b>96 dpi</b> (dots per inch, or pixel per inch) or <b>72 dpi</b>, and PGraphics and PImage both show a universally sized sketch. As a result, you are able to generate the design accurately in Processing with pixel.<br>
+Notice that this is different from the screen resolution / pixel per inch, which usually are around a couple hundred nowadays, this is set by the operating system and mainly used for writing programs. <br>
+If you are using a Windows machine, you are most likely in 96 dpi. If you use a Mac, chances are that you are also in 96 dpi (althrough <a href="https://en.wikipedia.org/wiki/Dots_per_inch">Wikipedia</a> seems to disagree on this matter). Out of respect for Wikipedia, please do check it if you are not sure. <br>
+To check your display's dpi in Processing, you can draw a square in the sketch window, export it and print it out with a normal Inkjet printer, then measure the output with ruler to see if your Processing is in 96 dpi or 72 dpi. <br>
+While printing, make sure you don't scale the image and print with <b>"Print Entire Image"<b> setting, so that the image prints out accurately. <br>
+Once figure out your Processing's dpi, calculate the pixel to millimeter conversion factor based on that.
+<br><br>
+
+In the user interface, the user should be able to select:<br>
 
 <ul>
 	<li>the desired number of electrodes in x-direction (default value: 10 electrodes)</li>
 	<li>the desired number of electrodes in y-direction (default value: 10 electrodes)</li>
-	<li>the size of the electrode in mm (default value: 6mm)</li>
-	<li>the spacing between adjacent electrodes in mm (default value: 1mm)</li>
+	<li>the size of the diamond electrode (for edges) in mm (default value: 6mm)</li>
+	<!-- <li>the spacing between adjacent electrodes in mm (default value: 1mm)</li>
 	<li>the spacing between non-connected electrodes, i.e. rows and columns, in mm (default value: 0.5mm)</li>
 	<li>the thickness of the wires in mm (default value: 0.35mm)</li>
-	<li>the spacing of wires on the FPC connector in mm <span style="color:red">(to find the correct value, look at the data sheet of the FPC connector)</span></li>
+	<li>the spacing of wires on the FPC connector in mm <span style="color:red">(to find the correct value, look at the data sheet of the FPC connector)</span></li> -->
 </ul>
 <br>
 
-The user interface should only allow the user to input reasonable numbers into the fields:<br>
+Some other parameters that you need to consider for the design (you don't have to display them in the UI, but please do think of good reasons for them, you can start from <a href="http://ww1.microchip.com/downloads/en/DeviceDoc/FAQs%20-%20Sensor%20Design%20Guidelines.pdf">here</a>): <br>
+
+<ul> 
+	<li> the spacing between adjacent electrodes (vertex-to-vertex) in mm (we recommend 1mm, but feel free to choose your own value)</li>
+	<li> the spacing between non-connected electrodes, i.e. rows and columns, in mm (default value: 0.5mm)</li>
+	<li>the thickness of the wires in mm (default value: 0.2mm)</li>
+	<li>the spacing of wires on the FPC connector in mm (to find the correct value, look at your FPC connector breakout board, and the data sheet of the FPC connector <a href="https://datasheet.octopart.com/FH12-10%284%29SA-1SH%2855%29-Hirose-datasheet-8324494.pdf">here</a>)</li>
+</ul>
+<br>
+
+The user interface should only allow the user to select reasonable numbers into the fields:<br>
 
 <ul>
 	<li>for each input field listed above, think about what is a reasonable lower and upper bound (i.e. min/max values)</li>
 	<li>write a short explanation why you picked the lower/upper bounds for each field and submit it using this google form</li>
-	<li>implement the lower/upper bounds in your user interface, i.e. the user should either not be able to enter values outside the lower/upper bounds (i.e. you only offer a selection of valid numbers) or if your UI allows to enter any value then your user interface should show the user a warning that the value is invalid and reset to the last valid value</li>
+	<li>implement the lower/upper bounds in your user interface, i.e. the user should either not be able to select values outside the lower/upper bounds (i.e. you only offer a selection of valid numbers) or if your UI allows to enter any value then your user interface should show the user a warning that the value is invalid and reset to the last valid value</li>
 </ul>
 <br>
 
 Finally, the user interface should have some preview and export functions:<br>
 
 <ul>
-	<li>one checkbox called 'show top layer' and one checkbox called 'show bottom layer', toggling the checkbox should hide/show the respective electrode layers so the layers can be looked at individually</li>
-	<li>an export button, which when clicked saves the generated electrodes into <span style="color:red">two .pdf files</span> (called bottom-electrodes.pdf and top-electrodes.pdf), one for the rows of electrodes (bottom sheet) and one for the columns (top sheet)</li>
-	<li>make sure the exported files have all settings correctly set for conductive inkjet printing</li>
+	<li>one button for switch the design's top/bottom view (top layer vs. bottom layer), click the button should switch between the respective electrode layers so the layers can be looked at individually</li>
+	<li>one save and export button, which when clicked saves the generated electrodes into <span style="color:red">two .pdf files</span> (called bottom-electrodes.pdf and top-electrodes.pdf), one for the rows of electrodes (bottom sheet) and one for the columns (top sheet)</li>
+	<li>make sure the exported files have all settings correctly set for conductive inkjet printing (think about the content from lab1) </li>
 </ul>
 <br>
 
@@ -153,6 +173,7 @@ When you are done, it should look something like the images below.<br>
 Make sure you test your user interface by exporting several different multi-touch pad sizes, e.g. <span style="color:red">4x10, 6x12, 20x20.</span><br>
 If you are unsure if everything has the right dimension, use a regular color printer to print out your design and measure it with a ruler.<br>
 
+
 <!-- <span style="color:red">insert Dani's updated UI here</span><br> -->
 <img src="images/pset1-Processing-UI_1.png" width="500px">
 
@@ -164,20 +185,19 @@ If you are unsure if everything has the right dimension, use a regular color pri
 Once your circuit design tool is ready, export a multi-touch pad of 9x8 electrodes from your user interface.<br><br>
 
 Go to a fabrication office hour to inkjet print your multi-touch pad.<br>
-Remember you need to print two sheets, one for column and one for rows.<br><br>
+Remember you need to print two sheets, one for column and one for rows (one sheet for sender pins, one sheet for receiver pins).<br><br>
 
 <h3>(3) Assemble Top and Bottom Electrode Layers</h3>
 
-Once you printed both sheets, you can glue them together using a <span style="color:red">thin adhesive foil or spray glue.</span><br><br>
+Once you printed both sheets, you can glue them together using a temporary tattoo paper, like this one <a href="https://www.amazon.com/gp/product/B0043WJ3OA/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1"> here</a>. <br>
 
-<span style="color:red">are we glueing only the electrode touch area but not where the wires are routing to the FPC connectors?</span><br><br>
+We are glueing only the electrode touch area but not where the wires are routing to the FPC connectors.<br>
+We will provide you with the temporary tattoo paper when you come print out your multi-touch pad design during Office Hours.<br><br>
 
 
 <h3>(4) Solder and Connect the FPC Connectors</h3>
 
-<span style="color:red">are we doing this before we glue the sheets together or afterwards?</span>
-
-Next, you need to connect your inkjet printed circuit to a breadboard.<br>
+Once you have the multi-touch pad printed and assembled, you need to connect it to a breadboard so that it can be connected to the rest of the circuit.<br>
 In the labs, we used crocodile clamps but the use of crocodile clamps for such fine spacings as we have here is really impractical (and perhaps even impossible).<br>
 For this reason, we will use a FPC connector.<br>
 Flexible Printed Circuit (FPC) Connectors are used for connecting (surprise) flexible printed circuits to the rest of the rigid circuit.<br> In our case, connect the silver printed circuits to the main circuit.<br><br>
@@ -208,11 +228,18 @@ Also check that the little pins inside the FPC connector head align with the tra
 <img src="images/pset1/fpc-connector-slot.jpg" width="330px"><br><br>
 
 When you connect your FPC connector, note that it matters in <span style="color:red">which direction you insert the multi-touch pad into the FPC connector.</span> <br>
-You have to insert it so that the conductive side with the silver traces is facing the breakout board, i.e. the non-conductive side is facing the headerpins.<br><br>
+You have to insert it so that the conductive side with the silver traces is facing down to the breakout board, i.e. the non-conductive side is facing up.<br>
+Depends on which types of FPC connector you get (in total 2 slightly different types), you can connect the inkjet printed circuit in the following way(s). <br>
 
-<span style="color:red">What do I have to do to connect it to the FPC?</span><br><br>
+(1) Flip-up: <br>
+<img src="images/pset1-fpc-connector_1.jpg" width="330px"><br><br>
 
-Once you are done with one of the sheets, repeat the procedure with the second sheet and FPC connector.<br><br>
+(2) Pull-out: <br>
+<img src="images/pset1-fpc-connector_2.png" width="600px"><br><br>
+
+
+
+Once you are done connecting one side of the multi-touch pad, repeat the procedure with the other side and connect it a second FPC connector.<br><br>
 
 <!-- Next, clip on both FCP breakout boards (with 1.0mm connector) to make sure you got the connection pads right.<br> -->
 
@@ -224,7 +251,22 @@ Once you are done with one of the sheets, repeat the procedure with the second s
 For our multi-touch pad, we will also use a multiplexer.<br>
 We bought you one <a href="https://www.amazon.com/gp/product/B07K7JF3HX/ref=ppx_od_dt_b_asin_title_s00?ie=UTF8&psc=1">from here.</a><br><br>
 
+This is a breakout board for the very handy 16-Channel Analog/Digital Multiplexer/Demultiplexer CD74HC4067. <br> 
 A multiplexer allows to select between multiple inputs and creates an output using a single line.<br>
+It can also be used the other way around, which takes one input and creates multiple outputs, i.e. as a "de-multiplexer". <br>
+Below shows the working principle of a 1-to-4 channel de-multiplexer.<br><br>
+
+<img src="images/pset1-multiplexer_symbol.png" width="600px"> <br><br>
+
+In our case, this multiplexer chip is like a rotary switch - it internally routes the common pin (COM in the schematic, SIG on the board) to one of 16 channel pins (Cxx). <br>
+It works with both digital and analog signals (the voltage can't be higher than VCC, which is 5V), and the connections function in either direction. <br>
+To control it, connect 4 digital outputs to the chip's address select pins (S0-S3), and send it the binary address of the channel you want, e.g if 'S3,S2,S1,S0' is '0,1,0,0', the channel C4 pin is connected to SIG pin (for more details, see the <a href="https://www.ti.com/lit/ds/symlink/cd74hc4067.pdf?ts=1598252309140&ref_url=https%253A%252F%252Fwww.google.com%252F">datasheet</a> and <a href="http://cdn.sparkfun.com/datasheets/BreakoutBoards/Analog-Digital-Mux-Breakout-v11.pdf"> schematic file </a>).<br> 
+This allows you to connect up to 16 pins to your system using only 5 pins on micro-controller! <br><br>
+
+
+<!-- Below shows how you should connect it as a schematic. <br> -->
+
+<!-- A multiplexer allows to select between multiple inputs and creates an output using a single line.<br>
 This comes very handy for our application: Since we will have one signal coming from each row and each column of our multi-touch pad, we would quickly exhaust all of the available pins on the ESP microcontroller.<br>
 Instead, we use a multiplexer, i.e. we route all the signals to the multiplexer and then connect the multiplexer to the ESP using a single pin.<br>
 Because of this capability, the multiplexer is also know as a 'data selector'.<br><br>
@@ -232,9 +274,9 @@ Because of this capability, the multiplexer is also know as a 'data selector'.<b
 Below you see this behavior as a schematic.<br>
 On the left side you see what we already talked about: there are two ore more inputs and the multiplexer selects one of them and outputs it through a single output pin.<br>
 The right side provides more information: it shows that the selector tells the multiplexer which signal it should output.<br>
-Later when we program the multiplexer, we thus have to keep in mind that we need one input pin to tell the multiplexer which signal to select, one output pin for the output signal, and a number of other inputs, one for each row/column from the multi-touch pad.<br><br>
+Later when we program the multiplexer, we thus have to keep in mind that we need one input pin to tell the multiplexer which signal to select, one output pin for the output signal, and a number of other inputs, one for each row/column from the multi-touch pad.<br><br> -->
 
-<img src="images/pset1/multiplexer-schematic-explained.png" width="450px"> <br><br>
+<!-- <img src="images/pset1-multiplexer-schematic.png" width="450px"> <br><br> -->
 
 The multiplexer we bought again has no headers yet, so you need to add them yourself.<br>
 You have some header pins in your fabrication bag.<br>
@@ -251,12 +293,18 @@ After you are done soldering, it should look like this:<br><br>
 
 <h3>(5) Build Multi-Touch Sensing Circuit</h3>
 
-Finally, let's build the sensing circuit.<br>
-Remember from lab 1 that we will need both a receiver and a sender pin for each row/column.<br>
-The multiplexer will serve as our receiver that can listen to the many signals coming from the rows/columns.</br>
-Since we only need one sender pin, we can use a pin from the ESP without going through the multiplexer.<br><br>
+Finally, let's build the sensing circuit.<br><br>
+<!-- Remember from lab 1 that we will need both a receiver and a sender pin for each row/column.<br>
+The multiplexer will serve as our sender that can send out same signal to all sender pins periodically to the sender rows/columns.</br>
+Since we only need one signal pin for all sender pins, we can use one PWM pin from the ESP and connect to the multiplexer's "SIG" pin.<br><br> -->
 
-<b>Connect Multiplexer <span style="color:red">(Receiver??)</span> to Multi-Touch Pad Rows/Columns</b><br>
+First, let's connect the multiplexer to the circuit. We will be using the multiplexer for the "senders" of the multi-touch pad, so that we can output the same signal to all sender pins (up to 16) periodically while only using one signal pin (PWM pin) + four GPIO pins on ESP32 micro-controller. <br>
+You can connect the FPC connector breakout boards to the multiplexer via male-to-female jumper wires and breadboard.<br>
+
+Below shows in detail how you should connect the multiplexer as a schematic. <br>
+<img src="images/pset1-multiplexer-schematic.png" width="450px"> <br><br>
+
+<!-- <b>Connect Multiplexer to Multi-Touch Pad Rows/Columns</b><br>
 
 First, we need to connect the multiplexer.<br>
 As seen below, one row of pins on the multiplexer are for data input, i.e. connect to the rows/columns of our multi-touch pad.<br>
@@ -281,7 +329,11 @@ And how are we tackling the many lines for the receiver pins? Why not use anothe
 <br><br>
 
 It is really unclear to me what I'm supposed to do. This needs more explanation and a better drawing.</span><br>
+ -->
 
+As for the receiver pins, you should connect each of them to one ADC (analog-to-digital converter) pin on ESP32 micro-controller. <br>
+You will also need to ground each of the receiver pins with one 100k ohm resistor.<br>
+The overall sensing circuit schematic is shown down below: <br>
 
 <img src="images/pset1-schematic.png" width="600px"> <br><br>
 
