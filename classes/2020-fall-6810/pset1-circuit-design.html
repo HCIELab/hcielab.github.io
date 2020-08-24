@@ -197,10 +197,7 @@ We draw them as shapes (e.g. rectangles), add a text where needed to display num
 When you are done, make sure you test your user interface by exporting several different multi-touch pad sizes, e.g. <span style="color:red">4x10, 12x6, 5x5.</span>
 If you are unsure if everything has the right dimension, use a regular color printer to print out your design and measure it with a ruler.<br>
 
-
-<!-- <span style="color:red">insert Dani's updated UI here</span><br> -->
-
-<br><br>
+<br>
 
 
 <h3>(2) Inkjet Print Top and Bottom Electrode Layers</h3>
@@ -239,19 +236,13 @@ Once you have the tattoo transfer paper ready, attach it to the bottom layer, th
 
 <span style="color:red">insert image of adding tattoo paper here and second image flipping back</span><br><br> 
 
-Finally, since the top electrode is still exposed, we will add a transparent film on top, so that you finger does not end up touching the electrodes directly. You can do that with the scotch tape etc. <span style="color:red">do you mean the transparent sheet is the scotch tape or you tape the sheet with the scotch tape?</span><br>
+Finally, since the top electrode is still exposed, we will add a transparent film on top, so that you finger does not end up touching the electrodes directly. You can do that with the scotch tape etc. <span style="color:red">do you mean the transparent sheet is the scotch tape or you tape the sheet with the scotch tape?</span><br><br>
 
-
-
-You shoudl end up with something similar to this: <br>
+Your final result should look like this: <br>
 <img src="images/pset1-assembled-sheets.png" width="600px"> <br><br>
 
 
-
 <h3>(4) Solder and Connect the FPC Connectors</h3>
-
-<span style="color:red">explain something about sensing principle for multitouch pad. (one sheet for sender pins, one sheet for receiver pins)</span><br><br>
-
 
 Once you have the multi-touch pad printed and assembled, you need to connect it to a breadboard so that it can be connected to the rest of the circuit.<br>
 In the labs, we used crocodile clamps but the use of crocodile clamps for such fine spacings as we have here is really impractical (and perhaps even impossible).<br>
@@ -303,6 +294,40 @@ Once you are done connecting one side of the multi-touch pad, repeat the procedu
 
 
 <h3>(4) Solder the Multiplexer</h3>
+
+
+<h3>Sensing Principle of Multi-Touch Pad</h3>
+
+Before we go into the details of the electronic components, let's zoom out for a moment and look at the sensing principle of the multi-touch pad one more time.<br><br>
+
+As mentioned in lecture, the multitouch pad consists of sender electrodes (e.g., rows) and receiver electrodes (e.g., columns).<br><br>
+
+<b>Sender Electrodes:</b> When powered, the multitouch pad is sending a signal to the sender electrodes one by one, i.e. first sends a signal to the first sender electrode, then the second, then the third and so on. After it reached the last sender electrode, it continues again from the top.<br><br>
+
+<b>Receiver Electrodes:</b> Meanwhile, the receiver electrodes listen the entire time all simultaneously. They know which signal to expect since they know what each sender electrode is sending. However, if a human finger comes in contact with the sender (receiver?) electrode, the signal changes. The receiver electrode can then notice this change. By knowing that this change only occured on one sender electrode and only one receiver electrode was able to pick up the signal, we know where the touch happened.<br>  
+
+<span style="color:red">insert images here explaining the sensing principle</span><br><br> 
+
+<b>Circuit Design</b><br>
+
+Below, you can see the schematic of the circuit we are going to build.<br>
+
+<img src="images/pset1-multiplexer-schematic.png" width="450px"> <br><br>
+
+The bottom of the schematic should look pretty familiar to the touch-button we already build: i.e.  a bunch of receiver pins are connected to one resistor each which in turn are connected to the electrode columns so we can listen to the signals coming in.<br> As you can imagine, the more columns we have, the more receiver pins we need, so this can quickly blow up.<br><br>
+
+For sending, we cannot use a single pin like we did in the touch button lab.<br>
+Remember, that we need to send a signal to each row of electodes individually one by one, so sharing a sender pin would not allow for this since it would send a signal to all electrodes at the same time.<br>
+To send a signal one by one to each row, we would thus need the same number of sender pins as we have rows.<br>
+This can quickly become a lot <span style="color:red">would it be even possible with our ESP? if yes, how many?<br>
+To solve this problem, we use a new component called a multiplexer <span style="color:re">and why can we not use this for receiving as well?</span>. A multiplexer can take a single input signal and then control to which output pin the signal should be send, so we can output the same signal to all sender pins while controlling which pin should get the signal. Pretty nice.<br>
+
+
+First, let's connect the multiplexer to the circuit. We will be using the multiplexer for the "senders" of the multi-touch pad, so that we can output the same signal to all sender pins (up to 16) periodically while only using one signal pin (PWM pin) + four GPIO pins on ESP32 micro-controller <span style="color:red"> this is way to late, this should have been explained at the very beginning of the pset</span>. <br>
+You can connect the FPC connector breakout boards to the multiplexer via male-to-female jumper wires and breadboard.<br>
+
+Below shows in detail how you should connect the multiplexer as a schematic. <br>
+
 
 For our multi-touch pad, we will also use a multiplexer.<br>
 We bought you one <a href="https://www.amazon.com/gp/product/B07K7JF3HX/ref=ppx_od_dt_b_asin_title_s00?ie=UTF8&psc=1">from here.</a><br><br>
