@@ -295,29 +295,30 @@ Once you are done connecting one side of the multi-touch pad, repeat the procedu
 <!-- <span style="color:red">say a few words what the FCP chips are for.</span><br><br> -->
 
 
-<h3>(4) Solder the Multiplexer</h3>
+<h3>(4) Circuit Design with Multiplexer</h3><br>
 
+<h4>General Sensing Principle</h4><br>
 
-<h3>Sensing Principle of Multi-Touch Pad</h3>
-
-Before we go into the details of the electronic components, let's zoom out for a moment and look at the sensing principle of the multi-touch pad one more time.<br><br>
-
+Let's zoom out for a moment and look at the sensing principle of the multi-touch pad that we had discussed in lecture.<br>
 As mentioned in lecture, the multitouch pad consists of sender electrodes (e.g., rows) and receiver electrodes (e.g., columns).<br><br>
 
 <b>Sender Electrodes:</b> When powered, the multitouch pad is sending a signal to the sender electrodes one by one, i.e. first sends a signal to the first sender electrode, then the second, then the third and so on. After it reached the last sender electrode, it continues again from the top.<br><br>
 
-<b>Receiver Electrodes:</b> Meanwhile, the receiver electrodes listen the entire time all simultaneously. They know which signal to expect since they know what each sender electrode is sending. However, if a human finger comes in contact with the sender (receiver?) electrode, the signal changes. The receiver electrode can then notice this change. By knowing that this change only occured on one sender electrode and only one receiver electrode was able to pick up the signal, we know where the touch happened.<br>  
+<b>Receiver Electrodes:</b> Meanwhile, the receiver electrodes listen the entire time all simultaneously. They know which signal to expect since they know what signal the sender electrodes are sending. However, if a human finger comes in <span style="color:red">contact with the sender (receiver?) electrode, the signal changes.</span> The receiver electrode notices this change. By knowing that this change only occured on one sender electrode and only one receiver electrode was able to pick up the signal, we know where the touch happened.<br><br> 
 
-<span style="color:red">insert images here explaining the sensing principle</span><br><br> 
+<span style="color:red">insert images here explaining the sensing principle</span><br>
+<img src="images/pset1/row-column-scanning.png" width="500px"> <br><br>
 
-<b>Circuit Design</b><br>
+<h4>Circuit Design</h4><br>
 
 Below, you can see the schematic of the circuit we are going to build.<br>
 
-<img src="images/pset1-multiplexer-schematic.png" width="450px"> <br><br>
+<img src="images/pset1-schematic.png" width="600px"> <br><br>
 
+<b>Circuit for Receiving</b><br>
 The bottom of the schematic should look pretty familiar to the touch-button we already build: i.e.  a bunch of receiver pins are connected to one resistor each which in turn are connected to the electrode columns so we can listen to the signals coming in.<br> As you can imagine, the more columns we have, the more receiver pins we need, so this can quickly blow up.<br><br>
 
+<b>Circuit for Sending</b><br>
 For sending, we cannot use a single pin like we did in the touch button lab.<br>
 Remember, that we need to send a signal to each row of electodes individually one by one, so sharing a sender pin would not allow for this since it would send a signal to all electrodes at the same time.<br>
 To send a signal one by one to each row, we would thus need the same number of sender pins as we have rows.<br>
