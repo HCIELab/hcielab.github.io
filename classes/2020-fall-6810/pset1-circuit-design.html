@@ -323,7 +323,35 @@ For sending, we cannot use a single pin like we did in the touch button lab.<br>
 Remember, that we need to send a signal to each row of electodes individually one <b>after</b> another, so sharing a sender pin would not allow for this since it would send a signal to all electrodes <b>simultaenously</b> at the same time.<br>
 To send a signal one by one to each row, we would thus need the same number of sender pins as we have rows.<br>
 This can quickly become a lot <span style="color:red">would it be even possible with our ESP? if yes, how many?</span><br>
-To solve this problem, we use a new component called a multiplexer <span style="color:re">and why can we not use this for receiving as well?</span>. A multiplexer can take a single input signal and then control to which output pin the signal should be send, so we can output the same signal to all sender pins while controlling which pin should get the signal. Pretty nice.<br>
+To solve this problem, we use a new component called a multiplexer <span style="color:red">and why can we not use this for receiving as well?</span>. A multiplexer can take a single input signal and then control to which output pin the signal should be send, so we can output the same signal to all sender pins while controlling which pin should get the signal. Pretty nice. We will provide more info on the multiplexer below.<br><br>
+
+<h4>Multiplexer</h4><br>
+
+For our multi-touch pad, we bought the following multiplexer <a href="https://www.amazon.com/gp/product/B07K7JF3HX/ref=ppx_od_dt_b_asin_title_s00?ie=UTF8&psc=1">from here.</a><br><br>
+
+<b>Multiplexer Soldering Header Pins on</b><br>
+
+The multiplexer we bought again has no headers yet, so you need to add them yourself.<br>
+You have some header pins in your fabrication bag.<br>
+
+Go to an office hour to solder on the header pins.<br><br>
+
+<img src="images/pset1/multiplexer-no-headers.png" width="150px"> 
+<img src="images/pset1/headerpins.png" width="150px"><br><br>
+
+After you are done soldering, it should look like this:<br><br>
+
+<img src="images/pset1/multiplexer.jpg" width="300px"> <br><br>
+
+<b>Multiplexer Working Principle</b><br>
+
+As mentioned before, a multiplexer allows to select between multiple inputs and creates an output using a single line.<br>
+It can also be used the other way around, which takes one input and creates multiple outputs, i.e. as a "de-multiplexer". <br>
+For our purposes, since we want to use a single sender pin on the ESP to create multiple sender signals, we will use our multiplexer as a <b>demultiplexer.</b><br><br>
+
+Below we show the working principle of a 1-to-4 channel de-multiplexer for your reference.<br><br>
+
+<img src="images/pset1-multiplexer_symbol.png" width="600px"> <br><br>
 
 
 First, let's connect the multiplexer to the circuit. We will be using the multiplexer for the "senders" of the multi-touch pad, so that we can output the same signal to all sender pins (up to 16) periodically while only using one signal pin (PWM pin) + four GPIO pins on ESP32 micro-controller <span style="color:red"> this is way to late, this should have been explained at the very beginning of the pset</span>. <br>
@@ -332,15 +360,9 @@ You can connect the FPC connector breakout boards to the multiplexer via male-to
 Below shows in detail how you should connect the multiplexer as a schematic. <br>
 
 
-For our multi-touch pad, we will also use a multiplexer.<br>
-We bought you one <a href="https://www.amazon.com/gp/product/B07K7JF3HX/ref=ppx_od_dt_b_asin_title_s00?ie=UTF8&psc=1">from here.</a><br><br>
-
 This is a breakout board for the very handy 16-Channel Analog/Digital Multiplexer/Demultiplexer CD74HC4067. <br> 
-A multiplexer allows to select between multiple inputs and creates an output using a single line.<br>
-It can also be used the other way around, which takes one input and creates multiple outputs, i.e. as a "de-multiplexer". <br>
-Below shows the working principle of a 1-to-4 channel de-multiplexer. <span style="color:red">so what are we using it for? multiplexing or demultiplexing?</span><br><br>
 
-<img src="images/pset1-multiplexer_symbol.png" width="600px"> <br><br>
+
 
 <span style="color:red">you need to first say what it is good for for the multitouch pad, is it for receiving, for sending?</span><br>
 
@@ -366,17 +388,6 @@ Later when we program the multiplexer, we thus have to keep in mind that we need
 
 <!-- <img src="images/pset1-multiplexer-schematic.png" width="450px"> <br><br> -->
 
-The multiplexer we bought again has no headers yet, so you need to add them yourself.<br>
-You have some header pins in your fabrication bag.<br>
-
-Go to an office hour to solder on the header pins.<br><br>
-
-<img src="images/pset1/multiplexer-no-headers.png" width="150px"> 
-<img src="images/pset1/headerpins.png" width="150px"><br><br>
-
-After you are done soldering, it should look like this:<br><br>
-
-<img src="images/pset1/multiplexer.jpg" width="300px"> <br><br>
 
 
 <h3>(5) Build Multi-Touch Sensing Circuit</h3>
