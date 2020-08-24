@@ -295,7 +295,7 @@ Once you are done connecting one side of the multi-touch pad, repeat the procedu
 <!-- <span style="color:red">say a few words what the FCP chips are for.</span><br><br> -->
 
 
-<h3>(4) Circuit Design with Multiplexer</h3><br>
+<h3>(4) Circuit Design and Multiplexer</h3><br>
 
 <h4>General Sensing Principle</h4><br>
 
@@ -355,12 +355,9 @@ Below we show the working principle of a 1-to-4 channel de-multiplexer for your 
 
 <img src="images/pset1-multiplexer_symbol.png" width="600px"> <br><br>
 
+<b>Pins on the Multiplexer</b><br>
 
-First, let's connect the multiplexer to the circuit. We will be using the multiplexer for the "senders" of the multi-touch pad, so that we can output the same signal to all sender pins (up to 16) periodically while only using one signal pin (PWM pin) + four GPIO pins on ESP32 micro-controller <span style="color:red"> this is way to late, this should have been explained at the very beginning of the pset</span>. <br>
-You can connect the FPC connector breakout boards to the multiplexer via male-to-female jumper wires and breadboard.<br>
-
-Below shows in detail how you should connect the multiplexer as a schematic. <br>
-
+We can output the same signal to all sender pins periodically while only using one signal pin (PWM pin) + four GPIO pins on ESP32 micro-controller <span style="color:red"> I have no idea what you are talking about</span>. <br>
 
 <span style="color:red">then explain what the pins are and what they are good for. I have no idea what 'the common pin' is.</span><br>
 
@@ -368,6 +365,8 @@ In our case, this multiplexer chip is like a rotary switch - it internally route
 It works with both digital and analog signals (the voltage can't be higher than VCC, which is 5V), and the connections function in either direction. <br>
 To control it, connect 4 digital outputs to the chip's address select pins (S0-S3), and send it the binary address of the channel you want, e.g if 'S3,S2,S1,S0' is '0,1,0,0', the channel C4 pin is connected to SIG pin (for more details, see the <a href="https://www.ti.com/lit/ds/symlink/cd74hc4067.pdf?ts=1598252309140&ref_url=https%253A%252F%252Fwww.google.com%252F">datasheet</a> and <a href="http://cdn.sparkfun.com/datasheets/BreakoutBoards/Analog-Digital-Mux-Breakout-v11.pdf"> schematic file </a>).<br> 
 This allows you to connect up to 16 pins to your system using only 5 pins on micro-controller! <br><br>
+
+<img src="images/pset1-multiplexer-schematic.png" width="450px"> <br><br>
 
 
 <!-- Below shows how you should connect it as a schematic. <br> -->
@@ -386,19 +385,18 @@ Later when we program the multiplexer, we thus have to keep in mind that we need
 
 
 
-<h3>(5) Build Multi-Touch Sensing Circuit</h3>
+<h3>(5) Assembling the Final Circuit</h3>
 
-Finally, let's build the sensing circuit.<br><br>
-<!-- Remember from lab 1 that we will need both a receiver and a sender pin for each row/column.<br>
+<!-- Finally, let's build the sensing circuit.<br><br>
+ --><!-- Remember from lab 1 that we will need both a receiver and a sender pin for each row/column.<br>
 The multiplexer will serve as our sender that can send out same signal to all sender pins periodically to the sender rows/columns.</br>
 Since we only need one signal pin for all sender pins, we can use one PWM pin from the ESP and connect to the multiplexer's "SIG" pin.<br><br> -->
 
-First, let's connect the multiplexer to the circuit. We will be using the multiplexer for the "senders" of the multi-touch pad, so that we can output the same signal to all sender pins (up to 16) periodically while only using one signal pin (PWM pin) + four GPIO pins on ESP32 micro-controller <span style="color:red"> this is way to late, this should have been explained at the very beginning of the pset</span>. <br>
+
 You can connect the FPC connector breakout boards to the multiplexer via male-to-female jumper wires and breadboard.<br>
 
-Below shows in detail how you should connect the multiplexer as a schematic. <br>
-<img src="images/pset1-multiplexer-schematic.png" width="450px"> <br><br>
-
+<!-- Below shows in detail how you should connect the multiplexer as a schematic. <br>
+ -->
 <!-- <b>Connect Multiplexer to Multi-Touch Pad Rows/Columns</b><br>
 
 First, we need to connect the multiplexer.<br>
