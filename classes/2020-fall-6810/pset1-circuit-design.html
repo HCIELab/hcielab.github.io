@@ -316,11 +316,11 @@ Below, you can see the schematic of the circuit we are going to build.<br>
 <img src="images/pset1-schematic.png" width="600px"> <br><br>
 
 <b>Circuit for Receiving</b><br>
-The bottom of the schematic should look pretty familiar to the touch-button we already build: i.e.  a bunch of receiver pins are connected to one resistor each which in turn are connected to the electrode columns so we can listen to the signals coming in.<br> As you can imagine, the more columns we have, the more receiver pins we need, so this can quickly blow up.<br><br>
+The bottom of the schematic should look pretty familiar to you from the touch-button and slider we already built this week: i.e. a receiver pin is connected to one resistor which in turn are connected to one electrode columns so we can listen to the signals coming in.<br> Each new column has it's one receiver pin and resistor. As you can imagine, the more columns we have, the more receiver pins we need, so this can quickly blow up.<br><br>
 
 <b>Circuit for Sending</b><br>
 For sending, we cannot use a single pin like we did in the touch button lab.<br>
-Remember, that we need to send a signal to each row of electodes individually one by one, so sharing a sender pin would not allow for this since it would send a signal to all electrodes at the same time.<br>
+Remember, that we need to send a signal to each row of electodes individually one <b>after</b> another, so sharing a sender pin would not allow for this since it would send a signal to all electrodes <b>simultaenously</b> at the same time.<br>
 To send a signal one by one to each row, we would thus need the same number of sender pins as we have rows.<br>
 This can quickly become a lot <span style="color:red">would it be even possible with our ESP? if yes, how many?</span><br>
 To solve this problem, we use a new component called a multiplexer <span style="color:re">and why can we not use this for receiving as well?</span>. A multiplexer can take a single input signal and then control to which output pin the signal should be send, so we can output the same signal to all sender pins while controlling which pin should get the signal. Pretty nice.<br>
