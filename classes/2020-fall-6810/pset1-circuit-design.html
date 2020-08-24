@@ -205,6 +205,8 @@ If you are unsure if everything has the right dimension, use a regular color pri
 Once your circuit design tool is ready, export a multi-touch pad of <span style="color:red">9x8 electrodes</span> from your user interface.<br><br>
 
 Go to an office hour to inkjet print the top and bottom layer of your multi-touch pad.<br>
+(Note that the FPC connectors and the multiplexer in section 4 and 5 need soldering, so if you come in for printing you may also solder the headerpins for those components on in one sitting rather than coming in multiple times.)<br><br>
+
 Remember you need to print two sheets, one for column and one for rows.<br>
 While printing, make sure you don't scale the image and print with <b>"Print Entire Image"</b> setting, so that the image prints out accurately. <br><br>
 <!-- <img src="images/pset1-printing-setting.png" width="600px"> <br><br> -->
@@ -246,8 +248,8 @@ Your final result should look like this: <br>
 
 Once you have the multi-touch pad printed and assembled, you need to connect it to a breadboard so that it can be connected to the rest of the circuit.<br>
 In the labs, we used crocodile clamps but the use of crocodile clamps for such fine spacings as we have here is really impractical (and perhaps even impossible).<br>
-For this reason, we will use a FPC connector.<br>
-Flexible Printed Circuit (FPC) Connectors are used for connecting (surprise) flexible printed circuits to the rest of the rigid circuit.<br> In our case, connect the silver printed circuits to the main circuit.<br><br>
+For this reason, we will use a Flexible Printed Circuit (FPC) Connector.<br>
+FCP Connectors are used for connecting (surprise) flexible printed circuits to the rest of the rigid circuit.<br> In our case, connect the silver printed circuits to the main circuit.<br><br>
 
 The FCP connector has high resolution connectors on one side, which we will use to connect to the inkjet printed circuit, and on the other side has more widely spaced connectors, which we can use to connect to our breadboard.<br><br>  
 
@@ -275,18 +277,18 @@ Also check that the little pins inside the FPC connector head align with the tra
 <img src="images/pset1/fpc-connector-slot.jpg" width="330px"><br><br>
 
 When you connect your FPC connector, note that it matters in <span style="color:red">which direction you insert the multi-touch pad into the FPC connector.</span> <br>
-You have to insert it so that the conductive side with the silver traces is facing down to the breakout board, i.e. the non-conductive side is facing up.<br>
-Depends on which types of FPC connector you get (in total 2 slightly different types), you can connect the inkjet printed circuit in the following way(s). <br>
+You have to insert it so that the conductive side with the silver traces is facing towards the breakout board.<br>
 
-(1) Flip-up: <br>
-<img src="images/pset1-fpc-connector_1.jpg" width="330px"><br><br>
+<span style="color:red">(does this mean we have two different types ordered?)</span>
+We ordered two different ypes of FPC connectors (sorry one went out of stock), therefore depending on which FPC connector you have, you need to connect the inkjet printed circuit in the following way(s). <br><br>
 
-(2) Pull-out: <br>
+<b>(1) Pull-out:</b> <br>
 <img src="images/pset1-fpc-connector_2.png" width="600px"><br><br>
 
+<b>(2) Flip-up:</b> <br>
+<img src="images/pset1-fpc-connector_1.jpg" width="330px"><br><br>
 
-
-Once you are done connecting one side of the multi-touch pad, repeat the procedure with the other side and connect it a second FPC connector.<br><br>
+Once you are done connecting one side of the multi-touch pad, repeat the procedure with the other side and connect it to the second FPC connector.<br><br>
 
 <!-- Next, clip on both FCP breakout boards (with 1.0mm connector) to make sure you got the connection pads right.<br> -->
 
@@ -319,7 +321,7 @@ The bottom of the schematic should look pretty familiar to the touch-button we a
 For sending, we cannot use a single pin like we did in the touch button lab.<br>
 Remember, that we need to send a signal to each row of electodes individually one by one, so sharing a sender pin would not allow for this since it would send a signal to all electrodes at the same time.<br>
 To send a signal one by one to each row, we would thus need the same number of sender pins as we have rows.<br>
-This can quickly become a lot <span style="color:red">would it be even possible with our ESP? if yes, how many?<br>
+This can quickly become a lot <span style="color:red">would it be even possible with our ESP? if yes, how many?</span><br>
 To solve this problem, we use a new component called a multiplexer <span style="color:re">and why can we not use this for receiving as well?</span>. A multiplexer can take a single input signal and then control to which output pin the signal should be send, so we can output the same signal to all sender pins while controlling which pin should get the signal. Pretty nice.<br>
 
 
