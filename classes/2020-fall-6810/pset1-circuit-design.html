@@ -124,8 +124,8 @@ In the user interface, the user should be able to select:<br>
 Other parameters that you need to set in your code but don't have to display in the UI, are: <br>
 <!--  for the design (you don't have to display them in the UI, but please do think of good reasons for them, you can start from <a href="http://ww1.microchip.com/downloads/en/DeviceDoc/FAQs%20-%20Sensor%20Design%20Guidelines.pdf">here</a>): <br> -->
 <ul> 
-	<li> the spacing between adjacent electrodes (vertex-to-vertex <span style="color:red">what does this mean? from the center to the corner? we should label one of the drawings</span>) in mm <span style="color:red">let's not have them choose their own value</span> (we recommend 1mm, but feel free to choose your own value)</li>
-	<li> the spacing between non-connected electrodes, i.e. rows and columns, in mm (default value: 0.5mm)</li>
+	<li>the spacing between adjacent electrodes in mm (default value: 1mm)</li>
+	<li>the spacing between non-connected electrodes, i.e. rows and columns, in mm (default value: 0.5mm)</li>
 	<li>the thickness of the wires in mm (default value: 0.2mm)</li>
 	<li>the spacing of wires on the FPC connector in mm (to find the correct value, look at your FPC connector breakout board or the data sheet of the FPC connector <a href="https://datasheet.octopart.com/FH12-10%284%29SA-1SH%2855%29-Hirose-datasheet-8324494.pdf">here</a>)</li>
 </ul>
@@ -135,8 +135,8 @@ The user interface should only allow the user to select only reasonable numbers 
 
 <ul>
 	<li>for each input field listed above, think about what is a reasonable lower and upper bound (i.e. min/max values)</li>
-	<li>write a short explanation why you picked the lower/upper bounds for each field and submit it using this google form</li>
-	<li>implement the lower/upper bounds in your user interface, i.e. the user should either not be able to select values outside the lower/upper bounds (i.e. you only offer a selection of valid numbers) or if your UI allows to enter any value then your user interface should show the user a warning that the value is invalid and reset to the last valid value</li>
+	<li>write a short explanation why you picked the lower/upper bounds for each field and submit it using this google form <span style="color:red">Stefanie: add google form</span></li>
+	<li>implement the lower/upper bounds in your user interface, i.e. the user should either not be able to select values outside the lower/upper bounds (i.e. you only offer a selection of valid numbers) or if your UI allows to enter any value even invalid ones, then your user interface needs to show the user a warning that the value is invalid and reset to the last valid value</li>
 </ul>
 <br>
 
@@ -144,7 +144,7 @@ Finally, the user interface should have a preview and export function:<br>
 
 <ul>
 	<li>one button to switch between the design's top and bottom layer view, i.e. clicking the button should either show the top layer or the bottom layer so the layers can be looked at individually</li>
-	<li>one save button, which when clicked saves the generated electrodes into <span style="color:red">two .pdf files</span> (called bottom-electrodes.pdf and top-electrodes.pdf), one for the rows of electrodes (bottom sheet) and one for the columns (top sheet)</li>
+	<li>one save button, which when clicked saves the generated electrodes into two .pdf files (called bottom-electrodes.pdf and top-electrodes.pdf), one for the rows of electrodes (bottom sheet) and one for the columns (top sheet)</li>
 	<li>make sure the exported files have all settings correctly set for conductive inkjet printing (think about the content from lab1) </li>
 </ul>
 <br>
