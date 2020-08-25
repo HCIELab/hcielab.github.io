@@ -145,7 +145,7 @@ Finally, the user interface should have a preview and export function:<br>
 <ul>
 	<li>one button to switch between the design's top and bottom layer view, i.e. clicking the button should either show the top layer or the bottom layer so the layers can be looked at individually</li>
 	<li>one save button, which when clicked saves the generated electrodes into two .pdf files (called bottom-electrodes.pdf and top-electrodes.pdf), one for the rows of electrodes (bottom sheet) and one for the columns (top sheet)</li>
-	<li>make sure the exported files have all settings correctly set for conductive inkjet printing (think about the content from lab1) </li>
+	<li>make sure the exported files have all settings correctly set for conductive inkjet printing (if you don't remember, go back to Lab1) </li>
 </ul>
 <br>
 
@@ -153,20 +153,20 @@ Finally, the user interface should have a preview and export function:<br>
 
 
 <b>Setting the Processing window to the right resolution for printing</b><br>
-Since the multi-touch pad design is printed in <b>millimeter</b> but the Processing handles everything in <b>pixel</b>, you  first need to figure out a conversion factor between pixel and millimeter to determine the Processing window size. <br><br>
+Since the multi-touch pad design is printed in <b>millimeter</b> but the Processing handles everything in <b>pixel</b>, you first need to figure out a conversion factor between pixel and millimeter to determine the Processing window size. <br><br>
 
-<span style="color:red">so when did you ever see 72dpi?</span><br>
 Note that Processing uses a fix dots per inch measurement.<br>
 On <b>Windows,</b> you are most likely to encounter a 96 dpi resolution.<br>
-On <b>Mac,</b> you are also most likely to encounter a 96dpi resolution (althrough <a href="https://en.wikipedia.org/wiki/Dots_per_inch">Wikipedia</a> seems to disagree on this matter and thinks it is 72 dpi).<br>
+On <b>Mac,</b> you are also most likely to encounter a 96dpi resolution but it may also be 72dpi. <a href="https://en.wikipedia.org/wiki/Dots_per_inch">Wikipedia</a> thinks it is 72dpi, however, according to our own tests on Mac, it was 96dpi, i.e. the same as on Windows.<br>
 (Note that the resolution of the Processing sketch window is different from the screen resolution pixel per inch, which usually are around a couple hundred nowadays, this is set by the operating system and mainly used for writing programs like Microsoft Word).<br><br>
 
 If you are unsure about the right resolution, you can do the following test:<br>
-Create a window in Processing of any size and draw a square into the window using a fixed pixel size (e.g. rect(96,96) = 96 x 96 pixels).<br>
-Export the square using your implemented .pdf export function and print it out with a normal Inkjet printer (while printing make sure you don't scale the image and print it with the <b>"Print Entire Image"</b> setting).<br>
-Next, measure the output with a ruler and determine the millimeter (e.g., let's say it was 1 inch). <br>
-Finally, you can calcuate Processing's dpi by calculating the pixel to millimeter conversion factor based on this, which in our case is 96dots/1 inch = 96dpi.<br>
-So if you draw a rectangle of 192 pixel (96dots * 2) it will be 2 inches long when printed.<br><br>
+Create a window in Processing of any size and draw a rectangle into the window using a fixed pixel size (e.g. rect(96,96) = 96 x 96 pixels).<br>
+Export the square using your implemented .pdf export function and print it out with a normal inkjet printer. While printing make sure you don't scale the image and instead print it with the <b>"Print Entire Image"</b> setting which keeps it at its exported size.<br>
+Next, measure the output with a ruler and determine how many inch it is (e.g., let's say it was 1 inch). <br>
+Finally, you can calcuate Processing's dpi by calculating the pixel to inch conversion factor based on this, which in our case is 96dots/1 inch = 96dpi.<br>
+Since our inputs are in mm, you still need to convert the dpi to dots per mm. For this, simply divide by how many millimeters are one inch (25.4mm = 1 inch). Thus, we will have 96dpi / 25.4mm = 3.78 dots per mm.<br>
+So if you draw a rectangle of 100 pixel it will be 100pixel / 3.78 dots per mm = 26.46mm.<br><br> 
 
 <img src="images/pset1-printing-setting.png" width="600px"> <br><br>
 
@@ -194,7 +194,7 @@ We draw them as shapes (e.g. rectangles), add a text where needed to display num
 
 <b>Testing your Program</b><br>
 
-When you are done, make sure you test your user interface by exporting several different multi-touch pad sizes, e.g. <span style="color:red">4x10, 12x6, 5x5.</span>
+When you are done, make sure you test your user interface by exporting several different multi-touch pad sizes, e.g. 4x10, 12x6, 5x5.
 If you are unsure if everything has the right dimension, use a regular color printer to print out your design and measure it with a ruler.<br>
 
 <br>
@@ -202,7 +202,7 @@ If you are unsure if everything has the right dimension, use a regular color pri
 
 <h3>(2) Inkjet Print Top and Bottom Electrode Layers</h3>
 
-Once your circuit design tool is ready, export a multi-touch pad of <span style="color:red">9x8 electrodes</span> from your user interface.<br><br>
+Once your circuit design tool is ready, export a multi-touch pad of 9x8 electrodes from your user interface.<br><br>
 
 Go to an office hour to inkjet print the top and bottom layer of your multi-touch pad.<br>
 (Note that the FPC connectors and the multiplexer in section 4 and 5 need soldering, so if you come in for printing you may also solder the headerpins for those components on in one sitting rather than coming in multiple times.)<br><br>
