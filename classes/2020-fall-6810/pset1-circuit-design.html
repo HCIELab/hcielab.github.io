@@ -74,9 +74,9 @@ Before you get started, check if you have all of the following in your bag:<br>
 
 <ul>
 	<li>ESP32 microcontroller, breadboard, and wires</li>
+	<li>9 x 100Kohm resistors (one for each receiver pin)</li>
 	<li>one multiplexer</li>
 	<li>two FPC connectors</li>
-	<li><span style="color:red">10</span> x 100Kohm resistors (one for each receiver pin)</li>
 </ul><br>
 
 In addition, the following items will be provided when you come in for printing and assembling the multitouch pad:<br>
@@ -87,22 +87,23 @@ In addition, the following items will be provided when you come in for printing 
 	<li>one transparent sheets to cover up the top electrodes</li>
 </ul><br>
 
-<img src="images/pset1-resistor-multiplexer.jpg" width="380px">
-<img src="images/pset1-transparent-sheets.jpg" width="300px">
+<img src="images/pset1/components-explained.png" width="650px"><br><br>
+
+<!-- <img src="images/pset1-transparent-sheets.jpg" width="300px"> -->
 
 
 <h3>(1) Processing User Interface for <br>Generating Fabrication Files</h3>
 
 In the first part of this problem set, you will write a user interface in Processing that will automatically generate the fabrication files for making multi-touch pads of different dimensions. In particular, a user will be able to input parameters, such as the width and height of the multi-touch pad and then automatically receive the matching fabrication files, i.e. a 2D drawing of the required circuit in .pdf file format that the user can send to their 2D printer for conductive inkjet printing.<br><br>
 
-As explained in lecture, your multi-touch pad has two layers that are printed separately.<br>
+We will be using the classical two-layered diamond pattern that is commonly used for mutual-capacitive touch sensing. <br>
+As explained in lecture, this means that your multi-touch pad has two layers that are printed separately.<br>
 One layer contains the rows of electrodes, the other layer contains the columns.<br>
 Each row/column consists of multiple electrodes and has a single wire at the end.<br>
-Once both sheets are printed, you layer them on top of each other to build the final circuit.<br>
-We will be using the classical two-layered diamond pattern that is commonly used for mutual-capacitive touch sensing. <br><br>
+Once both sheets are printed, you layer them on top of each other to build the final circuit.<br><br>
 
-<img src="images/pset1-multitouch-pad-explanation1.png" width="200px">
-<img src="images/pset1-multitouch-pad-explanation2.png" width="400px"><br><br>
+<img src="images/pset1/multitouch-measurements.png" width="350px">
+<img src="images/pset1-multitouch-pad-explanation2.png" width="300px"><br><br>
 
 <b>Required User Interface Functionality</b><br>
 
@@ -122,7 +123,6 @@ In the user interface, the user should be able to select:<br>
 
 Other parameters that you need to set in your code but don't have to display in the UI, are: <br>
 <!--  for the design (you don't have to display them in the UI, but please do think of good reasons for them, you can start from <a href="http://ww1.microchip.com/downloads/en/DeviceDoc/FAQs%20-%20Sensor%20Design%20Guidelines.pdf">here</a>): <br> -->
-<span style="color:red">please add a labeled drawing to prevent confusion of students what these measurements refer to. Include edge length in the drawing as well.</span>
 <ul> 
 	<li> the spacing between adjacent electrodes (vertex-to-vertex <span style="color:red">what does this mean? from the center to the corner? we should label one of the drawings</span>) in mm <span style="color:red">let's not have them choose their own value</span> (we recommend 1mm, but feel free to choose your own value)</li>
 	<li> the spacing between non-connected electrodes, i.e. rows and columns, in mm (default value: 0.5mm)</li>
