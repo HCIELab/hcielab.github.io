@@ -94,7 +94,7 @@ In addition, the following items will be provided when you come in for printing 
 
 <h3>(1) Processing User Interface for <br>Generating Fabrication Files</h3>
 
-In the first part of this problem set, you will write a user interface in Processing that will automatically generate the fabrication files for making multi-touch pads of different dimensions. In particular, a user will be able to input parameters, such as the width and height of the multi-touch pad and then automatically receive the matching fabrication files, i.e. a 2D drawing of the required circuit in .pdf file format that the user can send to their 2D printer for conductive inkjet printing.<br><br>
+In the first part of this problem set, you will write a user interface in Processing that will automatically generate the fabrication files for making multi-touch pads of different dimensions. In particular, a user will be able to input parameters, such as the number of electrodes of the multi-touch pad and then automatically receive the matching fabrication files, i.e. 2D drawings of the required circuits in .pdf file format that the user can then send to their 2D printer for conductive inkjet printing.<br><br>
 
 We will be using the classical two-layered diamond pattern that is commonly used for mutual-capacitive touch sensing. <br>
 As explained in lecture, this means that your multi-touch pad has two layers that are printed separately.<br>
@@ -102,8 +102,8 @@ One layer contains the rows of electrodes, the other layer contains the columns.
 Each row/column consists of multiple electrodes and has a single wire at the end.<br>
 Once both sheets are printed, you layer them on top of each other to build the final circuit.<br><br>
 
-<img src="images/pset1/multitouch-measurements.png" width="350px">
-<img src="images/pset1-multitouch-pad-explanation2.png" width="300px"><br><br>
+<img src="images/pset1/multitouch-overview.png" width="250px">
+<img src="images/pset1-multitouch-pad-explanation2.png" width="450px"><br><br>
 
 <b>Required User Interface Functionality</b><br>
 
@@ -113,7 +113,7 @@ In the user interface, the user should be able to select:<br>
 <ul>
 	<li>the desired number of electrodes in x-direction (default value: 10 electrodes)</li>
 	<li>the desired number of electrodes in y-direction (default value: 10 electrodes)</li>
-	<li>the edge length of the diamond electrodes in mm (default value: 6mm)</li>
+	<li>the edge length of the electrodes (diamond shape) in mm (default value: 6mm)</li>
 	<!-- <li>the spacing between adjacent electrodes in mm (default value: 1mm)</li>
 	<li>the spacing between non-connected electrodes, i.e. rows and columns, in mm (default value: 0.5mm)</li>
 	<li>the thickness of the wires in mm (default value: 0.35mm)</li>
@@ -131,11 +131,15 @@ Other parameters that you need to set in your code but don't have to display in 
 </ul>
 <br>
 
+<img src="images/pset1/fpc-spacing.png" width="350px">
+<img src="images/pset1/multitouch-measurements.png" width="350px">
+
+
 The user interface should only allow the user to select only reasonable numbers using the input elements:<br>
 
 <ul>
-	<li>for each input field listed above, think about what is a reasonable lower and upper bound (i.e. min/max values)</li>
-	<li>write a short explanation why you picked the lower/upper bounds for each field and submit it using this google form <span style="color:red">Stefanie: add google form</span></li>
+	<li>for each input field listed above, think about what is a reasonable lower and upper bound (i.e. min/max values) given the hardware you have available for the pset</li>
+	<li>write a short explanation why you picked the lower/upper bounds for each field and submit it using this google form <span style="color:red">Stefanie: add google form</span> (before you fill out the google form, you may want to read the rest of pset1 to understand more about the hardware you have available)</li>
 	<li>implement the lower/upper bounds in your user interface, i.e. the user should either not be able to select values outside the lower/upper bounds (i.e. you only offer a selection of valid numbers) or if your UI allows to enter any value even invalid ones, then your user interface needs to show the user a warning that the value is invalid and reset to the last valid value</li>
 </ul>
 <br>
@@ -153,20 +157,20 @@ Finally, the user interface should have a preview and export function:<br>
 
 
 <b>Setting the Processing window to the right resolution for printing</b><br>
-Since the multi-touch pad design is printed in <b>millimeter</b> but the Processing handles everything in <b>pixel</b>, you first need to figure out a conversion factor between pixel and millimeter to determine the Processing window size. <br><br>
+Since the multi-touch pad design is printed in <b>millimeter</b> but Processing handles everything in <b>pixel</b>, you first need to figure out a conversion factor between pixel and millimeter to determine the Processing window size. <br><br>
 
-Note that Processing uses a fix dots per inch measurement.<br>
+Note that Processing uses a fixed dots per inch measurement.<br>
 On <b>Windows,</b> you are most likely to encounter a 96 dpi resolution.<br>
 On <b>Mac,</b> you are also most likely to encounter a 96dpi resolution but it may also be 72dpi. <a href="https://en.wikipedia.org/wiki/Dots_per_inch">Wikipedia</a> thinks it is 72dpi, however, according to our own tests on Mac, it was 96dpi, i.e. the same as on Windows.<br>
-(Note that the resolution of the Processing sketch window is different from the screen resolution pixel per inch, which usually are around a couple hundred nowadays, this is set by the operating system and mainly used for writing programs like Microsoft Word).<br><br>
+(Note that the resolution of the Processing sketch window is different from the screen resolution pixel per inch, which usually are around a couple hundred nowadays, this is set by the operating system and mainly used for programs heavy on typography like Microsoft Word).<br><br>
 
 If you are unsure about the right resolution, you can do the following test:<br>
 Create a window in Processing of any size and draw a rectangle into the window using a fixed pixel size (e.g. rect(96,96) = 96 x 96 pixels).<br>
 Export the square using your implemented .pdf export function and print it out with a normal inkjet printer. While printing make sure you don't scale the image and instead print it with the <b>"Print Entire Image"</b> setting which keeps it at its exported size.<br>
 Next, measure the output with a ruler and determine how many inch it is (e.g., let's say it was 1 inch). <br>
 Finally, you can calcuate Processing's dpi by calculating the pixel to inch conversion factor based on this, which in our case is 96dots/1 inch = 96dpi.<br>
-Since our inputs are in mm, you still need to convert the dpi to dots per mm. For this, simply divide by how many millimeters are one inch (25.4mm = 1 inch). Thus, we will have 96dpi / 25.4mm = 3.78 dots per mm.<br>
-So if you draw a rectangle of 100 pixel it will be 100pixel / 3.78 dots per mm = 26.46mm.<br><br> 
+<span style="color:red">Since our inputs are in mm, you still need to convert the dpi to dots per mm. For this, simply divide by how many millimeters are one inch (1 inch = 25.4mm). Thus, we will have 96dpi / 25.4mm = 3.78 dots per mm.<br>
+So if you draw a rectangle of 100 pixel it will be 100pixel / 3.78 dots per mm = 26.46mm.</span><br><br> 
 
 <img src="images/pset1-printing-setting.png" width="600px"> <br><br>
 
@@ -183,7 +187,7 @@ You may find it helpful to look at the following Processing classes to draw the 
 <b>Creating User Interface Input Elements</b><br>
 
 For the UI elements, we do not use an external library and instead use a simple trick:<br>
-We draw them as shapes (e.g. rectangles), add a text where needed to display numbers, and then use mouse-click and drag events to update the UI elements.<br>
+We draw the UI elements as regular graphic shapes (e.g. rectangles), add a text where needed to display numbers, and then use mouse-click and drag events to update the UI elements.<br>
 
 <ul>
 	<li><a href="https://processing.org/reference/rect_.html">Rect</a></li>
@@ -202,26 +206,26 @@ If you are unsure if everything has the right dimension, use a regular color pri
 
 <h3>(2) Inkjet Print Top and Bottom Electrode Layers</h3>
 
-Once your circuit design tool is ready, export a multi-touch pad of 9x8 electrodes from your user interface.<br><br>
+Once your circuit design tool is ready, export a multi-touch pad of <b>9x8 electrodes</b> from your user interface.<br><br>
 
 Go to an office hour to inkjet print the top and bottom layer of your multi-touch pad.<br>
 (Note that the FPC connectors and the multiplexer in section 4 and 5 need soldering, so if you come in for printing you may also want to solder the header pins for those components on in one sitting rather than coming in multiple times.)<br><br>
 
 Remember you need to print two sheets, one for column and one for rows.<br>
-While printing, make sure you don't scale the image and print with <b>"Print Entire Image"</b> setting, so that the image prints out accurately. <br><br>
+While printing, make sure you don't scale the image and print with <b>"Print Entire Image"</b> setting (see screenshot above), so that the image prints out accurately. <br><br>
 <!-- <img src="images/pset1-printing-setting.png" width="600px"> <br><br> -->
 
 <h3>(3) Assemble Top and Bottom Electrode Layers</h3>
 
-Once you printed both sheets, we want to assemble them on top of each other.<br>
+Once you printed both sheets, you need to assemble them on top of each other.<br>
 Note, that both electrode sheets should have the conductive side facing upwards towards the user.<br><br>
 
 <span style="color:red">insert image of aligning both sheets here with conductive side up</span><br><br> 
 
-Once you made sure both face upwards with the conductive side, we will glue them.<br>
-While we could simply use double-sided transparent tape, the tape has a certain thickness to it and the more spacing is between the electrode layers the worse the sensing will be. Keep in mind that the electrodes are already spaced out by the thickness of the sheet on which the electrodes were printed. To keep the glue layer as thin as possible, we thus do not use double sided tape but instead use the <a href="https://www.amazon.com/gp/product/B0043WJ3OA/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1">adhesive of temporary transfer paper</a>.<br><br>
+Once you made sure both sheets face upwards with the conductive side, glue them together using the procedure described below.<br>
+While you could simply use double-sided transparent tape, the tape has a certain thickness to it and the more spacing is between the electrode layers the worse the sensing will be. Keep in mind that the electrodes are already spaced out by the thickness of the sheet on which the electrodes were printed. To keep the glue layer as thin as possible, you will thus not use double sided tape but instead use the <a href="https://www.amazon.com/gp/product/B0043WJ3OA/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1">adhesive of temporary transfer paper</a>.<br><br>
 
-Note that we are glueing only the electrode touch area but not where the wires are routing.<br><br>
+Note that you are going to glue only the electrode touch area but not where the wires are routing.<br><br>
 
 The alignment between the top and bottom electrode layers is really critical for accurate sensing signals, thus before we glue them together we want to make sure everything is aligned properly!<br>
 To help with this, use <b>scotch tape</b> to tape one side so that the relative positions are fixed.<br>
