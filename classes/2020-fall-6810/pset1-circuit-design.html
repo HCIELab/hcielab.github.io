@@ -332,7 +332,7 @@ This will be very familiar to the touch-button and slider we already built this 
 
 <img src="images/pset1/multitouch-schematic-receiving.png" width="600px"> <br><br>
 
-Each new row has it's one receiver pin and resistor. As you can imagine, the more rows you have, the more receiver pins you need, so this can quickly increase quite a bit. However, typically there are a lot of analog pins on our microcontrollers. If you look at the pin out below, you can see that our ESP has <span style="color:red">8 specifically for capacitive touch sensing (it looks like 9 but remember do not use the one pin labeled as pin0 (TOUCH1) as receiver as explained in lab 1)</span>). In addition, we have another <span style="color:red">6 regular analog pins,</span> which would give a less clean signal but would still produce something usable. <span style="color:red">So Junyi, do you recommend to use the smaller numbr from 9x8, i.e. 8 for receiving? since there are no 9 touch pins?</span><br> If you had a higher resolution multitouch pad, e.g., 15 x 15, you could use a component called a multiplexer to increase the number of receiver pins (more on this in a moment).<br><br>
+Each new row has it's one receiver pin and resistor. As you can imagine, the more rows you have, the more receiver pins you need, so this can quickly increase quite a bit. However, typically there are a lot of analog pins on our microcontrollers. If you look at the pin out below, you can see that our ESP has 9 specifically for capacitive touch sensing (it looks like 10 but remember do not use the one pin labeled as pin0 (TOUCH1) as receiver as explained in lab 1). In addition, we have another 6 regular analog-to-digital (ADC) converter pins, which would give a slightly less clean signal but would still produce something usable. <br> If you had a higher resolution multitouch pad, e.g., 20 x 20, you could use a component called a multiplexer to increase the number of receiver pins (more on this in a moment).<br><br>
 
 <img src="images/esp32-pinout.jpg" width="500px"> <br><br>
 
@@ -343,11 +343,12 @@ For sending, you <b>cannot</b> use a single pin like we did in the touch button 
 
 Remember, that you need to send a signal to each column of electrodes individually one <b>after</b> another, so sharing a sender pin would not allow for this since it would send a signal to all electrodes <b>simultaenously</b> at the same time.<br>
 To send a signal one by one to each column, you thus need the same number of sender pins as we have columns.<br>
-If we use all the  digital write pins for sending, we could have up to <span style="color:red">4 number of columns supported (?).</span> <br>
+To send a high signal, we can use any of the GPIO pins that has not yet been used for receiving.<br>
+If we use all the GPIO for sending that we have not yet used for receiving, we could have up to 22 columns supported.<br>
 
-However, in addition, we need to send the signal at a special high frequency for the multi-touch pad to work <span style="color:red">tell me again why?</span>. To set this specific frequency, we will use the PWM pin on the ESP microcontroller <span style="color:red">why couldn't I write my own PWM program and use one of the other pins?</span>. <span style="color:red">is there even a PWM pin on the ESP? I can't see one in the pin out</span>. <br><br>
+However, in addition, we need to send the signal at a special high frequency for the multi-touch pad to work <span style="color:red">tell me again why?</span>. To set this specific frequency, you will need to use PWM pins on the ESP microcontroller. Lucky enough, every GPIO pin on the microcontroller is also a PWM pin, so we are still at 22 columns that we could support. <br><br>
  
-Since we only have one pin available for this, we need to use a new component called a multiplexer to solve this problem.<br><br>
+<span style="color:red">and now tell me why we need the multiplexer?</span> We need to use a new component called a multiplexer to solve this problem.<br><br>
 
 
 <h4>Multiplexer</h4><br>
