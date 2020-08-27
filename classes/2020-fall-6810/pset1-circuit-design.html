@@ -169,8 +169,8 @@ Create a window in Processing of any size and draw a rectangle into the window u
 Export the square using your implemented .pdf export function and print it out with a normal inkjet printer. While printing make sure you don't scale the image and instead print it with the <b>"Print Entire Image"</b> setting which keeps it at its exported size.<br>
 Next, measure the output with a ruler and determine how many inch it is (e.g., let's say it was 1 inch). <br>
 Finally, you can calcuate Processing's dpi by calculating the pixel to inch conversion factor based on this, which in our case is 96dots/1 inch = 96dpi.<br>
-<span style="color:red">Since our inputs are in mm, you still need to convert the dpi to dots per mm. For this, simply divide by how many millimeters are one inch (1 inch = 25.4mm). Thus, we will have 96dpi / 25.4mm = 3.78 dots per mm.<br>
-So if you draw a rectangle of 100 pixel it will be 100pixel / 3.78 dots per mm = 26.46mm.</span><br><br> 
+Since our inputs are in mm, you still need to convert the dpi to dots per mm. For this, simply divide by how many millimeters are one inch (1 inch = 25.4mm). Thus, we will have 96dpi / 25.4mm = 3.78 dots per mm.<br>
+So if you draw a rectangle of 100 pixel it will be 100pixel / 3.78 dots per mm = 26.46mm.<br><br> 
 
 <img src="images/pset1-printing-setting.png" width="600px"> <br><br>
 
@@ -325,12 +325,26 @@ As mentioned in lecture, the multitouch pad consists of sender electrodes (e.g.,
 
 <h4>Circuit Design</h4><br>
 
+Allright, so let's build the circuit for all of this.<br><br>
+
+<b>Circuit for Receiving</b><br>
+This will be very familiar to the touch-button and slider we already built this week. Look at the schematic below, you will see the same circuit as you had seen in the lab: a receiver pin is connected to one resistor which in turn is connected to one electrode row so we can listen to the signals coming in.<br><br>
+
+<img src="images/pset1/multitouch-schematic-receiving.png" width="600px"> <br><br>
+
+Each new row has it's one receiver pin and resistor. As you can imagine, the more rows you have, the more receiver pins you need, so this can quickly increase quite a bit. However, typically there are a lot of analog pins on our microcontrollers. If you look at the pin out below, you can see that our ESP has <span style="color:red">8 specifically for capacitive touch sensing (it looks like 9 but remember do not use the one pin labeled as pin0 (TOUCH1) as receiver as explained in lab 1)</span>). In addition, we have another <span style="color:red">6 regular analog pins,</span> which would give a less clean signal but would still produce something usable. <span style="color:red">So Junyi, do you recommend to use the smaller numbr from 9x8, i.e. 8 for receiving? since there are no 9 touch pins?</span><br><br>
+
+<img src="images/esp32-pinout.jpg" width="500px"> <br><br>
+
+
+
 Below, you can see the schematic of the circuit we are going to build.<br>
+
+
 
 <img src="images/pset1-schematic.png" width="600px"> <br><br>
 
-<b>Circuit for Receiving</b><br>
-The bottom of the schematic should look pretty familiar to you from the touch-button and slider we already built this week: i.e. a receiver pin is connected to one resistor which in turn are connected to one electrode columns so we can listen to the signals coming in.<br> Each new column has it's one receiver pin and resistor. As you can imagine, the more columns we have, the more receiver pins we need, so this can quickly blow up.<br><br>
+
 
 <b>Circuit for Sending</b><br>
 For sending, we cannot use a single pin like we did in the touch button lab.<br>
