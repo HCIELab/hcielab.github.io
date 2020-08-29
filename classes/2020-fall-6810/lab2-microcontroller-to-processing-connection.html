@@ -162,7 +162,7 @@ void setup() { // runs only once
 
 Move all your code for defining the port into the setup() funtion since we only need to define the port once.<br><br>
 
-Next, create an empty draw function:<br>
+Next, create an empty draw function:<br><br>
 
 <pre>
 void draw() { //runs infinitely
@@ -174,8 +174,8 @@ We are going to fill this in the next step with the code that will continously l
 
 <h4>Reading Data from the Serial Port</h4><br>
 
-Now that we have the port defined, we can see if data is available.<br>
-In the draw function, you need to first check if there is data on the port available, and then you can read the value from the port.<br><br>
+Now that we have the port defined, we can see if data is available and if the answer is yes, we can read the data from the port.<br>
+In the draw function, add the following lines:<br><br>
 
 <pre>int val;
 
@@ -255,14 +255,11 @@ A low bar shows that the sensor is not being touched.<br><br>
   <li>Don't forget to clear the background at the beginning of the draw() function. Otherwise, you are just drawing each update on top of the previous update, so you may actually not see the bar changing since a shorter bar overlaid over a longer bar is not visible. Use <code>background(255,255,255);</code> or any other color you like.</li>
 </ul>
 
-<br><br>
+<br>
 
 Once you are done, it should look like this:<br><br>
 
-Left: not touched, right: touched.<br>
-<img src="images/lab2-bar-down.png" width="300px">
-<img src="images/lab2-bar-up.png" width="300px"><br>
-
+<img src="images/lab2-touched-not-touched.png" width="600px"><br><br>
  
 <h4>Extend Visualization to Three Bars</h4><br>
 
@@ -272,7 +269,8 @@ It should look like the image below.<br><br>
 Only touch button 1 is touched, touch button 2 and 3 are not touched.<br>
 <img src="images/lab2-three-bars-one-touched.png" width="300px"><br><br>
 
-Touching multiple touch sensors simultaenously already works although we can only read one message at a time.<br>
+Touching multiple touch sensors simultaenously also works.<br>
+This should be a bit surprising to you, since we can only read one message at a time in the draw() function.<br>
 The reason it still works is that we are reading messages at such a high speed that the processing gap is not visible to the human eye.<br><br>
 
 Only touch button 1 and 2 are touched, touch button 3 is not touched.<br>
