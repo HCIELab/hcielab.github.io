@@ -326,7 +326,7 @@ Your final result should look like this:<br><br>
 <h4>Create Touch Events for Playing / Pausing the Music and Next/Previous Song</h4><br>
 
 To create events on mouse click, we need to implement several mousePressed() events.<br>
-We already did this for you in the code further down in the class.<br>
+We already did this for you in the code further down in the class.<br><br>
 
 <img src="images/lab2-button-presses.png" width="600px"><br clear=all><br>
 
@@ -356,7 +356,7 @@ Study the code to see where this was implemented and how we did it.<br><br>
 
 Now that we have the user interface that we can control digitally and we tested that everything works by clicking onto each note to play/pause and go to previous/next song, we also want to play some music from the physical card.<br><br>
 
-We have already implemented the Serial communication and the message decoding in the previous exercise, i.e. the Processing application you wrote for displaying the touch bars that go up and down. <br>
+You already implemented the Serial communication and the message decoding in the previous exercise, i.e. the Processing application you wrote for displaying the touch bars that go up and down. <br>
 Add this code to the music card UI and instead of increasing the height of your bar you are now calling the music functions. <br><br>
 
 Once you have finished the code, try if it works by touching the notes of your printed music card to play/pause the song and go to the next/previous song.<br><br>
@@ -385,18 +385,17 @@ For the touch buttons, we were merely interested if the button is touched or not
 Remember that for the slider we want to do something more sophisticated, i.e. have a continuous signal that allows us to smoothly adjust the music volume (rather than jumping from one discrete noise level to the next).<br>
 Thus, each slider segment should return a <b>continuous value from 0.0 to 1.0</b> when touched depending on the area the finger overlaps with the slider segment.<br><br>
 
+<img src="images/lab2-slider-segments.png" width="400px" /><br><br>
+
 We can see by 'how much' a slider segment is touched by looking at the raw touch signals coming from the microcontroller.<br>
 When looking at the Serial Plotter, you will notice that the raw value has a strong correlation with how much space of the slider segment is touched, i.e. the larger the area the higher the value is. <br><br>
 
-Thus, you can compute a continuous value for each slider segment via 2 parameters (see below): <br>
-1) threshold to see if it is touched or not (i.e. 'min touch value'), and <br>
-2) the 'max touch value' of the slider segment when fully touched. <br><br>
+You can thus calculate the continuous value from 0.0 - 1.0 by first determining the max value when the slider segment is fully touched and then checking how the returned value relates to this max value.<br>
+We also recommend you only do the computation when the received value is above a certain minimum threshold to avoid noise.<br><br>
 
-You can then calculate the continuous value from 0.0 - 1.0 using the formula "raw_value / max_touch_value" and print the value whenever the value surpasses the "min-touch value" threshold. <br><br>
+<img src="images/lab2-minimum-touch-threshold.png" width="600px" /><br><br>
 
-<img src="images/lab2-slider-value.png" width="600px" /><br><br>
-
-For our example, we assume that each of your slider segments behaves the same, i.e. has the same threshold for being touched and the same max touch value. This should be the case since all of your slider segments have the same size, and while each has a slightly different wire length this should be negligible. In our example, we thus share the threshold values among all slider segments. If your slider segments have vastly different values (e.g. because of some damage to the slider segments' silver area), you need to create separate thresholds for each segment. You can check this by ploting out each silder segments' raw values. <br><br>
+For our example, we assume that each of your slider segments behaves the same, i.e. has the same threshold for being touched and the same max touch value. This should be the case since all of your slider segments have the same size, and while each has a slightly different wire length this should be negligible. In our example, we thus share the threshold values among all slider segments. If your slider segments have vastly different values (e.g. because of some damage to the slider segments' silver area), you need to create separate thresholds for each segment. You can check this by plotting each silder segments' raw values. <br><br>
 
 Below: Individually touching each of the slider segments.<br>
 <img src="images/lab2-slider-segments-raw-value.png" width="600px" /><br><br>
@@ -405,9 +404,12 @@ Below: Individually touching each of the slider segments.<br>
 Once you have the continous signal (0.0 - 1.0) for each slider segment, you need to compute the overall slider value.<br>
 In our Arduino code, we can then write the overall slider value to the Serial port so that we can read it from Processing.<br><br>
 
-The task here is to convert the five seperate slider segment values (all from 0.00-1.00) and combine them into one value that represents the overall slider position ranging from 0.00-1.00 (0-100 percent).<br>
+The task here is to convert the five seperate slider segment values (all from 0.00-1.00) and combine them into one value that represents the overall slider position ranging from 0.00-1.00 (0-100 percent).<br><br>
 
-You don't have to over-complicate it, some straght-forward linear interpolation will do, as long as the value is overall continuous. You can also assume that at any given time, there will be at most 2 adjunct slider segments been touched (i.e. the user will only use one finger on the slider at any given time and the one finger will touch at max two adjacent slider segments since we made each segment roughly the size of the finger). <br><br>
+<img src="images/lab2-slider-segments-global-value.png" width="400px" /><br><br>
+
+For this, we will use some simple linear interpolation.<br>
+We can also assume that at any given time, there will be at most 2 adjunct slider segments being touched (i.e. the user will only use one finger on the slider at any given time and the one finger will touch at max two adjacent slider segments since we made each segment roughly the size of the finger). <br><br>
 
 <b>Global Slider Value When Only One Slider Segment is Touched</b><br>
 Let's look at the most easy example, i.e. only one slider segment is touched.<br>
