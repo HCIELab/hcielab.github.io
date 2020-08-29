@@ -241,7 +241,7 @@ The reason is that in order to 'force' the printer to use the 'K' cartridge, we 
 Since we can only select either grayscale or color printing, we need to do two seperate passes, i.e. we first print the circuit in silver, take the paper out, reinsert, and then print the color for the visual design.<br><br> -->
 
 
-<h4>Print Settings for Printing Silver</h4><br>
+<h4>Print Settings for Printing the Circuit Design in Silver</h4><br>
 
 As mentioned before, we will be printing the design files on <b>2 sides of the same photo paper sheet</b>.<br>
 We will start with printing the silver.<br><br>
@@ -290,10 +290,10 @@ Therefore, you need to handle the printed circuit carefully as you could acciden
 Therefore, we ask you to handle the newly printed silver circuits with gloves on (we will give you some when you come in for printing). We will also provide you with one ZipLoc bag to put your printed silver circuit in so that it is protected during transportation. <br><br>
 
 
-<h4>Test with a Multi-Meter if your Silver Print is Conductive</h4><br>
+<h4>Test with a Multi-Meter if Silver Print is Conductive Before Printing Visual Design</h4><br>
 
 Before we print the color layer, let's first check if the silver layer is conductive or if anything went wrong during the print.<br>
-Sometimes print nozzles clog and then some silver particles cannot exit through the nozzle, which leaves small gaps in your printed area, which reduce conductivity.<br><br>
+Sometimes print nozzles clog and then some silver particles cannot exit through the nozzle, which leaves small gaps in your printed area, which reduces conductivity.<br><br>
 
 The print is successful, i.e. highly conductive and resistance low, if silver was deposited over the entire area.<br>
 The print was unsucessful if there are many tiny gaps, i.e. conductance will be low and resistance high.<br><br>
@@ -308,13 +308,13 @@ Set the multimeter to 'Continuity' mode. It may vary among DMMs, but look for a 
 
 <img src="images/lab1-multimeter1_new.jpg" width="500px"><br><br>  
 
-Now touch the probes together. The multimeter should emit a tone. This shows that a very small amount of current is allowed to flow without resistance (or at least a very very small resistance) between probes. <br><br>
+Let's first check if the multimeter works at all. For this, touch the two probes together. The multimeter should emit a tone. This shows that a very small amount of current is flowing without resistance (or at least a very very small resistance) between probes, which is what we want.<br><br>
 
 <!-- Next, set the sensitivity to the highest by pressing the 'range' button a bunch of times until the dot is at the front.<br><br>  
 
 <img src="images/lab1-multimeter2.jpg" width="300px"><br><br>  --> 
 
-Next, hold the two measurement points at the beginning and end of a wire to measure the resistance along the trace.<br><br>
+Next, hold the two measurement points at the beginning and end of a wire on your card to measure the resistance along the trace.<br> Be careful with the probes since they are pointy and they may scratch off some silver.<br><br>
 
 <img src="images/lab1-multimeter3_new.jpg" width="600px"><br><br>  
 
@@ -322,14 +322,14 @@ Here we have a fantastically low resistance of 13ohm with a beep sound. <br>
 If you see a 'OL' message in the display, your trace is broken and the resistance was so high it couldn't be displayed because it was out of range. <br>
 If that happens to you, let us know and we will print your design again.<br><br>
 
-<h4>Print Settings for Printing Color</h4><br>
+<h4>Print Settings for Printing the Visual Design in Color</h4><br>
 
 Plug in the Epson EcoTank ET-2760 printer (used for visual design) and open your Visual Design File.<br><br>
 
 We will print the music card design on the back side of the printed silver circuit. <br>
-Make sure that you flip the photo paper with correct rotation so that the music card visual design and the circuit design matches up (see photos down below). 
+Make sure that you flip the photo paper with correct rotation so that the music card visual design and the circuit design matches up (see photos below). 
 
-Repeat the steps from above, i.e. choose all the same print settings. <br><br>
+To set the print settings, repeat the steps from above. <br><br>
 
 <img src="images/lab1-color-print-1.jpg" width="357px" />
 <img src="images/lab1-color-print-2.jpg" width="357px" /><br><br>
@@ -337,11 +337,10 @@ Repeat the steps from above, i.e. choose all the same print settings. <br><br>
 <img src="images/lab1-color-print-4.jpg" width="357px" /><br><br>
 <!--  (i.e choose <span style="color:red">glossy paper</span>, high quality print .etc) but do <b style="color:red">not</b> hit the 'grayscale' checkbox since we want to print in color for higher visual quality. <br><br>
  -->
-Once you have the visual design printed on the back side it should look like this. 
+Once you have the visual design printed on the back side it should look like this. <br><br>
 
-Front and back:<br>
 <img src="images/lab1-assembled_new.jpg" width="357px" />
-<img src="images/lab1-assembled2_new.jpg" width="357px" /><br><br>
+<img src="images/lab1-assembled2_new.jpg" width="374px" /><br><br>
 
 <h2 class="headline">(3) Wiring Up the Button</h2>
 
@@ -351,8 +350,8 @@ We will use the ESP32 micro-controller in this course to control the printed sen
 
 <img src="images/esp32-pinout.jpg" width="600px" /><br><br>
 
-If you study the reference sheet closely, you will notice that there are some pins that labelled with "TOUCH". They are optimized to serve as receivers for capacitive sensing therefore return more clean signals, so we will use them for our sensing application.<br> 
-However, <b>do not use the one pin labeled as pin0 (TOUCH1) as receiver</b> at any time, as the pin is not configured correctly on this version of ESP32 board and will significantly slow down the signal recording. However, you can still use the pin as a sender. <br><br>
+If you study the reference sheet closely, you will notice that there are some pins that are labeled with "TOUCH". They are optimized to serve as receivers for capacitive sensing and therefore return cleaner signals, so we will use them for our sensing application.<br> 
+However, <b>do not use the pin labeled as pin0 (TOUCH1) as receiver</b> at any time, as the pin is not configured correctly on this version of the ESP32 board and will significantly slow down the signal recording. However, you can still use the pin as a sender (more on this below). <br><br>
 
 <h4>Setting up the ESP Microcontroller</h4><br>
 
