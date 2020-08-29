@@ -418,18 +418,11 @@ Thus, when we know slider segment 2 is touched, it must be a music volume betwee
 To figure out the exact value between 20-40%, we can then look at the slider segments value.<br><br>
 
 However, because we have overlapping slider segments, looking at each segment individually actually doesn't help us very much to compute one global continous value.<br>
-We therefore split the slider into 4 segments that overlap with each other as shown below. Each overlapping segment thus represents 25% of the overall volume.<br>
+Instead, we need to consider two adjacent segments since they will almost always be touched together.<br>
+To be able to consider adjacent segments, we therefore split the slider into 4 segments that overlap with each other as shown below. Each overlapping segment thus represents 25% of the overall volume.<br>
 If we only touch the first or only touch the last segment, we assume we are at 0% or 100%.<br><br>
 
 <img src="images/lab2-slider-segments-overlap-segments.png" width="400px" /><br><br>
-
-
-
-
-First, we will divide the slider into equal portions.<br>
-Rather than using the five segments directly (i.e. 20% each), we will instead define
-
-
 
 
 <b>Global Slider Value When Only One Slider Segment is Touched</b><br>
