@@ -425,7 +425,7 @@ If we only touch the first or only touch the last segment, we assume we are at 0
 <img src="images/lab2-slider-segments-overlap-segments.png" width="400px" /><br><br>
 
 
-<b>Global Slider Value When Only One Slider Segment is Touched</b><br>
+<!-- <b>Global Slider Value When Only One Slider Segment is Touched</b><br>
 Let's look at the most easy example, i.e. only one slider segment is touched.<br>
 
 Let's assume, we read a value of 0.2 from the slider segment 3, we can then conclude that we are at 1/5th of the overall range from 40-60%, i.e. 1/5th of 20 = 4, 40% + 4% = 44%). <br><br>
@@ -433,38 +433,25 @@ Let's assume, we read a value of 0.2 from the slider segment 3, we can then conc
 Thus, when only one slider segment is touched, we can calculate the overall slider value based on:<br> 
 1) the touched slider segment's order (0 to 4 representing 0-20%, 20-40%, 40%-60%, etc.) <br>
 2) the touched slider segment's value (0.00-1.00 representing intermediate values) <br> <br>
-
+ -->
 <!-- We can you the following formula:
  -->
 <!-- <b> slider_value = slider_segment_value * 0.2 + slider_segment_order * 0.2 </b>, e.g. the second slider segemnt touched with the value 0.80, the overall slider value would be 0.80 * 0.2 + 1 * 0.2 = 0.36; the third slider segemnt touched with the value 0.80, the overall slider value would be 0.80 * 0.2 + 2 * 0.2 = 0.56. <br><br> -->
 
 <b>Global Slider Value When Two Slider Segments are Touched</b><br>
-When two adjunct slider segments are touched, we need to slightly extend our calculation of the overall slider value.<br>
-First, we want to determine how much each of the two slider segments is touched:<br><br>
 
-<img src="images/lab1-exporting-design-circuit_new.png" width="300px"><br><br>
-
-<span style="color:red">please add extra fingers that show this</span><br>
 Consider what happens as we slide from left to right from slider segment 2 towards slider segment 3.<br>
 First, the slider value of segment 2 will get higher as more and more area of our finger overlaps with the slider segment.<br>
 Then, as we move towards the slider segment 3, the value of slider segment 2 decreases again as more and more of our finger leaves the slider segment 2 and instead overlaps with the slider segment 3.<br>
 Thus, once we know that the finger touches the slider segment 3, a lower sensor value of segment 2 actually means a higher slider value and not a lower one!<br>
-To compensate for this, if we detect that segment 3 is touched, we subtract the segment 2 slider value from 100.<br>
-e.g. segment2 = 0.25 && segment3 is touched then segment2 = 100-0.25 (results in 0.75).<br>
+To compensate for this, if we detect that segment 3 is touched, we subtract the segment 2 slider value from 1.0.<br>
+e.g. segment2 = 0.25 && segment3 is touched then segment2 = 1.0-0.25 (results in 0.75).<br>
 For slider segment 3, we can simply read the regular value and use it.<br><br>
 
 Next, we still have to map the two slider values to an overall slider value.<br>
-For this, we first compute the mean of both values ((0.75+0.78)/2 = 0.765) and then map the resulting number onto the value range of slider segment 2. Since slider segment 2 is from 20-40%, we get a final slider value of 20+(20*0.765) = 35.3%. <br><br>
+For this, we first compute the mean of both values ((0.75+0.78)/2 = 0.765) and then map the resulting number onto the value range of the slider volume area (i.e in our example the area we are looking at is from 25%-50% since this covers both slider segment 2 and 3). Since the slider volume slider area is 25-50% and we are at 76.5% between these values, the final slider value is 25%+((50-25)*0.765) = 44.125% as the final slider value. <br><br>
 
-
-<span style="color:red">from Junyi</span><br>
-More specifically,
-
-  slider_value = ((1.0 - slider_segment_value_lower_order) + slider_segment_value_higher_order) / 2 
-
-  * 0.2 + slider_segment_higher_order * 0.2 ,
-
-   e.g. the second slider segment touched with the value 0.20, and the third slider segemnt touched with the value 0.60, the overall slider value would be ((1 - 0.20) + 0.60) / 2 * 0.2 + 2 * 0.2 = 0.54. <br><br>
+<img src="images/lab2-slider-segments-final-value.png" width="400px"><br><br>
 
 For the calculated slider value, format the output like we did before for the touch button so that:
 
