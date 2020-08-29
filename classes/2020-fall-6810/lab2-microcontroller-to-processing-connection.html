@@ -411,11 +411,30 @@ The task here is to convert the five seperate slider segment values (all from 0.
 For this, we will use some simple linear interpolation.<br>
 We can also assume that at any given time, there will be at most 2 adjunct slider segments being touched (i.e. the user will only use one finger on the slider at any given time and the one finger will touch at max two adjacent slider segments since we made each segment roughly the size of the finger). <br><br>
 
+<b>Assigning Slider Portions to Percentage Values</b><br>
+
+Since we have 5 slider segments in our example, one could say that each slider segment is representing 20% (0.2) of the overall music volume.<br>
+Thus, when we know slider segment 2 is touched, it must be a music volume between 20-40%.<br>
+To figure out the exact value between 20-40%, we can then look at the slider segments value.<br><br>
+
+However, because we have overlapping slider segments, looking at each segment individually actually doesn't help us very much to compute one global continous value.<br>
+We therefore split the slider into 4 segments that overlap with each other as shown below. Each overlapping segment thus represents 25% of the overall volume.<br>
+If we only touch the first or only touch the last segment, we assume we are at 0% or 100%.<br><br>
+
+<img src="images/lab2-slider-segments-overlap-segments.png" width="400px" /><br><br>
+
+
+
+
+First, we will divide the slider into equal portions.<br>
+Rather than using the five segments directly (i.e. 20% each), we will instead define
+
+
+
+
 <b>Global Slider Value When Only One Slider Segment is Touched</b><br>
 Let's look at the most easy example, i.e. only one slider segment is touched.<br>
-Since we have 5 slider segments in our example, each slider segment is representing 20% (0.2) of the overall music volume.<br>
-Thus, when we know slider segment 3 is touched, it must be a music volume between 40-60%.<br>
-To figure out the exact value between 40-60%, we can then look at the slider segments value.<br>
+
 Let's assume, we read a value of 0.2 from the slider segment 3, we can then conclude that we are at 1/5th of the overall range from 40-60%, i.e. 1/5th of 20 = 4, 40% + 4% = 44%). <br><br>
 
 Thus, when only one slider segment is touched, we can calculate the overall slider value based on:<br> 
