@@ -342,37 +342,39 @@ For sending, you <b>cannot</b> use a single pin like we did in the touch button 
 <img src="images/pset1/multitouch-schematic-sending.png" width="600px"> <br><br>
 
 Remember, that you need to send a signal to each column of electrodes individually one <b>after</b> another, so sharing a sender pin would not allow for this since it would send a signal to all electrodes <b>simultaenously</b> at the same time.<br>
-To send a signal one by one to each column, you thus need the same number of sender pins as we have columns.<br>
-To send a high signal, we can use any of the GPIO pins that has not yet been used for receiving.<br>
-If we use all the GPIO for sending that we have not yet used for receiving, we could have up to 22 columns supported.<br>
+To send a signal one by one to each column, you thus need the same number of sender pins as we have columns.<br><br>
 
-However, in addition, we need to send the signal at a special high frequency for the multi-touch pad to work <span style="color:red">tell me again why?</span>. To set this specific frequency, you will need to use PWM pins on the ESP microcontroller. Lucky enough, every GPIO pin on the microcontroller is also a PWM pin, so we are still at 22 columns that we could support. <br><br>
- 
-<span style="color:red">and now tell me why we need the multiplexer?</span> We need to use a new component called a multiplexer to solve this problem.<br><br>
+We will tell you more about this in pset2 when you write the actual sensing code, but just know that the multi-touch pad requires each sender pin to output a PWM signal. <br>
+Luckily, any of the GPIO pins on the ESP can output a PWM signal, so they are all suitable for being senders.<br>
+If we use all the GPIO for sending that we have not yet used for receiving, we could have up to 22 columns supported.<br><br>
 
+<h4>What is a Multiplexer?</h4><br>
 
-<h4>Multiplexer</h4><br>
+If you looked closely, you saw that the sending circuit also has a multiplexer.<br>
+A multiplexer can be used to make the multi-touch pad more scalable.<br>
+With our current setup of a 9x8 multi-touch pad, we are already using up 17 pins on the ESP microcontroller (9 for receiving and 8 for sending).<br>
+If we had an even larger multi-touch pad, say 20x20, we would need 40 pins, which we don't have available on the ESP.<br>
+A multiplexer can help us solve this issue by reducing the number of pins needed to send and receive the signals.<br><br>
 
-<b>Basic Working Principle</b><br>
+A multiplexer can either take multiple inputs and direct them to a single output (multiplexing) or a single input and direct it to one of multiple outputs (de-multiplexing).<br> 
+Below we show the working principle of a 1-to-3 channel de-multiplexer (take one input and output to multiple pins) for your reference.<br><br>
 
-A multiplexer can either take a single input and create multiple outputs (de-multiplexing), or take multiple inputs and create a single output (multiplexing).<br> 
-For our purposes, since we want to use a single sender pin on the ESP to create multiple sender signals, we will use our multiplexer as a <b>demultiplexer.</b><br><br>
+<img src="images/pset1/mux-and-demux.jpg" width="500px"> <br><br>
 
-Below we show the working principle of a 1-to-4 channel de-multiplexer (take one input and output to multiple pins) for your reference.<br><br>
-
-<img src="images/pset1-multiplexer_symbol.png" width="600px"> <br><br>
+Thus, we could use the multiplexer to reduce the number of receiver pins by using it as a multiplexer and combining multiple rows into one pin on the ESP. Similarly, we can use the multiplexer to reduce the number of sender pins by using it as a de-multiplexer and using a single pin on the ESP to send a signal to multiple columns.<br>
+For the purpose of this pset, we will only use it for sending so you get some experience with how a multiplexer works.<br><br>
 
 For our multi-touch pad, we bought the following multiplexer <a href="https://www.amazon.com/gp/product/B07K7JF3HX/ref=ppx_od_dt_b_asin_title_s00?ie=UTF8&psc=1">from here.</a><br>
 If you look at your multiplexer, you can see that it has 16 channels (pins on the left side from C0-C15) that can be combined into one output line.<br><br> 
 
 <img src="images/pset1/multiplexer-no-headers.png" width="150px"><br><br>  
 
-<b>Telling the Multiplexer To Which Pin to Output the Signal</b><br>
+<b>Multiplexing for Sender Pins: Telling the Multiplexer To Which Pin to Output the Signal</b><br>
 The question remains how to we tell the multiplexer which output pin our input signal should be directed to? Remember, we don't want to send the signal to all sender pins at the same time, we want to send it to the sender pins one after another.<br> So how can we tell the multiplexer to send the input signal to e.g., the C12 output pin.<br><br>
 
 The way our multiplexer does this, is by asking us to send the desired output address using the four pins on the right side, labeled (S0-S3). Why four pins? The multiplexer expects a binary signal, e.g. sending 0,0,0,0 to S0-S3 results in the output pin C0, vs. 0,1,1,0 send to to S0-S3 results in C6 as output pin.<br><br>
 
-<img src="images/pset1-multiplexer-schematic.png" width="450px"> <br><br>
+<img src="images/pset1-multiplexer-schematic.jpg" width="450px"> <br><br>
 
 The signal pin (SIG) is the pin that takes our PWM signal as input and VCC and GND are there to power the multiplexer.<br>
 Thus, this allows you to connect up to 16 pins to your system using only 5 pins (SIG + S0,S1,S2,S3) on the micro-controller! <br><br>
