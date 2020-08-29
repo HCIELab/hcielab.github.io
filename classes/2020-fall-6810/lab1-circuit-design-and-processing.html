@@ -130,13 +130,11 @@ While drawing, make sure you follow the specifications, which are:<br><br>
 
 <b>Thickness of Wires:</b> Your wires should be 1mm thick. Make sure to check this in your drawing program. We typically draw 'rectangles' for the wires rather than 'lines' since a rectangle allows us to see its 'width' in the shape properties. The thickness of the wire determines its conductivity (larger cross-section == higher conductivity). With 1mm we are on the safe side given the conductive ink we use and its resistance.<br><br>
 
-<b>Connector Pads for Wires:</b> One end of your wire connects to your touch button. The other end of your wire will connect to a connector pad which we will later use to connect to the ESP microcontroller. The connector pad for the microcontroller needs to be large enough to connect to a crocodile clamp. The connector pad should be 1cm x 1cm to be on the safe side. We recommend you route all your wires to the right side of the card and we will connect the microcontroller there. Make sure your connector pads are close enough to the border so that a crocodile clamp can reach it (see image below).<br><br>
+<b>Connector Pads for Wires:</b> One end of your wire connects to your touch button. The other end of your wire will connect to a connector pad which we will later use to connect to the ESP microcontroller. The connector pad for the microcontroller needs to be large enough to connect to a crocodile clamp. Therefore, the connector pad should be 1cm x 1cm to be on the safe side. We recommend you route all your wires to the right side of the card and we will connect the microcontroller there. Make sure your connector pads are close enough to the border so that a crocodile clamp can reach it (see image below).<br><br>
 
 <!-- Make sure your connector pads are as close to the boundary of the card as possible. We will later connect them to crocodile clamps for connecting to the circuit, if they are too far away the crocodile clamps cannot reach them (left image below is not good, right side is better). -->
 
-Left: connector pad not close enough to border, crocodile clamp can barely reach it. Right side: better.<br>
-<img src="images/lab1-crocodile-clamps1_new.jpg" width="300px"> <span style="color:white">&emsp</span>
-<img src="images/lab1-crocodile-clamps2_new.jpg" width="300px"><br><br>
+<img src="images/lab1-crocodiles.png" width="700px"><br><br>
 
 
 <h4>Draw the Touch Slider and the Corresponding Wires</h4><br>
@@ -154,7 +152,7 @@ From the paper <a href="https://dl.acm.org/doi/10.1145/2971763.2971777">DuoSkin 
 
 <b>Type of Slider:</b> We will create a continuous slider, i.e. the segments overlap.<br><br>
 
-<b>Number of Slider Segments:</b> We will create five slider segments that make up the slider. More slider segments allow for higher resolution, but also need more space for wiring, connector pads, and more input pins on the microcontroller. Below you see an image that already has two slider segments marked up, you need to divide the remaining 'piano' area to form another three slider segments and connect them via wires to some additional connector pads. When you draw your slider segments, pay close attention that each slider segment overlaps with each oder, i.e. you can see how the front of the first segment reaches deep into the second segment to maximize overlap.<br><br>
+<b>Number of Slider Segments:</b> We will create five slider segments that make up the slider. More slider segments allow for higher resolution but since each slider segment needs its own wire, connector pad, and pin on the microcontroller it can quickly add up. Below you see an image that already has two slider segments marked up, you need to divide the remaining 'piano' area to form another three slider segments and connect them via wires to some additional connector pads. When you draw your slider segments, pay close attention that each slider segment overlaps with each oder, i.e. you can see how the front of the first segment reaches deep into the second segment to maximize overlap.<br><br>
 
 <b>Line Width, Connector Pad etc.:</b> You need to follow the same specification as above, i.e. use the same wire thickness (1mm) and the same connector pad size (1cm x 1cm).<br><br>
 
@@ -165,9 +163,12 @@ From the paper <a href="https://dl.acm.org/doi/10.1145/2971763.2971777">DuoSkin 
 
 <h4>Check your Design Before Printing</h4><br>
 
-Before printing, double check that all your circuit lines are set to black via maxing out CMY, i.e. CMY = 100 and K = 0.<br><br>
+Before printing, double check that all your circuit lines are set to black via maxing out CMYK, i.e. CMYK = 100%.<br><br>
+ <!-- and K = 0 -->
 
-<img src="images/lab1-cmyk_new.png" width="250px"><br><br>
+<!-- <img src="images/lab1-cmyk_new.png" width="250px"><br><br> -->
+<img src="images/lab1-cmyk-setting.png" width="250px"><br><br>
+
 
 Also double check that your design has two separate layers:<br>
 <b>Layer 1:</b> visual design<br>
@@ -175,17 +176,19 @@ Also double check that your design has two separate layers:<br>
 
 You need to be able to turn them on/off individually since we will print the circuit in a first pass, then reinsert the paper and then print the visual design on the other side of the paper. Printing on the same side of paper does not work since the visual ink is not able to cover up the silver. Also for capacitive touch sensing, we never want to touch the silver directly, so it is better to flip the paper and interact on the other side where the visual design was printed.<br><br>
 
-In order to accommodate the double-side printing, we will need to mirror one of the two layers otherwise if we flip the sheet for printing the second pass things will not align. To do this, first make sure that you place both the visual and circuit design at the <b>center of sheet</b>. Since mirroring the visual design would look weird, we will mirror the circuit design since it will be on the backside of the card after printing and thus doesn't impact the design. In Adobe Illustrator, to mirror the design, we will first select all objects in the circuit design layer, then go to <b> Object --> Transform --> Reflect... </b>, and select <b> Vertical</b>. If you use a different drawing program, please google to find out how to mirror your design.<br><br>
+In order to accommodate the double-side printing, we will need to mirror the circuit design, otherwise if we flip the sheet for printing the second pass the touch buttons and the notes will not align. We don't want to mirror the visual design for obvious reasons, i.e. it would look very odd to the user if the notes where flipped.<br><br>
+
+ To flip the circuit design, first make sure that you place both the visual and circuit design at the <b>center of sheet</b>. In Adobe Illustrator, to mirror the design, we will first select all objects in the circuit design layer, then go to <b> Object --> Transform --> Reflect... </b>, and select <b> Vertical</b>. If you use a different drawing program, please google to find out how to mirror your design.<br><br>
 
 <img src="images/lab1-mirror-circuit-design.png" width="720px" /><br><br>
 
-After mirroring, you should have something that looks like below.<br> 
-Then you can go ahead and print them out one by one.<br><br>
+After mirroring, you should have something that looks like below.<br>
+Note that the vertical position of your design on the sheet doesn't matter. For saving material, we will try to print two cards on one sheet, that's why we will ask one of you to put their card high up and the next student to put their card lower on the sheet. We will do this when you come in for printing.<br><br>
 
-Left: Before mirroring, not ready to print. Right: After mirroring the circuit design, ready for printing!<br>
-<img src="images/lab1-circuit-center-mirror.png" width="720px" /><br><br>
+<img src="images/lab1-before-after-mirror-ing.png" width="720px" /><br><br>
 
-Once you have your design, add it to your student google drive folder as three pdfs (combined-visual-circuit.pdf with both layers, visual-design.pdf separate and circuit-design.pdf separate) and let us know on slack that you are ready to have your design checked by us.<br><br>
+Once you have your design, add it to your student google drive folder as three pdfs (combined-visual-circuit.pdf with both layers, visual-design.pdf with only the visual design, and circuit-design.pdf with only the circuit design).<br>
+Let us know on slack that you are ready to have your design checked by us.<br><br>
 
 Once you have our ok, <a href="https://docs.google.com/spreadsheets/d/1D5WDSVnoo7_nljYBE96kVc2roTcheib4fP57s_PL0Ho/edit?usp=sharing">please book an OH slot and come in to print</a>.<br>
 You can either print from your own laptop or use the computer we have in the workshop.<br>
@@ -197,19 +200,21 @@ If you want to print from your own laptop, please make sure you install the prin
 
 <h2 class="headline">(2) Conductive Silver Inkjet Printing</h2>
 
-Theoretically, we can use a single printer to print both the circuit design and the visual design.<br>
-Since 2D printers have two cartridges, i.e. a CMY cartridge for color printing and a K-cartridge for black, we can simply empty the K-catridge and fill it with silver ink.<br>
-So anything in your drawing that is 'K' (pure black) will be printed in silver and the rest will be printed from the regular CMY cartridge.<br><br>
+Theoretically, we can use a single printer to print both the circuit design and the visual design since most printers have two cartridges.<br>
+For instance, our Canon PIXMA TR150 Printer has both a 'CMYK' cartridge for printing color documents and an extra 'K' cartridge for printing only black.<br> 
+So in theory, you could use the 'CMYK' cartridge for printing the visual design and the 'K' cartridge for printing silver.<br><br>
+
+However, printing with the silver ink we use requires a special photo paper that chemically sinters the silver ink when it is deposited on the paper. This special photo paper requires printing with a 'high quality photo' settings, which in the Canon PIXMA driver automatically selects the CMYK cartridge since photos are typically are full color. Thus, we can't use the 'K' cartridge for silver but need to empty out the CMYK cartridge and put silver in this one.<br> Since we now only have the 'K' cartridge left for normal printing, we can't print color anymore. Thus, we use a second printer to print the color.<br> 
+
 
 <!-- <img src="images/lab1-printing-explained_new.png" width="350px" />
 <img src="images/lab1-silver-inkjet-printer-cartridge_new.jpg" width="350px" /><br><br> -->
 
-For our class, however, we are using two 2D inkjet printers, one for the circuit printing and one for the visual design.<br>
+<!-- For our class, however, we are using two 2D inkjet printers, one for the circuit printing and one for the visual design.<br>
 The reason for this is that the printer drivers of our inkjet printers do not support printing 'with only the K cartridge' for high-quality photo printing (e.g. when printing with photo papers), they will always use the CMY cartridge as well for part of the print to achieve a "richer" black, even if you set the print to be "black and white only".<br>
-Therefore, we use two printers: In one printer, we use the CMY cartridge as original intended for color printing. In the other printer, we empty the CMY cartridge and replace it with silver ink. The "K" (Black) cartridge remains in its original form, i.e. contains black ink. <br><br> 
+Therefore, we use two printers: In one printer, we use the CMY cartridge as original intended for color printing. In the other printer, we empty the CMY cartridge and replace it with silver ink. The "K" (Black) cartridge remains in its original form, i.e. contains black ink. <br><br>  -->
 
-<img src="images/lab1-printing-explained_new.png" width="350px" />
-<img src="images/lab1-silver-inkjet-printer-cartridge_new.jpg" width="350px" /><br><br>
+<img src="images/lab1-printing-explained_new2.png" width="750px" /><br><br>
 
 <h4>Buying Materials and Preparing the Printer</h4><br>
 
