@@ -318,7 +318,7 @@ As mentioned in lecture, the multitouch pad consists of sender electrodes (e.g.,
 
 <b>Sender Electrodes:</b> When powered, the multitouch pad is sending a signal to the sender electrodes one by one, i.e. first sends a signal to the first sender electrode, then the second, then the third and so on. After it reached the last sender electrode, it continues again from the front.<br><br>
 
-<b>Receiver Electrodes:</b> Meanwhile, the receiver electrodes listen to the signals. They know which signal to expect since they know what signal the sender electrodes are sending. However, if a human finger comes in contact with one of the receiver electrodes, the signal changes. The receiver electrode can detect this change. Since it knows which sender electrode was sending (column 0, or column 1, or column 2 etc.), the receiver knows where the finger is. So if row 2 is listening and knows that column 0 is sending a signal right now, but the signal looks different, row 2 knows that the finger is at row 2 column 0. If row 0 is listening and knows that column 0 is sending but the signal looks as expected, then there is no finger at row 0 column 0.<br><br> 
+<b>Receiver Electrodes:</b> Meanwhile, the receiver electrodes listen to the signals. If a human finger comes in proximity of one of the receiver electrodes, the signal changes. The receiver electrode can detect this change. Since it knows which sender electrode was sending (column 0, or column 1, or column 2 etc.), the receiver knows where the finger is. So if row 2 is listening and knows that column 0 is sending a signal right now, but the signal looks higher than normal, row 2 knows that the finger is at row 2 column 0. If row 0 is listening and knows that column 0 is sending but the signal looks as expected, then there is no finger at row 0 column 0.<br><br> 
 
 
 <img src="images/pset1/multitouch-sensing-row-column-explained.png" width="750px"> <br><br>
@@ -328,11 +328,13 @@ As mentioned in lecture, the multitouch pad consists of sender electrodes (e.g.,
 Allright, so let's build the circuit for all of this.<br><br>
 
 <b>Circuit for Receiving</b><br>
-This will be very familiar to the touch-button and slider we already built this week. Look at the schematic below, you will see the same circuit as you had seen in the lab: a receiver pin is connected to one resistor which in turn is connected to one electrode row so we can listen to the signals coming in.<br><br>
 
+Each new row has its one receiver pin and resistor. As you can imagine, the more rows you have, the more receiver pins you need, so this can quickly increase quite a bit. However, typically there are a lot of analog pins on our microcontrollers. If you look at the pin out below, you can see that our ESP has 9 specifically for capacitive touch sensing (it looks like 10 but remember do not use the one pin labeled as pin0 (TOUCH1) as receiver as explained in lab 1). In addition, we have another 6 regular analog-to-digital (ADC) converter pins, which would give a slightly less clean signal but would still produce something usable. <br> If you had a higher resolution multitouch pad, e.g., 20 x 20, you could use a component called a multiplexer to increase the number of receiver pins (more on this in a moment).<br><br>
+    
 <img src="images/pset1/multitouch-schematic-receiving.png" width="600px"> <br><br>
-
-Each new row has it's one receiver pin and resistor. As you can imagine, the more rows you have, the more receiver pins you need, so this can quickly increase quite a bit. However, typically there are a lot of analog pins on our microcontrollers. If you look at the pin out below, you can see that our ESP has 9 specifically for capacitive touch sensing (it looks like 10 but remember do not use the one pin labeled as pin0 (TOUCH1) as receiver as explained in lab 1). In addition, we have another 6 regular analog-to-digital (ADC) converter pins, which would give a slightly less clean signal but would still produce something usable. <br> If you had a higher resolution multitouch pad, e.g., 20 x 20, you could use a component called a multiplexer to increase the number of receiver pins (more on this in a moment).<br><br>
+    
+You see that each receiver pin is also connected to a 100kOhm pull-down resistor that leads to GND. This resistor has two functions. (1) It reduces any noise when there is no touch and the receiver pin should read 0V. Unfortunately, the printed sensor can catch electric noise from the environment or neighboring electrodes, which gets cleaned up by theses resistors. And (2) to reduces voltage spikes when the sensor gets touched. These spikes appear often when the sender electrode emits a box signal and not a sinusoidal wave.<br><br>
+    
 
 <img src="images/esp32-pinout.jpg" width="500px"> <br><br>
 
