@@ -70,7 +70,7 @@ In lab 1 and lab 2, we are going to create the interactive music card shown belo
 
 <h2 class="headline">Your Task for Today: Circuit Design and Signal Processing</h2>
 
-<b>(1) Circuit Design:</b> You will first draw the circuit design of your card by creating a 2D drawing of the wires and interactive touch and slider areas.<br>
+<b>(1) Circuit Design:</b> You will first draw the circuit design of your card by creating a 2D drawing of the wires and interactive touch and slider areas. We recommand to use Adobe Illustrator, as all MIT students haev access to free Adobe Creative Cloud <a href="https://ist.mit.edu/adobe/cc">here</a>.<br>
 <b>(2) Conductive Silver Inkjet Printing:</b> Next, you will print your design with conductive inkjet printing.<br>
 <b>(3) Wiring up the Buttons:</b> In the next step, you will wire up your touch buttons using a breadboard and an ESP32 microcontroller.<br>
 <b>(4) Sensing the Touch Signals:</b> Next, you will sense the touch signals using capacitive touch sensing (through Arduino's CapacitiveSensor Library) and apply filtering to the signals.<br>
@@ -130,7 +130,7 @@ While drawing, make sure you follow the specifications, which are:<br><br>
 
 <b>Thickness of Wires:</b> Your wires should be 1mm thick. Make sure to check this in your drawing program. We typically draw 'rectangles' for the wires rather than 'lines' since a rectangle allows us to see its 'width' in the shape properties. The thickness of the wire determines its conductivity (larger cross-section == higher conductivity). With 1mm we are on the safe side given the conductive ink we use and its resistance.<br><br>
 
-<b>Connector Pads for Wires:</b> One end of your wire connects to your touch button. The other end of your wire will connect to a connector pad which we will later use to connect to the ESP microcontroller. The connector pad for the microcontroller needs to be large enough to connect to a crocodile clamp. Therefore, the connector pad should be 1cm x 1cm to be on the safe side. We recommend you route all your wires to the right side of the card and we will connect the microcontroller there. Make sure your connector pads are close enough to the border so that a crocodile clamp can reach it (see image below).<br><br>
+<b>Connector Pads for Wires:</b> One end of your wire connects to your touch button. The other end of your wire will connect to a connector pad which we will later use to connect to the ESP microcontroller. The connector pad for the microcontroller needs to be large enough to connect to a crocodile clamp. Therefore, the connector pad should be 1cm x 1cm to be on the safe side. We recommend you route all your wires to the right side of the card and we will connect the microcontroller there. Make sure your connector pads are close enough to the border so that a crocodile clamp can reach it (less than 5mm or so, see image below).<br><br>
 
 <!-- Make sure your connector pads are as close to the boundary of the card as possible. We will later connect them to crocodile clamps for connecting to the circuit, if they are too far away the crocodile clamps cannot reach them (left image below is not good, right side is better). -->
 
@@ -152,7 +152,7 @@ From the paper <a href="https://dl.acm.org/doi/10.1145/2971763.2971777">DuoSkin 
 
 <b>Type of Slider:</b> We will create a continuous slider, i.e. the segments overlap.<br><br>
 
-<b>Number of Slider Segments:</b> We will create five slider segments that make up the slider. More slider segments allow for higher resolution but since each slider segment needs its own wire, connector pad, and pin on the microcontroller it can quickly add up. Below you see an image that already has two slider segments marked up, you need to divide the remaining 'piano' area to form another three slider segments and connect them via wires to some additional connector pads. When you draw your slider segments, pay close attention that each slider segment overlaps with each oder, i.e. you can see how the front of the first segment reaches deep into the second segment to maximize overlap.<br><br>
+<b>Number of Slider Segments:</b> We will create five slider segments that make up the slider. More slider segments allow for higher resolution but since each slider segment needs its own wire, connector pad, and pin on the microcontroller it can quickly add up. Below you see an image that already has two slider segments marked up, you need to divide the remaining 'piano' area to form another three slider segments and connect them via wires to some additional connector pads. When you draw your slider segments, pay close attention that each slider segment overlaps with each other, i.e. you can see how the front of the first segment reaches deep into the second segment to maximize overlap (see image down below).<br><br>
 
 <b>Line Width, Connector Pad etc.:</b> You need to follow the same specification as above, i.e. use the same wire thickness (1mm) and the same connector pad size (1cm x 1cm).<br><br>
 
@@ -193,7 +193,8 @@ Let us know on slack that you are ready to have your design checked by us.<br><b
 Once you have our ok, <a href="https://docs.google.com/spreadsheets/d/1D5WDSVnoo7_nljYBE96kVc2roTcheib4fP57s_PL0Ho/edit?usp=sharing">please book an OH slot and come in to print</a>.<br>
 You can either print from your own laptop or use the computer we have in the workshop.<br>
 
-If you want to print from your own laptop, please make sure you install the printer driver for the <a href="https://www.usa.canon.com/internet/portal/us/home/support/details/printers/mobile-compact-printer/pixma-tr150">Canon PIXMA TR150 Printer</a> and a second printer driver for the <a href="https://epson.com/Support/Printers/All-In-Ones/ET-Series/Epson-ET-2760/s/SPT_C11CG22203">Epson EcoTank ET-2760.</a><br><br>
+If you want to print from your own laptop, please make sure you install the printer driver for the <a href="https://www.usa.canon.com/internet/portal/us/home/support/details/printers/mobile-compact-printer/pixma-tr150">Canon PIXMA TR150 Printer</a> and a second printer driver for the <a href="https://epson.com/Support/Printers/All-In-Ones/ET-Series/Epson-ET-2760/s/SPT_C11CG22203">Epson EcoTank ET-2760.</a><br>
+We will have the USB connector ready at Office Hours.<br><br>
 
 <img src="images/music-card-design_new.png" width="317px" />
 <img src="images/lab1-exporting-design-circuit_new.png" width="317px" /><br><br>
@@ -257,7 +258,7 @@ Next, click 'setup' (bottom left corner), then 'continue'.<br><br>
 
 <img src="images/settings2_new.png" width="517px" /><br><br>
 
-Go to 'Quality and Media' in the dropdown, then select 'Media Type' and 'Photo paper' and 'Photo Paper Plus Glossy II'.<br>
+Go to 'Quality and Media' in the dropdown, then select 'Media Type' and 'Photo Paper Plus Glossy II'.<br>
 As explained, whenever we select the 'Glossy Paper' setting, the printer will automatically only use the CMYK cartridge and will not use the K cartridge.<br><br>
 
 <img src="images/settings3_new.png" width="517px" /><br><br>
@@ -319,6 +320,7 @@ Next, hold the two measurement points at the beginning and end of a wire on your
 <img src="images/lab1-multimeter3_new.jpg" width="600px"><br><br>  
 
 Here we have a fantastically low resistance of 13ohm with a beep sound. <br>
+You should have a resistance range of tens of ohms to a couple hundred ohms for your print.<br>
 If you see a 'OL' message in the display, your trace is broken and the resistance was so high it couldn't be displayed because it was out of range. <br>
 If that happens to you, let us know and we will print your design again.<br><br>
 
@@ -351,12 +353,13 @@ We will use the ESP32 micro-controller in this course to control the printed sen
 <img src="images/esp32-pinout.jpg" width="600px" /><br><br>
 
 If you study the reference sheet closely, you will notice that there are some pins that are labeled with "TOUCH". They are optimized to serve as receivers for capacitive sensing and therefore return cleaner signals, so we will use them for our sensing application.<br> 
-However, <b>do not use the pin labeled as pin0 (TOUCH1) as receiver</b> at any time, as the pin is not configured correctly on this version of the ESP32 board and will significantly slow down the signal recording. However, you can still use the pin as a sender (more on this below). <br><br>
+However, <b>do not use the pin labeled as GPIO 0 (TOUCH1) as receiver</b> at any time because it is the strapping pin for this version (DevKitC) of ESP32 and cannot be used due to external auto program circuits. However, you could still use the pin as a sender (more on this below). <br><br>
 
 <h4>Setting up the ESP Microcontroller</h4><br>
 
 If you did your homework, you should already be all set.<br>
-If for whatever reason you were not able to do it yet, you can find the <a href="esp-setup.html">install instructions here.</a><br><br>
+If for whatever reason you were not able to do it yet, you can find the <a href="esp-setup.html">install instructions here.</a><br>
+If you have the Blink program working, you are ready to go!<br><br>
 
 <h4>Connecting your Printed Circuit to a Breadboard and to the ESP</h4><br>
 
