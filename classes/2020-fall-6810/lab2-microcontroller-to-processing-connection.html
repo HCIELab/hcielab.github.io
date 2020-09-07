@@ -160,7 +160,7 @@ void setup() { // runs only once
 }
 </pre><br>
 
-Move all your code for defining the port into the setup() funtion since we only need to define the port once.<br><br>
+Move the port constructor code into the setup() funtion since we only need to construct the port once.<br><br>
 
 Next, create an empty draw function:<br><br>
 
@@ -177,8 +177,7 @@ We are going to fill this in the next step with the code that will continously l
 Now that we have the port defined, we can see if data is available and if the answer is yes, we can read the data from the port.<br>
 In the draw function, add the following lines:<br><br>
 
-<pre>int val;
-
+<pre>
 // If there is a message with at least 4 characters 
 // remember we are sending in the format: <i>sensorNumber comma touched semicolon</i> with one character each
 if (myPort.available() >= 4) { 
@@ -189,7 +188,8 @@ if (myPort.available() >= 4) {
 
 Note that we use <code>myPort.readStringUntil()</code>, which we can do because we are sending a string on the serial port from our Arduino program that is looping on the microcontroller. If we send other data-types, we would have to use a different function so Processing knows how to convert the un-typed data that is coming through the port at the specific baudrate.<br><br>
 
-Next, check if this is working. We recommend you <a href="https://processing.org/reference/print_.html">print()</a> the String value to the Processing command line, run your Processing program, and touch your touch sensor to see if something gets printed on the Processing command line. If that doesn't work, now would be a good moment to get some help.<br><br>
+Next, check if this is working. We recommend you <a href="https://processing.org/reference/print_.html">print()</a> the String value to the Processing command line, run your Processing program, and touch your touch sensor to see if the statements you printed to Serial port (via Arduino IDE) gets printed on the Processing command line. If you are getting a ‘port busy’ error, make sure you close the Serial Monitor / Plotter on Arduino IDE. <br>
+If that doesn't work, now would be a good moment to get some help.<br><br>
 
 <h4>Creating a Visualization for the Incoming Touch Sensor Data</h4><br>
 
@@ -317,7 +317,7 @@ You can make a new button with:<br><br>
 Please add your buttons to line 47 onwards.<br>
 One of the buttons is already defined there:<br><br>
 
-<pre>myButtons.add(new Button(80.0, 160.0, 160, 240, "Ellipse")); //line 47</pre><br>
+<pre>myButtons.add(new Button(70, 210, 150, 290, "Ellipse")); //line 47</pre><br>
     
 Your final result should look like this:<br><br>
     
