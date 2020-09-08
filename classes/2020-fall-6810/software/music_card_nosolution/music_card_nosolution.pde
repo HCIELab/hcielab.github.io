@@ -46,7 +46,7 @@ void setup() {
   
   //(a,b,c,d,type) These are coordinates for an ellipse
   //(a,b) is the upper right corner, (c,d) is the lower right corner of the ellipse
-  myButtons.add(new Button(320.0, 180.0, 400, 260, "Ellipse"));//play/pause
+  myButtons.add(new Button(360.0, 180.0, 440, 260, "Ellipse"));//play/pause
   
   music = new Audio(this);
   
