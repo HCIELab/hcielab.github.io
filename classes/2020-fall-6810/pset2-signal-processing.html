@@ -157,27 +157,37 @@ You will also find the following ESP32 pinout useful for identifying SPI pins: <
 Once you have the circuit build up, you can download the MCP3008 library and construct & initialize it in the skeleton code. <br><br>
 <img src="images/pset2/mcp3008-library.png" width="500px"> <br><br>
 
+You can check if the ADC channels working properly on the MCP3008 by connecting a signal (e.g. 3.3V, random output pin on ESP32 set to HIGH etc.) to MCP3008 channels and see if the reading make sense. <br><br>
 
-<h3>(1) Identify the GPIO pin configurations and assign corresponding PinMode</h3>
+<h3>(4) Read and record analog signals from receiver pins in Serial channel </h3>
+Now that you can fill the "<b>loop()</b>" function and do the actual sensing! <br>
+<img src="images/pset2/loop-function.png" width="500px"> <br><br>
 
-Recall the circuit schematics from PSet1, now you will identify and confiugure them in the code! <br>
-PWM pin as OUTPUT for signal input pin of the multiplexer <br>
-ADC pihns as INPUT for receiver pins of multi-touch pad <br>
-GPIO pins as OUTPUT for select pins of the multiplexer <br>
-Appropriate Vcc pin and GND for the multiplexer <br>
+You should read through the receiver pins periodically like following:
+<ul>
+	<li>assign one output channel (sender pin) through the Multiplexer </li>
+	<li>read through the receiver pins one by one through MCP3008 via SPI</li>
+	<li>move on to the next output channel (sender pin) and repeat</li>
+</ul> <br>
 
-<h3>(2) Generate appropriate PWM signal and assign to sender pins</h3>
+You should serial print the data in the following format: <br>
+<pre>sender-channel-num0,receiver-ch0-val,receiver-ch1-val,receiver-ch2-val,...,receiver-ch7-val
+sender-channel-num1,receiver-ch0-val,receiver-ch1-val,receiver-ch2-val,...,receiver-ch7-val
+......</pre> <br>
 
-Once you feel your circuit design looks right, inkjet print it.<br>
-You will need two sheets, one for the columns and one for the rows.<br>
+A sample serial output could be: <br>
+<pre>
+0,3,2,1,3,4,5,2,4
+1,4,3,5,1,3,7,5,2
+...
+</pre> <br>
 
-<h3>(3) Read and test analog signals from receiver pins</h3>
+If you open up the Serial Plotter, it should have something look like following when the multi-touch pad is not touched: <br>
+<img src="images/pset2/multi-touch-pad-not-touch.png" width="350px"> <br><br>
 
-Once you printed both sheets, you can glue them together using a thin adhesive foil.
-
-<h3>(4) Add the "button" mode and record the data in Serial channel</h3>
-
-Finally, clip on both FCP chips to make sure you got the connection pads right.
+And something look like these when touched & released (visually noticeable changes in raw value plot): <br>
+<img src="images/pset2/multi-touch-pad-touch-1.png" width="350px">
+<img src="images/pset2/multi-touch-pad-touch-2.png" width="350px">
 
 <br>
 
