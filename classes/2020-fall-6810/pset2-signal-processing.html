@@ -135,7 +135,27 @@ Now that we will move onto the "Receiving" part of the circuit! <br>
 Recall the circuit schematics from PSet1: <br>
 <img src="images/pset1/multitouch-schematic-receiving.png" width="600px"> <br><br>
 
-In the schematics, we have the 
+In the schematics, we have all the receiver pins (RXn) connected to ADC (analog to digital converter) pins. <br>
+
+Notice that we have ADC pins on ESP32, however, we are going to use external ADC channels from the <a href="https://www.adafruit.com/product/856">MCP3008 </a> chip, and communicate with ESP32 via SPI. <br>
+You can find the datasheet for MCP3008 <a href="https://cdn-shop.adafruit.com/datasheets/MCP3008.pdf">here</a>.<br><br>
+
+The reason for that is althrough the ESP32's ADC is extremely reliable in the middle of its range (~0.5V to maybe 3.0V), while at the extremes of its range, it is non-linear and without proper calibration behaves poorly. <br>
+Since we are practically generating an AC signal with the PWM, plus the capacitive coupling effect between breadboard channels and wires under high frequency signal, we will end up with some negative voltages on the ADC pins, which are out of spec of the ESP32's ADC inputs. <br><br>
+
+You could make the ESP32 work with this by adding rectification circuits and amplifiers before going into the ADC, but then you have to build it.  It is easier to use another ADC that can work in this regime. <br><br>
+
+This is better in terms of scalability as well, since you can connect multiple ADC chips with SPI simultaneously, which allows us to arbirarily add more ADCs using a common SPI bus (so 4 pins gives 8 ADC channels and 5 pins gives 16 etc.).<br><br>
+
+The pinout of the MCP3008 chip and circuit schematic are shown down below: <br>
+<img src="images/pset2/MCP3008-pinout.png" width="200px">
+<img src="images/pset2/mcp3008-schematic.png" width="500px"> <br><br>
+
+You will also find the following ESP32 pinout useful for identifying SPI pins: <br>
+<img src="images/pset2/esp32-pinout.png" width="750px"> <br><br>
+
+Once you have the circuit build up, you can download the MCP3008 library and construct & initialize it in the skeleton code. <br><br>
+<img src="images/pset2/mcp3008-library.png" width="500px"> <br><br>
 
 
 <h3>(1) Identify the GPIO pin configurations and assign corresponding PinMode</h3>
