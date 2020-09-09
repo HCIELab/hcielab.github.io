@@ -74,7 +74,7 @@ Before you get started, check if you have all of the following in your bag:<br>
 
 <ul>
 	<li>ESP32 microcontroller, breadboard, and wires</li>
-	<li>9 x 100Kohm resistors (one for each receiver pin)</li>
+	<li>8 x 100Kohm resistors (one for each receiver pin)</li>
 	<li>one multiplexer</li>
 	<li>two FPC connectors</li>
 </ul><br>
@@ -207,7 +207,8 @@ If you are unsure if everything has the right dimension, use a regular color pri
 
 <h3>(2) Inkjet Print Top and Bottom Electrode Layers</h3>
 
-Once your circuit design tool is ready, export a multi-touch pad of <b>9x8 electrodes</b> from your user interface.<br><br>
+Once your circuit design tool is ready, export a multi-touch pad of <b>8x9 electrodes</b> from your user interface.<br>
+Combine together, we have a 9x9 multi-touch pad.<br><br>
 
 Go to an office hour to inkjet print the top and bottom layer of your multi-touch pad.<br>
 (Note that the FPC connectors and the multiplexer in section 4 and 5 need soldering, so if you come in for printing you may also want to solder the header pins for those components on in one sitting rather than coming in multiple times.)<br><br>
@@ -355,8 +356,8 @@ If we use all the GPIO for sending that we have not yet used for receiving, we c
 
 If you looked closely, you saw that the sending circuit also has a multiplexer.<br>
 A multiplexer can be used to make the multi-touch pad more scalable.<br>
-With our current setup of a 9x8 multi-touch pad, we are already using up 17 pins on the ESP microcontroller (9 for receiving and 8 for sending).<br>
-If we had an even larger multi-touch pad, say 20x20, we would need 40 pins, which we don't have available on the ESP.<br>
+With our current setup of a 9x9 multi-touch pad, we are already using up 16 pins on the ESP microcontroller (8 for receiving and 8 for sending).<br>
+If we had an even larger multi-touch pad, say 21x21, we would need at least 40 pins, which we don't have available on the ESP.<br>
 A multiplexer can help us solve this issue by reducing the number of pins needed to send and receive the signals.<br><br>
 
 A multiplexer can either take multiple inputs and direct them to a single output (multiplexing) or a single input and direct it to one of multiple outputs (de-multiplexing).<br> 
