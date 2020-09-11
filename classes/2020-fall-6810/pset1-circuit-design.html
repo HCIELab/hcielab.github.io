@@ -94,13 +94,13 @@ In addition, the following items will be provided when you come in for printing 
 
 <h3>(1) Processing User Interface for <br>Generating Fabrication Files</h3>
 
-In the first part of this problem set, you will write a user interface in Processing that will automatically generate the fabrication files for making multi-touch pads of different dimensions. In particular, a user will be able to input parameters, such as the number of electrodes of the multi-touch pad and then automatically receive the matching fabrication files, i.e. 2D drawings of the required circuits in .pdf file format that the user can then send to their 2D printer for conductive inkjet printing.<br><br>
+In the first part of this problem set, you will write a user interface in Processing that will automatically generate the fabrication files for making multi-touch pads of different dimensions. In particular, a user will be able to input parameters, such as the number of electrodes of the multi-touch pad and then automatically receive the matching fabrication files, i.e. 2D drawings of the required circuits in .pdf file format that the user can then send to their 2D printer for conductive inkjet printing. You will implement this interface in Processing from scratch.<br><br>
 
 We will be using the classical two-layered diamond pattern that is commonly used for mutual-capacitive touch sensing. <br>
 As explained in lecture, this means that your multi-touch pad has two layers that are printed separately.<br>
 One layer contains the rows of electrodes, the other layer contains the columns.<br>
 Each row/column consists of multiple electrodes and has a single wire at the end.<br>
-Once both sheets are printed, you layer them on top of each other to build the final circuit.<br><br>
+Once both sheets are printed, you layer them on top of each other (with a bonding & isolation layer in between) to build the final circuit.<br><br>
 
 <img src="images/pset1/multitouch-overview.png" width="250px">
 <img src="images/pset1-multitouch-pad-explanation2.png" width="450px"><br><br>
@@ -154,7 +154,10 @@ Finally, the user interface should have a preview and export function:<br>
 </ul>
 <br>
 
-<img src="images/pset1-Processing-UI_1.png" width="500px"><br>
+<img src="images/pset1-Processing-UI_1.png" width="500px"><br><br>
+
+The switch top / bottom view function should look like something similar to the following: <br>
+<img src="images/pset1/switch-view.png" width="700px"><br><br>
 
 
 <b>Setting the Processing window to the right resolution for printing</b><br>
@@ -207,8 +210,8 @@ If you are unsure if everything has the right dimension, use a regular color pri
 
 <h3>(2) Inkjet Print Top and Bottom Electrode Layers</h3>
 
-Once your circuit design tool is ready, export a multi-touch pad of <b>8x9 electrodes</b> from your user interface.<br>
-Combine together, we have a 9x9 multi-touch pad.<br><br>
+Once your circuit design tool is ready, export a multi-touch pad design of <b>8x9 electrodes</b> from your user interface.<br>
+With the top layer and bottom layer combine together (8x9 electrodes + 9x8 electrodes), we have a 9x9 multi-touch pad.<br><br>
 
 Go to an office hour to inkjet print the top and bottom layer of your multi-touch pad.<br>
 (Note that the FPC connectors and the multiplexer in section 4 and 5 need soldering, so if you come in for printing you may also want to solder the header pins for those components on in one sitting rather than coming in multiple times.)<br><br>
