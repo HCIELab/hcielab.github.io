@@ -211,7 +211,7 @@ If you are unsure if everything has the right dimension, use a regular color pri
 <h3>(2) Inkjet Print Top and Bottom Electrode Layers</h3>
 
 Once your circuit design tool is ready, export a multi-touch pad design of <b>8x9 electrodes</b> from your user interface.<br>
-With the top layer and bottom layer combine together (8x9 electrodes + 9x8 electrodes), we have a 9x9 multi-touch pad.<br><br>
+With the top layer and bottom layer combine together (8x9 electrodes + 9x8 electrodes), we have a 8x9 multi-touch pad.<br><br>
 
 Go to an office hour to inkjet print the top and bottom layer of your multi-touch pad.<br>
 (Note that the FPC connectors and the multiplexer in section 4 and 5 need soldering, so if you come in for printing you may also want to solder the header pins for those components on in one sitting rather than coming in multiple times.)<br><br>
@@ -226,7 +226,7 @@ Once you printed both sheets, you need to assemble them on top of each other.<br
 Please come to an office hour and we will do this together. Ideally you do this right after printing the two sheets, so you don't have to come in again.<br><br>
 
 Note, that both electrode sheets should have the conductive side facing upwards towards the user.<br>
-Place them on top of each other.<br><br>
+Place them on top of each other <b>***(place the layer with 9 connecting wires on the top)***</b>.<br><br>
 
 <!-- <span style="color:red">insert image of aligning both sheets here with conductive side up</span><br><br>  -->
 <img src="images/pset1/pset1-alignment.png" width="400px"> <br><br>
@@ -359,7 +359,7 @@ If we use all the GPIO for sending that we have not yet used for receiving, we c
 
 If you looked closely, you saw that the sending circuit also has a multiplexer.<br>
 A multiplexer can be used to make the multi-touch pad more scalable.<br>
-With our current setup of a 9x9 multi-touch pad, we are already using up 16 pins on the ESP microcontroller (8 for receiving and 8 for sending).<br>
+With our current setup of a 8x9 multi-touch pad, we are already using up 17 pins on the ESP microcontroller (8 for receiving and 9 for sending).<br>
 If we had an even larger multi-touch pad, say 21x21, we would need at least 40 pins, which we don't have available on the ESP.<br>
 A multiplexer can help us solve this issue by reducing the number of pins needed to send and receive the signals.<br><br>
 
