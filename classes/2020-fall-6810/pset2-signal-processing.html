@@ -219,37 +219,33 @@ Before you can wire it up, you need to first learn a bit more about the Serial P
 <b>Serial Peripheral Interface Communication between ESP and MPC Chip</b><br>
 
 The MCP chip communicates with the ESP32 via the Serial Peripheral Interface (SPI).<br>
-The basic SPI communication is between one master and one slave and we will use this for this pset since we only have one MPC chip (slave) connected to one master (ESP), but one master can also send to multiple slaves.<br><br>
+The basic SPI communication is between one master and one slave and we will use this for this pset since we only have one MPC chip (slave) connected to one master (ESP). But one master can also send to multiple slaves.<br><br>
 
 <img src="images/pset2/spi-mosi-miso.png" width="300px"><br><br>
 
 Broken down, the SPI interface consists of the following pins:<br>
 <b>MOSI:</b> line for the master to send data to the slave.<br>
 <b>MISO:</b> line for the slave to send data to the master.<br>
-<b>SCK:</b> line for the clock signal.<br>
+<b>SCK:</b> line for the clock signal (this determines how fast bits of data can be send, one bit of data is transferred during each clock cycle).<br>
 <b>NSS/CS:</b> line for the master to select which slave to send the data to. <br>
-
-
 <span style="color:red">(please explain what SPI is and how it is represented on our MCP component, i.e. its pins).</span><br><br>
 
-<!-- One bit of data is transferred during each clock cycle.<br>
-SPI communication is always initiated by the master since the master configures and generates the clock signal.<br>
-The clock signal in SPI can be modified using the properties of clock polarity and clock phase.
- -->
+So how does this look like on our MPC3008 chip?<br>
+The pinout of the MCP3008 chip is shown below. <br> <br>
 
-The pinout of the MCP3008 chip is shown below. <br>
-The CH channels are the inputs from your multi-touch pad. You can have up to 8 inputs (CH0-CH7).<br>
-VDD is connected to the 3.3V of the ESP.<br>
-DGND is connected to GND on the ESP.<br>
-<span style="color:red">what are VRef and AGND for?</span><br><br>
+<img src="images/pset2/MCP3008-pinout.png" width="200px"><br><br>
 
-
+<b>CH channels:</b> are the inputs from your multi-touch pad. You can have up to 8 inputs (CH0-CH7).<br>
+<b>VDD:</b> is connected to the 3.3V of the ESP.<br>
+<b>DGND:</b> is connected to GND on the ESP.<br>
+<b>VRef:</b> <span style="color:red">what for?</span><br>
+<b>AGND:</b> <span style="color:red">what for?</span><br>
+<br>
 
 
 <span style="color:red">CLK is the clock signal.</span><br>
 <span style="color:red">what are the remaining pins?</span><br><br>
 
-<img src="images/pset2/MCP3008-pinout.png" width="200px"><br><br>
 
 
 and circuit schematic are shown down below:<br>
