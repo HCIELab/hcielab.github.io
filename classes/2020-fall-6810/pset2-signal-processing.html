@@ -210,18 +210,49 @@ In pset1, you already connected all your receiver rows to such pins, <span style
 
 Unfortunately, the ESP32 ADC/TOUCH pins are only reliable in the middle of the ESP's voltage range (~0.5V to maybe 3.0V) but not at the lower and upper ends of the range. Our touch sensing circuit functions <span style="color:red">at the lower range, i.e. mostly between XXV and YYV</span>. Even worse, because we use <span style="color:red">XXX to get YY working</span>, we end up with <span style="color:red">negative voltages on the ADC pins</span>, which are completely out of the spec of the ESP32's ADC inputs. <span style="color:red">(put back when clear how that relates to the rest: Since we are practically generating an AC signal with the PWM, plus the capacitive coupling effect between breadboard channels and wires under high frequency signal</span>). Under these circumstances, the signal will behave non-linearly and would require a lot of calibration. You could fix this by adding rectification circuits and amplifiers before having the signal go into the ADC pin, but that is quite some extra effort. For our purposes, it is therefore easier to not use the ESP ADC pins and instead use another ADC component that can work well within the Voltage range we use for the multi-touch pad.<br><br>
 
-<b>Wiring up the new ADC Component</b><br>
-
-The component you will use to have better ADC channels is the <a href="https://www.adafruit.com/product/856">MCP3008 </a> chip.
-You can find the datasheet for MCP3008 <a href="https://cdn-shop.adafruit.com/datasheets/MCP3008.pdf">here</a>.<br><br>
+The component you will use to have better ADC channels is the <a href="https://www.adafruit.com/product/856">MCP3008 </a> chip.<br>
+You can find the datasheet for MCP3008 <a href="https://cdn-shop.adafruit.com/datasheets/MCP3008.pdf">here</a>.<br>
+Before you can wire it up, you need to first learn a bit more about the Serial Peripheral Interface, with which the chip communicates with the ESP.<br>
 
 <img src="images/pset2/adc-pin-chip.png" width="300px"><br><br>
 
-, and communicate with ESP32 via SPI. <br>
+<b>Serial Peripheral Interface Communication between ESP and MPC Chip</b><br>
+
+The MCP chip communicates with the ESP32 via the Serial Peripheral Interface (SPI).<br>
+The basic SPI communication is between one master and one slave and we will use this for this pset since we only have one MPC chip (slave) connected to one master (ESP), but one master can also send to multiple slaves.<br><br>
+
+<img src="images/pset2/spi-mosi-miso.png" width="300px"><br><br>
+
+Broken down, the SPI interface consists of the following pins:<br>
+<b>MOSI:</b> line for the master to send data to the slave.<br>
+<b>MISO:</b> line for the slave to send data to the master.<br>
+<b>SCK:</b> line for the clock signal.<br>
+<b>NSS/CS:</b> line for the master to select which slave to send the data to. <br>
 
 
-The pinout of the MCP3008 chip and circuit schematic are shown down below: <br>
-<img src="images/pset2/MCP3008-pinout.png" width="200px">
+<span style="color:red">(please explain what SPI is and how it is represented on our MCP component, i.e. its pins).</span><br><br>
+
+<!-- One bit of data is transferred during each clock cycle.<br>
+SPI communication is always initiated by the master since the master configures and generates the clock signal.<br>
+The clock signal in SPI can be modified using the properties of clock polarity and clock phase.
+ -->
+
+The pinout of the MCP3008 chip is shown below. <br>
+The CH channels are the inputs from your multi-touch pad. You can have up to 8 inputs (CH0-CH7).<br>
+VDD is connected to the 3.3V of the ESP.<br>
+DGND is connected to GND on the ESP.<br>
+<span style="color:red">what are VRef and AGND for?</span><br><br>
+
+
+
+
+<span style="color:red">CLK is the clock signal.</span><br>
+<span style="color:red">what are the remaining pins?</span><br><br>
+
+<img src="images/pset2/MCP3008-pinout.png" width="200px"><br><br>
+
+
+and circuit schematic are shown down below:<br>
 <img src="images/pset2/mcp3008-schematic.png" width="500px"> <br><br>
 
 You will also find the following ESP32 pinout useful for identifying SPI pins: <br>
