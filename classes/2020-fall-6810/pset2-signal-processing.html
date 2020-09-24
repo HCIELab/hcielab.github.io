@@ -161,16 +161,34 @@ You can test if you have the correct signal via an oscilloscope. <br><br>
 
 <h3>(2) Configure the channel select for Multiplexer</h3>
 
-Next, we will write up the channel select function for multiplexer. <br>
-You should first identify the appropriate GPIO pins for the multiplexer select pins (S0 - S3), and set the correct PinMode. <br><br>
+Next, we will write up the channel select function for the multiplexer that determines to which pin the signal is output. <br><br>
 
-Then you should fill out the "<b>selectChannelOut(int channel)</b>" function in the skeleton code. <br>
+<b>Refresher from pset1</b><br>
+Remember that the multiplexer in 'de-multiplex' mode takes the signal from one sender pin on the ESP and distributes it to the different sender columns on your multi-touch pad.<br>
+Below is the image from pset1 again for your reference.<br><br>
+
+<img src="images/pset1/mux-and-demux.jpg" width="500px"> <br><br>
+
+Also remember that the S0 - S3 pins are used to create the address that determines which column pin (C0-C15) the input signal (SIG) should be send to. The image of the multiplexer from pset1 is shown below again for your reference. <br><br>
+
+<img src="images/pset1/multiplexer-no-headers.png" width="150px"><br><br>  
+
+To tell the multiplexer which pin the output signal should be send to, you need to create the desired output address using the four pins S0-S3. Why four pins? The multiplexer expects a binary signal, e.g. sending 0,0,0,0 to S0-S3 results in the output pin C0, vs. 0,1,1,0 sends the signal to C6.<br><br>
+
+<b>Let's create the multiplexer addressing in code</b><br>
+
+First, check which pins your multiplexer is wired to.<br>
+In particular, you need the GPIO pin numbers for the multiplexer's S0 - S3 pins.<br>
+Create the digital pins in your Arduino code and set the correct PinMode. <br><br>
+
+Next, fill out the "<b>selectChannelOut(int channel)</b>" function in the skeleton code. <br>
 <img src="images/pset2/select-channel-mux.png" width="450px"> <br>
 
-The function will take an int for channel number (0 - 7), and and assign the correct bit values to the 4 select pins (S0 - S3). <br><br>
+The function takes an int for channel number and assigns the correct bit values to the 4 select pins (S0 - S3). <br>
+Since our multi-touch pad is 8x9 electrodes, <span style="color:red">the channel numbers are either 0-7 or 0-8 depending on which dimension you chose for sending</span>.<br><br>
 
-You can test if the function work properly by assigning specific output channel number and test the value on the select output channel to see if it is assigned with the signal. <br>
-You can test that by an oscilloscope or a multimeter. <br><br>
+You can test if the function works properly by assigning specific output channel number and <span style="color:red">test the value on the select output channel to see if it is assigned with the signal. (what do you mean? on the hardware? in the terminal?)<br>
+You can test that by an oscilloscope or a multimeter. </span> <br><br>
 
 <h3>(3) Set up the ADC pins with MCP3008 chip and SPI </h3>
 Now that we will move onto the "Receiving" part of the circuit! <br>
