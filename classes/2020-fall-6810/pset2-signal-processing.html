@@ -191,21 +191,31 @@ You can test if the function works properly by assigning specific output channel
 You can test that by an oscilloscope or a multimeter. </span> <br><br>
 
 <h3>(3) Receiving: Set up the ADC pins with MCP3008 chip and SPI </h3>
-Now that we will move onto the "Receiving" part of the circuit! <br>
-Recall the circuit schematics from PSet1: <br>
+
+Now that we have the sending all setup, you can move onto the "Receiving" part of the circuit.<br><br>
+
+<b>Refresher from pset1</b><br>
+
+Recall the circuit schematic from PSet1. <br>
+In the schematic, all receiver rows (RX) are connected to analog-to-digital converter (ADC) pins. <br>
 <img src="images/pset1/multitouch-schematic-receiving.png" width="600px"> <br><br>
 
-In the schematics, we have all the receiver pins (RXn) connected to ADC (analog to digital converter) pins. <br>
+In pset1, you already connected all your receiver rows to such pins, <span style="color:red">i.e. to either an analog-to-digital (ADC) converter pin or to a capacitive touch sensing pin (TOUCH) (which is also an ADC pin but provides a cleaner signal).</span><br><br>
+
+<img src="images/esp32-pinout.jpg" width="500px"> <br><br>
+
+<span style="color:red">(can you add why we need to analog to digital conversion? is this because of the PWM signal?)</span><br><br>
+
+<b>Replacing the ADC pins</b><br>
+
+Unfortunately, the ESP32 ADC/TOUCH pins are only reliable in the middle of the ESP's voltage range (~0.5V to maybe 3.0V) but not at the lower and upper ends of the range. Our touch sensing circuit functions <span style="color:red">at the lower range, i.e. mostly between XXV and YYV</span>. Even worse, because we use <span style="color:red">XXX to get YY working</span>, we end up with <span style="color:red">negative voltages on the ADC pins</span>, which are completely out of the spec of the ESP32's ADC inputs. <span style="color:red">(put back when clear how that relates to the rest: Since we are practically generating an AC signal with the PWM, plus the capacitive coupling effect between breadboard channels and wires under high frequency signal</span>). Under these circumstances, the signal will behave non-linearly and would require a lot of calibration. You could fix this by adding rectification circuits and amplifiers before having the signal go into the ADC pin, but that is quite some extra effort. For our purposes, it is therefore easier to not use the ESP ADC pins and instead use another ADC component that can work well within the Voltage range we use for the multi-touch pad.<br><br>
+
+<b>Wiring up the new ADC Component</b><br>
 
 Notice that we have ADC pins on ESP32, however, we are going to use external ADC channels from the <a href="https://www.adafruit.com/product/856">MCP3008 </a> chip, and communicate with ESP32 via SPI. <br>
 You can find the datasheet for MCP3008 <a href="https://cdn-shop.adafruit.com/datasheets/MCP3008.pdf">here</a>.<br><br>
 
-The reason for that is althrough the ESP32's ADC is extremely reliable in the middle of its range (~0.5V to maybe 3.0V), while at the extremes of its range, it is non-linear and without proper calibration behaves poorly. <br>
-Since we are practically generating an AC signal with the PWM, plus the capacitive coupling effect between breadboard channels and wires under high frequency signal, we will end up with some negative voltages on the ADC pins, which are out of spec of the ESP32's ADC inputs. <br><br>
 
-You could make the ESP32 work with this by adding rectification circuits and amplifiers before going into the ADC, but then you have to build it.  It is easier to use another ADC that can work in this regime. <br><br>
-
-This is better in terms of scalability as well, since you can connect multiple ADC chips with SPI simultaneously, which allows us to arbirarily add more ADCs using a common SPI bus (so 4 pins gives 8 ADC channels and 5 pins gives 16 etc.).<br><br>
 
 The pinout of the MCP3008 chip and circuit schematic are shown down below: <br>
 <img src="images/pset2/MCP3008-pinout.png" width="200px">
@@ -218,6 +228,9 @@ Once you have the circuit build up, you can download the MCP3008 library and con
 <img src="images/pset2/mcp3008-library.png" width="500px"> <br><br>
 
 You can check if the ADC channels working properly on the MCP3008 by connecting a signal (e.g. 3.3V, random output pin on ESP32 set to HIGH etc.) to MCP3008 channels and see if the reading make sense. <br><br>
+
+This is better in terms of scalability as well, since you can connect multiple ADC chips with SPI simultaneously, which allows us to arbirarily add more ADCs using a common SPI bus (so 4 pins gives 8 ADC channels and 5 pins gives 16 etc.).<br><br>
+
 
 <h3>(4) Read and record analog signals from receiver pins in Serial channel </h3>
 Now that you can fill the "<b>loop()</b>" function and do the actual sensing! <br>
@@ -248,6 +261,8 @@ If you open up the Serial Plotter, it should have something look like following 
 And something look like these when touched & released (visually noticeable changes in raw value plot): <br>
 <img src="images/pset2/multi-touch-pad-touch-1.png" width="350px">
 <img src="images/pset2/multi-touch-pad-touch-2.png" width="350px">
+
+
 
 <br>
 
