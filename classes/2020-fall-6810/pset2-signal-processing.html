@@ -97,12 +97,15 @@ Open the skeleton code and create the PWM signal in the <b>setupPWM()</b> functi
 
 <b>Configuring the PWM Signal</b><br>
 First, you need to tell Arduino how you want to configure the PWM signal using the ledcSetup() function.<br>
-You may be confused about the function name since we are not using LEDs. While the LED control (LEDC) peripheral is primarily designed to control the intensity of LEDs, it can also be used to generate PWM signals for other purposes. <br>
+You may be confused about the function name since we are not using LEDs. While the LED control (LEDC) peripheral is primarily designed to control the intensity of LEDs, it can also be used to generate PWM signals for other purposes. <br><br>
 
 <pre>ledcSetup(PWM_Channel_Number, Frequency, duty_resolution)</pre>
-You need to set the parameters to <span style='color:red'>XX for PWM_Channel_Number, YY for Frequency, and ZZ for duty_resolution.</span>.<br><br>
 
-It has 16 channels which can generate independent waveforms that can be used, for example, to drive RGB LED devices.
+<i>PWM Channel Number:</i> The LEDC peripheral has 16 channels which can generate independent waveforms (note that these are NOT pin numbers on the ESP, but internal channels inside the ESP). One group of LEDC channels operates in high speed mode. The other group of channels operate in low speed mode. For our purposes, we need a high-speed channel and therefore set the PWM Channel number to <span style='color:red'>XX</span>.<br><br>
+
+<i>Frequency:</i> For the frequency, we use 4MHz, i.e. 40,000,000.<br><br>
+
+<i>Duty Resolution:</i> The duty cycle is defined as the percentage of the period for which the signal is "high". For example, a signal that has a 50% duty cycle is high for one half of the period and low for the other half (see image again above). The duty resolution determines how long we can turn the signal on/off. It can be between 1-16 bits. If we only use 1bit, we can only we simply want to turn it on and off, <span style="color:red">we can use 1 bit here.</span>.<br><br>
 
 <b>Specifying the Output Pin of the PWM Signal</b><br>
 Next, you need to specify on which pin number the signal should appear. Remember that this is the pin that goes from the ESP to the multiplexer's SIG pin: <br>
@@ -115,17 +118,7 @@ Finally, you need to generate the actual PWM signal, which you had previously de
 
 <span style="color:red">You can test if you have the correct signal via an oscilloscope.</span> <br><br>
 
-
-1. First, you need to choose a PWM channel. There are 16 channels from 0 to 15. <br>
-2. Then, you need to set the PWM signal frequency, in our case 4 MHz. <br>
-3. You also need to set the signal’s duty cycle resolution. you have resolutions from 1 to 16 bits. <br>
-4. Next, you need to specify to which GPIO or GPIOs the signal will appear upon (don't forget to set the correct PinMode). <br>
-5. Generate the PWM signal with a duty cycle value. <br><br>
-
-
-For step 1-3, you can use the following function: <br>
-<pre>ledcSetup(PWM_Channel_Number, Frequency, duty_resolution)</pre>
-
+<span style="color:red">integrate above:</span>
 Notice that the frequency and duty resolution of the PWM signal has an inverse effect on each other. <br>
 The ESP32's clock is 80 MHz, and the duty resolution can be lowered down to 1 bit in which case the maximum frequency is 40 MHz, but only the duty of 50% is available. <br>
 The available duty levels are <b>(2^bit_num)-1</b>, where bit_num can be 1-15. <br>
@@ -165,7 +158,7 @@ So to have a square wave, we will have to turn on/off. We need to match 10MHz, s
 
 
 
-The ESP32's default clock is 80 MHz.<br>
+<!-- The ESP32's default clock is 80 MHz.<br> -->
 <!-- 
 We know that in the frequency ranges from 100 kHz to 40 MHz the electric field around the body behaves as a quasi-static near-field. <br>
 We will have a TX electrode transmits a signal in the MHz range, and in this frequency range, the quasi-static electric field allows for strong capacitive coupling between the TX electrode, the finger, and the RX electrode. <br>
@@ -174,7 +167,7 @@ Simply put, the finger can be considered a conductor that couples both electrode
  -->
 
 
-, and the duty resolution can be lowered down to 1 bit in which case the maximum frequency is 40 MHz, but only the duty of 50% is available. <br>
+<!-- , and the duty resolution can be lowered down to 1 bit in which case the maximum frequency is 40 MHz, but only the duty of 50% is available. <br> -->
 
 
 <!-- 
