@@ -87,7 +87,7 @@ We can generate voltages in-between 0V and 3.3V by switching the signal between 
 
 <img src="images/pset2/pwm-explanation.png" width="450px"> <br><br>
 
-<b>Our PWM Signal: 4 MHz, 25% Duty Cycle</b><br>
+<b>Our PWM Signal</b><br>
 The signal that we are generating for the sender pin is <b>4 MHz, 25% Duty Cycle</b>. <br>
 We will spare you the details why exactly we need this PWM signal since this falls under more advanced electronics.<br><br>
 
@@ -95,14 +95,21 @@ Open the skeleton code and create the PWM signal in the <b>setupPWM()</b> functi
 
 <img src="images/pset2/setup-pwm.png" width="450px"> <br><br>
 
+<b>Configuring the PWM Signal</b><br>
 First, you need to tell Arduino how you want to configure the PWM signal using the ledcSetup() function.<br>
+You may be confused about the function name since we are not using LEDs. While the LED control (LEDC) peripheral is primarily designed to control the intensity of LEDs, it can also be used to generate PWM signals for other purposes. <br>
+
 <pre>ledcSetup(PWM_Channel_Number, Frequency, duty_resolution)</pre>
 You need to set the parameters to <span style='color:red'>XX for PWM_Channel_Number, YY for Frequency, and ZZ for duty_resolution.</span>.<br><br>
 
+It has 16 channels which can generate independent waveforms that can be used, for example, to drive RGB LED devices.
+
+<b>Specifying the Output Pin of the PWM Signal</b><br>
 Next, you need to specify on which pin number the signal should appear. Remember that this is the pin that goes from the ESP to the multiplexer's SIG pin: <br>
 <pre>ledcAttachPin(GPIO_PIN, PWM_Channel_Number) </pre> <br>
-<span style="color:red">Don't forget to set the correct PinMode. (where would I find this?)</span> <br>
+<span style="color:red">Don't forget to set the correct PinMode. (where would I find this?)</span> <br> <br>
 
+<b>Generating the PWM Signal on the Output Pin</b><br>
 Finally, you need to generate the actual PWM signal, which you had previously defined with the ledcSetup() function.<br>
 <pre>ledcWrite(PWM_Channel_Number, DUTY_CYCLE): </pre> <br>
 
