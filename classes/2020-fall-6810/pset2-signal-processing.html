@@ -91,7 +91,24 @@ We can generate voltages in-between 0V and 3.3V by switching the signal between 
 The signal that we are generating for the sender pin is <b>4 MHz, 25% Duty Cycle</b>. <br>
 We will spare you the details why exactly we need this PWM signal since this falls under more advanced electronics.<br><br>
 
-Open the skeleton code and create the PWM signal by following the steps below.<br>
+Open the skeleton code and create the PWM signal in the <b>setupPWM()</b> function by following the steps below.<br><br>
+
+<img src="images/pset2/setup-pwm.png" width="450px"> <br><br>
+
+First, you need to tell Arduino how you want to configure the PWM signal using the ledcSetup() function.<br>
+<pre>ledcSetup(PWM_Channel_Number, Frequency, duty_resolution)</pre>
+You need to set the parameters to <span style='color:red'>XX for PWM_Channel_Number, YY for Frequency, and ZZ for duty_resolution.</span>.<br><br>
+
+Next, you need to specify on which pin number the signal should appear. Remember that this is the pin that goes from the ESP to the multiplexer's SIG pin: <br>
+<pre>ledcAttachPin(GPIO_PIN, PWM_Channel_Number) </pre> <br>
+<span style="color:red">Don't forget to set the correct PinMode. (where would I find this?)</span> <br>
+
+Finally, you need to generate the actual PWM signal, which you had previously defined with the ledcSetup() function.<br>
+<pre>ledcWrite(PWM_Channel_Number, DUTY_CYCLE): </pre> <br>
+
+<span style="color:red">You can test if you have the correct signal via an oscilloscope.</span> <br><br>
+
+
 1. First, you need to choose a PWM channel. There are 16 channels from 0 to 15. <br>
 2. Then, you need to set the PWM signal frequency, in our case 4 MHz. <br>
 3. You also need to set the signal’s duty cycle resolution. you have resolutions from 1 to 16 bits. <br>
@@ -108,18 +125,8 @@ The available duty levels are <b>(2^bit_num)-1</b>, where bit_num can be 1-15. <
 The maximal frequency is <b>80000000 / 2^bit_num</b>. <br>
 We will let you figure out the correct values for those parameters :) <br><br>
 
-For step 4, you can use the following function: <br>
-<pre>ledcAttachPin(GPIO_PIN , PWM_Channel_Number) </pre> <br>
 
-For step 5, you can use the following function: <br>
-<pre>ledcWrite(PWM_Channel_Number, DUTY_CYCLE): </pre> <br>
 
-The code should be inside of the "<b>setupPWM()</b>" function in the skeleton code. <br>
-<img src="images/pset2/setup-pwm.png" width="450px"> <br>
-
-You can test if you have the correct signal via an oscilloscope. <br><br>
-
-<span style='color:red'>Setting SIG on multiplexer.</span><br><br>
 
 <!-- 
 <h4>Programming the PWM Signal</h4>
