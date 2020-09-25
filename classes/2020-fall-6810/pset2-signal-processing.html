@@ -159,6 +159,8 @@ The code should be inside of the "<b>setupPWM()</b>" function in the skeleton co
 
 You can test if you have the correct signal via an oscilloscope. <br><br>
 
+<span style='color:red'>Setting SIG on multiplexer.</span><br><br>
+
 <h3>(2) Sending: Configure the Channel Selection for the Multiplexer</h3>
 
 Next, we will write up the function that determines to which pin the multiplexer will send the signal as output. <br><br>
@@ -182,13 +184,17 @@ In particular, you need the GPIO pin numbers for the multiplexer's S0 - S3 pins.
 Create the digital pins in your Arduino code and set the correct PinMode. <br><br>
 
 Next, fill out the "<b>selectChannelOut(int channel)</b>" function in the skeleton code. <br>
-<img src="images/pset2/select-channel-mux.png" width="450px"> <br>
+<img src="images/pset2/select-channel-mux.png" width="450px"> <br><br>
 
 The function takes an int for channel number and assigns the correct bit values to the 4 select pins (S0 - S3). <br>
-Since our multi-touch pad is 8x9 electrodes, <span style="color:red">the channel numbers are either 0-7 or 0-8 depending on which dimension you chose for sending</span>.<br><br>
+Since our multi-touch pad is 8x9 electrodes in size and 9 is the number of sender lines, the channel numbers are 0-8.<br>
+Don't forget to use digitalWrite to write the correct value to each of the S0-S3 pins after you determined if they should be 0 or 1.<br><br>
 
-You can test if the function works properly by assigning specific output channel number and <span style="color:red">test the value on the select output channel to see if it is assigned with the signal. (what do you mean? on the hardware? in the terminal?)<br>
-You can test that by an oscilloscope or a multimeter. </span> <br><br>
+You can test if your channel selection function works properly in the following way: First, choose an output pin for testing from the C0-C8 output pins and set it in your function. Next, use a multimeter to measure if the channel actually receives any voltage. Note that this is different than measuring resistance. Therefore, you need to set the multimeter into 'V' mode for measuring voltage, and then measure on the output pin and on GND. You should see 3.3V in the display. If you see 0, no voltage is applied and you need to further debug your code to figure out why the pin is not receiving the signal.<br><br>
+
+<img src="images/pset2/multimeter-v.png" width="250px"> <br><br>
+
+
 
 <h3>(3) Receiving: External ADC pins and SPI Communication</h3>
 
