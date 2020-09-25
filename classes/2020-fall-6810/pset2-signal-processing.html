@@ -281,6 +281,10 @@ Once the channel is open, you can read a the signal from one of the input channe
 If you serial print the result, you should see your analog signal coming through as if you had connected the channel input directly to the ESP.<br>
 Note that you do not have to specify which pins the ESP should be using for the SPI communication since it already knows this from its own pinout, which only has one pin per SPI MISO line.<br><br>
 
+<span style="color:red">do I not need to set the GPIO pin for the slave number?</span><br>
+<span style="color:red">do we even need the MOSI line? if yes, for what?</span><br>
+<span style="color:red">do we even need the CLK line? if yes, where is this set?</span><br><br>
+
 <b>Testing your Code</b><br>
 
 You can check if the SPI communication with the ADC channels works properly by doing the following:<br>
@@ -288,15 +292,20 @@ Connect a 3.3V output pin from the ESP to one of the MCP3008 CH input channels a
 You should see a signal there around 1000. If you see 0 nothing is coming through and it needs further debugging.<br><br>
 
 
-<h3>(4) Read and record analog signals from receiver pins in Serial channel </h3>
-Now that you can fill the "<b>loop()</b>" function and do the actual sensing! <br>
+<h3>(4) Receiving: Read and record analog signals from receiver pins in Serial channel</h3>
+
+Now that we have our new ADC pins setup and are getting a better signal, we can start reading the signal and determine the result of the user interaction with the multi-touch pad, i.e. where the user touched.<br><br>
+
+In particular, we will fill the "<b>loop()</b>" function with more lines. <br><br>
 <img src="images/pset2/loop-function.png" width="500px"> <br><br>
 
-You should read through the receiver pins periodically like following:
+Remember, that we want to first send a signal through one column, then read each row of the multi-touch pad one after another, and then continue to the next column. <br><br>
+
+You can do this in code in the following way:<br>
 <ul>
-	<li>assign one output channel (sender pin) through the Multiplexer </li>
-	<li>read through the receiver pins one by one through MCP3008 via SPI</li>
-	<li>move on to the next output channel (sender pin) and repeat</li>
+	<li>first, send a signal to the output channel of the Multiplexer that corresponds to the first column of your multi-touch pad</li>
+	<li>next, read through the receiver pins one by one through the MCP3008 chip via SPI</li>
+	<li>next, move on to the output channel that corresponds to the next column of your multi-touch pad and repeat</li>
 </ul> <br>
 
 You should serial print the data in the following format: <br>
