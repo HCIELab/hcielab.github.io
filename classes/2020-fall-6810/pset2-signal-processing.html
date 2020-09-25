@@ -184,7 +184,8 @@ In particular, you need the GPIO pin numbers for the multiplexer's S0 - S3 pins.
 Create the digital pins in your Arduino code and set the correct PinMode. <br><br>
 
 Next, fill out the "<b>selectChannelOut(int channel)</b>" function in the skeleton code. <br>
-<img src="images/pset2/select-channel-mux.png" width="450px"> <br><br>
+<img src="images/pset2/select-channel-mux.png" width="450px"> <br>
+<span style="color:red">rename mux to multiplexer in comments</span><br><br>
 
 The function takes an int for channel number and assigns the correct bit values to the 4 select pins (S0 - S3). <br>
 Since our multi-touch pad is 8x9 electrodes in size and 9 is the number of sender lines, the channel numbers are 0-8.<br>
@@ -194,6 +195,7 @@ You can test if your channel selection function works properly in the following 
 
 <img src="images/pset2/multimeter-v.png" width="250px"> <br><br>
 
+Note that in the code, there is a delay function. You may need to adjust the delay slightly depending on the amoung of capacitive coupling your specific design has. <span style="color:red">(Junyi if you can explain this a bit more detailed what that is and why that'd be great.)</span><br><br>
 
 
 <h3>(3) Receiving: External ADC pins and SPI Communication</h3>
@@ -202,11 +204,11 @@ Now that we have the sending all setup, you can move onto the "Receiving" part o
 
 <b>Refresher from pset1</b><br>
 
-Recall the circuit schematic from PSet1. <br>
+Recall the circuit schematic from pset1. <br>
 In the schematic, all receiver rows (RX) are connected to analog-to-digital converter (ADC) pins. <br>
 <img src="images/pset1/multitouch-schematic-receiving.png" width="600px"> <br><br>
 
-In pset1, you already connected all your receiver rows to such pins, <span style="color:red">i.e. to either an analog-to-digital (ADC) converter pin or to a capacitive touch sensing pin (TOUCH) (which is also an ADC pin but provides a cleaner signal).</span><br><br>
+In pset1, you already connected all your receiver rows to such pins, i.e. to either an analog-to-digital (ADC) converter pin or to a capacitive touch sensing pin (TOUCH), which is also an ADC pin but provides a cleaner signal as you can see in the pinout below.<br><br>
 
 <img src="images/esp32-pinout.jpg" width="500px"> <br><br>
 
