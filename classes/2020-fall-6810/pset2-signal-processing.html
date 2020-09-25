@@ -62,12 +62,10 @@
 Now that you have the hardware ready, you will write some code for the sensing part of your multi-touch pad. In particular, you are going to do the following four steps:
 
 <ul>
-	<li>(1) Generate the appropriate PWM signal for the sender pin that is connected to the Multiplexer </li>
-	<li>(2) Configure the Multiplexer to select the right output channel for sending the signal to the appropriate column of your multi-touch pad </li>
-	<li>(3) Set up the ADC pins with the MCP3008 chip and SPI </li>
-<!-- 	<li>(1) Identify the GPIO pin configurations and assign corresponding PinMode</li>
-	<li>(2) Generate appropriate PWM signal and assign to sender pins</li> -->
-	<li>(4) Read and record analog signals from receiver pins in Serial channel</li>
+	<li>(1) Generate the appropriate PWM signal for the sender pin. Send the PWM signal from the sender pin to the multiplexer.</li>
+	<li>(2) Configure the Multiplexer to select the right output channel to forward the PWM signal to the appropriate column of your multi-touch pad.</li>
+	<li>(3) For receiving, replace the ESP ADC pins with external ADC pins by wiring up the MCP3008 chip. Read data from the external ADC pins via Serial Peripheral Interface (SPI) communication.</li>
+	<li>(4) Iterate over each column and row to read the signals and plot them on the serial plotter.</li>
 	<!-- <li>(4) Add the "button" mode and record the data in Serial channel</li> -->
 </ul>
 <br>
