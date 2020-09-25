@@ -308,28 +308,35 @@ You can do this in code in the following way:<br>
 	<li>next, move on to the output channel that corresponds to the next column of your multi-touch pad and repeat</li>
 </ul> <br>
 
-You should serial print the data in the following format: <br>
-<pre>sender-channel-num0,receiver-ch0-val,receiver-ch1-val,receiver-ch2-val,...,receiver-ch7-val
-sender-channel-num1,receiver-ch0-val,receiver-ch1-val,receiver-ch2-val,...,receiver-ch7-val
-......</pre> <br>
-
+Serial print the data in the format: columm0, row0val, row1val, row2val...<br>
 A sample serial output could be: <br>
 <pre>
-0,3,2,1,3,4,5,2,4
-1,4,3,5,1,3,7,5,2
+0,3,2,1,3,4,5,2,4 //column0, row0val, row1val, row2val...
+1,4,3,5,1,3,7,5,2 //column1, row0val, row1val, row2val...
 ...
 </pre> <br>
+<span style="color:red">are these real outputs? these look fake except for the column number?</span><br><br>
 
-If you open up the Serial Plotter, it should have something look like following when the multi-touch pad is not touched: <br>
+<!-- <pre>sender-channel-num0,receiver-ch0-val,receiver-ch1-val,receiver-ch2-val,...,receiver-ch7-val
+sender-channel-num1,receiver-ch0-val,receiver-ch1-val,receiver-ch2-val,...,receiver-ch7-val
+......</pre> <br>
+ -->
+<!-- <pre>sender-channel-num0,receiver-ch0-val,receiver-ch1-val,receiver-ch2-val,...,receiver-ch7-val
+sender-channel-num1,receiver-ch0-val,receiver-ch1-val,receiver-ch2-val,...,receiver-ch7-val
+......</pre> <br>
+ -->
+
+
+If you open up the Serial Plotter, it should have something look like following when the multi-touch pad is not touched, i.e. all values are roughly the same height. <br>
 <img src="images/pset2/multi-touch-pad-not-touch.png" width="350px"> <br><br>
 
-And something look like these when touched & released (visually noticeable changes in raw value plot): <br>
+It should look like this when touched and released, i.e. there is a spike in the raw value plot. <br>
 <img src="images/pset2/multi-touch-pad-touch-1.png" width="350px">
-<img src="images/pset2/multi-touch-pad-touch-2.png" width="350px">
+<img src="images/pset2/multi-touch-pad-touch-2.png" width="350px"><br><br>
 
+If you see it like this, you are done.<br>
+We will do the visualization and further processing of the touch signal in pset3.<br><br>
 
-
-<br>
 
 <h3>Grading</h3>
 
