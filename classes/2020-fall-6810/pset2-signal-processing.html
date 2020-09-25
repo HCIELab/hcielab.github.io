@@ -101,32 +101,22 @@ You may be confused about the function name since we are not using LEDs. While t
 
 <pre>ledcSetup(PWM_Channel_Number, Frequency, duty_resolution)</pre>
 
-<i>PWM Channel Number:</i> The LEDC peripheral has 16 channels which can generate independent waveforms (note that these are NOT pin numbers on the ESP, but internal channels inside the ESP). One group of LEDC channels operates in high speed mode. The other group of channels operate in low speed mode. For our purposes, we need a high-speed channel and therefore set the PWM Channel number to <span style='color:red'>XX</span>.<br><br>
+<i>PWM Channel Number:</i> The LEDC peripheral has 16 channels which can generate independent waveforms (note that these are NOT pin numbers on the ESP, but internal channels inside the ESP). One group of LEDC channels operates in high speed mode. The other group of channels operate in low speed mode. For our purposes, we need a high-speed channel and therefore set the PWM Channel number to <span style='color:red'>XX (do I just choose whatever I want?)</span>.<br><br>
 
 <i>Duty Resolution:</i> The duty <b>cycle</b> is defined as the percentage of the period for which the signal is "high". For example, a signal that has a 50% duty cycle is high for one half of the period and low for the other half (see image again above). In our case, we want to use a duty cycle of 25%. So how is this represented in the duty <b>resolution</b>? The duty resolution defines how many different duty cycles you can choose from when you generate the PWM signal from a pin. It is defined as a number of bits and can be from 1-16 bits. The bits tell you how many different duty cycle options you will have avaible to use in your PWM signal. For instance, if you set the duty resolution to 4 bit you will have up to 16 different values for the duty cycle. This means, you can generate duty cycles of 6.25%, 12.5%, 18.75%, 25%, 31.25%.... 100% (100%/16 values). This is more than we need. What is the smallest bit value you need to be able to create a 25% duty cycle? Determine it and use it in the function.<br><br>
 
-<i>Frequency:</i> For the frequency, we use 4MHz, i.e. 40,000,000.<br> (The higher the PWM frequency, the lower duty resolution is available, and vice versa.)<br> 
+<i>Frequency:</i> The reason you should only use the duty resolution that you need is that it directly affects the PWM frequencies that are available to use. The higher the duty resolution, the lower the available PWM frequencies. In our case, we need to generate a high-frequency signal for the multi-touch sensing, so we really want to keep the duty resolution as small as possible. The ESP32's default clock is 80 MHz. The maximal frequency the ESP can do is it's default clock cycle divided by the number of bits. What is your result? <span style="color:red">(80,000,000/4 = 20,000,000? so why is this not 4MHz but 2MHz?)</span>.</br><br>
 
 <b>Specifying the Output Pin of the PWM Signal</b><br>
-Next, you need to specify on which pin number the signal should appear. Remember that this is the pin that goes from the ESP to the multiplexer's SIG pin: <br>
+Next, you need to specify on which pin number the signal should appear. Remember that this is the pin that goes from the ESP to the multiplexer's SIG pin. The PWM channel number is the same as above. <br>
 <pre>ledcAttachPin(GPIO_PIN, PWM_Channel_Number) </pre> <br>
 <span style="color:red">Don't forget to set the correct PinMode. (where would I find this?)</span> <br> <br>
 
 <b>Generating the PWM Signal on the Output Pin</b><br>
-Finally, you need to generate the actual PWM signal, which you had previously defined with the ledcSetup() function.<br>
+Finally, you need to generate the actual PWM signal, which you had previously defined with the ledcSetup() function. The PWM channel number is the same as above. <span style="color:red">Note that here you have to enter the duty cycle, not the duty resolution.</span><br>
 <pre>ledcWrite(PWM_Channel_Number, DUTY_CYCLE): </pre> <br>
 
 <span style="color:red">You can test if you have the correct signal via an oscilloscope.</span> <br><br>
-
-<span style="color:red">integrate above:</span>
-Notice that the frequency and duty resolution of the PWM signal has an inverse effect on each other. <br>
-The ESP32's clock is 80 MHz, and the duty resolution can be lowered down to 1 bit in which case the maximum frequency is 40 MHz, but only the duty of 50% is available. <br>
-The available duty levels are <b>(2^bit_num)-1</b>, where bit_num can be 1-15. <br>
-The maximal frequency is <b>80000000 / 2^bit_num</b>. <br>
-We will let you figure out the correct values for those parameters :) <br><br>
-
-
-
 
 <!-- 
 <h4>Programming the PWM Signal</h4>
