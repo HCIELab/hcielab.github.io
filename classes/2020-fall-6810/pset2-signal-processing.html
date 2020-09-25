@@ -278,13 +278,14 @@ As you can see in the simpletest example, you need to first include the library 
 After this, you need to declare an object of the library.<br>
 Next, you need to open the communication channel with begin() in the setup function.<br>
 Once the channel is open, you can read a the signal from one of the input channels CH0-CH7 using the readADC(channelnumber) function.<br>
-If you serial print the result, you should see your analog signal coming through as if you had connected the channel input directly to the ESP.<br><br>
+If you serial print the result, you should see your analog signal coming through as if you had connected the channel input directly to the ESP.<br>
+Note that you do not have to specify which pins the ESP should be using for the SPI communication since it already knows this from its own pinout, which only has one pin per SPI MISO line.<br><br>
 
 <b>Testing your Code</b><br>
 
-You can check if the ADC channels work properly in the following way:<br>
-Connect a 3.3V output pin from the ESP to one of the MCP3008 input channels and <span style="color:red">plot the result on the Serial Plotter.</span><br>
-You should see <span style="color:red">what should we see?</span>.<br><br>
+You can check if the SPI communication with the ADC channels works properly by doing the following:<br>
+Connect a 3.3V output pin from the ESP to one of the MCP3008 CH input channels and plot the result on the Serial Plotter.<br>
+You should see a signal there around 1000. If you see 0 nothing is coming through and it needs further debugging.<br><br>
 
 
 <h3>(4) Read and record analog signals from receiver pins in Serial channel </h3>
