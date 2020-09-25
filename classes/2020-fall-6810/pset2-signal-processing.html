@@ -70,42 +70,27 @@ Now that you have the hardware ready, you will write some code for the sensing p
 </ul>
 <br>
 
-<h3>(1) Generate appropriate PWM signal </h3>
+<h3>Skeleton Code</h3>
 
-Below, you see the circuit schematic from pset1 again.<br>
-The marked area is the sending circuit.<br>
-You already build this on your breadboard, now we will code up the "Sending" part of the circuit! <br>br>
+Start by downloading <a href="software/pset-skeleton_Arduino.zip">the skeleton code for the PSet2 from  here</a>. <br><br>
+
+<h3>(1) Generate the appropriate PWM signal for the sender pin </h3>
+
+As you can see in the circuit schematic, the first thing we need to do in code is to generate a PWM signal from the sender pin. This PWM signal then goes into the multiplexer and so on.<br><br>
 
 <img src="images/pset1/multitouch-schematic-sending.png" width="600px"> <br><br>
-<br><br>
 
-<h4>Programming the PWM Signal</h4>
+<b>Pulse Width Modulation</b>
+Remember from lab3, that PWM is a technique for getting analog results with digital means. <br>
+The digital control is used to create a signal that is switched between on and off. This on-off pattern can then simulate voltages in-between full on (in our case: 3.3 Volts) and completely off (0 Volts) by changing the portion of the time the signal spends on versus the time that the signal spends off.<br><br>
 
-We will start by generating the PWM signal for the circuit. <br>
-You can download the skeleton code for the PSet2 from <a href="software/pset-skeleton_Arduino.zip"> here</a>. <br><br>
+<img src="images/pset2/pwm-explanation.png" width="450px"> <br><br>
 
-<b>Why do we need a PWM Signal?</b><br>
+<b>Our PWM Signal: 4 MHz, 25% Duty Cycle</b><br>
+The signal that we are generating for the sender pin is <b>4 MHz, 25% Duty Cycle</b>. <br>
+We will spare you the details why exactly we need this PWM signal since this falls under more advanced electronics.<br><br>
 
-For our multi-touch pad to work, we need a signal that looks like a sine wave.<br>
-However, the ESP by default is not able to do this. Instead the only thing that the ESP can generate, is a signal that is a square wave (e.g. by setting a pin to HIGH, then setting it to LOW subsequently).<br>
-
-So how can we generate a square wave that approximates the sign wave that we need best?<br>
-For this, we first need to know, what sign wave to we actually need!<br><br>
-
-The sign wave we need is around 10MHz.<br>
-The reason for this is that in this frequency range the finger can be considered a conductor that couples both electrodes. (We know that in the frequency ranges from 100 kHz to 40 MHz the electric field around the body behaves as a quasi-static near-field. <br>
-We will have a TX electrode transmits a signal in the MHz range, and in this frequency range, the quasi-static electric field allows for strong capacitive coupling between the TX electrode, the finger, and the RX electrode.)<br><br>
-
-So now the question is, how can we make a 10MHz signal based on square waves?<br>
-So one square (pulse-width) actually consists of multiple overlapped sine wave signals of different frequencies. Those are generated with the microcontroller all at the same time with the microcontrollers internal clock, which works at 80 MHz. To generate different signals, the microcontroller has different internal timers that sample the signal at different rates (each time the clock creates a new signal we can change the internal state, so depending on how often the timer samples we get a different signal frequencies) and then overlaid over each other forming the square-signal. The good news is we don't have to do this ourselves, we just give the overall frequency of the square wave and the microcontroller will do all the timer business!<br>
-
-We now know that the square wave is not a square wave but made from a bunch of different sine signals. So first we need to figure out which sine waves make up the square signal. The type of sine waves is determine by the length of the duty cycle (length of square) and the overall frequency.
-
-So to have a square wave, we will have to turn on/off. We need to match 10MHz, so to have half on/off, we need a 50% duty cycle which would be 5MHz. 
-
-
-
-The signal that we are generating for the TX electrodes is <b>4 MHz, 25% Duty Cycle</b>. <br><br>
+To setup this PWM signal in code, start by downloading the skeleton code for the PSet2 from <a href="software/pset-skeleton_Arduino.zip"> here</a>. <br><br>
 
 Here’s the steps you’ll have to follow to set up the ESP32 PWM using the Arduino IDE: <br>
 1. First, you need to choose a PWM channel. There are 16 channels from 0 to 15. <br>
@@ -114,28 +99,6 @@ Here’s the steps you’ll have to follow to set up the ESP32 PWM using the Ard
 4. Next, you need to specify to which GPIO or GPIOs the signal will appear upon (don't forget to set the correct PinMode). <br>
 5. Generate the PWM signal with a duty cycle value. <br><br>
 
-
-
-The ESP32's default clock is 80 MHz.<br>
-<!-- 
-We know that in the frequency ranges from 100 kHz to 40 MHz the electric field around the body behaves as a quasi-static near-field. <br>
-We will have a TX electrode transmits a signal in the MHz range, and in this frequency range, the quasi-static electric field allows for strong capacitive coupling between the TX electrode, the finger, and the RX electrode. <br>
-Simply put, the finger can be considered a conductor that couples both electrodes. <br><br>
-
- -->
-
-
-, and the duty resolution can be lowered down to 1 bit in which case the maximum frequency is 40 MHz, but only the duty of 50% is available. <br>
-
-
-Pulse Width Modulation, or PWM, is a technique for getting analog results with digital means. <br>
-Digital control is used to create a square wave, a signal switched between on and off. This on-off pattern can simulate voltages in between full on (3.3 Volts) and off (0 Volts) by changing the portion of the time the signal spends on versus the time that the signal spends off.<br><br>
-
-<img src="images/pset2/pwm-explanation.png" width="450px"> <br><br>
-<!-- 
-We know that in the frequency ranges from 100 kHz to 40 MHz the electric field around the body behaves as a quasi-static near-field. <br>
-We will have a TX electrode transmits a signal in the MHz range, and in this frequency range, the quasi-static electric field allows for strong capacitive coupling between the TX electrode, the finger, and the RX electrode. <br>
-Simply put, the finger can be considered a conductor that couples both electrodes. <br><br> -->
 
 For step 1-3, you can use the following function: <br>
 <pre>ledcSetup(PWM_Channel_Number, Frequency, duty_resolution)</pre>
@@ -158,6 +121,55 @@ The code should be inside of the "<b>setupPWM()</b>" function in the skeleton co
 You can test if you have the correct signal via an oscilloscope. <br><br>
 
 <span style='color:red'>Setting SIG on multiplexer.</span><br><br>
+
+<!-- 
+<h4>Programming the PWM Signal</h4>
+
+We will start by generating the PWM signal for the circuit. <br>
+ -->
+
+<!-- <b>Why do we need a PWM Signal?</b><br>
+
+For our multi-touch pad to work, we need a signal that looks like a sine wave.<br>
+However, the ESP by default is not able to do this. Instead the only thing that the ESP can generate, is a signal that is a square wave (e.g. by setting a pin to HIGH, then setting it to LOW subsequently).<br>
+
+So how can we generate a square wave that approximates the sign wave that we need best?<br>
+For this, we first need to know, what sign wave to we actually need!<br><br>
+
+The sign wave we need is around 10MHz.<br>
+The reason for this is that in this frequency range the finger can be considered a conductor that couples both electrodes. (We know that in the frequency ranges from 100 kHz to 40 MHz the electric field around the body behaves as a quasi-static near-field. <br>
+We will have a TX electrode transmits a signal in the MHz range, and in this frequency range, the quasi-static electric field allows for strong capacitive coupling between the TX electrode, the finger, and the RX electrode.)<br><br>
+
+So now the question is, how can we make a 10MHz signal based on square waves?<br>
+So one square (pulse-width) actually consists of multiple overlapped sine wave signals of different frequencies. Those are generated with the microcontroller all at the same time with the microcontrollers internal clock, which works at 80 MHz. To generate different signals, the microcontroller has different internal timers that sample the signal at different rates (each time the clock creates a new signal we can change the internal state, so depending on how often the timer samples we get a different signal frequencies) and then overlaid over each other forming the square-signal. The good news is we don't have to do this ourselves, we just give the overall frequency of the square wave and the microcontroller will do all the timer business!<br>
+
+We now know that the square wave is not a square wave but made from a bunch of different sine signals. So first we need to figure out which sine waves make up the square signal. The type of sine waves is determine by the length of the duty cycle (length of square) and the overall frequency.
+
+So to have a square wave, we will have to turn on/off. We need to match 10MHz, so to have half on/off, we need a 50% duty cycle which would be 5MHz. 
+
+ -->
+
+
+
+
+The ESP32's default clock is 80 MHz.<br>
+<!-- 
+We know that in the frequency ranges from 100 kHz to 40 MHz the electric field around the body behaves as a quasi-static near-field. <br>
+We will have a TX electrode transmits a signal in the MHz range, and in this frequency range, the quasi-static electric field allows for strong capacitive coupling between the TX electrode, the finger, and the RX electrode. <br>
+Simply put, the finger can be considered a conductor that couples both electrodes. <br><br>
+
+ -->
+
+
+, and the duty resolution can be lowered down to 1 bit in which case the maximum frequency is 40 MHz, but only the duty of 50% is available. <br>
+
+
+<!-- 
+We know that in the frequency ranges from 100 kHz to 40 MHz the electric field around the body behaves as a quasi-static near-field. <br>
+We will have a TX electrode transmits a signal in the MHz range, and in this frequency range, the quasi-static electric field allows for strong capacitive coupling between the TX electrode, the finger, and the RX electrode. <br>
+Simply put, the finger can be considered a conductor that couples both electrodes. <br><br> -->
+
+
 
 <h3>(2) Sending: Configure the Channel Selection for the Multiplexer</h3>
 
