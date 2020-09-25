@@ -212,15 +212,13 @@ In pset1, you already connected all your receiver rows to such pins, i.e. to eit
 
 <img src="images/esp32-pinout.jpg" width="500px"> <br><br>
 
-<span style="color:red">(can you add why we need to analog to digital conversion? is this because of the PWM signal?)</span><br><br>
-
 <b>Replacing the ADC pins</b><br>
 
-Unfortunately, the ESP32 ADC/TOUCH pins are only reliable in the middle of the ESP's voltage range (~0.5V to maybe 3.0V) but not at the lower and upper ends of the range. Our touch sensing circuit functions <span style="color:red">at the lower range, i.e. mostly between XXV and YYV</span>. Even worse, because we use <span style="color:red">XXX to get YY working</span>, we end up with <span style="color:red">negative voltages on the ADC pins</span>, which are completely out of the spec of the ESP32's ADC inputs. <span style="color:red">(put back when clear how that relates to the rest: Since we are practically generating an AC signal with the PWM, plus the capacitive coupling effect between breadboard channels and wires under high frequency signal</span>). Under these circumstances, the signal will behave non-linearly and would require a lot of calibration. You could fix this by adding rectification circuits and amplifiers before having the signal go into the ADC pin, but that is quite some extra effort. For our purposes, it is therefore easier to not use the ESP ADC pins and instead use another ADC component that can work well within the Voltage range we use for the multi-touch pad.<br><br>
+Unfortunately, the ESP32 ADC/TOUCH pins are only reliable in the middle of the ESP's voltage range (~0.5V to maybe 3.0V) but not at the lower and upper ends of the range. Our touch sensing circuit functions at the lower range <span style="color:red">(why? because we turn it on and off quickly with the PWM so we end up with something between 0-3.3V?</span>. Even worse, because our circuit operates between -0.6V and 1.2V (yes that is a minus), we end up with negative voltages on the ADC pins, which are completely out of the spec of the ESP32's ADC inputs and would create a signal that is non-linear and would require a lot of calibration. The reason we can have negative voltages is because we are practically generating a high-frequency AC signal with the PWM. This creates capacitive coupling between the breadboard channels and wires. To make the ESP ADC pins work with negative voltages, you could add rectification circuits and amplifiers before having the signal go into the ADC pin, but that is quite some extra effort. For our purposes, it is therefore easier to not use the ESP ADC pins and instead use another ADC component that can work well within the Voltage range we use for the multi-touch pad.<br><br>
 
 The component you will use to have better ADC channels is the <a href="https://www.adafruit.com/product/856">MCP3008 </a> chip.<br>
 You can find the datasheet for MCP3008 <a href="https://cdn-shop.adafruit.com/datasheets/MCP3008.pdf">here</a>.<br>
-Before you can wire it up, you need to first learn a bit more about the Serial Peripheral Interface, with which the chip communicates with the ESP.<br>
+Before you can wire it up, you need to first learn a bit more about the Serial Peripheral Interface, with which the chip communicates with the ESP.<br><br>
 
 <img src="images/pset2/adc-pin-chip.png" width="300px"><br><br>
 
@@ -253,24 +251,34 @@ Pins for the SPI interface:<br>
 <b>CLK</b> = SCK, line for clock signal </br>
 <b>CS/SHDN</b> = NSS/CS, line for master to select which slave to talk to</br><br>
 
-<b>VRef:</b> <span style="color:red">what for?</span><br>
-<b>AGND:</b> <span style="color:red">what for?</span><br><br>
+Reference Signal:<br>
+In addition to the communication lines, the SPI communication also needs a reference signal to determine <span style="color:red">(Junyi, remind me what is this good for?)</span>. It can, for instance, be set to 3.3V and to 5V. In our case, we want to set it to 3.3V <span style="color:red">because XX</span>.<br>
+<b>VRef:</b> connect to 3.3V for generating the reference signal<br>
+<b>AGND:</b> connect to GND<br><br>
 
 To figure out how to connect the MOSI, MISO, SCK, NSS pins to the ESP32, you can refer to the pin out below.<br>
 Make sure you are not accidentally using the VSPI or I2C communication pins.<br>
-<span style="color:red">(where is the NSS pin on the pin out?)</span><br><br>
+Remember that the NSS pin is used to select which slave to talk to, so this is a regular GPIO pin for sending a pin number.<br><br>
+
 <img src="images/pset2/esp32-pinout.png" width="750px"> <br><br>
 
 <b>Install MCP3008 Library and Write Code</b><br>
 
 Once you have the circuit build up, download the MCP3008 library.<br>
-To install it it, go to Sketch -> Include Library -> Manage Libraries and search for the MCP3008 library, then install it.<br><br>
+To install it it, go to Sketch -> Include Library -> Manage Libraries and search for the MCP3008 library, then install it.<br>
+To be on the safe side, restart your Arduino IDE.<br><br>
 
 <img src="images/pset2/mcp3008-library.png" width="700px"> <br><br>
 
-Construct and initialize the library in the skeleton code. <br>
-<span style="color:red">(how? do we have a link to the library that shows how to do this?)</span><br>
-<span style="color:red">(is this all? do I not have to code something up for the SPI? select which slave I want to use? select which channel I want to read from?)</span><br><br>
+Go to File -> Examples and look at the bottom where it says 'Examples from Custom Libraries' to find example code that shows how to use the MCP3008 library. We recommend you look at the 'simpletest' example.<br><br>
+
+<img src="images/pset2/mpc-library-examples.png" width="400px"> <br><br>
+
+As you can see in the simpletest example, you need to first include the library on top in the skeleton code.<br>
+After this, you need to declare an object of the library.<br>
+Next, you need to open the communication channel with begin() in the setup function.<br>
+Once the channel is open, you can read a the signal from one of the input channels CH0-CH7 using the readADC(channelnumber) function.<br>
+If you serial print the result, you should see your analog signal coming through as if you had connected the channel input directly to the ESP.<br><br>
 
 <b>Testing your Code</b><br>
 
