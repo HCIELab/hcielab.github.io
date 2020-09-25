@@ -80,9 +80,10 @@ As you can see in the circuit schematic, the first thing we need to do in code i
 
 <img src="images/pset1/multitouch-schematic-sending.png" width="600px"> <br><br>
 
-<b>Pulse Width Modulation</b>
-Remember from lab3, that PWM is a technique for getting analog results with digital means. <br>
-The digital control is used to create a signal that is switched between on and off. This on-off pattern can then simulate voltages in-between full on (in our case: 3.3 Volts) and completely off (0 Volts) by changing the portion of the time the signal spends on versus the time that the signal spends off.<br><br>
+<b>Pulse Width Modulation</b><br>
+Remember from lab3, that PWM is a technique that can be used to create voltages in-between 0V and 3.3V. In lab3 we used PWM to dim our display since the amount of voltage determines how bright the display is, here we will use PWM to generate the appropriate voltage for our multi-touch pad. <span style="color:red">(Junyi, can you say one sentence here why 3.3V would not work?)</span>  
+
+We can generate voltages in-between 0V and 3.3V by switching the signal between on and off. We can determine the exact voltage we need by changing the portion of the time the signal spends on versus the time that the signal spends off, i.e. the longer the signal is off the lower the voltage.<br><br>
 
 <img src="images/pset2/pwm-explanation.png" width="450px"> <br><br>
 
@@ -90,9 +91,7 @@ The digital control is used to create a signal that is switched between on and o
 The signal that we are generating for the sender pin is <b>4 MHz, 25% Duty Cycle</b>. <br>
 We will spare you the details why exactly we need this PWM signal since this falls under more advanced electronics.<br><br>
 
-To setup this PWM signal in code, start by downloading the skeleton code for the PSet2 from <a href="software/pset-skeleton_Arduino.zip"> here</a>. <br><br>
-
-Here’s the steps you’ll have to follow to set up the ESP32 PWM using the Arduino IDE: <br>
+Open the skeleton code and create the PWM signal by following the steps below.<br>
 1. First, you need to choose a PWM channel. There are 16 channels from 0 to 15. <br>
 2. Then, you need to set the PWM signal frequency, in our case 4 MHz. <br>
 3. You also need to set the signal’s duty cycle resolution. you have resolutions from 1 to 16 bits. <br>
