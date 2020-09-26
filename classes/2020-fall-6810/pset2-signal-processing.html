@@ -247,20 +247,22 @@ Go to File -> Examples and look at the bottom where it says 'Examples from Custo
 <img src="images/pset2/mpc-library-examples.png" width="400px"> <br><br>
 
 As you can see in the simpletest example, you need to first include the library on top in the skeleton code.<br>
-After this, you need to declare an object of the library.<br>
-Next, you need to open the communication channel with begin() in the setup function.<br>
-Once the channel is open, you can read a the signal from one of the input channels CH0-CH7 using the readADC(channelnumber) function.<br>
-If you serial print the result, you should see your analog signal coming through as if you had connected the channel input directly to the ESP.<br>
-Note that you do not have to specify which pins the ESP should be using for the SPI communication since it already knows this from its own pinout, which only has one pin per SPI MISO line.<br><br>
+After this, you need to declare an object of the library.<br><br>
 
-<span style="color:red">do I not need to set the GPIO pin for the slave number?</span><br>
-<span style="color:red">do we even need the MOSI line? if yes, for what?</span><br>
-<span style="color:red">do we even need the CLK line? if yes, where is this set?</span><br><br>
+Next, you need to open the communication channel with begin() in the setup function.<br>
+However, we do not want to use the empty contructor begin() but instead also provide the pin numbers.<br>
+You can see this further down in the 'simpletest' example in the code that is commented out.<br>
+Fill the pin numbers in according to your wiring.<br><br>
+
+<img src="images/pset2/mpc-library-function.png" width="400px"> <br><br>
+
+Once the channel is open, you can read the signal from one of the input channels CH0-CH7 using the readADC(channelnumber) function (see the 'simpletest' example code).<br>
+If you serial print the result, you should see your analog signal coming through as if you had connected the signal directly to the ESP.<br><br>
 
 <b>Testing your Code</b><br>
 
-You can check if the SPI communication with the ADC channels works properly by doing the following:<br>
-Connect a 3.3V output pin from the ESP to one of the MCP3008 CH input channels and plot the result on the Serial Plotter.<br>
+You can check if the SPI communication between the ESP and the MPC chip works properly by doing the following:<br>
+Connect a 3.3V output pin from the ESP to one of the MCP CH input channels and plot the result on the Serial Plotter.<br>
 You should see a signal there around 1000. If you see 0 nothing is coming through and it needs further debugging.<br><br>
 
 
