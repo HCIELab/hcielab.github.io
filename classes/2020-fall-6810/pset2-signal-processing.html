@@ -133,19 +133,19 @@ If you want to test if you are generating the correct signal, we will have an os
 
 <h3>(2) Sending: Configure the Channel Selection for the Multiplexer</h3>
 
-Next, we will write up the function that determines to which pin the multiplexer will send the signal as output. <br><br>
+Now that you are generating the PWM signal at the sender pin on the ESP that is connected to the multiplexer, we will write up the function that determines to which pin (i.e. column) the multiplexer will send the signal as output. <br><br>
 
 <b>Refresher from pset1</b><br>
-Remember that the multiplexer in 'de-multiplex' mode takes the signal from one sender pin on the ESP and distributes it to the different sender columns on your multi-touch pad.<br>
+Remember that the multiplexer in 'de-multiplex' mode takes an input signal and can then control to which of multiple output lines the signal should be forwarded.<br>
 Below is the image from pset1 again for your reference.<br><br>
 
 <img src="images/pset1/mux-and-demux.jpg" width="500px"> <br><br>
 
-Also remember that the S0 - S3 pins are used to create the address that determines which column pin (C0-C15) the input signal (SIG) should be send to. The image of the multiplexer from pset1 is shown below again for your reference. <br><br>
+Below, you see an image of your multiplexer again. Remember that the multiplexer receives the PWM signal on the input pin (SIG). It then needs to determine to which of the output pins (C0-C15) the signal should be forwarded to. To do this, it uses the S0 - S3 pins to create the address that determines which output pin (column) the signal should be send to. <br><br>
 
 <img src="images/pset1/multiplexer-no-headers.png" width="150px"><br><br>  
 
-To tell the multiplexer which pin the output signal should be send to, you need to create the desired output address using the four pins S0-S3. Why four pins? The multiplexer expects a binary signal, e.g. sending 0,0,0,0 to S0-S3 results in the output pin C0, vs. 0,1,1,0 sends the signal to C6.<br><br>
+To tell the multiplexer which pin the output signal should be send to, you need to create the desired output address using the four pins S0-S3. Why four pins? The multiplexer expects a binary signal. For instance, sending 0,0,0,0 to S0-S3 results in the output pin C0, vs. 0,1,1,0 sends the signal to C6.<br><br>
 
 <b>Let's create the multiplexer addressing in code</b><br>
 
