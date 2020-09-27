@@ -95,34 +95,44 @@ In this lab, we will build an interactive mug that can sense its own temperature
     The thermal resistivity p of the material of course also plays a role, i.e. the larger it is the higher the resistance, but since we print all our circuits with the same material, i.e. silver, we can't change it anyways so we can ignore it for now.
     <br><br>
 
-    <b>Shaping a long conductive wire into a compact form factor:</b><br>
-    As you just figured out, the thinner and longer the conductive wire the higher the resistance, which helps us to sense temperature changes more precisely. Thus, a well designed temperature sensor should consist of a long and thin ink-jet printed silver trace <span style="color:red">such that small variations in resistance have a large effect on the overall resistance. (I don't understand this, shouldn't then a small resistance be better to begin with since changes have a larger effect?)</span><br><br>
+    <b>How thin and how long should the wire be?</b><br>
+    As you just figured out, the thinner and longer the conductive wire the higher the resistance, which helps us to sense temperature changes more precisely. Thus, a well designed temperature sensor should consist of a thin and long ink-jet printed silver trace <span style="color:red">such that small variations in resistance have a large effect on the overall resistance. (I don't understand this, shouldn't then a small resistance be better to begin with since changes have a larger effect?)</span><br><br>
 
-    A classic method to create a long and thin wire on a small area is to design it in a horse shoe pattern similar to this:<br><br>
+    <i>Overall Resistance:</i> When writing this lab, we ran a few experiments and found that to work properly as a temperature sensor, our wire needs to have an overall resistance of 1kOhm.<br><br>
+
+    <i>Smallest Thickness:</i>  We also found that the thinnest trace we can print is 0.3mm wide.
+     Any thinner than this and the silver does not connect reliably anymore.<br><br> 
+ 
+    <i>Resistance of a 1cm long trace:</i> When we print a trace of 0.3mm width and 1cm length, we find that it's resistance is 7.5 Ohm/cm.<br>
+     Note that this can vary depending on the substrate, the 2D printer, and the silver ink mixture, so if you change any of these you would have to remeasure the resistance.<br><br> 
+
+     <i>Required Length of the wire for 1kOhm?</i> Assuming that the thermal resistivity p and the height of the trace is constant, how long does your conductive wire have to be to have 1kOhm resistance?<br>
+
+     <span style="color:red">Mh, how can we derive this from the formula above?</span><br>
+     We can estimate the resistance of a trace of length l by calculating<br>
+    
+    <pre>resistance = l * 7.5 Ohm/cm</pre><br>
+
+
+     <b>Shaping a long conductive wire into a compact form factor:</b><br>
+    Now that we know how long the wire has to be, the next question that arises is how to best shape it to take up minimal space on our design? A classic method to create a long wire on a small area is to design it in a horse shoe pattern similar to this:<br><br>
     
     <img src="images/lab4/hsp.png" width="700px"><br><br>
-    
-     But how long should the wire be?<br><br>
+       
+    <b>Write Processing Script to generate line layout:</b><br>
 
-     <b>Determining Thickness and Length of the Wire for Temperature Sensing</b><br>
-     When writing this lab, we ran a few experiments and found that to work properly as a temperature sensor, our wire needs to have an overall resistance of 1kOhm.<br>
+    Since drawing this manually is quite the pain, we instead want to leverage our computational design capabilities in Processing. Write a Processing Script that generates a temperature sensor layout of variable length depending on a desired overall resistance. Reuse your code from pset1 to write this script. 
 
-
-
-    We can measure that a 0.3mm thin silver trace has a resistance of 7.5 Ohm/cm (up to variations of the used printer and paper). We can estimate the resistance of a trace of length l by calculating<br><br>
-    resistance = l * 7.5 Ohm/cm<br><br>
-    Our temperature sensor should have an overall resistance of 1kOhm.<br><br>
-    
-    You task is to write a Processing Script that generates a temperature sensor layout with a given width and overall resistance. <b>You can reuse code from PSET 1 to write this script.</b> In detail, this involves the following features:<br><br>
+    In detail, the Processing script should have the following features:<br><br>
     <ol>
-        <li>Read in Input: sensor width, and overall resistance </li>
-         <li>set the line width to 0.3mm</li>
-        <li>generate a set of horizontal lines of the given width and connect them with horizontal traces on alternating sides</li>
-        <li>the distance between each horizontal trace should be 0.5mm</li>
+        <li>user input elements for line width (default: 0.3mm), overall resistance, and overall width of the temperature sensor (default: 7cm)</li>
+        <li>generate a set of horizontal lines of the given width and connect them with vertical lines on alternating sides, the distance between each horizontal trace should be 0.5mm</li>
         <li>output a .pdf that contains the temperature sensor</li>
-    </ol>
-    
-    Generate a temperature sensor for your interactive mug that has a width of 7cm, and 1kOhm overall resistance. We will use the layout in our circuit design for the mug in the next step.<br><br>
+    </ol><br>
+  
+
+
+   We will use the layout in our circuit design for the mug in the next step.<br><br>
     
     <b>Integrating the temperature sensor in the mug circuit</b><br>
     Our mug should house a temperature sensor and the EL display that we sprayed in the last lab. Altogether we need:<br><br>
