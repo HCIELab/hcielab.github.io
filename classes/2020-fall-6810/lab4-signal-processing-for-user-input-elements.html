@@ -77,12 +77,31 @@ In this lab, we will build an interactive mug that can sense its own temperature
         <li>a short video (.mov or .mp4, max. 1 minute) showing how you display's brightness increases when pouring in boiling hot water. It should start blinking after a few seconds when the mug reaches a high enough temperature.</li>
     </ul>
     
-    <h3 class="headline">(1) Designing the ink-jet printed circuit</h3>
-    We will start with making an ink-jet printed temperature sensor. We make us of a material property that most conductive metals share. Their resistance increases at higher temperatures. To take advantage of this property, we have to print a long enough trace shuch that this effect can be sensed with a sufficient precision by our microcontroller. Thus, a well designed temperature sensor should consist of a long and thin ink-jet printed silver trace such that small variations in resistance have a large effect on the overall resistance.<br><br>
+    <h3 class="headline">(1) Designing the inkjet printed temperature sensor</h3>
+
+    First, you will use conductive inkjet printing to make your own temperature sensor from scratch.<br><br>
+
+    <b>Why can conductive traces be used to sense temperature?</b><br>
+    To sense temperature using conductive traces, you will make use of a material property that most conductive metals share. Their resistance increases at higher temperatures. The higher the resistance of the conductive trace, the more it will react to temperature changes.<br><br>
+
+    <b>How can we create a high resistance in a conductive trace?</b><br>
+    If you look at the image below, you can see that the resistance of a conductive trace is determined by its cross-section A and its length l. Note that when we talk about the cross-section A in our example here, we mean the width of the trace since the height will be the same for all our prints. <br> 
+    To create a high resistance for our purposes, what can you say about the cross-section A and the length of the wire l? <br>
+    Should they be larger or smaller?<br><br>
+
+    <img src="images/lab4/resistance.png" width="400px"><br><br>
+
+    To have a high resistance, the cross-section A (width of the wire) should be as small as possible, and the length of the wire should be as large as possible.<br> 
+    The thermal resistivity p of the material of course also plays a role, i.e. the larger it is the higher the resistance, but since we print all our circuits with the same material, i.e. silver, we can't change it anyways so we can ignore it for now.<br> 
+    <br><br>
+
+The thinner and longer the trace,
+
+    To take advantage of this property, you have to print a long enough trace shuch that this effect can be sensed with a sufficient precision by our microcontroller. Thus, a well designed temperature sensor should consist of a long and thin ink-jet printed silver trace such that small variations in resistance have a large effect on the overall resistance.<br><br>
     A classic method to print a long and thin trace on a small area is to design it in a horse shoe pattern similar to this:<br><br>
     
     <img src="images/lab4/hsp.png" width="700px"><br><br>
-    The longer and thinner the trace, the higher the resistance of the element and the more sensitive it will react to temperature changes. <br><br>
+     <br><br>
     
     We can measure that a 0.3mm thin silver trace has a resistance of 7.5 Ohm/cm (up to variations of the used printer and paper). We can estimate the resistance of a trace of length l by calculating<br><br>
     resistance = l * 7.5 Ohm/cm<br><br>
