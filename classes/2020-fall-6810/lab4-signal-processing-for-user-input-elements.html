@@ -49,13 +49,99 @@
       <section class="col-md-8 pull-right main-content">
 </br></br></br></br>
         <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2020)</a><br></h>
-        <h2 class="headline">Signal Processing for User Input Elements</h2>
-      
+        <h2 class="headline">Building an Interactive Mug</h2>
+In this lab, we will build an interactive mug that can sense its own temperature and signal the user if the content is too hot, too cold or just right. We will design an ink-jet printed temperature sensor to sense the heat of the mug and we will use the display which you sprayed in the last lab to signal to the user the current temperature of the mug's content.      
           <hr>
 
  <h3 class="headline">Your Task for Today</h3>
-
-
+    Building an interactive mug can be divided into several steps:
+    <ol>
+        <li>Design a flexible ink-jet printed circuit that contains a temperature sensor and the wires to power an attached EL display</li>
+        <li>Connecting the EL display to the printed circuit and attaching it to a mug</li>
+        <li>Building an ESP32 circuit to read the temperature and control the EL display</li>
+        <li>Writing the code for the ESP32 to read the mug's current temperature and output a visualization using the EL display</li>
+    </ol>
+    
+    The display should be turned off when the mug is cold. It should increase its brightness up to approx. 70C and start blinking if it is too hot >70C. The final prototype should look like this:<br><br>
+    
+    <img src="images/lab4/interactiveMug.jpg" width="300px">
+    
+    <h3 class="headline">Deliverables Lab 4 (due Friday, Oct. 2, 2020, 11.59pm)</h3>
+    
+    At the end of Lab 4, upload to your student google drive:
+    <ul>
+        <li>the Arduino code (.ino) for controlling your display and reading the temperature</li>
+         <li>the Processing code (.pde) to generate a temperature sensor</li>
+        <li>2-3 photos (.jpg or .png) from different angles of your mug</li>
+        <li>a short video (.mov or .mp4, max. 1 minute) showing how you display brightness increases when pouring in boiling hot water. It should start blinking after a few seconds when the mug reaches a high enough temperature.</li>
+    </ul>
+    
+    <h3 class="headline">(1) Designing the ink-jet printed circuit</h3>
+    We will start with making an ink-jet printed temperature sensor. We make us of a material property that most conductive metals share. Their resistance increases at higher temperatures. To take advantage of this property, we have to print a long enough trace shuch that this effect can be sensed with a sufficient precision by our microcontroller. Thus, a well designed temperature sensor should consist of a long and thin ink-jet printed silver trace such that small variations in resistance have a large effect on the overall resistance.<br><br>
+    A classic method to print a long and thin trace on a small area is to design it in a horse shoe pattern similar to this:<br><br>
+    
+    <img src="images/lab4/hsp.png" width="700px"><br><br>
+    The longer and thinner the trace, the higher the resistance of the element and the more sensitive it will react to temperature changes. <br><br>
+    
+    We can measure that a 0.3mm thin silver trace has a resistance of 7.5 Ohm/cm (up to variations of the used printer and paper). We can estimate the resistance of a trace of length l by calculating<br><br>
+    resistance = l * 7.5 Ohm/cm<br><br>
+    Our temperature sensor should have an overall resistance of 1kOhm.<br><br>
+    
+    You task is to write a Processing Script that generates a temperature sensor layout with a given width and overall resistance. <b>You can reuse code from PSET 1 to write this script.</b> In detail, this involves the following features:<br><br>
+    <ol>
+        <li>Read in Input: sensor width, and overall resistance </li>
+         <li>set the line width to 0.3mm</li>
+        <li>generate a set of horizontal lines of the given width and connect them with horizontal traces on alternating sides</li>
+        <li>the distance between each horizontal trace should be 0.5mm</li>
+        <li>output a .pdf that contains the temperature sensor</li>
+    </ol>
+    
+    Generate a temperature sensor for your interactive mug that has a width of 7cm, and 1kOhm overall resistance. We will use the layout in our circuit design for the mug in the next step.<br><br>
+    
+    <b>Integrating the temperature sensor in the mug circuit</b><br>
+    Our mug should house a temperature sensor and the EL display that we sprayed in the last lab. Altogether we need:<br><br>
+    <ol>
+        <li>a temperature sensor near the mug's handle</li>
+        <li>an EL display on the opposite side of the handle <span style="color:red">(no overlap with the temperature sensor)</span></li>
+        <li>4 connector pads to connect the ESP32 to the mug's electronics</li>
+        <li>2 printed wires that connect the temperature sensor to the connector pads</li>
+        <li>2 printed wires that connect the EL display to the connector pads</li>
+        <li>2 printed wires that connect the EL display to the connector pads (width a distance of a least 3cm at the location where they connect to the EL display to avoid shortcuts)</li>
+    </ol><br><br>
+    The final design should fit nicely on the mug. Thus, aim for 17cm total width and 7.5cm height. The layout should look similar to this:<br><br>
+    <img src="images/lab4/mugCircuit.PNG" width="700px"><br><br>
+    The two wires to the EL display have to be tailored for your individual display. After the spraying session, some of you put the copper tape to the ITO on the top of the display. In this case, the wires have to be places at the top of mug (and not at the bottom as in the example above).<br><br>
+    
+    <b>Ink-jet print your circuit</b><br>
+    You will print your circuit in an OH. Before you come, make sure that the wires to the EL display are at the right position for YOUR display, the temperature sensor does not overlap with the display, and the temperature sensor has approximately a resistance of 1 kOhm using the formula above.
+    
+     <h3 class="headline">When you come to the OH</h3>
+    You will need several components to build you mug, so make sure to pick up:<br><br>
+    <ol>
+        <li>the mug</li>
+        <li>a 1 kOhm resistor</li>
+        <li>a roll of copper tape</li>
+        
+    </ol>
+    <br><br>
+     <b>Test resistance of your temperature sensor</b><br>
+    Once your print is done, you should check if the temperature sensor has a high enough resistance. Lay the circuit on a flat surface and check the resistance of the temperature sensor with a multi meter by holding the electrodes on the two corresponding connector pads. You should read a value close to 1 kOhm.<br><br>
+    <img src="images/lab4/testingTemperature.jpg" width="300px"><br><br>
+    
+    <b>Attach EL Display on the Circuit</b><br>
+    Once you have printed your circuit and verified that the temperature sensor is valid, you have to attach your EL display to it. First lay your circuit on a flat surface. Take a roll of copper tape and cut of two 6cm long pieces. Glue one half of each copper stripe on the two wires and bend the other half around such that the adhesive side faces upwards. Make sure that the two copper stripes don't connect to each other and have save distance of at least 1cm. <br><br>
+    Next, push your display onto the copper stripes. Make sure that one electrode only connects to the ITO and the other only connects to the sprayed copper layer.<br><br>
+    Now, it's time to test if the connection between the display and the printed traces is working. Take a battery and inverter and connect it to the two connector pads on the left hand side of the circuit. You should see that the displays light up. We will have an inverter and power supply at the OH, so you don't have to bring your own.<br><br>
+    Once, we have verified that everything works, we want to fix the display on the circuit sheet. Take some scotch tape and apply a stripe on the left the right edge of your display.<br><br>
+    <img src="images/lab4/interactiveMug.jpg" width="300px"><br><br>
+    <b>Attach printed UI on the Mug</b><br>
+    We will use double sided tape to attach the printed UI to the mug. In the OH, cut off a 17cm (or according to the length of your individual design) from the tape and attach it on the mug. Remove the protective foil from the tape such that it is also adhesive on the top side.<br><br>
+     <img src="images/lab4/attachingTape.jpg" width="257x">
+    <img src="images/lab4/mugWithTape.jpg" width="300px"><br><br>
+    Next, take your printed UI and glue it onto your mug.<br><br>
+      <img src="images/lab4/attachingUI.jpg" width="420x">
+    <img src="images/lab4/attachedUI.jpg" width="280px"><br><br>
+    
 <hr>
 
 
@@ -67,45 +153,7 @@
       </section>
 
       <aside class="col-md-4 pull-left">
-         <br /> <br /> <br /> <br />
-<!-- 				 <h4>Pset Steps</h4><br>
-				 <ul>
-		 			<li><a href="#pset1">pset1 (due Sept. 21, 11.59pm): laser cut and bend the acrylic base</a><br /></li>
-		 			<li><a href="#pset2">pset2 (due Oct. 5, 1pm): insert LEDs, add USB connecting and solder everything</a><br /></li>
-		 			<li><a href="#pset3">pset3 (due Oct. 19, 1pm): write touch recognition so that you can determine (x,y) location of each finger</a><br /></li>
-		 			<li><a href="#pset4">pset4 (due Oct. 26, 1pm): add an application of your choice</a><br /></li>
-				</ul>
-				<br /> <br /> <br /> <br />
-        <img src="../2018-fall-6810/images/multi-touch-pad/iap1.jpg" width="220px">
-
-		<img src="../2018-fall-6810/images/multi-touch-pad/iap2.jpg" width="220px">
-
-		<img src="../2018-fall-6810/images/multi-touch-pad//iap3.jpg" width="220px">
-
-		<img src="../2018-fall-6810/images/multi-touch-pad/iap4.jpg" width="220px">
-
-		<img src="../2018-fall-6810/images/multi-touch-pad/iap5.jpg" width="220px">
- -->
-
-
-
-        <!-- Publication -->
-
-        <br><br><br><br><br>
-
-        <!-- Publication -->
-
-<!-- <h4>Side Bar</h4><br>
-
-    <ul>
-      <li>Prof. Stefanie Mueller (Instructor)</li>
-      <li>Lotta-Gili Blumberg (TA)</li>
-      <li>Xin Wen (UTA)</li>
-      <li>Loren Maggiore (LA)</li>
-      <li>Mark Chounlakone (LA)</li>
-    </ul>
- -->
-</br>
+         <br /> <br /> <br /> <br /></br>
 </br>
 </br>
 </br>
