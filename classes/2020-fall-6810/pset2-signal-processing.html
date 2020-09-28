@@ -81,9 +81,9 @@ As you can see in the circuit schematic, the first thing we need to do in code i
 <img src="images/pset1/multitouch-schematic-sending.png" width="600px"> <br><br>
 
 <b>Pulse Width Modulation</b><br>
-Remember from lab3, that PWM is a technique that can be used to create voltages in-between 0V and 3.3V. In lab3 we used PWM to dim our display since the amount of voltage determines how bright the display is, here we will use PWM to generate the appropriate voltage for our multi-touch pad. <span style="color:red">(Junyi, can you say one sentence here why 3.3V would not work?)</span>  
+Remember from lab3, that PWM is a technique that can be used to create voltages in-between 0V and 3.3V. In lab3 we used PWM to dim our display since the amount of voltage determines how bright the display is, here we will use PWM to turn on & off the voltage row-by-row for our multi-touch pad sender pins, so that we are scanning through the pad. <!-- <span style="color:red">(Junyi, can you say one sentence here why 3.3V would not work?)</span>  --> 
 
-We can generate voltages in-between 0V and 3.3V by switching the signal between on and off. We can determine the exact voltage we need by changing the portion of the time the signal spends on versus the time that the signal spends off, i.e. the longer the signal is off the lower the voltage.<br><br>
+We can generate voltages in-between 0V and 3.3V by switching the signal between on and off. <!-- We can determine the exact voltage we need by changing the portion of the time the signal spends on versus the time that the signal spends off, i.e. the longer the signal is off the lower the voltage. --><br><br>
 
 <img src="images/pset2/pwm-explanation.png" width="450px"> <br><br>
 
@@ -160,8 +160,7 @@ In particular, you need the GPIO pin numbers for the multiplexer's S0 - S3 pins.
 Create the digital pins in your Arduino code and set the correct PinMode. <br><br>
 
 Next, fill out the "<b>selectChannelOut(int channel)</b>" function in the skeleton code. <br>
-<img src="images/pset2/select-channel-mux.png" width="450px"> <br>
-<span style="color:red">rename mux to multiplexer in comments</span><br><br>
+<img src="images/pset2/select-channel-mux.png" width="600px"> <br><br>
 
 The function takes an int for channel number and assigns the correct bit values to the 4 select pins (S0 - S3). <br>
 Since our multi-touch pad is 8x9 electrodes in size and 9 is the number of sender lines, the channel numbers are 0-8.<br>
@@ -171,7 +170,7 @@ You can test if your channel selection function works properly in the following 
 
 <img src="images/pset2/multimeter-v.png" width="250px"> <br><br>
 
-Note that in the code, there is a delay function. You may need to adjust the delay slightly depending on the amoung of capacitive coupling your specific design has. <span style="color:red">(Junyi if you can explain this a bit more detailed what that is and why that'd be great.)</span><br><br>
+Note that in the code, there is a delay function. You may need to adjust the delay slightly depending on the amount of capacitive coupling your specific circuit layout has, which interferes and slows down the signal assign (e.g. digitalWrite()) slightly and can result in undefined behavior. The delay allows the multiplexer gets stable select pin values and assign correct output channel. Usually a delay of 2 - 5 milliseconds should be sufficient enough. <br><br>
 
 
 <h3>(3) Receiving: External ADC pins and SPI Communication</h3>
@@ -229,7 +228,7 @@ Pins for the SPI interface:<br>
 <b>CS/SHDN</b> = NSS/CS, line for master to select which slave to talk to</br><br>
 
 Reference Signal:<br>
-In addition to the communication lines, the SPI communication also needs a reference signal to determine <span style="color:red">(Junyi, remind me what is this good for?)</span>. It can, for instance, be set to 3.3V and to 5V. In our case, we want to set it to 3.3V <span style="color:red">because XX</span>.<br>
+In addition to the communication lines, the MCP3008 chip also needs a reference voltage to calculate the unknown voltage (ADC conversion). This reference voltage should always be less than the operating voltage; normally it will be as same as the operating voltage. It can, for instance, be set to 3.3V and to 5V. In our case, we want to connect it to 3.3V because the chip is operated under 3.3V.<br>
 <b>VRef:</b> connect to 3.3V for generating the reference signal<br>
 <b>AGND:</b> connect to GND<br><br>
 
