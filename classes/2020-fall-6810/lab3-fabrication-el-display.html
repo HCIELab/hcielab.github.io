@@ -449,19 +449,19 @@ Before we can answer this question, it is important to realize that in our circu
 One signal is coming as an <b>AC signal from our inverter</b>. <br>
 The other signal is coming in the form of the <b>PWM signal from our ESP</b>.<br><br>
 
-The frequency of the inverter's AC signal is given at 800Hz for our 1.2V battery (if you used the inverter with 3.3V it would be 1.6KHz).<br>
+The frequency of the inverter's AC signal is given at 800Hz for our 1.2V battery (if we connected the inverter to 3.3V on the ESP it would be 1.6KHz).<br>
 The frequency of the PWM signal is something we can choose as mentioned above.<br><br>
 
 <img src="images/lab3/inverter-pwm-signal.png" width="400px"><br><br>
 
 So why can the frequency of the PWM signal not be arbitrarily high?<br>
-The reason for this is something called <b>'zero crossing'</b><br><br>
+The reason for this is something called <b>'zero crossing'.</b><br><br>
 
 <b>What is a zero-crossing?</b><br>
 
 A zero-crossing is when the AC signal crosses the x-axis as shown in the image below.<br><br>
 
-<img src="images/lab3/ac-signal-viz-zero-crossing.jpg" width="300px"><br><br>
+<img src="images/lab3/ac-signal-viz-zero-crossing.jpg" width="400px"><br><br>
 
 When you check out  <a href="https://www.mouser.com/datasheet/2/308/MOC3163M-D-1811983.pdf" target="_blank">the optocoupler's datasheet,</a> you will see that it contains a "zero-crossing circuit". <br><br>
 
