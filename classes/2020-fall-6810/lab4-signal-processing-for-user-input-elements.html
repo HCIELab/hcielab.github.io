@@ -229,12 +229,18 @@ In this lab, we will build an interactive mug that can sense its own temperature
 
     Now take your printed circuit and glue it onto your mug.<br><br>
     
-    <img src="images/lab4/circuitToMug.jpg" width="250x">
-    <img src="images/lab4/circuitOnMug.jpg" width="250px"><br><br>
+    <img src="images/lab4/circuitToMug.png" width="300x">
+    <img src="images/lab4/circuitOnMug.jpg" width="300px"><br><br>
     
-    <b>Attach wires to your printed UI</b><br>
+    <b>Attaching wires to the silver connector pads</b><br>
     
-    Next, you'll need jumper wires that can connect the mug UI to a breadboard and your ESp32. We will use copper tape stripes and solder jumper wires on them to make that connection. Cut off 4 copper stripes of about 3cm length (depending on the size of your printed pads) and apply a drop of solder on them. Now, take a short jumper wire, hold it over the solder drop and press it down with the solder iron until it is well connected.<br><br>
+    Next, you'll need jumper wires that can connect the mug to a breadboard and your ESP32.<br>
+    Since the silver connector pads are not suitable for soldering, we instead solder the jumper wires onto little piece of copper tape and then attach those to the silver connector pads.<br><br>
+
+    To do this, first cut of a copper strip for each silver connector pad.<br>
+    The copper stripes should be about 3cm long, which is the size of your printed silver pads.<br>
+    Take a soldering iron and apply a drop of solder on them. <br>
+    Next, take a short jumper wire, hold it over the solder drop and press it down with the solder iron until it is well connected.<br><br>
     
     <img src="images/lab4/copperDrop.jpg" width="250x">
     <img src="images/lab4/jumperOnCopper.jpg" width="250px"><br><br>
@@ -245,43 +251,72 @@ In this lab, we will build an interactive mug that can sense its own temperature
     <img src="images/lab4/fourConnectors.jpg" width="250x">
     <img src="images/lab4/jumpersAttached.jpg" width="250px"><br><br>
     
-    To make the wires easier to work with, you can connect male-to-female jumper wires that you got in your grey boxes to the four dangling wires.<br><br>
+    To extend the wires and make them longer, you can connect male-to-female jumper wires that you got in your grey boxes to the four dangling wires.<br><br>
     
     <img src="images/lab4/jumperTogether.jpg" width="300px"><br><br> 
     
-    The last step in building the mug is to protect it from moisture and constant touching. Especially since we actually want to fill hot and cold water into it and measure its temperature. We will use clear tape to cover all the electronics.<br><br>
-    
-    Come to an OH and cut off a 19cm long stripe of our extra wide 3in tape. Carefully apply the tape on your UI. If you make a mistake here, you cannot remove the tape anymore since you might rip off the silver traces. Thus, be extra careful.<br><br>
-    
-    <img src="images/lab4/tapeOnDisplay.jpg" width="300px"><br><br> 
+    <b>Protecting the Circuit from Moisture and Touching</b><br>
 
-    <h3 class="headline">(4) Connecting to the Microcontroller and Building Remaining Circuit</h3><br>
+    The last step you need to do is to protect it from moisture.<br>
+    This is especially important since we want to fill hot and cold water into it and some water may spill over (try to avoid it).<br>
+    Also, we want to protect the circuit from constant touching, which may happen with a mug.<br>
+    To protect the circuit, we will use clear tape to cover all the electronics.<br><br>
     
-    Controlling this UI requires 2 electronic components. You'll need (1) a circuit to control the EL display. You have completed this circuit already in lab 3 and will will use it in this lab. You also need (2) a circuit to read the resistance of your printed temperature sensor. We will start with building a circuit that can read resistance from voltage. <br><br>
+    To do this, cut off a 19cm long stripe of our extra wide 3inch tape.<br> 
+    Carefully apply the tape on the entire circuit.<br> 
+    If you make a mistake here, you need to continue rolling the tape over the circuit. You cannot remove the tape anymore since you might rip off the silver traces.<br>
+    Therefore, be extra careful.<br><br>
+    
+    <img src="images/lab4/tapeOnDisplay.jpg" width="400px"><br><br> 
+
+    <h3 class="headline">(4) Connecting to the Microcontroller and Building the Circuit</h3><br>
+    
+    Controlling this mug interface requires 2 parts.<br>
+    <ol>
+        <li>a circuit to control the EL display. You have completed this circuit already in lab 3 and will will use it in this lab. </li>
+        <li>a circuit to read the resistance of your printed temperature sensor. We will do this now. 
+        </ol>
+        <br>
     
     <b>Building the temperature sensor circuit</b><br>
-    Recall, that the ESP 32 can only measure voltage but not resistance. A common circuit to reflect resistance changes via voltage is called <b>voltage divider</b>. It consists of one know and one unknown resistor that we want to measure. A schematic of a voltage divider looks like this:<br><br>
-     <img src="images/lab4/voltage_divider.png" width="200px"><br><br>
-    Vin is the 3.3V supply voltage from the ESp32 and Vout is a voltage than we will chnage depending on the following formula:<br><br>
-    
-    Vout = (R2*Vin)/(R1+R2)
-    
-    If we use the 1kOhm resistor that you picked up in the last OH as R1 and we connect the temperature sensor as R2, then we can solve the equation for R2.<br><br>
-    Your task is to build a voltage divider on a breadboard and connect your temperature sensor to this circuit.<br><br>
-    
-    <b>Connecting the EL display control circuit</b>
-    Finally, use your EL control circuit from lab 3 and connect it to the corresponding pins of the interactive mug.
+    Remember that to measure the temperature of the liquid in the mug, we need to measure the changes in resistance of the silver trace that makes up our temperature sensor.<br>
+    So how can we measure resistance on the ESP?<br>
+    Unfortunately, we can't. The ESP can only measure voltage but not resistance.<br><br> 
 
+    However, there is a way to use changes in voltage to determine resistance. A circuit that allows us to do this is called a <b>voltage divider</b>. A schematic of a voltage divider looks like this:<br><br>
+
+     <img src="images/lab4/voltage_divider.png" width="200px"><br><br>
+    
+    It consists of one <b>known resistor (R1)</b> and one <b>unknown resistor (R2)</b> that we want to measure. In our case, the unknown resistor R2 is our temperature sensor. For the known resistor R1, we can simply pick one <span style="color:red">(anything you need to know to pick the resistor value?)</span><br><br>
+
+    <b>Vin</b> is the 3.3V supply voltage from the ESP32.<br> 
+    <b>Vout</b> is a voltage than will change when the resistance of our temperature sensor (R2) changes.<br><br>
+
+    We can compute VOut using the following formula:<br><br>
+    
+    <pre>Vout = (R2*Vin)/(R1+R2)</pre><br>
+    
+    If we use a 1kOhm resistor for R1 and we connect the temperature sensor as R2, then we can solve the equation for R2 to determine the change in resistance, which ultimately allows us to determine the current temperature of the mug.<br><br>
+
+    To get started with this, build the voltage divider on a breadboard and connect your temperature sensor on the mug to this circuit.<br><br>
+    
+    <b>Building the EL display control circuit</b><br>
+    If you finished all task from lab3, you already have this circuit.<br>
+    All that's left to do is to connect your EL display control cicuit to the corresponding wires on the mug. <br><br>
 
     <h3 class="headline">(5) Code for Reading Mug's Current Temperature and Adjusting Display</h3><br>
 
-    The goal of this lab part is to control the display through the temperature sensor. The display should be turned off when the mug is cold. It should turn on between 30 to 70C and should start blinking at >70C.<br><br>
+    Now that everything is wired up, you are ready to write the code for determining the temperature and adjusting the display brightness accordingly.<br>
+    The display should be turned off when the mug is cold. It should be turned on between 30C - 70C and it should start blinking at temperatures above >70C to help users avoid getting burned.<br><br>
     
-    Start with connecting your voltage divider to the ESP32. Use analogRead(Pin) to read the incoming voltage value from your divider and write it to Serial with the Serial.println(value). analogRead() returns the read in voltage value between 0V and 3.3V and maps it to an output range of 0..4095. So, if you read a value of 2047, your voltage should be around 1.65V. Upload the code and if you have done everything right, you can visualize the read values with the Serial plotter.<br><br>
+    <b>Code for Reading Voltage from Voltage Divider Circuit</b><br>
+    Use analogRead() to read the incoming voltage value from your voltage divider and write it to the Serial monitor. analogRead() returns the voltage value between 0V and 3.3V and maps it to an output range of 0 - 4095. What this means is that if you read a value of 2047 (4095/2), your voltage should be around 1.65V (3.3V/2). If you see the voltage readings in the Serial monitor, move to the next stpe.<br><br>
     
-     <img src="images/lab4/raw.png" width="700px"><br><br>
+    <img src="images/lab4/raw.png" width="700px"><br><br>
+
+    <b>Code for Converting Voltage To Resistance Values</b><br>
     
-    Now, it's time to apply the voltage divider formula from above. Use it to compute the resistance of your temperature sensor and plot the values. <br><br>
+    Now, it's time to apply the voltage divider formula from above. Use it to compute the resistance of your temperature sensor R2 and plot the values.<br><br>
     
     You'll notice that the values are fluctuating a lot. This is due to the limited precision of the ESP32 and environmental electric noise that slightly changes the read in voltage values. <br><br>
     
