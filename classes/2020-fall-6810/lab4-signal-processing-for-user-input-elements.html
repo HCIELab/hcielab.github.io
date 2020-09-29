@@ -244,12 +244,18 @@ In this lab, we will build an interactive mug that can sense its own temperature
     To make the wires easier to work with, you can connect male-to-female jumper wires that you got in your grey boxes to the four dangling wires.<br><br>
     
     <img src="images/lab4/jumperTogether.jpg" width="300px"><br><br> 
+    
+    The last step in building the mug is to protect it from moisture and constant touching. Especially since we actually want to fill hot and cold water into it and measure its temperature. We will use clear tape to cover all the electronics.<br><br>
+    
+    Come to an OH and cut off a 19cm long stripe of our extra wide 3in tape. Carefully apply the tape on your UI. If you make a mistake here, you cannot remove the tape anymore since you might rip off the silver traces. Thus, be extra careful.<br><br>
+    
+    <img src="images/lab4/tapeOnDisplay.jpg" width="300px"><br><br> 
 
     <h3 class="headline">(4) Connecting to the Microcontroller and Building Remaining Circuit</h3><br>
     
     Controlling this UI requires 2 electronic components. You'll need (1) a circuit to control the EL display. You have completed this circuit already in lab 3 and will will use it in this lab. You also need (2) a circuit to read the resistance of your printed temperature sensor. We will start with building a circuit that can read resistance from voltage. <br><br>
     
-    <b>Building the temperature sensor circuit</b>
+    <b>Building the temperature sensor circuit</b><br>
     Recall, that the ESP 32 can only measure voltage but not resistance. A common circuit to reflect resistance changes via voltage is called <b>voltage divider</b>. It consists of one know and one unknown resistor that we want to measure. A schematic of a voltage divider looks like this:<br><br>
      <img src="images/lab4/voltage_divider.png" width="200px"><br><br>
     Vin is the 3.3V supply voltage from the ESp32 and Vout is a voltage than we will chnage depending on the following formula:<br><br>
@@ -257,7 +263,7 @@ In this lab, we will build an interactive mug that can sense its own temperature
     Vout = (R2*Vin)/(R1+R2)
     
     If we use the 1kOhm resistor that you picked up in the last OH as R1 and we connect the temperature sensor as R2, then we can solve the equation for R2.<br><br>
-    Your task is to build a voltage divider on a breadboard and connect your temperature sensor to this circuit.
+    Your task is to build a voltage divider on a breadboard and connect your temperature sensor to this circuit.<br><br>
     
     <b>Connecting the EL display control circuit</b>
     Finally, use your EL control circuit from lab 3 and connect it to the corresponding pins of the interactive mug.
@@ -265,8 +271,28 @@ In this lab, we will build an interactive mug that can sense its own temperature
 
     <h3 class="headline">(5) Code for Reading Mug's Current Temperature and Adjusting Display</h3><br>
 
-    The display should be turned off when the mug is cold. It should increase its brightness up to approx. 70C and start blinking if it is too hot >70C. <br><br>
+    The goal of this lab part is to control the display through the temperature sensor. The display should be turned off when the mug is cold. It should turn on between 30 to 70C and should start blinking at >70C.<br><br>
+    
+    Start with connecting your voltage divider to the ESP32. Use analogRead(Pin) to read the incoming voltage value from your divider and write it to Serial with the Serial.println(value). analogRead() returns the read in voltage value between 0V and 3.3V and maps it to an output range of 0..4095. So, if you read a value of 2047, your voltage should be around 1.65V. Upload the code and if you have done everything right, you can visualize the read values with the Serial plotter.<br><br>
+    
+     <img src="images/lab4/raw.png" width="700px"><br><br>
+    
+    Now, it's time to apply the voltage divider formula from above. Use it to compute the resistance of your temperature sensor and plot the values. <br><br>
+    
+    You'll notice that the values are fluctuating a lot. This is due to the limited precision of the ESP32 and environmental electric noise that slightly changes the read in voltage values. <br><br>
+    
+    Recall from the lecture, that we introduced a filtering technique to smoothen out such values. It's called a box filter and it works by saving an array of sensor values (the box) of a specific width (e.g. 300 values) and computing the mean of this box. As new sensing values get read in through analogRead(), the box moves forward by one value, i.e. the oldest element in the array gets replaced by the new value and we recompute the mean.<br><br>
+    
+    Implement a box filter that smoothens out the values from analogRead(). Use a box width of 300 values. Once you have completed the filter, your results should look like this:
+    <img src="images/lab4/filtered_large.png" width="700px"><br><br>
+    You see that the filter first collects 300 values and the mean is increasing with every new value. When the box is full, we can have a stable resistance value. Below we see a zoomed in graph of the filtered values. The fluctuation is reduced to around 20Ohm  (instead of 300 without filtering)<br><br>
+    <img src="images/lab4/filtered_small.png" width="700px"><br><br>
 
+    <b>Measuring temperature with resistance increase</b><br>
+    Now, it's time to conduct an experiment on the resistance change of the printed temperature sensor. Not down your current mean resistance at room temperature. Get some water to boil and pour it into the mug while you continue to plot the resistance values with the serial plotter. You should notice that the values start increasing while the mug is heating up. Once you reached a stable value, note it down as well. The value increase should be around 4%.<br><br>
+    
+    Next, use your temperature sensor values to set different states for your display. First, connect your display to the control circuit from lab 3. Then, program your ESP32 to turn on the display if the mug is above room temperature (around 40C) and let it blink if the temperature is too high to drink the beverage. This should be around the temperature when you just poured in boiling water (around 80C (water usually gets colder when you pour it into a cold mug)).<br><br> 
+    
     Your final design should look like this:<br><br>
 
     <img src="images/lab4/interactiveMug.jpg" width="300px"><br><br>
@@ -278,7 +304,7 @@ In this lab, we will build an interactive mug that can sense its own temperature
         <li>the Processing code (.pde) to generate a temperature sensor</li>
         <li>the Arduino code (.ino) for controlling your display and reading the temperature</li>
         <li>2-3 photos (.jpg or .png) from different angles of your mug</li>
-        <li>a short video (.mov or .mp4, max. 1 minute) showing how you display's brightness increases when pouring in boiling hot water. It should start blinking after a few seconds when the mug reaches a high enough temperature.</li>
+        <li>a short video (.mov or .mp4, max. 1 minute) showing how you display blinks when pouring in boiling hot water. It should stop blinking while the mug cooles down and turn of at room temperature.</li>
     </ul>
 
 <hr>
