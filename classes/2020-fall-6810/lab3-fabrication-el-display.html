@@ -423,19 +423,24 @@ Check again, to which pin you connected the <b>optocoupler</b> and use this pin 
 Finally, we want to not just turn the display on/off but also set the displays brightness (e.g. dimming it down).<br><br>
 
 In 6.08 (pre-requisit for this class), you already learned about pulse-width-modulation to dim light sources like an LED.<br>
-A short recap: PWM means that you turn off and on a signal for a certain  duty cycle (see Figure below).<br> 
-The longer the signal is turned off in one cycle the darker the light source will be.<br>
-If the turning on and off happens very fast, humans do not notice it anymore and you can control the perceived brightness of a light source. <br><br>  
-    
-<img src="images/lab3/pwm.png" width="300px"><br><br>
-    
+
+<b>Duty Cycle:</b> PWM means that you turn off and on a signal for a certain <b>duty cycle</b> (see Figure below).<br> 
+The longer the signal is turned off in one duty cycle the darker the light source will be.<br>
+Thus, a duty cycle of 25% results in a darker display than a duty cycle of 75%.<br><br>
+
+<img src="images/pset2/pwm-explanation.png" width="400px"><br><br>
+        
 <i>What frequency should the PWM signal have?</i><br>
-    Clearly, the frequency should be fast enough that the duty cycles are not visible to the human eye anymore. But can it be arbitrary high? Let's look at the optocupler again. When you check out its datasheet, you will see that it contains a "zero-crossing circuit". This circuit makes sure that switching the display on and off only happens when the AC power supply has a zero crossing. This means, that the switch event does not happen instantly but only when a zero-crossing event happens. If our PWM signal is faster than the AC's frequency, the switch cannot react fast enough. Thus, we have to select a PWM frequency that is significantly lower than the AC power supply frequency. Our inverter generates AC between 800Hz to 1.6kHz (depending on the input voltage). Therefore, set the PWM signal to around 100Hz to get a good result in our dimming. <br><br>
+If the turning on and off happens very fast, i.e. at a high frequency, humans do not notice anymore that the display is turned on and off. <br>
+  The frequency should thus be fast enough that the duty cycles are not visible to the human eye anymore.<br> 
+  But can the frequency be arbitrary high?<br>
+  Let's look at the optocupler again. When you check out its datasheet, you will see that it contains a "zero-crossing circuit". This circuit makes sure that switching the display on and off only happens when the AC power supply has a zero crossing. This means, that the switch event does not happen instantly but only when a zero-crossing event happens. If our PWM signal is faster than the AC's frequency, the switch cannot react fast enough. Thus, we have to select a PWM frequency that is significantly lower than the AC power supply frequency. Our inverter generates AC between 800Hz to 1.6kHz (depending on the input voltage). Therefore, set the PWM signal to around 100Hz to get a good result in our dimming. <br><br>
     
     You can set the PWM frequency using the ledcSetup command (freq=100). The duty resolution should be 8. <br><br>
     
     <pre>ledcSetup(ledChannel, freq, duty resolution);</pre>
     
+<img src="images/lab3/pwm.png" width="300px"><br><br>
 
     
     <i>Channel Number:</i> The LEDC peripheral has 16 channels which can generate independent waveforms (note that these are NOT pin numbers on the ESP, but internal channels inside the ESP). The channel numbers range from 0-15. For our purposes, you can pick any channel you like.<br><br>
