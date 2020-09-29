@@ -432,11 +432,30 @@ If the turning on and off happens very fast, it's invisble to the human eye and 
 <i>What frequency should the PWM signal have?</i><br>
     Clearly, the frequency should be fast enough that the duty cycles are not visible to the human eye anymore. But can it be arbitrary high? Let's look at the optocupler again. When you check out its datasheet, you will see that it contains a "zero-crossing circuit". This circuit makes sure that switching the display on and off only happens when the AC power supply has a zero crossing. This means, that the switch event does not happen instantly but only when a zero-crossing event happens. If our PWM signal is faster than the AC's frequency, the switch cannot react fast enough. Thus, we have to select a PWM frequency that is significantly lower than the AC power supply frequency. Our inverter generates AC between 800Hz to 1.6kHz (depending on the input voltage). Therefore, set the PWM signal to around 100Hz to get a good result in our dimming. <br><br>
     
-    You can set the PWM frequency using the ledcSetup command (freq=100). The resolution should be 8. <br><br>
+    You can set the PWM frequency using the ledcSetup command (freq=100). The duty resolution should be 8. <br><br>
     
-    <pre>ledcSetup(ledChannel, freq, resolution);</pre>
+    <pre>ledcSetup(ledChannel, freq, duty resolution);</pre>
+    
+
     
     <i>Channel Number:</i> The LEDC peripheral has 16 channels which can generate independent waveforms (note that these are NOT pin numbers on the ESP, but internal channels inside the ESP). The channel numbers range from 0-15. For our purposes, you can pick any channel you like.<br><br>
+    
+    <i>Duty Resolution:</i>
+    This value defines between how many duty cycles we can choose from. A duty cyles defines for how long the PWM signal will be HIGH and LOW. For example, a 50% duty cycles means that the PWM signal is HIGH for 50% of the time and LOW for the other half. The duty resolution is expressed in bits, e.g. 2 bit gives use 4 different duty cycles to choose from (0%, 33%, 66%, 100% duty cycle). In our example, we want to have a wide range of duty cycles to enable a continuous dimming. Thus, we choose here 8 bit which gives us 256 different duty cycles.
+
+<b>Specifying the Output Pin of the PWM Signal</b><br>
+Now that you specified the signal, you need to specify on which pin number the signal should appear. Remember that this is the pin that goes from the ESP to the display control circuit. The PWM channel number is the same as above. <br><br>
+<pre>ledcAttachPin(GPIO_PIN, channel_number) </pre> <br>
+
+<b>Generating the PWM Signal on the Output Pin</b><br>
+Finally, you need to generate the actual PWM signal, which you had previously defined with the ledcSetup() function.<br> 
+
+<pre>ledcWrite(channel_number, duty_cycle): </pre> <br>
+
+The PWM channel number is the same as above.<br> 
+The duty <b>cycle</b> is different from the duty <b>resolution</b> and explained below:<br><br>
+
+<i>Duty Cycle:</i> In the duty cycle parameter, you tell the ledcWrite() function, which of the duty cycles from your duty resolution should be used. Continuing the example from above, let's assume you chose 4 bits, which gives you 16 values ranging from 6.25%, 12.5%, 18.75%, 25%, 31.25% .... 100%, then your duty cycle parameter is the index of the duty cycle you want to use. For instance, using 2 for the duty cycle parameter would give you 18.75% for the duty cycle. 
 
  Use PWM to let the display increase and decrease in brightness. The increase from 0% to 100% duty cycle should take 2 seconds and then dim it down again in another 2 seconds. Finally, let the display repeat this dimming infinitely.<br>
 
