@@ -314,17 +314,27 @@ In this lab, we will build an interactive mug that can sense its own temperature
     
     <img src="images/lab4/raw.png" width="700px"><br><br>
 
-    <b>Code for Converting Voltage To Resistance Values</b><br>
+    <b>Converting Voltage To Resistance Values</b><br>
     
-    Now, it's time to apply the voltage divider formula from above. Use it to compute the resistance of your temperature sensor R2 and plot the values.<br><br>
+    Now, it's time to apply the voltage divider formula from above.<br> 
+    Use it to compute the resistance of your temperature sensor R2 and plot the values.<br>
+    <span style="color:red">what values hsould I be expecting, do you have a screenshot? I don't see one for ohm.</span><br><br>
     
-    You'll notice that the values are fluctuating a lot. This is due to the limited precision of the ESP32 and environmental electric noise that slightly changes the read in voltage values. <br><br>
+    <b>Smoothing the Signal with a Box Filter</b><br>
+    You'll notice that the resistance values are fluctuating a lot <span style="color:red">what is a lot? example?</span>.<br> 
+    This is due to the limited precision of the ESP32 and environmental electric noise that slightly changes the read in voltage values. <br><br>
     
-    Recall from the lecture, that we introduced a filtering technique to smoothen out such values. It's called a box filter and it works by saving an array of sensor values (the box) of a specific width (e.g. 300 values) and computing the mean of this box. As new sensing values get read in through analogRead(), the box moves forward by one value, i.e. the oldest element in the array gets replaced by the new value and we recompute the mean.<br><br>
+    Recall from the lecture <span style="color:red">(which lecture?)</span>, that we introduced a filtering technique to smooth out such noise.<br> 
+    It's called a box filter and it works by saving an array of sensor values (the box) of a specific width (e.g., 300 values) and computing the mean of this box.<br> 
+    As new sensing values get read in through analogRead(), the box moves forward by one value, i.e. the oldest element in the array gets replaced by the new value and you need to recompute the mean.<br><br>
     
-    Implement a box filter that smoothens out the values from analogRead(). Use a box width of 300 values. Once you have completed the filter, your results should look like this:
+    Implement a box filter that smoothens out the values from analogRead().<br> 
+    Use a box width of 300 values.<br> 
+    Once you have completed the filter, your results should look like this:<br><br>
+
     <img src="images/lab4/filtered_large.png" width="700px"><br><br>
-    You see that the filter first collects 300 values and the mean is increasing with every new value. When the box is full, we can have a stable resistance value. Below we see a zoomed in graph of the filtered values. The fluctuation is reduced to around 20Ohm  (instead of 300 without filtering)<br><br>
+
+    You see that the filter first collects 300 values and the mean is increasing with every new value. When the box is full, we can have a stable resistance value. Below we see a zoomed in graph of the filtered values. The fluctuation is reduced to just 20Ohm  (instead of 300Ohm without filtering, which is 15x more noisy!).<br><br>
     <img src="images/lab4/filtered_small.png" width="700px"><br><br>
 
     <b>Measuring temperature with resistance increase</b><br>
