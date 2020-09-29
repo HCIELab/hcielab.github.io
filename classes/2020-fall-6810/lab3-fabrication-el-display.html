@@ -440,7 +440,22 @@ If it is fast enough, humans do not notice that the display is turned on and off
 The frequency should thus be high enough that the duty cycles are not visible to the human eye anymore.<br><br>
 
 But can the frequency be arbitrary high?<br>
-It turns out, the answer is no because of zero-crossing circuit inside the optocoupler.<br><br>
+It turns out, the answer is no.<br><br>
+<!-- ecause of zero-crossing circuit inside the optocoupler
+ -->
+<b>Why can the frequency not be arbitrarily high?</b><br>
+
+Before we can answer this question, it is important to realize that in our circuit, we are dealing with two different signals.<br>
+One <b>signal is coming from the inverter</b>. <br>
+The other signal is coming in the form of the <b>PWM signal from our ESP</b>.<br><br>
+
+The frequency of the AC signal from the inverter is fixed at 800Hz for our 1.2V battery (if you used the inverter with 3.3V it would be 1.6KHz).<br>
+The frequency of the PWM signal is something we can choose as mentioned above.<br><br>
+
+<img src="images/lab3/inverter-pwm-signal.png" width="400px"><br><br>
+
+So why can the frequency of the PWM signal not be arbitrarily high?<br>
+The reason for this is something called <b>'zero crossing'</b><br><br>
 
 <b>What is a zero-crossing?</b><br>
 
@@ -450,18 +465,24 @@ A zero-crossing is when the AC signal crosses the x-axis as shown in the image b
 
 When you check out  <a href="https://www.mouser.com/datasheet/2/308/MOC3163M-D-1811983.pdf" target="_blank">the optocoupler's datasheet,</a> you will see that it contains a "zero-crossing circuit". <br><br>
 
-<img src="images/lab3/zero-crossing-circuit-optocoupler.png" width="300px"><br><br>
+<img src="images/lab3/zero-crossing-circuit-optocoupler.png" width="400px"><br><br>
 
-What this means is that the optocoupler will only switch the display on/off when the AC signal crosses zero. <br><br>
+What this means is that the optocoupler will only switch the display on/off when the <b>AC signal of the inverter</b> crosses zero. <br><br>
 
-As a result, when the optocoupler tries to switch switch faster than the zero-crossing of the AC signal. <br>
-If our PWM signal is faster than the AC's frequency, the switch cannot react fast enough.<br>
-Thus, we have to select a PWM frequency that is significantly lower than the AC power supply frequency.<br> <br> 
+So what happens if your PWM frequency is higher than your inverter frequency?<br>
+The image below shows this: Although the PWM frequency demands that the display be switched off/on, the optocoupler will do nothing since there is no zero-crossing in that time frame.<br>
+Thus, if our PWM signal is faster than the inverter's AC frequency, the switch cannot react fast enough.<br>
+<br>
 
-<img src="images/lab3/zero-crossing.jpg" width="300px"><br><br>
+<img src="images/lab3/inverter-pwm.png" width="500px"><br><br>
 
-Our inverter generates AC between 800Hz to 1.6kHz (depending on the input voltage).<br> 
-To be significantly below that, we should set the PWM signal to around 100Hz to get a good result in our dimming. <br><br>
+Now let's look at the same scenario when the PWM freuqency is lower than the interveter frequency.<br>
+The image below shows that this will now work well! When the PWM frequency demands the display to be switched off/on, there are several zero-crossings where the optocoupler can take action.<br>
+Thus, we have to select a PWM frequency that is significantly lower than the AC power supply frequency.<br><br>
+To be significantly below the inverter's AC frequency, we should set the PWM signal to around 100Hz to get a good result in our dimming. <br><br>
+
+<img src="images/lab3/inverter-pwm-slow.png" width="500px"><br><br>
+
     
 <b>Setting the PWM frequency:</b><br>
 You can set the PWM frequency using the ledcSetup command. <br><br>
