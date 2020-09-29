@@ -428,6 +428,13 @@ The longer the signal is turned off in one cycle the darker the light source wil
 If the turning on and off happens very fast, it's invisble to the human eye and you can control the perceived brightness of a light source. <br><br>  
     
 <img src="images/lab3/pwm.png" width="300px"><br><br>
+    
+<i>What frequency should the PWM signal have?</i><br>
+    Clearly, the frequency should be fast enough that the duty cycles are not visible to the human eye anymore. But can it be arbitrary high? Let's look at the optocupler again. When you check out its datasheet, you will see that it contains a "zero-crossing circuit". This circuit makes sure that switching the display on and off only happens when the AC power supply has a zero crossing. This means, that the switch event does not happen instantly but only when a zero-crossing event happens. If our PWM signal is faster than the AC's frequency, the switch cannot react fast enough. Thus, we have to select a PWM frequency that is significantly lower than the AC power supply frequency. Our inverter generates AC between 800Hz to 1.6kHz (depending on the input voltage). Therefore, set the PWM signal to around 100Hz to get a good result in our dimming. <br><br>
+    
+    You can set the PWM frequency using the ledcSetup command (freq=100)<br><br>
+    
+    <pre>ledcSetup(ledChannel, freq, resolution);</pre>
 
  Use PWM to let the display increase and decrease in brightness. The increase from 0% to 100% duty cycle should take 2 seconds and then dim it down again in another 2 seconds. Finally, let the display repeat this dimming infinitely.<br>
 
