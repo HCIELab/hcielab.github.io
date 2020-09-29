@@ -272,16 +272,29 @@ In this lab, we will build an interactive mug that can sense its own temperature
     <h3 class="headline">(4) Connecting to the Microcontroller and Building the Circuit</h3><br>
     
     Controlling this mug interface requires 2 parts.<br>
-    <ul>
-        <li>(1) a circuit to control the EL display. You have completed this circuit already in lab 3 and will will use it in this lab. </li>
-        <li>(2) a circuit to read the resistance of your printed temperature sensor. We will do this now. <br><br>
+    <ol>
+        <li>a circuit to control the EL display. You have completed this circuit already in lab 3 and will will use it in this lab. </li>
+        <li>a circuit to read the resistance of your printed temperature sensor. We will do this now. 
+        </ol>
+        <br>
     
     <b>Building the temperature sensor circuit</b><br>
-    Recall, that the ESP 32 can only measure voltage but not resistance. A common circuit to reflect resistance changes via voltage is called <b>voltage divider</b>. It consists of one know and one unknown resistor that we want to measure. A schematic of a voltage divider looks like this:<br><br>
+    Remember that to measure the temperature of the liquid in the mug, we need to measure the changes in resistance of the silver trace that makes up our temperature sensor.<br>
+    So how can we measure resistance on the ESP?<br>
+    Unfortunately, we can't. The ESP can only measure voltage but not resistance.<br><br> 
+
+    However, there is a way to use changes in voltage to determine resistance. A circuit that allows us to do this is called a <b>voltage divider</b>. A schematic of a voltage divider looks like this:<br><br>
+
      <img src="images/lab4/voltage_divider.png" width="200px"><br><br>
-    Vin is the 3.3V supply voltage from the ESp32 and Vout is a voltage than we will chnage depending on the following formula:<br><br>
     
-    Vout = (R2*Vin)/(R1+R2)
+    It consists of one <b>known resistor (R1)</b> and one <b>unknown resistor (R2)</b> that we want to measure. In our case, the unknown resistor R2 is our temperature sensor. For the known resistor R1, we can simply pick one <span style="color:red">(anything you need to know to pick the resistor value?)</span><br><br>
+
+    <b>Vin</b> is the 3.3V supply voltage from the ESP32.<br> 
+    <b>Vout</b> is a voltage than will change when the resistance of our temperature sensor (R2) changes.<br><br>
+
+    We can compute VOut using the following formula:<br><br>
+    
+    <pre>Vout = (R2*Vin)/(R1+R2)</pre><br>
     
     If we use the 1kOhm resistor that you picked up in the last OH as R1 and we connect the temperature sensor as R2, then we can solve the equation for R2.<br><br>
     Your task is to build a voltage divider on a breadboard and connect your temperature sensor to this circuit.<br><br>
