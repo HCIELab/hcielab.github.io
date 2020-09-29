@@ -88,7 +88,7 @@ In this lab, we will build an interactive mug that can sense its own temperature
 
     <b>How high should the resistance of the wire be to work as a reliable temperature sensor?</b><br>
     The higher the resistance of the conductive wire, the more sensitive it will be to temperature changes.<br>
-    Consider the following, if you have a small resistor (e.g., 50Ohm) and the resistance changes a little bit (e.g. 5%), the change will be very small (i.e., 5% of 50Ohm = 2.5Ohm). This is difficult to measure since there is always a bit of noise in electronics. In contrast, if you use a large resistor (e.g., 1kOhm), the change will be larger (i.e., 5% of 1,000 Ohm = 50Ohm). Therefore, our ideal temperature sensor should be a wire with high resistance. When writing this lab, we ran a few experiments and found that to work properly as a temperature sensor, our wire needs to have an overall resistance of 1kOhm. <span style="color:red">We will tell you more later how we can determine exactly the value we need.</span> <br><br>
+    Consider the following, if you have a small resistor (e.g., 50Ohm) and the resistance changes a little bit (e.g. 5%), the change will be very small (i.e., 5% of 50Ohm = 2.5Ohm). This is difficult to measure since there is always a bit of noise in electronics. In contrast, if you use a large resistor (e.g., 1kOhm), the change will be larger (i.e., 5% of 1,000 Ohm = 50Ohm). Therefore, our ideal temperature sensor should be a wire with high resistance. We choose 1kOhm since that gives us a pretty high sensitivity, but you could also go higher.<br><br>
 
     <b>How can we create a conductive wire with high resistance?</b><br>
     If you look again at the image above, you can see that the resistance of a conductive wire is determined by its cross-section A and its length l. Note that when we talk about the cross-section A in our example here, we mean the width of the wire since the height will be the same for all our prints. <br> 
@@ -183,7 +183,7 @@ In this lab, we will build an interactive mug that can sense its own temperature
     Use a multimeter and hold its two electrodes on the two corresponding connector pads (see image below).<br> 
     You should read a value close to 1 kOhm. If not, please let us know and we can help debug.<br><br>
 
-    <img src="images/lab4/testingTemperature.jpg" width="300px"><br><br>
+    <img src="images/lab4/testingTemperature2.jpg" width="300px"><br><br>
     
     <b>Attach your sprayed EL Display on the Circuit</b><br>
     Once you have printed your circuit and verified that the temperature sensor is having the right resistance, you are ready to attach your EL display to it.<br><br>
@@ -285,7 +285,7 @@ In this lab, we will build an interactive mug that can sense its own temperature
 
      <img src="images/lab4/voltage_divider.png" width="200px"><br><br>
     
-    It consists of one <b>known resistor (R1)</b> and one <b>unknown resistor (R2)</b> that we want to measure. In our case, the unknown resistor R2 is our temperature sensor. For the known resistor R1, we can simply pick one <span style="color:red">(anything you need to know to pick the resistor value?)</span><br><br>
+    It consists of one <b>known resistor (R1)</b> and one <b>unknown resistor (R2)</b> that we want to measure. In our case, the unknown resistor R2 is our temperature sensor. For the known resistor R1, we can simply pick one but it's a good idea to pick something that matches your other resistor R2, i.e. we will use 1kOhm.<br><br>
 
     <b>Vin</b> is the 3.3V supply voltage from the ESP32.<br> 
     <b>Vout</b> is a voltage than will change when the resistance of our temperature sensor (R2) changes.<br><br>
@@ -308,21 +308,23 @@ In this lab, we will build an interactive mug that can sense its own temperature
     The display should be turned off when the mug is cold. It should be turned on between 30C - 70C and it should start blinking at temperatures above >70C to help users avoid getting burned.<br><br>
     
     <b>Code for Reading Voltage from Voltage Divider Circuit</b><br>
-    Use analogRead() to read the incoming voltage value from your voltage divider and write it to the Serial monitor. analogRead() returns the voltage value between 0V and 3.3V and maps it to an output range of 0 - 4095. What this means is that if you read a value of 2047 (4095/2), your voltage should be around 1.65V (3.3V/2). If you see the voltage readings in the Serial monitor, move to the next stpe. <span style="color:red">(is this just an example? I could get different values right?)</span><br><br> 
+    Use analogRead() to read the incoming voltage value from your voltage divider and write it to the Serial monitor. analogRead() returns the voltage value between 0V and 3.3V and maps it to an output range of 0 - 4095. What this means is that if you read a value of 2047 (4095/2), your voltage is around 1.65V (3.3V/2). If you see the voltage readings in the Serial monitor, move to the next stpe. <br><br> 
     
-    <img src="images/lab4/raw.png" width="700px"><br><br>
+    <img src="images/lab4/voltage-readings.png" width="700px"><br><br>
 
     <b>Converting Voltage To Resistance Values</b><br>
     
     Now, it's time to apply the voltage divider formula from above.<br> 
     Use it to compute the resistance of your temperature sensor R2 and plot the values.<br>
-    <span style="color:red">what values hsould I be expecting, do you have a screenshot? I don't see one for ohm.</span><br><br>
+    <span style="color:red">screenshot missing, replace</span><br><br>
     
+    <img src="images/lab4/resistance-readings.png" width="700px"><br><br>
+
     <b>Smoothing the Signal with a Box Filter</b><br>
     You'll notice that the resistance values are fluctuating a lot <span style="color:red">what is a lot? example?</span>.<br> 
     This is due to the limited precision of the ESP32 and environmental electric noise that slightly changes the read in voltage values. <br><br>
     
-    Recall from the lecture <span style="color:red">(which lecture?)</span>, that we introduced a filtering technique to smooth out such noise.<br> 
+    Recall from the lecture 'Sensing: Touch', that we introduced a filtering technique to smooth out such noise.<br> 
     It's called a box filter and it works by saving an array of sensor values (the box) of a specific width (e.g., 300 values) and computing the mean of this box.<br> 
     As new sensing values get read in through analogRead(), the box moves forward by one value, i.e. the oldest element in the array gets replaced by the new value and you need to recompute the mean.<br><br>
     
