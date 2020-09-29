@@ -421,38 +421,52 @@ Check again, to which pin you connected the <b>optocoupler</b> and use this pin 
 <h3 class="headline">Write a Program to Dim the Display</h3>
 
 Finally, we want to not just turn the display on/off but also set the displays brightness (e.g. dimming it down).<br>
-In 6.08 (pre-requisit for this class), you already learned about pulse-width-modulation to dim light sources like an LED.<br><br>
+In 6.08 (pre-requisit for this class), you already learned about pulse-width-modulation (PWM) to dim light sources like an LED.<br><br>
 
-<b>Duty Cycle:</b> PWM means that you turn off and on a signal for a certain <b>duty cycle</b>.<br> 
-The longer the signal is turned off in one duty cycle the darker the light source will be (see Figure below).<br>
+<b>Duty Cycle:</b> When you create a PWM signal it means that you turn on and off a signal for a certain duty cycle.<br> 
+The longer the signal is turned on in one duty cycle the brighter the light source will be (see Figure below).<br>
+Similarly, the longer the signal is turned off in one duty cycle the darker the light source will be.<br>
 Thus, a duty cycle of 25% results in a darker display than a duty cycle of 75%.<br><br>
 
 <img src="images/lab3/pwm-explanation2.png" width="500px"><br><br>
         
-<i>What frequency should the PWM signal have?</i><br>
-If the turning on and off happens very fast, i.e. at a high frequency, humans do not notice anymore that the display is turned on and off. <br>
-The frequency should thus be high/fast enough that the duty cycles are not visible to the human eye anymore.<br> 
+<b>What frequency should the PWM signal have?</b><br>
+If the turning on and off happens very fast, i.e. at a high frequency, humans do not notice that the display is turned on and off. <br>The frequency should thus be high enough that the duty cycles are not visible to the human eye anymore.<br><br>
+
+<img src="images/lab3/ac-frequency.gif" width="300px"><br><br>
+
 But can the frequency be arbitrary high?<br>
-Let's look at the optocupler again.<br> 
-When you check out  <a href="https://www.mouser.com/datasheet/2/308/MOC3163M-D-1811983.pdf" target="_blank">its datasheet,</a> you will see that it contains a "zero-crossing circuit". <br>
-This zero-crossing circuit makes sure that switching the display on and off only happens when the AC power supply has a zero crossing. 
+It turns out, the answer is no because of zero-crossing circuit inside the optocoupler.<br><br>
 
-This means, that the switch event does not happen instantly but only when a zero-crossing event happens. If our PWM signal is faster than the AC's frequency, the switch cannot react fast enough. Thus, we have to select a PWM frequency that is significantly lower than the AC power supply frequency. Our inverter generates AC between 800Hz to 1.6kHz (depending on the input voltage). Therefore, set the PWM signal to around 100Hz to get a good result in our dimming. <br><br>
-    
-    You can set the PWM frequency using the ledcSetup command (freq=100). The duty resolution should be 8. <br><br>
-    
-    <pre>ledcSetup(ledChannel, freq, duty resolution);</pre>
-    
-<img src="images/lab3/pwm.png" width="300px"><br><br>
+<b>What is a zero-crossing?</b><br>
+When you check out  <a href="https://www.mouser.com/datasheet/2/308/MOC3163M-D-1811983.pdf" target="_blank">the optocoupler's datasheet,</a> you will see that it contains a "zero-crossing circuit". <br>
+This zero-crossing circuit makes sure that switching the display on and off only happens when the AC power supply has a zero crossing. <br><br>
+<!-- A zero-crossing <span style="color:red">is when the AC signal changes...</span><br><br>
+ -->
+<img src="images/lab3/zero-crossing.jpg" width="300px"><br><br>
 
+<b>What is a suitable frequency?</b><br>
+This means, that the switch event in the optocoupler does not happen instantly but only when a zero-crossing event happens.<br>
+If our PWM signal is faster than the AC's frequency, the switch cannot react fast enough.<br>
+Thus, we have to select a PWM frequency that is significantly lower than the AC power supply frequency.<br> 
+
+Our inverter generates AC between 800Hz to 1.6kHz (depending on the input voltage).<br> 
+To be significantly below that, we should set the PWM signal to around 100Hz to get a good result in our dimming. <br><br>
     
-    <i>Channel Number:</i> The LEDC peripheral has 16 channels which can generate independent waveforms (note that these are NOT pin numbers on the ESP, but internal channels inside the ESP). The channel numbers range from 0-15. For our purposes, you can pick any channel you like.<br><br>
+<b>Setting the PWM frequency:</b><br>
+You can set the PWM frequency using the ledcSetup command. <br><br>
     
-    <i>Duty Resolution:</i>
-    This value defines between how many duty cycles we can choose from. A duty cyles defines for how long the PWM signal will be HIGH and LOW. For example, a 50% duty cycles means that the PWM signal is HIGH for 50% of the time and LOW for the other half. The duty resolution is expressed in bits, e.g. 2 bit gives use 4 different duty cycles to choose from (0%, 33%, 66%, 100% duty cycle). In our example, we want to have a wide range of duty cycles to enable a continuous dimming. Thus, we choose here 8 bit which gives us 256 different duty cycles.
+<pre>ledcSetup(ledChannel, freq, duty_resolution);</pre>
+
+<i>Channel Number:</i> The LEDC peripheral has 16 channels which can generate independent waveforms (note that these are NOT pin numbers on the ESP, but internal channels inside the ESP). The channel numbers range from 0-15. For our purposes, you can pick any channel you like.<br><br>
+
+<i>Frequency:</i> As mentioned previously, the frequency should be 100.<br><br>
+
+<i>Duty resolution:</i> The duty resolution is expressed in bits and determines how many different duty cycles we can choose from, i.e. how many different brightness options we will have when dimming the display. For instance, 3 bits gives us 8 different cycles to choose from (12.5%, 25%, 37.5%,... 100%).<br><br>
 
 <b>Specifying the Output Pin of the PWM Signal</b><br>
 Now that you specified the signal, you need to specify on which pin number the signal should appear. Remember that this is the pin that goes from the ESP to the display control circuit. The PWM channel number is the same as above. <br><br>
+
 <pre>ledcAttachPin(GPIO_PIN, channel_number) </pre> <br>
 
 <b>Generating the PWM Signal on the Output Pin</b><br>
@@ -463,9 +477,9 @@ Finally, you need to generate the actual PWM signal, which you had previously de
 The PWM channel number is the same as above.<br> 
 The duty <b>cycle</b> is different from the duty <b>resolution</b> and explained below:<br><br>
 
-<i>Duty Cycle:</i> In the duty cycle parameter, you tell the ledcWrite() function, which of the duty cycles from your duty resolution should be used. Continuing the example from above, let's assume you chose 4 bits, which gives you 16 values ranging from 6.25%, 12.5%, 18.75%, 25%, 31.25% .... 100%, then your duty cycle parameter is the index of the duty cycle you want to use. For instance, using 2 for the duty cycle parameter would give you 18.75% for the duty cycle. 
+<i>Duty Cycle:</i> In the duty cycle parameter, you tell the ledcWrite() function, which of the duty cycles from your duty resolution should be used. Since we chose 3 bits, which gives us 8 values ranging from 12.5%, 25%, 37.5% .... 100%, then our duty cycle parameter is the index of the duty cycle you want to use. For instance, using 2 for the duty cycle parameter would give you 37.5% for the duty cycle. 
 
- Use PWM to let the display increase and decrease in brightness. The increase from 0% to 100% duty cycle should take 2 seconds and then dim it down again in another 2 seconds. Finally, let the display repeat this dimming infinitely.<br>
+Use PWM to let the display increase and decrease in brightness. The increase from 0% to 100% duty cycle should take 2 seconds and then dim it down again in another 2 seconds. Finally, let the display repeat this dimming infinitely.<br>
 
 <h2 class="headline">Deliverables Lab 3 (due Friday, Sept. 25, 2020, 11.59pm)</h2>
 
