@@ -446,7 +446,7 @@ It turns out, the answer is no because of zero-crossing circuit inside the optoc
 
 A zero-crossing is when the AC signal changes crosses the x-axis as shown in the image below.<br><br>
 
-<img src="images/lab3/zero-crossing.jpg" width="300px"><br><br>
+<img src="images/lab3/ac-signal-viz-zero-crossing.jpg" width="300px"><br><br>
 
 When you check out  <a href="https://www.mouser.com/datasheet/2/308/MOC3163M-D-1811983.pdf" target="_blank">the optocoupler's datasheet,</a> you will see that it contains a "zero-crossing circuit". <br><br>
 
@@ -456,7 +456,9 @@ What this means is that the optocoupler will only switch the display on/off when
 
 As a result, when the optocoupler tries to switch switch faster than the zero-crossing of the AC signal. <br>
 If our PWM signal is faster than the AC's frequency, the switch cannot react fast enough.<br>
-Thus, we have to select a PWM frequency that is significantly lower than the AC power supply frequency.<br> 
+Thus, we have to select a PWM frequency that is significantly lower than the AC power supply frequency.<br> <br> 
+
+<img src="images/lab3/zero-crossing.jpg" width="300px"><br><br>
 
 Our inverter generates AC between 800Hz to 1.6kHz (depending on the input voltage).<br> 
 To be significantly below that, we should set the PWM signal to around 100Hz to get a good result in our dimming. <br><br>
