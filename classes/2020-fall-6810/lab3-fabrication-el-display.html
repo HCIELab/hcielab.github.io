@@ -427,13 +427,17 @@ In 6.08 (pre-requisit for this class), you already learned about pulse-width-mod
 The longer the signal is turned off in one duty cycle the darker the light source will be (see Figure below).<br>
 Thus, a duty cycle of 25% results in a darker display than a duty cycle of 75%.<br><br>
 
-<img src="images/lab3/pwm-explanation2.png" width="400px"><br><br>
+<img src="images/lab3/pwm-explanation2.png" width="500px"><br><br>
         
 <i>What frequency should the PWM signal have?</i><br>
 If the turning on and off happens very fast, i.e. at a high frequency, humans do not notice anymore that the display is turned on and off. <br>
-  The frequency should thus be fast enough that the duty cycles are not visible to the human eye anymore.<br> 
-  But can the frequency be arbitrary high?<br>
-  Let's look at the optocupler again. When you check out its datasheet, you will see that it contains a "zero-crossing circuit". This circuit makes sure that switching the display on and off only happens when the AC power supply has a zero crossing. This means, that the switch event does not happen instantly but only when a zero-crossing event happens. If our PWM signal is faster than the AC's frequency, the switch cannot react fast enough. Thus, we have to select a PWM frequency that is significantly lower than the AC power supply frequency. Our inverter generates AC between 800Hz to 1.6kHz (depending on the input voltage). Therefore, set the PWM signal to around 100Hz to get a good result in our dimming. <br><br>
+The frequency should thus be high/fast enough that the duty cycles are not visible to the human eye anymore.<br> 
+But can the frequency be arbitrary high?<br>
+Let's look at the optocupler again.<br> 
+When you check out  <a href="https://www.mouser.com/datasheet/2/308/MOC3163M-D-1811983.pdf" target="_blank">its datasheet,</a> you will see that it contains a "zero-crossing circuit". <br>
+This zero-crossing circuit makes sure that switching the display on and off only happens when the AC power supply has a zero crossing. 
+
+This means, that the switch event does not happen instantly but only when a zero-crossing event happens. If our PWM signal is faster than the AC's frequency, the switch cannot react fast enough. Thus, we have to select a PWM frequency that is significantly lower than the AC power supply frequency. Our inverter generates AC between 800Hz to 1.6kHz (depending on the input voltage). Therefore, set the PWM signal to around 100Hz to get a good result in our dimming. <br><br>
     
     You can set the PWM frequency using the ledcSetup command (freq=100). The duty resolution should be 8. <br><br>
     
