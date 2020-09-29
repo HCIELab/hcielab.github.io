@@ -88,14 +88,13 @@ In this lab, we will build an interactive mug that can sense its own temperature
 
     <b>How high should the resistance of the wire be to work as a reliable temperature sensor?</b><br>
     The higher the resistance of the conductive wire, the more sensitive it will be to temperature changes.<br>
-    Consider the following, if you have a small resistor (e.g., 50Ohm) and the resistance changes a little bit (e.g. 5%), the change will be very small (i.e., 5% of 50Ohm = 2.5Ohm). This is difficult to measure since there is always a bit of noise in electronics. In contrast, if you use a large resistor (e.g., 1kOhm), the change will be larger (i.e., 5% of 1,000 Ohm = 50Ohm). Therefore, our ideal temperature sensor should be a wire with high resistance. <span style="color:red">We will tell you more later how we can determine exactly the value we need.</span> <br><br>
+    Consider the following, if you have a small resistor (e.g., 50Ohm) and the resistance changes a little bit (e.g. 5%), the change will be very small (i.e., 5% of 50Ohm = 2.5Ohm). This is difficult to measure since there is always a bit of noise in electronics. In contrast, if you use a large resistor (e.g., 1kOhm), the change will be larger (i.e., 5% of 1,000 Ohm = 50Ohm). Therefore, our ideal temperature sensor should be a wire with high resistance. When writing this lab, we ran a few experiments and found that to work properly as a temperature sensor, our wire needs to have an overall resistance of 1kOhm. <span style="color:red">We will tell you more later how we can determine exactly the value we need.</span> <br><br>
 
     <b>How can we create a conductive wire with high resistance?</b><br>
     If you look again at the image above, you can see that the resistance of a conductive wire is determined by its cross-section A and its length l. Note that when we talk about the cross-section A in our example here, we mean the width of the wire since the height will be the same for all our prints. <br> 
     To create a high resistance wire, should the <b>cross-section A</b> be larger or smaller?<br>
     To create a high resistance wire, should the <b>length of the wire l</b> be longer or shorter? <br>
     Look at the formula in the image.<br><br>
-
 
     To create a high resistance wire, the cross-section A (width of the wire) should be as small as possible.<br>
     To create a high resistance wire, the length of the wire should be as long as possible.
@@ -105,20 +104,17 @@ In this lab, we will build an interactive mug that can sense its own temperature
     <br><br>
 
     <b>How thin and how long should the wire be?</b><br>
-    As you just figured out, the thinner and longer the conductive wire the higher the resistance. This helps us to sense temperature changes more precisely. Thus, a well designed temperature sensor should consist of a thin and long ink-jet printed silver trace <span style="color:red">such that small variations in resistance have a large effect on the overall resistance. (I don't understand this, shouldn't then a small resistance be better to begin with since changes have a larger effect?)</span> <span style="color:blue">if the resistance change is something like 5% then a 1kOhm resistor has an increase of 50Ohm. A small resistor of 1Ohm has then only an increase of 0.05Ohm -> harder to read</span><br><br>
+    As you just figured out, the thinner and longer the conductive wire the higher the resistance.<br><br>
 
-    <i>Overall Resistance:</i> When writing this lab, we ran a few experiments and found that to work properly as a temperature sensor, our wire needs to have an overall resistance of 1kOhm.<br><br>
-
-    <i>Smallest Thickness:</i>  We also found that the thinnest trace we can print is 0.3mm wide.
-     Any thinner than this and the silver does not connect reliably anymore.<br><br> 
+    <i>Thickness:</i> Since long wires take up space on our prototype, we should first try to minimize the thickness to increase the resistance. We ran a few experiments and found that the thinnest trace we can print is 0.3mm wide. Any thinner than this and the silver does not connect reliably anymore.<br><br> 
  
-    <i>Resistance of a 1cm long trace:</i> When we print a trace of 0.3mm width and 1cm length, we find that it's resistance is 7.5 Ohm/cm at room temperature.<br>
+    <i>Resistance of a 1cm long trace:</i> So now that we know the smallest thickness is 0.3mm wide, how much resistance does a wire like that have? To determine this, we printed a trace of 0.3mm width and 1cm length and found that its resistance was 7.5 Ohm/cm at room temperature.<br>
      Note that this can vary depending on the substrate, the 2D printer, and the silver ink mixture, so if you change any of these you would have to remeasure the resistance.<br><br> 
 
      <i>Required Length of the wire for 1kOhm?</i> Assuming that the thermal resistivity p and the height of the trace is constant, how long does your conductive wire have to be to have 1kOhm resistance?<br>
+     Remember that the thermal resistance p at room temperature 20C for a 0.3mm cross-section wire is p(20C) = 7.5Ohm/cm.<br> 
 
-     <span style="color:red">Mh, how can we derive this from the formula above?</span><span style="color:blue">hm, die 7.5Ohm/cm is die thermal resistance at room temperature. p(20C)=7.5Ohm/cm. Vllt so?:</span><br>
-     We can estimate the resistance of a trace of length l at room temperature by calculating<br>
+     We can therefore estimate the resistance of a trace of length l at room temperature by calculating<br><br>
     
     <pre>resistance = l * p(20C) = l * 7.5 Ohm/cm</pre><br>
 
