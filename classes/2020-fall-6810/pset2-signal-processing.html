@@ -286,7 +286,7 @@ Remember, that we want to first send a signal through one column, then read each
 You can do this in code in the following way:<br>
 <ul>
 	<li>first, send a signal to the output channel of the Multiplexer that corresponds to the first column of your multi-touch pad</li>
-	<li>next, read through the receiver pins one by one through the MCP3008 chip via SPI</li>
+	<li>next, read the receiver pins one by one through the MCP3008 chip via SPI. For each receiver pin read, it helps to sample multiple times (e.g. read 20 times for each "read" and add them together) to get more accurate and smooth signals</li>
 	<li>next, move on to the output channel that corresponds to the next column of your multi-touch pad and repeat</li>
 </ul> <br>
 
