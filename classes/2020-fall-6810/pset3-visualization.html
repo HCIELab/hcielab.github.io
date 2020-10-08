@@ -143,9 +143,11 @@ A noise baseline filter works in two steps:<br><br>
 
 <i>(2) Compare Usage Signal to Noise Baseline:</i> After you stored the noise baseline, your multi-touch pad is ready for regular use. During interaction, the signal is again recorded but this time we subtract the previously recorded noise baseline value from each new incoming signal. Thus, if you don't touch the multi-touch pad, the noisy incoming signal minus the noisy baseline will equal 0 (or at least be close to it). Therefore, the chance of false positives is much smaller, i.e. the chance that your code thinks that a touch occured although there was none is greatly reduced.<br><br>  
 
-
-
-Each "value" should have its own noise baseline (i.e. we are having 8x9 = 72 values in total) for better performance.<br><br>
+<b>Setting up a Noise Baseline for Each Receiver Signal</b><br>
+Although you could use the same noise baseline for all your receiver signals, it is probably not a good idea to average everything together.<br>
+Keep in mind that each receiver signal will have its own noise due to various factors, including <span style="color:red">the resistance of the printed pad, the breadboard wire connection, the pin quality, environmental factors, and what else.</span>.<br>
+Therefore, each receiver value should have its own noise baseline (i.e. we are having 8x9 = 72 values in total) for better performance.<br>
+<span style="color:red">why different for each value? and not for each signal line?</span><br><br>
 
 
 Feel free to implement this part the way you wnat as long as it satisfies the "record the first 2 seconds" + "noise baseline for each value" requirements. <br>
