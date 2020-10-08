@@ -124,16 +124,31 @@ Printing the 2D array to the Processing command line should look something like 
 
 <span style="color:red">every time a new pass over all columns/rows starts, we first want to clear the 2D array, i.e. remove all the old data, and then write the data for the new pass into the 2D array.</span><br><br>
 
-<h3>(2) Set the noise baseline</h3>
+<h3>(2) Set the noise baseline</h3><br>
 
-As you probably noticed when looking at the sensing data in the Arduino serial monitor in PSet2, there are always some readings in each ADC channel. <br>
-These are usually what we called the "noise" in signal processing. <br>
+<b>What is noise?</b><br>
+As you may have noticed, even when you are not touching the multi-touch pad, the receiver pins almost always receive some value although you would expect that they should receive '0'.<br>
+This is what we call "noise" in signal processing.<br>
+Noise is an issue because it can lead to false positives, i.e. your code may think the multi-touch pad was touched although no interaction occured.<br>
+To prevent this, we need to eliminate this noise in our signal.<br><br>
 
-In order to eliminate the noise and visualize more "clean" data, we will be the setting the noise baseline for our multi-touch pad. <br><br>
+<b>How can we eliminate the noise?</b><br>
+In order to eliminate the noise and have more "clean" data, there are many different processing steps that one can take.<br> 
+In our case, we will implement a simple noise baseline filter.<br><br>
 
-The idea here is quite straightforward, we will take the first <b>2 seconds</b> of the non-touch sensing data and store them as the noise baseline. <br>
+<b>How does a noise baseline filter work?</b><br>
+A noise baseline filter works in two steps:<br><br>
+
+<i>(1) Record Noise Baseline Signal:</i> First, you need to record the signal when you are <b>not</b> touching the multi-touch pad. These signal values will be stored in our program as our noise baseline. You only have to do this once at the beginning.<br><br> 
+
+<i>(2) Compare Usage Signal to Noise Baseline:</i> After you stored the noise baseline, your multi-touch pad is ready for regular use. During interaction, the signal is again recorded but this time we subtract the previously recorded noise baseline value from each new incoming signal. Thus, if you don't touch the multi-touch pad, the noisy incoming signal minus the noisy baseline will equal 0 (or at least be close to it).
+
+
 For all the raw sensing data coming after the baseline is set, we will subtract the the noise value from the raw value, and use those for actual visualization. <br>
 Each "value" should has its own noise baseline (i.e. we are having 8x9 = 72 values in total) for better performance.<br><br>
+
+will take the first <b>2 seconds</b> of the non-touch sensing data and store them as the noise baseline. <br>
+
 
 Feel free to implement this part the way you wnat as long as it satisfies the "record the first 2 seconds" + "noise baseline for each value" requirements. <br>
 For example, you can record all the baseline data in a 2D array of the same size as the sensing data array from part 1. <br>
