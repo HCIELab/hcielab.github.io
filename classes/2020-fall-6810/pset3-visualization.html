@@ -139,15 +139,13 @@ In our case, we will implement a simple noise baseline filter.<br><br>
 <b>How does a noise baseline filter work?</b><br>
 A noise baseline filter works in two steps:<br><br>
 
-<i>(1) Record Noise Baseline Signal:</i> First, you need to record the signal when you are <b>not</b> touching the multi-touch pad. These signal values will be stored in our program as our noise baseline. You only have to do this once at the beginning.<br><br> 
+<i>(1) Record Noise Baseline Signal:</i> First, you need to record the signal when you are <b>not</b> touching the multi-touch pad. These signal values will be stored in our program as our noise baseline. You only have to do this once at the beginning. In our case, we found that recording <b>2 seconds</b> of non-touch sensing data is sufficient for the multi-touch noise reduction.<br><br> 
 
-<i>(2) Compare Usage Signal to Noise Baseline:</i> After you stored the noise baseline, your multi-touch pad is ready for regular use. During interaction, the signal is again recorded but this time we subtract the previously recorded noise baseline value from each new incoming signal. Thus, if you don't touch the multi-touch pad, the noisy incoming signal minus the noisy baseline will equal 0 (or at least be close to it).
+<i>(2) Compare Usage Signal to Noise Baseline:</i> After you stored the noise baseline, your multi-touch pad is ready for regular use. During interaction, the signal is again recorded but this time we subtract the previously recorded noise baseline value from each new incoming signal. Thus, if you don't touch the multi-touch pad, the noisy incoming signal minus the noisy baseline will equal 0 (or at least be close to it). Therefore, the chance of false positives is much smaller, i.e. the chance that your code thinks that a touch occured although there was none is greatly reduced.<br><br>  
 
 
-For all the raw sensing data coming after the baseline is set, we will subtract the the noise value from the raw value, and use those for actual visualization. <br>
-Each "value" should has its own noise baseline (i.e. we are having 8x9 = 72 values in total) for better performance.<br><br>
 
-will take the first <b>2 seconds</b> of the non-touch sensing data and store them as the noise baseline. <br>
+Each "value" should have its own noise baseline (i.e. we are having 8x9 = 72 values in total) for better performance.<br><br>
 
 
 Feel free to implement this part the way you wnat as long as it satisfies the "record the first 2 seconds" + "noise baseline for each value" requirements. <br>
