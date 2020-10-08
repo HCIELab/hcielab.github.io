@@ -102,16 +102,31 @@ For example, the data looks like this in the serial port: <br>
 </pre> <br>
 
 Now we will be reading the sensing data from the Processing, and save them into a 2D array. <br>
-The size of 2D array should be <b>[number of transmitter lines (tx)] [number of receiver lines (rx)]</b>. <br>
+The size of 2D array should be <b>[number of transmitter lines (tx)] [number of receiver lines (rx)]</b> (recall that we built a 9x8 multi-touch pad). <br>
 A sample sensing data 2D array printed out could be: <br>
 <img src="images/pset3/serial-read-array.png" width="700px"> <br><br>
 
-You should be implementing this in the <b>readSerial()</b> function in the skeleton code:
+You should be implementing this in the <b>readSerial()</b> function in the skeleton code: <br>
 <img src="images/pset3/readSerial-skeleton-code.png" width="700px"> <br>
 
 
 <h3>(2) Set the noise baseline</h3>
+As you probably noticed when looking at the sensing data in the Arduino serial monitor in PSet2, there are always some readings in each ADC channel. <br>
+These are usually what we called the "noise" in signal processing. <br>
 
+In order to eliminate the noise and visualize more "clean" data, we will be the setting the noise baseline for our multi-touch pad. <br><br>
+
+The idea here is quite straightforward, we will take the first <b>2 seconds</b> of the non-touch sensing data and store them as the noise baseline. <br>
+For all the raw sensing data coming after the baseline is set, we will subtract the the noise value from the raw value, and use those for actual visualization. <br>
+Each "value" should has its own noise baseline (i.e. we are having 8x9 = 72 values in total) for better performance.<br><br>
+
+Feel free to implement this part the way you wnat as long as it satisfies the "record the first 2 seconds" + "noise baseline for each value" requirements. <br>
+For example, you can record all the baseline data in a 2D array of the same size as the sensing data array from part 1. <br>
+Notice that you should also store "how many" times the noise data are recorded during the 2 sec time frame, and divide the overall noise value by that. <br>
+Please store the individual recorded times for each "value" and do the division (i.e. we are having 8x9 = 72 values in total)for better performance.<br><br>
+
+You should be implementing this in the <b>setBaseLine()</b> function, and change the <b>boolean baseLineSet</b> in the skeleton code to "true" once the baseline is set: <br>
+<img src="images/pset3/setBaseLine-skeleton-code.png" width="700px"> <br>
 
 
 <h3>(3) Set the background image color and bicubic interpolation</h3>
@@ -124,15 +139,25 @@ You should be implementing this in the <b>readSerial()</b> function in the skele
 
 <br>
 
+<h3>Upload your Processing Code and pictures of Your visualization UI</h3>
+
+For grading, please upload the following to your google drive student folder:<br>
+
+<ul>
+	<li>the .pde file of your Processing program</li>
+	<li>3 photos showing your Processing UI works with one, two, and three fingers touching the multi-touch pad</li>
+	<li>a short video showing the Processing program working, i.e. show that the Processing UI correctly identifying one, two, and three fingers respectively touching the multi-touch pad and displays at the correct locations. Make sure the Processing UI, your multitouch pad and your fingers are visible at the same time.</li>
+</ul>
+
 <h3>Grading</h3>
 
 We will give 25 pts in total:
 <ul>
 	<li>5 pts: you finished all for steps of the task.</li>
-	<li>5 pts: circuit design: are all measurements correct, i.e. do the diamonds have the right size, is the spacing correct, do the wires actually connect to the FCP correctly.</li>
-	<li>5 pts: inkjet printing: the print is highly conductive and all columns and rows have a low resistance.</li>
-	<li>5 pts: assembly: did you assemble the layers correctly, are they correctly aligned, are the sheets stacked in the correct way.</li>
-	<li>5 pts: connect to FCP: your multi-touch pad connects correctly to the FCP chips, nothing is misaligned.</li>
+	<li>5 pts: read sensing data from serial port and save them correctly.</li>
+	<li>5 pts: set the noise baseline correctly, e.g. record the first 2 sec of the sensing data as noise baseline.</li>
+	<li>5 pts: update the background image color and perform bicubic interpolation correctly.</li>
+	<li>5 pts: implement blob detection correctly.</li>
 </ul>
 
 
