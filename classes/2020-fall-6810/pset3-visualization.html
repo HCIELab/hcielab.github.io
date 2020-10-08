@@ -139,23 +139,14 @@ In our case, we will implement a simple noise baseline filter.<br><br>
 <b>How does a noise baseline filter work?</b><br>
 A noise baseline filter works in two steps:<br><br>
 
-<i>(1) Record Noise Baseline Signal:</i> First, you need to record the signal when you are <b>not</b> touching the multi-touch pad. These signal values will be stored in our program as our noise baseline. You only have to do this once at the beginning. In our case, we found that recording <b>2 seconds</b> of non-touch sensing data is sufficient for the multi-touch noise reduction.<br><br> 
+<i>(1) Record Noise Baseline Signal:</i> First, you need to record the signal when you are <b>not</b> touching the multi-touch pad. The signal is recorded over some period of time and the recorded values are then averaged and saved as the noise baseline value. You only have to do this once at the beginning. In our case, we found that recording <b>2 seconds</b> of non-touch sensing data is sufficient for the multi-touch noise reduction. Note that we record the noise baseline for every received <b>value</b> of our multi-touch pad, i.e. we are having 8x9 = 72 values in total. Although we could use the same noise baseline for all our receiver signals, it is probably not a good idea to average everything together. Keep in mind that each receiver value will have its own noise due to various factors, including <span style="color:red">the resistance of the printed pad, the breadboard wire connection, the pin quality, environmental factors, and what else.</span>.<br>
+Therefore, it is better to have a separate noise baseline for each receiver value.<br>
+<span style="color:red">why different for each value? and not for each signal line?</span><br><br> 
 
-<i>(2) Compare Usage Signal to Noise Baseline:</i> After you stored the noise baseline, your multi-touch pad is ready for regular use. During interaction, the signal is again recorded but this time we subtract the previously recorded noise baseline value from each new incoming signal. Thus, if you don't touch the multi-touch pad, the noisy incoming signal minus the noisy baseline will equal 0 (or at least be close to it). Therefore, the chance of false positives is much smaller, i.e. the chance that your code thinks that a touch occured although there was none is greatly reduced.<br><br>  
+<i>(2) Compare Usage Signal to Noise Baseline:</i> After you stored the noise baseline for each value, your multi-touch pad is ready for regular use. During interaction, the signal for each value is again recorded but this time you subtract the previously recorded noise baseline value from each new incoming signal value. Thus, if you don't touch the multi-touch pad, the noisy incoming signal minus the noisy baseline will equal 0 (or at least be close to it). Therefore, the chance of false positives is much smaller, i.e. the chance that your code thinks that a touch occured although there was none is greatly reduced.<br><br>  
 
-<b>Setting up a Noise Baseline for Each Receiver Signal</b><br>
-Although you could use the same noise baseline for all your receiver signals, it is probably not a good idea to average everything together.<br>
-Keep in mind that each receiver signal will have its own noise due to various factors, including <span style="color:red">the resistance of the printed pad, the breadboard wire connection, the pin quality, environmental factors, and what else.</span>.<br>
-Therefore, each receiver value should have its own noise baseline (i.e. we are having 8x9 = 72 values in total) for better performance.<br>
-<span style="color:red">why different for each value? and not for each signal line?</span><br><br>
+Implement your noise baseline filtering in the <b>setBaseLine()</b> function and change the <b>boolean baseLineSet</b> in the skeleton code to "true" once the baseline is set: <br><br>
 
-
-Feel free to implement this part the way you wnat as long as it satisfies the "record the first 2 seconds" + "noise baseline for each value" requirements. <br>
-For example, you can record all the baseline data in a 2D array of the same size as the sensing data array from part 1. <br>
-Notice that you should also store "how many" times the noise data are recorded during the 2 sec time frame, and divide the overall noise value by that. <br>
-Please store the individual recorded times for each "value" and do the division (i.e. we are having 8x9 = 72 values in total)for better performance.<br><br>
-
-You should be implementing this in the <b>setBaseLine()</b> function, and change the <b>boolean baseLineSet</b> in the skeleton code to "true" once the baseline is set: <br>
 <img src="images/pset3/setBaseLine-skeleton-code.png" width="700px"> <br>
 
 
