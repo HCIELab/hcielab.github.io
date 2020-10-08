@@ -150,7 +150,7 @@ Recall from Lab 1 & 2, you have implemented a (simple) linear interpolation for 
 The bicubic interpolation has the similar idea, except for it is in 2D, which makes it perfect for image processing. <br><br>
 
 In image processing, bicubic interpolation is often chosen over bilinear or nearest-neighbor interpolation in image resampling, when speed is not an issue.<br> 
-In contrast to bilinear interpolation, which only takes 4 pixels (2×2) into account, bicubic interpolation considers 16 pixels (4×4). <br>
+In contrast to (bi-) linear interpolation, which only takes 4 pixels (2×2) into account, bicubic interpolation considers 16 pixels (4×4). <br>
 Images resampled with bicubic interpolation are smoother and have fewer interpolation artifacts. <br><br>
 
 You can compare the difference between (bi-) linear & (bi-) cubic interpolations over the following interpolation results based on the same data points (5x5): <br>
@@ -172,7 +172,22 @@ And something like this when touched, with the correct relative position "light 
 
 <h3>(4) Implement blob detection</h3>
 
+The last part of this PSet is to implement the "blob" detection for "touched location" of the multi-touch pad. <br>
+The blob detection is implemented on top of the interpolated image (e.g. PImage of 500px * 500px) from part 3. <br><br>
 
+You will be drawing 2 things on each detected blob: 1) the edge of the blob, and 2) the center point of the blob. <br>
+The blob detection is implemented via the BlobDetection library. For more details, you can look at <a href="http://www.v3ga.net/processing/BlobDetection/index-page-documentation.html">here </a>. <br><br>
+
+You should be implementing this in the <b>drawBlobsAndEdges()</b> function in the skeleton code: <br>
+<img src="images/pset3/drawBlobsAndEdges-skeleton-code.png" width="700px"> <br>
+
+Once you finished this part, you should be seeing the following differences compared to Part 3 (Part 3 vs Part 4, with one finger touching at the same location): <br>
+<img src="images/pset3/UI-no-blob-touch-1.png" width="350px"> 
+<img src="images/pset3/UI-blob-touch-1.png" width="350px"> <br><br>
+
+When you have multiple fingers touching the multi-touch pad, you should see something similar to the following (2 fingers touching vs. 3 fingers touching): <br>
+<img src="images/pset3/UI-blob-touch-2.png" width="350px"> 
+<img src="images/pset3/UI-blob-touch-3.png" width="350px"> <br>
 
 <br>
 
