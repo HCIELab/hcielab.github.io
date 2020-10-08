@@ -174,6 +174,7 @@ The PImage in RGB color mode has pixels with color values from 0 - 255.<br>
 We therefore have to scale our sensor signals accordingly.<br> 
 
 To scale your sensor values to a range of 0 - 255, you can use <a href="https://processing.org/reference/map_.html">the <b>map()</b> function</a> in Processing.<br>
+<span style="color:red">Use the scaled sensor value for each of the R, G, and B channels.</span><br>
 We recommend you don't use the full range up to 255 since <span style="color:red">why not?</span><br>
 Try out a few numbers to find the most suitable factors for you circuit so that the visualization is clear.<br>
 <br>
@@ -184,7 +185,14 @@ Put your code into the <b>setColors()</b> function in the skeleton code: <br>
 
 <h3>(4) Scaling up the Generated Image Using Bicubic Interpolation</h3>
 
-While the tiny 8x9 pixel PImage that we just created is accurately representing 
+While the tiny 8x9 pixel PImage that we just created is accurately representing our sensor values, <span style="color:red">it is too small for blob detection.</span><br>
+We therefore have to scale up the image to a size that is more suitable for further image processing, such as blob detection.<br>
+Simply scaling the image, however, will lead to a result <span style="color:red">how would that look like?</span>
+<br> 
+We therefore use a different approach called bicubic interpolation.<br><br>
+
+<b>What is bicubic interpolation?</b><br>
+Bicubic interpolation helps us to scale the image while creating a 'smoother' scaled appearance of the drawn color values from our signal.
 
 
 <b>Scaling the Image</b><br>
