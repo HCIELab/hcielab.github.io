@@ -83,6 +83,7 @@ You can install them directlt in the Processing software's <b>Sketch/Import Libr
 
 
 <h3>(1) Read the multi-touch sensing data</h3>
+
 Now that you are all familiar with reading data from serial port in Prosessing (recall Lab 1 & 2).<br>
 We will be implementing something really similar in the first part of the PSet3. <br><br>
 
@@ -111,6 +112,7 @@ You should be implementing this in the <b>readSerial()</b> function in the skele
 
 
 <h3>(2) Set the noise baseline</h3>
+
 As you probably noticed when looking at the sensing data in the Arduino serial monitor in PSet2, there are always some readings in each ADC channel. <br>
 These are usually what we called the "noise" in signal processing. <br>
 
@@ -130,8 +132,43 @@ You should be implementing this in the <b>setBaseLine()</b> function, and change
 
 
 <h3>(3) Set the background image color and bicubic interpolation</h3>
+Now that we have the "clean" sensing values, we will scale them up/down into the values that distinguish them enough and optimized for visualization, and interpolate them into a bigger and "smoother" plane (in our case, 500px * 500px). <br><br>
 
+For the first part, since we are "visualizing" sensing values by color (in RGB),  we will scale them up/down to range of 0-255. <br>
+Also for the convenience of visualization, we will construct a PImage that has the same size of our sensing data, and perform the amplification/suppression there. <br>
+You will find the <b>map()</b> function in Processing to be helpful <b>(note: not necessarily "max out" when touched, try out a few numbers to find the most suitable factors for you circuit, in terms of visualization)</b>. <br><br>
 
+You should be implementing this in the <b>setColors()</b> function in the skeleton code: <br>
+<img src="images/pset3/setColors-skeleton-code.png" width="700px"> <br>
+
+Once have the scaled values (in PImage), we will then interpolate them into a bigger and "smoother" plane (500px * 500px) to fit our display window (also 500px * 500px). <br>
+We will implement this via bicubic interpolation. <br>
+
+<h3>Bicubic Interpolation</h3>
+
+Recall from Lab 1 & 2, you have implemented a (simple) linear interpolation for the slider. <br>
+The bicubic interpolation has the similar idea, except for it is in 2D, which makes it perfect for image processing. <br><br>
+
+In image processing, bicubic interpolation is often chosen over bilinear or nearest-neighbor interpolation in image resampling, when speed is not an issue.<br> 
+In contrast to bilinear interpolation, which only takes 4 pixels (2×2) into account, bicubic interpolation considers 16 pixels (4×4). <br>
+Images resampled with bicubic interpolation are smoother and have fewer interpolation artifacts. <br><br>
+
+You can compare the difference between (bi-) linear & (bi-) cubic interpolations over the following interpolation results based on the same data points (5x5): <br>
+<img src="images/pset3/linear-interpolation.png" width="300px"> 
+<img src="images/pset3/cubic-interpolation.png" width="300px"> <br><br>
+
+Luckily, you do not have to implement the whole interpolation calculation from scratch, as you can using the "wheels" from OpenCV. <br>
+
+You should be implementing this in the <b>interpolate()</b> function in the skeleton code: <br>
+<img src="images/pset3/interpolate-skeleton-code.png" width="700px"> <br>
+
+Once you finished this part, you should be seeing the following when the multi-touch pad is not touch: <br>
+<img src="images/pset3/UI-no-blob-no-touch-1.png" width="350px"> 
+<img src="images/pset3/UI-no-blob-no-touch-2.png" width="350px"> <br>
+
+And something like this when touched, with the correct relative position "light up" (1 finger touching on the left, 2 fingers touching on the right): <br>
+<img src="images/pset3/UI-no-blob-touch-1.png" width="350px"> 
+<img src="images/pset3/UI-no-blob-touch-2.png" width="350px"> <br>
 
 <h3>(4) Implement blob detection</h3>
 
