@@ -149,19 +149,43 @@ Implement your noise baseline filtering in the <b>setBaseLine()</b> function and
 
 <img src="images/pset3/setBaseLine-skeleton-code.png" width="700px"> <br>
 
+<span style="color:red">what does set baseline mean here? is this only averaging the noise or is this also subtracting the noise? if not, where am I subtracting the noise then?</span>
 
-<h3>(3) Set the background image color and bicubic interpolation</h3>
-Now that we have the "clean" sensing values, we will scale them up/down into the values that distinguish them enough and optimized for visualization, and interpolate them into a bigger and "smoother" plane (in our case, 500px * 500px). <br><br>
+<!-- <h3>(3) Set the background image color and bicubic interpolation</h3> -->
+<h3>(3) Preparing the Received Signals for Visualization</h3>
 
-For the first part, since we are "visualizing" sensing values by color (in RGB),  we will scale them up/down to range of 0-255. <br>
-Also for the convenience of visualization, we will construct a PImage that has the same size of our sensing data, and perform the amplification/suppression there. <br>
-You will find the <b>map()</b> function in Processing to be helpful <b>(note: not necessarily "max out" when touched, try out a few numbers to find the most suitable factors for you circuit, in terms of visualization)</b>. <br><br>
+Now that we have "clean" sensing values, our next step is to find out where the multi-touch pad was actually touched.<br><br>
+
+<b>Using Image Visualization for Detecting Touch Points</b><br>
+While there are multiple different ways to find our where the multi-touch pad was touched, we will use an approach based on image-processing:<br>
+First, we will draw the sensor signals at each [x,y] point of the multi-touch pad into an image.<br>
+The higher the sensed signal, the brighter we will color the spot in the image.<br>
+Thus, a touched point will occur as a bright white spot and a non-touched point will occur as a dark black spot in the image.<br>
+While a single sensor value will just be a white pixel in the image, if we draw all sensor values together, we will see patterns of large white and black areas form.<br>
+Once we have this, we will apply image processing techniques to extract white 'blobs' in the image, i.e. these are the points where the user touched.<br><br>
+
+<img src="images/pset3/multi-touch_3-fingers-cropped.png" width="300px"><br><br>
+
+<b>Preparing the Sensor Signals for Visualization</b><br>
+For our visualization, we will construct an image (PImage) the same size as our 2D array that contains the sensing data.<br><br>
+
+Before we can draw our sensor signals into the PImage, we have to make sure they have the correct range.<br>
+The PImage in RGB color mode has pixels with color values from 0 - 255.<br>
+We therefore have to scale our sensor signals accordingly.<br> 
+
+To scale your sensor values to a range of 0 - 255, you can use <a href="https://processing.org/reference/map_.html">the <b>map()</b> function</a> in Processing.<br>
+We recommend you don't use the full range up to 255 since <span style="color:"red">why not?</span><br>
+Try out a few numbers to find the most suitable factors for you circuit so that the visualization is clear.<br>
+<br>
 
 You should be implementing this in the <b>setColors()</b> function in the skeleton code: <br>
 <img src="images/pset3/setColors-skeleton-code.png" width="700px"> <br>
 
 Once have the scaled values (in PImage), we will then interpolate them into a bigger and "smoother" plane (500px * 500px) to fit our display window (also 500px * 500px). <br>
 We will implement this via bicubic interpolation. <br>
+
+ we will scale them up/down into the values that distinguish them enough and optimized for visualization, and interpolate them into a bigger and "smoother" plane (in our case, 500px * 500px). <br><br>
+
 
 <h3>Bicubic Interpolation</h3>
 
