@@ -167,27 +167,29 @@ Once we have this, we will apply image processing techniques to extract white 'b
 <img src="images/pset3/multi-touch_3-fingers-cropped.png" width="300px"><br><br>
 
 <b>Preparing the Sensor Signals for Visualization</b><br>
-For our visualization, we will construct an image (PImage) the same size as our 2D array that contains the sensing data.<br><br>
-
+For our visualization, we will construct an image (PImage) the same size as our 2D array that contains the sensing data.<br>
 Before we can draw our sensor signals into the PImage, we have to make sure they have the correct range.<br>
 The PImage in RGB color mode has pixels with color values from 0 - 255.<br>
 We therefore have to scale our sensor signals accordingly.<br> 
 
 To scale your sensor values to a range of 0 - 255, you can use <a href="https://processing.org/reference/map_.html">the <b>map()</b> function</a> in Processing.<br>
-We recommend you don't use the full range up to 255 since <span style="color:"red">why not?</span><br>
+We recommend you don't use the full range up to 255 since <span style="color:red">why not?</span><br>
 Try out a few numbers to find the most suitable factors for you circuit so that the visualization is clear.<br>
 <br>
 
-You should be implementing this in the <b>setColors()</b> function in the skeleton code: <br>
+Put your code into the <b>setColors()</b> function in the skeleton code: <br>
 <img src="images/pset3/setColors-skeleton-code.png" width="700px"> <br>
+<span style="color:red">baseline subtraction here? the comments are a bit confused in the code as well. we should explain those values here as well.</span><br><br>
 
-Once have the scaled values (in PImage), we will then interpolate them into a bigger and "smoother" plane (500px * 500px) to fit our display window (also 500px * 500px). <br>
+<h3>(4) Scaling up the Generated Image Using Bicubic Interpolation</h3>
+
+<b>Scaling the Image</b><br>
+Once the scaled values are drawn into the PImage,  we will then interpolate them into a bigger and "smoother" plane (500px * 500px) to fit our display window (also 500px * 500px). <br>
 We will implement this via bicubic interpolation. <br>
 
  we will scale them up/down into the values that distinguish them enough and optimized for visualization, and interpolate them into a bigger and "smoother" plane (in our case, 500px * 500px). <br><br>
 
 
-<h3>Bicubic Interpolation</h3>
 
 Recall from Lab 1 & 2, you have implemented a (simple) linear interpolation for the slider. <br>
 The bicubic interpolation has the similar idea, except for it is in 2D, which makes it perfect for image processing. <br><br>
