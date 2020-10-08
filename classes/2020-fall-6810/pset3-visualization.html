@@ -187,24 +187,21 @@ Put your code into the <b>setColors()</b> function in the skeleton code: <br>
 
 While the tiny 8x9 pixel PImage that we just created is accurately representing our sensor values, <span style="color:red">it is too small for blob detection.</span><br>
 We therefore have to scale up the image to a size that is more suitable for further image processing, such as blob detection.<br>
-Simply scaling the image, however, will lead to a result <span style="color:red">how would that look like?</span>
+In our case, we want to scale up the image to <b>500px x 500px.</b><br><br>
+
+<b>How can we scale the image?</b><br>
+Simply scaling the image using a function, such as <span style="color:red">what Processing function would be the simplest way to scale?</span> will lead to a result <span style="color:red">how would that look like? a lot of discrete pixels?</span>
 <br> 
-We therefore use a different approach called bicubic interpolation.<br><br>
+To create a 'smoother' scaled appearance of the drawn color values from our signal, we therefore use a different approach based on interpolation.<br><br>
+
+<b>What is interpolation?</b><br>
+Interpolation can help fill in values where no actual values are present.<br>
+Recall from Lab 1 & 2 that when you implemented the slider, you had 5 discrete sensor signals from the slider segments and needed to create a continuous signal over the entire slider length. For this, you used a simple linear interpolation.<br>
+Similarly, in this pset, we have discrete sensor signal values in the resolution of 8x9 and need to provide a continous signal over an area of 500px x 500px, i.e. the size of the image. <span style="color:red"> The bicubic interpolation has the similar idea, except for it is in 2D, which makes it perfect for image processing. (this doesn't make much sense to me, couldn't I not also use linear interpolation for 2D? or do you mean it interpolates in two direction simultaenously?)</span><br><br>
+
 
 <b>What is bicubic interpolation?</b><br>
-Bicubic interpolation helps us to scale the image while creating a 'smoother' scaled appearance of the drawn color values from our signal.
 
-
-<b>Scaling the Image</b><br>
-Once the scaled values are drawn into the PImage,  we will then interpolate them into a bigger and "smoother" plane (500px * 500px) to fit our display window (also 500px * 500px). <br>
-We will implement this via bicubic interpolation. <br>
-
- we will scale them up/down into the values that distinguish them enough and optimized for visualization, and interpolate them into a bigger and "smoother" plane (in our case, 500px * 500px). <br><br>
-
-
-
-Recall from Lab 1 & 2, you have implemented a (simple) linear interpolation for the slider. <br>
-The bicubic interpolation has the similar idea, except for it is in 2D, which makes it perfect for image processing. <br><br>
 
 In image processing, bicubic interpolation is often chosen over bilinear or nearest-neighbor interpolation in image resampling, when speed is not an issue.<br> 
 In contrast to (bi-) linear interpolation, which only takes 4 pixels (2×2) into account, bicubic interpolation considers 16 pixels (4×4). <br>
