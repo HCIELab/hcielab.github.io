@@ -122,13 +122,22 @@ Printing the 2D array to the Processing command line should look something like 
 
 <img src="images/pset3/serial-read-array-one-pass.png" width="750px"> <br><br>
 
-<span style="color:red">every time a new pass over all columns/rows starts, we first want to clear the 2D array, i.e. remove all the old data, and then write the data for the new pass into the 2D array.</span><br><br>
+Every time a new pass over all columns/rows starts, you need to override your array values.<br><br>
 
 <h3>(2) Cleaning the Received Signal by Reducing Noise</h3><br>
 
 <b>What is noise?</b><br>
 As you may have noticed, even when you are not touching the multi-touch pad, the receiver pins almost always receive some value although you would expect that they should receive '0'.<br>
-This is what we call "noise" in signal processing.<br>
+This is what we call "noise" in signal processing.<br><br>
+
+<b>What causes noise?</b><br>
+Noise can be caused by a variety of factors.<br>
+On the entire multi-touch pad, noise can be caused by the substrate the multi-touch pad is placed on, i.e. if you place it on a glass table or a metal table.<br>Additionally, noise can be different at each of the connection points in the circuit. For instance, each FPC connector and each wire may have different noise since the conductive lines all make slightly different levels of contact.<br>
+Furthermore, since the inkjet printed circuit may not be perfectly consistent everywhere either because of uneven printing or because of different aging levels over time, the different printed paths may also have different levels of noise.<br>
+Finally, in addition to the reasons above, we can also have different noise levels on a single row of electrodes because the distance between each electrode and the receiver pin is different, thus accumulating noise over a larger distance.<br>
+All of these factors together result in different noise levels at each point in your multi-touch pad.<br><br> 
+
+<b>Why is noise an issue?</b><br>
 Noise is an issue because it can lead to false positives, i.e. your code may think the multi-touch pad was touched although no interaction occured.<br>
 To prevent this, we need to eliminate this noise in our signal.<br><br>
 
@@ -139,9 +148,7 @@ In our case, we will implement a simple noise baseline filter.<br><br>
 <b>How does a noise baseline filter work?</b><br>
 A noise baseline filter works in two steps:<br><br>
 
-<i>(1) Record Noise Baseline Signal:</i> First, you need to record the signal when you are <b>not</b> touching the multi-touch pad. The signal is recorded over some period of time and the recorded values are then averaged and saved as the noise baseline value. You only have to do this once at the beginning. In our case, we found that recording <b>2 seconds</b> of non-touch sensing data is sufficient for the multi-touch noise reduction. Note that we record the noise baseline for every received <b>value</b> of our multi-touch pad, i.e. we are having 8x9 = 72 values in total. Although we could use the same noise baseline for all our receiver signals, it is probably not a good idea to average everything together. Keep in mind that each receiver value will have its own noise due to various factors, including <span style="color:red">the resistance of the printed pad, the breadboard wire connection, the pin quality, environmental factors, and what else.</span>.<br>
-Therefore, it is better to have a separate noise baseline for each receiver value.<br>
-<span style="color:red">why different for each value? and not for each signal line?</span><br><br> 
+<i>(1) Record Noise Baseline Signal:</i> First, you need to record the signal when you are <b>not</b> touching the multi-touch pad. The signal is recorded over some period of time and the recorded values are then averaged and saved as the noise baseline value. You only have to do this once at the beginning. In our case, we found that recording <b>2 seconds</b> of non-touch sensing data is sufficient for the multi-touch noise reduction. Note that we record the noise baseline for every position in our multi-touch pad, i.e. every received value and thus we are having 8x9 = 72 noiseline base values in total.<br><br> 
 
 <i>(2) Compare Usage Signal to Noise Baseline:</i> After you stored the noise baseline for each value, your multi-touch pad is ready for regular use. During interaction, the signal for each value is again recorded but this time you subtract the previously recorded noise baseline value from each new incoming signal value. Thus, if you don't touch the multi-touch pad, the noisy incoming signal minus the noisy baseline will equal 0 (or at least be close to it). Therefore, the chance of false positives is much smaller, i.e. the chance that your code thinks that a touch occured although there was none is greatly reduced.<br><br>  
 
