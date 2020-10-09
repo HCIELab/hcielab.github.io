@@ -274,11 +274,34 @@ Therefore, it is best to try out a few numbers to find the most suitable factors
 
 <h3>(4) Implement blob detection</h3>
 
-The last part of this PSet is to implement the "blob" detection for "touched location" of the multi-touch pad. <br>
-The blob detection is implemented on top of the interpolated image (e.g. PImage of 500px * 500px) from part 3. <br><br>
+Finally, while you can now visually determine where the multi-touch pad was touched yourself, we also want to teach our program to do this automatically and tell us at which (x,y) coordinate it sees a touch point.<br><br>
+
+To do this, we want to write code that detects the white 'blobs' in the image.<br>
+This is called 'blob detection'.<br><br> 
+
+<b>How does Blob Detection work?</b><br>
+<span style="color:red">add some sentences on how blob detection works.</span><br><br> 
+
+<b>Implementing Blob Detection</b><br>
+Lucky for us, somebody else has already provided the blob detection algorithm in a <a href="http://www.v3ga.net/processing/BlobDetection/index-page-documentation.html">BlobDetection library, which you can find here here </a>. <br>
+You can <span style="color:red">install the library?</span> from here <span style="color:red">link</span>.
+
+First, construct a new object of the class using our interpolated PImage height and width.<br>
+Next, make sure you set the <b>setPosDiscrimination()</b> function to detect bright areas.<br>
+You can then use the <b>computeBlobs()</b> function to detect the blobs.<br>
+Finally, the <b>getBlob()</b> function can help you to retrieve individual blobs.<br>
+If your blob detection is not finding all the blobs in your image, consider using the <b>setThreshold()</b> function to determine which brightness levels from 0-255 should be taking into account when searching for blobs.<br>
+<span style="color:red">anything I forgot?</span><br><br>
+
+<b>Determining the Blobs Center and Outline to Identify Touch Positions</b><br>
+
+
+
+The blob detection is implemented via the BlobDetection library. For more details, 
+
 
 You will be drawing 2 things on each detected blob: 1) the edge of the blob, and 2) the center point of the blob. <br>
-The blob detection is implemented via the BlobDetection library. For more details, you can look at <a href="http://www.v3ga.net/processing/BlobDetection/index-page-documentation.html">here </a>. <br><br>
+<br><br>
 
 You should be implementing this in the <b>drawBlobsAndEdges()</b> function in the skeleton code: <br>
 <img src="images/pset3/drawBlobsAndEdges-skeleton-code.png" width="700px"> <br>
