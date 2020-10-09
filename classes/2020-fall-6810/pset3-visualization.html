@@ -206,33 +206,35 @@ Put your code into the <b>setColors()</b> function in the skeleton code: <br>
 
 <h3>(4) Scaling up the Generated Image Using Bicubic Interpolation</h3>
 
-While the tiny 8x9 pixel PImage that we just created is accurately representing our sensor values, <span style="color:red">it is too small for blob detection.</span><br>
+<b>Why do we need to scale our image?</b><br>
+While the tiny 9x8 pixel PImage that we just created is accurately representing our sensor values, <span style="color:red">(Junyi can you say better why we need to scale it up and can't leave it small?) it is too small to detect the touch positions.</span><br>
 We therefore have to scale up the image to a size that is more suitable for further image processing, such as blob detection.<br>
-In our case, we want to scale up the image to <b>500px x 500px.</b><br><br>
-
-<b>How can we scale the image?</b><br>
-Simply scaling the image using a function, such as <span style="color:red">what Processing function would be the simplest way to scale?</span> will lead to a result <span style="color:red">how would that look like? a lot of discrete pixels?</span>
-<br> 
-To create a 'smoother' scaled appearance of the drawn color values from our signal, we therefore use a different approach based on interpolation.<br><br>
+In our case, we want to scale up the image to <b>500px x 500px.</b><br>
+Since our original tiny 9x8 pixel image only contains 9x8 values, we need to figure out what values we should use for all the newly generated 'gaps' in the 500x500px image since it needs 500x500 values to be completely filled in at each pixel.<br>
+To do this, we use a technique called interpolation.<br><br>
 
 <b>What is interpolation?</b><br>
-Interpolation can help fill in values where no actual values are present.<br>
-Recall from Lab 1 & 2 that when you implemented the slider, you had 5 discrete sensor signals from the slider segments and needed to create a continuous signal over the entire slider length. For this, you used a simple linear interpolation.<br>
-Similarly, in this pset, we have discrete sensor signal values in the resolution of 8x9 and need to provide a continous signal over an area of 500px x 500px, i.e. the size of the image. <span style="color:red"> The bicubic interpolation has the similar idea, except for it is in 2D, which makes it perfect for image processing. (this doesn't make much sense to me, couldn't I not also use linear interpolation for 2D? or do you mean it interpolates in two direction simultaenously?)</span><br><br>
+Interpolation can help fill in values where no actual values are present and can thus help us determine what value the 'in-between' pixels in our 500x500px image should have.<br>
+There are many different interpolation techniques of different complexity levels that can be used to interpolate the pixel values in a way that it creates a smooth scaled up appearance of our original color values from our signals.<br>
+For our case, we consider bi-linear and bi-cubic interpolation. <br><br>
 
-
-<b>What is bicubic interpolation?</b><br>
+<b>What is the difference between bi-linear and bi-cubic interpolation?</b><br>
 
 Bi-Cubic interpolation works by taking the neighboring 16 pixels 
-
-
-In image processing, bicubic interpolation is often chosen over bilinear or nearest-neighbor interpolation in image resampling, when speed is not an issue.<br> 
 In contrast to (bi-) linear interpolation, which only takes 4 pixels (2×2) into account, bicubic interpolation considers 16 pixels (4×4). <br>
-Images resampled with bicubic interpolation are smoother and have fewer interpolation artifacts. <br><br>
 
-You can compare the difference between (bi-) linear & (bi-) cubic interpolations over the following interpolation results based on the same data points (5x5): <br>
+<img src="images/pset3/bilinear-bicubic.png" width="700px"> <br>
+
+Thus, a benefit of bicubic interpolation is that it gives you a more accurate and smoother interpolation result since it considers more values than bilinear interpolation. However, this also comes at the drawback of higher computational power needed since more values need to be processed to generate the interpolated value. For our small multi-touch pad with only a few hundred interpolated values this is not an issue but if you had to do more interpolation it may slow the processing down and the multi-touch pad would start lagging.<br><br>
+
+
+You can see the difference of bi-liner vs. bi-cubic interpolation in the images below (these are from the internet and not from our multi-touch pad <span style="color:red">(Junyi: it would be a lot better to show the result at the example of our multi-touch pad being touched, if this is just a opencv function, can you take these pictures?)</span>). In the images the input data was 5x5px and it was scaled up to <span style="color:red">what image size?</span><br><br>
+
 <img src="images/pset3/linear-interpolation.png" width="300px"> 
 <img src="images/pset3/cubic-interpolation.png" width="300px"> <br><br>
+
+
+
 
 Luckily, you do not have to implement the whole interpolation calculation from scratch, as you can using the "wheels" from OpenCV. <br>
 
