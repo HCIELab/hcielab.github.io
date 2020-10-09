@@ -148,15 +148,19 @@ In our case, we will implement a simple noise baseline filter.<br><br>
 <b>How does a noise baseline filter work?</b><br>
 A noise baseline filter works in two steps:<br><br>
 
-<i>(1) Record Noise Baseline Signal:</i> First, you need to record the signal when you are <b>not</b> touching the multi-touch pad. The signal is recorded over some period of time and the recorded values are then averaged and saved as the noise baseline value. You only have to do this once at the beginning. In our case, we found that recording <b>2 seconds</b> of non-touch sensing data is sufficient for the multi-touch noise reduction. Note that we record the noise baseline for every position in our multi-touch pad, i.e. every received value and thus we are having 8x9 = 72 noiseline base values in total.<br><br> 
+<i>(1) Record Noise Baseline Signal:</i> First, you need to record the signal when you are <b>not</b> touching the multi-touch pad. The signal is recorded over some period of time and the recorded values are then averaged and saved as the noise baseline value. You only have to do this once at the beginning. In our case, we found that recording <b>2 seconds</b> of non-touch sensing data is sufficient for the multi-touch noise reduction. Note that we record the noise baseline for every position in our multi-touch pad, i.e. every received value and thus we are having 9x8 = 72 noiseline base values in total.<br><br> 
 
-<i>(2) Compare Usage Signal to Noise Baseline:</i> After you stored the noise baseline for each value, your multi-touch pad is ready for regular use. During interaction, the signal for each value is again recorded but this time you subtract the previously recorded noise baseline value from each new incoming signal value. Thus, if you don't touch the multi-touch pad, the noisy incoming signal minus the noisy baseline will equal 0 (or at least be close to it). Therefore, the chance of false positives is much smaller, i.e. the chance that your code thinks that a touch occured although there was none is greatly reduced.<br><br>  
+Implement the noise baseline filtering in the <b>setBaseLine()</b> function and change the <b>boolean baseLineSet</b> in the skeleton code to "true" once the baseline is set: <br><br>
 
-Implement your noise baseline filtering in the <b>setBaseLine()</b> function and change the <b>boolean baseLineSet</b> in the skeleton code to "true" once the baseline is set: <br><br>
+<img src="images/pset3/setBaseLine-skeleton-code.png" width="600px"> <br>
 
-<img src="images/pset3/setBaseLine-skeleton-code.png" width="700px"> <br>
+<i>(2) Subtract Noise Baseline from Usage Signal:</i> After you stored the noise baseline for each value, your multi-touch pad is ready for regular use. During interaction, the signal for each value is again recorded but this time you subtract the previously recorded noise baseline value from each new incoming signal value. Thus, if you don't touch the multi-touch pad, the noisy incoming signal minus the noisy baseline will equal 0 (or at least be close to it). Therefore, the chance of false positives is much smaller, i.e. the chance that your code thinks that a touch occured although there was none is greatly reduced.<br><br>  
 
-<span style="color:red">what does set baseline mean here? is this only averaging the noise or is this also subtracting the noise? if not, where am I subtracting the noise then?</span>
+Implement the noise baseline substraction in the <b>subtractBaseLine()</b> function and <span style="color:red">what ever else todo.</span><br><br>
+
+<span style="color:red">replace image with substractBaseline() function</span><br>
+<img src="images/pset3/setBaseLine-skeleton-code.png" width="600px"> <br>
+
 
 <!-- <h3>(3) Set the background image color and bicubic interpolation</h3> -->
 <h3>(3) Preparing the Received Signals for Visualization</h3>
