@@ -245,31 +245,31 @@ You can use <span style="color:red">the "wheels" from OpenCV (I have no idea wha
 Implement this part in the <b>interpolate()</b> function in the skeleton code: <br><br>
 <img src="images/pset3/interpolate-skeleton-code.png" width="600px"> <br><br>
 
+<b>Checking Your Results:</b><br>
+
 Once you finished the interpolation, you should be able to see an image like the ones below when when the multi-touch pad is not touched. What exactly you see depends on your specific noise level and how well your noise baseline works. <br><br>
 
-<b>Not Touched:</b><br>
+<i>Not Touched:</i><br>
 <img src="images/pset3/UI-no-blob-no-touch-1.png" width="350px"> 
 <img src="images/pset3/UI-no-blob-no-touch-2.png" width="350px"> <br><br>
 
 And something like this when touched, with the touch position being brighter: <br><br>
 
-<b>Touched:</b><br>
+<i>Touched:</i><br>
 left: 1 finger touching, right: 2 fingers touching <br>
 <img src="images/pset3/UI-no-blob-touch-1.png" width="350px"> 
 <img src="images/pset3/UI-no-blob-touch-2.png" width="350px"> <br><br>
 
-<b>Calibrating the Multi-Touch Pad Signal Visualization</b><br>
+<b>Improving your Results</b><br>
+If your results don't look as good as above, try changing your mapping range when you mapped your sensor signals to values from 0-255.<br>
+Sometimes, using the full range of 0-255 can lead to worse results than using a smaller range, e.g. 90-150.<br>
+Consider the following two scenarios:<br>
 
+<span style="color:red">(1) Noise level high (write later): If the noise level is high (e.g. 50) and your signal is low (e.g. 100), then scaling from 0-255 will do the following....</span><br><br>
 
-<i>Should I use the entire range from 0-255 to map my values?</i><br>
-Which range you need to use, i.e. the full 0-255 or just a fraction of it, depends on the noise and signals you get with your specific multi-touch pad. As explained at the beginning, each multi-touch pad implementation is unique and thus has its own noise level and signal level. Consider the following two scenarios:<br>
+<span style="color:red">(2) Noise level low, signal low (write later): If the noise level is low... (e.g. 50) and your signal is low (e.g. 100), then scaling from 0-255 will do the following....</span><br><br>
 
-<span style="color:red">(1) Noise level high (write later)</span>
-
-Try out a few numbers to find the most suitable factors for you circuit so that the visualization is clear <span style="color:red">people may not see anything here at this point</span>.<br><br>
-
-
-
+Therefore, it is best to try out a few numbers to find the most suitable factors for you circuit so that the visualization is clear.<br><br>
 
 
 <h3>(4) Implement blob detection</h3>
