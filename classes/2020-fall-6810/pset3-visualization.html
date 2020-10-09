@@ -177,22 +177,32 @@ Once we have this, we will apply image processing techniques to extract white 'b
 
 <img src="images/pset3/multi-touch_3-fingers-cropped.png" width="300px"><br><br>
 
-<b>Preparing the Sensor Signals for Visualization</b><br>
+<b>Creating the Image</b><br>
 For our visualization, we will construct an image (PImage) the same size as our 2D array that contains the sensing data.<br>
-<span style="color:red">Note that this PImage will be tiny (8-9 pixel) and you will likely have to search a bit for it on screen.</span>
-Before we can draw our sensor signals into the PImage, we have to make sure they have the correct range.<br>
-The PImage in RGB color mode has pixels with color values from 0 - 255.<br>
-We therefore have to scale our sensor signals accordingly.<br> 
+Note that this PImage will be tiny (9x8 pixel) and you will likely have to search a bit for it on screen if you decide to display it for debugging purposes.<br><br>
+
+<b>Creating a Grayscale Image</b><br>
+We will draw into the PImage in grayscale.<br>
+The PImage pixels will have color values from 0 - 255.<br>
+A higher pixel value will result into a brighter color (255 = white) and a lower pixel value will result into a darker color (0 = black).<br> 
+You can set a pixel to a grayscale value by assigning the pixel a single value between 0-255 (rather than using the RGB notation of RGB(value1, value2, value3)).<br>
+We recommend you test first if you can set pixel values to grayscale values before moving on to integrate the sensor data.<br><br>
+
+<b>Converting the Sensor Signals into Grayscale Values</b><br>
+
+Before we can draw our sensor signals into the PImage as grayscale values, we have to make sure they have the correct range, i.e. are between 0-255.<br>
+We therefore have to scale our sensor signals accordingly.<br><br> 
 
 To scale your sensor values to a range of 0 - 255, you can use <a href="https://processing.org/reference/map_.html">the <b>map()</b> function</a> in Processing.<br>
-<span style="color:red">Use the scaled sensor value for each of the R, G, and B channels.</span><br>
-We recommend you don't use the full range up to 255 since <span style="color:red">why not?</span><br>
-Try out a few numbers to find the most suitable factors for you circuit so that the visualization is clear.<br>
-<br>
+After you scaled them, use them to set the pixel color of each pixel in the 9x8 pixel PImage.<br>
+Don't worry at this point if you can't see the effect in the image, just make sure all your pixel values are scaled to a value of 0-255.<br><br> 
+
+<span style="color:red">I recommend we do the 'figure out which scaling value' later since the students don't really see anything in the 9x8 pixel image so asking them to try to get a 'clear' visualization may not work.</span>.<br><br>
 
 Put your code into the <b>setColors()</b> function in the skeleton code: <br>
 <img src="images/pset3/setColors-skeleton-code.png" width="700px"> <br>
-<span style="color:red">baseline subtraction here? the comments are a bit confused in the code as well. we should explain those values here as well.</span><br><br>
+
+<span style="color:red">Why is this colorMode RGB? very confusing, can you add some comments that we will use this as grayscale? remove the baseline subtraction from here. the comments are a bit confused in the code as well. what are the different values you are mentioning there? we should explain those values here as well?</span><br><br>
 
 <h3>(4) Scaling up the Generated Image Using Bicubic Interpolation</h3>
 
@@ -236,6 +246,18 @@ Once you finished this part, you should be seeing the following when the multi-t
 And something like this when touched, with the correct relative position "light up" (1 finger touching on the left, 2 fingers touching on the right): <br>
 <img src="images/pset3/UI-no-blob-touch-1.png" width="350px"> 
 <img src="images/pset3/UI-no-blob-touch-2.png" width="350px"> <br>
+
+
+<i>Should I use the entire range from 0-255 to map my values?</i><br>
+Which range you need to use, i.e. the full 0-255 or just a fraction of it, depends on the noise and signals you get with your specific multi-touch pad. As explained at the beginning, each multi-touch pad implementation is unique and thus has its own noise level and signal level. Consider the following two scenarios:<br>
+
+<span style="color:red">(1) Noise level high (write later)</span>
+
+Try out a few numbers to find the most suitable factors for you circuit so that the visualization is clear <span style="color:red">people may not see anything here at this point</span>.<br><br>
+
+
+
+
 
 <h3>(4) Implement blob detection</h3>
 
