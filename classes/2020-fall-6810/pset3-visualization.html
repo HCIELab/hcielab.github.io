@@ -236,21 +236,29 @@ You can see the difference of bi-liner vs. bi-cubic interpolation in the images 
 <img src="images/pset3/linear-interpolation.png" width="300px"> 
 <img src="images/pset3/cubic-interpolation.png" width="300px"> <br><br>
 
+<b>Implementing Bi-Cubic Interpolation</b><br>
 
+Luckily, you do not have to implement the bicubic interpolation whole from scratch.<br>
+You can use <span style="color:red">the "wheels" from OpenCV (I have no idea what you are talking about)</span>.<br>
+<span style="color:red">Once you computed all interpolated values, you need to set them as the pixel color in your PImage.</span><br><br>
 
+Implement this part in the <b>interpolate()</b> function in the skeleton code: <br><br>
+<img src="images/pset3/interpolate-skeleton-code.png" width="600px"> <br><br>
 
-Luckily, you do not have to implement the whole interpolation calculation from scratch, as you can using the "wheels" from OpenCV. <br>
+Once you finished the interpolation, you should be able to see an image like the ones below when when the multi-touch pad is not touched. What exactly you see depends on your specific noise level and how well your noise baseline works. <br><br>
 
-You should be implementing this in the <b>interpolate()</b> function in the skeleton code: <br>
-<img src="images/pset3/interpolate-skeleton-code.png" width="700px"> <br>
-
-Once you finished this part, you should be seeing the following when the multi-touch pad is not touch: <br>
+<b>Not Touched:</b><br>
 <img src="images/pset3/UI-no-blob-no-touch-1.png" width="350px"> 
-<img src="images/pset3/UI-no-blob-no-touch-2.png" width="350px"> <br>
+<img src="images/pset3/UI-no-blob-no-touch-2.png" width="350px"> <br><br>
 
-And something like this when touched, with the correct relative position "light up" (1 finger touching on the left, 2 fingers touching on the right): <br>
+And something like this when touched, with the touch position being brighter: <br><br>
+
+<b>Touched:</b><br>
+left: 1 finger touching, right: 2 fingers touching <br>
 <img src="images/pset3/UI-no-blob-touch-1.png" width="350px"> 
-<img src="images/pset3/UI-no-blob-touch-2.png" width="350px"> <br>
+<img src="images/pset3/UI-no-blob-touch-2.png" width="350px"> <br><br>
+
+<b>Calibrating the Multi-Touch Pad Signal Visualization</b><br>
 
 
 <i>Should I use the entire range from 0-255 to map my values?</i><br>
