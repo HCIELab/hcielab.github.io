@@ -220,8 +220,11 @@ For our case, we consider bi-linear and bi-cubic interpolation. <br><br>
 
 <b>What is the difference between bi-linear and bi-cubic interpolation?</b><br>
 
-Bi-Cubic interpolation works by taking the neighboring 16 pixels 
-In contrast to (bi-) linear interpolation, which only takes 4 pixels (2×2) into account, bicubic interpolation considers 16 pixels (4×4). <br>
+<i>Bi-linear interpolation:</i> is performed using linear interpolation first in one direction, and then again in the other direction. For instance, in the example below where we want to determine the value of the central pixel, we first interpolate the value of the top and bottom pixel, and then interpolate the left and right pixel. We then average both the interpolate values to retrieve the final pixel value).<br><br>
+
+<i>Bi-cubic interpolation:</i> is performed by taking into account <span style="color:red">16 (4x4) (really?)</span> neighboring pixels. To compute the needed pixel value, all values are <span style="color:red">averaged together?</span>
+
+<br> <br>
 
 <img src="images/pset3/bilinear-bicubic.png" width="700px"> <br>
 
