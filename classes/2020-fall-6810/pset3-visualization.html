@@ -243,8 +243,8 @@ You can see the difference of bi-liner vs. bi-cubic interpolation in the images 
 
 Luckily, you do not have to implement the bicubic interpolation from scratch.<br>
 There is an image processing and computer vision library called <a href="https://opencv.org/courses/"><b>OpenCV.</b></a><br>
-OpenCV exists as a library for many different programming languages, in our case we will use OpenCV's implementation for Java and more specifically for Processing.<br>
-Remember, at the beginning of this pset3, you already installed the <b>OpenCV library.</b><br>
+OpenCV exists as a library for many different programming languages, in our case we will use OpenCV's implementation for Java and Processing.<br>
+Remember, at the beginning of pset3, you already installed the <b>OpenCV library.</b><br>
 If you scroll up in your skeleton code, you can see that we already imported several classes of the library with<br><br>
 
 <pre>
@@ -254,7 +254,7 @@ import org.opencv.core.Mat;
 import org.opencv.core.Size;
 </pre><br>
 
-If you look <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/imgproc/Imgproc.html">at the documentation of the <b>Imgproc class,</b></a> you will see that it provides a static <b>resize()</b> function, which also allows us to specify which interpolation we want to use.<br><br>
+If you look <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/imgproc/Imgproc.html">at the documentation of the <b>Imgproc class,</b></a> you will see that it provides a <b>resize()</b> function, which also allows us to specify which interpolation method we want to use.<br><br>
 
 <img src="images/pset3/imgproc-resize.png" width="750px"><br><br>
 
@@ -263,7 +263,7 @@ So let's see how we can fill out the parameters.<br><br>
 <b>Mat src:</b> This is the input image (9x8px) that we want to resize. As you can see, the image here is in the format <b>Mat</b> (Matrix) and not PImage. We therefore first have to convert our PImage into a Mat. In image processing, images are handles as 2D matrices, where every matrix entry is the color value of one pixel (i.e. 0-255 in our case). You can also think of the 2D matrix as a 2D array with pixel values in rows and columns.<br>
 Before we can convert our PImage into a Mat, we first have to construct a new OpenCV object.<br> 
 For this, you need to call the corresponding OpenCV constructor in the <a href="http://atduskgreg.github.io/opencv-processing/reference/gab/opencv/OpenCV.html">OpenCV class documentation</a>.<br>
-Once you constructed your OpenCV object, you can call the <b>getGray()</b> function on it to retrieve the image as a Mat (check the class documentation again). This is your src input parameter. <br><br>
+Once you constructed your OpenCV object, you can call the <b>getGray()</b> function on it to retrieve the image as a Mat (check <a href="http://atduskgreg.github.io/opencv-processing/reference/gab/opencv/OpenCV.html">the OpenCV class documentation</a> again). This is your src input parameter. <br><br>
 
 <b>Mat dest:</b> This is the output image, i.e. the resized 500x500px image. Again it needs to be in the format of a matrix. For the output image, we want to create a new empty matrix of our desired size. You can find the <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/core/Mat.html"><b>OpenCV Mat Reference</b> here</a>. 
 
