@@ -169,12 +169,12 @@ Implement the noise baseline substraction in the <b>subtractBaseLine()</b> funct
 Now that we have "clean" sensing values, our next step is to find out where the multi-touch pad was actually touched.<br><br>
 
 <b>Using Image Processing for Detecting Touch Points</b><br>
-While there are multiple different ways to find our where the multi-touch pad was touched, we will use an approach based on image-processing:<br>
-First, we will draw the sensor signals at each [x,y] point of the multi-touch pad into an image.<br>
-The higher the sensed signal, the brighter we will color the spot in the image.<br>
-Thus, a touched point will occur as a bright white spot and a non-touched point will occur as a dark black spot in the image.<br>
-While a single sensor value will just be a white pixel in the image, if we draw all sensor values together, we will see patterns of large white and black areas form.<br>
-Once we have this, we will apply image processing techniques to extract white 'blobs' in the image, i.e. these are the points where the user touched.<br><br>
+While there are multiple different ways to find our where the multi-touch pad was touched, we will use an approach based on image-processing.<br>
+First, we will convert our sensor signals into grayscale values and then draw the grayscale values into a 9x8 pixel image.<br> 
+Brighter pixels will correspond to higher sensor signals (i.e. touch points) while darker pixels will correspond to areas that were not touched.<br>
+Since image processing on such a small 9x8 pixel image is too difficult, we will increase the size of the image to 500x500px using bicubic interpolation to fill in for the missing pixel values.<br>
+After this, we can use 'blob' detection to extra the white blobs in the image (i.e. the touch points) and get the touch coordinates from the blobs.<br>
+Let's do this one step at a time.<br><br>
 
 <img src="images/pset3/multi-touch_3-fingers-cropped.png" width="300px"><br><br>
 
