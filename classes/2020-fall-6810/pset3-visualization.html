@@ -310,9 +310,8 @@ Note that you may have to adjust these values every time you change the setup in
 
 <h3>(5) Implement blob detection</h3>
 
-While you can now visually determine where the multi-touch pad was touched yourself, we also want to teach our program to do this automatically and tell us at which (x,y) coordinate it sees a touch point.<br><br>
-
-To do this, we want to write code that detects the white 'blobs' in the image.<br>
+While you can now determine with your eyes where the multi-touch pad was touched, we also want to teach our program to do this automatically and tell us at which (x,y) coordinate it sees a touch point.<br>
+To do this, we need to write code that detects the white 'blobs' in the image.<br>
 This is called 'blob detection'.<br><br> 
 
 <b>How does Blob Detection work?</b><br>
@@ -320,7 +319,7 @@ This is called 'blob detection'.<br><br>
 
 <b>Implementating Blob Detection: Finding Blobs in the Image</b><br>
 Lucky for us, somebody else has already provided a library with the blob detection algorithm.<br>
-You already installed that library at the beginning of this pset and we already imported it into the skeleton code here:<br>
+You already installed that library at the beginning of this pset and we already imported it into the skeleton code using the following line:<br>
 
 <pre>import blobDetection.*;</pre>
 
@@ -331,7 +330,7 @@ You can then use the <b>computeBlobs()</b> function to detect the blobs.<br>
 Finally, the <b>getBlob()</b> and <b>getBlobNb()</b> functions can help you to retrieve the blobs.<br>
 If your blob detection is not finding all the blobs in your image, consider using the <b>setThreshold()</b> function to determine which brightness levels from 0-255 should be taking into account when searching for blobs.<br><br>
 
-Implement this in the <b>drawBlobsAndEdges()</b> function in the skeleton code (note that we will do the drawing in the next step): <br><br>
+Implement this in the <b>drawBlobsAndEdges()</b> function in the skeleton code (note that we will do the drawing of the blob outline in the next step): <br><br>
 
 <img src="images/pset3/drawBlobsAndEdges-skeleton-code.png" width="600px"> <br><br>
 
@@ -343,7 +342,7 @@ Next, we want to extract for each blob:
 	<li>the contour of blob (i.e., the outline of the touch point)</li>
 </ol>
 
-And then draw the touch point, the finger outline, and the touch coordinates as (x,y) into our PImage.<br><br>
+And then draw the touch point center, the touch point outline, and the touch point coordinates as (x,y) into our PImage.<br><br>
 
 To extract the touch point and contour, you can go back to the <a href="http://www.v3ga.net/processing/BlobDetection/index-page-documentation.html">documentation of the BlobDetection library</a>.<br>
 The Blob class should give you all you need. <br>
