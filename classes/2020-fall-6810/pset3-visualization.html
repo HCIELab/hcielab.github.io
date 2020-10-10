@@ -318,34 +318,37 @@ This is called 'blob detection'.<br><br>
 <span style="color:red">add some sentences on how blob detection works.</span><br><br> 
 
 <b>Implementating Blob Detection: Finding Blobs in the Image</b><br>
-Lucky for us, somebody else has already provided the blob detection algorithm in a <a href="http://www.v3ga.net/processing/BlobDetection/index-page-documentation.html">BlobDetection library, which you can find here here </a>. <br>
-You can <span style="color:red">install the library?</span> from here <span style="color:red">link</span>.
+Lucky for us, somebody else has already provided a library with the blob detection algorithm.<br>
+You already installed that library at the beginning of this pset and we already imported it into the skeleton code here:<br>
 
+<pre>import blobDetection.*;</pre>
+
+Next, we want to extract the blobs in our image.<br>
+You can see the <a href="http://www.v3ga.net/processing/BlobDetection/index-page-documentation.html"><b>BlobDetection Reference</b> here</a> for details on the different functions.<br>
 First, construct a new object of the class using our interpolated PImage height and width.<br>
-Next, make sure you set the <b>setPosDiscrimination()</b> function to detect bright areas.<br>
 You can then use the <b>computeBlobs()</b> function to detect the blobs.<br>
-Finally, the <b>getBlob()</b> function can help you to retrieve individual blobs.<br>
-If your blob detection is not finding all the blobs in your image, consider using the <b>setThreshold()</b> function to determine which brightness levels from 0-255 should be taking into account when searching for blobs.<br>
-<span style="color:red">anything I forgot?</span><br><br>
+Finally, the <b>getBlob()</b> and <b>getBlobNb()</b> functions can help you to retrieve the blobs.<br>
+If your blob detection is not finding all the blobs in your image, consider using the <b>setThreshold()</b> function to determine which brightness levels from 0-255 should be taking into account when searching for blobs.<br><br>
 
-<b>Determining the Blobs Center and Contours to Identify Touch Positions and Drawing them Into the PImage</b><br>
+Implement this in the <b>drawBlobsAndEdges()</b> function in the skeleton code (note that we will do the drawing in the next step): <br><br>
+
+<img src="images/pset3/drawBlobsAndEdges-skeleton-code.png" width="600px"> <br><br>
+
+<b>Drawing Blob Centers and Contours Into the Image</b><br>
 
 Next, we want to extract for each blob:
 <ol>
 	<li>the center of the blob (i.e., center of the touch point)</li>
-	<li>the contour of blob (i.e., the outline of the finger touch point)</li>
+	<li>the contour of blob (i.e., the outline of the touch point)</li>
 </ol>
 
-And then draw the touch point, the finger outline, and <span style="color:red">the touch coordinates</span> into our PImage.<br><br>
+And then draw the touch point, the finger outline, and the touch coordinates as (x,y) into our PImage.<br><br>
 
 To extract the touch point and contour, you can go back to the <a href="http://www.v3ga.net/processing/BlobDetection/index-page-documentation.html">documentation of the BlobDetection library</a>.<br>
 The Blob class should give you all you need. <br>
 Note that the contour is provided as a list of edges (i.e. lines).<br>
 Drawing the contour, touch point, and text coordinates into the image is similar to what you already did in your pset1 Processing application.<br><br>
 
-Implement this in the <b>drawBlobsAndEdges()</b> function in the skeleton code: <br><br>
-
-<img src="images/pset3/drawBlobsAndEdges-skeleton-code.png" width="600px"> <br><br>
 
 <b>Checking your Results</b><br>
 
