@@ -236,9 +236,45 @@ You can see the difference of bi-liner vs. bi-cubic interpolation in the images 
 <img src="images/pset3/linear-interpolation.png" width="300px"> 
 <img src="images/pset3/cubic-interpolation.png" width="300px"> <br><br>
 
-<b>Implementing Bi-Cubic Interpolation</b><br>
+<b>Implementing Bi-Cubic Interpolation with OpenCV</b><br>
 
 Luckily, you do not have to implement the bicubic interpolation whole from scratch.<br>
+There is an image processing and computer vision library called <a href="https://opencv.org/courses/"><b>OpenCV.</b></a><br>
+OpenCV exists as a library for many different programming languages, in our case we will use OpenCV's implementation for Java and more specifically for Processing.<br>
+Remember, at the beginning of this pset3, you already installed the <b>OpenCV library.</b><br>
+If you scroll up in your skeleton code, you can see that we already imported several classes of the library with<br><br>
+
+<pre>
+import gab.opencv.*;
+import org.opencv.imgproc.Imgproc;
+import org.opencv.core.Mat;
+import org.opencv.core.Size;
+</pre><br>
+
+If you look at the documentation of the <b>Imgproc class,</b> which you can find here under <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/imgproc/Imgproc.html">Imgproc Class Reference</a>, you will see that it provides a <b>resize()</b> function, which also allows us to specify which interpolation we want to use.<br><br>
+
+<img src="images/pset3/imgproc-resize.png" width="700px"> 
+
+
+
+
+ and you can find its <a href="http://atduskgreg.github.io/opencv-processing/reference/"><b>API documentation</b> here</a> <br>
+
+
+So let's go over the individual steps you need to take.<br>
+First, you need to convert your PImage into an OpenCV object (basically an image in OpenCV format).<br>
+For this, you need to call the correspnding OpenCV constructor in the <a href="http://atduskgreg.github.io/opencv-processing/reference/">API documentation</a>.<br><br>
+
+Once you have the OpenCV image constructed, you need to convert it into a matrix of g
+
+
+
+
+
+
+
+
+
 You can use <span style="color:red">the "wheels" from OpenCV (I have no idea what you are talking about)</span>.<br>
 <span style="color:red">Once you computed all interpolated values, you need to set them as the pixel color in your PImage.</span><br><br>
 
