@@ -257,16 +257,16 @@ If you look <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/imgproc/Imgp
 
 So let's see how we can fill out the parameters.<br><br>
 
-<b>Mat src:</b> This is the input image that we want to resize. As you can see, the image here is in the format <b>Mat</b> (Matrix) and not PImage. We therefore first have to convert our PImage into a Mat. In image processing, images are handles as 2D matrices, where every matrix entry is the color value of one pixel. You can also think of the 2D matrix as a 2D array with pixel values in rows and columns.<br>
+<b>Mat src:</b> This is the input image (9x8px) that we want to resize. As you can see, the image here is in the format <b>Mat</b> (Matrix) and not PImage. We therefore first have to convert our PImage into a Mat. In image processing, images are handles as 2D matrices, where every matrix entry is the color value of one pixel (i.e. 0-255 in our case). You can also think of the 2D matrix as a 2D array with pixel values in rows and columns.<br>
 Before we can convert our PImage into a Mat, we first have to construct a new OpenCV object.<br> 
-For this, you need to call the corresponding OpenCV constructor in the <a href="http://atduskgreg.github.io/opencv-processing/reference/">OpenCV class documentation</a>.<br>
-Once you constructed your OpenCV object, you can call the <b>getGray()</b> function to retrieve the image as a Mat. This is your src input parameter. <br><br>
+For this, you need to call the corresponding OpenCV constructor in the <a href="http://atduskgreg.github.io/opencv-processing/reference/gab/opencv/OpenCV.html">OpenCV class documentation</a>.<br>
+Once you constructed your OpenCV object, you can call the <b>getGray()</b> function on it to retrieve the image as a Mat (check the class documentation again). This is your src input parameter. <br><br>
 
-<b>Mat dest:</b> This is the output image, i.e. the large resized image. Again it needs to be in the format of a matrix. For the output image, we want to create a new empty matrix of our desired size, i.e. 500x500px. You can find the <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/core/Mat.html"><b>OpenCV Mat Reference</b> here</a>. 
+<b>Mat dest:</b> This is the output image, i.e. the resized 500x500px image. Again it needs to be in the format of a matrix. For the output image, we want to create a new empty matrix of our desired size. You can find the <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/core/Mat.html"><b>OpenCV Mat Reference</b> here</a>. 
 
 <img src="images/pset3/mat-constructor.png" width="350px"><br>
 
-Similar to how other variables have a type, e.g. int or float, matrices also have <a href="http://ninghang.blogspot.com/2012/11/list-of-mat-type-in-opencv.html">types,</a> which describe what types of values can be stored in them. Since we want to make sure the input  and the output images match, you need to reference the image type of your source matrix as the argument. If you check the Mat reference instance methods, you can see that there is a function for getting the matrix type, which you should use as the argument. <br><br>
+Similar to how other variables have a type, e.g. int or float, matrices also have <a href="http://ninghang.blogspot.com/2012/11/list-of-mat-type-in-opencv.html">types,</a> which describe what types of values can be stored in them. Since we want to make sure the input  and the output images match, you need to reference the image type of your source matrix as the argument. If you check the Mat reference again, you can see that there is an instance function for getting the matrix type, which you should use as the argument. <br><br>
 
 <b>Size dsize:</b> You can find the <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/core/Size.html"><b>OpenCV Size</b> Reference</a> here. Construct a new Size object with 500x500px. <br><br>
 
@@ -283,18 +283,15 @@ Implement this part in the <b>interpolate()</b> function in the skeleton code: <
 
 <img src="images/pset3/interpolate-skeleton-code.png" width="600px"> <br><br>
 
-<b>Convert Matrix back to PImage:</b> Finally, after you resized the image with our desired interpolation method, you have to convert your output matrix back into a PImage. For this, you can go back to the <a href="http://atduskgreg.github.io/opencv-processing/reference/"><b>OpenCV class</b> documentation</a> and look for the method that gives you a PImage.<br> If you now display the resulting image, you should see that it is larger and all values are interpolated.<br>
-
+<b>Convert Matrix back to PImage:</b> Finally, after you resized the image with our desired interpolation method, you have to convert your output matrix back into a PImage. For this, you can go back to the <a href="http://atduskgreg.github.io/opencv-processing/reference/"><b>OpenCV class</b> documentation</a> and look for the method that gives you a PImage.<br> This should also still go into the interpolate function in the skeleton code.<br><br>
 
 <b>Checking Your Results:</b><br>
 
-Once you finished the interpolation, you should be able to see an image like the ones below when when the multi-touch pad is not touched. What exactly you see depends on your specific noise level and how well your noise baseline works. <br><br>
+Once you finished the interpolation, you should be able to see images like the ones below. The image should be darker when the multi-touch pad is not touched and have some bright spots when the multi-touch pad is touched. What exactly you see depends on your specific noise level and how well your noise baseline works. <br><br>
 
 <i>Not Touched:</i><br>
 <img src="images/pset3/UI-no-blob-no-touch-1.png" width="350px"> 
 <img src="images/pset3/UI-no-blob-no-touch-2.png" width="350px"> <br><br>
-
-And something like this when touched, with the touch position being brighter: <br><br>
 
 <i>Touched:</i><br>
 left: 1 finger touching, right: 2 fingers touching <br>
