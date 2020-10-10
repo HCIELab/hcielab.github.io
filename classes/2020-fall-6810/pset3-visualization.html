@@ -218,12 +218,12 @@ To do this, we use a technique called interpolation.<br><br>
 
 <b>What is interpolation?</b><br>
 Interpolation can help fill in values where no actual values are present and can thus help us determine what value the 'in-between' pixels in our 500x500px image should have.<br>
-There are many different interpolation techniques of different complexity levels that can be used to interpolate the pixel values in a way that it creates a smooth scaled up appearance of our original color values from our signals.<br>
-For our case, we consider bi-linear and bi-cubic interpolation. <br><br>
+There are many different interpolation techniques that can be used to interpolate the pixel values to create a smooth scaled up appearance of the original input image.<br>
+Some of simplest interpolation methods are bi-linear and bi-cubic interpolation. <br><br>
 
 <b>What is the difference between bi-linear and bi-cubic interpolation?</b><br>
 
-<i>Bi-linear interpolation:</i> is performed using linear interpolation first in one direction, and then again in the other direction. For instance, in the example below where we want to determine the value of the central pixel, we first interpolate the value of the top and bottom pixel, and then interpolate the left and right pixel. We then average both the interpolate values to retrieve the final pixel value).<br><br>
+<i>Bi-linear interpolation:</i> <span style="color:red">is performed using linear interpolation first in one direction, and then again in the other direction. For instance, in the example below where we want to determine the value of the central pixel, we first interpolate the value of the top and bottom pixel, and then interpolate the left and right pixel. We then average both the interpolate values to retrieve the final pixel value).</span><br><br>
 
 <i>Bi-cubic interpolation:</i> is performed by taking into account <span style="color:red">16 (4x4) (really?)</span> neighboring pixels. To compute the needed pixel value, all values are <span style="color:red">averaged together?</span>
 
@@ -231,7 +231,7 @@ For our case, we consider bi-linear and bi-cubic interpolation. <br><br>
 
 <img src="images/pset3/bilinear-bicubic.png" width="700px"> <br>
 
-Thus, a benefit of bicubic interpolation is that it gives you a more accurate and smoother interpolation result since it considers more values than bilinear interpolation. However, this also comes at the drawback of higher computational power needed since more values need to be processed to generate the interpolated value. For our small multi-touch pad with only a few hundred interpolated values this is not an issue but if you had to do more interpolation it may slow the processing down and the multi-touch pad would start lagging.<br><br>
+Thus, a benefit of bicubic interpolation is that it gives you a more accurate and smoother interpolation result since it considers more values than bilinear interpolation. However, this also comes at the drawback of needing higher computational power since more values need to be processed to generate the interpolated value. For our small multi-touch pad with only a few hundred interpolated values this is not an issue but if you had to do more interpolation it may slow the processing down and the multi-touch pad detection would start lagging behind the user's finger movements.<br><br>
 
 
 You can see the difference of bi-liner vs. bi-cubic interpolation in the images below (these are from the internet and not from our multi-touch pad <span style="color:red">(Junyi: it would be a lot better to show the result at the example of our multi-touch pad being touched, if this is just a opencv function, can you take these pictures?)</span>). In the images the input data was 5x5px and it was scaled up to <span style="color:red">what image size?</span><br><br>
