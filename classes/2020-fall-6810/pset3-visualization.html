@@ -299,16 +299,7 @@ left: 1 finger touching, right: 2 fingers touching <br>
 <img src="images/pset3/UI-no-blob-touch-2.png" width="350px"> <br><br>
 
 <b>Improving your Results</b><br>
-If your results don't look as good as above, try changing your mapping range when you mapped your sensor signals to values from 0-255.<br>
-Sometimes, using the full range of 0-255 can lead to worse results than using a smaller range, e.g. 90-150.<br>
-Consider the following two scenarios:<br>
-
-<span style="color:red">(1) Noise level high (write later): If the noise level is high (e.g. 50) and your signal is low (e.g. 100), then scaling from 0-255 will do the following....</span><br><br>
-
-<span style="color:red">(2) Noise level low, signal low (write later): If the noise level is low... (e.g. 50) and your signal is low (e.g. 100), then scaling from 0-255 will do the following....</span><br><br>
-
-Therefore, it is best to try out a few numbers to find the most suitable factors for you circuit so that the visualization is clear.<br><br>
-
+If your results don't look as good as above, try changing how you map your sensors signals to the values from 0 - 255. For instance, if you had decided earlier that you want to map all sensor readings of 170 to the value of 255 to indicate them as bright touch points but now you don't see any bright spots when you touch, then this value was probably too high and too many touch points are being dismissed and rendered as black. Try 150 or 130 and see if that improves your results. If you go too low, this may however then also recognize noise as a touch point.<br><br>
 
 <h3>(4) Implement blob detection</h3>
 
