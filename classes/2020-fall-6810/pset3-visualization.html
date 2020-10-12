@@ -73,7 +73,7 @@ Now that you have the hardware ready and Arduino sensing code prepared, you will
 
 <h3>Skeleton Code</h3>
 
-Start by downloading <a href="software/pset3_visualization_skeleton.zip">the skeleton code for the PSet3 from  here</a>. <br>
+Start by downloading <a href="software/pset3_visualization_skeleton_v2.zip">the skeleton code for the PSet3 from  here</a>. <br>
 Before you can execute it, you first have to install two libraries (see next step). <br><br>
 
 <h3>Install external libraries</h3>
@@ -151,17 +151,17 @@ A noise baseline filter works in two steps:<br><br>
 
 <i>(1) Record Noise Baseline Signal:</i> First, you need to record the signal when you are <b>not</b> touching the multi-touch pad. The signal is recorded over some period of time and the recorded values are then averaged and saved as the noise baseline value. You only have to do this once at the beginning. In our case, we found that recording <b>2 seconds</b> of non-touch sensing data is sufficient for the multi-touch noise reduction. Note that we record the noise baseline for every position in our multi-touch pad for the reasons mentioned above, i.e. that every position has its own level of noise. We therefore record the noise baseline for every received <b>value</b> and thus we are having 9x8 = 72 noiseline base values in total.<br><br> 
 
-Implement the noise baseline filtering in the <b>setBaseLine()</b> function and change the <b>boolean baseLineSet</b> in the skeleton code to "true" once the baseline is set: <br>
-<span style="color:red">Do students know how to set a timer in Processing? I saw you start some nano timer in your code. I don't think students know how to do this (correct me if I'm wrong). If not, please add a short explanation here and give a link to the API reference</span>.<br><br>
+Implement the noise baseline filtering in the <b>setBaseLine()</b> function and change the <b>boolean baseLineSet</b> in the skeleton code to "true" once the baseline is set. <br>
+You will find the Java's native <b><i>System.nanoTime()</i></b> or Processing's <b><i>millis()</i></b> funtion to be helpful. For more details, you can look at <a href="https://processing.org/reference/millis_.html"> the reference here </a>.<br><br>
 
 <img src="images/pset3/setBaseLine-skeleton-code.png" width="600px"> <br>
 
 <i>(2) Subtract Noise Baseline from Usage Signal:</i> After you stored the noise baseline for each value, we can look into how to use it to create better signals during the actual user interaction. During interaction, the signal for each value is again recorded but this time you subtract the previously recorded noise baseline value from each new incoming signal value. Thus, if you don't touch the multi-touch pad, the noisy incoming signal minus the noise baseline will equal 0 (or at least be close to it). Therefore, the chance of false positives is much smaller, i.e. the chance that your code thinks that a touch occured although there was none is greatly reduced.<br><br>  
 
-Implement the noise baseline substraction in the <b>subtractBaseLine()</b> function and <span style="color:red">what ever else todo.</span><br><br>
+Implement the noise baseline substraction in the <b>subtractBaseLine()</b> function and subtract the baseline values from corresponding new incoming raw values <b>only when the baseline is set.</b> <br>
+You should also make sure the "clean" sensing values stored after the subtraction are not negative.<br><br>
 
-<span style="color:red">replace image with substractBaseline() function</span><br>
-<img src="images/pset3/setBaseLine-skeleton-code.png" width="600px"> <br>
+<img src="images/pset3/substractBaseLine-skeleton-code.png" width="600px"> <br>
 
 
 <!-- <h3>(3) Set the background image color and bicubic interpolation</h3> -->
@@ -203,15 +203,14 @@ As you can see in <a href="https://processing.org/reference/map_.html">the map()
 
 After you scaled your sensor values, use them to set the pixel color of each pixel in the 9x8 pixel PImage.<br><br>
 
-Put your code into the <b>setColors()</b> function in the skeleton code: <br>
+Put your code into the <b>setColors()</b> function in the skeleton code: <br><br>
 <img src="images/pset3/setColors-skeleton-code.png" width="700px"> <br>
 
-<span style="color:red">Why is this colorMode RGB? very confusing, can you add some comments that we will use this as grayscale? remove the baseline subtraction from here. the comments are a bit confused in the code as well. what are the different values you are mentioning there? we should explain those values here as well?</span><br><br>
 
 <h3>(4) Scaling up the Generated Image Using Bicubic Interpolation</h3>
 
 <b>Why do we need to scale our image?</b><br>
-While the tiny 9x8 pixel PImage that we just created is accurately representing our sensor values, <span style="color:red">(Junyi can you say better why we need to scale it up and can't leave it small?) it is too small to detect the touch positions.</span><br>
+While the tiny 9x8 pixel PImage that we just created is accurately representing our sensor values, it is not exactly the best image for visualization, nor it is a good representation of the physical size of our multi-touch pad. <br>
 We therefore have to scale up the image to a size that is more suitable for further image processing, such as blob detection.<br>
 In our case, we want to scale up the image to <b>500px x 500px.</b><br>
 Since our original tiny 9x8 pixel image only contains 9x8 values, we need to figure out what values we should use for all the newly generated 'gaps' in the 500x500px image since it needs 500x500 values to be completely filled in at each pixel.<br>
