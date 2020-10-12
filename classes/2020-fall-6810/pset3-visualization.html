@@ -314,21 +314,91 @@ While you can now determine with your eyes where the multi-touch pad was touched
 To do this, we need to write code that detects the white 'blobs' in the image.<br>
 This is called 'blob detection'.<br><br> 
 
-<b>How does Blob Detection work?</b><br>
-<span style="color:red">add some sentences on how blob detection works.</span><br><br> 
+<b>Library for Blob Detection</b><br>
+Lucky for us, somebody else has already provided a library for blob detection.<br>
+You already installed that library at the beginning of this pset and we already imported it into the skeleton code using the following line:<br>
+
+<pre>import blobDetection.*;</pre><br>
+
+You can see the <a href="http://www.v3ga.net/processing/BlobDetection/index-page-documentation.html"><b>BlobDetection Reference</b> here</a> for details on the different functions.<br><br>
+
+Let's briefly review how blob detection works.<br><br>
+
+<b>Blob Detection works on Black/White Images:</b><br>
+Blob detection (also called 'Connected Components' search) works on black and white images. <br>
+Thus, a first step before blob detection can actually be performed is to convert our grayscale image into a black and white image.<br>
+To do this, the algorithm needs as input a 'threshold', i.e. a number that defines which grayscale values will be set to white and which will be set to black.<br>
+You can see an example of thresholding below: all the dark gray values (e.g., all pixels below a grayscale value of 100) were set to black and all the brighter gray values (e.g., all pixels above a gray scale value of 100) were set to white.<br><br>
+
+<img src="images/pset3/threshold.jpg" width="550px"> <br><br>
+
+Our library does the thresholding automatically when we call its computeBlobs() function (we will do this in a minute, keep reading). However, if your blob detection is not finding all the blobs in your image, consider using the <b>setThreshold()</b> function to determine which grayscale level from 0-255 will be used to determine which pixels will become white and thus potential blobs and which pixels will be set to black. Note that the threshold takes as input a value from 0-1 so you need to scale your values accordingly.<br><br>
+
+<b>Blob Detection Looks for 'Connected Components'</b><br>
+Once the image is converted into black/white, the blob detection starts to look for areas that form larger blobs.<br>
+The outcome of blob detection looks something like the image below.<br>
+Every white area ('blob') has a label, e.g. 1, 2, 3. You can see that there are 'original labels' (big numbers) and 'parent labels' (tiny blue numbers in the upper right corners).<br>
+If you consider the parent labels for those pixels that have them, you can see that each 'blob' has the same overall label, e.g. there is one blob with label '1' and one blob with label '3'.<br><br>
+
+<img src="images/pset3/blobdetection-step_10.png" width="650px"> <br><br>
+
+So let's see how we get there from an unlabeled black/white image.<br>
+First, we start by going over each pixel.<br>
+We start with the top left corner pixel and check if the pixel is white.<br>
+If it is not white like in our case, we continue searching through the row before moving onto the next row.<br>
+In row 2, pixel 3 we finally find a white pixel.<br><br>
+
+<img src="images/pset3/blobdetection-step_1.png" width="650px"> <br><br>
+
+Once we found a white pixel, we need to check if any of its neighbor pixels are white and if yes, if they already have a label.<br><br>
+
+<img src="images/pset3/blobdetection-step_2.png" width="650px"> <br><br>
+
+In our case, none of the neighbor pixels has a label yet, so we give our selected pixel a new label. We use the label '1' since this is the first label we are creating. In addition, since there is no neighbor pixel with a lower label count, we also set the parent label (tiny blue number) to '1'. Note that when the parent is equal to the original label, we don't show it in the images further down.<br><br>
+
+<img src="images/pset3/blobdetection-step_3.png" width="650px"> <br><br>
+
+We then check the next pixel. This time the pixel has a white neighbor pixel that already has a label (i.e. the one we just labeled).<br><br>
+
+<img src="images/pset3/blobdetection-step_4.png" width="650px"> <br><br>
+
+We therefore set it to the same label '1' and also set its parent label to '1' since there is no neighbor with a lower label number.<br><br>
+
+<img src="images/pset3/blobdetection-step_5.png" width="650px"> <br><br>
+
+The next pixel does not have a white neighbor pixel with a label.<br><br>
+
+<img src="images/pset3/blobdetection-step_6.png" width="650px"> <br><br>
+
+We therefore increase the label count to '2'.<br>
+In addition, since there is no lower label in the neighborhood we set the parent to '2' as well.<br><br>
+
+<img src="images/pset3/blobdetection-step_7.png" width="650px"> <br><br>
+
+Let's fast forward a bit and look at a pixel that has several white neighbors with different labels.<br> 
+You can see below this happens in row 3.<br>
+To resolve this, we need to check all the different labels (i.e. we find '1' and '2') and choose the smallest available label (i.e. '1') as the label for the pixel.<br>
+In addition, we update the 'parent label' of all the neighbors to be the smallest available label. As you can see, the neighbor with the label '2' now has a parent label '1' in the top right corner.<br><br>
+
+<img src="images/pset3/blobdetection-step_8.png" width="650px"> <br><br>
+
+If you repeat this process for every pixel in the image a few more times, you end up with the image we showed you at the beginning and which is shown below again for your reference.<br>
+Note that the bottom area (row 8) where the main label is 6 and the parent label is 3 required several passes over all pixels to propagate the '3' parent label from the pixels further on the right.<br>
+Once there are no more changes in labels, you can be sure that all pixels that have the same label belong to one 'blob', i.e. 'connected component'.<br><br>
+
+<img src="images/pset3/blobdetection-step_10.png" width="650px"> <br><br>
 
 <b>Implementating Blob Detection: Finding Blobs in the Image</b><br>
 Lucky for us, somebody else has already provided a library with the blob detection algorithm.<br>
-You already installed that library at the beginning of this pset and we already imported it into the skeleton code using the following line:<br>
+The library automatically converts your grayscale image into black and white, performs blob detection, and then returns you the number of blobs, their locations in the image, as well as their outlines.<br><br>
 
-<pre>import blobDetection.*;</pre>
+You can find the <a href="http://www.v3ga.net/processing/BlobDetection/index-page-documentation.html"><b>BlobDetection Reference</b> here</a> for details on the different functions.<br><br>
 
-Next, we want to extract the blobs in our image.<br>
-You can see the <a href="http://www.v3ga.net/processing/BlobDetection/index-page-documentation.html"><b>BlobDetection Reference</b> here</a> for details on the different functions.<br>
-First, construct a new object of the class using our interpolated PImage height and width.<br>
+First, construct a new object of the BlobDetection class using our interpolated PImage height and width.<br>
 You can then use the <b>computeBlobs()</b> function to detect the blobs.<br>
 Finally, the <b>getBlob()</b> and <b>getBlobNb()</b> functions can help you to retrieve the blobs.<br>
 If your blob detection is not finding all the blobs in your image, consider using the <b>setThreshold()</b> function to determine which brightness levels from 0-255 should be taking into account when searching for blobs. Note that the threshold takes as input a value from 0-1 so you need to scale your values accordingly.<br><br>
+<span style="color:red">Junyi, is there a function where you can set how large the blobs should be that should be considered in the output? I imagine otherwise it will find some super small blobs that are not the size of a finger? Can you add this here.</span><br><br>
 
 Implement this in the <b>drawBlobsAndEdges()</b> function in the skeleton code (note that we will do the drawing of the blob outline in the next step): <br><br>
 
