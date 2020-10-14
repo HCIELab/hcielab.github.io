@@ -53,7 +53,7 @@
 
 
 <img src="images/pset2-overall.png" width="400px">
-<img src="images/pset3/multi-touch_3-fingers.png" width="300px"> <br>
+<img src="images/pset3/UI-blob-touch-3.png" width="340px"> <br>
 
           <hr>
 
@@ -73,7 +73,7 @@ Now that you have the hardware ready and Arduino sensing code prepared, you will
 
 <h3>Skeleton Code</h3>
 
-Start by downloading <a href="software/pset3_visualization_skeleton_v2.zip">the skeleton code for the PSet3 from  here</a>. <br>
+Start by downloading <a href="software/pset3_visualization_skeleton_v3.zip">the skeleton code for the PSet3 from  here</a>. <br>
 Before you can execute it, you first have to install two libraries (see next step). <br><br>
 
 <h3>Install external libraries</h3>
@@ -133,7 +133,7 @@ This is what we call "noise" in signal processing.<br><br>
 
 <b>What causes noise?</b><br>
 Noise can be caused by a variety of factors.<br>
-On the entire multi-touch pad, noise can be caused by the substrate the multi-touch pad is placed on, i.e. depending on if you place it on a glass table or a metal table the noise level will be different.<br>Additionally, noise can be different at each of the connection points in the circuit. For instance, each FPC connector and each wire may have different noise levels since the conductive lines all make slightly different levels of contact.<br>
+On the entire multi-touch pad, noise can be caused by the substrate the multi-touch pad is placed on, i.e. depending on if you place it on a glass table or a wooden table the noise level will be different.<br>Additionally, noise can be different at each of the connection points in the circuit. For instance, each FPC connector and each wire may have different noise levels since the conductive lines all make slightly different levels of contact.<br>
 Furthermore, since the inkjet printed circuit may not be perfectly consistent everywhere either because of uneven printing or because of different aging levels over time, the different printed paths may also have different levels of noise.<br>
 Finally, in addition to the reasons above, we can also have different noise levels on a single row of electrodes because the distance between the receiver pin and each electrode in the row is different, thus the electodes further away accumulate noise over a larger distance.<br>
 All of these factors together result in different noise levels at each point in your multi-touch pad.<br><br> 
@@ -149,7 +149,7 @@ In our case, we will implement a simple noise baseline filter.<br><br>
 <b>How does a noise baseline filter work?</b><br>
 A noise baseline filter works in two steps:<br><br>
 
-<i>(1) Record Noise Baseline Signal:</i> First, you need to record the signal when you are <b>not</b> touching the multi-touch pad. The signal is recorded over some period of time and the recorded values are then averaged and saved as the noise baseline value. You only have to do this once at the beginning. In our case, we found that recording <b>2 seconds</b> of non-touch sensing data is sufficient for the multi-touch noise reduction. Note that we record the noise baseline for every position in our multi-touch pad for the reasons mentioned above, i.e. that every position has its own level of noise. We therefore record the noise baseline for every received <b>value</b> and thus we are having 9x8 = 72 noiseline base values in total.<br><br> 
+<i>(1) Record Noise Baseline Signal:</i> First, you need to record the signal when you are <b>not</b> touching the multi-touch pad. The signal is recorded over some period of time and the recorded values are then averaged and saved as the noise baseline value. You only have to do this once at the beginning (and please only do it once). In our case, we found that recording <b>2 seconds</b> of non-touch sensing data is sufficient for the multi-touch noise reduction. Note that we record the noise baseline for every position in our multi-touch pad for the reasons mentioned above, i.e. that every position has its own level of noise. We therefore record the noise baseline for every received <b>value</b> and thus we are having 9x8 = 72 noiseline base values in total.<br><br> 
 
 Implement the noise baseline filtering in the <b>setBaseLine()</b> function and change the <b>boolean baseLineSet</b> in the skeleton code to "true" once the baseline is set. <br>
 You will find the Java's native <b><i>System.nanoTime()</i></b> or Processing's <b><i>millis()</i></b> funtion to be helpful. For more details, you can look at <a href="https://processing.org/reference/millis_.html"> the reference here </a>.<br><br>
@@ -174,10 +174,10 @@ While there are multiple different ways to find our where the multi-touch pad wa
 First, we will convert our sensor signals into grayscale values and then draw the grayscale values into a 9x8 pixel image.<br> 
 Brighter pixels will correspond to higher sensor signals (i.e. touch points) while darker pixels will correspond to areas that were not touched.<br>
 Since image processing on such a small 9x8 pixel image is too difficult, we will increase the size of the image to 500x500px using bicubic interpolation to fill in for the missing pixel values.<br>
-After this, we can use 'blob' detection to extra the white blobs in the image (i.e. the touch points) and get the touch coordinates from the blobs.<br>
-Let's do this one step at a time.<br><br>
+After this, we can use 'blob' detection to extract the white blobs in the image (i.e. the touch points) and get the touch coordinates from the blobs.<br>
+Let's do this one step at a time.<br>
 
-<img src="images/pset3/multi-touch_3-fingers-cropped.png" width="300px"><br><br>
+<img src="images/pset3/UI-blob-touch-3.png" width="400px"><br>
 
 <b>Creating the Image</b><br>
 For our visualization, we will construct an image (PImage) the same size as our 2D array that contains the sensing data.<br>
@@ -193,13 +193,13 @@ Before we can draw our sensor signals into the PImage as grayscale values, we ha
 We therefore have to scale our sensor signals accordingly.<br><br> 
 
 To scale your sensor values to a range of 0 - 255, you can use <a href="https://processing.org/reference/map_.html">the <b>map()</b> function</a> in Processing.<br>
-As you can see in <a href="https://processing.org/reference/map_.html">the map() function reference,</a> we have to set four different values:<br><br>
+As you can see in <a href="https://processing.org/reference/map_.html">the map() function reference,</a> apart from the incoming value to be converted, we also have to set four "scaling" values:<br><br>
 
 <img src="images/pset3/map-function-parameters.png" width="400px"> <br><br>
 
 <b>start2/stop2 (target):</b> The last two parameters, i.e. our target range, are pretty straight forward since we already discussed we want to scale to 0 - 255.<br><br>
 
-<b>start1/stop1 (source):</b> For the source parameters, use the highest sensor reading when you are not touching and lowest sensor reading when you are touching. We will revisit this later and it will become more clear why that is a good strategy.<br><br>
+<b>start1/stop1 (source):</b> For the source parameters, use the middle-to-low end sensor reading when you are not touching for start1, and middle-to-high sensor reading when you are touching for stop1. You can think of these 2 parameters as "min-input-range" and "max-input-range" of your incoming sensing data. We will revisit this later and it will become more clear why that is a good strategy.<br><br>
 
 After you scaled your sensor values, use them to set the pixel color of each pixel in the 9x8 pixel PImage.<br><br>
 
@@ -223,18 +223,28 @@ Some of simplest interpolation methods are bi-linear and bi-cubic interpolation.
 
 <b>What is the difference between bi-linear and bi-cubic interpolation?</b><br>
 
-<i>Bi-linear interpolation:</i> <span style="color:red">is performed using linear interpolation first in one direction, and then again in the other direction. For instance, in the example below where we want to determine the value of the central pixel, we first interpolate the value of the top and bottom pixel, and then interpolate the left and right pixel. We then average both the interpolate values to retrieve the final pixel value).</span><br><br>
+<i>Bi-linear interpolation:</i> considers the closest 2x2 neighborhood of known pixel values surrounding the unknown pixel. It then takes a weighted (by distance) average of these 4 pixels to arrive at its final interpolated value.<br><br>
+<img src="images/pset3/linear-1.png" width="230px">
+<img src="images/pset3/linear-2.png" width="230px">
+<img src="images/pset3/linear-3.png" width="230px"> <br><br>
 
-<i>Bi-cubic interpolation:</i> is performed by taking into account <span style="color:red">16 (4x4) (really?)</span> neighboring pixels. To compute the needed pixel value, all values are <span style="color:red">averaged together?</span>
+<i>Bi-cubic interpolation:</i> is considering the closest 4x4 neighborhood of known pixels — for a total of 16 pixels. Since these are at various distances from the unknown pixel, closer pixels are given a higher weighting in the calculation. Bicubic produces noticeably smoother images than the bi-linear interpolation. 
 
 <br> <br>
 
-<img src="images/pset3/bilinear-bicubic.png" width="700px"> <br>
+<img src="images/pset3/cubic-1.png" width="230px">
+<img src="images/pset3/cubic-2.png" width="230px">
+<img src="images/pset3/cubic-3.png" width="270px"> <br><br>
 
-Thus, a benefit of bicubic interpolation is that it gives you a more accurate and smoother interpolation result since it considers more values than bilinear interpolation. However, this also comes at the drawback of needing higher computational power since more values need to be processed to generate the interpolated value. For our small multi-touch pad with only a few hundred interpolated values this is not an issue but if you had to do more interpolation it may slow the processing down and the multi-touch pad detection would start lagging behind the user's finger movements.<br><br>
+Thus, a benefit of bicubic interpolation is that it gives you a smoother interpolation result since it considers more values than bilinear interpolation. However, this also comes at the drawback of needing higher computational power since more values need to be processed to generate the interpolated value. For our small multi-touch pad with only a few hundred interpolated values this is not an issue but if you had to do more interpolation it may slow the processing down and the multi-touch pad detection would start lagging behind the user's finger movements.<br><br>
 
 
-You can see the difference of bi-liner vs. bi-cubic interpolation in the images below (these are from the internet and not from our multi-touch pad <span style="color:red">(Junyi: it would be a lot better to show the result at the example of our multi-touch pad being touched, if this is just a opencv function, can you take these pictures?)</span>). In the images the input data was 5x5px and it was scaled up to <span style="color:red">what image size?</span><br><br>
+You can see the difference of bi-liner vs. bi-cubic interpolation in the images below (these are from our multi-touch pad with roughly the same location touched by finger, <b><i>Left: Bilinear vs. Right: Bicubic) </i></b>.<br> 
+
+<img src="images/pset3/multi-touch-interpolate-bilinear.png" width="350px"> 
+<img src="images/pset3/multi-touch-interpolate-bicubic.png" width="350px"> <br><br>
+
+For a more close look, below are the resulting interpolated images from a 5x5 input data via bi-linear and bi-cubic.<br><br>
 
 <img src="images/pset3/linear-interpolation.png" width="300px"> 
 <img src="images/pset3/cubic-interpolation.png" width="300px"> <br><br>
@@ -263,7 +273,7 @@ So let's see how we can fill out the parameters.<br><br>
 <b>Mat src:</b> This is the input image (9x8px) that we want to resize. As you can see, the image here is in the format <b>Mat</b> (Matrix) and not PImage. We therefore first have to convert our PImage into a Mat. In image processing, images are handles as 2D matrices, where every matrix entry is the color value of one pixel (i.e. 0-255 in our case). You can also think of the 2D matrix as a 2D array with pixel values in rows and columns.<br>
 Before we can convert our PImage into a Mat, we first have to construct a new OpenCV object.<br> 
 For this, you need to call the corresponding OpenCV constructor in the <a href="http://atduskgreg.github.io/opencv-processing/reference/gab/opencv/OpenCV.html">OpenCV class documentation</a>.<br>
-Once you constructed your OpenCV object, you can call the <b>getGray()</b> function on it to retrieve the image as a Mat (check <a href="http://atduskgreg.github.io/opencv-processing/reference/gab/opencv/OpenCV.html">the OpenCV class documentation</a> again). This is your src input parameter. <br><br>
+Once you constructed your OpenCV object, you can call the <b>getGray()</b> function on it to retrieve the image as a Mat (check <a href="http://atduskgreg.github.io/opencv-processing/reference/gab/opencv/OpenCV.html">the OpenCV class documentation</a> again). This is your src input parameter for interpolation. <br><br>
 
 <b>Mat dest:</b> This is the output image, i.e. the resized 500x500px image. Again it needs to be in the format of a matrix. For the output image, we want to create a new empty matrix of our desired size. You can find the <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/core/Mat.html"><b>OpenCV Mat Reference</b> here</a>. 
 
@@ -302,11 +312,11 @@ left: 1 finger touching, right: 2 fingers touching <br>
 <img src="images/pset3/UI-no-blob-touch-2.png" width="350px"> <br><br>
 
 <b>Improving your Results</b><br>
-If your results don't look as good as above, try changing how you map your sensors signals to the grayscale values from 0 - 255.<br> 
-Remember, when you mapped your sensor signals to the 0 - 255 range, we had recommended that you use the highest sensor reading when not touching to map to 0 (black), and the lowest sensor reading when touching to 255 (white). <br>
-Let's assume for a moment your lowest sensor reading when touching was 1500 and you mapped it to 255 (white). As a result, any sensor reading above 1500 is now leading to white pixels, whereas anything below will lead to darker pixels. If you find that you only see dark areas in your image and nothing is white, then perhaps the 1500 threshold is too high. Consider using a lower value to increase what signal values are being treated as 'touched' white pixels.<br> 
-Similarly, if you see too much noise in your image, i.e. everything is white, perhaps your non-touch sensor reading value is too low and you should set it to something higher, so that more signal values are treated as black non-touch pixels. <br>
-Note that you may have to adjust these values every time you change the setup in which you use your multi-touch pad. For instance, if place your multi-touch pad on a different surface (glass vs. metal table) or if anything else in your environment undergoes a significant change (e.g. increase in humidity), the sensor values and the noise level may change. We therefore recommend you find yourself a place where you do the calibration once and then try to not change it too much.<br><br>
+If your results don't look as good as above, try changing how you map your sensors signals to the grayscale values of 0 - 255.<br> 
+Remember, when you mapped your sensor signals to the 0 - 255 range, we had recommended that you use the middle-to-low sensor reading when not touching to map to 0 (black), and the middle-to-high sensor reading when touching to 255 (white). <br>
+Let's assume for a moment your middle-to-high sensor reading when touching was 1500 and you mapped it to 255 (white). As a result, any sensor reading above 1500 is now leading to white pixels, whereas anything below will lead to darker pixels. If you find that you only see dark areas in your image and nothing is white (or not "white" enough) when touched, then perhaps the 1500 threshold is too high. Consider using a lower value to increase what signal values are being treated as 'touched' white pixels.<br> 
+Similarly, if you see too much noise in your image, i.e. everything is white (or multiple areas get "too white" when only touching with one finger), perhaps your non-touch sensor reading value is too low and you should set it to something higher, so that more signal values are treated as black non-touch pixels. <br>
+Note that you may have to slightly adjust these values when you change the setup in which you use your multi-touch pad. For instance, if place your multi-touch pad on a different surface (glass vs. wooden table) or if anything else in your environment undergoes a significant change (e.g. increase in humidity), the sensor values and the noise level may change. We therefore recommend you find yourself a place where you do the calibration once and then try to not change it too much.<br><br>
 
 <h3>(5) Implement blob detection</h3>
 
@@ -332,7 +342,7 @@ You can see an example of thresholding below: all the dark gray values (e.g., al
 
 <img src="images/pset3/threshold.jpg" width="550px"> <br><br>
 
-Our library does the thresholding automatically when we call its computeBlobs() function (we will do this in a minute, keep reading). However, if your blob detection is not finding all the blobs in your image, consider using the <b>setThreshold()</b> function to determine which grayscale level from 0-255 will be used to determine which pixels will become white and thus potential blobs and which pixels will be set to black. Note that the threshold takes as input a value from 0-1 so you need to scale your values accordingly.<br><br>
+Our library does the thresholding automatically when we call its computeBlobs() function (we will do this in a minute, keep reading). However, if your blob detection is not finding all the blobs in your image, consider using the <b>setThreshold()</b> function to determine which grayscale level from 0-255 will be used to determine which pixels will become white and thus potential blobs and which pixels will be set to black. Note that the threshold takes as input a float value from 0-1 so you need to scale your values accordingly.<br><br>
 
 <b>Blob Detection Looks for 'Connected Components'</b><br>
 Once the image is converted into black/white, the blob detection starts to look for areas that form larger blobs.<br>
@@ -397,8 +407,7 @@ You can find the <a href="http://www.v3ga.net/processing/BlobDetection/index-pag
 First, construct a new object of the BlobDetection class using our interpolated PImage height and width.<br>
 You can then use the <b>computeBlobs()</b> function to detect the blobs.<br>
 Finally, the <b>getBlob()</b> and <b>getBlobNb()</b> functions can help you to retrieve the blobs.<br>
-If your blob detection is not finding all the blobs in your image, consider using the <b>setThreshold()</b> function to determine which brightness levels from 0-255 should be taking into account when searching for blobs. Note that the threshold takes as input a value from 0-1 so you need to scale your values accordingly.<br><br>
-<span style="color:red">Junyi, is there a function where you can set how large the blobs should be that should be considered in the output? I imagine otherwise it will find some super small blobs that are not the size of a finger? Can you add this here.</span><br><br>
+If your blob detection is not finding all the blobs in your image, consider using the <b>setThreshold()</b> function to determine which brightness levels from 0-255 should be taking into account when searching for blobs. Note that the threshold takes as input a float value from 0-1 so you need to scale your values accordingly.<br><br>
 
 Implement this in the <b>drawBlobsAndEdges()</b> function in the skeleton code (note that we will do the drawing of the blob outline in the next step): <br><br>
 
@@ -424,10 +433,9 @@ Drawing the contour, touch point, and text coordinates into the image is similar
 
 Once you finished this part, you should be seeing something like this depending on if one or multiple fingers are touching: <br><br>
 
-<span style="color:red">update images with touch coordinates (x,y)</span><br>
-<img src="images/pset3/UI-blob-touch-1.png" width="350px"> 
-<img src="images/pset3/UI-blob-touch-2.png" width="350px"> 
-<img src="images/pset3/UI-blob-touch-3.png" width="350px"> <br>
+<img src="images/pset3/UI-blob-touch-1.png" width="370px"> 
+<img src="images/pset3/UI-blob-touch-2.png" width="370px"> 
+<img src="images/pset3/UI-blob-touch-3.png" width="370px"> <br>
 
 <br>
 
