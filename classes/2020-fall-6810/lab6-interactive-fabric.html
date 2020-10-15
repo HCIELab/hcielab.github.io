@@ -240,11 +240,87 @@ With the double sided tape expose, you can now attach the LEDs to one of the fre
         
 <h3 class="headline">(6) Building the Touch and LED Control Circuit</h3>
     
-Now that the lamp shade is full assembled, you can move on to build the circuit for the touch buttons and for controlling the LEDs colors.<br><br>
+Now that the lamp shade is full assembled, you can move on to build the circuit for the touch buttons and for controlling the LEDs colors. <br><br>
+    
+Since the lamp base is too small for regular breadboards, we supply you with mini-breadboards that fit well into the base of the lamp. First, let's glue the ESP32 on the backside of the mini-breadboard. For this, remove the foil from the double sided tape on the back of the breadboard and glue your ESP on it such that he pins face outward.<br><br>
 
+    <img src="images/lab6/minib_1.jpg" width="300px">
+    <img src="images/lab6/minib_2.jpg" width="300px"><br><br>
+    
+    Next, we will start with connecting the LEDs. You will see on the LED strip that there are 3 pins labeled <b>GND, 5V, and DIN</b>. <br><br>
+    <ul>
+        <li>
+            GND is clear. <b>Connect it to your group pin of the ESP32. Always connect the GND first to protect the LEDs from voltage spikes!</b></li> 
+        <li>Next question is, where do we get 5V from? Luckily, the ESP32 has a 5V pin at the VIN pin. Usually, this pin is used to connect an external power supply. If you, as it is the case for you, power the ESP32 via USB, this pin connects to the 5V power from your USB cable and you can use it to power your LEDs. <b>Connect the VIN pin to the 5V pin of your LEDs.</b></li>
+        <li>Finally, there is the DIN (Data IN) pin. This channel is used to encode which LED should turn on with which color. <b>Connect DIN to a GPIO pin of your ESP32.</b> </li>
+    </ul><br>
+    We will dig into the implementation details and how to use the DIN pin in the next section of this lab (7).<br><br>
+
+    But before that, connect the 4 touch buttons to your ESP32 as you have learned it in lab 1+2. Use the 100kOhm resistors between a sender pin and 4 receiver pin. Your final circuit should look similar to this:<br><br>
+    
+    <img src="images/lab6/circuit_1.jpg" width="300px">
+    <img src="images/lab6/circuit_2.jpg" width="300px"><br><br>
+    
+    Now place the circut inside of your lamp's base. First pull the USB cable through the hole that you added in lab 5. Connect the USB cable to your ESP32 and carefully place it inside the base element.<br><br>
+    
+    <img src="images/lab6/usb_1.jpg" width="300px">
+    <img src="images/lab6/usb_2.jpg" width="300px"><br><br>
+    
+    Don't put the lamp shade on top of the base just yet. We will first write the code and you might have to go through some debugging!<br><br>
+    
+    Next, let's write some code to control the lamp.<br><br>
 
 
 <h3 class="headline">(7) Program the Touch Sensing and LED Blinking</h3>
+The goal of this part is to sense touch on all for touch areas, implement an on/off button for the LEDs, and 3 color programs that are triggered with the other 3 touch areas.<br><br>
+    
+Let's start with coding the touch buttons. You can reuse the ESP32 code from lab 1+2 for this. It's helpful to send the touch signals over Serial for debugging. Make sure that you can get a clear signal from all 4 touch areas and select a suitable threshold to detect touch.<br><br>
+    
+The LEDs integrated into the strip that you used in your lamp are called NEOPIXELS (WS2812B). These are adressable pixels that can individually change their color and brightness. The DIN pin on the strip transmits a specific protocol that enables to address each LED individually. That's why the LEDs do not turn on immediately when you connect them to the power supply.<br><br>
+    
+To conrol these LEDs, you can use a library that handles all signal coding for you. This library is called <i>FastLED</i>. You can download it directly from the Arduino IDE by clicking on Sketch->Inlcude Libraries->Manage Libraries. Search for FastLED and install it.<br><br>
+    
+    <img src="images/lab6/fastled.png" width="600px"><br><br>
+
+You have to include the library to be able to use it in your script<br><br>
+
+    <pre><code>#include &lt;FastLED.h&gt;</code></pre>
+
+Next, we have to declare 4 variables that will address each LED. That's most convenient in an array<br><br>
+<pre><code>#define NUM_LEDS 4
+    
+CRGB leds[NUM_LEDS];
+</code></pre>
+    
+The library also requires to add each LED to its internal data structures. You can do this in the setup() function<br><br>
+<pre><code>FastLED.addLeds&lt;NEOPIXEL,LED_PIN&gt;(leds,NUM_LEDS)
+</code></pre>
+    
+with LED_PIN the GPIO pin to the DIN pin. This variable has to be a constant so you should declare it with #define.<br><br>
+    
+You can assign a color to an led (e.g leds[0]) by writing<br><br>
+<pre><code>leds[0] = CRGB:White;
+</code></pre>
+    
+This color does not get sent to the LED directly each time you assing a color to an LED. You have to execute the command<br><br>
+<pre><code>FastLED.show();
+</code></pre>
+    
+Let's set all LEDs to White right at the start. You would add this code to setup()<br><br>
+<pre><code>for(int i=0:i&lt;NUM_LEDS:i++) {
+    leds[i] = CRGB::White;
+}
+FastLED.show();
+</code></pre>
+
+Your task is to let one touch area turn the lamp on and off, and the 3 other touch areas light up the lamp with 3 different color schemes of your choice (e.g. all Red, all Green, and all Blue).<br><br>
+    
+    <img src="images/lab6/circuit_done.jpg" width="430x">
+    <img src="images/lab6/lamp.jpg" width="240px"><br><br>
+    
+Once everything works, put the lamp shade on the base and start filming :)<br><br>
+    
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/05BrSUOn_-g" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
     
  <h3 class="headline">Deliverables Lab 5 (due Wednesday, Oct. 28, 2020, 11.59pm)</h3>
