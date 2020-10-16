@@ -348,20 +348,18 @@ The setup function requires the following parameters:<br>
 <b>LED_PIN:</b> this is the GPIO pin to the DIN pin. This variable has to be a constant so you should declare it with #define.<br>
 <b>leds + NUM_LEDS:</b> We already declared these above so you just insert them here.<br><br>
     
-You can assign a color to an led (e.g leds[0]) by writing<br><br>
+You can assign a color to an LED by writing:<br><br>
+
 <pre><code>leds[0] = CRGB:White;
 </code></pre>
     
-This color does not get sent to the LED directly each time you assing a color to an LED. You have to execute the command<br><br>
+This color does not get sent to the LED immediately each time you assign a color to an LED.<br> 
+Instead, you have to make the sending explicit by executing the command:<br><br>
+
 <pre><code>FastLED.show();
 </code></pre>
     
-Let's set all LEDs to White right at the start. You would add this code to setup()<br><br>
-<pre><code>for(int i=0:i&lt;NUM_LEDS:i++) {
-    leds[i] = CRGB::White;
-}
-FastLED.show();
-</code></pre>
+Let's set all LEDs to White right at the start. 
 
 Your task is to let one touch area turn the lamp on and off, and the 3 other touch areas light up the lamp with 3 different color schemes of your choice (e.g. all Red, all Green, and all Blue).<br><br>
     
