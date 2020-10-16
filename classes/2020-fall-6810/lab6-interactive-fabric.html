@@ -300,31 +300,53 @@ Your final circuit should look similar to this:<br><br>
     We will first write the code for reading the touch input and controlling the light of the LEDs before we put everything together.<br><br>
     
 <h3 class="headline">(7) Program the Touch Sensing and LED Blinking</h3>
-The goal of this part is to sense touch on all for touch areas, implement an on/off button for the LEDs, and 3 color programs that are triggered with the other 3 touch areas.<br><br>
-    
-Let's start with coding the touch buttons. You can reuse the ESP32 code from lab 1+2 for this. It's helpful to send the touch signals over Serial for debugging. Make sure that you can get a clear signal from all 4 touch areas and select a suitable threshold to detect touch.<br><br>
-    
-The LEDs integrated into the strip that you used in your lamp are called NEOPIXELS (WS2812B). These are adressable pixels that can individually change their color and brightness. The DIN pin on the strip transmits a specific protocol that enables to address each LED individually. That's why the LEDs do not turn on immediately when you connect them to the power supply.<br><br>
-    
-To conrol these LEDs, you can use a library that handles all signal coding for you. This library is called <i>FastLED</i>. You can download it directly from the Arduino IDE by clicking on Sketch->Inlcude Libraries->Manage Libraries. Search for FastLED and install it.<br><br>
-    
-    <img src="images/lab6/fastled.png" width="600px"><br><br>
 
-You have to include the library to be able to use it in your script<br><br>
+In this final step, we will write code that can sense touch on all four touch buttons, implement the on/off functionality for the on/off button, and implement the 3 light color programs that are triggered with the other 3 touch buttons.<br><br>
+    
+<b>Code for Touch Sensing</b><br>    
+For touch sensing, you can reuse the code from lab 1+2.<br> 
+<span style="color:red">It's helpful to send the touch signals over Serial for debugging.</span><br> 
+Make sure that you get a clear signal from all 4 touch buttons.<br>
+Select a suitable threshold for each touch button to detect touch.<br><br>
+    
+<b>Programming the LEDs</b><br>    
+
+The LEDs on the strip are called NEOPIXELS (WS2812B).<br>
+Each LED represents a 'pixel' that can be addressed individually and can thus change color and brightness independent of the other LEDs on the strip.<br> 
+The DIN (Data-In) pin on the strip transmits a specific protocol to address each LED individually.<br>
+This is why the LEDs do not turn on immediately when you connect them to the power supply.<br>
+Instead we first have to provide data through the DIN pin.<br><br>
+    
+To control the LEDs, you can use a library that handles the signal encoding for you.<br> 
+This library is called <b>FastLED</b>.<br> 
+You can download it directly from the Arduino IDE by clicking on <b>Sketch->Inlcude Libraries->Manage Libraries.</b><br> 
+Search for FastLED and install it.<br><br>
+    
+    <img src="images/lab6/fastled.png" width="700px"><br><br>
+
+You have to include the library to be able to use it in your script:<br><br>
 
     <pre><code>#include &lt;FastLED.h&gt;</code></pre>
 
-Next, we have to declare 4 variables that will address each LED. That's most convenient in an array<br><br>
+Next, we have to declare 4 variables that will address each LED.<br>
+While you can declare them one-by-one, we will use an array since this is more convenient and scales better to larger numbers of LEDs.<br><br>
+
 <pre><code>#define NUM_LEDS 4
     
 CRGB leds[NUM_LEDS];
 </code></pre>
+<span style="color:red">what is CRGB?</span><br> <br> 
     
-The library also requires to add each LED to its internal data structures. You can do this in the setup() function<br><br>
+The library also requires to add each LED to its internal data structures.<br> 
+You can do this in the setup() function<br><br>
+
 <pre><code>FastLED.addLeds&lt;NEOPIXEL,LED_PIN&gt;(leds,NUM_LEDS)
-</code></pre>
-    
-with LED_PIN the GPIO pin to the DIN pin. This variable has to be a constant so you should declare it with #define.<br><br>
+</code></pre><br>
+
+The setup function requires the following parameters:<br>
+<b>NEOPIXEL:</b> <span style="color:red">what is this?</span><br>
+<b>LED_PIN:</b> this is the GPIO pin to the DIN pin. This variable has to be a constant so you should declare it with #define.<br>
+<b>leds + NUM_LEDS:</b> We already declared these above so you just insert them here.<br><br>
     
 You can assign a color to an led (e.g leds[0]) by writing<br><br>
 <pre><code>leds[0] = CRGB:White;
