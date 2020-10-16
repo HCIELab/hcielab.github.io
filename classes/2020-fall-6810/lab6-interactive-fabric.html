@@ -261,19 +261,33 @@ The mini-breadboard and ESP should now hold together.<br><br>
     <img src="images/lab6/minib_1.png" width="380px">
     <img src="images/lab6/minib_2.png" width="330px"><br><br>
     
-    Next, we will start with connecting the LEDs. You will see on the LED strip that there are 3 pins labeled <b>GND, 5V, and DIN</b>. <br><br>
+
+<b>Building the LED Control Circuit</b><br>
+
+    Next, we connect the LEDs.<br> 
+    You see on the LED strip that there are 3 pins labeled <b>GND, 5V, and DIN</b>. <br><br>
+   
     <ul>
         <li>
-            GND is clear. <b>Connect it to your group pin of the ESP32. Always connect the GND first to protect the LEDs from voltage spikes!</b></li> 
-        <li>Next question is, where do we get 5V from? Luckily, the ESP32 has a 5V pin at the VIN pin. Usually, this pin is used to connect an external power supply. If you, as it is the case for you, power the ESP32 via USB, this pin connects to the 5V power from your USB cable and you can use it to power your LEDs. <b>Connect the VIN pin to the 5V pin of your LEDs.</b></li>
-        <li>Finally, there is the DIN (Data IN) pin. This channel is used to encode which LED should turn on with which color. <b>Connect DIN to a GPIO pin of your ESP32.</b> </li>
+            <b>GND:</b> Connect it to the GND pin on the ESP32. Always connect the GND first to protect the LEDs from voltage spikes!
+        </li> 
+        <li><b>5V:</b> This is different from the 3.3V we have used so far in the other labs and psets. Luckily, the ESP32 also has a 5V pin at the VIN pin. Usually, this pin is used to connect to an external power supply. However, if you connect your ESP with a USB cable to your computer, the pin will use the 5V power supply from the USB cable.
+        </li>
+        <li><b>DIN (Data-In):</b> This channel is used to encode which LED should turn on with which color. Connect DIN to a GPIO pin of your ESP32.</li>
     </ul><br>
-    We will dig into the implementation details and how to use the DIN pin in the next section of this lab (7).<br><br>
 
-    But before that, connect the 4 touch buttons to your ESP32 as you have learned it in lab 1+2. Use the 100kOhm resistors between a sender pin and 4 receiver pin. Your final circuit should look similar to this:<br><br>
+    Before we will implement the color control, let's finish the rest of the circuit.<br><br>
+
+<b>Building the Touch Button Control Circuit</b><br>
+
+Let's start by connecting the 4 touch buttons to the ESP32 as you have learned in lab 1+2.<br> 
+You will again use a 100kOhm resistor between the sender pin and the 4 receiver pins.<br> 
+Your final circuit should look similar to this:<br><br>
     
     <img src="images/lab6/circuit_1.jpg" width="300px">
     <img src="images/lab6/circuit_2.jpg" width="300px"><br><br>
+
+<b>Mounting the Circuit into the Lamp Base</b><br>
     
     Now place the circut inside of your lamp's base. First pull the USB cable through the hole that you added in lab 5. Connect the USB cable to your ESP32 and carefully place it inside the base element.<br><br>
     
