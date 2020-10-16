@@ -255,7 +255,7 @@ Now that the lamp shade is full assembled, you can move on to building the circu
     
 Since the lamp base is too small for regular breadboards, we supply you with mini-breadboards (see below).<br>
 Remove the backing from the mini-breadboard, which will expose a layer of double-sided tape.<br>
-Next, place your ESP onto the layer of double sided tape, the pins of the ESP should be facing away from the double sided tape.<br>
+Next, place your ESP onto the layer of double sided tape, the pins of the ESP should be facing away from the double sided tape (don't worry, the ESP is easy to pull off later if you need to remove it to work on your pset).<br>
 The mini-breadboard and ESP should now hold together.<br><br>
 
     <img src="images/lab6/minib_1.png" width="380px">
@@ -281,7 +281,7 @@ The mini-breadboard and ESP should now hold together.<br><br>
 <b>Building the Touch Button Control Circuit</b><br>
 
 Let's start by connecting the 4 touch buttons to the ESP32 as you have learned in lab 1+2.<br> 
-You will again use a 100kOhm resistor between the sender pin and the 4 receiver pins.<br> 
+You will again use a 100kOhm resistor between the sender pin and the 4 receiver pins (please reuse your resistors from lab1/2).<br> 
 Your final circuit should look similar to this:<br><br>
     
     <img src="images/lab6/circuit_1.jpg" width="350px">
@@ -305,7 +305,7 @@ In this final step, we will write code that can sense touch on all four touch bu
     
 <b>Code for Touch Sensing</b><br>    
 For touch sensing, you can reuse the code from lab 1+2.<br> 
-<span style="color:red">It's helpful to send the touch signals over Serial for debugging.</span><br> 
+Print your touch signals to the Serial Monitor/Plotter to see if it works.<br> 
 Make sure that you get a clear signal from all 4 touch buttons.<br>
 Select a suitable threshold for each touch button to detect touch.<br><br>
     
@@ -320,7 +320,8 @@ Instead we first have to provide data through the DIN pin.<br><br>
 To control the LEDs, you can use a library that handles the signal encoding for you.<br> 
 This library is called <b>FastLED</b>.<br> 
 You can download it directly from the Arduino IDE by clicking on <b>Sketch->Inlcude Libraries->Manage Libraries.</b><br> 
-Search for FastLED and install it.<br><br>
+Search for FastLED and install it.<br>
+If you are interested to see what is available in the <a href="http://fastled.io/docs/3.1/annotated.html">FastLED library, you can look at the documentation here.</a> <br><br>
     
     <img src="images/lab6/fastled.png" width="700px"><br><br>
 
@@ -328,23 +329,27 @@ You have to include the library to be able to use it in your script:<br><br>
 
     <pre><code>#include &lt;FastLED.h&gt;</code></pre>
 
-Next, we have to declare 4 variables that will address each LED.<br>
-While you can declare them one-by-one, we will use an array since this is more convenient and scales better to larger numbers of LEDs.<br><br>
+To declare an LED, you can use the CRGB datatype.<br>
+
+<pre>
+<code>CRGB led1;
+</code></pre>
+
+However, rather than declaring 4 LED variables individually to address each LED, we will use an array, which is more convenient.<br>
 
 <pre><code>#define NUM_LEDS 4
     
 CRGB leds[NUM_LEDS];
 </code></pre>
-<!-- <span style="color:red">what is CRGB?</span><br> <br>  -->
     
 The library also requires to add each LED to its internal data structures.<br> 
-You can do this in the setup() function<br><br>
+You can do this in the setup() function with the following line:<br>
 
 <pre><code>FastLED.addLeds&lt;NEOPIXEL,LED_PIN&gt;(leds,NUM_LEDS)
 </code></pre>
 
-The setup function requires the following parameters:<br>
-<!-- <b>NEOPIXEL:</b> <span style="color:red">what is this?</span><br> -->
+The function requires the following parameters:<br>
+<b>NEOPIXEL:</b> The FastLED library is a generic library for all sorts of LED types. So we need to tell it which LED type we have so it knows which protocol to use to send the data to the LED. NEOPIXEL is a constant defined in the <a href="http://fastled.io/docs/3.1/annotated.html">documentation of the FastLED library</a> and we can simply use it as an argument here. <br>
 <b>LED_PIN:</b> this is the GPIO pin to the DIN pin. This variable has to be a constant so you should declare it with #define.<br>
 <b>leds + NUM_LEDS:</b> We already declared these above so you just insert them here.<br><br>
     
