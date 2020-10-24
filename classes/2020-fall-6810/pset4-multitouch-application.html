@@ -52,22 +52,46 @@
         <h2 class="headline">Problem Set Series: Multi-Touch Pad</h2>
 
 
-<img src="images/pset2-overall.png" width="400px">
-<img src="images/pset4/UI-recognizer-A.png" width="340px"> <br>
+<img src="images/pset2-overall.png" width="300px">
+<img src="images/pset4/UI-recognizer-A.png" width="240px">
+<img src="images/pset4/UI-3d-visualization-2-finger.png" width="200px"> <br>
 
           <hr>
 
 <h2 class="headline">Problem Set 4 (due Friday, Nov. 6, 2020, 11.59pm)</h2>
 
-Now that you have the Processing code that reads and visualizes sensing data, you will build on top of it and come up with some cool applications. To accomplish this, you will do the following steps:<br>
+Now that you have the Processing code that reads and visualizes sensing data, you will build on top of it and come up with some cool applications. To accomplish this, you will do the following two parts:<br>
 
 <ul>
 	<li>(1) Make the multi-touch pad a finger gesture recognizer</li>
 	<li>(2) Visualize the touching data in 3D</li>
-	<li>(3) An open-ended cool mini-application based on (1) and/or (2) </li>
+	<!-- <li>(3) An open-ended cool mini-application based on (1) and/or (2) (optional) </li> -->
 </ul>
 
 <h3>(1) Make the multi-touch pad a finger gesture recognizer</h3>
+Let's first build a finger gesture recognizer, where you can use the multi-touch pad as a draw pad. <br>
+This part will be built on top of your PSet3 Processing code. <br><br>
+
+To achieve full credits in this part, we ask you to implement at least 3 different finger gestures / drawing patterns that can be recognized by your multi-touch pad. <br>
+For example, you can implement your multi-touch pad to recognize letters (A, C etc.), some basic 2D shapes (triangle, circle etc.), or some simple symbols (check mark etc.). <br><br>
+
+You don't have to over-complicate on the finger gesture design, but do make the drawn patterns and recognized items reasonably similar and related. <br>
+For example, you can not have your finger draw one straight line on the multi-touch pad and the system recognizes it as "fish". <br><br>
+
+<h4>$1 Unistroke Recognizer </h4> <br>
+Like the blob detection in the PSet3, you don't have to implement the whole recognizing algorithm from scratch. <br>
+Instead, you can use this Processing library called <b>$1 Unistroke Recognizer</b>.<br><br>
+<img src="images/pset4/$1 Unistroke Recognizer.png" width="650px"> <br><br>
+
+$1 Unistroke Recognizer is a 2-D single-stroke recognizer designed for rapid prototyping of gesture-based user interfaces. <br>
+It is called "$1" because in machine learning terms, $1 is an instance-based nearest-neighbor classifier with a 2-D Euclidean distance function, i.e., a geometric template matcher. <br><br>
+
+Since it is an unistroke recognizer, there are some limitations you should take into consideration when design your finger gestures. <br>
+First, the gesture should be performed by one finger and contains only one continuous stroke. <br>
+For example, for the following 2 gestures designed for letter "A", only the left one can be recognized correctly by the algorithm as the one on the right contains more than one stroke: <br>
+<img src="images/pset4/drawing-pattern-requirement-1.png" width="500px"> <br><br>
+
+In addition, the algorithm ignores the stroke "orientation". 
 
 
 
@@ -75,7 +99,7 @@ Now that you have the Processing code that reads and visualizes sensing data, yo
 
 
 
-<h3>(3) An open-ended cool mini-application based on (1) and/or (2)</h3>
+<!-- <h3>(3) An open-ended cool mini-application based on (1) and/or (2) (optional)</h3> -->
 
 
 
