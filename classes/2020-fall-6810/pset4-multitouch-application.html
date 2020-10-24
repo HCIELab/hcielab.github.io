@@ -78,9 +78,9 @@ For example, you can implement your multi-touch pad to recognize letters (A, C e
 You don't have to over-complicate on the finger gesture design, but do make the drawn patterns and recognized items reasonably similar and related. <br>
 For example, you can not have your finger draw one straight line on the multi-touch pad and the system recognizes it as "fish". <br><br>
 
-<h4>$1 Unistroke Recognizer </h4> <br>
+<h4>$1 Unistroke Recognizer Library</h4> <br>
 Like the blob detection in the PSet3, you don't have to implement the whole recognizing algorithm from scratch. <br>
-Instead, you can use this Processing library called <b>$1 Unistroke Recognizer</b>.<br><br>
+Instead, you can use this Processing library called <b>$1 Unistroke Recognizer</b> (ACM UIST '07).<br><br>
 <img src="images/pset4/$1 Unistroke Recognizer.png" width="650px"> <br><br>
 
 $1 Unistroke Recognizer is a 2-D single-stroke recognizer designed for rapid prototyping of gesture-based user interfaces. <br>
@@ -100,7 +100,38 @@ However, it will likely recognize these following 2 finger gestures as the same 
 <img src="images/pset4/drawing-pattern-requirement-2.png" width="500px"> <br><br>
 
 For more details of the $1 Unistroke Recognizer library, you can go to the <a href="https://github.com/nok/onedollar-unistroke-recognizer">library's webpage</a>. <br>
-There is also a demo website for the $1 Unistroke Recognizer, where you can test the library's functionality and get a sense of how it works. The link is <a href="http://depts.washington.edu/acelab/proj/dollar/index.html">here</a>.
+There is also a demo website for the $1 Unistroke Recognizer, where you can test the library's functionality and get a sense of how it works. The link is <a href="http://depts.washington.edu/acelab/proj/dollar/index.html">here</a>.<br><br>
+
+<h4>Add finger gesture </h4> <br>
+Once import the $1 Unistroke Recognizer library, you can add your customized finger gestures via the following function: <br><br>
+<pre> OneDollar.learn(String gesture-name, int[] x-y-coordinates); </pre> <br>
+
+You can obtain the x-y-coordinates for your desired finger gesture by either using your finger and draw the pattern on the multi-touch pad, or more conveniently using your mouse and trackpad + mouseDragged() function, and print out & record all the triggered points of your finger gesture. <br><br>
+<img src="images/pset4/add-gesture.png" width="650px"> <br><br>
+
+<h4>Bind finger gesture to callback function </h4> <br>
+
+Once add the customized finger gesture, you would go ahead and bind it to a callback function, which will be triggered every time the algorithm detects the corresponding finger gesture.<br>
+
+You can bind the finger gesture to a callback function via the following function: <br><br>
+<pre> OneDollar.bind(String gesture-name, String callback-function-name); </pre><br>
+
+Then implement the callback function :<br><br>
+<pre> void foo(String gesture-name, float percentOfSimilarity, int startX, int startY, int centroidX, int centroidY, int endX, int endY){
+    // do something fun
+}
+</pre> <br>
+
+<h4>Track the finger gestures </h4> <br>
+
+After finishing the setup, you will implement the actual tracking in the code.<br>
+This is achieved via the following function: <br><br>
+<pre> OneDollar.track(int x-coordinate, int y-coordinate); </pre><br>
+
+You should update the UI to display the detected finger gesture whenever you do the finger gesture on the multi-touch pad. <br>
+You could have something look like the following:<br> 
+<img src="images/pset4/UI-recognizer-A.png" width="300px">
+<img src="images/pset4/UI-recognizer-C.png" width="300px"> <br>
 
 
 
