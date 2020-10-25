@@ -267,12 +267,12 @@ Two fingers touching: <br> <span style="color:red">I'm surprised by all the nois
 <h4>Implement camera view control via keyboard </h4> <br>
 
 Finally, it would be a lot cooler and more helpful in debugging if we could look around in our 3D visualization, e.g. rotate the viewport, zoom in and out etc.<br>
-To be able to do this, you will implement a camera viewport that can be controlled via your keyboard. 
-
-<!-- In this part, you will be implementing an active camera view, which has the ability to change in zoom in/out, height in Z-axis and rotation in XY-plane. <br> -->
+To be able to do this, you will implement a camera viewport that can be controlled via your keyboard. <br><br>
 
 <b>Initialize Camera in Processing</b><br>
-To get started, initialize a new camera in Processing with the following method:<br>
+
+Processing provides a Camera Class for implementing camera movement. You can find the <a href="https://processing.org/reference/camera_.html">camera class documentation here</a>.<br>
+To get started, initialize a new camera in Processing with the following method:<br><br>
 
 <pre>camera(float eyeX, float eyeY, float eyeZ, float centerX, float centerY, float centerZ, float upX, float upY, float upZ); </pre><br>
 
@@ -281,14 +281,14 @@ Let's look at what all these parameters are:<br>
 <i>center x/y/z:</i> The center of the scene defines how the camera is angled. For instance, if the center of the scene is lower than the camera, then the camera will look down, resulting in a bird's eye view. Similarly, if the center of the scene is higher than the camera, then the camera will look up, resulting in a frog's eye view.</span><br>
 <i>up x/y/z:</i> This defines which axis is facing upwards. <span style="color:red">0.0 means the axis is not pointing upwards, 1.0 means the axis is pointing upwards. We want that the z-axis points upwards and the rest remains where it is. (does this mean if the camera has to flip the viewport?)</span><br><br>
 
-<b>Implement Zooming in/out</b><br>
+<b>Zooming in/out</b><br>
 Moving the camera position (eye position) closer or further away from the 3D visualization results in a zooming in/out effect (see images below).<br>
 Implement a zooming effect so that when you press the key "E" you zoom in and if you press the key "Q" you zoom out.<br><br>
 
 <img src="images/pset4/UI-3d-visualization-cameraViewControl-zoom-out.png" width="350px">
 <img src="images/pset4/UI-3d-visualization-cameraViewControl-zoom-in.png" width="350px"> <br><br>
 
-<b>Implement Rotating in the X-Y Plane</b><br>
+<b>Rotating in the X-Y Plane</b><br>
 To move the camera in the x-y plane around the 3D visualization, you need to keep it at the same distance from the 3D visualization at all times (see images below).<br>
 This is best accomplished by moving the camera on a circle around the scene.<br>
 Update the camera position (eye position) to accomplish this.<br>
@@ -300,41 +300,18 @@ Since you set the scene's center x/y/z to be the 3D visualization, the camera wi
 <img src="images/pset4/UI-3d-visualization-cameraViewControl-rotate-2.png" width="350px"> <br><br>
 
 
-<b>Implement Changing Camera's Z-Axis Position</b><br>
-To move the camera along the z-axis position, 
+<b>Changing the Camera's Z-Axis Position</b><br>
+To move the camera along the z-axis position, you need to change the <span style="color:red">camera's eye position again, but this time only along the z-axis.</span><br>
+Pressing 'W' on the keyboard should move the camera up and pressing 'S' on the keyboard should move the camera down along the z-axis as shown in the image below.<br><br>
 
-
-Second, you need to change the direction the camera is pointing since it will otherwise no longer look at the scene after you moved it.<br>
-
-Moving the camera position (eye position) and the direction it is pointing (the center of the scene) allows the images to be seen from different angles. <br><br>
-
-, you 
-
-For more details about the camera in Processing, you can refer <a href="https://processing.org/reference/camera_.html">to the camera documentation here</a>.<br><br>
-
-
-You can also set the frame rate for better performance (e.g. if you are experiencing sketch laggs) via <i>frameRate(int rate)</i> function. <br>
-
-
-
-You will implement the camera view control so that:
-<ol>
-	<li>press key "W" and "S" control change in camera height in Z-axis </li>
-</ol>
-<br>
-
-The changes in camera view point should look like something in the following.<br>
-
-Change in height in Z-axis: <br>
 <img src="images/pset4/UI-3d-visualization-cameraViewControl-view-height-1.png" width="350px">
 <img src="images/pset4/UI-3d-visualization-cameraViewControl-view-height-2.png" width="350px"> <br><br>
 
+Finally, if you are experiencing some lagging in your application, you can also set the frame rate for the camera for better performance.<br><br>
 
+<span style="color:red">sorry accidentally deleted framerate code. add back in.</span>
 
-
-<!-- <h3>(3) An open-ended cool mini-application based on (1) and/or (2) (optional)</h3> -->
-
-<br>
+<br><br>
 
 <h3>Upload your Processing Code and Pictures of your Visualization</h3>
 
