@@ -264,19 +264,34 @@ Two fingers touching: <br> <span style="color:red">I'm surprised by all the nois
 <img src="images/pset4/UI-3d-visualization-2-finger-2.png" width="350px">
 <img src="images/pset4/UI-3d-visualization-2-finger-4.png" width="350px"> <br><br>
 
-
 <h4>Implement camera view control via keyboard </h4> <br>
 
-In this part, you will be implementing an active camera view, which has the ability to change in zoom in/out, height in Z-axis and rotation in XY-plane. <br>
-The camera view will be controlled via keyboard buttons. <br><br>
+Finally, it would be a lot cooler and more helpful in debugging if we could look around in our 3D visualization, e.g. rotate the viewport, zoom in and out etc.<br>
+To be able to do this, you will implement a camera viewport that can be controlled via your keyboard. 
 
-You should first initialize the "camera view" in Processing with the following method:
+<!-- In this part, you will be implementing an active camera view, which has the ability to change in zoom in/out, height in Z-axis and rotation in XY-plane. <br> -->
+
+<b>Initialize Camera in Processing</b><br>
+To get started, initialize a new camera in Processing with the following method:<br>
+
 <pre>camera(float eyeX, float eyeY, float eyeZ, float centerX, float centerY, float centerZ, float upX, float upY, float upZ); </pre><br>
 
+Let's look at what all these parameters are:<br>
+<i>eye x/y/z:</i> This is the camera's 3D position. From this position, the camera looks at the 3D scene. <span style="color:red">Is this really called eye? should we call that cameraPosX, Y, Z?</span><br>
+<i>center x/y/z:</i> <span style="color:red">what is this?</span><br>
+<i>up x/y/z:</i> This defines which axis is facing upwards. <span style="color:red">but this is a float not a boolean? what should be the value?</span><br>
+
+
+For more details about the camera in Processing, you can refer <a href="https://processing.org/reference/camera_.html">to the camera documentation here</a>.<br><br>
+
+
 It sets the position of the camera through setting the eye position, the center of the scene, and which axis is facing upward. <br>
+
 Moving the eye position and the direction it is pointing (the center of the scene) allows the images to be seen from different angles. <br><br>
+
 You can also set the frame rate for better performance (e.g. if you are experiencing sketch laggs) via <i>frameRate(int rate)</i> function. <br>
-For more details about the camera in Processing, please refer to the offical documents <a href="https://processing.org/reference/camera_.html">here</a>.<br><br>
+
+
 
 You will implement the camera view control so that:
 <ol>
