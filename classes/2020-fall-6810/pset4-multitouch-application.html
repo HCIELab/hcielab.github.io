@@ -130,12 +130,66 @@ This is achieved via the following function: <br><br>
 
 You should update the UI to display the detected finger gesture whenever you do the finger gesture on the multi-touch pad. <br>
 You could have something look like the following:<br> 
-<img src="images/pset4/UI-recognizer-A.png" width="300px">
-<img src="images/pset4/UI-recognizer-C.png" width="300px"> <br>
-
+<img src="images/pset4/UI-recognizer-A.png" width="350px">
+<img src="images/pset4/UI-recognizer-C.png" width="350px"> <br>
 
 
 <h3>(2) Visualize the touching data in 3D</h3>
+
+In this part, you will be implementing the multi-touch pad touching data in 3D, where the "height" of the roughly reflects how "hard" you are touching (remember in PSet3, the brightness of the 2D blob area roughly reflects how "hard" you are touching). <br>
+<img src="images/pset4/UI-3d-visualization-1-finger-1.png" width="350px">
+<img src="images/pset4/UI-3d-visualization-1-finger-2.png" width="350px"> <br><br>
+
+Start by downloading <a href="software/pset4_3d_visualization_skeleton_v1.zip">the skeleton code for the PSet4 3D visualization from  here</a>. <br><br>
+
+Once you open up the skeleton code, you will notice that it is quite similar to the PSet3 skeleton code. <br>
+As a matter of fact, if you have the PSet3 all implemnted corrected, you already have most of the code written! <br>
+
+<img src="images/pset4/pset4-skeleton-code.png" width="500px"> <br>
+
+For the functions that share the same name with PSet3 (i.e. readSerial(), setBaseLine(), substractBaseLine(), setColors(), and interpolate()), you can directly copy your PSet3 code into the corresponding functions. <br><br>
+
+For this part of the PSet, apart from the initialization in the setup() function, you are going to do the following three steps: <br>
+<ol>
+	<li>Draw XYZ axes for 3D visualization</li>
+	<li>Implement camera view and control in via keyboard</li>
+	<li>Update the 3D visualization based on interpolated PImage (i.e. <i>scaledbc</i>)</li>
+</ol>
+<br>
+
+<h4>Draw XYZ axes for 3D visualization </h4> <br>
+
+
+<img src="images/pset4/UI-3d-visualization-drawAxis.png" width="500px"> <br>
+
+<h4>Implement camera view control via keyboard </h4> <br>
+
+
+<img src="images/pset4/UI-3d-visualization-cameraViewControl-zoom-out.png" width="350px">
+<img src="images/pset4/UI-3d-visualization-cameraViewControl-zoom-in.png" width="350px"> <br><br>
+
+
+<img src="images/pset4/UI-3d-visualization-cameraViewControl-view-height-1.png" width="350px">
+<img src="images/pset4/UI-3d-visualization-cameraViewControl-view-height-2.png" width="350px"> <br><br>
+
+
+<img src="images/pset4/UI-3d-visualization-cameraViewControl-rotate-1.png" width="350px">
+<img src="images/pset4/UI-3d-visualization-cameraViewControl-rotate-2.png" width="350px"> <br><br>
+
+
+<h4>Update 3D visualization </h4> <br>
+
+
+<img src="images/pset4/UI-3d-visualization-no-finger-1.png" width="350px">
+<img src="images/pset4/UI-3d-visualization-no-finger-2.png" width="350px"> <br><br>
+
+
+<img src="images/pset4/UI-3d-visualization-1-finger-1.png" width="350px">
+<img src="images/pset4/UI-3d-visualization-1-finger-2.png" width="350px"> <br><br>
+
+
+<img src="images/pset4/UI-3d-visualization-2-finger-2.png" width="350px">
+<img src="images/pset4/UI-3d-visualization-2-finger-4.png" width="350px"> <br><br>
 
 
 
@@ -150,11 +204,11 @@ You could have something look like the following:<br>
 
 We will give 25 pts in total:
 <ul>
-	<li>5 pts: you finished all for steps of the task.</li>
-	<li>5 pts: circuit design: are all measurements correct, i.e. do the diamonds have the right size, is the spacing correct, do the wires actually connect to the FCP correctly.</li>
-	<li>5 pts: inkjet printing: the print is highly conductive and all columns and rows have a low resistance.</li>
-	<li>5 pts: assembly: did you assemble the layers correctly, are they correctly aligned, are the sheets stacked in the correct way.</li>
-	<li>5 pts: connect to FCP: your multi-touch pad connects correctly to the FCP chips, nothing is misaligned.</li>
+	<li>5 pts: have 3 different finger gestures implemented.</li>
+	<li>5 pts: the system correctly recognize all 3 different finger gestures and update the UI accordingly.</li>
+	<li>5 pts: XYZ axes correctly draw for 3D visualization and update correctly with the active camera view.</li>
+	<li>5 pts: camera view control correctly implemented with ability to change in zoom in/out, height in Z-axis and rotation in XY-plane.</li>
+	<li>5 pts: 3D visualization correctly implemented and updates with the touching data (and can at least visualizes 2 fingers touching simultaneously.</li>
 </ul>
 
 
