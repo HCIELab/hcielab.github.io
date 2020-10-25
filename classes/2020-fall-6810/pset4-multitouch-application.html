@@ -277,17 +277,41 @@ To get started, initialize a new camera in Processing with the following method:
 <pre>camera(float eyeX, float eyeY, float eyeZ, float centerX, float centerY, float centerZ, float upX, float upY, float upZ); </pre><br>
 
 Let's look at what all these parameters are:<br>
-<i>eye x/y/z:</i> This is the camera's 3D position. From this position, the camera looks at the 3D scene. <span style="color:red">Is this really called eye? should we call that cameraPosX, Y, Z?</span><br>
-<i>center x/y/z:</i> <span style="color:red">what is this?</span><br>
-<i>up x/y/z:</i> This defines which axis is facing upwards. <span style="color:red">but this is a float not a boolean? what should be the value?</span><br>
+<i>eye x/y/z:</i> This is the camera's 3D position in space, i.e. where it would be physically located if it was a camera in real-life.<br>
+<i>center x/y/z:</i> The center of the scene defines how the camera is angled. For instance, if the center of the scene is lower than the camera, then the camera will look down, resulting in a bird's eye view. Similarly, if the center of the scene is higher than the camera, then the camera will look up, resulting in a frog's eye view.</span><br>
+<i>up x/y/z:</i> This defines which axis is facing upwards. <span style="color:red">0.0 means the axis is not pointing upwards, 1.0 means the axis is pointing upwards. We want that the z-axis points upwards and the rest remains where it is. (does this mean if the camera has to flip the viewport?)</span><br><br>
 
+<b>Implement Zooming in/out</b><br>
+Moving the camera position (eye position) closer or further away from the 3D visualization results in a zooming in/out effect (see images below).<br>
+Implement a zooming effect so that when you press the key "E" you zoom in and if you press the key "Q" you zoom out.<br><br>
+
+<img src="images/pset4/UI-3d-visualization-cameraViewControl-zoom-out.png" width="350px">
+<img src="images/pset4/UI-3d-visualization-cameraViewControl-zoom-in.png" width="350px"> <br><br>
+
+<b>Implement Rotating in the X-Y Plane</b><br>
+To move the camera in the x-y plane around the 3D visualization, you need to keep it at the same distance from the 3D visualization at all times (see images below).<br>
+This is best accomplished by moving the camera on a circle around the scene.<br>
+Update the camera position (eye position) to accomplish this.<br>
+In particular, if you press the key 'D' you should rotate right and if you press the key 'A' you should rotate left.<br>
+Note that you only have to update the camera's position.<br>
+Since you set the scene's center x/y/z to be the 3D visualization, the camera will automatically rotate while moving around the 3D visualization to always look at it.<br><br>
+
+<img src="images/pset4/UI-3d-visualization-cameraViewControl-rotate-1.png" width="350px">
+<img src="images/pset4/UI-3d-visualization-cameraViewControl-rotate-2.png" width="350px"> <br><br>
+
+
+<b>Implement Changing Camera's Z-Axis Position</b><br>
+To move the camera along the z-axis position, 
+
+
+Second, you need to change the direction the camera is pointing since it will otherwise no longer look at the scene after you moved it.<br>
+
+Moving the camera position (eye position) and the direction it is pointing (the center of the scene) allows the images to be seen from different angles. <br><br>
+
+, you 
 
 For more details about the camera in Processing, you can refer <a href="https://processing.org/reference/camera_.html">to the camera documentation here</a>.<br><br>
 
-
-It sets the position of the camera through setting the eye position, the center of the scene, and which axis is facing upward. <br>
-
-Moving the eye position and the direction it is pointing (the center of the scene) allows the images to be seen from different angles. <br><br>
 
 You can also set the frame rate for better performance (e.g. if you are experiencing sketch laggs) via <i>frameRate(int rate)</i> function. <br>
 
@@ -295,24 +319,16 @@ You can also set the frame rate for better performance (e.g. if you are experien
 
 You will implement the camera view control so that:
 <ol>
-	<li>press key "Q" and "E" control change in camera zoom in / out </li>
 	<li>press key "W" and "S" control change in camera height in Z-axis </li>
-	<li>press key "A" and "D" control change in camera rotation in XY-plane </li>
 </ol>
 <br>
 
 The changes in camera view point should look like something in the following.<br>
-Change in zoom in/out: <br>
-<img src="images/pset4/UI-3d-visualization-cameraViewControl-zoom-out.png" width="350px">
-<img src="images/pset4/UI-3d-visualization-cameraViewControl-zoom-in.png" width="350px"> <br><br>
 
 Change in height in Z-axis: <br>
 <img src="images/pset4/UI-3d-visualization-cameraViewControl-view-height-1.png" width="350px">
 <img src="images/pset4/UI-3d-visualization-cameraViewControl-view-height-2.png" width="350px"> <br><br>
 
-Change in rotation in XY-plane: <br>
-<img src="images/pset4/UI-3d-visualization-cameraViewControl-rotate-1.png" width="350px">
-<img src="images/pset4/UI-3d-visualization-cameraViewControl-rotate-2.png" width="350px"> <br><br>
 
 
 
