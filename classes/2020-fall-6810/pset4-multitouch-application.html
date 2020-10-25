@@ -69,58 +69,92 @@ Now that you have the Processing code that reads and visualizes sensing data in 
 
 <h3>(1) Gesture Recognizer</h3>
 Let's first build a finger gesture recognizer.<br>
-The goal here is to be able to draw with your finger onto your multi-touch pad and have the multi-touch pad recognize what was drawn. For instance, if you swipe from left to right, your code should recognize that you made this gesture and if draw an 'A' your code should know that an 'A' was drawn.<br>
-This part will be built on top of your PSet3 Processing code. <br><br>
+The goal here is to be able to draw with your finger onto your multi-touch pad and have the multi-touch pad recognize what was drawn. For instance, if you swipe from left to right, your code should recognize that you made this gesture and if you draw an 'A' your code should know that an 'A' was drawn.<br><br>
 
-<h4>$1 Unistroke Recognizer Library</h4> <br>
+<h4>Understanding the $1 Unistroke Recognizer</h4> <br>
 
-<b>Import $1 Unistroke Recognizer Library to Processing</b><br>
 Luckily, you don't have to implement the gesture recognizer from scratch.<br>
-Instead, you can use a Processing library called <b>$1 Unistroke Recognizer</b>.<br>
-Start by importing the library by going to <b>Sketch -> Import Library</b> and finding it through the search bar.<br><br>
+Instead, you can use the <b>$1 Unistroke Recognizer</b>, which is also available as a Processing library.<br>
+This gesture recognizer was first published at our HCI conference ACM UIST and you can find the <a href="http://faculty.washington.edu/wobbrock/pubs/uist-07.01.pdf">UIST 2017 Paper here</a>.<br>
+Before we get to the implementation, let's briefly review what gestures this recognizer can detect and what gestures cannot be detected.<br><br>
 
-<img src="images/pset4/$1 Unistroke Recognizer.png" width="650px"> <br><br>
+<b>What Gestures can the $1 Unistroke Recognizer Detect?</b><br>
 
-<b>How does the $1 Unistroke Recognizer Work?</b><br>
-This gesture recognizer was first published at our main HCI conference ACM UIST and you can find the <a href="http://faculty.washington.edu/wobbrock/pubs/uist-07.01.pdf">UIST 2017 Paper here</a> and the <a href="http://depts.washington.edu/acelab/proj/dollar/index.html">website here</a> if you are interested to read more.<br>
-$1 Unistroke Recognizer is a 2-D single-stroke recognizer designed for rapid prototyping of gesture-based user interfaces. <br>
-It is called "$1" because in machine learning terms, $1 is an instance-based nearest-neighbor classifier with a 2-D Euclidean distance function, i.e., a geometric template matcher. <br><br>
+<i>2D Recognizer:</i> First, the $1 Unistroke Recognizer is a <b>2D recognizer.</b> Therefore, you can use it for your 2D multi-touch pad but you cannot use it with a hardware setup, such as the Kinect, where you can move you finger in 3D space in the air.<br><br>
 
-Since it is an unistroke recognizer, there are some limitations you should take into consideration when design your finger gestures. <br>
-First, the gesture should be performed by one finger and contains only one continuous stroke. <br>
-For example, for the following 2 gestures designed for letter "A", only the left one can be recognized correctly by the algorithm as the one on the right contains more than one stroke: <br>
+<i>Unistroke:</i> Second, the recognizer is a 'unistroke' recognizer. What this means is that it can only recognize gestures that are made by <b>one finger</b> in <b>one continous stroke</b>. For instance, consider the 2 gestures shown below designed for the letter "A". The left one is written in one continous stroke and thus can be recognized by the $1 recognizer. The right one, however, is written in two separate strokes and thus cannot be recognized. Similarly, you can recognize a single finger swipe left/right gesture, but you cannot recognize <span style="color:red">a zoom gesture with two fingers since that would require combining two separate strokes into one gesture</span>.<br><br>
+
 <img src="images/pset4/drawing-pattern-requirement-1.png" width="500px"> <br><br>
 
-In addition, the algorithm recognizes the stroke direction but ignores the stroke "orientation".<br>
-This is critical when implementing multiple gestures.<br>
-For example, the algorithm would be able to distinguish the following 2 finger gestures: <br>
+<i>Stroke Direction:</i> In addition, the algorithm recognizes the stroke direction, <span style="color:red">i.e. with which point/line you start your stroke.</span> For example, the two gestures shown below are visually identical but in the first gesture we start on the top left, while in the second gesture we start on the bottom left. Therefore, although visually the same gesture, the $1 algorithm is able to distinguish them as two different gestures. <span style="color:red"> Note that this is only possible because the algorithm ignores the stroke 'orientation'. If the algorithm would consider the stroke orientation, both gestures would be the same. (is this really true? I can't make them match up)</span><br><br>
+
 <img src="images/pset4/drawing-pattern-requirement-3.png" width="500px"> <br><br>
 
-However, it will likely recognize these following 2 finger gestures as the same gesture: <br>
+<i>Stroke Orientation:</i> In addition, the algorithm <span style="color:red">ignores the stroke "orientation" (what does ignore mean? it doesn't matter how it's oriented and it will still be recognized?)</span>.<br>
+However, it will likely recognize the 2 finger gestures shown below as the same gesture. <span style="color:red">(why? because it ignores orientation or it considers orientation?).</span><br><br>
+
 <img src="images/pset4/drawing-pattern-requirement-2.png" width="500px"> <br><br>
 
-For more details of the $1 Unistroke Recognizer library, you can go to the <a href="https://github.com/nok/onedollar-unistroke-recognizer">library's webpage</a>. <br>
-There is also a demo website for the $1 Unistroke Recognizer, where you can test the library's functionality and get a sense of how it works. The link is <a href="http://depts.washington.edu/acelab/proj/dollar/index.html">here</a>.<br><br>
+<i>$1 Dollar:</i> Finally, the recognizer is called <b>"$1"</b> because in machine learning terms, <span style="color:red">$1 is an instance-based nearest-neighbor classifier with a 2-D Euclidean distance function, i.e., a geometric template matcher.</span> <br><br>
+
+<b>Try the Gesture Recognizer for yourself on the Demo Webpage</b><br>
+We recommend before you move on, you try out the interactive demo of the $1 Unistroke Recognizer that you can <a href="http://depts.washington.edu/acelab/proj/dollar/index.html">find here on this website</a>. Scroll down to the 'Demo' section and you see 16 different gestures you can draw into the gray window on the right side. Draw each of the gestures once to get a feel for how different gestures are designed and how well they can be classified. After you drew a gesture, you will see its classified name at the top of the window.<br><br> 
+
+<a href="http://depts.washington.edu/acelab/proj/dollar/index.html"><img src="images/pset4/one-dollar-demo.png" width="700px"></a> <br><br>
+
+<h4>Processing Library for $1 Unistroke Recognizer</h4> <br>
+
+Lucky for us, the authors of the UIST'07 paper also provide a Processing library with all the functionality you saw above.<br>
+Start by importing the <b>$1 Unistroke Recognizer</b> library by going to <b>Sketch -> Import Library</b> and finding it through the search bar.<br>
+Note that this part will be built on top of your PSet3 Processing code.<br><br>
+
+<img src="images/pset4/$1 Unistroke Recognizer.png" width="700px"> <br><br>
+
 
 <h4>Add finger gesture </h4> <br>
-Once import the $1 Unistroke Recognizer library, you can add your customized finger gestures via the following function: <br><br>
+To create a new finger gesture, you can use the following function:<br><br>
 <pre> OneDollar.learn(String gesture-name, int[] x-y-coordinates); </pre> <br>
 
-You can obtain the x-y-coordinates for your desired finger gesture by either using your finger and draw the pattern on the multi-touch pad, or more conveniently using your mouse and trackpad + mouseDragged() function, and print out & record all the triggered points of your finger gesture. <br><br>
-<img src="images/pset4/add-gesture.png" width="650px"> <br><br>
+To obtain the x-y-coordinates for your gesture you have two options:
+<ol>
+	<li><i>Finger on Multi-Touch Pad:</i> You can use your finger and draw the pattern on the multi-touch pad while recording the x-y coordinates from the gesture start to end.</li>
+	<li><i>Mouse on Screen:</i> Alternatively (and perhaps more conveniently), you can use <span style="color:red">your mouse to draw onto the Processing Canvas and use the mouseDragged() function to record all the points of the mouse gesture.</span></li>
+</ol> 
 
-<h4>Bind finger gesture to callback function </h4> <br>
+Below you see a recording of all the coordinates for <span style="color:red">one of our gestures (which gesture is this?).</span><br><br>
 
-Once add the customized finger gesture, you would go ahead and bind it to a callback function, which will be triggered every time the algorithm detects the corresponding finger gesture.<br>
+<img src="images/pset4/add-gesture2.png" width="650px"> <br><br>
+
+<h4>Connect Finger Gesture to a Callback Function </h4> <br>
+
+Now that you have added a custom finger gesture, you next have to define which function should be called when the gesture is being detected. Such a function is called a <b>callback function</b> and it will be triggered every time the algorithm detects the corresponding finger gesture.<br><br>
 
 You can bind the finger gesture to a callback function via the following function: <br><br>
+
 <pre> OneDollar.bind(String gesture-name, String callback-function-name); </pre><br>
 
-Then implement the callback function :<br><br>
+<span style="color:red">Does the function name above include the parameters and parenthesis?</span><br><br>
+
+Next, you need to implement the callback function.<br>
+The <span style="color:red">callback function always has to be in the format as shown below, i.e. contain the following parameters and return void.<br>
+The function name and parameter names, however, are up to you.</span><br><br>
+
 <pre> void foo(String gesture-name, float percentOfSimilarity, int startX, int startY, int centroidX, int centroidY, int endX, int endY){
-    // do something fun
+    // do something when the gesture is detected
 }
 </pre> <br>
+
+The parameters contain the following:<br>
+<i>Percent of Similarity:</i> This is how confident the recognizer is that it actually detected the right gesture. If this contains '100' the algorithm is very confident, however, if it contains '50' the algorithm is not very confident that this is correct. <span style="color:red">is there a lowest possible value?</span><br>
+<i>Start X/Y:</i> This is the start position of the gesture on the multi-touch pad <span style="color:red">are these absolute values on the multi-touch pad, i.e. 0,0 is top left corner? how does it know this?</span> <br>
+<i>Centroid X/Y:</i> <span style="color:red">what is this good for?</span><br>
+<i>End X/Y:</i> <span style="color:red">same question as above.</span><br><br>
+
+
+
+
+
+
 
 <h4>Track the finger gestures </h4> <br>
 
