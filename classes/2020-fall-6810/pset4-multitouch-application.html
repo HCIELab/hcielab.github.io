@@ -71,6 +71,18 @@ Now that you have the Processing code that reads and visualizes sensing data in 
 Let's first build a finger gesture recognizer.<br>
 The goal here is to be able to draw with your finger onto your multi-touch pad and have the multi-touch pad recognize what was drawn. For instance, if you swipe from left to right, your code should recognize that you made this gesture and if you draw an 'A' your code should know that an 'A' was drawn.<br><br>
 
+For this part of the PSet, you will be following steps: <br>
+<ol>
+	<li>Understand how the $1 Unistroke Recognizer works conceptually</li>
+	<li>Import the Processing Library for the $1 Unistroke Recognizer</li>
+	<li>Add a new gesture by giving it a name and recording a set of touch points that make up the gesture</li>
+	<li>Connect the gesture to a function that is called every time the gesture is recognized</li>
+	<li>Start gesture detection every time a touch point is recognized from the blob detection</li>
+	<li>Visualize the gesture detection result on screen</li>
+</ol>
+<br>
+
+
 <h4>Understanding the $1 Unistroke Recognizer</h4> <br>
 
 Luckily, you don't have to implement the gesture recognizer from scratch.<br>
@@ -186,20 +198,24 @@ Note that in good gesture design, the gesture should be related to what function
 
 Take a short video of your gesture recognizer showing how you perform all three different gestures and how they are correctly classified and upload this video to your google drive.<br><br>
 
-<h3>(2) Visualize the touching data in 3D</h3>
+<h3>(2) Visualize Touch and Pressure in 3D</h3>
 
-In this part, you will be implementing the multi-touch pad touching data in 3D, where the "height" of the roughly reflects how "hard" you are touching (remember in PSet3, the brightness of the 2D blob area roughly reflects how "hard" you are touching). <br>
-<img src="images/pset4/UI-3d-visualization-1-finger-1.png" width="350px">
+So far you have only recognized and visualized touch points.<br>
+Next, you will extend your code to also recognize and visualize touch pressure.<br>
+To recognize touch pressure, you can look at the brightness of the touch point <span style="color:red">(and why would it be brighter if I pressed harder? because more finger area touches there leading to more cumulate capacitance?)</span><br>
+To visualize the touch pressure, you are going to use a 3D visualization.<br>
+The height of the touch point represents how much pressure is applied.<br>
+Below you can see an example: on the left side only little pressure is applied and the touch bar is small, whereas on the right side a lot of pressure is applied and the bar is much higher.<br><br>
+
+<img src="images/pset4/UI-3d-visualization-1-finger-1.png" width="354px">
 <img src="images/pset4/UI-3d-visualization-1-finger-2.png" width="350px"> <br><br>
 
-Start by downloading <a href="software/pset4_3d_visualization_skeleton_v1.zip">the skeleton code for the PSet4 3D visualization from  here</a>. <br><br>
+<h4>Download Skeleton Code</h4> <br>
+Start by downloading <a href="software/pset4_3d_visualization_skeleton_v1.zip">the skeleton code for the PSet4 3D visualization from here</a>. <br><br>
 
-Once you open up the skeleton code, you will notice that it is quite similar to the PSet3 skeleton code. <br>
-As a matter of fact, if you have the PSet3 all implemnted corrected, you already have most of the code written! <br>
+Once you opened the skeleton code, you will see that there are some new variables and functions that are related to the 3D visualization (e.g., the axis and camerapos parameters and the drawAxis(), cameraViewControl() and update3DImage() functions). The remaining functions (readSerial(), setBaseLine(), substractBaseLine(), setColors(), and interpolate()) are from pset3 and you only have to move your code over to fill them out.<br><br>
 
-<img src="images/pset4/pset4-skeleton-code.png" width="500px"> <br>
-
-For the functions that share the same name with PSet3 (i.e. readSerial(), setBaseLine(), substractBaseLine(), setColors(), and interpolate()), you can directly copy your PSet3 code into the corresponding functions. <br><br>
+<img src="images/pset4/pset4-skeleton-code.png" width="450px"> <br><br>
 
 For this part of the PSet, apart from the initialization in the setup() function, you are going to do the following three steps: <br>
 <ol>
