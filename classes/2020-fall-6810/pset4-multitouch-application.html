@@ -82,7 +82,6 @@ For this part of the PSet, you will be following steps: <br>
 </ol>
 <br>
 
-
 <h4>Understanding the $1 Unistroke Recognizer</h4> <br>
 
 Luckily, you don't have to implement the gesture recognizer from scratch.<br>
@@ -210,6 +209,14 @@ Below you can see an example: on the left side only little pressure is applied a
 <img src="images/pset4/UI-3d-visualization-1-finger-1.png" width="354px">
 <img src="images/pset4/UI-3d-visualization-1-finger-2.png" width="350px"> <br><br>
 
+For this part of the PSet, <span style="color:red">apart from the initialization in the setup() function,</span> you are going to do the following three steps: <br>
+<ol>
+	<li>Draw three axis for x, y, z on screen for the 3D visualization coordinate system</li>
+	<li><span style="color:red">Implement camera view and control in via keyboard (what is this for?)</span></li>
+	<li>Update the 3D visualization based on interpolated PImage (i.e. <span style="color:red"><i>scaledbc</i>)(what is this?)</span></li>
+</ol>
+<br>
+
 <h4>Download Skeleton Code</h4> <br>
 Start by downloading <a href="software/pset4_3d_visualization_skeleton_v1.zip">the skeleton code for the PSet4 3D visualization from here</a>. <br><br>
 
@@ -217,25 +224,20 @@ Once you opened the skeleton code, you will see that there are some new variable
 
 <img src="images/pset4/pset4-skeleton-code.png" width="450px"> <br><br>
 
-For this part of the PSet, apart from the initialization in the setup() function, you are going to do the following three steps: <br>
-<ol>
-	<li>Draw XYZ axes for 3D visualization</li>
-	<li>Implement camera view and control in via keyboard</li>
-	<li>Update the 3D visualization based on interpolated PImage (i.e. <i>scaledbc</i>)</li>
-</ol>
-<br>
+<h4>Drawing the XYZ axes for 3D Visualization</h4> <br>
 
-<h4>Draw XYZ axes for 3D visualization </h4> <br>
-
-You will start by drawing out XYZ axes for 3D visualization in the <i>drawAxis()</i> function. <br>
+You will start by drawing the XYZ axes for 3D visualization in the <i>drawAxis()</i> function. <br>
 You can draw them as a standard Cartesian coordinate system. <br><br>
 
-The length of the X & Y axes should be the width and height of your interpolated PImage.<br>
-The length of the Z axes should be slightly over the pixel value range of your interpolated PImage for better visualization. <br><br>
+The length of the X and Y axes should be the width and height of your interpolated PImage.<br>
+The length of the Z axes should be slightly higher than the maximum pixel value of your interpolated PImage so you have some space at the top.<br><br>
 
-Once you finish the <i>drawAxis()</i> function, you should have something look like this (notice that the length of the X,Y,Z axes in the following image might not be accurate): <br>
+<span style="color:red">In addition, you need to color the axis by drawing a circle at their end.<br>
+In 3D modeling, the convention is that green is the x-axis, red is the y-axis, and blue is the z-axis.</span><br><br>
 
-<img src="images/pset4/UI-3d-visualization-drawAxis.png" width="500px"> <br>
+Once you finish the <i>drawAxis()</i> function, you should have something that looks like this <span style="color:red">(note that the length of the X,Y,Z axes in the image below is not accurate) (why not?)</span>. <br><br>
+
+<img src="images/pset4/UI-3d-visualization-drawAxis.png" width="400px"> <br><br>
 
 <h4>Implement camera view control via keyboard </h4> <br>
 
