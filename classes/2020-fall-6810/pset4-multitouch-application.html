@@ -239,6 +239,32 @@ Once you finish the <i>drawAxis()</i> function, you should have something that l
 
 <img src="images/pset4/UI-3d-visualization-drawAxis.png" width="400px"> <br><br>
 
+
+<h4>Draw the Touch Points and Touch Pressure into the 3D Visualization</h4> <br>
+
+Next, you will draw the touch points and the touch pressure into the 3D visualization based on your interpolated PImage from pset3.<br><br>
+
+<b>Drawing 3D Points in Processing</b><br>
+To implement the touch points, you will create a set of 3D points, where the X,Y coordinates are the row & column number of the pixel on the PImage, and the Z-coordinate is the interpolated value of the pixel. <br>
+As mentioned previously, the brighter pixels are in an area the more pressure was applied to this area.<br>
+As a result, the brighter a pixel, the higher the touch bar will be at this point.<br><br>
+
+<b>Mapping the Z-Height to a Color Gradient</b><br>
+You also need to color the touch bars with a color gradient that represents the "height" (i.e. z-axis coordinate) information.<br>
+We chose a color gradient of red when only touched with light pressure and yellow when touched with high pressure.<br>
+You can choose your own color gradient, just make sure that the colors are very different so you can actually see a difference.<br>
+To implement the z-height to color mapping, you may find it helpful to use the <a href="https://processing.org/reference/map_.html">map() function</a> again that you already used in pset3.<br>
+The resulting 3D visualization should look like something in the following.<br><br>
+
+One finger touching: <br>
+<img src="images/pset4/UI-3d-visualization-1-finger-1.png" width="350px">
+<img src="images/pset4/UI-3d-visualization-1-finger-2.png" width="350px"> <br><br>
+
+Two fingers touching: <br> <span style="color:red">I'm surprised by all the noise there? are you literally drawing everything from the PImage or only the blobs that were actually recognized as touch points?</span><br>
+<img src="images/pset4/UI-3d-visualization-2-finger-2.png" width="350px">
+<img src="images/pset4/UI-3d-visualization-2-finger-4.png" width="350px"> <br><br>
+
+
 <h4>Implement camera view control via keyboard </h4> <br>
 
 In this part, you will be implementing an active camera view, which has the ability to change in zoom in/out, height in Z-axis and rotation in XY-plane. <br>
@@ -272,32 +298,6 @@ Change in height in Z-axis: <br>
 Change in rotation in XY-plane: <br>
 <img src="images/pset4/UI-3d-visualization-cameraViewControl-rotate-1.png" width="350px">
 <img src="images/pset4/UI-3d-visualization-cameraViewControl-rotate-2.png" width="350px"> <br><br>
-
-
-<h4>Update 3D visualization </h4> <br>
-
-The last part of the 3D visualization is to actually implement the 3D visualization based on your intepolated PImage. <br><br>
-
-Recall from the PSet 3, we intepolated the 9x8 multi-touch pad touching data into a much larger PImage and assign the intepolated value pixel by pixel. <br>
-We will be implementing something quite similar here, except the intepolated value now become the "height" (i.e. z-axis coordinate) + color. <br><br>
-
-You will implement the 3D visualization as a set of 3D points, where the X,Y coordinates are the row & column number of the pixel on PImage, and the Z coordinate the intepolated value of the pixel. <br>
-You will also implement a color gradient (of your choice) that represents the "height" (i.e. z-axis coordinate) information.<br>
-You might find your old friend <i>map()</i> to be helpful during some value assignments.<br><br>
-
-The resulting 3D visualization should look like something in the following.<br>
-
-No finger touching: <br>
-<img src="images/pset4/UI-3d-visualization-no-finger-1.png" width="350px">
-<img src="images/pset4/UI-3d-visualization-no-finger-2.png" width="350px"> <br><br>
-
-One finger touching: <br>
-<img src="images/pset4/UI-3d-visualization-1-finger-1.png" width="350px">
-<img src="images/pset4/UI-3d-visualization-1-finger-2.png" width="350px"> <br><br>
-
-Two fingers touching: <br>
-<img src="images/pset4/UI-3d-visualization-2-finger-2.png" width="350px">
-<img src="images/pset4/UI-3d-visualization-2-finger-4.png" width="350px"> <br><br>
 
 
 
