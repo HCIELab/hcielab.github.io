@@ -155,25 +155,31 @@ The parameters contain the following:<br>
 
 <h4>Tracking the finger gestures </h4> <br>
 
-Now that you have defined how your gesture looks like and what function should be called when it is detected, you still have to tell your code when it should start tracking input to potentially identify your gesture.<br>
+Now that you have defined how your gesture looks like and what function should be called when it is detected, you still have to tell your code when it should start tracking finger input.<br>
 
-
-After finishing the setup, you will implement the actual tracking in the code.<br>
-This is achieved via the following function: <br><br>
+You can start the tracking via the following function: <br><br>
 <pre> OneDollar.track(int x-coordinate, int y-coordinate); </pre><br>
 
-You should update the UI to display the detected finger gesture whenever you do the finger gesture on the multi-touch pad. <br>
-You could have something look like the following:<br> 
+<span style="color:red">what is x, y here? I don't understand.</span><br>
+<span style="color:red">how do I stop tracking?</span><br><br>
+
+<h4>Visualize Gesture Detection Result</h4> <br>
+
+Finally, once your gesture is detected, your callback function should visualize the detected gesture.<br>
+You can do this by writing the name of the detected gesture into the Processing UI window as shown in the top left corner of the images below.<br>
+<span style="color:red">can we update these images to show the drawn gesture as well?</span><br><br>
+
 <img src="images/pset4/UI-recognizer-A.png" width="350px">
-<img src="images/pset4/UI-recognizer-C.png" width="350px"> <br>
+<img src="images/pset4/UI-recognizer-C.png" width="350px"> <br><br>
 
+<h4>Create 3 Different Gestures</h4> <br>
 
+Implement 3 different finger gestures that can be recognized by your multi-touch pad. <br>
+For example, you can implement finger input for recognizing letters (A, C etc.), 2D shapes (triangle, circle etc.), and symbols (check mark etc.). <br><br>
 
-To achieve full credits in this part, we ask you to implement at least 3 different finger gestures / drawing patterns that can be recognized by your multi-touch pad. <br>
-For example, you can implement your multi-touch pad to recognize letters (A, C etc.), some basic 2D shapes (triangle, circle etc.), or some simple symbols (check mark etc.). <br><br>
+Note that in good gesture design, the gesture should be related to what function is being called. For instance, you cannot draw a 'star' and associate it with a 'smile'. Instead, it would be better to draw a 'half circle', which more closely resembles a 'smile'. Similarly, gestures cannot be too abstract. For instance, you cannot have your finger draw one straight line on the multi-touch pad and the system recognizes it as 'fish'. Instead, there are better one-stroke gestures that could represent a fish outline. <br><br>
 
-You don't have to over-complicate on the finger gesture design, but do make the drawn patterns and recognized items reasonably similar and related. <br>
-For example, you can not have your finger draw one straight line on the multi-touch pad and the system recognizes it as "fish". <br><br>
+Take a short video of your gesture recognizer showing how you perform all three different gestures and how they are correctly classified and upload this video to your google drive.<br><br>
 
 <h3>(2) Visualize the touching data in 3D</h3>
 
