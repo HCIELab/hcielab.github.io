@@ -143,22 +143,26 @@ To create a new finger gesture, you can use the following function:<br><br>
 <b>Recording x/y coordinates for New Finger Gesture</b><br>
 While you could obtain the x-y-coordinates for your gesture template by tracking finger input from your multi-touch pad, we recommend not doing this and instead recommend that you draw the gesture with the mouse on screen and record the x-y coordinates from the mouseDragged() event.<br> The reason for this is that the drawing with the mouse will give you very clear tracking points for creating your template gesture. Later on, when you draw the gesture with your multi-touch pad during actual use, this will be more fault resistant. In contrast, if you record your template gesture on the multi-touch pad, you will already have some noise in the data and it will be harder to match a gesture when there is additional noise during actual use later on.<br><br>
 
-Below you see a recording of all the coordinates for our 'V' gesture that we then feed into the learn() function to add our new gesture.<br><br>
+Below you see a recording of all the coordinates for our 'V' gesture that we then feed into the learn() function to add our new gesture. Do the same before moving on.<br><br>
 
 <img src="images/pset4/add-gesture2.png" width="650px"> <br><br>
 
 <h4>Connect Finger Gesture to a Callback Function </h4> <br>
 
-Now that you have added a custom finger gesture, you next have to define which function should be called when the gesture is being detected. Such a function is called a <b>callback function</b> and it will be triggered every time the algorithm detects the corresponding finger gesture.<br><br>
+Now that you have added your custom 'V' finger gesture, you next have to define which function should be called when the gesture is being detected. Such a function is called a <b>callback function</b> and it will be triggered every time the algorithm detects the corresponding finger gesture.<br><br>
 
-You can bind the finger gesture to a callback function via the following function: <br><br>
+You can bind the finger gesture to a callback function via the following command: <br><br>
 
 <pre> oneDollar.bind(String gesture-name, String callback-function-name); </pre><br>
 
-<span style="color:red">Does the function name above include the parameters and parenthesis?</span><br><br>
+Note that the call-back-function-name is only the same of the function without parenthesis and parameters.<br><br>
+
+You can either have each gesture have its own call-back function or you can also bind multiple gestures to the same call-back function via this line:<br>
+
+<pre> oneDollar.bind(String gesture-name1 gesture-name2 gesture-name3..., String callback-function-name); </pre><br>
 
 Next, you need to implement the callback function.<br>
-The <span style="color:red">callback function always has to be in the format as shown below, i.e. contain the following parameters and return void.<br>
+The callback function always has to be in the format as shown below, i.e. contain the same number of parameters and parameter types and return void.<br>
 The function name and parameter names, however, are up to you.</span><br><br>
 
 <pre> void foo(String gesture-name, float percentOfSimilarity, int startX, int startY, int centroidX, int centroidY, int endX, int endY){
@@ -166,28 +170,29 @@ The function name and parameter names, however, are up to you.</span><br><br>
 }
 </pre> <br>
 
-The parameters contain the following:<br>
-<i>Percent of Similarity:</i> This is how confident the recognizer is that it actually detected the right gesture. If this contains '100' the algorithm is very confident, however, if it contains '50' the algorithm is not very confident that this is correct. <span style="color:red">is there a lowest possible value?</span><br>
-<i>Start X/Y:</i> This is the start position of the gesture on the multi-touch pad <span style="color:red">are these absolute values on the multi-touch pad, i.e. 0,0 is top left corner? how does it know this?</span> <br>
-<i>Centroid X/Y:</i> <span style="color:red">what is this good for?</span><br>
-<i>End X/Y:</i> <span style="color:red">same question as above.</span><br><br>
+There are a lot of parameters in the function but for our purposes we can keep it simple.<br>
+If you bind one gesture to one function, all you need is to add some action in the function body.<br>
+If you bind more than one gesture to one function, you can use the 'String gesture-name' to figure out which gesture triggered the function and then proceed with the corresponding action in the function body.<br><br>
+
+The remaining parameters contain how confident the recognizer is that it actually detected the right gesture (percentOfSimilarity), the start point of the gesture (startX,startY), the end point of the gesture (endX,endY), and the centroid of the gesture. For our purposes, we don't need these but we still have to list them in the function header to match the template requirement of the call-back function.<br><br>
 
 <h4>Tracking the finger gestures </h4> <br>
 
 Now that you have defined how your gesture looks like and what function should be called when it is detected, you still have to tell your code when it should start tracking finger input.<br>
 
-You can start the tracking via the following function: <br><br>
+We want to start tracking our gesture when our code detects a 'finger blob'.<br>
+Therefore, we need to add the tracking function below right after the blob detection code that determines if a finger was successfully detected.<br><br>
+
 <pre> oneDollar.track(int x-coordinate, int y-coordinate); </pre><br>
 
-<span style="color:red">what is x, y here? I don't understand.</span><br>
-<span style="color:red">how do I stop tracking?</span><br>
-<span style="color:red">when do we want to start tracking? only when a finger touch point is recognized through blob detection I guess?</span><br><br>
+The x/y coordinate in the function are the x/y coordinate of your touch point.<br><br>
+
+Note that you don't have to 'stop' tracking. The track() function will only be executed when Processing goes through its infinite loop and detects a finger blob, i.e. knows a finger is present. If no finger has been present for a while, i.e. no new data is fed to the gesture recognizer, it will automatically determine that the gesture has ended and will provide its best guess at what gesture was executed. <br><br>
 
 <h4>Visualize Gesture Detection Result</h4> <br>
 
 Finally, once your gesture is detected, your callback function should visualize the detected gesture.<br>
 You can do this by writing the name of the detected gesture into the Processing UI window as shown in the top left corner of the images below.<br>
-<span style="color:red">can we update these images to show the drawn gesture as well?</span><br><br>
 
 <img src="images/pset4/UI-recognizer-A.png" width="350px">
 <img src="images/pset4/UI-recognizer-C.png" width="350px"> <br><br>
@@ -213,11 +218,11 @@ Below you can see an example: on the left side only little pressure is applied a
 <img src="images/pset4/UI-3d-visualization-1-finger-1.png" width="354px">
 <img src="images/pset4/UI-3d-visualization-1-finger-2.png" width="350px"> <br><br>
 
-For this part of the PSet, <span style="color:red">apart from the initialization in the setup() function,</span> you are going to do the following three steps: <br>
+For this part of the PSet, you are going to do the following three steps: <br>
 <ol>
-	<li>Draw three axis for x, y, z on screen for the 3D visualization coordinate system</li>
-	<li><span style="color:red">Implement camera view and control in via keyboard (what is this for?)</span></li>
-	<li>Update the 3D visualization based on interpolated PImage (i.e. <span style="color:red"><i>scaledbc</i>)(what is this?)</span></li>
+	<li>draw three axis for x, y, z on screen for the 3D visualization coordinate system</li>
+	<li>implement camera control via keyboard to allow for easier debugging later on, i.e. the camera will be able to zoom in/out of the scene, rotate around the scene, and move up/down with respect to the scene</li>
+	<li>update the 3D visualization with the touch points and touch pressure based on interpolated PImage of your touch points from Pset3</span></li>
 </ol>
 <br>
 
@@ -228,45 +233,6 @@ Once you opened the skeleton code, you will see that there are some new variable
 
 <img src="images/pset4/pset4-skeleton-code.png" width="450px"> <br><br>
 
-<h4>Drawing the XYZ axes for 3D Visualization</h4> <br>
-
-You will start by drawing the XYZ axes for 3D visualization in the <i>drawAxis()</i> function. <br>
-You can draw them as a standard Cartesian coordinate system. <br><br>
-
-The length of the X and Y axes should be the width and height of your interpolated PImage.<br>
-The length of the Z axes should be slightly higher than the maximum pixel value of your interpolated PImage so you have some space at the top.<br><br>
-
-<span style="color:red">In addition, you need to color the axis by drawing a circle at their end.<br>
-In 3D modeling, the convention is that green is the x-axis, red is the y-axis, and blue is the z-axis.</span><br><br>
-
-Once you finish the <i>drawAxis()</i> function, you should have something that looks like this <span style="color:red">(note that the length of the X,Y,Z axes in the image below is not accurate) (why not?)</span>. <br><br>
-
-<img src="images/pset4/UI-3d-visualization-drawAxis.png" width="400px"> <br><br>
-
-
-<h4>Draw the Touch Points and Touch Pressure into the 3D Visualization</h4> <br>
-
-Next, you will draw the touch points and the touch pressure into the 3D visualization based on your interpolated PImage from pset3.<br><br>
-
-<b>Drawing 3D Points in Processing</b><br>
-To implement the touch points, you will create a set of 3D points, where the X,Y coordinates are the row & column number of the pixel on the PImage, and the Z-coordinate is the interpolated value of the pixel. <br>
-As mentioned previously, the brighter pixels are in an area the more pressure was applied to this area.<br>
-As a result, the brighter a pixel, the higher the touch bar will be at this point.<br><br>
-
-<b>Mapping the Z-Height to a Color Gradient</b><br>
-You also need to color the touch bars with a color gradient that represents the "height" (i.e. z-axis coordinate) information.<br>
-We chose a color gradient of red when only touched with light pressure and yellow when touched with high pressure.<br>
-You can choose your own color gradient, just make sure that the colors are very different so you can actually see a difference.<br>
-To implement the z-height to color mapping, you may find it helpful to use the <a href="https://processing.org/reference/map_.html">map() function</a> again that you already used in pset3.<br>
-The resulting 3D visualization should look like something in the following.<br><br>
-
-One finger touching: <br>
-<img src="images/pset4/UI-3d-visualization-1-finger-1.png" width="350px">
-<img src="images/pset4/UI-3d-visualization-1-finger-2.png" width="350px"> <br><br>
-
-Two fingers touching: <br> <span style="color:red">I'm surprised by all the noise there? are you literally drawing everything from the PImage or only the blobs that were actually recognized as touch points?</span><br>
-<img src="images/pset4/UI-3d-visualization-2-finger-2.png" width="350px">
-<img src="images/pset4/UI-3d-visualization-2-finger-4.png" width="350px"> <br><br>
 
 <h4>Implement camera view control via keyboard </h4> <br>
 
@@ -314,6 +280,48 @@ Pressing 'W' on the keyboard should move the camera up and pressing 'S' on the k
 Finally, if you are experiencing some lagging in your application, you can also set the frame rate for the camera for better performance.<br><br>
 
 <span style="color:red">sorry accidentally deleted framerate code. add back in.</span>
+
+
+
+<h4>Drawing the XYZ axes for 3D Visualization</h4> <br>
+
+You will start by drawing the XYZ axes for 3D visualization in the <i>drawAxis()</i> function. <br>
+You can draw them as a standard Cartesian coordinate system. <br><br>
+
+The length of the X and Y axes should be the width and height of your interpolated PImage.<br>
+The length of the Z axes should be slightly higher than the maximum pixel value of your interpolated PImage so you have some space at the top.<br><br>
+
+<span style="color:red">In addition, you need to color the axis by drawing a circle at their end.<br>
+In 3D modeling, the convention is that green is the x-axis, red is the y-axis, and blue is the z-axis.</span><br><br>
+
+Once you finish the <i>drawAxis()</i> function, you should have something that looks like this <span style="color:red">(note that the length of the X,Y,Z axes in the image below is not accurate) (why not?)</span>. <br><br>
+
+<img src="images/pset4/UI-3d-visualization-drawAxis.png" width="400px"> <br><br>
+
+
+<h4>Draw the Touch Points and Touch Pressure into the 3D Visualization</h4> <br>
+
+Next, you will draw the touch points and the touch pressure into the 3D visualization based on your interpolated PImage from pset3.<br><br>
+
+<b>Drawing 3D Points in Processing</b><br>
+To implement the touch points, you will create a set of 3D points, where the X,Y coordinates are the row & column number of the pixel on the PImage, and the Z-coordinate is the interpolated value of the pixel. <br>
+As mentioned previously, the brighter pixels are in an area the more pressure was applied to this area.<br>
+As a result, the brighter a pixel, the higher the touch bar will be at this point.<br><br>
+
+<b>Mapping the Z-Height to a Color Gradient</b><br>
+You also need to color the touch bars with a color gradient that represents the "height" (i.e. z-axis coordinate) information.<br>
+We chose a color gradient of red when only touched with light pressure and yellow when touched with high pressure.<br>
+You can choose your own color gradient, just make sure that the colors are very different so you can actually see a difference.<br>
+To implement the z-height to color mapping, you may find it helpful to use the <a href="https://processing.org/reference/map_.html">map() function</a> again that you already used in pset3.<br>
+The resulting 3D visualization should look like something in the following.<br><br>
+
+One finger touching: <br>
+<img src="images/pset4/UI-3d-visualization-1-finger-1.png" width="350px">
+<img src="images/pset4/UI-3d-visualization-1-finger-2.png" width="350px"> <br><br>
+
+Two fingers touching: <br> <span style="color:red">I'm surprised by all the noise there? are you literally drawing everything from the PImage or only the blobs that were actually recognized as touch points?</span><br>
+<img src="images/pset4/UI-3d-visualization-2-finger-2.png" width="350px">
+<img src="images/pset4/UI-3d-visualization-2-finger-4.png" width="350px"> <br><br>
 
 <br><br>
 
