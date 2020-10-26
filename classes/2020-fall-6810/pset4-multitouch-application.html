@@ -277,8 +277,8 @@ Implement a zooming effect so that when you press the key "E" you zoom in and if
 <b>Rotating in the X-Y Plane</b><br>
 To move the camera in the x-y plane around the 3D visualization, you need to keep it at the same distance from the 3D visualization at all times (see images below).<br>
 This is best accomplished by moving the camera on a circle around the scene.<br>
-Update the camera position (eye position) to accomplish this.<br>
-In particular, if you press the key 'D' you should rotate right and if you press the key 'A' you should rotate left.<br>
+Update the camera position (eye position) to accomplish this (you have to do some math here, check out how radians work again to help you with this).<br>
+If you press the key 'D' you should rotate right and if you press the key 'A' you should rotate left.<br>
 Note that you only have to update the camera's position.<br>
 Since you set the scene's center x/y/z to be the 3D visualization, the camera will automatically rotate while moving around the 3D visualization to always look at it.<br><br>
 
@@ -286,18 +286,16 @@ Since you set the scene's center x/y/z to be the 3D visualization, the camera wi
 <img src="images/pset4/UI-3d-visualization-cameraViewControl-rotate-2.png" width="350px"> <br><br>
 
 
-<b>Changing the Camera's Z-Axis Position</b><br>
-To move the camera along the z-axis position, you need to change the <span style="color:red">camera's eye position again, but this time only along the z-axis.</span><br>
+<b>Changing the Camera's Z-Axis Height</b><br>
+To move the camera along the z-axis, you need to change the camera's eye position again, but this time only along the z-axis.<br>
 Pressing 'W' on the keyboard should move the camera up and pressing 'S' on the keyboard should move the camera down along the z-axis as shown in the image below.<br><br>
 
 <img src="images/pset4/UI-3d-visualization-cameraViewControl-view-height-1.png" width="350px">
 <img src="images/pset4/UI-3d-visualization-cameraViewControl-view-height-2.png" width="350px"> <br><br>
 
-Finally, if you are experiencing some lagging in your application, you can also set the frame rate for the camera for better performance.<br><br>
+Finally, if you are experiencing some lagging in your application, you can also set the frame rate for the camera for better performance using the line below:<br><br>
 
-<span style="color:red">sorry accidentally deleted framerate code. add back in.</span>
-
-
+<pre>frameRate(30); </pre><br>
 
 
 <h4>Draw the Touch Points and Touch Pressure into the 3D Visualization</h4> <br>
@@ -320,10 +318,11 @@ One finger touching: <br>
 <img src="images/pset4/UI-3d-visualization-1-finger-1.png" width="350px">
 <img src="images/pset4/UI-3d-visualization-1-finger-2.png" width="350px"> <br><br>
 
-Two fingers touching: <br> <span style="color:red">I'm surprised by all the noise there? are you literally drawing everything from the PImage or only the blobs that were actually recognized as touch points?</span><br>
+Two fingers touching:<br>
 <img src="images/pset4/UI-3d-visualization-2-finger-2.png" width="350px">
 <img src="images/pset4/UI-3d-visualization-2-finger-4.png" width="350px"> <br><br>
 
+Note that all this noise is because we use the PImage that also contains brightness values outside the recognized 'finger blobs'. If you want a cleaner visualization, you can create a new PImage that has all pixels black except those pixels that belong to a blob. Note that this is not mandatory for this pset but if you'd like some clean output you can experiment with this.
 <br><br>
 
 <h3>Upload your Processing Code and Pictures of your Visualization</h3>
