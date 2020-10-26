@@ -221,7 +221,7 @@ Below you can see an example: on the left side only little pressure is applied a
 For this part of the PSet, you are going to do the following three steps: <br>
 <ol>
 	<li>draw three axis for x, y, z on screen for the 3D visualization coordinate system</li>
-	<li>implement camera control via keyboard to allow for easier debugging later on, i.e. the camera will be able to zoom in/out of the scene, rotate around the scene, and move up/down with respect to the scene</li>
+	<li>implement functionality to move the camera around the 3D visualization scene via keyboard input, i.e. the camera will be able to zoom in/out of the scene, rotate around the scene, and move up/down with respect to the scene when the corresponding keys are pressed</li>
 	<li>update the 3D visualization with the touch points and touch pressure based on interpolated PImage of your touch points from Pset3</span></li>
 </ol>
 <br>
@@ -233,11 +233,25 @@ Once you opened the skeleton code, you will see that there are some new variable
 
 <img src="images/pset4/pset4-skeleton-code.png" width="450px"> <br><br>
 
+<h4>Drawing the XYZ axes for 3D Visualization</h4> <br>
 
-<h4>Implement camera view control via keyboard </h4> <br>
+You will start by drawing the XYZ axes for 3D visualization in the <i>drawAxis()</i> function. <br>
+You can draw them as a standard Cartesian coordinate system. Note that we are in <b>3D now, not 2D</b> so you need 3 coordinates for defining the positions of your points/lines.<br><br>
 
-Finally, it would be a lot cooler and more helpful in debugging if we could look around in our 3D visualization, e.g. rotate the viewport, zoom in and out etc.<br>
-To be able to do this, you will implement a camera viewport that can be controlled via your keyboard. <br><br>
+The length of the X and Y axes should be the width and height of your interpolated PImage.<br>
+The length of the Z axes should be slightly higher than the maximum pixel value (brightness) of your interpolated PImage so you have some space at the top.<br><br>
+
+In addition to generating the axis lines, you need to color the axis by drawing a colored dot at their end.<br>
+We will use blue for the x-axis, red for the y-axis, and green for the z-axis (in traditional 3D modeling the axis colors may be different, we will fix this for next year).<br><br>
+
+Once you finish the <i>drawAxis()</i> function, you should have something that looks like this (note that the height of your z-axis depends on the brightness values you get in your PImage and may not be shown to scale here):<br><br>
+
+<img src="images/pset4/UI-3d-visualization-drawAxis.png" width="400px"> <br><br>
+
+<h4>Moving the Camera Around the 3D Visualization via Keyboard Input</h4> <br>
+
+Without camera motion, it is kind of hard to see if you really succeeded in drawing your axis correctly or if it just 'looks' correct from the 2D perspective we have but in reality the lines are all over the place in 3D space.<br>
+To facilitate debugging of issues like this, we will implement camera control, i.e. you will be able to move around the camera by pressing keys on the keyboard to zoom in/out and move the camera around the scene.<br><br>
 
 <b>Initialize Camera in Processing</b><br>
 
@@ -282,21 +296,6 @@ Finally, if you are experiencing some lagging in your application, you can also 
 <span style="color:red">sorry accidentally deleted framerate code. add back in.</span>
 
 
-
-<h4>Drawing the XYZ axes for 3D Visualization</h4> <br>
-
-You will start by drawing the XYZ axes for 3D visualization in the <i>drawAxis()</i> function. <br>
-You can draw them as a standard Cartesian coordinate system. <br><br>
-
-The length of the X and Y axes should be the width and height of your interpolated PImage.<br>
-The length of the Z axes should be slightly higher than the maximum pixel value of your interpolated PImage so you have some space at the top.<br><br>
-
-<span style="color:red">In addition, you need to color the axis by drawing a circle at their end.<br>
-In 3D modeling, the convention is that green is the x-axis, red is the y-axis, and blue is the z-axis.</span><br><br>
-
-Once you finish the <i>drawAxis()</i> function, you should have something that looks like this <span style="color:red">(note that the length of the X,Y,Z axes in the image below is not accurate) (why not?)</span>. <br><br>
-
-<img src="images/pset4/UI-3d-visualization-drawAxis.png" width="400px"> <br><br>
 
 
 <h4>Draw the Touch Points and Touch Pressure into the 3D Visualization</h4> <br>
