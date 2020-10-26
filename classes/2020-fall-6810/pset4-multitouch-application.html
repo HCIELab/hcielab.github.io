@@ -263,7 +263,9 @@ To get started, initialize a new camera in Processing with the following method:
 Let's look at what all these parameters are:<br>
 <i>eye x/y/z:</i> This is the camera's 3D position in space, i.e. where it would be physically located if it was a camera in real-life.<br>
 <i>center x/y/z:</i> The center of the scene defines how the camera is angled. For instance, if the center of the scene is lower than the camera, then the camera will look down, resulting in a bird's eye view. Similarly, if the center of the scene is higher than the camera, then the camera will look up, resulting in a frog's eye view.</span><br>
-<i>up x/y/z:</i> This defines which axis is facing upwards. <span style="color:red">0.0 means the axis is not pointing upwards, 1.0 means the axis is pointing upwards. We want that the z-axis points upwards and the rest remains where it is. (does this mean if the camera has to flip the viewport?)</span><br><br>
+<i>up x/y/z:</i> This defines which axis is facing upwards. You can use values from 0 to 1 to -1. If you use a -1, the camera will be flipped and face up-side-down. In our case, we want to keep it simple and use for x,y,z 0,0,1 since z is pointing upwards.<br><br>
+
+When you initialize your camera, you may want to start by using the default parameter values we provide in the code, which should give you a reasonable start for a good viewport. If you see nothing in your view after initializing the camera, you may be facing the wrong way with you camera, e.g. the scene may be behind you, which causes you to only see a white screen with nothing on it.<br><br>
 
 <b>Zooming in/out</b><br>
 Moving the camera position (eye position) closer or further away from the 3D visualization results in a zooming in/out effect (see images below).<br>
