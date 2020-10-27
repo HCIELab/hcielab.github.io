@@ -87,7 +87,7 @@ For this part of the PSet, you will be doing the following steps: <br>
 Luckily, you don't have to implement the gesture recognizer from scratch.<br>
 Instead, you can use the <b>$1 Unistroke Recognizer</b>, which is available as a Processing library.<br><br>
 
-<i>$1 Gesture Recognizer Family:</i> The $1 Unistroke Gesture Recognizer is part of the so-called $1 Gesture Recognizer family, i.e. a set of different gesture recognizers with different capabilities, such as single stroke gesture recognition, multi-stroke gesture recognition etc. It was first published at the HCI conference ACM UIST and you can find the <a href="http://faculty.washington.edu/wobbrock/pubs/uist-07.01.pdf">UIST 2017 Paper here</a>.<br><br>
+<i>$1 Gesture Recognizer Family:</i> The $1 Unistroke Gesture Recognizer is part of the so-called $1 Gesture Recognizer family, i.e. a set of different gesture recognizers with different capabilities, such as single stroke gesture recognition, multi-stroke gesture recognition etc. It was first published at the HCI conference ACM UIST and you can find the <a href="http://faculty.washington.edu/wobbrock/pubs/uist-07.01.pdf">UIST 2007 Paper here</a>.<br><br>
 
 <i>$1 Unistroke Gesture Recognizer:</i> In this Pset, we are going to use the $1 Unistroke Recognizer from this family since it is the only one that is available for Processing as a library. Before we get to the implementation, let's briefly review what gestures this recognizer can detect and what gestures it cannot detect.<br><br>
 
@@ -145,7 +145,7 @@ While you could obtain the x-y-coordinates for your gesture template by tracking
 
 Below you see a recording of all the coordinates for our 'V' gesture that we then feed into the learn() function to add our new gesture. Do the same before moving on.<br><br>
 
-<img src="images/pset4/add-gesture2.png" width="650px"> <br><br>
+<img src="images/pset4/add-gesture3.png" width="650px"> <br><br>
 
 <h4>Connect Finger Gesture to a Callback Function </h4> <br>
 
@@ -227,7 +227,7 @@ For this part of the PSet, you are going to do the following three steps: <br>
 <br>
 
 <h4>Download Skeleton Code</h4> <br>
-Start by downloading <a href="software/pset4_3d_visualization_skeleton_v1.zip">the skeleton code for the PSet4 3D visualization from here</a>. <br><br>
+Start by downloading <a href="software/pset4_3d_visualization_skeleton_v2.zip">the skeleton code for the PSet4 3D visualization from here</a>. <br><br>
 
 Once you opened the skeleton code, you will see that there are some new variables and functions that are related to the 3D visualization (e.g., the axis and camerapos parameters and the drawAxis(), cameraViewControl() and update3DImage() functions). The remaining functions (readSerial(), setBaseLine(), substractBaseLine(), setColors(), and interpolate()) are from pset3 and you only have to move your code over to fill them out.<br><br>
 
@@ -238,13 +238,21 @@ Once you opened the skeleton code, you will see that there are some new variable
 You will start by drawing the XYZ axes for 3D visualization in the <i>drawAxis()</i> function. <br>
 You can draw them as a standard Cartesian coordinate system. Note that we are in <b>3D now, not 2D</b> so you need 3 coordinates for defining the positions of your points/lines.<br><br>
 
-The length of the X and Y axes should be the width and height of your interpolated PImage.<br>
-The length of the Z axes should be slightly higher than the maximum pixel value (brightness) of your interpolated PImage so you have some space at the top.<br><br>
+Cartesian 3D systems are often described as "left-handed" or "right-handed." <br>
+If you point your index finger in the positive y direction (down) and your thumb in the positive x direction (to the right), the rest of your fingers will point towards the positive z direction. <br>
+It's left-handed if you use your left hand and do the same. <br>
+In Processing, the system is left-handed, as follows: <br><br>
+
+<img src="images/pset4/processing-3d-system.png" width="450px"> <br><br>
+
+The length of the X and Z axes should be the width and height of your interpolated PImage.<br>
+The length of the Y axis should be slightly higher than the maximum pixel value (brightness) of your interpolated PImage so you have some space at the top.<br>
+Notice that you should draw the Y axis (and later sensing data on y axis) in negative direction so it is pointing "up".<br><br>
 
 In addition to generating the axis lines, you need to color the axis by drawing a colored dot at their end.<br>
-We will use blue for the x-axis, red for the y-axis, and green for the z-axis (in traditional 3D modeling the axis colors may be different, we will fix this for next year).<br><br>
+We will use red for the x-axis, green for the y-axis, and blue for the z-axis (since "RGB" corresponding to "XYZ").<br><br>
 
-Once you finish the <i>drawAxis()</i> function, you should have something that looks like this (note that the height of your z-axis depends on the brightness values you get in your PImage and may not be shown to scale here):<br><br>
+Once you finish the <i>drawAxis()</i> function, you should have something that looks like this (note that the height of your y-axis depends on the brightness values you get in your PImage and may not be shown to scale here):<br><br>
 
 <img src="images/pset4/UI-3d-visualization-drawAxis.png" width="400px"> <br><br>
 
@@ -263,19 +271,19 @@ To get started, initialize a new camera in Processing with the following method:
 Let's look at what all these parameters are:<br>
 <i>eye x/y/z:</i> This is the camera's 3D position in space, i.e. where it would be physically located if it was a camera in real-life.<br>
 <i>center x/y/z:</i> The center of the scene defines how the camera is angled. For instance, if the center of the scene is lower than the camera, then the camera will look down, resulting in a bird's eye view. Similarly, if the center of the scene is higher than the camera, then the camera will look up, resulting in a frog's eye view.</span><br>
-<i>up x/y/z:</i> This defines which axis is facing upwards. You can use values from 0 to 1 to -1. If you use a -1, the camera will be flipped and face up-side-down. In our case, we want to keep it simple and use for x,y,z 0,0,1 since z is pointing upwards.<br><br>
+<i>up x/y/z:</i> This defines which axis is facing upwards. You can use values from 0 to 1 to -1. If you use a -1, the camera will be flipped and face up-side-down. In our case, we want to keep it simple and use for x,y,z 0,1,0 since y is pointing upwards.<br><br>
 
 When you initialize your camera, you may want to start by using the default parameter values we provide in the code, which should give you a reasonable start for a good viewport. If you see nothing in your view after initializing the camera, you may be facing the wrong way with you camera, e.g. the scene may be behind you, which causes you to only see a white screen with nothing on it.<br><br>
 
 <b>Zooming in/out</b><br>
 Moving the camera position (eye position) closer or further away from the 3D visualization results in a zooming in/out effect (see images below).<br>
-Implement a zooming effect so that when you press the key "E" you zoom in and if you press the key "Q" you zoom out.<br><br>
+Implement a zooming effect so that when you press the key "E" you zoom in and if you press the key "Q" you zoom out (i.e. change the distance between camera position and the 3D coordinate origin).<br><br>
 
 <img src="images/pset4/UI-3d-visualization-cameraViewControl-zoom-out.png" width="350px">
 <img src="images/pset4/UI-3d-visualization-cameraViewControl-zoom-in.png" width="350px"> <br><br>
 
-<b>Rotating in the X-Y Plane</b><br>
-To move the camera in the x-y plane around the 3D visualization, you need to keep it at the same distance from the 3D visualization at all times (see images below).<br>
+<b>Rotating in the X-Z Plane</b><br>
+To move the camera in the x-z plane around the 3D visualization, you need to keep it at the same distance from the 3D visualization at all times (see images below).<br>
 This is best accomplished by moving the camera on a circle around the scene.<br>
 Update the camera position (eye position) to accomplish this (you have to do some math here, check out how radians work again to help you with this).<br>
 If you press the key 'D' you should rotate right and if you press the key 'A' you should rotate left.<br>
@@ -286,9 +294,9 @@ Since you set the scene's center x/y/z to be the 3D visualization, the camera wi
 <img src="images/pset4/UI-3d-visualization-cameraViewControl-rotate-2.png" width="350px"> <br><br>
 
 
-<b>Changing the Camera's Z-Axis Height</b><br>
-To move the camera along the z-axis, you need to change the camera's eye position again, but this time only along the z-axis.<br>
-Pressing 'W' on the keyboard should move the camera up and pressing 'S' on the keyboard should move the camera down along the z-axis as shown in the image below.<br><br>
+<b>Changing the Camera's Y-Axis Height</b><br>
+To move the camera along the y-axis, you need to change the camera's eye position again, but this time only along the y-axis.<br>
+Pressing 'W' on the keyboard should move the camera up and pressing 'S' on the keyboard should move the camera down along the y-axis as shown in the image below.<br><br>
 
 <img src="images/pset4/UI-3d-visualization-cameraViewControl-view-height-1.png" width="350px">
 <img src="images/pset4/UI-3d-visualization-cameraViewControl-view-height-2.png" width="350px"> <br><br>
@@ -303,15 +311,15 @@ Finally, if you are experiencing some lagging in your application, you can also 
 Next, you will draw the touch points and the touch pressure into the 3D visualization based on your interpolated PImage from pset3.<br><br>
 
 <b>Drawing 3D Points in Processing</b><br>
-To implement the touch points, you will create a set of 3D points, where the X,Y coordinates are the row & column number of the pixel on the PImage, and the Z-coordinate is the interpolated value of the pixel. <br>
+To implement the touch points, you will create a set of 3D points, where the X,Z coordinates are the row & column number of the pixel on the PImage, and the Y-coordinate is the interpolated value of the pixel. <br>
 As mentioned previously, the brighter pixels are in an area the more pressure was applied to this area.<br>
 As a result, the brighter a pixel, the higher the touch bar will be at this point.<br><br>
 
-<b>Mapping the Z-Height to a Color Gradient</b><br>
-You also need to color the touch bars with a color gradient that represents the "height" (i.e. z-axis coordinate) information.<br>
+<b>Mapping the Y-Height to a Color Gradient</b><br>
+You also need to color the touch bars with a color gradient that represents the "height" (i.e. y-axis coordinate) information.<br>
 We chose a color gradient of red when only touched with light pressure and yellow when touched with high pressure.<br>
 You can choose your own color gradient, just make sure that the colors are very different so you can actually see a difference.<br>
-To implement the z-height to color mapping, you may find it helpful to use the <a href="https://processing.org/reference/map_.html">map() function</a> again that you already used in pset3.<br>
+To implement the y-height to color mapping, you may find it helpful to use the <a href="https://processing.org/reference/map_.html">map() function</a> again that you already used in pset3.<br>
 The resulting 3D visualization should look like something in the following.<br><br>
 
 One finger touching: <br>
@@ -354,7 +362,7 @@ We will give 25 pts in total:
 	<li>5pts: you implemented 3 different gestures using the learn(), bind(), and track() functions from the $1 Unistroke Recognizer</li>
 	<li>5pts: you submitted a drawing showing all three gestures you implemented and show in the video that all three gestures are correctly recognized</li>
 	<li>5pts: the x,y,z axis are correctly drawn for the 3D visualization and the touch / pressure mapping is correctly rendered, which you show by having at least 2 fingers touch simultaneously</li>
-	<li>5pts: the camera motion for zooming in/out, rotating the camera in the x/y plane and moving the camera up/down are correctly implemented</li>
+	<li>5pts: the camera motion for zooming in/out, rotating the camera in the x/z plane and moving the camera up/down are correctly implemented</li>
 	<li>5pts: the remaining 5pts will be given for creating presentation materials for your multi-touch pad, i.e. drawing a rotoscope (1.5pts), taking some high-quality photos (1.5pts) and making a short 2-3 sequences video (2pts). This will be part of the weekly Friday labs and you will work on this over the next weeks in small steps. We will provide more information on this shortly.</li>
 </ul>
 
