@@ -63,8 +63,8 @@
 Now that you have the Processing code that reads and visualizes sensing data in 2D, you are ready to extend it with two more functionalities:<br>
 
 <ul>
-	<li>(1) Gesture Recognition: Enable the multi-touch pad to recognize different finger gestures.</li>
-	<li>(2) 3D Visualization of Touch Pressure: Render the signal strength as a 3D shape.</li>
+	<li>(1) Gesture Recognition: Enable the multi-touch pad to recognize different finger gestures (build on top of your PSet3 code).</li>
+	<li>(2) 3D Visualization of Touch Pressure: Render the signal strength as a 3D shape (via new skeleton code).</li>
 </ul><br>
 
 <h3>(1) Gesture Recognizer</h3>
@@ -135,10 +135,10 @@ If this is on then whenever the gesture recognizer detects a gesture it immediat
 
 <h4>Add finger gesture </h4> <br>
 Next, you will create a new finger gesture.<br>
-For starters, we will use a 'V' gesture, which is one of the most reliable once that can be detected. Other reliable gestures are triangle, zigzag, checkmark, and anything that has some unique features. A circle, for instance, is one of the harder gestures to recognize due to its smooth outline that is easily susceptible to noise.<br><br>
+For starters, we will use a 'V' gesture, which is one of the most reliable ones that can be detected. Other reliable gestures are triangle, zigzag, checkmark, and anything that has some unique features. A circle, for instance, is one of the harder gestures to recognize due to its smooth outline that is easily susceptible to noise.<br><br>
 
 To create a new finger gesture, you can use the following function:<br><br>
-<pre> oneDollar.learn(String gesture-name, int[] x-y-coordinates); </pre> <br>
+<pre> oneDollar.learn(String gesture-name, int[] x-y-coordinates); // {x1, y1, x2, y2, x3, y3, x4, y4, ...} </pre> <br>
 
 <b>Recording x/y coordinates for New Finger Gesture</b><br>
 While you could obtain the x-y-coordinates for your gesture template by tracking finger input from your multi-touch pad, we recommend not doing this and instead recommend that you draw the gesture with the mouse on screen and record the x-y coordinates from the mouseDragged() event.<br> The reason for this is that the drawing with the mouse will give you very clear tracking points for creating your template gesture. Later on, when you draw the gesture with your multi-touch pad during actual use, this will be more fault resistant. In contrast, if you record your template gesture on the multi-touch pad, you will already have some noise in the data and it will be harder to match a gesture when there is additional noise during actual use later on.<br><br>
@@ -166,8 +166,8 @@ The callback function always has to be in the format as shown below, i.e. contai
 The function name and parameter names, however, are up to you.</span><br><br>
 
 <pre> void foo(String gesture-name, float percentOfSimilarity, int startX, int startY, int centroidX, int centroidY, int endX, int endY){
-    // do something when the gesture is detected
-}
+	// do something when the gesture is detected
+ }
 </pre> <br>
 
 There are a lot of parameters in the function but for our purposes we can keep it simple.<br>
@@ -181,7 +181,7 @@ The remaining parameters contain how confident the recognizer is that it actuall
 Now that you have defined how your gesture looks like and what function should be called when it is detected, you still have to tell your code when it should start tracking finger input.<br>
 
 We want to start tracking our gesture when our code detects a 'finger blob'.<br>
-Therefore, we need to add the tracking function below right after the blob detection code that determines if a finger was successfully detected.<br><br>
+Therefore, we need to add the tracking function below in the blob detection method where it determines if a finger was successfully detected.<br><br>
 
 <pre> oneDollar.track(int x-coordinate, int y-coordinate); </pre><br>
 
@@ -227,7 +227,7 @@ For this part of the PSet, you are going to do the following three steps: <br>
 <br>
 
 <h4>Download Skeleton Code</h4> <br>
-Start by downloading <a href="software/pset4_3d_visualization_skeleton_v2.zip">the skeleton code for the PSet4 3D visualization from here</a>. <br><br>
+Start by downloading <a href="software/pset4_3d_visualization_skeleton_v3.zip">the skeleton code for the PSet4 3D visualization from here</a>. <br><br>
 
 Once you opened the skeleton code, you will see that there are some new variables and functions that are related to the 3D visualization (e.g., the axis and camerapos parameters and the drawAxis(), cameraViewControl() and update3DImage() functions). The remaining functions (readSerial(), setBaseLine(), substractBaseLine(), setColors(), and interpolate()) are from pset3 and you only have to move your code over to fill them out.<br><br>
 
