@@ -739,17 +739,141 @@
 		</span>
 		<br>
 		<br>
+		<b>Study Design</b>
+		<br>
 		In our first user study, we compare the learning gain and training experience of training with a static tool versus  an automatically-adaptive tool. 
 		We base our user study on a previous study in motor skill learning that investigated fixed practice versus varied practice in which a personal trainer adjusted the training, and showed that varied practice leads to a larger learning gain [Kerr et. al].
 		<br>
 		<br>
+		<img src="images/fig4-study1-setup.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 4. The setup for user-study 1 with two training conditions: (a) static (80 throws: 40 lowest difficulty, 40 highest difficulty setting) and (b) auto-adaptive (80 throws continuously adapting difficulty). (c) The participants of our study seen during training were standing at distances based on a measurement of their initial performance.
+		</b>
+		<br>
+		
+		<br>
+		<b><i>Hypothesis:</i></b> Our hypothesis was that training with an auto-adaptive tool, which adapts the difficulty level based on the learner's performance, will result in a higher learning gain when compared to a static tool that does not vary the task difficulty based on learner's performance during the training. A higher learning gain will be reflected in a higher performance score after the same amount of training time in each condition.
+		<br>
+		<br>
+		<b><i>Participants:</i></b> We recruited 12 participants (8 female, 4 male) aged between 18-31 years (mean=25, std. deviation=3.3).
+		<br>
+		<br>
+		<b><i>Setup:</i></b> Participants were asked to stand at a single location and attempt the throws for the entire study from this position. We used our study prototype without any adaptation in the static condition. For the auto-adaptive condition, we deployed our algorithm on the microcontroller integrated with the basketball stand.
+		<br>
+		<br>
+		<b><i>Conditions:</i></b> The study followed a within-subjects design. We used randomized order to avoid order effects for training the participants on the following two conditions:
+		<br>
+		<ul>
+			<li><i>Static training:</i> In the static training condition, participants attempted half (40) the throws in the lowest difficulty setting (i.e., largest hoop, lowest basket height) and the second half (40) of throws in the highest difficulty setting (i.e.,the smallest hoop and the highest basket height). 
+			<br>
+			<li><i>Auto-adaptive training:</i> In the auto-adaptive training condition, participants started by throwing balls in the lowest difficulty setting (lowest basket height and largest hoop size) and gradually progressed towards the harder settings using the adaptation algorithm shown in Table 1 (of the paper) as they performed a total of 80 throws.
+		<br>
+		</ul>
+		<br>
+		<b>Study Procedure</b> 
+		<br>
+		In total, each participant attempted 220 throws over the 5 phases of the study. For training condition #1, the participants were randomly assigned either static training or auto-adaptive training first, and then the respective other training in condition #2. Please refer to the paper for more details. 
+		<br>
+		<br>
+		<b><i>Measuring Learning Gain: </i></b> 
+		To measure the learning gains for the first condition participants trained in, we compared the participant's score in the pre-training skill assessment test and their score in post-training test #1. To measure the learning gains of the second condition participants trained in, we compared their score in post-training test #1 and their score in post-training test #2. The learning gains were measured by calculating the differences in the respective test scores.
+		<br>
+		<br>
+		<b>Study Results: Average Learning Gain</b> 
+		<br> 
+		We calculated the average learning gains for both the conditions and found that the training in the auto-adaptive condition led to a 20% increase in the average performance score compared to the static training condition. As seen in Figure 5, participants scored a total of 4 points more on average during their 20 attempted throws in the post auto-adaptive training test. (With maximum 1pt per attempt, the maximum possible score was 20 points in each post-training test). ANOVA analysis showed that the increase in the learning gains in the auto-adaptive condition was statistically significant (F_(1,11) = 1.856, p < 0.05).
+		<br>
+		<br>
+		<img src="images/fig5-study1-learning-gain.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 5. User-study 1: Average learning gain post adaptive training and post non-adaptive training. The average learning gain post adaptive training is significantly higher than performance post static training (F_{1,11} = 1.856, p < 0.05).
+		</b>
+		<br>
+		<br>
+		<b>Qualitative feedback</b> When participants were asked if they would rather retrain with the auto-adaptive or the static condition, 8 out of 12 participants preferred the auto-adaptive condition. When asked about the reasons for their preferences, participants stated the following:
+		<br>
+		<br> 
+		<b><i>Seeing the physical tool adapt:</i></b> "The adaptive training made me reflect upon what I'm doing wrong by physically changing the height and hoop size and made me want to change my throwing style faster." - (p3), "Adaptive training makes each stage of the training experience more rewarding, so it helped me focus better." - (p11)
+		<br>
+		<br> 
+		<b><i>Having adaptive difficulty levels:</i></b> "The adaptive mode felt more useful in slowly adjusting to let me get better at harder and harder shots" - (p8). "it's more natural! [...] it matches learning process better" - (p7). However, one participant also mentioned "I prefer to be challenged beyond my current capability and learn that way." - (p10)
+		<br>
+		<br>
+		To summarize the qualitative feedback, we discovered that learners find it motivating to see their progress through tool adaptation without having to focus on constantly assessing their own performance.
 
+
+
+		<br>
+		<br>
 		<span class="medium-headline">
 		USER STUDY 2: MANUALLY ADAPTIVE V/S AUTO-ADAPTIVE TRAINING TOOLS
 		</span>
 		<br>
 		<br>
+		<b>Study Design</b>
+		<br>
 		For our second study, we investigated if automatically adapting the training tools also leads to higher learning gains when compared to manually adaptive training tools, i.e. when the learners have the choice to adjust the difficulty level according to their preference.
+		<br>
+		<br>
+		<b><i>Hypothesis:</i></b> We hypothesized that the training with an automatically-adaptive training tool will result in a higher learning gain when compared to a manually adaptive training tool.
+		<br>
+		<br>
+		<b><i>Participants:</i></b> We recruited 12 participants (8 females) aged between 19-28 years (mean=21, std. deviation = 2.62).
+		<br>
+		<b><i>Setup:</i></b> We used the same room setup and basketball prototype as in the prior user study. For the automatic adaptation, we deployed the adaptation algorithm on the micro-controller integrated with the basketball stand and used the auto-adaptation algorithm described in section 4.4. (of the paper) with a window size of 4 attempts. In the manually adaptive condition, participants controlled the adaptation, i.e. they could decide which difficulty level to train on and for how long to train in the setting.
+		<br>
+		<br>
+		<b><i>Conditions:</i></b> As in the previous study, this study followed a within-subjects design and randomized order to avoid order effects for training the participants on the following two conditions:
+		<br>
+		<ul>
+			<li><i>Manually Adaptive training:</i> For the manual adaptation, we added a keyboard interface, which participants used to adjust the basket height (arrow up/down) and hoop diameter (arrow left/right) according to their preference.
+			<br>
+			<li><i>Auto-adaptive training:</i> In the auto-adaptive training condition, our adaptation algorithm automatically adjusted the tool during the training, as described in the section `setup' above.
+		<br>
+		</ul>
+		<br>
+		<b>Study Procedure</b> 
+		<br>
+		The study procedure was the same as in the first study (refer to section 5.1 of the paper), i.e. we started with a pre-study calibration of the distance to the basket, followed by 220 throws (pre-training skill assessment: 20 throws, training condition 1: 80 throws, post-training 1 test: 20 throws, training condition 2: 80 throws, and post-training 2 test: 20 throws). 
+		<br>
+		<br>
+		<b><i>Measuring Learning Gain: </i></b> 
+		We measured learning gain in the same way as in the first study.
+		<br>
+		<br>
+		<b>Study Results: Average Learning Gain</b> 
+		<br> 
+		We calculated the average learning gains for both the conditions and found that the training in the auto-adaptive condition led to a 25\% increase in the average performance score compared to the manually adaptive condition. As can be seen in Figure 6, participants scored 5 points higher on average during their 20 attempted throws in the post auto-adaptive training test (each basket hit = 1pt). ANOVA analysis showed that the increase in the learning gains in the auto-adaptive condition was statistically significant (F_{1,11} = 2.386, p < 0.05).
+		<br>
+		<br>
+		<img src="images/fig9-study2-learning-gain.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 6. User-study 2: Average learning gain of post auto-adaptive and manually adaptive training. The average learning gain in performance post auto-adaptive training is significantly higher than the performance post manually adaptive training (F_{1,11} = 2.386, p < 0.05).
+		</b>
+		<br>
+		<br>
+		<b>Maintaining Functional Task Difficulty Around the Optimal Challenge Point</b> It was evident from the results of the manually adaptive condition that participants failed to determine the difficulty level that offers the largest learning gain when left to configure the hoop height and width themselves. See the paper for more detailed analysis od particpants' performances. 
+		<br>
+		<br>
+		<b>Qualitative feedback</b> When participants were asked if they would rather retrain with the automatically-adaptive or manually adaptive condition, 10 out 12 participants preferred the automatically-adaptive setup. When asked to highlight the benefits and drawbacks of each condition, participants responded as follows:
+		<br>
+		<br> 
+		<b><i>Self-evaluation:</i></b> "There were times during the manually adaptive process where I was unsure what the optimal path to training would be." - (p5), "Somehow I trust auto-adaptive training more than myself and maybe I should (as suggested by scores after each type of training received)." - (p2), "Auto-adaptive is nicer than manually adaptive when the difficulty is increased because it is difficult for me to gauge how much I should increase the difficulty." - (p7).
+		<br>
+		<br> 
+		<b><i>Learning of skill, ease and efficiency in training:</i></b> "The auto-adaptive was easier to use; I didn't have to think about if I set it too easy or too hard." - (p3). "Manually adaptive training took longer/hard to judge which increments to practice/alter. It seemed the auto-adaptive training was more efficient." - (p10)
+		<br>
+		<br> 
+		<b><i>Motivation:</i></b> "[auto-adaptive:] I felt myself getting better and think this would have been really fun to have as a kid." - (p8), "I feel that I am doing better every time it adapts to a harder setting." - (p12), "I have freedom to grow and make mistakes. No one is watching me (outside of lab setting) so it is more comfortable [than having a personal trainer]." - (p1).
+		<br>
+		<br>
+		During the study, we also observed that participants who were assigned to the automatically adaptive condition first used a similar strategy as our algorithm for their manually adaptive condition, i.e. they used similar increments and timings for adaptation in the manually adaptive mode. In contrast, participants who trained on the manually adaptive condition first were fixated on the least difficult or the most difficult setup.
+		<br>
+		<br>
+		In summary, our results confirm that maintaining functional task difficulty around the level of the optimal challenge point is beneficial in the learning of motor skills and demonstrate that this process can be automated through an adaptation algorithm and the supporting adaptation hardware (sensors and actuators integrated with the tool). Finally, feedback from participants showed that training on the automatically adaptive mode also provides additional motivation and is engaging and more enjoyable. Thus, with automatically adaptive tools, learners can receive personal training based on their own skill level and train at their own pace, making such personalized learning accessible beyond those that have access to a personal trainer. 
 		<br>
 		<br>
 
@@ -791,7 +915,7 @@
 		</span>
 		<br>
 		<br>
-		This material is based upon work supported by MIT Learning Initiative and the National Science Foundation under Grant No. 1844406.
+		This work is supported by <a href="https://mitili.mit.edu/">MIT Learning Initiative</a> and the National Science Foundation (Grant No. 1844406).
 		<br>
 		<br>
 
