@@ -232,7 +232,7 @@ If Fabricaide finds that none of the sheets belonging to the assigned material h
 When short on material, users may decide to resize their design or reassign materials based on either aesthetic or functional reasons, e.g., same color or same thickness. In addition to checking the database for alternative materials, the user can try the material substitutes suggested by the warning (Fig. 2f), which shows up to two same-color substitutes and up to two same-thickness substitutes. 
 <br><br>
         <div class="center">
-        <img src="images/warning1.gif" height="300" style="padding-bottom:0px; margin-bottom:10px"/>
+        <img src="images/warning1.gif" height="400" style="padding-bottom:0px; margin-bottom:10px"/>
 		<br>
 		<b>
 		Figure 4. A material warning. 
@@ -241,7 +241,7 @@ When short on material, users may decide to resize their design or reassign mate
 <b><strong>Creating Fabrication-ready Files</strong></b><br>
 When users are finished with their design, Fabricaide provides the option to export the placements as PDFs ready to be cut (Fig. 5). Fabricaide adds the cutouts as holes to the corresponding virtual sheets stored in the material database.
         <br><br>
-        <div class="center"><img src="images/fabrication.gif" height="300" style="padding-bottom:0px; margin-bottom:10px"/>
+        <div class="center"><img src="images/fabrication.gif" height="400" style="padding-bottom:0px; margin-bottom:10px"/>
 		<br>
 		<b>
 		Figure 5. Fabricaide produces fabrication-ready files that can be used by any CNC cutting machine.
@@ -263,13 +263,13 @@ When users are finished with their design, Fabricaide provides the option to exp
 During the design process, Fabricaide continuously analyzes the material utilization of the current placements of the parts of the design. Fabricaide conveys material utilization to the user in the form of material utilization bars that approximate the percentage of remaining usable material per material type (Fig. 2a), as well as per individual sheet (Fig. 2c). A more filled bar indicates that the sheet has a greater amount of usable space.
         <br><br>
       <b>Editing Packing Configurations</b><br>
-In our observations of laser cutter users, we noticed that they sometimes choose to arrange parts to help keep track of them at the time of fabrication. For instance, this approach can be useful when they are cutting many parts that looked similar with small distinctions, as is typical for mechanical parts such as gears with different numbers of teeth. To enable this, Fabricaide gives users the option to manually edit the packing for a sheet (Fig. 5a). This opens the sheet with its holes in Illustrator, allowing the user to tweak the positioning of the parts (Fig. 5b). As the user is tweaking the packing configuration, the UI updates itself to show the material utilization of the user's packing. The user's packing configuration is locked unless the user decides to modify or add parts to that material, at which point it must be repacked to ensure that the design is still feasible.
+In our observations of laser cutter users, we noticed that they sometimes choose to arrange parts to help keep track of them at the time of fabrication. For instance, this approach can be useful when they are cutting many parts that looked similar with small distinctions, as is typical for mechanical parts such as gears with different numbers of teeth. To enable this, Fabricaide gives users the option to manually edit the packing for a sheet (Fig. 6a). This opens the sheet with its holes in Illustrator, allowing the user to tweak the positioning of the parts (Fig. 6b). As the user is tweaking the packing configuration, the UI updates itself to show the material utilization of the user's packing. The user's packing configuration is locked unless the user decides to modify or add parts to that material, at which point it must be repacked to ensure that the design is still feasible.
         <br>
 		<br>
         <div class="center"><img src="images/editingpacking.svg" height="150" style="padding-bottom:0px; margin-bottom:10px"/>
 		<br></div>
 		<b>
-		Figure 5.  (a) Manually editing packing configurations for aset of gears. (b) The user modifies the packing so that similar gears are grouped together. 
+		Figure 6.  (a) Manually editing packing configurations for aset of gears. (b) The user modifies the packing so that similar gears are grouped together. 
 		</b>
         
         <br>
@@ -283,26 +283,26 @@ In our observations of laser cutter users, we noticed that they sometimes choose
         Several of Fabricaide's functions are enabled by having information on material sheets and their already-existing cut-outs available. To accomplish this, Fabricaide maintains a <i>material database</i> that stores the current states of all material sheets. The material database stores metadata about each material type (dimensions, thickness, color, name), and for each material type, the existing holes of each available sheet. Each material type is also associated with a unique hexadecimal color code, which is used to assign parts of a design to particular materials via the swatch library. 
 <br>
 		<br>
-Fabricaide has a material database viewer which allows users to view all available material sheets in the database (Fig. 6). The database viewer enables users to inform their design based on what is available or help them decide whether they should order materials ahead of time if they see that they are low.
+Fabricaide has a material database viewer which allows users to view all available material sheets in the database (Fig. 7). The database viewer enables users to inform their design based on what is available or help them decide whether they should order materials ahead of time if they see that they are low.
 		<br>
 		<br>
-        <div class="center"><img src="images/matdb.png" height="300" style="padding-bottom:0px; margin-bottom:10px"/>
+        <div class="center"><img src="images/matdb.png" height="350" style="padding-bottom:0px; margin-bottom:10px"/>
 		<br>
 		<b>
-		Figure 6. The material database viewer, showing the available sheets for 2mm black acrylic and 2mm green acrylic. 
+		Figure 7. The material database viewer, showing the available sheets for 2mm black acrylic and 2mm green acrylic. 
             </b></div>
 <br><br>
 <b>Adding Sheets to the Database</b>
         <br>
 The first time Fabricaide is launched, the material database is empty and only contains the metadata for the supported material types. 
 Users can add blank sheets or virtual copies of existing (used) sheets to the database through the database viewer. 
-Once the user takes a photo of their sheet on a contrasting background (Fig. 7a), they can add it to the database by uploading it to Fabricaide (Fig. 7b) then selecting a point on the photo that identifies the material sheet (Fig. 7c). Fabricaide then creates a virtual representation by extracting the outlines of any holes using image processing techniques. Once the sheet is added, users can use it for their designs (Fig. 7d).
+Once the user takes a photo of their sheet on a contrasting background (Fig. 8a), they can add it to the database by uploading it to Fabricaide (Fig. 8b) then selecting a point on the photo that identifies the material sheet (Fig. 8c). Fabricaide then creates a virtual representation by extracting the outlines of any holes using image processing techniques. Once the sheet is added, users can use it for their designs (Fig. 8d).
         <br>
 		<br>
 <div class="center"><img src="images/addingsheet.png" height="150" style="padding-bottom:0px; margin-bottom:10px"/>
 		<br>
 		<b>
-		Figure 7. The workflow for adding a sheet to the Fabricaide database.
+		Figure 8. The workflow for adding a sheet to the Fabricaide database.
             </b></div>
         <br><br>
 <b>Virtually Tracking Cutouts</b>
@@ -313,10 +313,26 @@ Tracking material usage digitally has the benefit that it does not require addit
         <br><br>
         <br>
         <span class="medium-headline">
-		PART PLACEMENT ALGORITHM
+		IMPLEMENTATION
 		</span>
 		<br>
 		<br>
+        The Fabricaide interface is implemented in Processing, and is designed to be run in parallel with existing design tools. 
+For Adobe Illustrator compatibility, we used Illustrator scripting to periodically export the current document as an SVG file so that it can be continuously analyzed.
+The background data processing of the exported document is implemented in Python, and is responsible for preprocessing the design file, sending it to the packing algorithm, and then generating the resulting images that are displayed to the user.
+         <br><br>
+<b>Enabling Compatibility with Design Tools</b>
+        <br>
+To make Fabricaide compatible with other design tools, only minor modifications need to be made to both sides. A prerequisite is that the design tool must support exporting designs as 2D vector files that can be read by standard cutting machines (e.g., PDF and SVG formats). 
+Fabricaide can then perform the necessary transformations to the input for packing. For software to support multimaterial sheet assignment, there must be an option to change the appearance of the parts (e.g. via a fill color), however, this is optional. 
+        
+    <br><br>
+<b>Splitting into Constituent Materials</b>  <br>
+Fabricaide first splits a design into its individual materials by analyzing the fill attribute of the parts in the exported SVG file and checking which material it maps to in the database. If a part has a fill that is not mapped to a specific material, it is ignored. The result is a set of SVG images, each containing the contours of the parts assigned to a particular material.
+        
+         <br><br>
+        <b>Optimizing Placement on Material Sheets</b>  <br>
+        Once the design is split into its constituent materials, our system's goal is to place (and optionally rotate) each part to make efficient use of material. 
 		We implemented a custom 2D packing algorithm which is based on the  <a href="https://link.springer.com/chapter/10.1007/978-0-85729-345-9_17">no fit polygon (NFP) approach</a>  with custom heuristics, and additional performance optimizations. 
         The performance-critical part of the algorithm is implemented in C++. We use the <a href="https://www.cgal.org/">CGAL</a> library for computational geometry primitives. Pre- and postprocessing is implemented in Python. The preprocessing is responsible for discretizing SVG elements into polygons, and applying dilation to ensure that the polygons are never under-approximated and to account for laser cutter tolerance.
 <br><br>
@@ -328,6 +344,24 @@ where \( \text{BBox} \) computes the bounding box of the given set of polygons. 
 If the user enables rotations, they can specify a parameter \( k \) such that the algorithm tries \( k \) uniformly spaced rotations between 0° and 360° and selects the best one (based on the heuristic score). This has the advantage of allowing the user to preserve the grain direction of the material by setting \( k = 1 \). If \( k = 1 \), then the only rotation considered is a 180° spin, which preserves the angle of the geometry with the grain.
 <br><br>
 We improve the performance of the algorithm by caching the computations of NFPs, not just within a run, as has been done before by <a href="https://link.springer.com/chapter/10.1007/978-0-85729-345-9_17">Burke and Kendall</a>, but across separate runs of the algorithm. Since subsequent runs of the algorithm will likely be ran on designs that have only changed by a small amount, most of the same parts will be present. For instance, given a design consisting of \( n \) parts, such that only one part differs from the previous design, the number of required NFP computations drops from \( \binom{n}{2} \) to just \( n-1 \). Since the NFP computation is the most expensive part of the algorithm, this caching eliminates a large amount of redundant computation. 
+        
+        <br><br>
+        <b>Calculating Material Utilization</b>  <br>
+        Since many 2D cutting workflows involve cutting parts from long rolls of fixed-height material, a common metric of material utilization that has been used is the width of the section of sheet that contains the placed parts, i.e. the length of sheet that must be rolled off the roll. This favors tight packings over ones with parts spread far out. This, however, does not give sensible values if we consider fixed-width material sheets with arbitrary existing holes, since the holes themselves may be spread out, and it is usually preferable to place new parts close to the existing holes, as this leaves more usable space left on the sheet.
+
+To address the above limitation, we designed the following metric of material utilization: we consider every hole and newly placed part on the sheet, dilate them by some fixed amount, and compute the area of the union of the resulting shapes. A smaller value indicates better material utilization. This metric has the effect of penalizing parts that are placed far away from others (Fig. 9a), and rewarding tighter packings, since the dilated areas will overlap (Fig. 9b). The dilation is set to a default of 20 points or approximately 7mm to accommodate for the recommended minimum amount of spacing between parts to be laser cut (2mm) and the recommended minimum width of a part that can be cut (typically between 2mm to 5mm depending on material thickness). 
+        
+         <br>
+		<br>
+<div class="center"><img src="images/utilization.png" height="150" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		</div><b>
+		Figure 9. Using dilations to calculate material utilization. (a) shows the effect of a poor packing configuration on the utilization bar for a material sheet while (b) shows the effect of a good packing configuration. As can be seen, a smaller area after dilation indicates a better packing.
+            </b><br>
+        
+     <br><br>  <b>Extracting Contours from Photos</b>  <br>
+To extract the existing holes in a sheet from a photo the user took, Fabricaide first asks the user to select a point in the photo containing the sheet, and uses a flood-fill (adaptive thresholding) algorithm to determine the region of the photo that corresponds to the sheet. It then crops the photo to the bounds of this region, and uses the contour finding method implemented in <a href="https://opencv.org/">OpenCV</a> to find the holes. It then discards all contours that are too small and hence are likely due to noise, and smooths the extracted contours using spline interpolation. The resulting contours are then saved as SVGs to the database.
+        
 		<br>
 		<br><br>
         
@@ -348,7 +382,7 @@ At the end of the study, participants filled out an exit survey which asked them
         <div class="center"><img src="images/p1design.svg" height="300" style="padding-bottom:0px; margin-bottom:10px"/>
 		<br>
 		<b>
-		Figure 8. A complex design by P1, comprising of 74 parts split over 11 materials. 
+		Figure 10. A complex design by P1, comprising of 74 parts split over 11 materials. 
             </b></div><br><br>
         
         <b>User Study Findings</b><br>
@@ -363,14 +397,14 @@ Conversely, designers who frequently had to add shapes in their design process c
         <br><br>
         <div class="center"><img src="images/p2p3designs.svg" height="200" style="padding-bottom:0px; margin-bottom:10px"/><br>
             <b>
-		Figure 9. Designs from P2 and P3. 
+		Figure 11. Designs from P2 and P3. 
             </b>
 		</div><br>
         <i>Users became more careful as they designed. </i> 
 Fabricaide encouraged participants to take pauses in their design process. 
 P6 commented that the packing previews "made [her] more careful when [she] was designing" and encouraged her to take a more deliberate approach to drawing. Seeing existing holes in the packing previews made P2 approach her designs as if the materials were being shared with other users, which made her more conscientious about the materials she was using as she did not want to use them all up herself. Since laser cutters and similar fabrication machines are often in shared spaces like workshops, users try to be conscientious of the resources they are using. Showing how the material sheets are being consumed while designing, as well as updating the database when designs are exported, further reinforces the fact that the designs the user creates has consequences on the limited materials they have.
 
-Participants who used shapes that were large relative to their material sheet were especially keen to check the previews. P4, for instance, said that she had to check the packing previews many times with her birdhouse design (Fig. 10a) due to its large size. She additionally remarked that "It was good to know how much space I had left as I designed though, so I wouldn't make a huge complicated thing and realize at the end it wouldn't fit." 
+Participants who used shapes that were large relative to their material sheet were especially keen to check the previews. P4, for instance, said that she had to check the packing previews many times with her birdhouse design (Fig. 12a) due to its large size. She additionally remarked that "It was good to know how much space I had left as I designed though, so I wouldn't make a huge complicated thing and realize at the end it wouldn't fit." 
 P5 stated that while she felt that the packing previews did not affect what she wanted to design, she kept track of them regularly to ensure that the design could be packed efficiently and confirm that she had enough material. 
         
         When participants were either making small designs relative to their material sheet or making finer adjustments to their designs, they found it less necessary to check Fabricaide frequently since those cases had little effect on packing feasibility. Similarly, participants also did not need Fabricaide for validation when they were making reference lines or shapes that were not part of the design itself. 
@@ -378,7 +412,7 @@ To focus more on their design task, participants sometimes disabled continuous p
         <br><br>
         <div class="center"><img src="images/p4p6designs.svg" height="200" style="padding-bottom:0px; margin-bottom:10px"/><br>
             <b>
-		Figure 10. Designs from P4 and P6. 
+		Figure 12. Designs from P4 and P6. 
             </b>
 		</div><br>
        <i>Material warnings prevented shortages. </i> 
@@ -392,11 +426,11 @@ Participants addressed warnings either by scaling down the design or switching o
         <br>
 		<br>
 
-  <i>Using a 3D editor.</i> When we learned that some designers preferred to use CAD software to create 3D designs, we wanted to ensure that Fabricaide could indeed support that workflow. Because Fabricaide is a stand-alone application, rather than an add-on to an existing program, it can work alongside any software that can export vector files used by a cutting machine. To demonstrate this, we added compatibility with FlatFab (Fig. 11a), a design tool for creating 3D structures from 2D planar sections. <br><br>
+  <i>Using a 3D editor.</i> When we learned that some designers preferred to use CAD software to create 3D designs, we wanted to ensure that Fabricaide could indeed support that workflow. Because Fabricaide is a stand-alone application, rather than an add-on to an existing program, it can work alongside any software that can export vector files used by a cutting machine. To demonstrate this, we added compatibility with FlatFab (Fig. 13a), a design tool for creating 3D structures from 2D planar sections. <br><br>
     
-<i>Making multiple copies of designs.</i> Several designers from the study felt like they could use Fabricaide's fast automatic packing to keep track of how many copies of their design could be fabricated. To aid in this process, we implemented a copies feature that allows the user to specify how many copies of their design they wish to fabricate (Fig. 11b). As this was a use case that was mentioned in the study, we additionally provide the option to pack the maximum number of copies for a design, which is calculated via a binary search and displayed to the user. <br><br>
+<i>Making multiple copies of designs.</i> Several designers from the study felt like they could use Fabricaide's fast automatic packing to keep track of how many copies of their design could be fabricated. To aid in this process, we implemented a copies feature that allows the user to specify how many copies of their design they wish to fabricate (Fig. 13b). As this was a use case that was mentioned in the study, we additionally provide the option to pack the maximum number of copies for a design, which is calculated via a binary search and displayed to the user. <br><br>
     
-<i>Displaying additional sheets needed.</i>Since some designers said they would prefer to buy new sheets if they ran out of material, we implemented a feature to capture these use cases (Fig. 11c). Material warnings were modified to state how many additional blank sheets are needed to accommodate a design that is short on certain materials. If prices are known, this can be further modified to show the cost of additional material -- which may incentivize designers to be more conservative with how much material they use. 
+<i>Displaying additional sheets needed.</i>Since some designers said they would prefer to buy new sheets if they ran out of material, we implemented a feature to capture these use cases (Fig. 13c). Material warnings were modified to state how many additional blank sheets are needed to accommodate a design that is short on certain materials. If prices are known, this can be further modified to show the cost of additional material -- which may incentivize designers to be more conservative with how much material they use. 
  <br><br>
        <br>
         <div class="center"><img src="images/using3d.gif" height="175" style="padding-bottom:0px; margin-bottom:10px; margin-right:10px"/> 
@@ -404,7 +438,7 @@ Participants addressed warnings either by scaling down the design or switching o
         <img src="images/moresheets.svg" height="250" style="padding-bottom:0px; margin-bottom:10px"/>
 		<br>
 		<b>
-		Figure 11. Refinements made to Fabricaide following the user study.
+		Figure 13. Refinements made to Fabricaide following the user study.
             </b></div>
         <br>  
 		<br><br>
@@ -440,16 +474,16 @@ To ensure that our benchmarks were conducted with respect to geometries typical 
 		<br>
 <b>Evaluation of Runtime</b>
 <br>
-We ran our experiments on a budget personal desktop computer equipped with an AMD Ryzen 5 2600X processor and 16GB of DDR4 main memory. The results of our experiment are shown in Fig. 12. For each number of parts placed, we report the average runtime over the 10 sets. The scaling of the runtime appears approximately quadratic;  packing twice as many parts takes roughly four times as long. This is congruent with the theoretical complexity of the algorithm, which, assuming parts have a constant number of vertices, is quadratic in the number of parts. <br>
+We ran our experiments on a budget personal desktop computer equipped with an AMD Ryzen 5 2600X processor and 16GB of DDR4 main memory. The results of our experiment are shown in Fig. 14. For each number of parts placed, we report the average runtime over the 10 sets. The scaling of the runtime appears approximately quadratic;  packing twice as many parts takes roughly four times as long. This is congruent with the theoretical complexity of the algorithm, which, assuming parts have a constant number of vertices, is quadratic in the number of parts. <br>
 		<br>
-<div class="center"><img src="images/benchmark.svg" height="300" style="padding-bottom:0px; margin-bottom:10px"/>
+<div class="center"><img src="images/benchmark.svg" height="400" style="padding-bottom:0px; margin-bottom:10px"/>
 		<br>
 		<b>
-		Figure 12. Average running times of the packing routine for various numbers of parts to place.
+		Figure 14. Average running times of the packing routine for various numbers of parts to place.
     </b></div>
         <br>
 		<br>
-We observe that our algorithm can handle 100 parts in just a few seconds with caching enabled, which is far more parts than in any individual participant's design, which had an average of 9. The largest had 74 parts, but spread over 11 materials, which are packed separately (Fig. 8). This demonstrates that our system is capable of packing at interactive speeds for typical laser-cut designs using modest personal computing hardware.
+We observe that our algorithm can handle 100 parts in just a few seconds with caching enabled, which is far more parts than in any individual participant's design, which had an average of 9. The largest had 74 parts, but spread over 11 materials, which are packed separately (Fig. 10). This demonstrates that our system is capable of packing at interactive speeds for typical laser-cut designs using modest personal computing hardware.
         <br><br>
        <b>Evaluation of Solution Quality</b><br>
 
