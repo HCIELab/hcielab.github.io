@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HCI Engineering Group</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!-- CSAIL ICON -->
+	<link rel="CSAIL" href="../../../images/icon/csail.ico" type="image/x-icon" />
+
+	<!-- Bootstrap -->
+	<link href="../../css/bootstrap.css" rel="stylesheet">
+	<link href="../../css/custom-style.css" rel="stylesheet">
+
+	<!-- jQuery -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+
+	<!-- Google Analytic -->
+	<script type="text/javascript" src="../../js/analytics.js"></script>
+
+	<style>
+	.etech-sch-col1 {width:60px; border: 1px solid black;padding:10px;}
+	.etech-sch-col2 {width:120px; border: 1px solid black;padding:10px;}
+	.etech-sch-col3 {width:450px; border: 1px solid black;padding:10px;}
+	.etech-sch-col4 {width:70px; border: 1px solid black;padding:10px;}
+  .etech-sch-col5 {width:70px; border: 1px solid black;padding:10px;}
+  /*.etech-sch-col6 {width:170px; border: 1px solid black;padding:10px;}*/
+  ul {
+    padding:0px;padding-left:10px;margin:0px;
+  }
+	</style>
+</head>
+
+<body>
+<header class="main_header">
+	<!-- to be filled by javascript, see header.html -->
+</header> 
+
+<section class="main_container">
+	<div class="container">
+    <div class="row nothing">
+
+      <section class="col-md-8 pull-right main-content">
+</br></br></br></br>
+        <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2020)</a><br></h>
+        <h2 class="headline">Building an Interactive Lamp: Interactive Fabric</h2>
+      
+
+In the last lab, you 3D printed the base of our interactive lamp. In this lab, you will add the interactive lamp shade by sewing touch sensors with conductive yarn into its fabric. In addition, you will mount LEDs into the base of the lamp that will light up in different colors depending on which touch sensor on the lamp shade it touched. Finally, you will build the control circuit and program the touch recognition and LED lighting.<br><br>  
+
+<img src="images/lab6/lamp.jpg" width="240px"><br><br>    
+
+          <hr>
+
+
+<h3 class="headline">Your Task</h3>
+
+In today's lab, you will create the interactive parts of the lamp by following these steps:
+    <ol>
+        <li>laser cut the fabric for the lamp shade</li>
+        <li>sew the fabric lamp shade cover together</li>
+        <li>embroider the touch button with conductive yarn</li>
+        <li>connect the touch buttons to jumper wires</li>
+        <li>add LEDs to the lamp shade</li>
+        <li>build a control circuit for the touch sensors and LED lights and add it to the base of the lamp</li>
+        <li>write a program that senses touch and controls the LEDs</li>
+    </ol>
+
+    Below you can see the final lamp in action.<br><br>    
+
+   <iframe width="560" height="315" src="https://www.youtube.com/embed/05BrSUOn_-g" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    
+
+ <h3 class="headline">Deliverables Lab 6 (due Wednesday, Oct. 28, 2020, 11.59pm)</h3>
+    
+    At the end of lab 6, upload to your student google drive:
+    <ul>
+        <li>the ESP32 code to sense touch and control the LEDs</li>
+        <li>2-3 photos (.jpg or .png) of your 3D printed lamp that shows the circuit and the assembled lamp</li>
+        <li>a video that shows how the lamp turns on/off when touching the "on/off" button and how the lamp changes its color when pressing the three color scheme buttons</li>
+    </ul><br>
+
+<h3 class="headline">Before Starting Lab 6</h3>
+
+Make sure you have your 3D printed lamp base and lamp shade from lab 5 at hand.<br><br>
+
+<h3 class="headline">(1) Laser Cut the Fabric for the Lamp Shade</h3>
+
+First, you will create the fabric cover that will cover the 3D printed cone of the lamp shade. <br>
+For this, we will first laser cut our desired shape and then sew it together.<br><br>
+    
+Start by creating the drawing for laser cutting.<br> 
+You will need a half circle with a radius of 12.3cm.<br>
+The easiest way to do this is to first draw a full circle in Illustrator.<br>
+Next, delete half of the circle with the 'white mousepointer' tool, which allows you to select individual parts of the 'circle path'.<br>
+Finally, to close the half circle, draw a straight line from one end to the other.<br>
+Make sure you are using the correct drawing settings for laser cutting (correct line color and thickness).<br><br>
+
+<img src="images/lab6/full-circle-size.png" width="225px">
+<img src="images/lab6/full-circle.png" width="185px">
+<img src="images/lab6/half-circle.png" width="160px">
+<img src="images/lab6/half-circle-closed.png" width="160px"><br><br>
+
+Next, laser cut the shape out of fabric (book a laser cutting slot in the OH schedule).<br>
+We have fabric for you at the IDC.<br>
+Take a pair of scissors and cut out a 30cmx20cm large patch.<br> 
+Laser cut your half circle out of this patch (it does not matter which side of the fabric faces up in the laser cutter).<br> 
+When cutting, set the speed to 100% and the power to 35%.<br>
+After you are done, your laser cut circle should look like in the right image below.<br><br>
+
+    <img src="images/lab6/laser_cut.png" width="425px">
+    <img src="images/lab6/cut_stencil.jpg" width="240px"><br><br>
+    
+<h3 class="headline">(2) Sew the Fabric Lamp Shade Cover Together</h3>
+
+Next, you need to fold your half circle fabric over in the middle as shown below.<br> 
+Before you fold it, look at the fabric.<br>
+You will notice that it has a good looking side with the pattern well visible and a less good looking side.<br>
+After folding, the good looking side should be facing <b>inwards</b> and the not good looking side should be facing outwards.<br>
+The reason we are doing this is that sewing is always done on the inside of the final object, so later on we will flip the fabric cover over and the good looking side will be visible.<br><br>
+
+    
+    <img src="images/lab6/folding_fabric_1.png" width="320px">
+    <img src="images/lab6/folding_fabric_2.jpg" width="425px"><br><br>
+    
+Your next task is to sew together the straight edge of the half circle that is not yet connected (book an OH slot, we will do this together).<br> 
+Take one of our mobile sewing machines and sew together the open straight line.<br>
+To do this, insert the fabric into the sewing machine and then draw the sewing machine in one straight motion over the edge as shown below.<br>
+You can start a little bit towards the inside to make the cone more tightly fit on the lamp shade.<br><br>
+
+    <img src="images/lab6/sewing_machine_1.png" width="425px"><br><br>
+
+When you reach the end of the edge, keep the sewing machine running for another 5-10 seconds.<br>
+This will add a few more knots to the yarn which will ensure that the yarn does not open up directly when you pull on it accidentally.<br>
+Finally, disconnect the sewing machine and use glue to fix the yarn at the endpoint.<br><br>
+    
+    <img src="images/lab6/sewing_machine_2.png" width="300px">
+    <img src="images/lab6/sewing_machine_3.png" width="300px"><br><br>
+    
+Wait for the glue to dry.<br>
+Once it dried, flip over your fabric so that the good looking side now faces outside.<br>
+Place it onto your 3D printed lamp shade to see if it fits.<br><br>
+
+    <img src="images/lab6/flipping-over-fabric.png" width="400px"><br><br>
+
+
+<h3 class="headline">(3) Embroider Touch Sensors with Conductive Yarn</h3>
+
+Now that you have the basic fabric cover, you are ready to add the touch buttons onto the lamp shade using conductive yarn.<br>
+We will add 4 touch buttons to the fabric lamp shade.<br> 
+The touch buttons will later be used to turn the lamp on and off, and to set 3 different color schemes for the lamp (e.g. Red, Green, and Blue).<br><br>
+
+<b>Insert Conductive Yarn into Needle</b><br>
+For the next steps, either book a new OH slow or continue from your previous one.<br>
+Take a needle and a roll of conductive yarn from our IDC storage shelve.<br>
+Thread the conductive yarn into the needle.<br>
+Make a double knot at the end of the yarn to make sure that it will hold onto the fabric and doesn't go through it.<br><br>
+
+    <img src="images/lab6/threadingin.png" width="425px"><br><br>
+    
+<b>Stitch Touch Buttons as Cross Patterns</b><br>
+Stitch 4 cross patterns into the fabric, one for each touch button.<br> 
+In our example, we put the three R, G, B light color buttons on one side of the lamp and the on/off button on the other side of the lamp.<br><br>
+
+<img src="images/lab6/touch-buttons.png" width="425px"><br><br>
+
+Below you see the cross stitch step-by-step.<br><br>
+
+    <img src="images/lab6/embroider1.png" width="350px">
+    <img src="images/lab6/embroider2.png" width="350px"><br><br>
+
+    <img src="images/lab6/embroider3.png" width="350px">
+    <img src="images/lab6/embroider4.png" width="350px"><br><br> 
+
+When you finished the cross-stitch of your touch button, cut off the yarn <span style="color:red">(do not cut if off to short, leave at least 5cm yarn),</span> and then use glue to secure the end in place.<br><br>
+
+    <img src="images/lab6/embroider5.png" width="350px"><br><br> 
+    
+Each touch button should use its own yarn (i.e. wire). They should not be connected together with the same yarn since we otherwise would not be able to sense which button is touched.<br>
+When you start the next touch button, make sure to <span style="color:red">leave at least 2cm distance</span> to the previous touch button so there is no cross talk among the wires of the buttons.<br>
+Once you are done with all four touch buttons, you can move to the next step.<br><br>
+
+<h3 class="headline">(4) Connecting the Touch Buttons to Jumper Wires</h3>
+
+We will connect the touch buttons that are made from conductive yarn to the rest of your circuit using copper tape.<br>
+First, get a jumper wire and some copper tape.<br>
+Next, wrap the copper tape around the jumper wire and around the conductive yarn.<br><br>
+    
+    <img src="images/lab6/jumper_1.png" width="350px">
+    <img src="images/lab6/jumper_2.jpg" width="350px"><br><br>
+    
+Repeat these steps for all 4 touch areas.<br><br>
+
+    <img src="images/lab6/jumper_3.jpg" width="350px">
+    <img src="images/lab6/jumper_4.jpg" width="350px"><br><br>
+
+You are now ready to place the fabric over the 3D printed lamp shade.<br> 
+When you place the fabric over the lamp shade, make sure that the conductive yarns do not touch each other.<br>
+You can ensure this by glueing each jumper wire to one of the arms of the lamp shade.<br><br>
+
+    <img src="images/lab6/glue_jumper_1.png" width="350px">
+    <img src="images/lab6/glue_jumper_2.png" width="350px"><br><br>
+    <!-- <img src="images/lab6/glue_jumper_3.jpg" width="350px"> -->
+    <img src="images/lab6/glue_jumper_4.png" width="350px"><br><br> 
+    
+<h3 class="headline">(5) Connecting the LEDs to the Lamp Shade</h3>
+    
+Next, you will connect the LEDs to your lamp shade.<br>
+For the LEDs, we will use Neopixel LEDs, which are RGB LEDs that can be addressed individually and thus can take on any color you like.<br><br>
+
+<b>Cutting Off a Stripe of LEDs</b><br>
+The LEDs come on a large roll.<br>
+As you can see in the image below, between each LED there are 3 copper pads.<br>
+You need to cut off a strip of 4 LEDs while making sure you cut the copper pads right in the middle at the end of your strip, so the next person still has enough copper pads on their LEDs to be able to solder on a wire.<br><br>
+
+    <img src="images/lab6/LED_stripe_1.png" width="500px"><br><br>
+
+<b>Solder Jumper Wires onto Copper Pads</b><br>
+
+To control the LEDs colors, we have to connect to the copper pads.<br>
+For this, we will solder on jumper wires onto the copper pads.<br>
+Note that the Neopixel LED strip is setup so that you only have to connect to the copper pads of a single LED in order to be able to set the color of each individual LED on the entire strip.<br><br>
+
+Before starting to solder, pay attention to the arrows between each LED that point into a specific direction.<br>
+You need to connect your jumper wires on the side from which the arrows point away from.<br><br>
+
+    <img src="images/lab6/LED_stripe_3.png" width="500px"><br><br>
+
+
+Before soldering, remove the silicone film from the top of the LED strip where it covers the copper pads we want to solder on. The silicone film protects the LED strip from water and other environmental influences but  prevents us from soldering onto the copper pads.<br><br>
+
+ <img src="images/lab6/LED_stripe_1-remove-silicone.png" width="400px"><br><br>
+
+Then for soldering, use the same technique as in lab 4: First put a solder drop on each pad and then press the tip of the jumper wire on the drop with the solder iron.<br><br>
+
+ <img src="images/lab6/LED_stripe_2.png" width="500px"><br><br>
+
+<b>Attach the LEDs onto the Lamp Shade</b><br>
+Finally, remove the blue foil from back of the LED stripes.<br>
+Underneath the blue foil, there is double sided tape on the back of the LED strip.<br>
+With the double sided tape expose, you can now attach the LEDs to one of the free arms inside the printed lamp shade (i.e., an arm that does not have a jumper wire connected to a touch button).<br><br>
+    
+    <img src="images/lab6/glue_LED_1.png" width="425px">
+    <img src="images/lab6/glue_LED_2.png" width="240px"><br><br>
+        
+<h3 class="headline">(6) Building the Touch and LED Control Circuit</h3>
+    
+Now that the lamp shade is full assembled, you can move on to building the circuit for the touch buttons and for controlling the LEDs colors. <br><br>
+    
+Since the lamp base is too small for regular breadboards, we supply you with mini-breadboards (see below).<br>
+Remove the backing from the mini-breadboard, which will expose a layer of double-sided tape.<br>
+Next, place your ESP onto the layer of double sided tape, the pins of the ESP should be facing away from the double sided tape (don't worry, the ESP is easy to pull off later if you need to remove it to work on your pset).<br>
+The mini-breadboard and ESP should now hold together.<br><br>
+
+    <img src="images/lab6/minib_1.png" width="380px">
+    <img src="images/lab6/minib_2.png" width="330px"><br><br>
+    
+
+<b>Building the LED Control Circuit</b><br>
+
+    Next, we connect the LEDs.<br> 
+    You see on the LED strip that there are 3 pins labeled <b>GND, 5V, and DIN</b>. <br><br>
+   
+    <ul>
+        <li>
+            <b>GND:</b> Connect it to the GND pin on the ESP32. Always connect the GND first to protect the LEDs from voltage spikes!
+        </li> 
+        <li><b>5V:</b> This is different from the 3.3V we have used so far in the other labs and psets. Luckily, the ESP32 also has a 5V pin at the VIN pin. Usually, this pin is used to connect to an external power supply. However, if you connect your ESP with a USB cable to your computer, the pin will use the 5V power supply from the USB cable.
+        </li>
+        <li><b>DIN (Data-In):</b> This channel is used to encode which LED should turn on with which color. Connect DIN to a GPIO pin of your ESP32.</li>
+    </ul><br>
+
+    Before we will implement the color control, let's finish the rest of the circuit.<br><br>
+
+<b>Building the Touch Button Control Circuit</b><br>
+
+Let's start by connecting the 4 touch buttons to the ESP32 as you have learned in lab 1+2.<br> 
+You will again use a 100kOhm resistor between the sender pin and the 4 receiver pins (please reuse your resistors from lab1/2).<br> 
+Your final circuit should look similar to this:<br><br>
+    
+    <img src="images/lab6/circuit_1.jpg" width="350px">
+    <img src="images/lab6/circuit_2.jpg" width="350px"><br><br>
+
+<b>Mounting the Circuit into the Lamp Base</b><br>
+    
+    Now place the circut inside your lamp base.<br> 
+    First pull the USB cable through the hole that you 3D modeled into your lamp base in lab 5.<br>
+    Next, connect the USB cable to your ESP32 and carefully place the ESP with the circuit inside the lamp base.<br><br>
+    
+    <img src="images/lab6/usb_1.png" width="350px">
+    <img src="images/lab6/usb_2.png" width="350px"><br><br>
+    
+    Don't put the lamp shade on top of the base just yet.<br> 
+    We will first write the code for reading the touch input and controlling the light of the LEDs before we put everything together.<br><br>
+    
+<h3 class="headline">(7) Program the Touch Sensing and LED Blinking</h3>
+
+In this final step, we will write code that can sense touch on all four touch buttons, implement the on/off functionality for the on/off button, and implement the 3 light color programs that are triggered with the other 3 touch buttons.<br><br>
+    
+<b>Code for Touch Sensing</b><br>    
+For touch sensing, you can reuse the code from lab 1+2.<br> 
+Print your touch signals to the Serial Monitor/Plotter to see if it works.<br> 
+Make sure that you get a clear signal from all 4 touch buttons.<br>
+Select a suitable threshold for each touch button to detect touch.<br><br>
+    
+<b>Programming the LEDs</b><br>    
+
+The LEDs on the strip are called NEOPIXELS (WS2812B).<br>
+Each LED represents a 'pixel' that can be addressed individually and can thus change color and brightness independent of the other LEDs on the strip.<br> 
+The DIN (Data-In) pin on the strip transmits a specific protocol to address each LED individually.<br>
+This is why the LEDs do not turn on immediately when you connect them to the power supply.<br>
+Instead we first have to provide data through the DIN pin.<br><br>
+    
+To control the LEDs, you can use a library that handles the signal encoding for you.<br> 
+This library is called <b>FastLED</b>.<br> 
+You can download it directly from the Arduino IDE by clicking on <b>Sketch->Inlcude Libraries->Manage Libraries.</b><br> 
+Search for FastLED and install it.<br>
+If you are interested to see what is available in the <a href="http://fastled.io/docs/3.1/annotated.html">FastLED library, you can look at the documentation here.</a> <br><br>
+    
+    <img src="images/lab6/fastled.png" width="700px"><br><br>
+
+You have to include the library to be able to use it in your script:<br><br>
+
+    <pre><code>#include &lt;FastLED.h&gt;</code></pre>
+
+To declare an LED, you can use the CRGB datatype.<br>
+
+<pre>
+<code>CRGB led1;
+</code></pre>
+
+However, rather than declaring 4 LED variables individually to address each LED, we will use an array, which is more convenient.<br>
+
+<pre><code>#define NUM_LEDS 4
+    
+CRGB leds[NUM_LEDS];
+</code></pre>
+    
+The library also requires to add each LED to its internal data structures.<br> 
+You can do this in the setup() function with the following line:<br>
+
+<pre><code>FastLED.addLeds&lt;NEOPIXEL,LED_PIN&gt;(leds,NUM_LEDS)
+</code></pre>
+
+The function requires the following parameters:<br>
+<b>NEOPIXEL:</b> The FastLED library is a generic library for all sorts of LED types. So we need to tell it which LED type we have so it knows which protocol to use to send the data to the LED. NEOPIXEL is a constant defined in the <a href="http://fastled.io/docs/3.1/annotated.html">documentation of the FastLED library</a> and we can simply use it as an argument here. <br>
+<b>LED_PIN:</b> this is the GPIO pin to the DIN pin. This variable has to be a constant so you should declare it with #define.<br>
+<b>leds + NUM_LEDS:</b> We already declared these above so you just insert them here.<br><br>
+    
+You can assign a color to an LED by writing:<br><br>
+
+<pre><code>leds[0] = CRGB::White;
+</code></pre>
+    
+This color does not get sent to the LED immediately each time you assign a color to an LED.<br> 
+Instead, you have to make the sending explicit by executing the command:<br><br>
+
+<pre><code>FastLED.show();
+</code></pre>
+    
+<b>Changing LED Color on Touch</b><br>    
+Let's bring it all together.<br>
+Implement the following end-to-end workflow:<br>
+
+<ol>
+    <li>When the on/off button is touched and the lamp is off, the lamp should turn on.</li>
+<li>When the lamp turns on, all the LEDs should be set to white.</li>
+<li>Touching one of the color-scheme buttons will set the lights to a color scheme of your choice (e.g. red, green, blue or whatever color scheme you like).</li>
+<li>Finally, when the on/off button is touched and the lamp is on, the lamp should turn off.</li>
+</ol><br>
+
+Once everything works, put the lamp shade on the base.<br><br>
+    
+    <img src="images/lab6/circuit_done.jpg" width="430x">
+    <img src="images/lab6/lamp.jpg" width="240px"><br><br>
+    
+    ... and start filming :).<br><br>
+    
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/05BrSUOn_-g" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    
+ <h3 class="headline">Deliverables Lab 6 (due Wednesday, Oct. 28, 2020, 11.59pm)</h3>
+    
+    At the end of lab 6, upload to your student google drive:
+    <ul>
+        <li>the ESP32 code to sense touch and control the LEDs</li>
+        <li>2-3 photos (.jpg or .png) of your 3D printed lamp that shows the circuit and the assembled lamp</li>
+        <li>a video that shows how the lamp turns on/off when touching the "on/off" button and how the lamp changes its color when pressing the three color scheme buttons</li>
+    </ul><br>
+
+        <br />
+        <br />
+        <br />
+      </section>
+
+      <aside class="col-md-4 pull-left">
+         <br /> <br /> <br /> <br />
+<!-- 				 <h4>Pset Steps</h4><br>
+				 <ul>
+		 			<li><a href="#pset1">pset1 (due Sept. 21, 11.59pm): laser cut and bend the acrylic base</a><br /></li>
+		 			<li><a href="#pset2">pset2 (due Oct. 5, 1pm): insert LEDs, add USB connecting and solder everything</a><br /></li>
+		 			<li><a href="#pset3">pset3 (due Oct. 19, 1pm): write touch recognition so that you can determine (x,y) location of each finger</a><br /></li>
+		 			<li><a href="#pset4">pset4 (due Oct. 26, 1pm): add an application of your choice</a><br /></li>
+				</ul>
+				<br /> <br /> <br /> <br />
+        <img src="../2018-fall-6810/images/multi-touch-pad/iap1.jpg" width="220px">
+
+		<img src="../2018-fall-6810/images/multi-touch-pad/iap2.jpg" width="220px">
+
+		<img src="../2018-fall-6810/images/multi-touch-pad//iap3.jpg" width="220px">
+
+		<img src="../2018-fall-6810/images/multi-touch-pad/iap4.jpg" width="220px">
+
+		<img src="../2018-fall-6810/images/multi-touch-pad/iap5.jpg" width="220px">
+ -->
+
+
+
+        <!-- Publication -->
+
+        <br><br><br><br><br>
+
+        <!-- Publication -->
+
+<!-- <h4>Side Bar</h4><br>
+
+    <ul>
+      <li>Prof. Stefanie Mueller (Instructor)</li>
+      <li>Lotta-Gili Blumberg (TA)</li>
+      <li>Xin Wen (UTA)</li>
+      <li>Loren Maggiore (LA)</li>
+      <li>Mark Chounlakone (LA)</li>
+    </ul>
+ -->
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+      </aside>
+
+    </div>
+  </div>
+  </div>
+</section>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 footer" style="text-align: center;">
+			<span class="copyright">
+			Since 2017 &copy; MIT CSAIL (HCI Engineering group) [redesign by
+			<a href="http://punpongsanon.info/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			moji
+			</a>].
+			All Rights Reserved.
+
+			<a href="http://mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/mit.svg" alt="MIT" class="footer-logo" />
+			</a>
+			<a href="http://csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/csail.svg" alt="CSAIL" class="footer-logo"/>
+			</a>
+			<a href="http://hci.csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/hci.svg" alt="HCI" class="footer-logo"/>
+			</a>
+			</span>
+		</div>
+	</div>
+</div>
+
+<!-- Bootstrap -->
+<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+<!-- header -->
+<script type="text/javascript" src="../../js/headerstrap-for-subpage.js"></script>
+
+</body>
+</html>
