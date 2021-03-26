@@ -51,7 +51,7 @@
         <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2020)</a><br></h>
         <h2 class="headline">Inkjet Printed Sensors and Introduction to Processing</h2>
 
-  <!-- <img src="images/lab-2/silver-printing.jpg" width="317px" /> -->
+  <!-- <img src="images/lab2/silver-printing.jpg" width="317px" /> -->
           <br>
 
 
@@ -63,9 +63,9 @@ In lab 1 and lab 2, we are going to create the interactive music card shown belo
 <img src="images/music-card2.png" width="200px" />
 <img src="images/music-card3.png" width="200px" />
  -->
-<img src="images/lab-2/music-card-design_new.png" width="285px" />
-<img src="images/lab-2/lab1-design-planning_new.png" width="285px" />
-<img src="images/lab-2/lab1-print3_new.jpg" width="155px" />
+<img src="images/lab2/music-card-design_new.png" width="285px" />
+<img src="images/lab2/lab1-design-planning_new.png" width="285px" />
+<img src="images/lab2/lab1-print3_new.jpg" width="155px" />
 
 
 <h2 class="headline">Your Task for Today: Touch Sensor Signal Processing</h2>
@@ -87,7 +87,7 @@ At the end of Lab 2, upload to your student google drive:
 
 We will use the ESP32 micro-controller in this course to control the printed sensors and displays (same as in 6.08). Here is the pin out again for your reference.<br><br>
 
-<img src="images/lab-2/esp32-pinout.jpg" width="600px" /><br><br>
+<img src="images/lab2/esp32-pinout.jpg" width="600px" /><br><br>
 
 If you study the reference sheet closely, you will notice that there are some pins that are labeled with "TOUCH". They are optimized to serve as receivers for capacitive sensing and therefore return cleaner signals, so we will use them for our sensing application.<br> 
 However, <b>do not use the pin labeled as GPIO 0 (TOUCH1) as receiver</b> at any time because it is the strapping pin for this version (DevKitC) of ESP32 and cannot be used due to external auto program circuits. However, you could still use the pin as a sender (more on this below). <br><br>
@@ -107,7 +107,7 @@ The regular breadboard wire can then be used to connect to the breadboard.<br>
 From there you can do your normal breadboarding to connect to the ESP.<br>
 To get started, use the first crocodile clamp and connect it to the card and a wire for breadboarding.<br><br>
 
-<img src="images/lab-2/lab1-crocodile-clamp-wire_new.jpg" width="557px" /><br><br>
+<img src="images/lab2/lab1-crocodile-clamp-wire_new.jpg" width="557px" /><br><br>
 
 <h4>Build Circuit for Touch Sensing</h4><br>
 
@@ -115,9 +115,9 @@ We will implement touch sensing based on the principle of capacitive touch sensi
 
 The circuit for capacitive touch sensing requires a sender pin, which outputs a signal, and a receiver pin, which listens to the signal. The conductive touch buttons and slider segments are connected between the sender and receiver pin, i.e. when a user touches the touch button, the signal will change and thus the receiver pin will receive a different signal, which we can further analyze in our code. The circuit also requires a resistor.<br><br>
 
-<img src="images/lab-2/lab1-circuit.png" width="300px"><br><br>
+<img src="images/lab2/lab1-circuit.png" width="300px"><br><br>
 
-<img src="images/lab-2/capsense.png" width="300px"><br><br>
+<img src="images/lab2/capsense.png" width="300px"><br><br>
 
 Let's put this into practice and create our first touch button circuit.<br>
 We will use <b>pin 2 as the sender</b> and <b>pin 4 as the receiver</b> (see image).<br> 
@@ -133,7 +133,7 @@ Next, we will write a program that receives the touch sensor signal and plots th
 To process the sensor signals, we will use the <b><a href="https://playground.arduino.cc/Main/CapacitiveSensor/">CapacitiveSensor library</a></b>.<br>
 To install it it, go to <b>Sketch -> Include Library -> Manage Libraries</b> and search for the <b>CapacitiveSensor</b> library and install it.<br><br>
 
-<img src="images/lab-2/capacitivesensorlibrary.png" width="650px"><br><br>
+<img src="images/lab2/capacitivesensorlibrary.png" width="650px"><br><br>
 
 If the installed library does not work for you and returns an error message like "'XXX' does not name a type" upon compiling, remove it and we will install it a different way. You can remove the previously installed library: on Mac this is under <b> Macintosh HD/Users/your-username/Documents/Arduino/libraries </b> and on windows this is under <b> My Documents\Arduino\libraries\ </b>).<br><br> 
 
@@ -188,7 +188,7 @@ Open the serial monitor, you should see a bunch of numbers fly by.<br>
 If you touch your touch sensor, the values should change significantly.<br> 
 Remember to not touch the silver side directly but to interact on the side of the visual design, i.e. the side that has no silver. <br><br>
 
-<img src="images/lab-2/lab1-touching-plotting.png" width="680px"><br><br>
+<img src="images/lab2/lab1-touching-plotting.png" width="680px"><br><br>
 
 <h4>Extend Circuit to all Three Touch Sensors</h4><br>
 
@@ -217,12 +217,12 @@ Because of the formatting we used (comma seperated using Serial.print()), we can
 Try touching the sensors and see how the signal changes when you touch the sensors.<br>
 Below you see how we touch the button 1 first, then button 2 and finally button 3.<br><br>
 
-<img src="images/lab-2/lab1-plotting-signals_new.png" width="680px"><br><br>
+<img src="images/lab2/lab1-plotting-signals_new.png" width="680px"><br><br>
 
 Also change the values of <b>samples_touch</b> in your code and see how the value range changes.<br>
 Below is one example with higher number for samples_touch.<br>
 
-<img src="images/lab-2/lab1-plotting-signals2_new.png" width="680px"><br><br>
+<img src="images/lab2/lab1-plotting-signals2_new.png" width="680px"><br><br>
 <!-- <img src="images/lab1-plotting-signals3.png" width="680px"><br><br> -->
 
 <h4>Thresholding Touch Signals: Touched or not Touched?</h4><br>
@@ -311,8 +311,8 @@ Once you create the mask layer, send us the file. <br>
 We will then help you to log in remotely into our laser cutter computer to cut the file under our guidance.<br>
 You will then receive it with your next package.<br><br>
 
-<img src="images/lab-2/laser-cutter.png" width="317px" />
-<img src="images/lab-2/laser-cutter-cutting.png" width="317px" /><br><br>
+<img src="images/lab2/laser-cutter.png" width="317px" />
+<img src="images/lab2/laser-cutter-cutting.png" width="317px" /><br><br>
 
 -->
 
@@ -323,7 +323,7 @@ You will then receive it with your next package.<br><br>
 
 <!-- 
 <b>Continous Sliders (Different Aesthetic Design Options):</b><br>
-<img src="images/lab-2/slider-designs3.png" width="300px"> <img src="images/slider-designs2.png" width="300px"><br>
+<img src="images/lab2/slider-designs3.png" width="300px"> <img src="images/slider-designs2.png" width="300px"><br>
 From the paper <a href="https://dl.acm.org/doi/10.1145/2971763.2971777">DuoSkin (ISWC 2016)</a><br><br>
 
 
@@ -331,7 +331,7 @@ From the paper <a href="https://dl.acm.org/doi/10.1145/2971763.2971777">DuoSkin 
 
 Touch-dials consist of multiple touch buttons circularly arranged, i.e. several shapes and each shape has its own wire that connects to the micro-controller.<br><br>
 
-<img src="images/lab-2/dial.png" width="300px"><br>
+<img src="images/lab2/dial.png" width="300px"><br>
 Example from the paper <a href="https://dl.acm.org/doi/10.1145/2971763.2971777">DuoSkin (ISWC 2016)</a><br><br>
 
 <h4>Electroluminescent Area Display</h4><br>
@@ -342,8 +342,8 @@ This display is called electroluminescent display and we screen printed it from 
 
 <b>Making Custom Shaped Displays:</b> The display you will get is a simple area display that can turn on/off but does not have pixels. Note that although we will send you a square display, you can create your own shape either in non-destructive way (allows for reuse) or destructive way. The non-destructive way requires you to mask the display, i.e. cutting a shape from e.g. from cardboard and attaching it to the display to cover the remaining area so that no light comes through. The destructive way includes cutting out the shape (making sure you are not cutting into the wire connection to the microcontroller and also make sure you unplugged the display before cutting since most scissors are conductive on their blades). Since we want you to reuse the display some time, we will use the non-destructive way, i.e. we will laser cut a mask layer in a moment.<br><br>
 
-<img src="images/lab-2/printscreen2.jpg" width="145px">
-<img src="images/lab-2/printscreen3.jpg" width="345px"><br>
+<img src="images/lab2/printscreen2.jpg" width="145px">
+<img src="images/lab2/printscreen3.jpg" width="345px"><br>
 Examples of masked and cut EL displays.<br><br>
 
 Please limit the size of the touch button to something that is roughly the size of a finger tip (an area around 2cm x 2cm) and the wire length to no more than 10cm for now. The display that you will get shipped is 5x5cm in area and you can cut it into any shape you like (not cutting into the wires).<br><br>
@@ -360,15 +360,15 @@ We recommend all your connector pads route to a common location where you will a
 Make sure all the silver you draw has the line/area color 'black (CMYK: 0,0,0,255)'.<br>
 The touch button should also be surrounded by a decorative color design to show that you can print color and silver together. <br><br>
  -->
-<!-- <img src="images/lab-2/Cool_Jams.jpg" width="300px"><br> -->
+<!-- <img src="images/lab2/Cool_Jams.jpg" width="300px"><br> -->
 
 
 <!-- 
-<img src="images/lab-2/silver-ink.jpg" width="317px" />
-<img src="images/lab-2/silver-inkjet-printing.png" width="317px" /><br><br>
+<img src="images/lab2/silver-ink.jpg" width="317px" />
+<img src="images/lab2/silver-inkjet-printing.png" width="317px" /><br><br>
  -->
 
-<!-- <img src="images/lab-2/touch-button-decorative2.png" width="300px"><br>
+<!-- <img src="images/lab2/touch-button-decorative2.png" width="300px"><br>
 Silver touch button in the middle is overprinted with white in a second layer. In addition, the red flame is added as a decorative element (it has no input functionality).<br><br>
  -->
 
@@ -388,7 +388,7 @@ Once you downloaded it, you should see an IDE similar to the one Arduino uses.
 
 <br><br>
 
-<img src="images/lab-2/processing-ui.png" width="350px"><br><br>
+<img src="images/lab2/processing-ui.png" width="350px"><br><br>
 
  <h3 class="headline">Code Structure: setup() and draw()</h3>
 
@@ -411,7 +411,7 @@ Make sure your image file is inside your project folder (Documents -> Processing
 
 To load an image, you can use the <a href="https://processing.org/reference/PImage.html">documentation for PImage</a>.<br><br>
 
-<img src="images/lab-2/load-image-card.png" width="200px"> <br><br>
+<img src="images/lab2/load-image-card.png" width="200px"> <br><br>
 
  <h3 class="headline">Create Touch Button in Processing</h3>
 
@@ -427,7 +427,7 @@ Make a rectangle with round corners and in silver (gray) color like shown in the
 <a href="https://processing.org/reference/rect_.html">Processing Reference for rect()</a><br>
 <a href="https://processing.org/reference/fill_.html">Processing Reference for fill()</a><br><br>
 
-<img src="images/lab-2/processing-fill-color-rect-card.png" width="200px"><br><br>
+<img src="images/lab2/processing-fill-color-rect-card.png" width="200px"><br><br>
 
 If you need it later, you can find the full reference here: <br>
 <ul><li><a href="https://processing.org/reference/">Complete Processing Reference</a>.</li></ul><br>
@@ -445,7 +445,7 @@ To implement this you will need:
 </ul>
 <br><br>
 
-<img src="images/lab-2/card-animated.gif" width="250px"><br><br>
+<img src="images/lab2/card-animated.gif" width="250px"><br><br>
 
 
 <div style="background:#04a47c;padding:10px;">Checkoff 2: Show your completed push/unpush program.</div>
@@ -463,7 +463,7 @@ Position it where your former touch button was.</br></br>
 
 If you create your SVG file in Illustrator, make sure you change the following export option: When you save the svg 1) choose "More Options" in the SVG Options dialog, and then 2) select the "Style Attributes" in the drop CSS Properties drop down to make it compatible with Processing. <br><br>
 
-<img src="images/lab-2/readsvg2.png" width="350px">
+<img src="images/lab2/readsvg2.png" width="350px">
 
 <h5>Checking for Mouse Input on a Vector Graphic of Arbitrary Shape</h5>
 
@@ -495,16 +495,16 @@ You can buy the materials here: <br>
 	<li>Dieletric (add link)</li>
 </ul>
 
-<img src="images/lab-2/el-materials.png" width="400px"><br>
-<img src="images/lab-2/el-layerstack.png" width="500px"><br><br>
+<img src="images/lab2/el-materials.png" width="400px"><br>
+<img src="images/lab2/el-layerstack.png" width="500px"><br><br>
 
 <b>Size of each layer:</b> Note that the dieletric layer is a bit larger than the other layers. Since the dieletric layer prevents everything from short circuiting, it should be a bit larger to make sure all other layers are really seperated from each other and not touching. <br><br>
 
-<img src="images/lab-2/el-area-sizes.png" width="500px"><br><br>
+<img src="images/lab2/el-area-sizes.png" width="500px"><br><br>
 
 <b>Fabrication:</b> While the silver ink and PEDOT:PSS can be inkjet printed, the phosphor and dieletric have unfortunately too large particules in their inks, which clogg printer nozzles. We there screen printed the display you got. Below, you can see images of how we did it.<br><br>
 
-<img src="images/lab-2/screen-printing.jpg" width="500px"><br><br>
+<img src="images/lab2/screen-printing.jpg" width="500px"><br><br>
  -->
 
 

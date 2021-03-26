@@ -198,8 +198,8 @@ In the next step, we want to create a bar that goes up if the touch sensor is to
 Let's start with a single bar for touch sensor 1 and we can do the rest later.<br><br>
 
 
-<img src="images/lab2-bar-down.png" width="300px">
-<img src="images/lab2-bar-up.png" width="300px"><br>
+<img src="images/lab3/lab2-bar-down.png" width="300px">
+<img src="images/lab3/lab2-bar-up.png" width="300px"><br>
 
 Let's first create the bar with a fixed width of 100px and a fixed height of 300px.<br>
 Here are some useful references:<br><br>
@@ -228,7 +228,7 @@ For coloring the bar and the background:<br>
 
 Once you are done it should look like this:<br><br>
 
-<img src="images/lab2-bar-up.png" width="300px"><br>
+<img src="images/lab3/lab2-bar-up.png" width="300px"><br>
 
 Next, we can connect the height of the bar to the incoming touch sensor data coming from the serial messages in our Processing Script.<br>
 But before we can do this, we first have to do some String Processing on the incoming message since the message is still a single string in the format of e.g., <pre><code>0,1;</code></pre> Therefore, we need to split up the message.<br><br>
@@ -259,7 +259,7 @@ A low bar shows that the sensor is not being touched.<br><br>
 
 Once you are done, it should look like this:<br><br>
 
-<img src="images/lab2-touched-not-touched.png" width="600px"><br><br>
+<img src="images/lab3/lab2-touched-not-touched.png" width="600px"><br><br>
  
 <h4>Extend Visualization to Three Bars</h4><br>
 
@@ -267,14 +267,14 @@ Next, we want to extend our user interface to have a bar for all three touch sen
 It should look like the image below.<br><br>
 
 Only touch button 1 is touched, touch button 2 and 3 are not touched.<br>
-<img src="images/lab2-three-bars-one-touched.png" width="300px"><br><br>
+<img src="images/lab3/lab2-three-bars-one-touched.png" width="300px"><br><br>
 
 Touching multiple touch sensors simultaenously also works.<br>
 This should be a bit surprising to you, since we can only read one message at a time in the draw() function.<br>
 The reason it still works is that we are reading messages at such a high speed that the processing gap is not visible to the human eye.<br><br>
 
 Only touch button 1 and 2 are touched, touch button 3 is not touched.<br>
-<img src="images/lab2-three-bars-multiple-touched.png" width="300px"><br><br>
+<img src="images/lab3/lab2-three-bars-multiple-touched.png" width="300px"><br><br>
 
 
 <!-- We created a Processing script for you that has the bars already implemented but lacks the Serial Communication.<br> -->
@@ -286,8 +286,8 @@ Now that we have basic touch input working in Processing, we can connect it to o
 To install the Processing Sound Library, go to <b>Sketch -> Import Library -> Add Library</b>.<br>
 Then in the 'Libraries' Tab, search for 'sound' and install the one that is officially from Processing (see image below).<br><br>
 
-<img src="images/lab2-add-library.png" width="300px"><br><br>
-<img src="images/lab2-add-library-sound.png" width="600px"><br><br>
+<img src="images/lab3/lab2-add-library.png" width="300px"><br><br>
+<img src="images/lab3/lab2-add-library-sound.png" width="600px"><br><br>
 
 <h4>Run Skeleton Code</h4><br>
 
@@ -295,7 +295,7 @@ Once you have the library installed, download the <a href="software/music_card_n
 Inside the folder, open and run the <b>music_card_nosolution.pde</b>, it will take a little while to load until you see the music card image in the view because we also load the mp3 audio files for the songs, which takes some time.<br>
 You should see the music card being loaded into your application as shown below. If you don't see it, please let us know.<br><br>
     
-<img src="images/lab2-loadedcard_new.png" width="600px"><br><br>
+<img src="images/lab3/lab2-loadedcard_new.png" width="600px"><br><br>
 
 <h4>Add Touch Buttons onto the Card</h4><br>
 
@@ -321,14 +321,14 @@ One of the buttons is already defined there:<br><br>
     
 Your final result should look like this:<br><br>
     
-<img src="images/lab2/card_buttons_new.png" width="350px"><br clear=all><br>
+<img src="images/lab3/lab2/card_buttons_new.png" width="350px"><br clear=all><br>
 
 <h4>Create Touch Events for Playing / Pausing the Music and Next/Previous Song</h4><br>
 
 To create events on mouse click, we need to implement several mousePressed() events.<br>
 We already did this for you in the code further down in the class.<br><br>
 
-<img src="images/lab2-button-presses.png" width="600px"><br clear=all><br>
+<img src="images/lab3/lab2-button-presses.png" width="600px"><br clear=all><br>
 
 We first iterate over all the buttons you created and then depending on the button ID, we want to execute a music function.<br>
 We created a music class that loads several example songs in your project folder and has the functions:<br><br>
@@ -374,7 +374,7 @@ At the end of Lab 3, upload to your student google drive:
  -->
 
 <!--  In particular, we are going to wire up a button, and when the button is pressed, we will show this in Processing by coloring the corresponding button in the digital UI and starting a song.<br><br>
-<!--
+
 <h4>Replacing the Standard Button with your Printed Touch Button</h4><br>
 
 We hope you received your custom touch button from last week. If not, your original package has a standard printed touch button (square) that you can use instead.<br><br>
@@ -383,15 +383,15 @@ We are now going to replace the standard touch button with your custom touch but
 First, use the multimeter to check if you touch button is conductive and didn't break during transport.<br>
 If you don't remember how to use the multimeter, check last week's tutorial.<br><br>
 
-<img src="images/multimeter.jpg" width="300px"><br><br>
+<img src="images/lab3/multimeter.jpg" width="300px"><br><br>
 
 Ok, if your multimeter shows low resistance, we are ready to wire up your touch button.<br>
 
 <b>Electronics:</b> To build the circuit to implement touch sensing you only need your touch sensor and one resistor (say some more why this is necessary). Low resistors (1kOhm - 100kOhm) are mostly used for sensing touch (see Figure below).<br><br>
 
-<img src="images/touch-sensing-principle.png" width="300px"> <img src="images/touch-sensing-circuit.png" width="300px"><br><br>
+<img src="images/lab3/touch-sensing-principle.png" width="300px"> <img src="images/lab3/touch-sensing-circuit.png" width="300px"><br><br>
 
-<img src="images/touch-sensor-on-breadboard.jpg" width="300px"> <img src="images/touch-sensor-on-breadboard-schematic.png" width="300px"><br><br>
+<img src="images/lab3/touch-sensor-on-breadboard.jpg" width="300px"> <img src="images/lab3/touch-sensor-on-breadboard-schematic.png" width="300px"><br><br>
 
 <b>Connecting the Touchbutton to the microcontroller:</b> To connect the touch button to the microcontroller and remaining electronics, we are going to use conductive tape. Cut a piece of conductive tape and attach it to the connector pad and then to the end of a wire that goes to the microcontroller (would be great to have the break out board so this is less messy).<br><br>
 
@@ -426,7 +426,7 @@ In our simple example, we will light up an LED when the user clicks a button in 
 Let's start by wiring up an LED on the breadboard and writing the basic code to turn the LED on/off. <br>
 If you haven't coded in Arduino for a while, you may want to look at 'Examples -> Blink' to see how to read input from a pin and turn your LED on/off.<br><br>
 
-<img src="images/led-on-breadboard.jpg" width="250px"> <img src="images/led-on-breadboard-schematic.png" width="350px"><br><br>
+<img src="images/lab3/led-on-breadboard.jpg" width="250px"> <img src="images/lab3/led-on-breadboard-schematic.png" width="350px"><br><br>
 
 <h4>Create Microcontroller Script that Reads from Serial Monitor</h4>
 
@@ -445,7 +445,7 @@ Whenever a button is clicked in the Processing UI, we want to write a '2', other
 The setup code is the same as in the previous Processing example above, but now you are using<br>
 <code>myPort.write(2); // 2 or 3 depending on state</code><br><br>
 
-        <!--
+
     
 <h4>Blinking LED to Beat</h4><br>
 
@@ -459,7 +459,7 @@ All you need to do is to send a '2' or '3' whenever our script tells us that the
 With that information in mind, we are now ready to connect your EL display to the microcontroller.<br>
 First, use the multimeter to check if your display is conductive and didn't break during transport.<br>
 
-<img src="images/multimeter.jpg" width="300px"><br><br>
+<img src="images/lab3/multimeter.jpg" width="300px"><br><br>
 
 Ok, if your multimeter shows low resistance, we are ready to wire up your EL display.<br>
 
@@ -467,7 +467,7 @@ Ok, if your multimeter shows low resistance, we are ready to wire up your EL dis
 
 <b>Connecting the Display to the microcontroller:</b> To connect the display to the microcontroller and remaining electronics, we are going to use conductive tape. Cut a piece of conductive tape and attach it to the connector pad of the display and then to the end of a wire that goes to the microcontroller (would be great to have the break out board so this is less messy).<br><br>
 
-<img src="images/touch-sensing-circuit.png" width="300px"><br><br>
+<img src="images/lab3/touch-sensing-circuit.png" width="300px"><br><br>
 
 <b>Code:</b> Once you build your circuit, you can write the code to light up your EL display (add more information here). <br><br>
 
@@ -482,7 +482,7 @@ Now that you know your EL display is working properly, you can make it light up 
 Right now, we are using a pretty big and clunky microcontroller, which doesn't integrate well with our design.<br>
 In the final step today, we want to replace the big microcontroller with a smaller one: the ATTiny.<br>
 
-<img src="images/attiny.jpg" width="300px"><br><br>
+<img src="images/lab3/attiny.jpg" width="300px"><br><br>
 
 Looking at this image, you may have a few questions, such as how to know which pin is which since nothing is labeled and how to program the thing since there is no space for a USB cable connection!<br><br>
 
@@ -490,7 +490,7 @@ Looking at this image, you may have a few questions, such as how to know which p
 
 To find our which pin is which, you first need to know where is the top left corner of the Attiny. If you look very closely, you can see a small dot on the top black surface. The small dot indicates the top left corner of the controller. Once you know which corner is the top left, you can search for the <a href="https://components101.com/microcontroller/attiny85-pinout-datasheet">data sheet of the ATTiny on google</a>.<br><br>
 
-<img src="images/attiny-top-left.png" width="200px"> <img src="images/attiny-datasheet.png" width="350px"><br><br>
+<img src="images/lab3/attiny-top-left.png" width="200px"> <img src="images/lab3/attiny-datasheet.png" width="350px"><br><br>
 
 Ok great, so now you know where VCC and GND are and where the data pins are for analog and digital communication.<br>
 However, the question still remains, how to upload code.<br><br>
@@ -499,13 +499,13 @@ However, the question still remains, how to upload code.<br><br>
 
 There are several different ways how to program an ATTiny, one of the most straight forward is to use a device, such as the Tiny Programmer, see below.<br>
 
-<img src="images/attiny-programmer.png" width="200px"> <br><br>
+<img src="images/lab3/attiny-programmer.png" width="200px"> <br><br>
 
 To program your ATTiny, you simply put it in the slot with the breadboard pins.<br>
 In the next step, you then connect jumper wires to go from the connecting pins to your breadboard.<br>
 You can use the USB connection on the Tiny Programmer to connect to your laptop.<br>
 
-<img src="images/tiny-programmer-in-action.png" width="500px"> <br><br>
+<img src="images/lab3/tiny-programmer-in-action.png" width="500px"> <br><br>
 
 Once you confirmed that your code is correct and everything is working, you can move the ATTiny off the Tiny Programmer and put it onto your breadboard where it will keep looping its code there to perform its function.<br><br>
 
@@ -516,24 +516,24 @@ So far, you have used for the ATTiny is called a DIP (dual inline package) that 
 
 To produce the ATTiny as an SMD on a PCB, we used (this PCB manufacturing facility) and gave them (this specification) and (these design files). As a result, we got the following SMD component back.<br><br> 
 
-<img src="images/attiny-smd.jpg" width="300px"> <br><br>
+<img src="images/lab3/attiny-smd.jpg" width="300px"> <br><br>
 
 Ok, so now we are back at square one, how do we program the thing? Since it doesn't have pins anymore, it doesn't fit into the Tiny Programmer.<br>
 Lucky for us, there is <a href="https://www.amazon.com/gp/product/B00HHH65T4/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1">another device for this</a> that you can see below.<br><br>
 
-<img src="images/attiny-testclip.png" width="300px"> <br><br>
+<img src="images/lab3/attiny-testclip.png" width="300px"> <br><br>
 
 To use it, you clamp the front onto your ATtiny.<br>
 Then you use jumper wires to connect the upper part back to the Tiny Programmer (Stefanie: I will try this out and update here once I know more).<br><br>
 
-<img src="images/attiny-testclip2.png" width="300px"> <br><br>
+<img src="images/lab3/attiny-testclip2.png" width="300px"> <br><br>
 
 <h4>Attaching the SMD Microcontroller to the rest of the Circuit with Z-Tape</h4><br>
 
 Now that we have programmed the ATTiny PCB, we can attach it to our card.<br>
 If you flip your ATTiny and look at the back you can see that we create the PCB as a double-sided PCB, i.e. the connections extend all the way to the back.<br><br>
 
-<img src="images/attiny-front.jpg" width="300px"><img src="images/attiny-back.jpg" width="300px"> <br>
+<img src="images/lab3/attiny-front.jpg" width="300px"><img src="images/lab3/attiny-back.jpg" width="300px"> <br>
 Front and back of the ATtiny PCB.<br><br>
 
 We can now use z-tape and attach it to the back of the PCB.<br>
