@@ -87,9 +87,9 @@ You are not allowed to use the inverter with anything else than the 1.2V AA batt
 
 Our 50V AC are low current and not really dangerous, but you might feel a little sensation at the tips of your fingers when touching the circuit. Therefore, never plug the display in while you are working on the circuit and you are touching the wires! <br><br>    
 
-<img src="images/lab3/battery-holder.png" width="600px"><br><br>
+<img src="images/lab6/battery-holder.png" width="600px"><br><br>
 
-<img src="images/lab3/inverter.png" width="400px"><br><br>
+<img src="images/lab6/inverter.png" width="400px"><br><br>
 
 <span style="color:red">While building your circuit, you must adhere to the following rules:
 <ul>
@@ -113,8 +113,8 @@ Connecting to the top side of the display (ITO with copper tape): Next, use croc
 
 
 
-<img src="images/lab3/invertertodisplay.jpg" width="300px">
-<img src="images/lab3/crocodile-connected-to-copper.jpg" width="445px"><br><br>
+<img src="images/lab6/invertertodisplay.jpg" width="300px">
+<img src="images/lab6/crocodile-connected-to-copper.jpg" width="445px"><br><br>
 
 
 <br>
@@ -153,13 +153,13 @@ Our switch will consist of a <b>triac</b> and an <b>optocoupler</b>.<br><br>
 
 A <b>triac</b> is similar to a transistor but also blocks alternating current (AC) while a transistor can only block direct current (DC). By switching the triac on/off, we can thus block the AC current coming from the power supply (i.e. our battery), which allows us to turn the display on/off under computer control. The triac's pins and how you add it to a circuit is similar to a transistor. It has two connectors for + and GND and a Gate that can trigger it to let current pass through or block it. The symbol and a picture of the triac that we will use in this lab are below:<br><br>
     
-<img src="images/lab3/Triac.png" width="100px"><img src="images/lab3/triac_image.png" width="200px"><br><br>
+<img src="images/lab6/Triac.png" width="100px"><img src="images/lab6/triac_image.png" width="200px"><br><br>
     
 <b>Isolating the Microcontroller Control Circuit from the Power Circuit</b><br>
 
     The ESP32 is rated only up to 12V so a higher voltage like the 50V AC we use could potentially damage the microcontroller's components. Therefore, we have to isolate the ESP32 from the 50V AC power supply. For this purpose, we will use an <b>optocoupler</b>, which uses optical signaling rather than electrical signaling, which allows it to isolate each part of the circuit while still enabling communication between the two. An optocoupler houses an LED and a photo-triac. When the LED turns on, it activates the photo-triac and energy then flows. Both components are optically connected but not electronically connected through a wire. The trigger mechanism works purely through light. This safety measurement ensures that no voltage of the 50V power supply can jump over to the microcontroller. You can see how the symbol and the component looks like:<br><br>
     
-<img src="images/lab3/opto_symbol.PNG" width="200px"><img src="images/lab3/opto_img.PNG" width="200px"><br><br>
+<img src="images/lab6/opto_symbol.PNG" width="200px"><img src="images/lab6/opto_img.PNG" width="200px"><br><br>
 
 We will setup the components to work together in the following way:<br>
 (1) the ESP32 controls the optocoupler and thereby protects itself from any high voltage.<br> 
@@ -171,7 +171,7 @@ We have to add a few resistors to the circuit. First, these resistors limit the 
 
 Bringing it all together, our AC switch circuit should look like this:<br><br>
     
-<img src="images/lab3/optotriac_circuit.PNG" width="700px"><br><br>   
+<img src="images/lab6/optotriac_circuit.PNG" width="700px"><br><br>   
 
 Get yourself a breadboard, wires and the components and build it.<br>
 <span style="color:red">Note that the optocoupler has to be plugged in in a specific orientation.</span> Look at the <a href="https://www.mouser.com/datasheet/2/308/MOC3163M-D-1811983.pdf" target="_blank">datasheet of the optocoupler here</a> to find out where the pins are. <br> The little dot on its top indicates the top left corner of the component. <br><br>
@@ -193,11 +193,11 @@ The longer the signal is turned on in one duty cycle the brighter the light sour
 Similarly, the longer the signal is turned off in one duty cycle the darker the light source will be.<br>
 Thus, a duty cycle of 25% results in a darker display than a duty cycle of 75%.<br><br>
 
-<img src="images/lab3/pwm-explanation2.png" width="500px"><br><br>
+<img src="images/lab6/pwm-explanation2.png" width="500px"><br><br>
         
 <b>Frequency:</b> So how is the duty cycle related to the frequency? The duty cycle only tells you the percentage the signal is on/off within a cycle (e.g., 25%). It does not say how long a cycle is. For this, you need to define the frequency. A higher frequency results in a shorter overall cycle (not affecting the percentage the signal is on/off) than a lower frequency as you can see below.<br><br>
 
-<img src="images/lab3/ac-frequency.png" width="500px"><br><br>
+<img src="images/lab6/ac-frequency.png" width="500px"><br><br>
 
 <b>What frequency should the PWM signal have?</b><br>
 If the frequency is very high and thus the duty cycle is compressed into a short time window, the turning on and off of the signal (i.e. the display) happens very fast.<br>
@@ -219,7 +219,7 @@ The frequency of the inverter's AC signal is given at 800Hz for our 1.2V battery
  -->
  The frequency of the PWM signal is something we can choose as mentioned above.<br><br>
 
-<img src="images/lab3/inverter-pwm-signal.png" width="400px"><br><br>
+<img src="images/lab6/inverter-pwm-signal.png" width="400px"><br><br>
 
 So why can the frequency of the PWM signal not be arbitrarily high?<br>
 The reason for this is something called <b>'zero crossing'.</b><br><br>
@@ -228,11 +228,11 @@ The reason for this is something called <b>'zero crossing'.</b><br><br>
 
 A zero-crossing is when the AC signal crosses the x-axis as shown in the image below.<br><br>
 
-<img src="images/lab3/ac-signal-viz-zero-crossing.jpg" width="400px"><br><br>
+<img src="images/lab6/ac-signal-viz-zero-crossing.jpg" width="400px"><br><br>
 
 When you check out  <a href="https://www.mouser.com/datasheet/2/308/MOC3163M-D-1811983.pdf" target="_blank">the optocoupler's datasheet,</a> you will see that it contains a "zero-crossing circuit". <br><br>
 
-<img src="images/lab3/zero-crossing-circuit-optocoupler.png" width="400px"><br><br>
+<img src="images/lab6/zero-crossing-circuit-optocoupler.png" width="400px"><br><br>
 
 What this means is that the optocoupler will only switch the display on/off when the <b>AC signal of the inverter</b> crosses zero and the PWM signal tells the optocoupler to change the display state. <br><br>
 
@@ -241,13 +241,13 @@ The image below shows this: Although the PWM frequency demands that the display 
 Thus, if our PWM signal is faster than the inverter's AC frequency, the optocoupler switch cannot react fast enough.<br>
 As a result, the optocoupler switch will react at some random point in time later, which disrupts the chosen duty cycle and makes it longer or shorter. Since the duty cycle is not consistent anymore, you will see the display flicker since it goes into random brightness states.<br><br>
 
-<img src="images/lab3/inverter-pwm.png" width="500px"><br><br>
+<img src="images/lab6/inverter-pwm.png" width="500px"><br><br>
 
 Now let's look at the same scenario when the PWM frequency is lower than the inverter frequency.<br>
 This will work well as you can see in the image below.<br> 
 When the PWM frequency demands the display to be switched off/on, there are several zero-crossings where the optocoupler can take action.<br><br>
 
-<img src="images/lab3/inverter-pwm-slow.png" width="500px"><br><br>
+<img src="images/lab6/inverter-pwm-slow.png" width="500px"><br><br>
 
 Thus, we have to select a PWM frequency that is significantly lower than the AC power supply frequency.<br>
 To be significantly below the inverter's AC frequency, we should set the PWM signal to around 100Hz to get a good result in our dimming. <br><br>
@@ -290,7 +290,7 @@ Use PWM to let the display increase and decrease in brightness. The increase fro
     <b>Why can conductive wires be used to sense temperature?</b><br>
     Conductive wires can be used to sense temperature by making use of a material property that most conductive metals share: Their resistance changes with changes in temperature. This property is called <b>thermal resistivity p</b> and is shown in the formula for determining the overall resistance of a wire below. As you can see, given a wire with a fixed length l and cross section A, the higher the thermal resistivity the higher the overall resistance. For our silver, the thermal resistivity p increases with increasing temperature. Thus, the higher the temperature, the higher the thermal resistivity and the higher the overall resistance of our wire. Thus, by reading the overall resistance of the wire with our microcontroller, we can determine the mug's temperature.<br><Br> 
 
-    <img src="images/lab4/resistance.png" width="400px"><br><br>
+    <img src="images/lab6/resistance.png" width="400px"><br><br>
 
     <b>How high should the resistance of the wire be to work as a reliable temperature sensor?</b><br>
     The higher the resistance of the conductive wire, the more sensitive it will be to temperature changes.<br>
@@ -326,7 +326,7 @@ Use PWM to let the display increase and decrease in brightness. The increase fro
      <b>Shaping a long conductive wire into a compact form factor:</b><br>
     Now that we know how long the wire has to be, the next question that arises is how to best shape it to take up minimal space on our design? A classic method to create a long wire on a small area is to design it in a horse shoe pattern similar to this:<br><br>
     
-    <img src="images/lab4/hsp.png" width="700px"><br><br>
+    <img src="images/lab6/hsp.png" width="700px"><br><br>
        
     <b>Write Processing Script to generate line layout:</b><br>
 
@@ -348,11 +348,11 @@ Use PWM to let the display increase and decrease in brightness. The increase fro
 
     Below, you see an image of the mug for reference. <br><br>
 
-    <img src="images/lab4/mug.png" width="300px"><br><br>
+    <img src="images/lab6/mug.png" width="300px"><br><br>
 
     And further below you see an image of the overall circuit layout that fits onto the mug and has all the elements you need for the circuit.<br><br>
 
-    <img src="images/lab4/mugCircuit.PNG" width="700px"><br><br>
+    <img src="images/lab6/mugCircuit.PNG" width="700px"><br><br>
 
     For your drawn circuit, aim for a total size aim of 17cm width and 7.5cm height so that the final design will fit nicely on the mug.<br>
 
