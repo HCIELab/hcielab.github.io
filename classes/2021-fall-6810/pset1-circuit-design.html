@@ -48,82 +48,70 @@
 
       <section class="col-md-8 pull-right main-content">
 </br></br></br></br>
-        <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2020)</a><br></h>
-        <h2 class="headline">Problem Set Series: Multi-Touch Pad</h2>
+        <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2021)</a><br></h>
+        <h2 class="headline">Pset1: User Interface for Multi-Touch Pad Fabrication Files</h2>
 
 
-<img src="images/pset-overall2.png" width="600px">
+In this problem set, you will write a user interface in Processing that will automatically generate the fabrication files for making multi-touch pads of different dimensions (e.g., 8x4 electrodes or 4x6 electrodes). A user will be able to input parameters, such as the number of electrodes for the rows and columns of the multi-touch pad and then automatically receive the matching fabrication files, i.e. 2D drawings of the electrode layouts in .pdf file format that the user can then send to their 2D printer for conductive inkjet printing. You will implement this interface in Processing.<br><br>
 
-          <hr>
-
-<h2 class="headline">Problem Set 1</h2>
-
-In the first part of the problem set, you are going to do the following steps:
-<ul>
-	<li>(1) Create Processing User Interface for Generating Fabrication Files</li>
-	<li>(2) Inkjet Print Top and Bottom Electrode Layers</li>
-	<li>(3) Assemble Top and Bottom Electrode Layers</li>
-	<li>(4) Connect Top and Bottom Electrode Layers to FCP connectors</li>
-	<li>(5) Build Multi-Touch Sensing Circuit</li>
-</ul>
-
-
-<h3>Check before you start: Do you have all the hardware?</h3>
-
-Before you get started, check if you have all of the following in your bag:<br>
-
-<ul>
-	<li>ESP32 microcontroller, breadboard, and wires</li>
-	<li>8 x 100Kohm resistors (one for each receiver pin)</li>
-	<li>one multiplexer</li>
-	<li>two FPC connectors</li>
-</ul><br>
-
-In addition, the following items will be provided when you come in for printing and assembling the multitouch pad:<br>
-
-<ul>
-	<li>two transparent sheets for conductive inkjet printing of the top and bottom electrodes</li>
-	<li>tattoo transfer paper that acts as a thin layer of glue to attach the top and bottom electrode sheets to each other</li>
-	<li>one transparent sheets to cover up the top electrodes</li>
-</ul><br>
-
-<img src="images/pset1/components-explained.png" width="650px"><br><br>
-
-<!-- <img src="images/pset1-transparent-sheets.jpg" width="300px"> -->
-
-
-<h3>(1) Processing User Interface for <br>Generating Fabrication Files</h3>
-
-In the first part of this problem set, you will write a user interface in Processing that will automatically generate the fabrication files for making multi-touch pads of different dimensions. In particular, a user will be able to input parameters, such as the number of electrodes of the multi-touch pad and then automatically receive the matching fabrication files, i.e. 2D drawings of the required circuits in .pdf file format that the user can then send to their 2D printer for conductive inkjet printing. You will implement this interface in Processing from scratch.<br><br>
-
-We will be using the classical two-layered diamond pattern that is commonly used for mutual-capacitive touch sensing. <br>
-As explained in lecture, this means that your multi-touch pad has two layers that are printed separately.<br>
-One layer contains the rows of electrodes, the other layer contains the columns.<br>
-Each row/column consists of multiple electrodes and has a single wire at the end.<br>
-Once both sheets are printed, you layer them on top of each other (with a bonding & isolation layer in between) to build the final circuit.<br><br>
+For the multi-touch pad, we will be using the classical two-layered diamond pattern that is commonly used for mutual-capacitive touch sensing.
+As explained in lecture, this means that your multi-touch pad has two electrode layers that are printed separately: One layer contains the rows, the other layer contains the columns.
+Each row/column consists of multiple electrodes and has a single wire at the end.
+Once both sheets are printed, you layer them on top of each other to build the multi-touch pad.<br><br>
 
 <img src="images/pset1/multitouch-overview.png" width="250px">
 <img src="images/pset1-multitouch-pad-explanation2.png" width="450px"><br><br>
 
-<b>Required User Interface Functionality</b><br>
+<b>Steps:</b>
+<ol>
+	<li>Create input fields for multi-touch dimensions in x/y via Processing</li>
+	<li>Draw electrodes via Processing</li>
+	<li>Drawing the Wires via Processing</li>
+	<li>Adjust the number of electrodes via the input fields</li>
+	<li>Write a Preview & Export Function for the Fabrication Files</li>
+	<li>Check that your drawing has the correct size when printed out</li>
+</ol>
 
-In the user interface, the user should be able to select:<br>
+<h3>(1) Create Input Fields for Multi-Touch Dimensions</h3>
+
+In the user interface, create two input fields that allow the user to set the desired number of electrodes for the 'columns' and 'rows' (default value should be 10 electrodes). A simple trick to create UI elements in Processing is to draw a rectangle and then check if a mouse-click event occured over the rectangle to transfrom it into a button. A text label overlaid on the rectangle can be used to display the current value. You can check the <a href="https://processing.org/reference/rect_.html">Rect</a> and <a href="https://processing.org/tutorials/text/">Text and Fonts</a> Tutorial for more information. Make sure the user cannot enter negative values. The upper bound for the number of electrodes that fit onto one sheet is <span style="color:red">20 electrodes</span> and thus the user should not be allowed to exceed this number.<br><br> 
+
+<img src="images/pset1/user-interface-inputs.png" width="300px"><br><br>
 
 
-<ul>
-	<li>the desired number of electrodes in x-direction (default value: 10 electrodes)</li>
-	<li>the desired number of electrodes in y-direction (default value: 10 electrodes)</li>
-	<li>the edge length of the electrodes (diamond shape) in mm (default value: 6mm)</li>
-	<!-- <li>the spacing between adjacent electrodes in mm (default value: 1mm)</li>
-	<li>the spacing between non-connected electrodes, i.e. rows and columns, in mm (default value: 0.5mm)</li>
-	<li>the thickness of the wires in mm (default value: 0.35mm)</li>
-	<li>the spacing of wires on the FPC connector in mm <span style="color:red">(to find the correct value, look at the data sheet of the FPC connector)</span></li> -->
-</ul>
-<br>
+<h3>(2) Drawing the Electrodes and Wires</h3>
+
+<b>Drawing one electrode:</b> Next, draw one electrode. An electrode is a rectangle rotated by 45 degrees. For now, don't worry about the exact size. To draw the electrode, you should use a <a href="https://processing.org/reference/PGraphics.html">PGraphics</a> canvas and then draw a <a href="https://processing.org/reference/PImage.html">PImage</a> onto it. <br><br>
+
+<b>Drawing multiple electrodes & Connecting to UI input:</b> Once you can draw one electrode, create a second electrode at an offset either horizontally to start forming a row or vertically to start forming a column. For now, don't worry about the exact number for the offset. Next, connect the number of electrodes to your user interface input elements, i.e. when the user sets the number of electrodes for the columns to be '10' and rows to be '6' your screen should draw ten electrodes vertically and 6 electrodes horizontally.<br><br>
+
+<b>Drawing Wires:</b> Next, draw the wires that connect the electrodes. For now don't worry about the exact thickness. At the end of each row/column, the wire is routed to the side to  connect to an FPC connector. For now, don't worry about the exact spacing on the FPC connector. <br><br>
+
+
+<img src="images/pset1/drawing-electrodes-wires.png" width="350px"><br><br>
+
+
+<h3>(4) Preview Function to Look at Each Layer Individually</h3>
+
+For the preview function, create one button that switches between the design's top and bottom layer view. Clicking the button should either show the top layer or the bottom layer so the layers can be looked at individually.<br><br>
+
+<img src="images/pset1/switch-view.png" width="700px"><br><br>
+
+<h3>(5) Export Function to Save Fabrication Files</h3>
+
+For export, create one button that when clicked saves the generated electrodes into two .pdf files. The bottom-electrodes.pdf should contain the rows, and the top-electrodes.pdf should contain the columns. Make sure the exported .pdf files have all settings correctly set for conductive inkjet printing <a href="lab1-circuit-design-for-inkjet-printing.html">(if you don't remember, go back to Lab1).</a> <span style="color:red">add an image of the two pdfs</span>
+<br><br>
+
+
+<img src="images/pset1-Processing-UI_1.png" width="500px"><br><br>
+
+
+
 
 Other parameters that you need to set in your code but don't have to display in the UI, are: <br>
 <!--  for the design (you don't have to display them in the UI, but please do think of good reasons for them, you can start from <a href="http://ww1.microchip.com/downloads/en/DeviceDoc/FAQs%20-%20Sensor%20Design%20Guidelines.pdf">here</a>): <br> -->
 <ul> 
+	<li>the edge length of the electrodes (diamond shape) in mm (default value: 6mm)</li>
 	<li>the spacing between adjacent electrodes in mm (default value: 1mm)</li>
 	<li>the spacing between non-connected electrodes, i.e. rows and columns, in mm (default value: 1mm)</li>
 	<li>the thickness of the wires inside of multi-touch pad that connect electrodes, in mm (default value: 0.3mm)</li>
@@ -136,28 +124,6 @@ Other parameters that you need to set in your code but don't have to display in 
 <img src="images/pset1/multitouch-measurements.png" width="350px"><br><br>
 
 
-The user interface should only allow the user to select only reasonable numbers using the input elements:<br>
-
-<ul>
-	<li>for each input field listed above, think about what is a reasonable lower and upper bound (i.e. min/max values) given the hardware you have available for the pset</li>
-	<li>write a short explanation why you picked the lower/upper bounds for each field and <a href="https://forms.gle/XmwrnYpiivpRzv7J8">submit it using this google form</a> (before you fill out the google form, you may want to read the rest of pset1 to understand more about the hardware you have available)</li>
-	<li>implement the lower/upper bounds in your user interface, i.e. the user should either not be able to select values outside the lower/upper bounds (i.e. you only offer a selection of valid numbers) or if your UI allows to enter any value even invalid ones, then your user interface needs to show the user a warning that the value is invalid and reset to the last valid value</li>
-</ul>
-<br>
-
-Finally, the user interface should have a preview and export function:<br>
-
-<ul>
-	<li>one button to switch between the design's top and bottom layer view, i.e. clicking the button should either show the top layer or the bottom layer so the layers can be looked at individually</li>
-	<li>one save button, which when clicked saves the generated electrodes into two .pdf files (called bottom-electrodes.pdf and top-electrodes.pdf), one for the rows of electrodes (bottom sheet) and one for the columns (top sheet)</li>
-	<li>make sure the exported files have all settings correctly set for conductive inkjet printing (if you don't remember, go back to Lab1) </li>
-</ul>
-<br>
-
-<img src="images/pset1-Processing-UI_1.png" width="500px"><br><br>
-
-The switch top / bottom view function should look like something similar to the following: <br>
-<img src="images/pset1/switch-view.png" width="700px"><br><br>
 
 
 <b>Setting the Processing window to the right resolution for printing</b><br>
@@ -178,27 +144,8 @@ So if you draw a rectangle of 100 pixel it will be 100pixel / 3.78 dots per mm =
 
 <img src="images/pset1-printing-setting.png" width="600px"> <br><br>
 
-<b>Drawing the Top and Bottom Electrodes and Wires</b><br>
 
-You may find it helpful to look at the following Processing classes to draw the top and bottom electrodes and wires:<br>
 
-<ul>
-	<li><a href="https://processing.org/reference/PGraphics.html">PGraphics</a></li>
-	<li><a href="https://processing.org/reference/PImage.html">PImage</a></li>
-</ul>
-<br>
-
-<b>Creating User Interface Input Elements</b><br>
-
-For the UI elements, we do not use an external library and instead use a simple trick:<br>
-We draw the UI elements as regular graphic shapes (e.g. rectangles), add a text where needed to display numbers, and then use mouse-click and drag events to update the UI elements.<br>
-
-<ul>
-	<li><a href="https://processing.org/reference/rect_.html">Rect</a></li>
-	<li><a href="https://processing.org/tutorials/text/">Text and Fonts Tutorial</a></li>
-	
-</ul>
-<br>
 
 <b>Testing your Program</b><br>
 
