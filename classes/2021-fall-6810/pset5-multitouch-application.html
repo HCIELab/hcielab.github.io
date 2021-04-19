@@ -52,9 +52,9 @@
         <h2 class="headline">Problem Set Series: Multi-Touch Pad</h2>
 
 
-<img src="images/pset2-overall.png" width="300px">
-<img src="images/pset4/UI-recognizer-A.png" width="240px">
-<img src="images/pset4/UI-3d-visualization-2-finger.png" width="200px"> <br>
+<img src="images/pset5/pset2-overall.png" width="300px">
+<img src="images/pset5/UI-recognizer-A.png" width="240px">
+<img src="images/pset5/UI-3d-visualization-2-finger.png" width="200px"> <br>
 
           <hr>
 
@@ -97,22 +97,22 @@ Instead, you can use the <b>$1 Unistroke Recognizer</b>, which is available as a
 
 <i>Unistroke:</i> Second, the recognizer is a 'unistroke' recognizer. What this means is that it can only recognize gestures that are made by <b>one finger</b> in <b>one continous stroke</b>. For instance, consider the 2 gestures shown below designed for the letter "A". The left one is written in one continous stroke and thus can be recognized by the $1 Unistroke recognizer. The right one, however, is written in two separate strokes and thus cannot be recognized. Similarly, you can recognize a single finger swipe left/right gesture, but you cannot recognize a zoom gesture with two fingers since that would require combining two separate strokes into one gesture. The $1 family has also has a multi-stroke recognizer but as mentioned previously it is not available as a library for Processing.<br><br>
 
-<img src="images/pset4/drawing-pattern-requirement-1.png" width="500px"> <br><br>
+<img src="images/pset5/drawing-pattern-requirement-1.png" width="500px"> <br><br>
 
 <i>Stroke Orientation:</i> The gesture recognizer ignores the stroke 'orientation'. Consider the example below, which shows the same gesture but executed in a different orientation on the multi-touch pad. The gesture recognizer automatically compensates for the change in orientation and will detect that both gestures are the same.<br><br>
 
- <img src="images/pset4/stroke-orientation-example.png" width="450px"> <br><br>
+ <img src="images/pset5/stroke-orientation-example.png" width="450px"> <br><br>
 
 <i>Stroke Direction:</i> While the recognizer ignores stroke orientation, it does recognize stroke direction, i.e. the vector direction of the line along which your finger moves. For example, the two gestures shown below are visually identical on first sight but in the first gesture we start on the top left, while in the second gesture we start on the bottom left. Therefore, although visually the same gesture, the $1 algorithm is able to distinguish them as two different gestures.<br><br>
 
-<img src="images/pset4/stroke-direction-example.png" width="450px"> <br><br>
+<img src="images/pset5/stroke-direction-example.png" width="450px"> <br><br>
 
 <!-- <i>$1 Dollar:</i> Finally, the recognizer is called <b>"$1"</b> because in machine learning terms, <span style="color:red">$1 is an instance-based nearest-neighbor classifier with a 2-D Euclidean distance function, i.e., a geometric template matcher.</span> <br><br>
  -->
 <b>Try the Gesture Recognizer for yourself on the Demo Webpage</b><br>
 We recommend before you move on, you try out the interactive demo of the $1 Unistroke Recognizer that you can <a href="http://depts.washington.edu/acelab/proj/dollar/index.html">find here on this website</a>. Scroll down to the 'Demo' section and you see 16 different gestures you can draw into the gray window on the right side. Draw each of the gestures once to get a feel for how different gestures are designed and how well they can be classified. After you drew a gesture, you will see its classified name at the top of the window. You can also make your own gesture by first drawing your custom gesture into the gray drawing window and then giving it a name in the 'Add as example of custom type:' field, then click 'Add'. If you now draw your custom gesture again, it should be correctly classified.<br><br> 
 
-<a href="http://depts.washington.edu/acelab/proj/dollar/index.html"><img src="images/pset4/one-dollar-demo.png" width="700px"></a> <br><br>
+<a href="http://depts.washington.edu/acelab/proj/dollar/index.html"><img src="images/pset5/one-dollar-demo.png" width="700px"></a> <br><br>
 
 <h4>Processing Library for $1 Unistroke Recognizer</h4> <br>
 
@@ -120,7 +120,7 @@ Now that you know a bit more about what the $1 Unistroke recognizer can and cann
 As mentioned previously, the authors of the UIST'07 paper provide the $1 Unistroke Recognizer as a Processing library with all the functionality you saw above.<br>
 Start by importing the <b>$1 Unistroke Recognizer</b> library by going to <b>Sketch -> Import Library</b> and finding it through the search bar.<br><br>
 
-<img src="images/pset4/$1 Unistroke Recognizer.png" width="700px"> <br><br>
+<img src="images/pset5/$1 Unistroke Recognizer.png" width="700px"> <br><br>
 
 Next, import the $1 Unistroke Recognizer library into your PSet3 Processing code.<br>
 <pre>import de.voidplus.dollar.*; </pre> <br>
@@ -145,7 +145,7 @@ While you could obtain the x-y-coordinates for your gesture template by tracking
 
 Below you see a recording of all the coordinates for our 'V' gesture that we then feed into the learn() function to add our new gesture. Do the same before moving on.<br><br>
 
-<img src="images/pset4/add-gesture3.png" width="650px"> <br><br>
+<img src="images/pset5/add-gesture3.png" width="650px"> <br><br>
 
 <h4>Connect Finger Gesture to a Callback Function </h4> <br>
 
@@ -194,8 +194,8 @@ Note that you don't have to 'stop' tracking. The track() function will only be e
 Finally, once your gesture is detected, your callback function should visualize the detected gesture.<br>
 You can do this by writing the name of the detected gesture into the Processing UI window as shown in the top left corner of the images below.<br>
 
-<img src="images/pset4/UI-recognizer-A.png" width="350px">
-<img src="images/pset4/UI-recognizer-C.png" width="350px"> <br><br>
+<img src="images/pset5/UI-recognizer-A.png" width="350px">
+<img src="images/pset5/UI-recognizer-C.png" width="350px"> <br><br>
 
 <h4>Create 3 Different Gestures</h4> <br>
 
@@ -215,8 +215,8 @@ To visualize the touch pressure, you are going to use a 3D visualization.<br>
 The height of the touch point represents how much pressure is applied.<br>
 Below you can see an example: on the left side only little pressure is applied and the touch bar is small, whereas on the right side a lot of pressure is applied and the bar is much higher.<br><br>
 
-<img src="images/pset4/UI-3d-visualization-1-finger-1.png" width="354px">
-<img src="images/pset4/UI-3d-visualization-1-finger-2.png" width="350px"> <br><br>
+<img src="images/pset5/UI-3d-visualization-1-finger-1.png" width="354px">
+<img src="images/pset5/UI-3d-visualization-1-finger-2.png" width="350px"> <br><br>
 
 For this part of the PSet, you are going to do the following three steps: <br>
 <ol>
@@ -231,7 +231,7 @@ Start by downloading <a href="software/pset4_3d_visualization_skeleton_v3.zip">t
 
 Once you opened the skeleton code, you will see that there are some new variables and functions that are related to the 3D visualization (e.g., the axis and camerapos parameters and the drawAxis(), cameraViewControl() and update3DImage() functions). The remaining functions (readSerial(), setBaseLine(), substractBaseLine(), setColors(), and interpolate()) are from pset3 and you only have to move your code over to fill them out.<br><br>
 
-<img src="images/pset4/pset4-skeleton-code.png" width="450px"> <br><br>
+<img src="images/pset5/pset4-skeleton-code.png" width="450px"> <br><br>
 
 <h4>Drawing the XYZ axes for 3D Visualization</h4> <br>
 
@@ -243,7 +243,7 @@ If you point your index finger in the positive y direction (down) and your thumb
 It's left-handed if you use your left hand and do the same. <br>
 In Processing, the system is left-handed, as follows: <br><br>
 
-<img src="images/pset4/processing-3d-system.png" width="450px"> <br><br>
+<img src="images/pset5/processing-3d-system.png" width="450px"> <br><br>
 
 The length of the X and Z axes should be the width and height of your interpolated PImage.<br>
 The length of the Y axis should be slightly higher than the maximum pixel value (brightness) of your interpolated PImage so you have some space at the top.<br>
@@ -254,7 +254,7 @@ We will use red for the x-axis, green for the y-axis, and blue for the z-axis (s
 
 Once you finish the <i>drawAxis()</i> function, you should have something that looks like this (note that the height of your y-axis depends on the brightness values you get in your PImage and may not be shown to scale here):<br><br>
 
-<img src="images/pset4/UI-3d-visualization-drawAxis.png" width="400px"> <br><br>
+<img src="images/pset5/UI-3d-visualization-drawAxis.png" width="400px"> <br><br>
 
 <h4>Moving the Camera Around the 3D Visualization via Keyboard Input</h4> <br>
 
@@ -279,8 +279,8 @@ When you initialize your camera, you may want to start by using the default para
 Moving the camera position (eye position) closer or further away from the 3D visualization results in a zooming in/out effect (see images below).<br>
 Implement a zooming effect so that when you press the key "E" you zoom in and if you press the key "Q" you zoom out (i.e. change the distance between camera position and the 3D coordinate origin).<br><br>
 
-<img src="images/pset4/UI-3d-visualization-cameraViewControl-zoom-out.png" width="350px">
-<img src="images/pset4/UI-3d-visualization-cameraViewControl-zoom-in.png" width="350px"> <br><br>
+<img src="images/pset5/UI-3d-visualization-cameraViewControl-zoom-out.png" width="350px">
+<img src="images/pset5/UI-3d-visualization-cameraViewControl-zoom-in.png" width="350px"> <br><br>
 
 <b>Rotating in the X-Z Plane</b><br>
 To move the camera in the x-z plane around the 3D visualization, you need to keep it at the same distance from the 3D visualization at all times (see images below).<br>
@@ -290,16 +290,16 @@ If you press the key 'D' you should rotate right and if you press the key 'A' yo
 Note that you only have to update the camera's position.<br>
 Since you set the scene's center x/y/z to be the 3D visualization, the camera will automatically rotate while moving around the 3D visualization to always look at it.<br><br>
 
-<img src="images/pset4/UI-3d-visualization-cameraViewControl-rotate-1.png" width="350px">
-<img src="images/pset4/UI-3d-visualization-cameraViewControl-rotate-2.png" width="350px"> <br><br>
+<img src="images/pset5/UI-3d-visualization-cameraViewControl-rotate-1.png" width="350px">
+<img src="images/pset5/UI-3d-visualization-cameraViewControl-rotate-2.png" width="350px"> <br><br>
 
 
 <b>Changing the Camera's Y-Axis Height</b><br>
 To move the camera along the y-axis, you need to change the camera's eye position again, but this time only along the y-axis.<br>
 Pressing 'W' on the keyboard should move the camera up and pressing 'S' on the keyboard should move the camera down along the y-axis as shown in the image below.<br><br>
 
-<img src="images/pset4/UI-3d-visualization-cameraViewControl-view-height-1.png" width="350px">
-<img src="images/pset4/UI-3d-visualization-cameraViewControl-view-height-2.png" width="350px"> <br><br>
+<img src="images/pset5/UI-3d-visualization-cameraViewControl-view-height-1.png" width="350px">
+<img src="images/pset5/UI-3d-visualization-cameraViewControl-view-height-2.png" width="350px"> <br><br>
 
 Finally, if you are experiencing some lagging in your application, you can also set the frame rate for the camera for better performance using the line below:<br><br>
 
@@ -323,12 +323,12 @@ To implement the y-height to color mapping, you may find it helpful to use the <
 The resulting 3D visualization should look like something in the following.<br><br>
 
 One finger touching: <br>
-<img src="images/pset4/UI-3d-visualization-1-finger-1.png" width="350px">
-<img src="images/pset4/UI-3d-visualization-1-finger-2.png" width="350px"> <br><br>
+<img src="images/pset5/UI-3d-visualization-1-finger-1.png" width="350px">
+<img src="images/pset5/UI-3d-visualization-1-finger-2.png" width="350px"> <br><br>
 
 Two fingers touching:<br>
-<img src="images/pset4/UI-3d-visualization-2-finger-2.png" width="350px">
-<img src="images/pset4/UI-3d-visualization-2-finger-4.png" width="350px"> <br><br>
+<img src="images/pset5/UI-3d-visualization-2-finger-2.png" width="350px">
+<img src="images/pset5/UI-3d-visualization-2-finger-4.png" width="350px"> <br><br>
 
 Note that all this noise is because we use the PImage that also contains brightness values outside the recognized 'finger blobs'. If you want a cleaner visualization, you can create a new PImage that has all pixels black except those pixels that belong to a blob. Note that this is not mandatory for this pset but if you'd like some clean output you can experiment with this.
 <br><br>
