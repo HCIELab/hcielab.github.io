@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HCI Engineering Group</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!-- CSAIL ICON -->
+	<link rel="CSAIL" href="../../../images/icon/csail.ico" type="image/x-icon" />
+
+	<!-- Bootstrap -->
+	<link href="../../css/bootstrap.css" rel="stylesheet">
+	<link href="../../css/custom-style.css" rel="stylesheet">
+
+	<!-- jQuery -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+
+	<!-- Google Analytic -->
+	<script type="text/javascript" src="../../js/analytics.js"></script>
+
+	<style>
+	.etech-sch-col1 {width:60px; border: 1px solid black;padding:10px;}
+	.etech-sch-col2 {width:120px; border: 1px solid black;padding:10px;}
+	.etech-sch-col3 {width:450px; border: 1px solid black;padding:10px;}
+	.etech-sch-col4 {width:70px; border: 1px solid black;padding:10px;}
+  .etech-sch-col5 {width:70px; border: 1px solid black;padding:10px;}
+  /*.etech-sch-col6 {width:170px; border: 1px solid black;padding:10px;}*/
+  ul {
+    padding:0px;padding-left:10px;margin:0px;
+  }
+	</style>
+</head>
+
+<body>
+<header class="main_header">
+	<!-- to be filled by javascript, see header.html -->
+</header>
+
+<section class="main_container">
+	<div class="container">
+    <div class="row nothing">
+
+      <section class="col-md-8 pull-right main-content">
+</br></br></br></br>
+        <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2020)</a><br></h4>
+        <h2 class="headline">Building an Interactive Mug</h2>
+In this lab, we will build an interactive mug that can sense its own temperature and signal the user if the content is too hot, too cold or just right. We will design an ink-jet printed temperature sensor to sense the heat of the mug and we will use the display which you sprayed in the last lab to signal to the user the current temperature of the mug's content.      
+          <hr>
+
+ <h3 class="headline">Your Task</h3>
+    You will create the interactive mug by following these steps:
+    <ol>
+        <li>Design an inkjet printed temperature sensor using Processing.</li>
+        <li>Extend the inkjet printed temperature with wires to attach to your sprayed electrolumiscent (EL) display.</li>
+        <li>Fabricate and assemble the printed circuit and EL display, then attach both to the mug.</li>
+        <li>Build the circuit for the mug to read the temperature and control the EL display accordingly.</li>
+        <li>Write the code that reads the current temperature and that adjusts the brightness of the EL display accordingly.</li>
+    </ol>
+    
+<br>
+    
+    <iframe width="260" height="315" src="https://www.youtube.com/embed/E8sfqrH_1Ks" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    
+    <h3 class="headline">Deliverables Lab 4 (due Wednesday, Oct. 7, 2020, 11.59pm)</h3>
+    
+    At the end of Lab 4, upload to your student google drive:
+    <ul>
+        <li>the Processing code (.pde) to generate the temperature sensor</li>
+        <li>the Arduino code (.ino) for controlling your display and reading the temperature</li>
+        <li>2-3 photos (.jpg or .png) from different angles of your mug</li>
+        <li>a short video (.mov or .mp4, max. 1 minute) showing how your display turned off at room temperature and starts blinking after pouring in boiling hot water in it.</li>
+    </ul>
+    
+    
+    
+    <h3 class="headline">(3) Fabrication and Assembly of Circuit, EL display, and Mug</h3><br>
+
+    Now that you have the design ready, you can come in for fabrication and assembly.<br><br>
+
+    <b>Inkjet print your circuit</b><br>
+    Once you are done with your circuit design, please put it in your google drive, let us know on slack that you are ready for inkjet printing, and then book an OH slot.<br><br>
+
+    <span style="color:red">Before you come to the office hour to print, please double check that:</span>
+
+    <ol>
+        <li>Thermal trace line width is 0.3mm</li>
+<li>Spacing between thermal traces is 0.5mm</li>
+<li>Total horizontal length of the thermal “block” is 7cm max</li>
+<li>The spacing between your display-connected traces matches the distance between the two pieces of copper on YOUR display.</li>
+<li>The total height of the system (e.g. the minimum bounding rectangle) is of maximum height 3in</li>
+<li>The temperature sensor does not overlap with the display.</li>
+<li>Please bring the EL display with you to the OH so we can double check everything there.</li>
+</ol><br>
+    
+    Also when you come in, please don't forget to pick up:<br><br>
+    <ol>
+        <li>the mug</li>
+        <li>a 1 kOhm resistor</li>
+        <li>a roll of copper tape</li>
+    </ol>
+
+    <img src="images/lab7/copper-tape.png" width="300px"><br><br>
+
+    <b>Test resistance of your temperature sensor</b><br>
+    Once your print is done and before you continue with assembly, check if the temperature sensor has the correct resistance of 1kOhm.<br> 
+    Use a multimeter and hold its two electrodes on the two corresponding connector pads (see image below).<br> 
+    You should read a value close to 1 kOhm. If not, please let us know and we can help debug.<br><br>
+
+    <img src="images/lab7/testingTemperature2.jpg" width="300px"><br><br>
+    
+    <b>Attach your sprayed EL Display on the Circuit</b><br>
+    Once you have printed your circuit and verified that the temperature sensor is having the right resistance, you are ready to attach your EL display to it.<br><br>
+
+    First lay your circuit on a flat surface. Take a roll of copper tape and cut of two 6cm long pieces. Glue one half of each copper stripe on the two wires that lead to your display and bend the other half around such that the adhesive side faces upwards. <br>  
+    Make sure that the two copper stripes don't connect to each other and have a save distance of at least 1cm. <br><br>
+
+    <img src="images/lab7/copperOpen.png" width="350px">
+    <img src="images/lab7/copperClosed.jpg" width="350px"><br><br>
+
+
+    Next, stick your display onto the sticky area of the bend-over copper stripes.<br>
+    Make sure that one copper strip connects only to the ITO and the other copper strip only connects to the sprayed copper layer.<br><br>
+
+    <img src="images/lab7/copperDisplay.png" width="350px">
+    <img src="images/lab7/displayOnCopper.jpg" width="350px"><br><br> 
+
+    <b>Test Display Connection</b><br>
+
+    Now, it's time to test if the connection between the display and the printed traces is working.<br>
+    Take your battery and inverter circuit and connect it to the two connector pads on the left hand side of the circuit. <br>
+    You should see that the display lights up.<br> 
+    We will have an inverter and power supply at the OH, so you don't have to bring your own.<br><br>
+
+    <img src="images/lab7/displayTesting.png" width="400px"><br><br> 
+
+    Once, you verified that everything works, you can tape the display on its edges onto the circuit sheet.<br> 
+    Take some scotch tape and apply a stripe on the left and the right edge of your display.<br><br>
+
+    <img src="images/lab7/scotchOnOneSide.png" width="350px">
+    <img src="images/lab7/scotchOnBothSides.jpg" width="350px"><br><br>
+
+    <b>Attaching the entire circuit to the mug</b><br>
+    Now we are ready to attach the entire circuit to the mug.<br>
+    For this, we will use double sided tape.<br>
+    In the OH, cut off a tape strip the length of your circuit design, i.e. it should be 17cm and attach it across the surface of the mug.<br> 
+    Next, also remove the protective foil from the tape such that it is also adhesive on the top side.<br><br>
+
+    <img src="images/lab7/attachingTape.png" width="240x">
+    <img src="images/lab7/mugWithTape.jpg" width="280px"><br><br>
+
+    Now take your printed circuit and glue it onto your mug.<br><br>
+    
+    <img src="images/lab7/circuitToMug.png" width="300x">
+    <img src="images/lab7/circuitOnMug.jpg" width="300px"><br><br>
+    
+    <b>Attaching wires to the silver connector pads</b><br>
+    
+    Next, you'll need jumper wires that can connect the mug to a breadboard and your ESP32.<br>
+    Since the silver connector pads are not suitable for soldering, we instead solder the jumper wires onto little piece of copper tape and then attach those to the silver connector pads.<br><br>
+
+    To do this, first cut of a copper strip for each silver connector pad.<br>
+    The copper stripes should be about 3cm long, which is the size of your printed silver pads.<br>
+    Take a soldering iron and apply a drop of solder on them. <br>
+    Next, take a short jumper wire, hold it over the solder drop and press it down with the solder iron until it is well connected.<br><br>
+    
+    <img src="images/lab7/copperDrop.jpg" width="250x">
+    <img src="images/lab7/jumperOnCopper.jpg" width="250px"><br><br>
+    
+    Repeat this for all 4 jumper wires.<br><br>
+    
+    Now, carefully attach the copper stripes onto your mug's connector pads.<br><br>
+    <img src="images/lab7/fourConnectors.jpg" width="250x">
+    <img src="images/lab7/jumpersAttached.jpg" width="250px"><br><br>
+    
+    To extend the wires and make them longer, you can connect male-to-female jumper wires that you got in your grey boxes to the four dangling wires.<br><br>
+    
+    <img src="images/lab7/jumperTogether.jpg" width="300px"><br><br> 
+    
+    <b>Protecting the Circuit from Moisture and Touching</b><br>
+
+    The last step you need to do is to protect it from moisture.<br>
+    This is especially important since we want to fill hot and cold water into it and some water may spill over (try to avoid it).<br>
+    Also, we want to protect the circuit from constant touching, which may happen with a mug.<br>
+    To protect the circuit, we will use clear tape to cover all the electronics.<br><br>
+    
+    To do this, cut off a 19cm long stripe of our extra wide 3inch tape.<br> 
+    Carefully apply the tape on the entire circuit.<br> 
+    If you make a mistake here, you need to continue rolling the tape over the circuit. You cannot remove the tape anymore since you might rip off the silver traces.<br>
+    Therefore, be extra careful.<br><br>
+    
+    <img src="images/lab7/tapeOnDisplay.jpg" width="400px"><br><br> 
+
+    <h3 class="headline">(4) Connecting to the Microcontroller and Building the Circuit</h3><br>
+    
+    Controlling this mug interface requires 2 parts.<br>
+    <ol>
+        <li>a circuit to control the EL display. You have completed this circuit already in lab 3 and will will use it in this lab. </li>
+        <li>a circuit to read the resistance of your printed temperature sensor. We will do this now. 
+        </ol>
+        <br>
+    
+    <b>Building the temperature sensor circuit</b><br>
+    Remember that to measure the temperature of the liquid in the mug, we need to measure the changes in resistance of the silver trace that makes up our temperature sensor.<br>
+    So how can we measure resistance on the ESP?<br>
+    Unfortunately, we can't. The ESP can only measure voltage but not resistance.<br><br> 
+
+    However, there is a way to use changes in voltage to determine resistance. A circuit that allows us to do this is called a <b>voltage divider</b>. A schematic of a voltage divider looks like this:<br><br>
+
+     <img src="images/lab7/voltage_divider.png" width="200px"><br><br>
+    
+    It consists of one <b>known resistor (R1)</b> and one <b>unknown resistor (R2)</b> that we want to measure. In our case, the unknown resistor R2 is our temperature sensor. For the known resistor R1, we can simply pick one but it's a good idea to pick something that matches your other resistor R2, i.e. we will use 1kOhm.<br><br>
+
+    <b>Vin</b> is the 3.3V supply voltage from the ESP32.<br> 
+    <b>Vout</b> is a voltage than will change when the resistance of our temperature sensor (R2) changes.<br><br>
+
+    We can compute VOut using the following formula:<br><br>
+    
+    <pre>Vout = (R2*Vin)/(R1+R2)</pre><br>
+    
+    If we use a 1kOhm resistor for R1 and we connect the temperature sensor as R2, then we can solve the equation for R2 to determine the change in resistance, which ultimately allows us to determine the current temperature of the mug.<br><br>
+
+    To get started with this, build the voltage divider on a breadboard and connect your temperature sensor on the mug to this circuit.<br><br>
+    
+    <b>Building the EL display control circuit</b><br>
+    If you finished all task from lab3, you already have this circuit.<br>
+    All that's left to do is to connect your EL display control cicuit to the corresponding wires on the mug. <br><br>
+
+    <h3 class="headline">(5) Code for Reading Mug's Current Temperature and Adjusting Display</h3><br>
+
+    Now that everything is wired up, you are ready to write the code for determining the temperature and adjusting the display brightness accordingly.<br>
+    The display should be turned off when the mug is cold. It should start blinking at temperatures above >70C to help users avoid getting burned.<br><br>
+    
+    <b>Code for Reading Voltage from Voltage Divider Circuit</b><br>
+    Use analogRead() to read the incoming voltage value from your voltage divider and write it to the Serial monitor. analogRead() returns the voltage value between 0V and 3.3V and maps it to an output range of 0 - 4095. What this means is that if you read a value of 2047 (4095/2), your voltage is around 1.65V (3.3V/2). If you see the voltage readings in the Serial monitor, move to the next stpe. <br><br> 
+    
+    <img src="images/lab7/voltage-readings.png" width="700px"><br><br>
+
+    <b>Converting Voltage To Resistance Values</b><br>
+    
+    Now, it's time to apply the voltage divider formula from above.<br> 
+    Use it to compute the resistance of your temperature sensor R2 and plot the values.<br><br>
+    
+    <img src="images/lab7/resistance-readings.png" width="700px"><br><br>
+
+    <b>Smoothing the Signal with a Box Filter</b><br>
+    You'll notice that the resistance values are fluctuating a lot.<br> 
+    This is due to the limited precision of the ESP32 and environmental electric noise that slightly changes the read in voltage values. <br><br>
+    
+    Recall from the lecture 'Sensing: Touch', that we introduced a filtering technique to smooth out such noise.<br> 
+    It's called a box filter and it works by saving an array of sensor values (the box) of a specific width (e.g., 300 values) and computing the mean of this box.<br> 
+    As new sensing values get read in through analogRead(), the box moves forward by one value, i.e. the oldest element in the array gets replaced by the new value and you need to recompute the mean.<br><br>
+    
+    Implement a box filter that smoothens out the values from analogRead().<br> 
+    Use a box width of 300 values.<br> 
+    Once you have completed the filter, your results should look like this:<br><br>
+
+    <img src="images/lab7/filtered_large3.png" width="700px"><br><br>
+
+    You see that the filter first collects 300 values and the mean is increasing with every new value. When the box is full, we can have a stable resistance value. Below we see a zoomed in graph of the filtered values. The fluctuation is reduced to just 20Ohm  (instead of 300Ohm without filtering, which is 15x more noisy!).<br><br>
+    <img src="images/lab7/filtered_small2.png" width="700px"><br><br>
+
+    <b>Measuring temperature with resistance increase</b><br>
+    Now, it's time to conduct an experimen.<br>
+    How much does the resistance changes as the temperature of a liquid inside the mug increases?<br><br>
+
+    First, note down your current mean resistance at room temperature.<br> 
+    Get some water to boil to 100C and pour it into the mug while you continue to plot the resistance values with the serial plotter.<br> 
+    You should notice that the values start increasing while the mug is heating up. <br>
+    Once you reached a stable value, note it down as well.<br> 
+    The value increase should be around 4%.<br><br>
+    
+    <b>Connecting Temperature/Resistance Increase to Display Behavior</b><br>
+    Next, use your temperature sensor values to set different states for your display. <br> 
+    While the mug is at room temperature or below around 60C, it should be turned off.<br>
+    The display should blink if the mug is really hot and ready to drink (i.e., the temperature when you poured in the boiling water, around 80C (the boiling water gets a bit colder than 100C when you pour it into a cold mug).<br><br> 
+    
+    Your final design should look like this:<br><br>
+
+    <iframe width="260" height="315" src="https://www.youtube.com/embed/E8sfqrH_1Ks" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
+
+    <h3 class="headline">Deliverables Lab 4 (due Wednesday, Oct. 7, 2020, 11.59pm)</h3>
+    
+    At the end of Lab 4, upload to your student google drive:
+    <ul>
+        <li>the Processing code (.pde) to generate a temperature sensor</li>
+        <li>the Arduino code (.ino) for controlling your display and reading the temperature</li>
+        <li>2-3 photos (.jpg or .png) from different angles of your mug</li>
+        <li>a short video (.mov or .mp4, max. 1 minute) showing how your display turned off at room temperature and starts blinking after pouring in boiling hot water in it.</li>
+    </ul>
+
+<hr>
+
+        <br />
+        <br />
+        <br />
+      </section>
+
+      <aside class="col-md-4 pull-left">
+         <br /> <br /> <br /> <br /></br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+      </aside>
+
+    </div>
+  </div>
+  </div>
+</section>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 footer" style="text-align: center;">
+			<span class="copyright">
+			Since 2017 &copy; MIT CSAIL (HCI Engineering group) [redesign by
+			<a href="http://punpongsanon.info/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			moji
+			</a>].
+			All Rights Reserved.
+
+			<a href="http://mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/mit.svg" alt="MIT" class="footer-logo" />
+			</a>
+			<a href="http://csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/csail.svg" alt="CSAIL" class="footer-logo"/>
+			</a>
+			<a href="http://hci.csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/hci.svg" alt="HCI" class="footer-logo"/>
+			</a>
+			</span>
+		</div>
+	</div>
+</div>
+
+<!-- Bootstrap -->
+<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+<!-- header -->
+<script type="text/javascript" src="../../js/headerstrap-for-subpage.js"></script>
+
+</body>
+</html>

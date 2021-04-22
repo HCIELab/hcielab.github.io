@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HCI Engineering Group</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!-- CSAIL ICON -->
+	<link rel="CSAIL" href="../../images/icon/csail.ico" type="image/x-icon" />
+
+	<!-- Bootstrap -->
+	<link href="../../css/bootstrap.css" rel="stylesheet">
+	<link href="../../css/custom-style.css" rel="stylesheet">
+	
+	<!-- jQuery --> 
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+	
+	<!-- Google Analytic -->
+	<script type="text/javascript" src="../../js/analytics.js"></script>
+	
+	<style>
+	.etech-sch-col1 {width:60px; border: 1px solid black;}
+	.etech-sch-col2 {width:120px; border: 1px solid black;}
+	.etech-sch-col3 {width:450px; border: 1px solid black;}
+	.etech-sch-col4 {width:100px; border: 1px solid black;}
+	</style>
+</head>
+
+<body>
+<header class="main_header">
+	<!-- to be filled by javascript, see header.html -->
+</header>
+
+<section class="main_container">
+  <div class="container">
+    <div class="row nothing">
+
+      <section class="col-md-8 pull-right main-content">
+       
+       </br>
+       </br>
+       </br>
+       </br>
+       
+        <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2020)</a><br></h>
+         <h2 class="headline">Setting up your ESP (re-used from 6.08)</h2>
+
+We will use the ESP microcontroller. <br>
+For ease of deployment we'll use the Arduino environment and the add-on ESP32 core. <br>
+You need to install some software on your laptop.<br>
+Please follow the OS-appropriate instructions.<br>
+
+<h3>Todos of Setting up the ESP</h3><br>
+
+<ul>
+  <li>(1) Install Arduino, ESP Core Board Manager, USB cable driver.</li>
+  <li>(2) Test Port and Blink LED.</li>
+  <li>(3) Take a short video to show it works.</li>
+  <li>(4) Doesn't work? Please go to an OH before class.</li>
+</ul>
+
+<h3>(1) Install Arduino, ESP Core Board Manager, USB cable driver</h3><br>
+
+<h4>Windows Users</h4><br>
+
+First install Arduino (even if you've already got it,</a> install it again to get the most up-to-date distribution). The Arduino IDE can be <a href="https://www.arduino.cc/en/Main/Software">found here</a>. Download the appropriate distribution for your laptop's operating system. <b>Note: Windows Users do NOT install the Windows App. Install only the regular Windows distribution!</b><br><br>
+
+Next install the ESP32 core. Open up Arduino and do the following:<br><br>
+
+<ul>
+  <li>Go to <b>File>Preferences</b></li>
+  <li>Under the <b>Additional Boards Manager URL field</b> paste in: <b>https://dl.espressif.com/dl/package_esp32_index.json</b> and then Click OK</li>
+  <li>Now go to <b>Tools>Boards>Boards Manager</b></li>
+  <li>In the window that pops up, search for <b>esp32</b>. One option should appear. Install it.</li>
+  <li>Now to prepare your Arduino environment to work with the ESP32, go to <b>Tools>Boards>DOIT ESP32 DEVKIT V1</b></li>
+  <li>You should be good to go now with software. We'll test it in a little bit.</li>
+</ul>
+
+<br>
+You will also need to install a cable driver for your laptop. Go to <a href="https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers">here and install.</a> Your operating system must be somewhat recent for this to be valid so if you get bugs, please talk to a member of the teaching team. In the zip file, there should be a README that will have somewhat clear instructions.<br><br>
+
+<ul>
+  <li>click "download VCP" under the appropriate version of Windows</li>
+  <li>Unzip the folder, run Installer_x64.exe if 64 bit or Installer_x86.exe if 32 bit</li>
+</ul>
+     
+<br>
+If you've done everything above and no errors came through, it means you've installed everything correctly. <br>
+Please keep reading under (2) Test Port and Blink LED.<br><br>
+
+<h4>Mac OSX Users</h4><br>
+
+First install Arduino (even if you've already got it, install it again to get the most up-to-date distribution). The Arduino IDE can  <a href="https://www.arduino.cc/en/Main/Software">be found here.</a> Download the appropriate distribution for your laptop's operating system.<br><br>
+
+Next install the ESP32 core. Open up Arduino and do the following:<br><br>
+
+<ul>
+  <li>Go to <b>Arduino>Preferences</b></li>
+  <li>Under the <b>Additional Boards Manager URL field</b> paste in: <b>https://dl.espressif.com/dl/package_esp32_index.json</b> and then Click OK</li>
+  <li>Now go to <b>Tools>Boards>Boards Manager</b></li>
+  <li>In the window that pops up, search for <b>esp32</b>. One option should appear. Install it.</li>
+  <li>Now to prepare your Arduino environment to work with the ESP32, go to <b>Tools>Boards>DOIT ESP32 DEVKIT V1</b></li>
+  <li>You should be good to go now with software. We'll test it in a little bit.</li>
+</ul><br>
+       
+You'll also need to install a cable driver for your laptop. Go to <a href="https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers">here and install.</a> Your operating system must be somewhat recent for this to be valid so if you get bugs, please talk to a staff member. Mac Users: After installing, go to System Preferences > Security and click on the message about enabling Silicon Labs Drivers on your machine!<br><br>
+
+Note: Mac users should check the Security&Privacy tab in System Preferences, even if it looks as though the Cable Driver was downloaded and the Mac never informed the user that they need to override the security preferences in order to download the software. go to the General tab within Security and Privacy and if there is an issue, it'll say something akin to "Some system software was blocked from loading."<br><br>
+
+Please keep reading under (2) Test Port and Blink LED.<br><br>
+
+<h4>*Nix Users</h4><br>
+
+Below are instructions for relatively tame (Ubuntu-ish/Debian) family distributions. Note some nightly build of a Arch might have separate issues that we'll do our best to help with, but can't guarantee it'll work.<br><br>
+
+Because of some install issues, we strongly recommend installing from the Development Repo. This is different and a bit more involved than the Windows and Mac installations above. The Arduino Installer from the Boards Manager does a poor job setting the appropriate permissions in the broad array of Linux environments.<br><br>
+
+First install Arduino (even if you've already got it, install it again to get the most up-to-date distribution). The Arduino IDE <a href="https://www.arduino.cc/en/Main/Software">can be found here</a>. Download the appropriate distribution for your laptop's operating system.<br><br>
+
+Next install the ESP32 core. It is <a href="https://github.com/espressif/arduino-esp32">found here.</a> Follow the appropriate instructions for installing in Linux (it will involve install git). Follow the instructions for Using Arduino IDE with the development repository.<br><br>
+
+Pay close attention to what the output of copy-pasting that script says. If there is an error or some text about unicode not existing you need to change the word python to python2.7 in that command string.<br><br>
+
+Make sure to install everything/run the scripts using <b>Python2,</b> not <b>Python3!</b> You should have this on your machine regardless, but some of you have renamed it from other classes.<br><br>
+
+You'll also need to install a cable driver for your laptop. Depending on what you want, there are two versions (try the version 3/4 one first):<br><br>
+
+<ul>
+  <li><a href="https://iesc.io/608/_static/S20/lab01a/Linux_3.x.x_4.x.x_VCP_Driver_Source.zip">Linux_3.x.x_4.x.x_VCP_Driver_Source.zip</a></li>
+  <li><a href="https://iesc.io/608/_static/S20/lab01a/Linux_2.6.x_VCP_Driver_Source.zip">Linux_2.6.x_VCP_Driver_Source.zip</a></li>
+</ul>
+<br>
+
+When you've installed everything you should be able to open up Arduino and in the top right you should be able to see in the menu <b>Tools>Board>DOIT ESP32 DEVKIT V1</b>. If you see that, it means you've installed everything correctly.<br><br>
+
+The only other issue that may appear, that you don't have permission to program your ESP32. This can be fixed temporarily (after the device has been plugged in by running either):<br><br>
+
+<code>sudo chmod 666</code> <br><br>
+
+on whatever port your ESP32 shows up as (for example on my Ubuntu box, it'll be <b>/dev/ttyUSB1</b> or <b>/dev/ttyUSB0).</b> This is only a temporary fix, however, and will need to be re-run every time you plug in the device.<br><br>
+
+The other (longer term) option is to add yourself to the <b>dialout</b> group. Do this by running the following command:<br><br>
+
+<code>sudo usermod -a -G dialout YOUR_USERNAME_HERE</code><br><br>
+
+where you replace your username in. Once this is done, you will need to restart your computer for this change to take permanent affect.<br>
+
+<br>
+Please keep reading under (2) Test Port and Blink LED.<br>
+
+<h3>(2) Test Port and Blink LED</h3><br>
+
+Now that we have an ESP32, let's check to see if things installed correctly. <br><br>
+
+<h4>Check Port</h4><br>
+
+Open the Arduino IDE and look in the menu at <b>Tools>port</b>.<br>
+You should see maybe one thing listed. Take note of what is there.<br><br>
+
+Now take your <b>Micro-USB-to-USB cable</b>, connect it to your ESP32 board and then to the computer, and take a fresh peek at <b>Tools>port.</b> <br><br>
+
+You should hopefully see one more thing. <br>
+On Windows this will often be something like <b>COM3.</b><br>
+On Mac/Unix it will probably be <b>USB_to_UART....</b><br>
+If it appeared, then you are 99% good.<br><br>
+
+<h4>LED blink </h4><br>
+
+Once you have the ESP32 Board selected and Serial port found, you can run the "Blink" test program. <br>
+The Blink test program can be found in the Arduino IDE examples. <br><br>
+
+<img src="images/esp-setup/esp-setup-Blink.png" width="650px"><br><br>
+
+If you can't find it in the Arduino IDE, you can download it <a href="https://www.arduino.cc/en/tutorial/blink"> here </a>. <br><br>
+
+If you are having trouble uploading code to the ESP32, even with the corrected port selected. And you are seeing some error message like following: <br><br>
+
+<img src="images/esp-setup/timed-out-waiting-for-packet-header.png" width="650px"><br><br>
+
+To solve this, you can hold down the <b>“BOOT/FLASH”</b> button on your ESP32 board (the button on the bottom right) while uploading a new sketch at the same time. <br>
+
+<img src="images/esp-setup/boot-flash-button.png" width="400px"><br><br>
+
+If your Blink program does not work but all other parts are set correctly and working, please go to an Office Hour and TA / LA will give you a new ESP32 board. <br>
+
+
+<!-- <span style="color:red">what can we do for simple testing?</span><br><br> -->
+
+<!-- <h3>(3) Take a short video to show it works</h3><br>
+
+Take a short video (use your phone) of your blinking ESP LED and upload it to <a href="https://drive.google.com/drive/u/1/folders/1MageOgstlli5Ze2GGVchak4iKyDtWwZK">your google drive.</a><br><br>
+
+<h3>(4) Doesn't work? Please go to an OH before class.</h3><br>
+
+In case any of the above did not work, please go to a TA office hour to get some help with the install.<br><br>
+ -->
+
+<br><br><br><br><br><br><br><br><br><br><br><br>
+
+      </section>
+      
+      <aside class="col-md-4 pull-left">
+        
+        <!-- Publication -->
+
+        <br><br><br><br>
+ <!--    <h4>Important Links</h4><br>
+    <ul><li><a href="https://drive.google.com/drive/folders/1MageOgstlli5Ze2GGVchak4iKyDtWwZK?usp=sharing">Google Drive</a></li>
+    <li><a href="https://docs.google.com/spreadsheets/d/15jb8HWkzyzX8cltDqbLytr5WSvPPwFS9tnv4s60ofYg/edit?usp=sharing">Milestone Meeting Times for each Team</a></li>
+    <li><a href="https://docs.google.com/spreadsheets/d/1Rc4ZohsHWswrQAylHAh2gw0z0y5FcvDx8DhpR5CRIr4/edit#gid=0">Material Ordering Sheet</a></li></ul><br />
+ -->
+
+   <!--      <strong>Announcements:</strong><br>
+        <p>
+          (to come)
+          <br>
+          <br>
+        </p> -->
+
+<!--         <strong>TAs:</strong><br>
+
+        <p>
+          <a href="https://www.behance.net/apgomes" target="_blank">Antonio Gomes (Postdoc)</a><br>
+          <a href="http://www.sens.sys.es.osaka-u.ac.jp/users/punpongsanon/" target="_blank">Parinya Punpongsanon (Postdoc)</a><br>
+          <a href="http://www.paulw.info/" target="_blank">Paul Worgan (Postdoc)</a><br>
+          <br>
+        </p>
+
+        <strong>When:</strong><br>
+        <p>
+          Fall 2017<br>
+          days/time tbd<br>
+          <br>
+        </p> -->
+
+        <!-- Publication -->
+  <!--       <strong>Where:</strong><br>
+        <p>
+          <br>
+          <br>
+        </p>
+ -->
+        <!-- Publication -->
+   <!--      <strong>What to bring:</strong><br>
+        <p>
+          your laptop<br>
+          we bring the rest<br><br>
+        </p> -->
+
+        <!-- Publication -->
+ <!--        <strong>Prerequisites:</strong><br>
+        <p>
+          6.005 Elements of Software Construction <br>
+          6.031 Elements of Software Construction (new) <br> 
+          6.111 Introductory Digital Systems Laboratory<br>
+          6.115 Microcomputer Project Laboratory<br>
+          or instructor permission<br><br>
+        </p>
+       -->
+
+     <!--    <strong>Class Size:</strong><br>
+        <p>
+          Maximum 30 students.<br>
+          Enrollment limited. <br>
+        <br>
+        </p> -->
+
+          
+      </aside>
+      
+    </div>
+  </div>
+  </div>
+</section>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 footer" style="text-align: center;">
+			<span class="copyright">
+			Since 2017 &copy; MIT CSAIL (HCI Engineering group) [redesign by 
+			<a href="http://punpongsanon.info/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			moji
+			</a>]. 
+			All Rights Reserved.
+			
+			<a href="http://mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/mit.svg" alt="MIT" class="footer-logo" />
+			</a>
+			<a href="http://csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/csail.svg" alt="CSAIL" class="footer-logo"/>
+			</a>
+			<a href="http://hci.csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/hci.svg" alt="HCI" class="footer-logo"/>
+			</a>
+			</span>
+		</div>
+	</div>
+</div>
+
+<!-- Bootstrap --> 
+<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+<!-- header -->
+<script type="text/javascript" src="../../js/headerstrap-for-subpage.js"></script> 
+
+</body>
+</html>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HCI Engineering Group</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!-- CSAIL ICON -->
+	<link rel="CSAIL" href="../../images/icon/csail.ico" type="image/x-icon" />
+
+	<!-- Bootstrap -->
+	<link href="../../css/bootstrap.css" rel="stylesheet">
+	<link href="../../css/custom-style.css" rel="stylesheet">
+
+	<!-- jQuery -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+
+	<!-- Google Analytic -->
+	<script type="text/javascript" src="../../js/analytics.js"></script>
+
+	<style>
+	.etech-sch-col1 {width:60px; border: 1px solid black;padding:10px;}
+	.etech-sch-col2 {width:120px; border: 1px solid black;padding:10px;}
+	.etech-sch-col3 {width:450px; border: 1px solid black;padding:10px;}
+	.etech-sch-col4 {width:70px; border: 1px solid black;padding:10px;}
+  .etech-sch-col5 {width:70px; border: 1px solid black;padding:10px;}
+  /*.etech-sch-col6 {width:170px; border: 1px solid black;padding:10px;}*/
+  ul {
+    padding:0px;padding-left:10px;margin:0px;
+  }
+	</style>
+</head>
+
+<body>
+<header class="main_header">
+	<!-- to be filled by javascript, see header.html -->
+</header>
+
+<section class="main_container">
+	<div class="container">
+    <div class="row nothing">
+
+      <section class="col-md-8 pull-right main-content">
+</br></br></br></br>
+        <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2021)</a><br></h>
+        <h2 class="headline">Pset1: User Interface for Multi-Touch Pad Fabrication Files</h2>
+
+
+In this problem set, you will write a user interface in Processing that will automatically generate the fabrication files for making multi-touch pads of different dimensions (e.g., 8x4 electrodes or 4x6 electrodes). A user will be able to input parameters, such as the number of electrodes for the rows and columns of the multi-touch pad and then automatically receive the matching fabrication files, i.e. 2D drawings of the electrode layouts in .pdf file format that the user can then send to their 2D printer for conductive inkjet printing. You will implement this interface in Processing.<br><br>
+
+For the multi-touch pad, we will be using the classical two-layered diamond pattern that is commonly used for mutual-capacitive touch sensing.
+As explained in lecture, this means that your multi-touch pad has two electrode layers that are printed separately: One layer contains the rows, the other layer contains the columns.
+Each row/column consists of multiple electrodes and has a single wire at the end.
+Once both sheets are printed, you layer them on top of each other to build the multi-touch pad.<br><br>
+
+<img src="images/pset1/multitouch-overview.png" width="250px">
+<img src="images/pset1/pset1-multitouch-pad-explanation2.png" width="450px"><br><br>
+
+<b>Steps:</b>
+<ol>
+	<li>Create input fields for number of electrodes</li>
+	<li>Draw the electrodes and wires</li>
+	<li>Create a preview function for looking at rows/columns individually</li>
+	<li>Create an export function to save the fabrication files as .pdf</li>
+	<li>Check that your drawing has the correct size when printed out</li>
+</ol>
+
+<h3>(1) Create Input Fields for Number of Electrodes</h3>
+
+In the user interface, create two input fields that allow the user to set the desired number of electrodes for the 'columns' and 'rows' (default value should be 10 electrodes). A simple trick to create UI elements in Processing is to draw a rectangle and then check if a mouse-click event occured over the rectangle to transfrom it into a button. A text label overlaid on the rectangle can be used to display the current value. You can check the <a href="https://processing.org/reference/rect_.html">Rect</a> and <a href="https://processing.org/tutorials/text/">Text and Fonts</a> Tutorial for more information. Make sure the user cannot enter negative values. The upper bound for the number of electrodes that fit onto one sheet is <span style="color:red">20 electrodes</span> and thus the user should not be allowed to exceed this number.<br><br> 
+
+<img src="images/pset1/user-interface-inputs.png" width="300px"><br><br>
+
+
+<h3>(2) Drawing the Electrodes and Wires</h3>
+
+<b>Drawing one electrode:</b> Next, draw one electrode. An electrode is a rectangle rotated by 45 degrees. For now, don't worry about the exact size. To draw the electrode, you should use a <a href="https://processing.org/reference/PGraphics.html">PGraphics</a> canvas and then draw a <a href="https://processing.org/reference/PImage.html">PImage</a> onto it. <br><br>
+
+<b>Drawing multiple electrodes & Connecting to UI input:</b> Once you can draw one electrode, create a second electrode at an offset either horizontally to start forming a row or vertically to start forming a column. For now, don't worry about the exact number for the offset. Next, connect the number of electrodes to your user interface input elements, i.e. when the user sets the number of electrodes for the columns to be '10' and rows to be '6' your screen should draw ten electrodes vertically and 6 electrodes horizontally.<br><br>
+
+<b>Drawing Wires:</b> Next, draw the wires that connect the electrodes. For now don't worry about the exact thickness. At the end of each row/column, the wire is routed to the side to  connect to an FPC connector. For now, don't worry about the exact spacing on the FPC connector. <br><br>
+
+
+<img src="images/pset1/drawing-electrodes-wires.png" width="350px"><br><br>
+
+
+<h3>(3) Preview Function to Look at Each Layer Individually</h3>
+
+For the preview function, create one button that switches between the design's top and bottom layer view. Clicking the button should either show the top layer or the bottom layer so the layers can be looked at individually.<br><br>
+
+<img src="images/pset1/switch-view.png" width="700px"><br><br>
+
+<h3>(4) Export Function to Save Fabrication Files</h3>
+
+For export, create one button that when clicked saves the generated electrodes into two .pdf files. The bottom-electrodes.pdf should contain the rows, and the top-electrodes.pdf should contain the columns. Make sure the exported .pdf files have all settings correctly set for conductive inkjet printing <a href="lab1-circuit-design-for-inkjet-printing.html">(if you don't remember, go back to Lab1).</a> 
+<br><br>
+
+<img src="images/pset1/layer1pdf.png" width="300px"> <img src="images/pset1/layer2pdf.png" width="320px"><br><br>
+
+
+<h3>(5) Finding your dpi to convert pixel to mm</h3>
+
+Our multi-touch pad design is printed in <b>millimeter</b> but Processing handles everything in <b>pixel</b>. How do we know how many pixels are in one millimeter? Without this conversion factor, we don't know how many pixels we should use for the electrodes, thickness of the wires, and spacing/offsets between these components. The conversion factor from pixel to mm is different for each operating system. We will thus do a small test to figure this out for your OS. <br><br>
+
+<b>Determing dpi:</b> For starters,let's assume a 96dpi conversion factor, i.e. 96 dots (pixel) fit into 1 inch (25.4mm). To find out if this is correct for your OS, create a rectangle in Processing that is 96x96 pixel wide (rect(96,96)). Export the rectangle using your implemented .pdf export function and open it in Adobe Illustrator. 
+
+In Adobe Illustrator, make sure the drawing is set to 'inch' not 'points' (File -> Document Setup -> Units 'inches'). Then click the rectangle and in the 'properties' window (Window -> Properties), check the 'width' (e.g., '0.8 inch'). You now know that 96 pixels are a certain number of inch, i.e. in our case 0.8 inch. You can do the math 96dots/0.8 inch = 120dpi.<br><br>
+
+<b>Confirming dpi:</b> To confirm that this is indeed the correct dpi for your OS, go back to Processing, draw a new rectangle of 120x120 pixel (rect(120,120), export again as pdf, and reopen in Illustrator. Don't forget to set the document units again to 'inches'. Then check the width of the rectangle. Do you now see 1 inch? If yes, you can now be confident that your OS has 120dpi.<br><br>
+
+<b>Pixel to mm:</b> Since our inputs are in mm not in inch, you still need to convert the dpi to dots per mm. For this, simply divide by how many millimeters are one inch (1 inch = 25.4mm). Thus, we will have, e.g. 120dpi / 25.4mm = 4.72 pixel per mm.<br><br>
+
+
+<img src="images/pset1/setting-units-to-inches.png" width="300px">  <img src="images/pset1/checking-width.png" width="360px"> <br><br>
+
+
+<h3>(5) Adjust Multi-Touch Pad Dimensions</h3>
+
+
+<b>Applying Scaling Factor to Electrodes:</b>: Thus, if our electrodes are 6mm in size, for a dpi of 120 they will be around 6mm * 120 dots / 25.4mm = 28 pixels wide.<br><br>
+
+
+
+
+
+Other parameters that you need to set in your code but don't have to display in the UI, are: <br>
+<!--  for the design (you don't have to display them in the UI, but please do think of good reasons for them, you can start from <a href="http://ww1.microchip.com/downloads/en/DeviceDoc/FAQs%20-%20Sensor%20Design%20Guidelines.pdf">here</a>): <br> -->
+<ul> 
+	<li>the edge length of the electrodes (diamond shape) in mm (default value: 6mm)</li>
+	<li>the spacing between adjacent electrodes in mm (default value: 1mm)</li>
+	<li>the spacing between non-connected electrodes, i.e. rows and columns, in mm (default value: 1mm)</li>
+	<li>the thickness of the wires inside of multi-touch pad that connect electrodes, in mm (default value: 0.3mm)</li>
+	<li>the thickness of the wires outside of multi-touch pad that connect to FPC connectors, in mm (default value: 0.5mm)</li>
+	<li>the spacing of wires on the FPC connector in mm (we are using the 1mm in FPC spacing, notice that the board has two sides and could also be used for 0.5mm if the 0.5mm connector was soldered on the other side. For more details, please look at the data sheet of the FPC connector <a href="https://datasheet.octopart.com/FH12-10%284%29SA-1SH%2855%29-Hirose-datasheet-8324494.pdf">here</a>)</li>
+</ul>
+<br>
+
+<img src="images/pset1/fpc-spacing_new.png" width="350px">
+<img src="images/pset1/multitouch-measurements.png" width="350px"><br><br>
+
+
+
+
+
+
+
+
+<b>Testing your Program</b><br>
+
+When you are done, make sure you test your user interface by exporting several different multi-touch pad sizes, e.g. 4x10, 12x6, 5x5.
+If you are unsure if everything has the right dimension, use a regular color printer to print out your design and measure it with a ruler.<br>
+
+<br>
+
+<h3>Upload your Code and Design Files, Show Hardware to TA</h3>
+
+For grading, please upload the following to your google drive student folder:<br>
+
+<ul>
+	<li>the .pde file of your Processing program</li>
+	<li>the two .pdf files you used for conductive inkjet printing</li>
+	<li>3-5 photos showing your assembled circuit from different perspectives (include top view + side views)</li>
+	<!-- <li><span style="color:red">bring your assembled multi-touch pad to your spray session</span></li> -->
+</ul>
+
+
+<h3>Grading</h3>
+
+We will give 25 pts in total:
+<ul>
+	<li>does the Processing UI have input elements that correctly set the number of electrodes in x-direction, the number of electrodes in y-direction, and the edge length of the electrodes, or are these values hardcoded in the code? (5 pts)</li>
+	<li>does the Processing UI have lower and upper bounds for each input field? are the selected lower and upper bounds well reasoned based on what makes sense given the hardware parts you have available for the pset, the sensing principle we use, and given that a human is touching the multi-touch pad? (5 pts)</li>
+	<li>does the Processing UI export function export a drawing in the correct dimensions into two seperate .pdf files that are named correctly and that have the correct settings for conductive inkjet printing? are the toggle functions for showing/hiding layers implemented? (5 pts)</li>
+	<li>did you finish assembling your multi-touch pad, i.e. did you inkjet print both the top and bottom electrode layer, glued them together, and connected the FPC chips? (5 pts)</li>
+	<li>did you correctly build the multi-touch sensing circuit using the multiplexer, resistors and ESP? (5 pts)</li>
+</ul>
+
+
+<!-- <img src="images/pset1-printing-setting.png" width="600px"> <br><br> -->
+
+<!-- Note that Processing uses a fixed dots per inch measurement.<br>
+On <b>Windows,</b> you are most likely to encounter a 96 dpi resolution.<br>
+On <b>Mac,</b> you are also most likely to encounter a 96dpi resolution but it may also be 72dpi. <a href="https://en.wikipedia.org/wiki/Dots_per_inch">Wikipedia</a> thinks it is 72dpi, however, according to our own tests on Mac, it was 96dpi, i.e. the same as on Windows.<br>
+(Note that the resolution of the Processing sketch window is different from the screen resolution pixel per inch, which usually are around a couple hundred nowadays, this is set by the operating system and mainly used for programs heavy on typography like Microsoft Word).<br><br> -->
+
+
+        <br />
+      </section>
+
+      <aside class="col-md-4 pull-left">
+         <br /> <br /> <br /> <br />
+<!-- 				 <h4>Pset Steps</h4><br>
+				 <ul>
+		 			<li><a href="#pset1">pset1 (due Sept. 21, 11.59pm): laser cut and bend the acrylic base</a><br /></li>
+		 			<li><a href="#pset2">pset2 (due Oct. 5, 1pm): insert LEDs, add USB connecting and solder everything</a><br /></li>
+		 			<li><a href="#pset3">pset3 (due Oct. 19, 1pm): write touch recognition so that you can determine (x,y) location of each finger</a><br /></li>
+		 			<li><a href="#pset4">pset4 (due Oct. 26, 1pm): add an application of your choice</a><br /></li>
+				</ul>
+				<br /> <br /> <br /> <br />
+        <img src="../2018-fall-6810/images/multi-touch-pad/iap1.jpg" width="220px">
+
+		<img src="../2018-fall-6810/images/multi-touch-pad/iap2.jpg" width="220px">
+
+		<img src="../2018-fall-6810/images/multi-touch-pad//iap3.jpg" width="220px">
+
+		<img src="../2018-fall-6810/images/multi-touch-pad/iap4.jpg" width="220px">
+
+		<img src="../2018-fall-6810/images/multi-touch-pad/iap5.jpg" width="220px">
+ -->
+
+
+
+        <!-- Publication -->
+
+        <br><br><br><br><br>
+
+        <!-- Publication -->
+
+<!-- <h4>Side Bar</h4><br>
+
+    <ul>
+      <li>Prof. Stefanie Mueller (Instructor)</li>
+      <li>Lotta-Gili Blumberg (TA)</li>
+      <li>Xin Wen (UTA)</li>
+      <li>Loren Maggiore (LA)</li>
+      <li>Mark Chounlakone (LA)</li>
+    </ul>
+ -->
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+      </aside>
+
+    </div>
+  </div>
+  </div>
+</section>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 footer" style="text-align: center;">
+			<span class="copyright">
+			Since 2017 &copy; MIT CSAIL (HCI Engineering group) [redesign by
+			<a href="http://punpongsanon.info/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			moji
+			</a>].
+			All Rights Reserved.
+
+			<a href="http://mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/mit.svg" alt="MIT" class="footer-logo" />
+			</a>
+			<a href="http://csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/csail.svg" alt="CSAIL" class="footer-logo"/>
+			</a>
+			<a href="http://hci.csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/hci.svg" alt="HCI" class="footer-logo"/>
+			</a>
+			</span>
+		</div>
+	</div>
+</div>
+
+<!-- Bootstrap -->
+<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+<!-- header -->
+<script type="text/javascript" src="../../js/headerstrap-for-subpage.js"></script>
+
+</body>
+</html>
