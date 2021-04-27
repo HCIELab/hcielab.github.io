@@ -52,8 +52,8 @@
         <h2 class="headline">Problem Set Series: Multi-Touch Pad</h2>
 
 
-<img src="images/pset2-overall.png" width="400px">
-<img src="images/pset3/UI-blob-touch-3.png" width="340px"> <br>
+<img src="images/pset4/pset2-overall.png" width="400px">
+<img src="images/pset4/UI-blob-touch-3.png" width="340px"> <br>
 
           <hr>
 
@@ -87,8 +87,8 @@ For this PSet, we will be using two Processing libraries:
 You can install them directly in Processing by going to:<br>
 <b>Sketch/Import Library/Add Library</b> and searching for their name.<br><br>
 
-<img src="images/pset3/processing-library-opencv.png" width="370px">
-<img src="images/pset3/processing-library-blob-detection.png" width="370px"> <br><br>
+<img src="images/pset4/processing-library-opencv.png" width="370px">
+<img src="images/pset4/processing-library-blob-detection.png" width="370px"> <br><br>
 
 
 <h3>(1) Read the Multi-Touch Sensing Data into Processing</h3><br>
@@ -114,14 +114,14 @@ Next, you need to read this data from the serial port into Processing.<br>
 We have already shown you how to read data from the serial port into Processing in Lab 1 & 2 and you can check your prior code from back then to see how to do it.<br><br>
 
 In the skeleton code, put your code for reading the data into the <b>readSerial()</b> function: <br>
-<img src="images/pset3/readSerial-skeleton-code.png" width="700px"> <br>
+<img src="images/pset4/readSerial-skeleton-code.png" width="700px"> <br>
 
 <b>Save Data for One Complete Scanning Pass into a 2D Array</b><br>
 The data for a single pass on all columns and rows should be saved into a 2D array.<br>
 When considering the size of your 2D array, remember that we build a 9x8 multi-touch pad.<br>
 Printing the 2D array to the Processing command line should look something like this:<br><br>
 
-<img src="images/pset3/serial-read-array-one-pass.png" width="750px"> <br><br>
+<img src="images/pset4/serial-read-array-one-pass.png" width="750px"> <br><br>
 
 Every time a new pass over all columns/rows starts, you need to override your array values.<br><br>
 
@@ -154,14 +154,14 @@ A noise baseline filter works in two steps:<br><br>
 Implement the noise baseline filtering in the <b>setBaseLine()</b> function and change the <b>boolean baseLineSet</b> in the skeleton code to "true" once the baseline is set. <br>
 You will find the Java's native <b><i>System.nanoTime()</i></b> or Processing's <b><i>millis()</i></b> funtion to be helpful. For more details, you can look at <a href="https://processing.org/reference/millis_.html"> the reference here </a>.<br><br>
 
-<img src="images/pset3/setBaseLine-skeleton-code.png" width="600px"> <br>
+<img src="images/pset4/setBaseLine-skeleton-code.png" width="600px"> <br>
 
 <i>(2) Subtract Noise Baseline from Usage Signal:</i> After you stored the noise baseline for each value, we can look into how to use it to create better signals during the actual user interaction. During interaction, the signal for each value is again recorded but this time you subtract the previously recorded noise baseline value from each new incoming signal value. Thus, if you don't touch the multi-touch pad, the noisy incoming signal minus the noise baseline will equal 0 (or at least be close to it). Therefore, the chance of false positives is much smaller, i.e. the chance that your code thinks that a touch occured although there was none is greatly reduced.<br><br>  
 
 Implement the noise baseline substraction in the <b>subtractBaseLine()</b> function and subtract the baseline values from corresponding new incoming raw values <b>only when the baseline is set.</b> <br>
 You should also make sure the "clean" sensing values stored after the subtraction are not negative.<br><br>
 
-<img src="images/pset3/substractBaseLine-skeleton-code.png" width="600px"> <br>
+<img src="images/pset4/substractBaseLine-skeleton-code.png" width="600px"> <br>
 
 
 <!-- <h3>(3) Set the background image color and bicubic interpolation</h3> -->
@@ -177,7 +177,7 @@ Since image processing on such a small 9x8 pixel image is too difficult, we will
 After this, we can use 'blob' detection to extract the white blobs in the image (i.e. the touch points) and get the touch coordinates from the blobs.<br>
 Let's do this one step at a time.<br>
 
-<img src="images/pset3/UI-blob-touch-3.png" width="400px"><br>
+<img src="images/pset4/UI-blob-touch-3.png" width="400px"><br>
 
 <b>Creating the Image</b><br>
 For our visualization, we will construct an image (PImage) the same size as our 2D array that contains the sensing data.<br>
@@ -195,7 +195,7 @@ We therefore have to scale our sensor signals accordingly.<br><br>
 To scale your sensor values to a range of 0 - 255, you can use <a href="https://processing.org/reference/map_.html">the <b>map()</b> function</a> in Processing.<br>
 As you can see in <a href="https://processing.org/reference/map_.html">the map() function reference,</a> apart from the incoming value to be converted, we also have to set four "scaling" values:<br><br>
 
-<img src="images/pset3/map-function-parameters.png" width="400px"> <br><br>
+<img src="images/pset4/map-function-parameters.png" width="400px"> <br><br>
 
 <b>start2/stop2 (target):</b> The last two parameters, i.e. our target range, are pretty straight forward since we already discussed we want to scale to 0 - 255.<br><br>
 
@@ -204,7 +204,7 @@ As you can see in <a href="https://processing.org/reference/map_.html">the map()
 After you scaled your sensor values, use them to set the pixel color of each pixel in the 9x8 pixel PImage.<br><br>
 
 Put your code into the <b>setColors()</b> function in the skeleton code: <br><br>
-<img src="images/pset3/setColors-skeleton-code.png" width="700px"> <br>
+<img src="images/pset4/setColors-skeleton-code.png" width="700px"> <br>
 
 
 <h3>(4) Scaling up the Generated Image Using Bicubic Interpolation</h3>
@@ -224,30 +224,30 @@ Some of simplest interpolation methods are bi-linear and bi-cubic interpolation.
 <b>What is the difference between bi-linear and bi-cubic interpolation?</b><br>
 
 <i>Bi-linear interpolation:</i> considers the closest 2x2 neighborhood of known pixel values surrounding the unknown pixel. It then takes a weighted (by distance) average of these 4 pixels to arrive at its final interpolated value.<br><br>
-<img src="images/pset3/linear-1.png" width="230px">
-<img src="images/pset3/linear-2.png" width="230px">
-<img src="images/pset3/linear-3.png" width="230px"> <br><br>
+<img src="images/pset4/linear-1.png" width="230px">
+<img src="images/pset4/linear-2.png" width="230px">
+<img src="images/pset4/linear-3.png" width="230px"> <br><br>
 
 <i>Bi-cubic interpolation:</i> is considering the closest 4x4 neighborhood of known pixels — for a total of 16 pixels. Since these are at various distances from the unknown pixel, closer pixels are given a higher weighting in the calculation. Bicubic produces noticeably smoother images than the bi-linear interpolation. 
 
 <br> <br>
 
-<img src="images/pset3/cubic-1.png" width="230px">
-<img src="images/pset3/cubic-2.png" width="230px">
-<img src="images/pset3/cubic-3.png" width="270px"> <br><br>
+<img src="images/pset4/cubic-1.png" width="230px">
+<img src="images/pset4/cubic-2.png" width="230px">
+<img src="images/pset4/cubic-3.png" width="270px"> <br><br>
 
 Thus, a benefit of bicubic interpolation is that it gives you a smoother interpolation result since it considers more values than bilinear interpolation. However, this also comes at the drawback of needing higher computational power since more values need to be processed to generate the interpolated value. For our small multi-touch pad with only a few hundred interpolated values this is not an issue but if you had to do more interpolation it may slow the processing down and the multi-touch pad detection would start lagging behind the user's finger movements.<br><br>
 
 
 You can see the difference of bi-liner vs. bi-cubic interpolation in the images below (these are from our multi-touch pad with roughly the same location touched by finger, <b><i>Left: Bilinear vs. Right: Bicubic) </i></b>.<br> 
 
-<img src="images/pset3/multi-touch-interpolate-bilinear.png" width="350px"> 
-<img src="images/pset3/multi-touch-interpolate-bicubic.png" width="350px"> <br><br>
+<img src="images/pset4/multi-touch-interpolate-bilinear.png" width="350px"> 
+<img src="images/pset4/multi-touch-interpolate-bicubic.png" width="350px"> <br><br>
 
 For a more close look, below are the resulting interpolated images from a 5x5 input data via bi-linear and bi-cubic.<br><br>
 
-<img src="images/pset3/linear-interpolation.png" width="300px"> 
-<img src="images/pset3/cubic-interpolation.png" width="300px"> <br><br>
+<img src="images/pset4/linear-interpolation.png" width="300px"> 
+<img src="images/pset4/cubic-interpolation.png" width="300px"> <br><br>
 
 <b>Implementing Bi-Cubic Interpolation with OpenCV</b><br>
 
@@ -266,7 +266,7 @@ import org.opencv.core.Size;
 
 If you look <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/imgproc/Imgproc.html">at the documentation of the <b>Imgproc class,</b></a> you will see that it provides a <b>resize()</b> function, which also allows us to specify which interpolation method we want to use.<br><br>
 
-<img src="images/pset3/imgproc-resize.png" width="750px"><br><br>
+<img src="images/pset4/imgproc-resize.png" width="750px"><br><br>
 
 So let's see how we can fill out the parameters.<br><br>
 
@@ -277,7 +277,7 @@ Once you constructed your OpenCV object, you can call the <b>getGray()</b> funct
 
 <b>Mat dest:</b> This is the output image, i.e. the resized 500x500px image. Again it needs to be in the format of a matrix. For the output image, we want to create a new empty matrix of our desired size. You can find the <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/core/Mat.html"><b>OpenCV Mat Reference</b> here</a>. 
 
-<img src="images/pset3/mat-constructor.png" width="350px"><br>
+<img src="images/pset4/mat-constructor.png" width="350px"><br>
 
 Similar to how other variables have a type, e.g. int or float, matrices also have <a href="http://ninghang.blogspot.com/2012/11/list-of-mat-type-in-opencv.html">types,</a> which describe what types of values can be stored in them. Since we want to make sure the input  and the output images match, you need to reference the image type of your source matrix as the type argument. If you check the Mat reference again, you can see that there is an instance function for getting the matrix type. <br><br>
 
@@ -287,14 +287,14 @@ Similar to how other variables have a type, e.g. int or float, matrices also hav
 
 <b>int interpolation:</b> These are the different interpolation options. If you look at the different fields in the <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/imgproc/Imgproc.html"><b>OpenCV Imgproc</a></b> Reference, you will see that there are several options, such as:<br>
 
-<img src="images/pset3/interlinear.png" width="750px"><br>
-<img src="images/pset3/intercubic.png" width="720px"><br><br>
+<img src="images/pset4/interlinear.png" width="750px"><br>
+<img src="images/pset4/intercubic.png" width="720px"><br><br>
 
 We want to use the inter-cubic option as our last parameter.<br><br>
 
 Implement this part in the <b>interpolate()</b> function in the skeleton code: <br><br>
 
-<img src="images/pset3/interpolate-skeleton-code.png" width="600px"> <br><br>
+<img src="images/pset4/interpolate-skeleton-code.png" width="600px"> <br><br>
 
 <b>Convert Matrix back to PImage:</b> Finally, after you resized the image with our desired interpolation method, you have to convert your output matrix back into a PImage. For this, you can go back to the <a href="http://atduskgreg.github.io/opencv-processing/reference/"><b>OpenCV class</b> documentation</a> and look for the method that gives you a PImage.<br> This should also still go into the interpolate function in the skeleton code.<br><br>
 
@@ -303,13 +303,13 @@ Implement this part in the <b>interpolate()</b> function in the skeleton code: <
 Once you finished the interpolation, you should be able to see images like the ones below. The image should be darker when the multi-touch pad is not touched and have some bright spots when the multi-touch pad is touched. What exactly you see depends on your specific noise level and how well your noise baseline works. <br><br>
 
 <i>Not Touched:</i><br>
-<img src="images/pset3/UI-no-blob-no-touch-1.png" width="350px"> 
-<img src="images/pset3/UI-no-blob-no-touch-2.png" width="350px"> <br><br>
+<img src="images/pset4/UI-no-blob-no-touch-1.png" width="350px"> 
+<img src="images/pset4/UI-no-blob-no-touch-2.png" width="350px"> <br><br>
 
 <i>Touched:</i><br>
 left: 1 finger touching, right: 2 fingers touching <br>
-<img src="images/pset3/UI-no-blob-touch-1.png" width="350px"> 
-<img src="images/pset3/UI-no-blob-touch-2.png" width="350px"> <br><br>
+<img src="images/pset4/UI-no-blob-touch-1.png" width="350px"> 
+<img src="images/pset4/UI-no-blob-touch-2.png" width="350px"> <br><br>
 
 <b>Improving your Results</b><br>
 If your results don't look as good as above, try changing how you map your sensors signals to the grayscale values of 0 - 255.<br> 
@@ -340,7 +340,7 @@ Thus, a first step before blob detection can actually be performed is to convert
 To do this, the algorithm needs as input a 'threshold', i.e. a number that defines which grayscale values will be set to white and which will be set to black.<br>
 You can see an example of thresholding below: all the dark gray values (e.g., all pixels below a grayscale value of 100) were set to black and all the brighter gray values (e.g., all pixels above a gray scale value of 100) were set to white.<br><br>
 
-<img src="images/pset3/threshold.jpg" width="550px"> <br><br>
+<img src="images/pset4/threshold.jpg" width="550px"> <br><br>
 
 Our library does the thresholding automatically when we call its computeBlobs() function (we will do this in a minute, keep reading). However, if your blob detection is not finding all the blobs in your image, consider using the <b>setThreshold()</b> function to determine which grayscale level from 0-255 will be used to determine which pixels will become white and thus potential blobs and which pixels will be set to black. Note that the threshold takes as input a float value from 0-1 so you need to scale your values accordingly.<br><br>
 
@@ -350,7 +350,7 @@ The outcome of blob detection looks something like the image below.<br>
 Every white area ('blob') has a label, e.g. 1, 2, 3. You can see that there are 'original labels' (big numbers) and 'parent labels' (tiny blue numbers in the upper right corners).<br>
 If you consider the parent labels for those pixels that have them, you can see that each 'blob' has the same overall label, e.g. there is one blob with label '1' and one blob with label '3'.<br><br>
 
-<img src="images/pset3/blobdetection-step_10.png" width="650px"> <br><br>
+<img src="images/pset4/blobdetection-step_10.png" width="650px"> <br><br>
 
 So let's see how we get there from an unlabeled black/white image.<br>
 First, we start by going over each pixel.<br>
@@ -358,45 +358,45 @@ We start with the top left corner pixel and check if the pixel is white.<br>
 If it is not white like in our case, we continue searching through the row before moving onto the next row.<br>
 In row 2, pixel 3 we finally find a white pixel.<br><br>
 
-<img src="images/pset3/blobdetection-step_1.png" width="650px"> <br><br>
+<img src="images/pset4/blobdetection-step_1.png" width="650px"> <br><br>
 
 Once we found a white pixel, we need to check if any of its neighbor pixels are white and if yes, if they already have a label.<br><br>
 
-<img src="images/pset3/blobdetection-step_2.png" width="650px"> <br><br>
+<img src="images/pset4/blobdetection-step_2.png" width="650px"> <br><br>
 
 In our case, none of the neighbor pixels has a label yet, so we give our selected pixel a new label. We use the label '1' since this is the first label we are creating. In addition, since there is no neighbor pixel with a lower label count, we also set the parent label (tiny blue number) to '1'. Note that when the parent is equal to the original label, we don't show it in the images further down.<br><br>
 
-<img src="images/pset3/blobdetection-step_3.png" width="650px"> <br><br>
+<img src="images/pset4/blobdetection-step_3.png" width="650px"> <br><br>
 
 We then check the next pixel. This time the pixel has a white neighbor pixel that already has a label (i.e. the one we just labeled).<br><br>
 
-<img src="images/pset3/blobdetection-step_4.png" width="650px"> <br><br>
+<img src="images/pset4/blobdetection-step_4.png" width="650px"> <br><br>
 
 We therefore set it to the same label '1' and also set its parent label to '1' since there is no neighbor with a lower label number.<br><br>
 
-<img src="images/pset3/blobdetection-step_5.png" width="650px"> <br><br>
+<img src="images/pset4/blobdetection-step_5.png" width="650px"> <br><br>
 
 The next pixel does not have a white neighbor pixel with a label.<br><br>
 
-<img src="images/pset3/blobdetection-step_6.png" width="650px"> <br><br>
+<img src="images/pset4/blobdetection-step_6.png" width="650px"> <br><br>
 
 We therefore increase the label count to '2'.<br>
 In addition, since there is no lower label in the neighborhood we set the parent to '2' as well.<br><br>
 
-<img src="images/pset3/blobdetection-step_7.png" width="650px"> <br><br>
+<img src="images/pset4/blobdetection-step_7.png" width="650px"> <br><br>
 
 Let's fast forward a bit and look at a pixel that has several white neighbors with different labels.<br> 
 You can see below this happens in row 3.<br>
 To resolve this, we need to check all the different labels (i.e. we find '1' and '2') and choose the smallest available label (i.e. '1') as the label for the pixel.<br>
 In addition, we update the 'parent label' of all the neighbors to be the smallest available label. As you can see, the neighbor with the label '2' now has a parent label '1' in the top right corner.<br><br>
 
-<img src="images/pset3/blobdetection-step_8.png" width="650px"> <br><br>
+<img src="images/pset4/blobdetection-step_8.png" width="650px"> <br><br>
 
 If you repeat this process for every pixel in the image a few more times, you end up with the image we showed you at the beginning and which is shown below again for your reference.<br>
 Note that the bottom area (row 8) where the main label is 6 and the parent label is 3 required several passes over all pixels to propagate the '3' parent label from the pixels further on the right.<br>
 Once there are no more changes in labels, you can be sure that all pixels that have the same label belong to one 'blob', i.e. 'connected component'.<br><br>
 
-<img src="images/pset3/blobdetection-step_10.png" width="650px"> <br><br>
+<img src="images/pset4/blobdetection-step_10.png" width="650px"> <br><br>
 
 <b>Implementating Blob Detection: Finding Blobs in the Image</b><br>
 Lucky for us, somebody else has already provided a library with the blob detection algorithm.<br>
@@ -411,7 +411,7 @@ If your blob detection is not finding all the blobs in your image, consider usin
 
 Implement this in the <b>drawBlobsAndEdges()</b> function in the skeleton code (note that we will do the drawing of the blob outline in the next step): <br><br>
 
-<img src="images/pset3/drawBlobsAndEdges-skeleton-code.png" width="600px"> <br><br>
+<img src="images/pset4/drawBlobsAndEdges-skeleton-code.png" width="600px"> <br><br>
 
 <b>Drawing Blob Centers and Contours Into the Image</b><br>
 
@@ -433,9 +433,9 @@ Drawing the contour, touch point, and text coordinates into the image is similar
 
 Once you finished this part, you should be seeing something like this depending on if one or multiple fingers are touching: <br><br>
 
-<img src="images/pset3/UI-blob-touch-1.png" width="370px"> 
-<img src="images/pset3/UI-blob-touch-2.png" width="370px"> 
-<img src="images/pset3/UI-blob-touch-3.png" width="370px"> <br>
+<img src="images/pset4/UI-blob-touch-1.png" width="370px"> 
+<img src="images/pset4/UI-blob-touch-2.png" width="370px"> 
+<img src="images/pset4/UI-blob-touch-3.png" width="370px"> <br>
 
 <br>
 
