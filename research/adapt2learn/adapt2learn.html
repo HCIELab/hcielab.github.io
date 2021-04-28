@@ -113,16 +113,16 @@
 
 
 			<!-- TODO -->
-			<span class="medium-headline">
+			<!-- <span class="medium-headline">
 			Slides
 			</span>
 			</br>
-			</br>
+			</br> -->
 			<!-- TODO -->
 
 
 			<!-- TODO -->
-			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/adaptive-physical-tools/TEI-Talk-Slides/Slide01.jpg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(1)" class="hover-shadow"/>
+			<!-- <img src="http://groups.csail.mit.edu/hcie/files/research-projects/adaptive-physical-tools/TEI-Talk-Slides/Slide01.jpg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(1)" class="hover-shadow"/>
 			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/adaptive-physical-tools/TEI-Talk-Slides/Slide02.jpg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(2)" class="hover-shadow"/>
 			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/adaptive-physical-tools/TEI-Talk-Slides/Slide03.jpg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(3)" class="hover-shadow"/>
 			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/adaptive-physical-tools/TEI-Talk-Slides/Slide04.jpg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(4)" class="hover-shadow"/>
@@ -169,7 +169,7 @@
 			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/adaptive-physical-tools/TEI-Talk-Slides/Slide41.jpg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(41)" class="hover-shadow"/>
 			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/adaptive-physical-tools/TEI-Talk-Slides/Slide42.jpg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(42)" class="hover-shadow"/>
 			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/adaptive-physical-tools/TEI-Talk-Slides/Slide43.jpg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(43)" class="hover-shadow"/>
-			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/adaptive-physical-tools/TEI-Talk-Slides/Slide44.jpg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(44)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/adaptive-physical-tools/TEI-Talk-Slides/Slide44.jpg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(44)" class="hover-shadow"/> -->
 			
 			</div>
 
@@ -423,21 +423,22 @@
 	<div class="col-md-8" style="text-align: left;">
 		<br>
 		<h3 class="headline">
-		Can Physical Tools that Adapt their Shape based on a Learner's Performance Help in Motor Skill Training?
+		<b>Adapt2Learn:</b> A Toolkit for Configuring the Learning Algorithm for Adaptive Physical Tools for Motor-Skill Learning
 		</h3>
 		<br>
-		<img src="images/Mini_Vid-Intro.gif" alt="mosculpt-runner" width="240" style="padding-bottom:0px; margin-bottom:10px"/>
-		<img src="images/fig1-intro-studies.png" alt="mosculpt-runner" width="480" style="padding-bottom:0px; margin-bottom:10px"/>
+		<!-- <img src="images/Mini_Vid-Intro.gif" alt="mosculpt-runner" width="240" style="padding-bottom:0px; margin-bottom:10px"/> -->
+		<img src="images/fig1-intro.png" alt="mosculpt-runner" width="720" style="padding-bottom:0px; margin-bottom:10px"/>
 		<br>
 		<b>
-		Figure 1. We investigate if adaptive learning tools that automatically adapt their shape to adjust the task difficulty based on a learner's performance can help in motor-skill training. To this end, we built (a) a study prototype in the form of an adaptive basketball stand that can adjust its hoop size and basket height. Our studies show that when the tool adapts automatically, training leads to significantly higher learning gains in comparison to training with (b) a static tool and (c) a manually adaptive tool for which the learners choose the difficulty level themselves.
+		Figure 1. (a) Designers use Adapt2Learn's user interface to configure the adaptation of their adaptive training tools, such as (b) an adaptive basketball stand that adapts its hoop height and width. Adapt2Learn auto-generates the learning algorithm as a micro-controller script that can be deployed to the tool. The algorithm uses sensor values to assess a learner's performance, computes the optimal training difficulty, and varies the training difficulty by adapting the hoop height and width. (c) Adapt2Learn's built-in visualization tool lets designers visualize their tool's adaptation and evaluate the learning algorithm.
 		</b>
 		<br>
 		<br>
-		Adaptive tools that can change their shape to support users with motor tasks have been used in a variety of applications, such as to improve ergonomics and support muscle memory. In this paper, we investigate whether shape-adapting tools can also help in motor skill training. In contrast to static training tools that maintain task difficulty at a fixed level during training, shape-adapting tools can vary task difficulty and thus keep learners' training at the optimal challenge point, where the task is neither too easy, nor too difficult.
+		<a href="https://hcie.csail.mit.edu/research/adaptivelearning/adaptivelearning.html">Recent study</a> on motor-skill training suggests that adaptive training tools that use shape-change to adapt the training difficulty based on learners' performance can lead to higher learning gains. However, to date, no support tools exist to help designers create adaptive learning tools. Our formative study shows that developing the adaptive learning algorithm poses a particular challenge. 
 		<br>
 		<br>
-		To investigate whether shape adaptation helps in motor skill training, we built a study prototype in the form of an adaptive basketball stand that works in three conditions: (1) static, (2) manually adaptive, and (3) auto-adaptive. For the auto-adaptive condition, the tool adapts to train learners at the optimal challenge point where the task is neither too easy nor too difficult. Results from our two user studies show that training in the auto-adaptive condition leads to statistically significant learning gains when compared to the static (F_(1,11) = 1.856, p<0.05) and manually adaptive conditions (F_(1,11) = 2.386, p < 0.05).
+		To address this, we built Adapt2Learn, a toolkit that auto-generates the learning algorithm for adaptive tools. Designers choose their tool's sensors and actuators, Adapt2Learn then configures the learning algorithm and generates a microcontroller script that designers can deploy on the tool. Once uploaded, the script assesses the learner's performance via the sensors, computes the training difficulty, and actuates the tool to adapt the difficulty. Adapt2Learn's visualization tool then lets designers visualize their tool's adaptation and evaluate the learning algorithm. To validate that Adapt2Learn can generate adaptation algorithms for different tools, we build several application examples that demonstrate successful deployment.
+
 		<br>
 		<br>
 		<span class="medium-headline">
@@ -445,115 +446,83 @@
 		</span>
 		<br>
 		<br>
-		Research in HCI has shown that shape-adapting tools can support users in the execution of motor tasks by either helping users to perform the task correctly (e.g., actuated office furniture to improve ergonomics). However, it is unclear if such automatically shape-adapting tools can also help train users for the motor skills so that after fully acquiring the skill, users no longer need additional support when performing the motor task.
+		<a href="https://dl.acm.org/doi/10.1145/3430524.3440636">Recent study on motor skill training</a> suggests that training with physical tools that adapt their shape based on a learner's performance to maintain optimal task difficulty can lead to higher learning gains. Such adaptive training tools make personalized training accessible to a broader audience and expand the design space of training tools for motor skills. However, research on supporting designers in creating such adaptive training tools that adjust training difficulty is limited. 
 		<br>
 		<br>
-		In our work, we investigate if physical tools that automatically adapt their shape can help users in motor skill training. In particular, we study how training with an automatically adaptive training tool compares against the current methods of training, which either use static or manually adaptive tools.  
+		To study the challenges in creating adaptive training tools, we conducted an 8-week formative study with 32 participants in a bi-weekly studio format. The participants built adaptive training tools for various motor skills, such as skating and swimming, in teams of two (Figure 2). Each tool used actuation to vary the training difficulty so that the learner can progress from a beginner level to an expert level. Our observations and participants' feedback indicated that they struggled the most with developing a learning algorithm for their adaptive training tools. In particular, developing an algorithm that varied task difficulty through actuation to ensure training at the optimal difficulty level was challenging.   
 		<br>
 		<br>
-		To study this, we built a study prototype of a basketball stand with adjustable hoop height and width that works under three training conditions: 
-		<ul>
-			<li><b>static:</b>  the basketball stand is at a fixed hoop height and width, and thus the difficulty level does not change over time. </li>
-			
-			<li><b>manually adaptive:</b> users can adjust the difficulty level themselves by controlling the hoop height and width by activating the actuators (motors) on the stand. </li>
-
-			<li><b>auto-adaptive:</b> the tool automatically varies the difficulty level by adjusting the hoop height and width based on the user's performance that is detected using sensors, such as a switch on the net and a piezo sensor on the board. </li>
-			
-		</ul>
-		<br>
+		
 		To determine when to adapt the study prototype in the auto-adaptive training condition, we use an adaptation algorithm that maintains the training difficulty at the optimal challenge point, at which the task is neither too difficult nor too easy for the users. Studies in motor skill learning have shown that when coaches train learners at the optimal challenge point, learners have the maximum potential learning benefit. To maintain the difficulty level at the optimal challenge point, the algorithm measures a users' performance and based on the performance over time, determines whether the tool should adapt to a more difficult setting, a less difficult setting, or remain at the current difficulty setting during the training.
 		<br>
 		<br>
-		To test if training in the auto-adaptive condition, leads to higher learning gains when compared to the static and manually adaptive condition, we conducted two user studies with 12 participants each. We then measured the participants' learning gains (i.e., increase in performance scores) after (1) training on the automatically adaptive tool versus the static training tool, and (2) training on the  tool versus the manually adaptive training tool. 
+		According to the literature in motor skill learning, an effective learning algorithm maintains the learner's training difficulty level at the optimal challenge point, i.e., when the difficulty level is neither too difficult nor too easy for the learner's skill levels. While the recent study in HCI has demonstrated how to develop such an algorithm for adaptive training tools, no system exists to support designers in configuring it for their specific adaptive training tools. 
 		<br>
 		<br>
-		Our study results show significant learning gains in the auto-adaptive training condition when compared to the static (F_(1,11) = 1.856, p < 0.05) and manually adaptive conditions (F_(1,11) = 2.386, p < 0.05). For manually adaptive condition, we found that there was a mismatch between  participants' skill levels and their own assessment of what task difficulty is best to train on, resulting in only small learning gains.
+		To address this challenge, we built Adapt2Learn, a toolkit that auto-generates the adaptive learning algorithm for designers' adaptive training tools for motor skill learning. Adapt2Learn has a user interface that allows designers to configure the adaptation of their tools by setting the sensors' and actuators' values. Adapt2Learn then auto-generates the adaptive learning algorithm and exports it as a microcontroller script that designers can deploy onto their tools. The script actuates the tool's shape to maintain optimal task difficulty based on the performance sensed during training. 
 		<br>
 		<br>
-		Qualitative feedback from studies showed that users preferred training with auto-adaptive tools over training with static and manually adaptive tools. For instance, P11 in user study 1 said, <i>"adaptive training makes each stage of the training experience more rewarding, so it helped me focus better"</i>, and P3 in user study 2 said, <i>"auto-adaptive was easier to use; I didn't have to think about if I set it too easy or too hard"</i>. 
+		Additionally, Adapt2Learn has a built-in visualization tool that helps designers evaluate if their training tool is adapting appropriately and maintaining the learners' training difficulty level at the optimal challenge point during training. The visualization displays a learner's performance and shows when the tool adapts to an easier or a more difficult setting. The designers can then use the insights from this visualization to further fine-tune the algorithm.
 		<br>
 		<br>
-		We thus see a large potential for the use of automatically adaptive training tools in motor skill training, making personalized training accessible to a larger audience that may not have access to an expert trainer. 
-		<br>
-		<br>
+		
 		In summary, we contribute:
 
 		<ul>
-			<li> A study prototype of an adaptive basketball hoop that enables training in three conditions: (1) static, (2) manually adaptive, and (3) auto-adaptive condition. In auto-adaptive condition, the physical tool automatically adapts to vary the task difficulty based on the learner's performance, so that the task difficulty is at the optimal challenge point for the learner. </li>
+			<li> A formative study that highlights the need to support designers in configuring a learning algorithm for their adaptive training tools for motor skills.  </li>
 			
-			<li>A study with 12 participants measuring the learning gains of training in the auto-adaptive training condition versus the static training condition with results showing significantly higher learning gains in the auto-adaptive condition (F_(1,11) = 1.856, p < 0.05). </li>
+			<li>A toolkit that supports designers in configuring a learning algorithm for their adaptive training tools. The toolkit has two parts - (1) a user interface to configure sensor and actuator values and to export a microcontroller script, and (2) a visualization tool to evaluate the adaptation during training to fine-tune the algorithm. </li>
 
-			<li>A study with 12 participants measuring the learning gains of training in the auto-adaptive training condition versus the manually adaptive training condition with results showing significantly higher learning gains in the auto-adaptive condition (F_(1,11) = 2.386, p < 0.05). </li>
+			<li>Applications to demonstrate that \textit{Adapt2Learn} can create learning algorithms for a range of adaptive training tools, such as an adaptive arm-band for golf, adaptive wobbleboard, adaptive bike, and adaptive heels.  </li>
 			
 		</ul>
-		Below, we discuss the background on varying task difficulty, design of study prototype, and the two user studies.
+		Below, we discuss the formative study, Adapt2Learn's user interface, and the application examples.
 		<br>
 		<br>
 
 
 		<span class="medium-headline">
-		BACKGROUND ON VARYING TASK DIFFICULTY
+		FORMATIVE STUDY
 		</span>
 		<br>
 		<br>
-		To determine when to adapt the tool so that the <b>task difficulty</b> level accommodates the learner's increase in skill level, we train the learners at <b>optimal challenge point</b>, which has been proven to lead to higher learning gains. Here, we describe how we translate this aprroach into the design of our tool.
+		<b>Study Design</b><br>
+		To study the challenges that designers face in building adaptive training tools that train learners at the optimal challenge point, we conducted a formative study. Our formative study was an 8-weeks long bi-weekly design studio as part of an undergraduate course at our institution. We had 32 participants who were in their junior or senior year at the university, and all had prior knowledge of electronics, prototyping, and programming (at least 2 years). The participants were teamed up in groups of two. 
 		<br>
 		<br>
-		<b><strong>Task Difficulty</strong></b><br>
-		To understand how the task difficulty during training affects the learning of a motor skill, researchers have defined two types of task difficulties: <i>nominal task difficulty</i> and <i>functional task difficulty</i> [Guadagnoli et. al].
+		We asked the teams to design, prototype, and build an adaptive training tool for a motor skill of their choice. In the first week, the participants brainstormed 10 ideas each and then selected one idea per team to work on for the rest of the studio. Letting the teams choose the motor skill themselves allowed us to examine the design space of adaptive training tools for various motor skills and understand the most common challenges in building them.
 		<br>
 		<br>
-		<b><i>Nominal Task Difficulty (Independent of the Learner)</i></b><br>
-		Nominal task difficulty is the level of difficulty of the task independent of the person executing the task and their skill level. For example, in basketball, it is more difficult to score a basket that is mounted at a higher height and has a smaller width, than to score a basket mounted at a lower height and has a larger width, irrespective of the person performing the task.  
+		During the 8-weeks study period, we informally interacted with the teams to discuss their design concepts, prototype implementation, and the algorithm development for their adaptive tools. The teams presented their progress and discussed the challenges with us during the studio. At the end of the 8-week design studio, we conducted semi-structured interviews to gain further insights by surveying 8 volunteering participants representing 7 teams, with two participants from the same team.  
 		<br>
 		<br>
-		<b><i>Functional Task Difficulty (Dependent on the Skill Level of the Learner)</i></b><br>
-		Functional task difficulty refers to how challenging the task is in relation to the person executing the task and their skill level. For instance, when throwing a ball at a high basket, the task will typically be more difficult for a beginner with a low skill level than an expert with a high skill level. 
-		<br>
-
-
-		<br>
-		<b><strong>Optimal Challenge Point</strong></b><br>
-		Research has shown that when the functional task difficulty is at a level that is neither too difficult nor too easy for the learner, it results in the highest potential learning benefit [guadagnoli et. al]. This level of functional task difficulty is called the optimal challenge point. Figure 2 illustrates that when the functional task difficulty is too low, i.e. the task is too easy, the learner's performance in practice is high (e.g., every single basket is scored in basketball), but the learner remains underchallenged and the potential learning benefit is low. Conversely, when the functional task difficulty is too high, i.e., the task is too difficult, the learner's performance in practice is low (e.g., no basket is scored), and the learner is overchallenged and thus this setup also fails to maximize the potential learning benefit. 
-		<br>
-		<br>
-		Therefore, to have the highest potential learning benefit, the functional task difficulty needs to be at a medium level, i.e., the task at hand should neither be too difficult nor too easy, which is reflected in a medium performance level in practice (e.g., some baskets are scored but not all).  
-		<br>
-		<br>
-		<img src="images/fig3-optimal-challenge-point.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/fig2-study.png" alt="mosculpt-runner" width="650" style="padding-bottom:0px; margin-bottom:10px"/>
 		<br>
 		<b>
-		Figure 2. The optimal challenge point is  the level of functional task difficulty at which the task is neither too hard nor too easy, which allows for the largest potential learning benefit. Figure adapted from Guadagnoli et al. 
+		Figure 2. Formative study: (top) The 32 participant teams built adaptive training tools for various motor skills of their choice. While the teams successfully prototyped the adaptive training tools, study observations showed they struggled the most with developing a learning algorithm for their adaptive training tools. (bottom) List of the sensors, actuators, and their corresponding adaptation used in the adaptive training tools.
 		</b>
 		<br>
 		<br>
-		<b><strong>Adjusting Task Difficulty to Maintain the Optimal Challenge Point</strong></b><br>
-		We developed an algorithm that allows learners to progress from a beginner level (low nominal task difficulty) to expert level (high nominal task difficulty) by training at a functional task difficulty set at the optimal challenge point at all times. The algorithm accomplishes this in following steps: 
+		<b>Challenges Identified</b><br>
+		We found that the designers faced challenges in three areas - choosing the sensors and actuators, prototyping the hardware, and configuring the learning algorithm for their adaptive training tools. The first challenge can be addressed by using the 4 guiding questions outlined in the design concept section. For the second challenge, several support tools already exist that help designers integrate their mechanisms into their tools, as listed in the related work. However, there is no support for designers to configure a learning algorithm that maintains the optimal challenge point during training. In particular, the designers faced two challenges concerning the learning algorithm:
+		<br>
 		<ul>
-			<li> Step 1. Monitoring Performance in Practice / Functional Task Difficulty: The algorithm monitors the learner's performance by collecting data from the integrated sensors over time and computes the learner's average score over time. Based on the score, we determine if the difficulty level is too difficult or too easy, or optimal.</li>
+			<li> configuring a learning algorithm for their respective adaptive training tool that varies the task difficulty and maintains it at the optimal challenge point</li>
 			
-			<li> Step 2. Increase Nominal Task Difficulty by Adapting the Tool: If the score is high (functional task difficulty too low), our algorithm increases the nominal task difficulty by adjusting the tool. In basketball, for example, the algorithm can increase nominal task difficulty by raising the stand and making the hoop smaller. </li>
-
-			<li> Repeat step 1 + 2 Until Highest Nominal Task Difficulty is reached (Expert Setting): Our algorithm repeats step 1 and step 2, i.e. monitoring performance in practice and increasing the functional task difficulty by adapting the tool, until the highest nominal task difficulty setting is reached. If the functional task difficulty is low at the highest nominal task difficulty, i.e. if the performance is high in the expert setting, the learner has fully mastered the skill.  </li>
+			<li> evaluating the learning algorithm and the tool's adaptation </li>
 			
 		</ul>
-		<br>
-
 		
+		To address these challenges, <b>Adapt2Learn </b>, a toolkit that auto-generates the adaptive learning algorithm for designers' shape-changing tools for motor skill learning. To evaluate the algorithm, Adapt2Learn has a visualization tool that lets designers visualize the learner's performance and the tool's respective adaptation.
+		<br>
+		<br>	
 
 		<span class="medium-headline">
-		STUDY PROTOTYPE
+		ADAPT2LEARN TOOLKIT - WALKTHROUGH
 		</span>
 		<br>
-		<!-- <br>
-		To be able to compare the training with (1) a static, (2) a manually adaptive, and (3) an automatically adaptive tool, we first built a study prototype that works across all three conditions.  
-		<br> -->
 		<br>
-		While a wide range of skills can be used to study motor skill learning, such as learning to ride a bike or to skateboard, we chose basketball as an example because the task of shooting balls into the hoop requires only a short amount of time (each shot takes around 3-4 seconds). This allows us to collect more data points in our user studies (220 shots per participant within an hour of study).  
-		<br>
-		<br>
-		<b><strong>Design of the Study Prototype</strong></b><br>
-		Figure 3a shows the design of the final study prototype of a basketball stand that we used for the three study conditions. The study prototype has an adjustable hoop height and width, i.e., the hoop can widen and tighten and the stand can raise or lower the hoop. It is mounted with: (1) actuators to adjust the hoop height and width (Figure 3b), and (2) sensors to detect when the ball hits the board or goes through the hoop (Figure 3c). 
+		We now demonstrate how to use the Adapt2Learn user interface for configuring the learning algorithm for adaptive training tools described in the previous section. We then explain how \textit{Adapt2Learn's} built-in visualization tool helps designers assess when the tool adapts and how it affects the learner's performance. As an example, we replicated the adaptive basketball from Turakhia et al. 
 		<br>
 		<br>
 		<img src="images/fig2-study-prototype.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
@@ -563,216 +532,186 @@
 		</b>
 		<br>
 		<br>
-		<b><strong>Actuators</strong></b><br>
-		To adapt the hoop height, we use a stepper motor (Figure 3b top, Figure 4 left) integrated with the base of the stand that lowers or raises the hoop. Similarly, to adapt the hoop width, we use a servo motor (Figure 3b bottom, Figure 4 right) integrated with the hoop that increases or decreases the hoop diameter. The basketball height and width can be adjusted continuously between a height of 180-270 cm and a hoop diameter of 20-40 cm, respectively. Thus, the lowest difficulty setting is with 180 cm hoop height and 40 cm hoop width, and the highest difficulty setting is 270 cm hoop height and 20 cm hoop width. For reference, the ball used for the user study had a diameter of 15 cm.
+		<b><strong>Configuring the Learning Algorithm using Adapt2Learn's User Interface:</strong></b><br>
+		To configure the learning algorithm, designers first register the sensors and then map the sensor values to success/failure states. They then repeat the process for actuators by registering the actuators and mapping the actuator values to success/failure states. Finally, they define how the performance should be evaluated by defining the evaluation unit and running average period. We next detail these steps for the example of the adaptive basketball stand.
 		<br>
 		<br>
-		<img src="images/Mini_Vid-Actuator_stepper.gif" alt="mosculpt-runner" width="350" style="padding-bottom:0px; margin-bottom:10px"/>
-		<img src="images/Mini_Vid-Actuator_servo.gif" alt="mosculpt-runner" width="350" style="padding-bottom:0px; margin-bottom:10px"/>
-		<br>
-		<b>
-		Figure 4. Actuators: (left) a stepper motor for adaptation of hoop height (right) a servo motor for adaptation of hoop width.
-		</b>
-		<br>
-		<br>
-		<b><strong>Sensors</strong></b><br>
-		We sense the learner's performance by detecting if the ball went through the hoop, hit the board, or completely missed. To sense if the ball went through the hoop, we use a switch sensor attached to the net of the hoop that gets activated when the ball goes through the hoop and pulls on the net (Figure 3c top, Figure 5 left). To detect if the ball hit the board, we use a piezo sensor  (SEN-10293 from Sparkfun) that detects the noise of the ball hitting the board, which is a reading above 100 units (Figure 3c bottom, Figure 5 right). If neither the switch is activated nor the piezo reading is above 100 units, we infer that the ball completely missed the basket. 
-		<br>
-		<br>
-		Using these sensors, our prototype can sense three performance outcomes, which are in order from most to least successful: basket scored, board hit, and completely missed.
+		
+		<b><i>Step 1: Register Sensors:</i></b><br>
+		We start by hitting the <i>`create new adaptive tool'</i>> button and proceed to register the sensors. In the user interface, we can select among a range of different sensors, such as piezo, switch, ultrasonic, flex, accelerometer, force resistive, PIR motion, and hall sensors. For our purposes, we select the <i>`piezo'</i> sensor, label it <i>`board\_sensor'</i>, and assign it pin 13 on our microcontroller (Figure \ref{fig:config}a). We use the <i>`add another sensor'</i> button and repeat the procedure. We select the <i>`switch'</i> from the available sensors and label it as <i>`basket\_sensor'</i> and assign it pin 10 on our microcontroller (Figure \ref{fig:config}b).
 		<br>
 		<br>
 		<img src="images/Mini_Vid-Sensor-switch.gif" alt="mosculpt-runner" width="350" style="padding-bottom:0px; margin-bottom:10px"/>
 		<img src="images/Mini_Vid-Sensor-piezo.gif" alt="mosculpt-runner" width="350" style="padding-bottom:0px; margin-bottom:10px"/>
 		<br>
 		<b>
-		Figure 5. Sensors: (left) a switch sensor to detect if the ball went through the hoop (right) a piezo sensor to detect if the ball hit the board
+		Figure 4. Configuring the learning algorithm using Adapt2Learn's user interface by registering sensors and mapping sensor values onto success/failure states and corresponding scores.
 		</b>
 		<br>
 		<br>
-
-		<b><strong>Using the Study Prototype for all three Study Conditions</strong></b><br>
-		Next, we explain the three study conditions and describe how our study prototype supports each of these conditions:
-
-		<ul>
-			<li> In the <b>static condition</b>, the difficulty level is fixed and thus the prototype does not adapt during training. Therefore, no actuation of the tool or sensing of the user's performance is needed.  </li>
-			
-			<li>In the <b>manually adaptive condition</b>, participants are in control of which difficulty level they want to train on. We provide participants with a keyboard to control the actuators to adjust the hoop width and the hoop height as desired. </li>
-
-			<li>For the <b>auto-adaptive condition</b>, our adaptation algorithm controls the difficulty level. To provide the adaptation algorithm with data on the user's performance, the switch and piezo sensors embedded in the study prototype are used to determine if the ball missed the hoop, hit the board, or successfully went through the hoop. Based on the performance data, our algorithm then determines if the actuators need to adapt the tool to the next difficulty level.</li>
-		</ul>
+		<b><i>Step 2: Map Sensor Values onto Success/Failure States:</i></b><br>
+		Next, we configure the sensor states and the respective threshold values that define successful and unsuccessful performance. Depending on the sensors chosen, the user interface provides the respective range of sensor values. For example, for the piezo sensor, the user interface provides a range of values (0-255) whereas for the switch sensor, it provides only boolean values.
+		<br>
+		<br>
+		<b><i>Step 3: Register Actuators:</i></b><br>
+		Next, we register the actuators. In the user interface, we can select among a range of different actuators, such as a servo motor, stepper motor, pneumatic pump, and relay. Depending on the actuators chosen, the user interface provides the respective range of actuator values. 
+		<br>
+		<br>
+		For our purposes of raising and lowering the hoop height, we select \textit{`stepper motor'} from the list of actuators and label it \textit{`stand\_motor'}. We assign it pin 1 on our microcontroller, and the user interface automatically assigns the remaining pins 2, 3, and 4 required for the stepper motor~(Figure \ref{fig:config}c). 
+		<br>
+		<br>
+		We then add the motor that widens and tightens the hoop by clicking \textit{`add another actuator'} button. We then select \textit{`servo motor'} and label it \textit{`hoop\_motor'}, and then assign it pin 9 on the microcontroller~(Figure \ref{fig:config}d). 
+		<br>
+		<br>
+		
+		<img src="images/Mini_Vid-Actuator_stepper.gif" alt="mosculpt-runner" width="350" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/Mini_Vid-Actuator_servo.gif" alt="mosculpt-runner" width="350" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 5. Configuring the learning algorithm using Adapt2Learn's user interface by registering actuators and mapping actuator values onto success/failure states.
+		</b>
+		<br>
+		<br>
+		<b><i>Step 4: Map Actuation Values onto Success/Failure States:</i></b><br>
+		Next, we map the motors' actuation values onto adaptation states. We define states for the \textit{`stand\_motor'} (stepper motor): \textit{`stand\_raise'} as \textit{`success'} and with the motor turning 16 revolutions to increase the hoop height, and \textit{`stand\_lower'} as \textit{`failure'} and with the motor turning -16 revolutions to decrease the hoop height (Figure \ref{fig:config}c). We repeat the process for the hoop motor by defining \textit{`hoop\_motor'} (servo motor): \textit{`hoop\_tighten'} as \textit{`success'} with the motor turning 8 revolutions, and  \textit{`hoop\_widen'} as \textit{`failure'} with the motor turning -8 revolutions (Figure \ref{fig:config}d).
+		<br>
+		<br>
+		<b><i>Step 5: Define Performance Evaluation Unit and Running Average Period:</i></b><br>
+		Finally, we set up the performance evaluation unit (Figure \ref{fig:code}a). The \textit{`evaluation unit'} can be either \textit{`attempts'} or \textit{`time'}. For our adaptive basketball prototype, we select \textit{`attempts'} representing attempted throws at the basket. Next, we define the \textit{`running average period'}, i.e. the period over which the algorithm will evaluate the learner's performance. Depending on which evaluation unit was selected, the running average period is either a number of attempts (after 4 throws in our basketball example) or a time period (after 10 minutes in balancing a bike). We also set the time limit after which, if no sensor value is detected, the attempt is considered as a failure, for example as 10 seconds. 
+		<br>
+		<br>
+		
+		<b><strong>Generating the Microcontroller Script According to the Configuration:</strong></b><br>
+		After configuring the learning algorithm using the steps described above, designers can hit the `export' button (Figure \ref{fig:code}a), which automatically generates the microcontroller code (Arduino script in .ino file format). After exporting, designers can then deploy the script onto the microcontroller integrated with their adaptive training tools.
+		<br>
+		<br>
+		<b><strong>Visualization Tool: Displaying Performance and Adaptation:</strong></b><br>
+		To provide tool designers with a way to assess the learner's performance and when the tool adapts, we added a visualization tool. The visualization tool plots the learner's attempt scores, the corresponding running average, and the computed derivative of the running average at that attempt. This performance data is plotted in real-time along with when the tool adapts to an easier or more difficult setting. 
+		<br>
+		<br>
+		The visualization helps monitor how the configured learning algorithm takes a learner from a low difficulty setting to a high difficulty setting while maintaining their performance score at the optimal challenge point. 
 		<br>
 		<br>
 		<img src="images/Mini_Vid-Conditions.gif" alt="mosculpt-runner" width="720" style="padding-bottom:0px; margin-bottom:10px"/>
 		<br>
 		<b>
-		Figure 6. Our study prototype support three training conditions: (a) static (b) manually-adaptive (particiapnts manually adapt the difficulty). (c) (b) auto-adaptive (algorithm automatically adapt the difficulty).
+		Figure 6. Visualization of the scoring of a learner and the adaptation frequency over a number of attempts. The visualization thus helps monitor how the configured learning algorithm takes a learner from a low difficulty setting to a high difficulty setting while maintaining their performance score at the optimal challenge point.
 		</b>
 		<br>
 		<br>
 		
 
 		<span class="medium-headline">
-		USER STUDY 1: STATIC V/S AUTO-ADAPTIVE TRAINING TOOLS
+		APPLICATION EXAMPLES OF ADAPTIVE LEARNING TOOLS USING ADAPT2LEARN
 		</span>
 		<br>
 		<br>
-		<b>Study Design</b>
-		<br>
-		In our first user study, we compare the learning gain and training experience of training with a static tool versus  an automatically-adaptive tool. 
-		We base our user study on a previous study in motor skill learning that investigated fixed practice versus varied practice in which a personal trainer adjusted the training, and showed that varied practice leads to a larger learning gain [Kerr et. al].
+		We built and configured an adaptive armband that supports learners in keeping their elbow straight during the golf-swing. The armband has a flex sensor to detect if the learner's elbow is straight or bent, and a pneumatic pump to deflate and inflate the arm band to restrict bending of the elbow 
 		<br>
 		<br>
-		<img src="images/fig4-study1-setup.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<b>Adaptive Armband for Golf: Single Sensor-Actuator Combination</b>
+		<br>
+		We built and configured an adaptive armband that supports learners in keeping their elbow straight during the golf-swing. The armband has a flex sensor to detect if the learner's elbow is straight or bent, and a pneumatic pump to deflate and inflate the arm band to restrict bending of the elbow (Figure~\ref{fig:golf}). 
+		<br>
+		<br>
+		<img src="images/fig6-golfa.png" alt="mosculpt-runner" width="350" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/fig6-golfb.png" alt="mosculpt-runner" width="350" style="padding-bottom:0px; margin-bottom:10px"/>
 		<br>
 		<b>
-		Figure 7. The setup for user-study 1 with two training conditions: (a) static (80 throws: 40 lowest difficulty, 40 highest difficulty setting) and (b) auto-adaptive (80 throws continuously adapting difficulty). (c) The participants of our study seen during training were standing at distances based on a measurement of their initial performance.
+		Figure 7. An adaptive armband that supports learners in keeping their elbow straight during the golf-swing, integrated with one flex sensor and  one pneumatic pump. Configuring the learning algorithm for the armband using \textit{Adapt2Learn}'s user interface.
 		</b>
 		<br>
+		<br>
+		The configured algorithm then senses the bending and inflates or deflates the armband to provide more or less support to the learner and thus varies the task difficulty. For example, if the learner bends the elbow too often during training, the algorithm makes the task difficulty easier by inflating the armband thereby restricting the bending, and thus providing more support to the learner by keeping the elbow straight.   
+		<br>
+		<br>
+
+		<b>Adaptive Wobbleboard: Synchronizing Sensors:</b>
+		<br>
+		We built and configured an adaptive wobbleboard with inflatable cushion that supports learners in learning to balance the board. The wobbleboard has two ultrasonic sensors mounted on diametrically opposite sides of the board to detect if it is stable or wobbling, and a pneumatic pump to deflate and inflate the support cushion that restricts wobbling (Figure~\ref{fig:adapt2learnwobble}). 
+		<br>
+		<br>
+		<img src="images/fig7a-wobbleboard.png" alt="mosculpt-runner" width="350" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/fig7b-wobbleboard.png" alt="mosculpt-runner" width="350" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 8. An adaptive wobbleboard with inflatable cushion that supports learners in learning to balance the board. Configuring the learning algorithm for the wobbleboard using \textit{Adapt2Learn}'s user interface to set synchronized two ultrasonic sensors and one pneumatic pump.
+		</b>
+		<br>
+		<br>
+		If the configured algorithm detects a failure state for either of the sensors, it implies that the corresponding edge of the wobbleboard is too high, and the other edge is too low (<5cm), meaning that the wobble board is imbalanced. Thus, two sensors can be used in tandem to detect balancing. To support the learner in keeping the wobbleboard balanced, the pneumatic pump can then inflate the cushion. Alternatively, if the learner balances the wobbleboard well, the pump deflates the cushion, thereby reducing the support and making the task of balancing harder. 
+		<br>
+		<br>
+
+		<b>Adaptive Bike: Synchronizing Actuators</b>
+		<br>
+		We built and configured a bike with adaptive training wheels that supports learners in learning to balance the bike. The bike has one hall-effect sensor mounted on each of the training wheels to detect if the training wheel is being used, and one stepper motor on each of the training wheels to lower or raise them to provide more or less support in balancing the bike (Figure~\ref{fig:bike}). 
+		<br>
+		<br>
+		<img src="images/fig8a-bike.png" alt="mosculpt-runner" width="350" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/fig8b-bike.png" alt="mosculpt-runner" width="350" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 9. A bike with adaptive training wheels that supports learners in learning to balance the bike. Configuring the learning algorithm for the adaptive bike using \textit{Adapt2Learn}'s user interface to set two synchronized hall-effect sensors and two synchronized stepper motors.
+		</b>
+		<br>
+		<br>
+		If the configured algorithm detects a failure state too often for either of the sensors, it implies that the learner is unable to balance without the use of the training wheels. The stepper motors then lower the wheels further to provide more support to the learner. Since both the actuators are mapped to the same failure state, they both turn at the same time and by the same amount. In this way two sensor values can be mapped to two actuator values in combination.  
+		<br>
+		<br>
+
+		<b>Adaptive Heels: Synchronized Sensors and Actuators</b>
+		<br>
+		In addition to the above examples, we also configured the learning algorithm for the studio-built adaptive heels that support learners in training to walk in high heels (Figure \ref{fig:heels}). The participant team mounted two ultrasonic distance sensors per shoe, one on each side of the heel to measure the balance of the learner while walking in the heels. One servo motor was mounted on each of the shoe to raise and lower the heel height while walking. Thus, the adaptive heels had a combination of 4 synchronized sensors and 2 synchronized actuators. This ensures that both the heels were synchronized in their adaptation. Thus only when all the four sensor values detected success states, the servo motors actuated to raise the heels and increased the difficulty of walking. Note that the 3D printed spindle that increased and decreased its height by the servo motor at the base of the heel supported the weight of the learner while walking. 
+		<br>
+		<br>
+		<img src="images/fig9a-heels.png" alt="mosculpt-runner" width="350" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/fig9b-heels.png" alt="mosculpt-runner" width="350" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 10. Adaptive heels that support learners in training to walk in high heels. Configuring the learning algorithm for the adaptive heels using \textit{Adapt2Learn}'s user interface to set four synchronized ultrasonic distance sensors (two per shoe), and two synchronized servo motors.
+		</b>
+		<br>
+		<br>
+		In the same way that we used our user interface to configure the examples above, the user interface can be used to configure other examples from the studio, such as the adaptive skateboard, dartboard, fencing, jumprope, and cornhole prototypes {(see Figure \ref{fig:classprojects})} that use similar sensor-actuator combinations. 
+		<br>
+		<br>
+		However, we also encountered two challenges for which we could not yet configure the learning algorithm using our user interface. The first challenge occurs when the success state is coupled with a specific timing, such as when hitting a note on time for playing piano. For instance, the adaptive piano used a switch sensor to sense if a key was pressed at the right time and then actuated the servo motor under the key to provide feedback to the learner on which key to press next. Since our user interface does not support time-based sensing, we were not able to configure the learning algorithm for this adaptation. The second challenge occurs when additional processing on the sensor data is needed. For example, both the adaptive pitching machine and the adaptive juggling used a camera to detect the learner's position, which requires computer vision techniques that go beyond the sensor value thresholding that our user interface currently supports. 
+		<br>
+		<br>
+		In summary, we demonstrated the use of \textit{Adapt2Learn} for configuring the learning algorithm for a variety of applications that ranged from single sensor-actuator combinations (e.g., golf-arm band) to multiple synchronized sensor-actuator combinations (e.g., adaptive heels). 
+
 		
-		<br>
-		<b><i>Hypothesis:</i></b> Our hypothesis was that training with an auto-adaptive tool, which adapts the difficulty level based on the learner's performance, will result in a higher learning gain when compared to a static tool that does not vary the task difficulty based on learner's performance during the training. A higher learning gain will be reflected in a higher performance score after the same amount of training time in each condition.
-		<br>
-		<br>
-		<b><i>Participants:</i></b> We recruited 12 participants (8 female, 4 male) aged between 18-31 years (mean=25, std. deviation=3.3).
-		<br>
-		<br>
-		<b><i>Setup:</i></b> Participants were asked to stand at a single location and attempt the throws for the entire study from this position. We used our study prototype without any adaptation in the static condition. For the auto-adaptive condition, we deployed our algorithm on the microcontroller integrated with the basketball stand.
-		<br>
-		<br>
-		<b><i>Conditions:</i></b> The study followed a within-subjects design. We used randomized order to avoid order effects for training the participants on the following two conditions:
-		<br>
-		<ul>
-			<li><i>Static training:</i> In the static training condition, participants attempted half (40) the throws in the lowest difficulty setting (i.e., largest hoop, lowest basket height) and the second half (40) of throws in the highest difficulty setting (i.e.,the smallest hoop and the highest basket height). 
-			<br>
-			<li><i>Auto-adaptive training:</i> In the auto-adaptive training condition, participants started by throwing balls in the lowest difficulty setting (lowest basket height and largest hoop size) and gradually progressed towards the harder settings using the adaptation algorithm shown in Table 1 (of the paper) as they performed a total of 80 throws.
-		<br>
-		</ul>
-		<br>
-		<b>Study Procedure</b> 
-		<br>
-		In total, each participant attempted 220 throws over the 5 phases of the study. For training condition #1, the participants were randomly assigned either static training or auto-adaptive training first, and then the respective other training in condition #2. Please refer to the paper for more details. 
-		<br>
-		<br>
-		<b><i>Measuring Learning Gain: </i></b> 
-		To measure the learning gains for the first condition participants trained in, we compared the participant's score in the pre-training skill assessment test and their score in post-training test #1. To measure the learning gains of the second condition participants trained in, we compared their score in post-training test #1 and their score in post-training test #2. The learning gains were measured by calculating the differences in the respective test scores.
-		<br>
-		<br>
-		<b>Study Results: Average Learning Gain</b> 
-		<br> 
-		We calculated the average learning gains for both the conditions and found that the training in the auto-adaptive condition led to a 20% increase in the average performance score compared to the static training condition. As seen in Figure 8, participants scored a total of 4 points more on average during their 20 attempted throws in the post auto-adaptive training test. (With maximum 1pt per attempt, the maximum possible score was 20 points in each post-training test). ANOVA analysis showed that the increase in the learning gains in the auto-adaptive condition was statistically significant (F_(1,11) = 1.856, p < 0.05).
-		<br>
-		<br>
-		<img src="images/fig5-study1-learning-gain.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
-		<br>
-		<b>
-		Figure 8. User-study 1: Average learning gain post adaptive training and post non-adaptive training. The average learning gain post adaptive training is significantly higher than performance post static training (F_(1,11) = 1.856, p < 0.05).
-		</b>
-		<br>
-		<br>
-		<b>Qualitative feedback</b> When participants were asked if they would rather retrain with the auto-adaptive or the static condition, 8 out of 12 participants preferred the auto-adaptive condition. When asked about the reasons for their preferences, participants stated the following:
-		<br>
-		<br> 
-		<b><i>Seeing the physical tool adapt:</i></b> "The adaptive training made me reflect upon what I'm doing wrong by physically changing the height and hoop size and made me want to change my throwing style faster." - (p3), "Adaptive training makes each stage of the training experience more rewarding, so it helped me focus better." - (p11)
-		<br>
-		<br> 
-		<b><i>Having adaptive difficulty levels:</i></b> "The adaptive mode felt more useful in slowly adjusting to let me get better at harder and harder shots" - (p8). "it's more natural! [...] it matches learning process better" - (p7). However, one participant also mentioned "I prefer to be challenged beyond my current capability and learn that way." - (p10)
-		<br>
-		<br>
-		To summarize the qualitative feedback, we discovered that learners find it motivating to see their progress through tool adaptation without having to focus on constantly assessing their own performance.
 
 
 
 		<br>
 		<br>
 		<span class="medium-headline">
-		USER STUDY 2: MANUALLY ADAPTIVE V/S AUTO-ADAPTIVE TRAINING TOOLS
-		</span>
-		<br>
-		<br>
-		<b>Study Design</b>
-		<br>
-		For our second study, we investigated if automatically adapting the training tools also leads to higher learning gains when compared to manually adaptive training tools, i.e. when the learners have the choice to adjust the difficulty level according to their preference.
-		<br>
-		<br>
-		<b><i>Hypothesis:</i></b> We hypothesized that the training with an automatically-adaptive training tool will result in a higher learning gain when compared to a manually adaptive training tool.
-		<br>
-		<br>
-		<b><i>Participants:</i></b> We recruited 12 participants (8 females) aged between 19-28 years (mean=21, std. deviation = 2.62).
-		<br>
-		<b><i>Setup:</i></b> We used the same room setup and basketball prototype as in the prior user study. For the automatic adaptation, we deployed the adaptation algorithm on the micro-controller integrated with the basketball stand and used the auto-adaptation algorithm described in section 4.4. (of the paper) with a window size of 4 attempts. In the manually adaptive condition, participants controlled the adaptation, i.e. they could decide which difficulty level to train on and for how long to train in the setting.
-		<br>
-		<br>
-		<b><i>Conditions:</i></b> As in the previous study, this study followed a within-subjects design and randomized order to avoid order effects for training the participants on the following two conditions:
-		<br>
-		<ul>
-			<li><i>Manually Adaptive training:</i> For the manual adaptation, we added a keyboard interface, which participants used to adjust the basket height (arrow up/down) and hoop diameter (arrow left/right) according to their preference.
-			<br>
-			<li><i>Auto-adaptive training:</i> In the auto-adaptive training condition, our adaptation algorithm automatically adjusted the tool during the training, as described in the section `setup' above.
-		<br>
-		</ul>
-		<br>
-		<b>Study Procedure</b> 
-		<br>
-		The study procedure was the same as in the first study (refer to section 5.1 of the paper), i.e. we started with a pre-study calibration of the distance to the basket, followed by 220 throws (pre-training skill assessment: 20 throws, training condition 1: 80 throws, post-training 1 test: 20 throws, training condition 2: 80 throws, and post-training 2 test: 20 throws). 
-		<br>
-		<br>
-		<b><i>Measuring Learning Gain: </i></b> 
-		We measured learning gain in the same way as in the first study.
-		<br>
-		<br>
-		<b>Study Results: Average Learning Gain</b> 
-		<br> 
-		We calculated the average learning gains for both the conditions and found that the training in the auto-adaptive condition led to a 25% increase in the average performance score compared to the manually adaptive condition. As can be seen in Figure 8, participants scored 5 points higher on average during their 20 attempted throws in the post auto-adaptive training test (each basket hit = 1pt). ANOVA analysis showed that the increase in the learning gains in the auto-adaptive condition was statistically significant (F_(1,11) = 2.386, p < 0.05).
-		<br>
-		<br>
-		<img src="images/fig9-study2-learning-gain.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
-		<br>
-		<b>
-		Figure 9. User-study 2: Average learning gain of post auto-adaptive and manually adaptive training. The average learning gain in performance post auto-adaptive training is significantly higher than the performance post manually adaptive training (F_(1,11) = 2.386, p < 0.05).
-		</b>
-		<br>
-		<br>
-		<b>Maintaining Functional Task Difficulty Around the Optimal Challenge Point</b> It was evident from the results of the manually adaptive condition that participants failed to determine the difficulty level that offers the largest learning gain when left to configure the hoop height and width themselves. See the paper for more detailed analysis od particpants' performances. 
-		<br>
-		<br>
-		<b>Qualitative feedback</b> When participants were asked if they would rather retrain with the automatically-adaptive or manually adaptive condition, 10 out 12 participants preferred the automatically-adaptive setup. When asked to highlight the benefits and drawbacks of each condition, participants responded as follows:
-		<br>
-		<br> 
-		<b><i>Self-evaluation:</i></b> "There were times during the manually adaptive process where I was unsure what the optimal path to training would be." - (p5), "Somehow I trust auto-adaptive training more than myself and maybe I should (as suggested by scores after each type of training received)." - (p2), "Auto-adaptive is nicer than manually adaptive when the difficulty is increased because it is difficult for me to gauge how much I should increase the difficulty." - (p7).
-		<br>
-		<br> 
-		<b><i>Learning of skill, ease and efficiency in training:</i></b> "The auto-adaptive was easier to use; I didn't have to think about if I set it too easy or too hard." - (p3). "Manually adaptive training took longer/hard to judge which increments to practice/alter. It seemed the auto-adaptive training was more efficient." - (p10)
-		<br>
-		<br> 
-		<b><i>Motivation:</i></b> "[auto-adaptive:] I felt myself getting better and think this would have been really fun to have as a kid." - (p8), "I feel that I am doing better every time it adapts to a harder setting." - (p12), "I have freedom to grow and make mistakes. No one is watching me (outside of lab setting) so it is more comfortable [than having a personal trainer]." - (p1).
-		<br>
-		<br>
-		During the study, we also observed that participants who were assigned to the automatically adaptive condition first used a similar strategy as our algorithm for their manually adaptive condition. In contrast, participants who trained on the manually adaptive condition first were fixated on the least difficult or the most difficult setup.
-		<br>
-		<br>
-		In summary, our results confirm that maintaining functional task difficulty around the level of the optimal challenge point is beneficial in the learning of motor skills. The feedback from participants showed that training on the automatically adaptive mode also provides additional motivation and is engaging and more enjoyable. 
-		<br>
-		<br>
-
-		<span class="medium-headline">
+		
 		DISCUSSION
 		</span>
 		<br>
 		<br>
-		We showed that automatically adapting physical tools that vary task difficult are effective for motor skill learning as they maintain the training at the optimal challenge point for the learners. We now discuss benefits and limitations of our work.
+		We illustrated how \textit{Adapt2Learn} supports designers in configuring the learning algorithm for their custom adaptive training tools. \textit{Adapt2Learn's} built-in visualization tool then supports designers in assessing the learner's performance and the tool's adaptation. The interface also allows designers to update the learning algorithm without re-programming the microcontroller code. We next discuss the limitations of our toolkit and provide directions for future work:
 		<br>
 		<br>
-		<b><i>Scaling Personalized Training of Motor Skills:</i></b> One of the main motivations for building automatically-adaptive tools for motor skills learning is that they allow to scale-up personalized learning of motor skills and make it available to a larger audience that does not have access to personal trainers. While we did not compare our automatically-adaptive tool to learning with a personal trainer, we did provide evidence that our approach leads to significantly higher learning gains when compared to conventional training tools, such as static and manually adaptive tools, that are currently used by learners who do not have access to a personal trainer.
+		<b><i>Extending the Range of Supported Components:</i></b> Adapt2Learn} currently supports 8 sensors and 4 actuators, which can be used in multiple sensor-actuator combinations, as seen in our examples. However, as discussed earlier, providing more components would further extend the range of adaptive tools for configuring the learning algorithm. For the future, we plan to integrate components that require more processing, such as depth sensors and cameras. Additionally, adding time-based sensing and custom components to the user interface could be a direction for future work.
 		<br>
 		<br>
-		<b><i>Extending to Other Motor Skills and Tools:</i></b> While in this paper, we were only able to study one particular adaptive tool, our work can be replicated to study additional tools in the future. For instance, the adaptation algorithm generalizes across different types of tools as long as they have sensors to measure a user's performance and actuators to adapt the difficulty level of the tool. Similarly, while the hardware of our tool, i.e. the particular sensors and actuators, are necessarily specific, we outlined the general requirements that study prototypes need to fulfill to work across all three conditions. We hope that our work can lay the foundation for the study of a variety of adaptive training tools, which will allow researchers to gather more evidence of the effectiveness of adaptive training tools for motor skill training.
+		<b><i>Configuring the Algorithm in Real-time:</i></b> While currently, our system provides real-time visualization of the learner's performance and tool's adaptation, it does not allow for real-time reconfiguration of the learning algorithm. The designers currently have to reconfigure the values, re-export the microcontroller script, and then deploy it again onto the adaptive tool. In future work, we plan to support designers to update the configuration of a learning algorithm in real-time in the learning situation.
 		<br>
 		<br>
-		<b><i>Longitudinal Studies with Diverse Participants:</i></b> While the insights from our study are promising, more longitudinal studies with more varied populations are needed before we can draw conclusions on long-term learning gains. Our study focused on only one adaptive training tool and more studies are needed to confirm the results across a broader set of different tools in different application domains. Furthermore, additional studies need to be conducted to study specific aspects of the skills, such as variation in throwing angle and throwing distance.  
+		<b><i>Evaluating the toolkit through user studies:</i></b> While we demonstrated that \textit{Adapt2Learn} can be used for configuring various adaptive training prototypes, evaluating the use of toolkit through user studies with designers and testing it in different phases of the design process is a part of our future work. 
 		<br>
 		<br>
-		<b><i>Improvements for the Auto-Adaptation Algorithm:</i></b> In our work, we discussed the discrete vs. running average approach and an additional derivative check to calculate the user's performance over time which we then used to determine when to adjust the difficulty level for training. However, several other approaches can be used to determine when to adapt the tool. For instance, by adding a hysteresis value to the algorithm, we can further enhance our algorithm to only adapt the tool when the performance is at a certain value for a long period of time. Such a hysteresis value can prevent unwanted frequent switching between states when performance fluctuates around the optimal challenge point. In addition, our algorithm currently uses a fixed increase for the adaptation. For future work, we plan to determine not only when to adapt the tool but also how much to adapt it based on the user's performance.
+		<b><i>Visualizing the Learning Trajectory:</i></b> While not the focus of our work, the visualization tool may also help assess how long the learner takes to transition from a low difficulty level to a high difficulty level, and predict the time needed to reach the highest skill level. Additionally, the visualization tool may also allow comparing the learning trajectory of multiple learners and gain more insights into that motor skill's learning.
+		<br>
+		<br>
+		<b><i>Comparing Different Tool Designs:</i></b> When building an adaptive training tool, designers have different options for sensing the learner's performance and adapting the task difficulty. For instance, when designing the adaptive basketball, instead of only detecting board and basket hits with a piezo sensor and switch, a camera can be used to sense the ball's trajectory, which provides more information. However, it is unclear which sensing-adapting method leads to the best results. Providing a way to compare the adaptation of different designs for the same training tool could allow designers to choose their designs appropriately.
+		<br>
+		<br>
+		<b><i>Supporting Multiple Learners:</i></b> Many skills involve learning as a group where individuals may have varying skill levels. While currently the exported microcontroller script from our user interface and our visualization tool monitor a single learner's performance, a future direction for research could be to extend both the user interface and the visualization tool to support multiple learners at the same time.
 		<br>
 		<br>
 
@@ -781,19 +720,17 @@
 		</span>
 		<br>
 		<br>
-		We showed that automatically adaptive tools that vary task difficulty based on a learner's performance, can indeed help in motor skill training. Using our study prototype and the adaptation approach of the optimal challenge point, we demonstrated that training in an auto-adaptive condition leads to higher learning gains when compared to training in a static or manually adaptive condition. We showed that the experience of training in the auto-adaptive condition is also more enjoyable for learners since it removes the decision making process around which difficulty level to train on and provides feedback to the learner in the form of the shape-adaptation of the tool. 
+		We developed a toolkit that supports designers in creating adaptive training tools that maintain the task difficulty at the optimal challenge point. Our formative study showed that designers needed support, particularly in configuring the learning algorithm and assessing the tool's adaptation. We showed that \textit{Adapt2Learn} addressed these two challenges through its user interface and its visualization tool. We showed that \textit{Adapt2Learn's} user interface supports configuring the learning algorithm by first registering the sensors and actuators of the adaptive tools, then mapping their values to success/failure states, and finally exporting the auto-generated micro-controller script, which can be deployed onto the micro-controller integrated with the tools. Furthermore, we showed how \textit{Adapt2Learn's} built-in visualization tool supports designers in assessing if the learning algorithm maintains the task difficulty at the optimal challenge point during training by visualizing the learner's performance and the tool's adaptation. We demonstrated \textit{Adapt2Learn's} use to configure the learning algorithm for five different adaptive tools with various sensor/actuator combinations, such as an adaptive basketball, armband for golf, wobbleboard, bike, and adaptive heels.  
 		<br>
 		<br>
-		For future research, we plan to build a toolkit that helps designers build their own adaptive training tools. 
-		<br>
-		<br>
+		
 
 		<span class="medium-headline">
 		ACKNOWLEDGMENTS
 		</span>
 		<br>
 		<br>
-		This work is supported by <a href="https://mitili.mit.edu/">MIT Learning Initiative</a> and the National Science Foundation (Grant No. 1844406).
+		We thank the 32 students at MIT, who took the 6.810 course and participated in the study. This work is supported by <a href="https://mitili.mit.edu/">MIT Learning Initiative</a> and the National Science Foundation (Grant No. 2008116).
 		<br>
 		<br>
 
