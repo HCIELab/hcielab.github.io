@@ -103,7 +103,7 @@ Once you have the multi-touch pad printed and assembled, you need to connect its
 
 <b>FPC connectors:</b> In the labs, we used crocodile clamps to connect our inkjet printed circuit to a breadboard but for the multi-touch pad, the wire spacing is so tight that crocodile clamps will not work here. A component that is more suitable for our purposes is a Flexible Printed Circuit (FPC) Connector. The FPC connector has high resolution connectors on one side, which we will use to connect to the inkjet printed circuit, and on the other side has more widely spaced connectors, which we can use to connect to our breadboard. We bought these <a href="https://www.amazon.com/gp/product/B07VCJG54G/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1">FPC connectors here</a>.<br><br>  
 
-<b>Soldering header pins onto the FPC connectors:</b> You have two FPC connectors, one for the top and one for the bottom electrodes. Since they don't have the header pins on them yet, you need to solder them on yourself. You have some header pins in your fabrication bag for this.<br>
+<b>Soldering header pins onto the FPC connectors:</b> You have two FPC connectors, one for the top and one for the bottom electrodes. Since they don't have the header pins on them yet, you need to solder them on yourself. You have some header pins in your fabrication bag for this.<br> <span style="color:red">Add a note and photos for how to correctly solder to keep the pins straight by inserting into breadboard.</span><br><br>
 
 <img src="images/pset2/fpc-without-headers.png" width="330px"><img src="images/pset2/headerpins.png" width="170px"><img src="images/pset2/fpc-with-headers.jpg" width="220px"><br><br>
 
@@ -204,7 +204,7 @@ You can connect the FPC connector breakout boards to the multiplexer via male-to
 
 
 
-<h3>(5) Multi-Touch Sensing Circuit</h3><br>
+<!-- <h3>(5) Multi-Touch Sensing Circuit</h3><br>
 
 <h4>General Sensing Principle</h4><br>
 
@@ -215,9 +215,9 @@ Let's zoom out for a moment and look at the sensing principle of the multi-touch
 
 <b>Receiver Electrodes:</b> Meanwhile, the receiver electrodes listen to the signals. If a human finger comes in proximity of one of the receiver electrodes, the signal changes. The receiver electrode can detect this change. Since it knows which sender electrode was sending (column 0, or column 1, or column 2 etc.), the receiver knows where the finger is. So if row 2 is listening and knows that column 0 is sending a signal right now, but the signal looks higher than normal, row 2 knows that the finger is at row 2 column 0. If row 0 is listening and knows that column 0 is sending but the signal looks as expected, then there is no finger at row 0 column 0.<br><br> 
 
-
-<img src="images/pset2/multitouch-sensing-row-column-explained.png" width="750px"> <br><br>
-
+ -->
+<!-- <img src="images/pset2/multitouch-sensing-row-column-explained.png" width="750px"> <br><br> -->
+<!-- 
 <h4>Circuit Design</h4><br>
 
 Allright, so let's build the circuit for all of this.<br><br>
@@ -245,7 +245,7 @@ In addition, the following items will be provided when you come in for printing 
 
 <img src="images/pset2/components-explained.png" width="650px"><br><br>
 
-
+ -->
 <!-- <img src="images/pset1-schematic.png" width="600px"> <br><br> -->
 
 <!-- <span style="color:red">is this old Junyi? I thought we connect to the touch pins? As for the receiver pins, you should connect each of them to one ADC (analog-to-digital converter) pin on ESP32 micro-controller.</span> <br>
@@ -321,11 +321,8 @@ For grading, please upload the following to your google drive student folder:<br
 
 <h3>Grading</h3>
 
-We will give 25 pts in total:
+We will give 20 pts in total:
 <ul>
-	<li>does the Processing UI have input elements that correctly set the number of electrodes in x-direction, the number of electrodes in y-direction, and the edge length of the electrodes, or are these values hardcoded in the code? (5 pts)</li>
-	<li>does the Processing UI have lower and upper bounds for each input field? are the selected lower and upper bounds well reasoned based on what makes sense given the hardware parts you have available for the pset, the sensing principle we use, and given that a human is touching the multi-touch pad? (5 pts)</li>
-	<li>does the Processing UI export function export a drawing in the correct dimensions into two seperate .pdf files that are named correctly and that have the correct settings for conductive inkjet printing? are the toggle functions for showing/hiding layers implemented? (5 pts)</li>
 	<li>did you finish assembling your multi-touch pad, i.e. did you inkjet print both the top and bottom electrode layer, glued them together, and connected the FPC chips? (5 pts)</li>
 	<li>did you correctly build the multi-touch sensing circuit using the multiplexer, resistors and ESP? (5 pts)</li>
 </ul>
