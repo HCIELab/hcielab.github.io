@@ -120,7 +120,7 @@ Once you have the multi-touch pad printed and assembled, you need to connect its
 <!-- <img src="images/pset2/pset1-fpc-connector_1.jpg" width="330px"><br><br> -->
 
 
-<h3>(4) Build Receiving Circuit</h3><br>
+<h3>(4) Build Receiving Circuit</h3>
 
 As mentioned in lecture, the multitouch pad consists of sender electrodes (e.g., columns) and receiver electrodes (e.g., rows). A signal is injected into the sender electrodes and the receiver electrodes then pick up the signal and any modulation of it that occured because the user's finger is present. We will first build the receiving circuit.<br><br> 
 
@@ -147,49 +147,16 @@ As mentioned in lecture, the multitouch pad consists of sender electrodes (e.g.,
 <span style="color:red">anything students can test here to see if they did it correctly or do we do this at the very end?</span><br><br>
 
 
-<h3>(5) Build Sending Circuit</h3><br>
- We will first build the sending circuit that injects a signal into the sender electrodes and then 
+<h3>(5) Build Sending Circuit</h3>
 
+Next, we will build the sending circuit that injects a PWM signal into the sender electrodes. When powered, the multitouch pad is sending the PWM signal to the sender electrode columns one by one, i.e. first sends the PWM signal to the first sender electrode column, then the second, then the third and so on. After it reached the last sender electrode column, it continues again from the front.<br><br> 
 
-
-<h3>(5) Multi-Touch Sensing Circuit</h3><br>
-
-<h4>General Sensing Principle</h4><br>
-
-Let's zoom out for a moment and look at the sensing principle of the multi-touch pad that we had discussed in lecture.<br>
-
-
-<b>Sender Electrodes:</b> When powered, the multitouch pad is sending a signal to the sender electrodes one by one, i.e. first sends a signal to the first sender electrode, then the second, then the third and so on. After it reached the last sender electrode, it continues again from the front.<br><br>
-
-<b>Receiver Electrodes:</b> Meanwhile, the receiver electrodes listen to the signals. If a human finger comes in proximity of one of the receiver electrodes, the signal changes. The receiver electrode can detect this change. Since it knows which sender electrode was sending (column 0, or column 1, or column 2 etc.), the receiver knows where the finger is. So if row 2 is listening and knows that column 0 is sending a signal right now, but the signal looks higher than normal, row 2 knows that the finger is at row 2 column 0. If row 0 is listening and knows that column 0 is sending but the signal looks as expected, then there is no finger at row 0 column 0.<br><br> 
-
-
-<img src="images/pset2/multitouch-sensing-row-column-explained.png" width="750px"> <br><br>
-
-<h4>Circuit Design</h4><br>
-
-Allright, so let's build the circuit for all of this.<br><br>
-
-
-<b>Circuit for Sending</b><br>
-For sending, you <b>cannot</b> use a single pin like we did in the touch button lab, instead you need an individual sender pin for each of the columns.<br><br>
+<b>Number of Sender Pins:</b> Since we need to send a PWM signal to each column of electrodes individually one after another, sharing a single PWM sender pin like we did in lab does not work since it would send a signal to all electrodes simultaenously at the same time. To send a PWM signal one by one to each column, we thus need the same number of sender pins as we have columns. While we have enough GPIO/PWM pins on the ESP for our 8x9 multi-touch pad (i.e. 17 in total, 8 for receiving and 9 for sending), we would quickly run out of pins if we used a multi-touch pad with a higher resolution. We thus want to introduce a new component, i.e. a multiplexer, that allows you to scale up the number of pins you have available by reducing the number of ESP pins needed to send the signals. You could also use a multiplexer on the receiving side to have the same benefit.<br><br>
 
 <img src="images/pset2/multitouch-schematic-sending.png" width="600px"> <br><br>
 
-Remember, that you need to send a signal to each column of electrodes individually one <b>after</b> another, so sharing a sender pin would not allow for this since it would send a signal to all electrodes <b>simultaenously</b> at the same time.<br>
-To send a signal one by one to each column, you thus need the same number of sender pins as we have columns.<br><br>
+<b>Using a Multiplexer to Scale up the Number of Sender Pins:</b> 
 
-We will tell you more about this in pset2 when you write the actual sensing code, but just know that the multi-touch pad requires each sender pin to output a PWM signal. <br>
-Luckily, any of the GPIO pins on the ESP can output a PWM signal, so they are all suitable for being senders.<br>
-If we use all the GPIO for sending that we have not yet used for receiving, we could have up to 22 columns supported.<br><br>
-
-<h4>What is a Multiplexer?</h4><br>
-
-If you looked closely, you saw that the sending circuit also has a multiplexer.<br>
-A multiplexer can be used to make the multi-touch pad more scalable.<br>
-With our current setup of a 8x9 multi-touch pad, we are already using up 17 pins on the ESP microcontroller (8 for receiving and 9 for sending).<br>
-If we had an even larger multi-touch pad, say 21x21, we would need at least 40 pins, which we don't have available on the ESP.<br>
-A multiplexer can help us solve this issue by reducing the number of pins needed to send and receive the signals.<br><br>
 
 A multiplexer can either take multiple inputs and direct them to a single output (multiplexing) or a single input and direct it to one of multiple outputs (de-multiplexing).<br> 
 Below we show the working principle of a 1-to-3 channel de-multiplexer (take one input and output to multiple pins) for your reference.<br><br>
@@ -233,6 +200,28 @@ After you are done soldering, it should look like this:<br><br>
 
 With all this knowledge in mind, build the final circuit and connect everything to the microcontroller.<br>
 You can connect the FPC connector breakout boards to the multiplexer via male-to-female jumper wires and breadboard.<br><br>
+
+
+
+
+<h3>(5) Multi-Touch Sensing Circuit</h3><br>
+
+<h4>General Sensing Principle</h4><br>
+
+Let's zoom out for a moment and look at the sensing principle of the multi-touch pad that we had discussed in lecture.<br>
+
+
+<b>Sender Electrodes:</b> <br><br>
+
+<b>Receiver Electrodes:</b> Meanwhile, the receiver electrodes listen to the signals. If a human finger comes in proximity of one of the receiver electrodes, the signal changes. The receiver electrode can detect this change. Since it knows which sender electrode was sending (column 0, or column 1, or column 2 etc.), the receiver knows where the finger is. So if row 2 is listening and knows that column 0 is sending a signal right now, but the signal looks higher than normal, row 2 knows that the finger is at row 2 column 0. If row 0 is listening and knows that column 0 is sending but the signal looks as expected, then there is no finger at row 0 column 0.<br><br> 
+
+
+<img src="images/pset2/multitouch-sensing-row-column-explained.png" width="750px"> <br><br>
+
+<h4>Circuit Design</h4><br>
+
+Allright, so let's build the circuit for all of this.<br><br>
+
 
 
 <h3>Check before you start: Do you have all the hardware?</h3>
