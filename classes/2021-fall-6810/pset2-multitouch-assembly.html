@@ -48,146 +48,62 @@
 
       <section class="col-md-8 pull-right main-content">
 </br></br></br></br>
-        <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2020)</a><br></h>
-        <h2 class="headline">Problem Set Series: Multi-Touch Pad</h2>
+        <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2021)</a><br></h>
+        <h2 class="headline">Pset2: Assembling the Multi-Touch Pad and Circuit</h2>
 
+In this problem set, you will print out your multi-touch pad on the conductive inkjet printer and assemble the top and bottom layer together. After this, you will build the touch sensing circuit and connect your multi-touch pad to it. As part of building the circuit, you will also have to solder some of the components with header pins first. At the end of this problem set, you will download a piece of test code that will verify that you assembled your multi-touch pad and the corresponding circuit correctly, i.e. the test code will verify that your hardware can sense touch data from a user's finger.<br><br>
 
-<img src="images/pset2/pset-overall2.png" width="600px">
+<b>Steps:</b>
+<ol>
+	<li>Inkjet Print Top and Bottom Electrode Layers</li>
+	<li>Assemble Top and Bottom Electrode Layers</li>
+	<li>Connect Top and Bottom Electrode Layers to FCP connectors</li>
+	<li>Build Multi-Touch Sensing Circuit</li>
+</ol>
 
-          <hr>
+<h3>(1) Inkjet Print Top and Bottom Electrode Layers</h3>
 
-<h2 class="headline">Problem Set 1</h2>
+Once the TAs have verified the two fabrication files (.pdfs) you generated in pset1, you can print them out.<br> 
+You need to print two sheets, one for the columns and one for the rows.<br>
+<span style="color:red">If you don't remember how to print, you can find information here (add link).</span><br>
 
-In the first part of the problem set, you are going to do the following steps:
-<ul>
-	<li>(1) Create Processing User Interface for Generating Fabrication Files</li>
-	<li>(2) Inkjet Print Top and Bottom Electrode Layers</li>
-	<li>(3) Assemble Top and Bottom Electrode Layers</li>
-	<li>(4) Connect Top and Bottom Electrode Layers to FCP connectors</li>
-	<li>(5) Build Multi-Touch Sensing Circuit</li>
-</ul>
-
-
-<h3>Check before you start: Do you have all the hardware?</h3>
-
-Before you get started, check if you have all of the following in your bag:<br>
-
-<ul>
-	<li>ESP32 microcontroller, breadboard, and wires</li>
-	<li>8 x 100Kohm resistors (one for each receiver pin)</li>
-	<li>one multiplexer</li>
-	<li>two FPC connectors</li>
-</ul><br>
-
-In addition, the following items will be provided when you come in for printing and assembling the multitouch pad:<br>
-
-<ul>
-	<li>two transparent sheets for conductive inkjet printing of the top and bottom electrodes</li>
-	<li>tattoo transfer paper that acts as a thin layer of glue to attach the top and bottom electrode sheets to each other</li>
-	<li>one transparent sheets to cover up the top electrodes</li>
-</ul><br>
-
-<img src="images/pset2/components-explained.png" width="650px"><br><br>
-
-
-<h3>Check before you start: Do you have all the hardware?</h3>
-
-Before you get started, check if you have all of the following in your bag:<br>
-
-<ul>
-	<li>ESP32 microcontroller, breadboard, and wires</li>
-	<li>8 x 100Kohm resistors (one for each receiver pin)</li>
-	<li>one multiplexer</li>
-	<li>two FPC connectors</li>
-</ul><br>
-
-In addition, the following items will be provided when you come in for printing and assembling the multitouch pad:<br>
-
-<ul>
-	<li>two transparent sheets for conductive inkjet printing of the top and bottom electrodes</li>
-	<li>tattoo transfer paper that acts as a thin layer of glue to attach the top and bottom electrode sheets to each other</li>
-	<li>one transparent sheets to cover up the top electrodes</li>
-</ul><br>
-
-<img src="images/pset2/components-explained.png" width="650px"><br><br>
-
-<!-- <img src="images/pset1-transparent-sheets.jpg" width="300px"> -->
-
-<h3>(2) Inkjet Print Top and Bottom Electrode Layers</h3>
-
-Once your circuit design tool is ready, export a multi-touch pad design of <b>8x9 electrodes</b> from your user interface.<br>
-With the top layer and bottom layer combine together (8x9 electrodes + 9x8 electrodes), we have a 8x9 multi-touch pad.<br><br>
-
-Go to an office hour to inkjet print the top and bottom layer of your multi-touch pad.<br>
-(Note that the FPC connectors and the multiplexer in section 4 and 5 need soldering, so if you come in for printing you may also want to solder the header pins for those components on in one sitting rather than coming in multiple times.)<br><br>
-
-Remember you need to print two sheets, one for column and one for rows.<br>
-While printing, make sure you don't scale the image and print with <b>"Print Entire Image"</b> setting (see screenshot above), so that the image prints out accurately. <br><br>
 <!-- <img src="images/lab11/pset1-printing-setting.png" width="600px"> <br><br> -->
 
-<h3>(3) Assemble Top and Bottom Electrode Layers</h3>
+<h3>(2) Assemble Top and Bottom Electrode Layers</h3>
 
-Once you printed both sheets, you need to assemble them on top of each other.<br>
-Please come to an office hour and we will do this together. Ideally you do this right after printing the two sheets, so you don't have to come in again.<br><br>
+To assemble both sheets together, please ask a TA to help you with this either in lab or in an OH.<br><br> 
 
-Note, that both electrode sheets should have the conductive side facing upwards towards the user.<br>
-Place them on top of each other <b>***(place the layer with 9 connecting wires on the top)***</b>.<br><br>
+<b>Conductive side should face upwards:</b> First, check that both of your sheets have the conductive side facing upwards.<br><br>
 
-<!-- <span style="color:red">insert image of aligning both sheets here with conductive side up</span><br><br>  -->
-<img src="images/pset2/pset1-alignment.png" width="400px"> <br><br>
+<b>Align both electrode sheets:</b> Next, align both electrode sheets on top of each other. 
+The alignment between the top and bottom electrodes is critical for receiving an accurate sensing signal.<br><br>
 
-Once you made sure both electrode sheets face upwards with the conductive side, you will glue them together using the procedure described below.<br>
-While you could simply use double-sided transparent tape, the tape has a certain thickness to it and the more spacing is between the electrode layers the worse the sensing will be. Keep in mind that the electrodes are already spaced out by the thickness of the sheet on which the electrodes were printed. To keep the glue layer as thin as possible, you will thus not use double sided tape but instead use the <a href="https://www.amazon.com/gp/product/B0043WJ3OA/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1">adhesive of temporary transfer paper</a>.<br><br>
+<b>Attach tape to maintain alignment:</b> To help maintain the relative alignment, we will tape the two sheets together on one side using regular scotch tape.<br><br>
 
-Note that you are going to glue only the electrode touch area but not where the wires are routing.<br><br>
-
-The alignment between the top and bottom electrodes is really critical for receiving an accurate sensing signal, thus before you glue them together you need to make sure everything is aligned properly!<br>
-To help with this, use <b>scotch tape</b> to tape one side so that the relative positions are fixed.<br>
-Flip the top layer up, so that the bottom layer is exposed.<br><br>
-
-<!-- <span style="color:red">add scotch tape to hardware list for teaching team</span><br><br>
-
-<span style="color:red">insert image of taping here</span><br><br>  -->
+<b>Flip top sheet over:</b> Flip the top layer up, so that the bottom layer is exposed and we can apply glue in the next step.<br><br>
 
 <img src="images/pset2/pset1-scotch-tape.png" width="800px"> <br><br>
 
-Next, you need to prepare the tattoo transfer paper.<br>
-For this, pull off the protective cover from one side of the tattoo transfer paper, then attach the now exposed sticky side of the tattoo transfer paper to the bottom electrodes. Next, remove the other protective cover from the other side to reveal the other sticky side. Now flip back the top electrode layer to make everything stick together.<br><br>
+<b>Glueing with tape vs. tattoo transfer paper:</b> While you could use simple double-sided transparent tape for glueing the sheets together, the tape has a certain thickness to it. This is a problem because more space between the electrode layers results in worse sensing. The electrodes are already spaced out by the thickness of the sheet on which the electrodes were printed, so the tape would add even more thickness to it. To keep the glue layer as thin as possible, you will instead use the <a href="https://www.amazon.com/gp/product/B0043WJ3OA/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1">adhesive of temporary transfer paper</a>.<br><br>
 
-<!-- <span style="color:red">insert images of tattoo transfer paper aligning process here</span><br><br>  -->
+<b>Using the tattoo transfer paper to glue top and bottom sheet together:</b> Ask a TA to give you the tattoo transfer paper and help you with this step. Pull off the protective cover from one side of the tattoo transfer paper, then attach the now exposed sticky side of the tattoo transfer paper to the bottom electrode sheet to cover all the electrodes (no need to cover the wires). Next, remove the second protective cover from the other side of the tattoo transfer paper to reveal the second sticky side. Now flip back the top electrode layer to make everything sticks together (check your electrode alignment one more time before you do this).<br><br>
 
 <img src="images/pset2/pset1-tatto-paper.png" width="600px"> <br><br>
 
-Finally, since the conductive side of the top sheet is facing towards the user, the top electrodes are still exposed and you need to cover them up to prevent the user from touching them directly. For this, you will add a transparent film on top, which we will also give you at the office hour. You can attach the transparent sheet by using scotch tape again. <br><br>
+<b>Protecting the top sheet with a transparent cover:</b> Finally, since the conductive side of the top sheet is facing towards the user, the top electrodes are still exposed and you need to cover them up to prevent the user from touching them directly. For this, you will add a transparent film on top, which we will also give you in lab/at the OH. You can attach the transparent sheet by using scotch tape again. <br><br>
 
-<img src="images/pset2/pset1-attach-transparent-sheet.png" width="500px"> <br><br>
+<img src="images/pset2/pset1-attach-transparent-sheet.png" width="300px"> <br><br>
 
-<!-- Your final result should look like this: <br>
-<img src="images/pset1-assembled-sheets.png" width="300px"> <br><br>
- -->
-<h3>(4) Solder and Connect the FPC Connectors</h3>
+<h3>(3) Solder and Connect the FPC Connectors</h3>
 
-Once you have the multi-touch pad printed and assembled, you need to connect its wires to a breadboard so that it can be connected to the rest of the circuit. In the labs, we used crocodile clamps but the use of crocodile clamps for such fine spacings as we have here is really impractical (and perhaps even impossible).<br>
-For this reason, we will use a Flexible Printed Circuit (FPC) Connector.<br>
-FCP Connectors are used for connecting (surprise) flexible printed circuits to the rest of the rigid circuit.<br>
-In our case, we connect the silver printed circuits to the main circuit.<br><br>
+Once you have the multi-touch pad printed and assembled, you need to connect its inkjet printed wires to a breadboard so it can work with the rest of the circuit.<br><br> 
 
-In addition, FPCs also allow us to connect the small wires to something a little more managable with regular breadboard wires.<br>
-The FPC connector has high resolution connectors on one side, which we will use to connect to the inkjet printed circuit, and on the other side has more widely spaced connectors, which we can use to connect to our breadboard.<br><br>  
+<b>FPC connectors:</b> In the labs, we used crocodile clamps to connect our inkjet printed circuit to a breadboard but for the multi-touch pad, the wire spacing is so tight that crocodile clamps will not work here. A component that is more suitable for our purposes is a Flexible Printed Circuit (FPC) Connector. The FPC connector has high resolution connectors on one side, which we will use to connect to the inkjet printed circuit, and on the other side has more widely spaced connectors, which we can use to connect to our breadboard. We bought these <a href="https://www.amazon.com/gp/product/B07VCJG54G/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1">FPC connectors here</a>.<br><br>  
 
-We bought you <a href="https://www.amazon.com/gp/product/B07VCJG54G/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1">two FPC connectors from here.</a><br>
-When you buy them, they look like the image below.<br>
+<b>Soldering header pins onto the FPC connectors:</b> You have two FPC connectors, one for the top and one for the bottom electrodes. Since they don't have the header pins on them yet, you need to solder them on yourself. You have some header pins in your fabrication bag for this.<br>
 
-<img src="images/pset2/fpc-without-headers.png" width="300px"><br><br>
 
-Note that they don't yet have header pins on them, so you need to add them yourself.<br>
-You have some header pins in your fabrication bag.<br>
-
-<img src="images/pset2/headerpins.png" width="150px"><br><br>
-
-Go to an office hour to solder on the header pins (note that the multiplexer in the next step also needs soldering, so you may want to do both solder todos in one sitting rather than coming in twice).<br><br>
-
-<img src="images/pset2/fpc-with-headers.jpg" width="300px"><br><br>
+<img src="images/pset2/fpc-without-headers.png" width="330px"><img src="images/pset2/headerpins.png" width="170px"><img src="images/pset2/fpc-with-headers.jpg" width="220px"><br><br>
 
 Next, connect the FPC connector to your inkjet printed circuit.<br>
 Before you can do this, you need to first cut out the multitouch pad.<br> 
@@ -310,6 +226,29 @@ After you are done soldering, it should look like this:<br><br>
 
 With all this knowledge in mind, build the final circuit and connect everything to the microcontroller.<br>
 You can connect the FPC connector breakout boards to the multiplexer via male-to-female jumper wires and breadboard.<br><br>
+
+
+<h3>Check before you start: Do you have all the hardware?</h3>
+
+Before you get started, check if you have all of the following in your bag:<br>
+
+<ul>
+	<li>ESP32 microcontroller, breadboard, and wires</li>
+	<li>8 x 100Kohm resistors (one for each receiver pin)</li>
+	<li>one multiplexer</li>
+	<li>two FPC connectors</li>
+</ul><br>
+
+In addition, the following items will be provided when you come in for printing and assembling the multitouch pad:<br>
+
+<ul>
+	<li>two transparent sheets for conductive inkjet printing of the top and bottom electrodes</li>
+	<li>tattoo transfer paper that acts as a thin layer of glue to attach the top and bottom electrode sheets to each other</li>
+	<li>one transparent sheets to cover up the top electrodes</li>
+</ul><br>
+
+<img src="images/pset2/components-explained.png" width="650px"><br><br>
+
 
 <!-- <img src="images/pset1-schematic.png" width="600px"> <br><br> -->
 
