@@ -59,10 +59,13 @@ As explained in lecture, this means that your multi-touch pad has two electrode 
 Each row/column consists of multiple electrodes and has a single wire at the end.
 Once both sheets are printed, you layer them on top of each other to build the multi-touch pad.<br><br>
 
-<img src="images/pset1/multitouch-overview.png" width="250px">
-<img src="images/pset1/pset1-multitouch-pad-explanation2.png" width="450px"><br><br>
+<img src="images/pset1/multitouch-overview.png" height="180px">
+<img src="images/pset1/pset1-multitouch-pad-explanation2.png" height="180px"><br><br>
 
-<b>Steps:</b>
+<h3>Skeleton Code:</h3>
+
+Start by downloading <a href="software/pset1_skeleton.zip">the skeleton code for the PSet1 from  here</a>. <br>
+<h3>Steps:</h3>
 <ol>
 	<li>Create input fields for number of electrodes</li>
 	<li>Draw the electrodes and wires</li>
@@ -73,7 +76,7 @@ Once both sheets are printed, you layer them on top of each other to build the m
 
 <h3>(1) Create Input Fields for Number of Electrodes</h3>
 
-In the user interface, create two input fields that allow the user to set the desired number of electrodes for the 'columns' and 'rows' (default value should be 10 electrodes). A simple trick to create UI elements in Processing is to draw a rectangle and then check if a mouse-click event occured over the rectangle to transfrom it into a button. A text label overlaid on the rectangle can be used to display the current value. You can check the <a href="https://processing.org/reference/rect_.html">Rect</a> and <a href="https://processing.org/tutorials/text/">Text and Fonts</a> Tutorial for more information. Make sure the user cannot enter negative values. The upper bound for the number of electrodes that fit onto one sheet is <span style="color:red">20 electrodes</span> and thus the user should not be allowed to exceed this number.<br><br> 
+In the user interface, create two input fields that allow the user to set the desired number of electrodes for the 'columns' and 'rows' (default value should be 10 electrodes). A simple trick to create UI elements in Processing is to draw a rectangle and then check if a mouse-click event occured over the rectangle to transfrom it into a button. A text label overlaid on the rectangle can be used to display the current value. You can check the <a href="https://processing.org/reference/rect_.html">Rect</a> and <a href="https://processing.org/tutorials/text/">Text and Fonts</a> Tutorial for more information. Make sure the user cannot enter negative values. The upper bound for the number of electrodes that fit onto one sheet is <span style="color:red">12 electrodes</span> and thus the user should not be allowed to exceed this number.<br><br> 
 
 <img src="images/pset1/user-interface-inputs.png" width="300px"><br><br>
 
@@ -141,8 +144,8 @@ Other parameters that you need to set in your code but don't have to display in 
 </ul>
 <br>
 
-<img src="images/pset1/fpc-spacing_new.png" width="350px">
-<img src="images/pset1/multitouch-measurements.png" width="350px"><br><br>
+<img src="images/pset1/fpc-spacing_new.png" height="240px">
+<img src="images/pset1/multitouch-measurements.png" height="240px"><br><br>
 
 
 
@@ -163,9 +166,9 @@ If you are unsure if everything has the right dimension, use a regular color pri
 For grading, please upload the following to your google drive student folder:<br>
 
 <ul>
-	<li>the .pde file of your Processing program</li>
-	<li>the two .pdf files you used for conductive inkjet printing</li>
-	<li>3-5 photos showing your assembled circuit from different perspectives (include top view + side views)</li>
+	<li>the .pde file of your Processing program </li>
+	<li>the two .pdf files for a multi-touch pad design of 8x9 electrodes which are exported from your processing program</li>
+	<!-- <li>3-5 photos showing your assembled circuit from different perspectives (include top view + side views)</li> -->
 	<!-- <li><span style="color:red">bring your assembled multi-touch pad to your spray session</span></li> -->
 </ul>
 
@@ -175,7 +178,7 @@ For grading, please upload the following to your google drive student folder:<br
 We will give 25 pts in total:
 <ul>
 	<li>does the Processing UI have input elements that correctly set the number of electrodes in x-direction, the number of electrodes in y-direction, and the edge length of the electrodes, or are these values hardcoded in the code? (5 pts)</li>
-	<li>does the Processing UI have lower and upper bounds for each input field? are the selected lower and upper bounds well reasoned based on what makes sense given the hardware parts you have available for the pset, the sensing principle we use, and given that a human is touching the multi-touch pad? (5 pts)</li>
+	<li>does the Processing UI have lower and upper bounds for each input field are the selected lower and upper bounds well reasoned based on what makes sense given the hardware parts you have available for the pset, the sensing principle we use, and given that a human is touching the multi-touch pad? (5 pts)</li>
 	<li>does the Processing UI export function export a drawing in the correct dimensions into two seperate .pdf files that are named correctly and that have the correct settings for conductive inkjet printing? are the toggle functions for showing/hiding layers implemented? (5 pts)</li>
 	<li>did you finish assembling your multi-touch pad, i.e. did you inkjet print both the top and bottom electrode layer, glued them together, and connected the FPC chips? (5 pts)</li>
 	<li>did you correctly build the multi-touch sensing circuit using the multiplexer, resistors and ESP? (5 pts)</li>
