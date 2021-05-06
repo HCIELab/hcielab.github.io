@@ -56,10 +56,9 @@ In this problem set, you will print out your multi-touch pad on the conductive i
 <b>Steps:</b>
 <ol>
 	<li>Inkjet Print Top and Bottom Electrode Layers</li>
-	<li>Assemble the Electrode Layers</li>
-	<li>Connect the FPC Connectors to the Electrodes</li>
-	<li>Build the Sending Circuit</li>
-	<li>Build the Receiving Circuit</li>
+	<li>Assemble Top and Bottom Electrode Layers</li>
+	<li>Connect Top and Bottom Electrode Layers to FCP connectors</li>
+	<li>Build Multi-Touch Sensing Circuit</li>
 </ol>
 
 <h3>(1) Inkjet Print Top and Bottom Electrode Layers</h3>
@@ -70,7 +69,7 @@ You need to print two sheets, one for the columns and one for the rows.<br>
 
 <!-- <img src="images/lab11/pset1-printing-setting.png" width="600px"> <br><br> -->
 
-<h3>(2) Assemble the Electrode Layers</h3>
+<h3>(2) Assemble Top and Bottom Electrode Layers</h3>
 
 To assemble both sheets together, please ask a TA to help you with this either in lab or in an OH.<br><br> 
 
@@ -98,7 +97,7 @@ The alignment between the top and bottom electrodes is critical for receiving an
 <b>Laminating the Multi-touch pad:</b> <span style="color:red">to come once we figured out the lamination step. this may also replace the top cover step from above. to come once we figured out the lamination step. this may also replace the top cover step from above. to come once we figured out the lamination step. this may also replace the top cover step from above.</span><br><br>
 
 
-<h3>(3) Connect the FPC Connectors to Electrodes</h3>
+<h3>(3) Solder and Connect the FPC Connectors</h3>
 
 Once you have the multi-touch pad printed and assembled, you need to connect its inkjet printed wires to a breadboard so it can work with the rest of the circuit.<br><br> 
 
@@ -121,36 +120,11 @@ Once you have the multi-touch pad printed and assembled, you need to connect its
 <!-- <img src="images/pset2/pset1-fpc-connector_1.jpg" width="330px"><br><br> -->
 
 
-<h3>(4) Build Sending Circuit</h3>
+<h3>(4) Build Receiving Circuit</h3>
 
-As mentioned in lecture, the multitouch pad consists of sender electrodes (e.g., columns) and receiver electrodes (e.g., rows). A signal is injected into the sender electrodes and the receiver electrodes then pick up the signal and any modulation of it that occured because the user's finger is present. We will first build the sending circuit.<br><br> 
+As mentioned in lecture, the multitouch pad consists of sender electrodes (e.g., columns) and receiver electrodes (e.g., rows). A signal is injected into the sender electrodes and the receiver electrodes then pick up the signal and any modulation of it that occured because the user's finger is present. We will first build the receiving circuit.<br><br> 
 
-<b>Injecting Circuit:</b> The sending circuit injects a PWM signal into the sender electrodes. When powered, the multitouch pad is sending the PWM signal to the sender electrode columns one by one, i.e. first sends the PWM signal to the first sender electrode column, then the second, then the third and so on. After it reached the last sender electrode column, it continues again from the front.<br><br> 
-
-<b>Number of Sender Pins:</b> Since we need to send a PWM signal to each column of electrodes individually one after another, sharing a single PWM sender pin like we did in lab does not work since it would send a signal to all electrodes simultaenously at the same time. To send a PWM signal one by one to each column, we thus need the same number of sender pins as we have columns. While we have enough GPIO/PWM pins on the ESP for our 8x9 multi-touch pad (i.e. 17 in total, 8 for receiving and 9 for sending), we would quickly run out of pins if we used a multi-touch pad with a higher resolution. We thus want to introduce a new component, i.e. a multiplexer, that allows you to scale up the number of pins you have available by reducing the number of ESP pins needed to send the signals.<br><br>
-
-<img src="images/pset2/multitouch-schematic-sending.png" width="600px"> <br><br>
-
-<b>Using a Multiplexer to Scale up the Number of Sender Pins:</b> A multiplexer can take one single input and direct it to multiple outputs (de-multiplexing). Thus, for sending, we can use a single pin on the ESP to generate the PWM signal and then pipe the signal through the multiplexer, which can direct it to the individual electrode column where the signal should be applied. We bought the following <a href="https://www.amazon.com/gp/product/B07K7JF3HX/ref=ppx_od_dt_b_asin_title_s00?ie=UTF8&psc=1">multiplexer from here.</a> You can find the <a href="https://www.ti.com/lit/ds/symlink/cd74hc4067.pdf?ts=1598252309140&ref_url=https%253A%252F%252Fwww.google.com%252F">datasheet here</a> and <a href="http://cdn.sparkfun.com/datasheets/BreakoutBoards/Analog-Digital-Mux-Breakout-v11.pdf"> the schematic file here</a>.<br><br>  
-
-<img src="images/pset2/demux-labeled.png" width="400px"> <br><br>
-
-<b>Soldering header pins onto the multiplexer:</b> The multiplexer we bought has no header pins attached yet, so you need to solder them on yourself. You have some header pins in your fabrication bag. After you are done soldering, it should look like this. <br><br>
-
-<img src="images/pset2/multiplexer-no-headers.png" width="170px"> 
-<img src="images/pset2/headerpins.png" width="150px"><img src="images/pset2/multiplexer.jpg" width="400px"> <br><br>
-
-<b>Connecting the Multiplexer to the electrode columns:</b> If you look at your multiplexer, you can see that it has 16 channels (pins on the left side from C0-C15). When the ESP sends a signal to the multiplexer, we can select to which channel, i.e. which electrode column, we want to send the signal. Connect each of your electrode colunmns to one of the pins. You can connect the FPC connector breakout boards to the multiplexer via male-to-female jumper wires and a breadboard.<br><br>
-
-<b>Selecting which channel the signal is send to:</b> The question remains how to we tell the multiplexer which channel our input signal should be directed to, i.e. how can we tell the multiplexer to send the input signal to e.g., the C12 output pin. The way our multiplexer does this is by asking us to send the desired output address using the four pins on the right side, labeled S0-S3. Why four pins? The multiplexer expects a binary signal, e.g. sending 0,0,0,0 to S0-S3 results in the output pin C0, vs. 0,1,1,0 send to to S0-S3 results in C6 as output pin. The signal pin (SIG) is the pin that takes our PWM signal as input and VCC and GND are there to power the multiplexer. Thus, by using the multiplexer we can send a signal to up to 16 electrode columns (CH0-15)  using only 5 pins (SIG + S0,S1,S2,S3) on the ESP!<br><br>
-
-<img src="images/pset2/multiplexer.png" width="400px"> <br><br>
-
-<span style="color:red">anything students can test here to see if they did it correctly or do we do this at the very end?</span><br><br>
-
-<h3>(5) Build Receiving Circuit</h3>
-
-As you can see in the schematic, the circuit for receiving is very similar to what we have done in lab. Each touch-sensing row is connected to its own resistor and then connected to an ADC/TOUCH pin on the microcontroller.<br><br> 
+<b>Circuit for Receiving:</b> As you can see in the schematic, the circuit for receiving is very similar to what we have done in lab. Each touch-sensing row is connected to its own resistor and then connected to an ADC/TOUCH pin on the microcontroller.<br><br> 
 
 <img src="images/pset2/multitouch-schematic-receiving.png" width="600px"> <br><br>
 
@@ -170,6 +144,64 @@ As you can see in the schematic, the circuit for receiving is very similar to wh
 
  <img src="images/pset3/esp32-pinout.png" width="750px"><br><br>
 
+<span style="color:red">anything students can test here to see if they did it correctly or do we do this at the very end?</span><br><br>
+
+
+<h3>(5) Build Sending Circuit</h3>
+
+Next, we will build the sending circuit that injects a PWM signal into the sender electrodes. When powered, the multitouch pad is sending the PWM signal to the sender electrode columns one by one, i.e. first sends the PWM signal to the first sender electrode column, then the second, then the third and so on. After it reached the last sender electrode column, it continues again from the front.<br><br> 
+
+<b>Number of Sender Pins:</b> Since we need to send a PWM signal to each column of electrodes individually one after another, sharing a single PWM sender pin like we did in lab does not work since it would send a signal to all electrodes simultaenously at the same time. To send a PWM signal one by one to each column, we thus need the same number of sender pins as we have columns. While we have enough GPIO/PWM pins on the ESP for our 8x9 multi-touch pad (i.e. 17 in total, 8 for receiving and 9 for sending), we would quickly run out of pins if we used a multi-touch pad with a higher resolution. We thus want to introduce a new component, i.e. a multiplexer, that allows you to scale up the number of pins you have available by reducing the number of ESP pins needed to send the signals. You could also use a multiplexer on the receiving side to have the same benefit.<br><br>
+
+<img src="images/pset2/multitouch-schematic-sending.png" width="600px"> <br><br>
+
+<b>Using a Multiplexer to Scale up the Number of Sender Pins:</b> 
+
+
+A multiplexer can either take multiple inputs and direct them to a single output (multiplexing) or a single input and direct it to one of multiple outputs (de-multiplexing).<br> 
+Below we show the working principle of a 1-to-3 channel de-multiplexer (take one input and output to multiple pins) for your reference.<br><br>
+
+<img src="images/pset2/mux-and-demux.jpg" width="500px"> <br><br>
+
+Thus, we could use the multiplexer to reduce the number of receiver pins by using it as a multiplexer and combining multiple rows into one pin on the ESP. Similarly, we can use the multiplexer to reduce the number of sender pins by using it as a de-multiplexer and using a single pin on the ESP to send a signal to multiple columns.<br>
+For the purpose of this pset, we will only use it for sending so you get some experience with how a multiplexer works.<br><br>
+
+For our multi-touch pad, we bought the following multiplexer <a href="https://www.amazon.com/gp/product/B07K7JF3HX/ref=ppx_od_dt_b_asin_title_s00?ie=UTF8&psc=1">from here.</a><br>
+If you look at your multiplexer, you can see that it has 16 channels (pins on the left side from C0-C15) that can be combined into one output line.<br><br> 
+
+<img src="images/pset2/multiplexer-no-headers.png" width="150px"><br><br>  
+
+<b>Multiplexing for Sender Pins: Telling the Multiplexer To Which Pin to Output the Signal</b><br>
+The question remains how to we tell the multiplexer which output pin our input signal should be directed to? Remember, we don't want to send the signal to all sender pins at the same time, we want to send it to the sender pins one after another.<br> So how can we tell the multiplexer to send the input signal to e.g., the C12 output pin.<br><br>
+
+The way our multiplexer does this, is by asking us to send the desired output address using the four pins on the right side, labeled (S0-S3). Why four pins? The multiplexer expects a binary signal, e.g. sending 0,0,0,0 to S0-S3 results in the output pin C0, vs. 0,1,1,0 send to to S0-S3 results in C6 as output pin.<br><br>
+
+<img src="images/pset2/pset1-multiplexer-schematic.jpg" width="450px"> <br><br>
+
+The signal pin (SIG) is the pin that takes our PWM signal as input and VCC and GND are there to power the multiplexer.<br>
+Thus, this allows you to connect up to 16 pins to your system using only 5 pins (SIG + S0,S1,S2,S3) on the micro-controller! <br><br>
+
+For more details, see the <a href="https://www.ti.com/lit/ds/symlink/cd74hc4067.pdf?ts=1598252309140&ref_url=https%253A%252F%252Fwww.google.com%252F">datasheet</a> and <a href="http://cdn.sparkfun.com/datasheets/BreakoutBoards/Analog-Digital-Mux-Breakout-v11.pdf"> schematic file </a>.<br><br>  
+
+
+<b>Multiplexer Soldering Header Pins on</b><br>
+
+The multiplexer we bought has no headers yet, so you need to add them yourself.<br>
+You have some header pins in your fabrication bag.<br><br>
+
+<img src="images/pset2/multiplexer-no-headers.png" width="150px"> 
+<img src="images/pset2/headerpins.png" width="150px"><br><br>
+
+Go to an office hour to solder on the header pins.<br><br>
+
+After you are done soldering, it should look like this:<br><br>
+
+<img src="images/pset2/multiplexer.jpg" width="300px"> <br><br>
+
+With all this knowledge in mind, build the final circuit and connect everything to the microcontroller.<br>
+You can connect the FPC connector breakout boards to the multiplexer via male-to-female jumper wires and breadboard.<br><br>
+
+
 <span style="color:red">Add: Make sure you are not accidentally using the VSPI or I2C communication pins.<br>
 Add: Remember that the NSS pin is used to select which slave to talk to, so this is a regular GPIO pin for sending a pin number. 
 <b>**** Important Notes **** <br>
@@ -179,8 +211,6 @@ Add: Remember that the NSS pin is used to select which slave to talk to, so this
 <br><br></span>
 
 <b>Using a Multiplexer for the receiving circuit:</b> While we will not do it in this pset, we could also use a second multiplexer to reduce the number of pins required for the receiving circuit, i.e. the electrode rows. When using the multiplexer for receiving, we would redirect the received signal on CH0-15 to the SIG pin that is then read by the ESP. Similar to above, we would only have to specify which channel (CH0-15) we want to read and the ESP would then retrieve the signal from the respective channel. Thus, this second multiplexer would reduce the number of receiver pins by combining multiple rows into one pin on the ESP. <br><br>
-
-<span style="color:red">How can the student test that everything works?</span><br><br>
 
 <h3>Upload your Code and Design Files, Show Hardware to TA</h3>
 
@@ -203,8 +233,8 @@ We will give 20 pts in total:
 </ul>
 
 
-<!-- Footnote 1: Unfortunately, the ESP32 ADC/TOUCH pins are only reliable in the middle of the ESP's voltage range (~0.5V to maybe 3.0V) but not at the lower and upper ends of the range. Our touch sensing circuit functions at the lower range. Even worse, because our circuit (receiver pins) outputs between -0.6V and 1.2V (yes that is a minus), we end up with negative voltages on the ADC pins, which are completely out of the spec of the ESP32's ADC inputs and would create a signal that is non-linear and would require a lot of calibration. The reason we can have negative voltages is because we are practically generating a high-frequency AC signal with the PWM. This creates capacitive coupling between the breadboard channels and wires. To make the ESP ADC pins work with negative voltages, you could add rectification circuits and amplifiers before having the signal go into the ADC pin, but that is quite some extra effort. For our purposes, it is therefore easier to not use the ESP ADC pins and instead use another ADC component that can work well within the Voltage range we use for the multi-touch pad.<br><br>
- -->
+Footnote 1: Unfortunately, the ESP32 ADC/TOUCH pins are only reliable in the middle of the ESP's voltage range (~0.5V to maybe 3.0V) but not at the lower and upper ends of the range. Our touch sensing circuit functions at the lower range. Even worse, because our circuit (receiver pins) outputs between -0.6V and 1.2V (yes that is a minus), we end up with negative voltages on the ADC pins, which are completely out of the spec of the ESP32's ADC inputs and would create a signal that is non-linear and would require a lot of calibration. The reason we can have negative voltages is because we are practically generating a high-frequency AC signal with the PWM. This creates capacitive coupling between the breadboard channels and wires. To make the ESP ADC pins work with negative voltages, you could add rectification circuits and amplifiers before having the signal go into the ADC pin, but that is quite some extra effort. For our purposes, it is therefore easier to not use the ESP ADC pins and instead use another ADC component that can work well within the Voltage range we use for the multi-touch pad.<br><br>
+
 
 
         <br />
