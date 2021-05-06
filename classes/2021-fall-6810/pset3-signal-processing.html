@@ -48,23 +48,16 @@
 
       <section class="col-md-8 pull-right main-content">
 </br></br></br></br>
-        <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2020)</a><br></h>
-        <h2 class="headline">Problem Set Series: Multi-Touch Pad</h2>
+        <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2021)</a><br></h>
+        <h2 class="headline">Pset3: Sensing Multi-Touch Input</h2>
 
+In this problem set, you will write code to sense the touch signals from your multi-touch pad. At the end of this problem set, you will be able to see when a user is touching.<br><br>
 
-<img src="images/pset3/pset2-overall.png" width="600px">
-
-          <hr>
-
-
-<h2 class="headline">Problem Set 2 (due Friday, Oct. 9, 2020, 11.59pm)</h2>
-
-Now that you have the hardware ready, you will write some code for the sensing part of your multi-touch pad. In particular, you are going to do the following four steps:
-
+<b>Steps:</b>
 <ol>
 	<li>Generate the appropriate PWM signal for the sender pin. Send the PWM signal from the sender pin to the multiplexer.</li>
 	<li>Configure the Multiplexer to select the right output channel to forward the PWM signal to the appropriate column of your multi-touch pad.</li>
-	<li>For receiving, replace the ESP ADC pins with external ADC pins by wiring up the MCP3008 chip. Read data from the external ADC pins via Serial Peripheral Interface (SPI) communication.</li>
+	<li>Read data from the external ADC pins via Serial Peripheral Interface (SPI) communication.</li>
 	<li>Iterate over each column and row to read the signals and plot them on the serial plotter.</li>
 </ol>
 <br>
@@ -73,7 +66,7 @@ Now that you have the hardware ready, you will write some code for the sensing p
 
 Start by downloading <a href="software/pset-skeleton_Arduino.zip">the skeleton code for the PSet2 from  here</a>. <br><br>
 
-<h3>(1) Generate the appropriate PWM signal for the sender pin </h3>
+<h3>(1) Generate the PWM signal for the sender pin </h3>
 
 As you can see in the circuit schematic, the first thing we need to do in code is to generate a PWM signal from the sender pin. This PWM signal then goes into the multiplexer and so on.<br><br>
 
@@ -139,163 +132,61 @@ If you want to test if you are generating the correct signal, we will have an os
 <img src="images/pset3/oscilloscope.jpg" width="450px"><br><br>  
 
 
-<h3>(2) Sending: Configure the Channel Selection for the Multiplexer</h3>
+<h3>(2) Configuring the Multiplexer to send the PWM signal to the right electrode column</h3>
 
-Now that you are generating the PWM signal at the sender pin on the ESP that is connected to the multiplexer, we will write up the function that determines to which pin (i.e. column) the multiplexer will send the signal as output. <br><br>
+Now that you are generating the PWM signal at the sender pin on the ESP that is connected to the multiplexer, we will write up the function that determines to which pin (i.e. electrode column) the multiplexer will send the signal as output. <br><br>
 
-<b>Refresher from pset1</b><br>
-Remember that the multiplexer in 'de-multiplex' mode takes an input signal and can then control to which of multiple output lines the signal should be forwarded.<br>
-Below is the image from pset1 again for your reference.<br><br>
+<img src="images/pset3/multiplexer.png" width="350px"><br><br>  
 
-<img src="images/pset3/mux-and-demux.jpg" width="500px"> <br><br>
+<b>How to redirect the signal to a desired channel?:</b> The multiplexer receives the PWM signal on the input pin (SIG). It then needs to determine to which of the output pins (C0-C15) the signal should be forwarded to. To do this, it uses the S0 - S3 pins to create the address that determines which output pin (electrode column) the signal should be send to. Why four pins? The multiplexer expects a binary signal. For instance, sending 0,0,0,0 to S0-S3 results in the output pin C0, vs. 0,1,1,0 sends the signal to C6. Let's implement this in the next section.<br><br>
 
-Below, you see an image of your multiplexer again. Remember that the multiplexer receives the PWM signal on the input pin (SIG). It then needs to determine to which of the output pins (C0-C15) the signal should be forwarded to. To do this, it uses the S0 - S3 pins to create the address that determines which output pin (column) the signal should be send to. <br><br>
+<b>Setup Address Pins (S0-S3) as Digital Pins:</b> First, check which GPIO pin numbers you used for the multiplexer's S0 - S3 pins. Create the digital pins in your Arduino code and set the correct PinMode. <br><br>
 
-<img src="images/pset3/multiplexer-no-headers.png" width="150px"><br><br>  
+<b>Compute the Bit Values for the Address Pins:</b> Fill out the "selectChannelOut(int channel)" function in the skeleton code. The function takes as input an 'int' for the channel number (0-8, since we have 9 sender lines in our 8x9 multi-touch pad) and then assigns the correct bit values to the 4 select pins (S0 - S3). Use 'digitalWrite' to write the correct value to each of the S0-S3 pins after you determined if they should be 0 or 1.<br><br>
 
-To tell the multiplexer which pin the output signal should be send to, you need to create the desired output address using the four pins S0-S3. Why four pins? The multiplexer expects a binary signal. For instance, sending 0,0,0,0 to S0-S3 results in the output pin C0, vs. 0,1,1,0 sends the signal to C6.<br><br>
-
-<b>Let's create the multiplexer addressing in code</b><br>
-
-First, check which pins your multiplexer is wired to.<br>
-In particular, you need the GPIO pin numbers for the multiplexer's S0 - S3 pins.<br>
-Create the digital pins in your Arduino code and set the correct PinMode. <br><br>
-
-Next, fill out the "<b>selectChannelOut(int channel)</b>" function in the skeleton code. <br>
-<img src="images/pset3/select-channel-mux.png" width="600px"> <br><br>
-
-The function takes an int for channel number and assigns the correct bit values to the 4 select pins (S0 - S3). <br>
-Since our multi-touch pad is 8x9 electrodes in size and 9 is the number of sender lines, the channel numbers are 0-8.<br>
-Don't forget to use digitalWrite to write the correct value to each of the S0-S3 pins after you determined if they should be 0 or 1.<br><br>
-
-You can test if your channel selection function works properly in the following way: First, choose an output pin for testing from the C0-C8 output pins and set it in your function. Next, use a multimeter to measure if the channel actually receives any voltage. Note that this is different than measuring resistance. Therefore, you need to set the multimeter into 'V' mode for measuring voltage, and then measure on the output pin and on GND. You should see 3.3V in the display. If you see 0, no voltage is applied and you need to further debug your code to figure out why the pin is not receiving the signal.<br><br>
+<b>Testing the Channel Select Function:</b> You can test if your channel selection function works properly in the following way: First, choose an output pin for testing from the C0-C8 output pins and set it in your function. Next, use a multimeter to measure if the channel actually receives any voltage. Note that this is different than measuring resistance. Therefore, you need to set the multimeter into 'V' mode for measuring voltage, and then measure on the output pin and on GND. You should see 3.3V in the display. If you see 0, no voltage is applied and you need to debug your code to figure out why the pin is not receiving the signal.<br><br>
 
 <img src="images/pset3/multimeter-v.png" width="250px"> <br><br>
 
-Note that in the code, there is a delay function. You may need to adjust the delay slightly depending on the amount of capacitive coupling your specific circuit layout has, which interferes and slows down the signal assign (e.g. digitalWrite()) slightly and can result in undefined behavior. The delay allows the multiplexer gets stable select pin values and assign correct output channel. Usually a delay of 2 - 5 milliseconds should be sufficient enough. <br><br>
+<span style="color:red">Note that in the code, there is a delay function. You may need to adjust the delay slightly depending on the amount of capacitive coupling your specific circuit layout has, which interferes and slows down the signal assign (e.g. digitalWrite()) slightly and can result in undefined behavior. The delay allows the multiplexer gets stable select pin values and assign correct output channel. Usually a delay of 2 - 5 milliseconds should be sufficient enough.</span> <br><br>
 
 
-<h3>(3) Receiving: External ADC pins and SPI Communication</h3>
+<h3>(3) Receiving Signals via SPI Communication</h3>
 
-Now that we have the sending all setup, you can move onto the "Receiving" part of the circuit.<br><br>
+Remmber from pset1 that we had wired up an additional ADC converter (MCP3008 chip) to get cleaner signals from our multi-touch pad, i.e. the MCP3008 chip converts our analog touch signals better than the ESP GPIO pins would be able to do. We had also discussed that the MCP3008 chip communicates with the ESP via the Serial Peripheral Interface (SPI). To read the signals via SPI, you will have to do the following steps. <br><br> 
 
-<b>Refresher from pset1</b><br>
-
-Recall the circuit schematic from pset1. <br>
-In the schematic, all receiver rows (RX) are connected to analog-to-digital converter (ADC) pins. <br>
-<img src="images/pset3/multitouch-schematic-receiving.png" width="600px"> <br><br>
-
-In pset1, you already connected all your receiver rows to such pins, i.e. to either an analog-to-digital (ADC) converter pin or to a capacitive touch sensing pin (TOUCH), which is also an ADC pin but provides a cleaner signal as you can see in the pinout below.<br><br>
-
-<img src="images/esp32-pinout.jpg" width="500px"> <br><br>
-
-<b>Replacing the ADC pins</b><br>
-
-Unfortunately, the ESP32 ADC/TOUCH pins are only reliable in the middle of the ESP's voltage range (~0.5V to maybe 3.0V) but not at the lower and upper ends of the range. Our touch sensing circuit functions at the lower range. Even worse, because our circuit (receiver pins) outputs between -0.6V and 1.2V (yes that is a minus), we end up with negative voltages on the ADC pins, which are completely out of the spec of the ESP32's ADC inputs and would create a signal that is non-linear and would require a lot of calibration. The reason we can have negative voltages is because we are practically generating a high-frequency AC signal with the PWM. This creates capacitive coupling between the breadboard channels and wires. To make the ESP ADC pins work with negative voltages, you could add rectification circuits and amplifiers before having the signal go into the ADC pin, but that is quite some extra effort. For our purposes, it is therefore easier to not use the ESP ADC pins and instead use another ADC component that can work well within the Voltage range we use for the multi-touch pad.<br><br>
-
-The component you will use to have better ADC channels is the <a href="https://www.adafruit.com/product/856">MCP3008 </a> chip.<br>
-You can find the datasheet for MCP3008 <a href="https://cdn-shop.adafruit.com/datasheets/MCP3008.pdf">here</a>.<br>
-The MCP3008 chip communicates with the ESP via the Serial Peripheral Interface (SPI).<br>
-Before you wire it up, read the section below to understand what the different pins are for.<br><br>
-
-<img src="images/pset3/adc-pin-chip.png" width="300px"><br><br>
-
-<b>Serial Peripheral Interface Communication between ESP and MPC Chip</b><br>
-
-The MCP chip communicates with the ESP32 via the Serial Peripheral Interface (SPI).<br>
-The basic SPI communication is between one master and one slave and we will use this for this pset since we only have one MPC chip (slave) connected to one master (ESP). But one master can also send to multiple slaves.<br><br>
-
-<img src="images/pset3/spi-mosi-miso.png" width="300px"><br><br>
-
-Broken down, the SPI interface consists of the following pins:<br>
-<b>MOSI:</b> line for the master to send data to the slave.<br>
-<b>MISO:</b> line for the slave to send data to the master.<br>
-<b>SCK:</b> line for the clock signal (this determines how fast bits of data can be send, one bit of data is transferred during each clock cycle).<br>
-<b>NSS/CS:</b> line for the master to select which slave to send the data to. <br>
-
-So how does this look like on our MPC3008 chip?<br>
-The pinout of the MCP3008 chip is shown below. <br> <br>
-
-<img src="images/pset3/MCP3008-pinout.png" width="200px"><br><br>
-
-Input and Power Pins:<br>
-<b>CH0-7:</b> are the inputs from your multi-touch pad. You can have up to 8 inputs (CH0-CH7).<br>
-<b>Vdd:</b> is connected to the 3.3V of the ESP to power the MPC chip.<br>
-<b>Dgnd:</b> is connected to GND on the ESP to power the MPC chip.<br><br>
-
-Pins for the SPI interface:<br>
-<b>DIn</b> = MOSI, line for master to send data to slave</br>
-<b>DOut</b> = MISO, line for slave to send data to master</br>
-<b>CLK</b> = SCK, line for clock signal </br>
-<b>CS/SHDN</b> = NSS/CS, line for master to select which slave to talk to</br><br>
-
-Reference Signal:<br>
-In addition to the communication lines, the MCP3008 chip also needs a reference voltage to calculate the unknown voltage (ADC conversion). This reference voltage should always be less than the operating voltage; normally it will be as same as the operating voltage. It can, for instance, be set to 3.3V and to 5V. In our case, we want to connect it to 3.3V because the chip is operated under 3.3V.<br>
-<b>VRef:</b> connect to 3.3V for generating the reference signal<br>
-<b>AGND:</b> connect to GND<br><br>
-
-To figure out how to wire up the MOSI, MISO, SCK, NSS pins to the ESP32, you can refer to the pin out below.<br>
-Make sure you are not accidentally using the VSPI or I2C communication pins.<br>
-Remember that the NSS pin is used to select which slave to talk to, so this is a regular GPIO pin for sending a pin number.<br><br>
-
-<img src="images/pset3/esp32-pinout.png" width="750px"> <br><br>
-
-<b>**** Important Notes **** <br>
-	1) GPIO 34-39 are INPUT only <br> 
-	2) do not use GPIO 0 as INPUT <br>
-	3) try avoid GPIO 6-11, which might have unexpected behaviors </b><br><br>
-
-<b>Install MCP3008 Library and Write Code</b><br>
-
-Once you have the circuit build up, you can write the code that will allow the ESP to communicate with the MCP3008 chip.<br>
-Start by downloading the MCP3008 library.<br>
-To install it it, go to Sketch -> Include Library -> Manage Libraries and search for the MCP3008 library, then install it.<br>
-To be on the safe side, restart your Arduino IDE.<br><br>
+<b>Install MCP3008 Library</b>: Download and install the MCP3008 library by opening the Arduino IDE and going to Sketch -> Include Library -> Manage Libraries and search for the MCP3008 library. Restart your Arduino IDE after you installed the library.<br><br>
 
 <img src="images/pset3/mcp3008-library.png" width="700px"> <br><br>
 
-Go to File -> Examples and look at the bottom where it says 'Examples from Custom Libraries' to find example code that shows how to use the MCP3008 library. We recommend you look at the 'simpletest' example.<br><br>
+<b>Look at MCP3008 Example Code</b>: Go to File -> Examples and look at the bottom where it says 'Examples from Custom Libraries' to find example code that shows how to use the MCP3008 library. We recommend you look at the 'simpletest' example.<br><br>
 
 <img src="images/pset3/mpc-library-examples.png" width="400px"> <br><br>
 
-As you can see in the simpletest example, you need to first include the library on top in the skeleton code.<br>
-After this, you need to declare an object of the library.<br><br>
+<b>Include Library</b>: As you can see in the simpletest example, you need to first include the library on top in the skeleton code.<br><br> 
 
-Next, you need to open the communication channel with begin() in the setup function.<br>
-However, we do not want to use the empty contructor begin() but instead also provide the pin numbers.<br>
-You can see this further down in the 'simpletest' example in the code that is commented out.<br>
-Fill the pin numbers in according to your wiring.<br><br>
+<b>Instantiate Library</b>: After this, you need to declare an object of the library.<br><br>
+
+<b>Open Communication Channel</b>: Next, you need to open the SPI communication channel with 'begin()'' in the setup function. However, we do not want to use the empty contructor begin() but instead also provide the pin numbers. You can see an example of this further down in the 'simpletest' example in the code that is commented out. Fill the pin numbers in according to your wiring.<br><br>
 
 <img src="images/pset3/mpc-library-function.png" width="400px"> <br><br>
 
-Once the channel is open, you can read the signal from one of the input channels CH0-CH7 using the readADC(channelnumber) function (see the 'simpletest' example code).<br>
-If you serial print the result, you should see your analog signal coming through as if you had connected the signal directly to the ESP.<br><br>
+<b>Start reading signals</b>: Once the channel is open, you can read the signal from one of the input channels CH0-CH7 using the 'readADC(channelnumber)'' function (see the 'simpletest' example code). If you serial print the result, you should see your analog signal coming through.<br><br>
 
-<b>Testing your Code</b><br>
+<b>Testing your Code:</b> You can check if the SPI communication between the ESP and the MPC chip works properly by doing the following: Connect a 3.3V output pin from the ESP to one of the MCP CH input channels and plot the result on the Serial Plotter.<br>
+You should see a signal there around 1000. If you see '0' nothing is coming through and you either wired up the MPC chip incorrectly or you are reading from the wrong channel.<br><br>
 
-You can check if the SPI communication between the ESP and the MPC chip works properly by doing the following:<br>
-Connect a 3.3V output pin from the ESP to one of the MCP CH input channels and plot the result on the Serial Plotter.<br>
-You should see a signal there around 1000. If you see 0 nothing is coming through and it needs further debugging.<br><br>
+<h3>(4) Injecting Signal and Reading Signals in the correct order</h3>
 
+Now that you have code for telling your multiplexer to send the PWM signal to a specific electrode column, and you code for your ADC chip to read the signal from a specific electrode row, you are ready to write the meta-level code that tells your program when to inject into which electrode column and when to read which row.<br><br>
 
-<h3>(4) Receiving: Read and record analog signals from receiver pins in Serial channel</h3>
+<b>Putting your Code in loop():</b> Since we will continuously read data from our multi-touch pad, your code should be in the 'loop()' function. <br><br>
 
-Now that we have our new ADC pins setup and are getting a better signal, we can start reading the signal and determine the result of the user interaction with the multi-touch pad, i.e. where the user touched.<br><br>
+<b>Inject Column #1, Read all Rows, Inject Column #2, Read all Rows...:</b> Your code needs to first send a signal through column #1, then read each row of the multi-touch pad one after another (rows #1-#9), and then continues to inject the signal into column #2, reads again row #1-#9 and so on.<br><br>
 
-In particular, we will fill the "<b>loop()</b>" function with more lines. <br><br>
-<img src="images/pset3/loop-function.png" width="500px"> <br><br>
+<b>Averaging Read Signals: </b> When reading the signal from a specific row, it helps to sample multiple times (e.g., execute read() 20 times and average them together) to get a more accurate and smooth signal. <br><br>
 
-Remember, that we want to first send a signal through one column, then read each row of the multi-touch pad one after another, and then continue to the next column. <br><br>
-
-You can do this in code in the following way:<br>
-<ul>
-	<li>first, send a signal to the output channel of the Multiplexer that corresponds to the first column of your multi-touch pad</li>
-	<li>next, read the receiver pins one by one through the MCP3008 chip via SPI. For each receiver pin read, it helps to sample multiple times (e.g. read 20 times for each "read" and add them together) to get more accurate and smooth signals</li>
-	<li>next, move on to the output channel that corresponds to the next column of your multi-touch pad and repeat</li>
-</ul> <br>
-
-Serial print the data in the format: columm0, row0val, row1val, row2val...<br>
-A sample serial output could be: <br>
+<b>Print Data to Serial Monitor:</b> Serial print the data in the format: columm0, row0val, row1val, row2val... A sample serial output could look like: <br>
 <pre>
 0,50,83,58,79,108,75,82,54   //columm0, row0val, row1val, row2val
 1,55,92,120,84,63,61,88,53   //columm1, row0val, row1val, row2val
@@ -309,28 +200,11 @@ A sample serial output could be: <br>
 ...
 </pre> <br>
 
-<!-- <pre>sender-channel-num0,receiver-ch0-val,receiver-ch1-val,receiver-ch2-val,...,receiver-ch7-val
-sender-channel-num1,receiver-ch0-val,receiver-ch1-val,receiver-ch2-val,...,receiver-ch7-val
-......</pre> <br>
- -->
-<!-- <pre>sender-channel-num0,receiver-ch0-val,receiver-ch1-val,receiver-ch2-val,...,receiver-ch7-val
-sender-channel-num1,receiver-ch0-val,receiver-ch1-val,receiver-ch2-val,...,receiver-ch7-val
-......</pre> <br>
- -->
+<b>Checking Result in Serial Plotter:</b> If you open up the Serial Plotter, it should look like the image on the left when the multi-touch pad is not touched, i.e. all values are roughly the same height. The middle shows a start of touching and the right the end of touching. <br><br>
 
+<img src="images/pset3/multi-touch-pad-not-touch.png" width="250px"><img src="images/pset3/multi-touch-pad-touch-1.png" width="250px"><img src="images/pset3/multi-touch-pad-touch-2.png" width="250px"><br><br>
 
-If you open up the Serial Plotter, it should have something look like following when the multi-touch pad is not touched, i.e. all values are roughly the same height. <br>
-<img src="images/pset3/multi-touch-pad-not-touch.png" width="350px"> <br><br>
-
-It should look like this when touched and released (with multiple fingers at the same time), i.e. there is a spike in the raw value plot. <br>
-<img src="images/pset3/multi-touch-pad-touch-1.png" width="350px">
-<img src="images/pset3/multi-touch-pad-touch-2.png" width="350px"><br><br>
-
-If you see it like this, you are done.<br>
-Now that you get the signal, we will continue in pset3 with determining <b>where</b> the user is actually touching. In addition, we will add a visualization of the touch position in Processing.<br><br>
-
-
-<h3>Upload your Arduino Code and pictures of Your MPC wiring</h3>
+<h3>Upload your Arduino Code</h3>
 
 For grading, please upload the following to your google drive student folder:<br>
 
@@ -343,11 +217,10 @@ For grading, please upload the following to your google drive student folder:<br
 
 <h3>Grading</h3>
 
-We will give 25 pts in total:
+We will give 20 pts in total:
 <ul>
 	<li>5 pts: does your code configure and generate the PWM signal correctly? Are the answers in the google form correct?</li>
 	<li>5 pts: does your code correctly select the channel on the multiplexer to address the correct column?</li>
-	<li>5 pts: is the MCP3008 chip correctly wired up?</li>
 	<li>5 pts: does the ESP communicate with the MCP chip correctly via SPI?</li>
 	<li>5 pts: is the receiver data read and recorded correctly?</li>
 </ul>

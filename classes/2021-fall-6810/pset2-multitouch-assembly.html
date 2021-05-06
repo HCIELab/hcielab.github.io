@@ -170,6 +170,14 @@ As you can see in the schematic, the circuit for receiving is very similar to wh
 
  <img src="images/pset3/esp32-pinout.png" width="750px"><br><br>
 
+<span style="color:red">Add: Make sure you are not accidentally using the VSPI or I2C communication pins.<br>
+Add: Remember that the NSS pin is used to select which slave to talk to, so this is a regular GPIO pin for sending a pin number. 
+<b>**** Important Notes **** <br>
+	1) GPIO 34-39 are INPUT only <br> 
+	2) do not use GPIO 0 as INPUT <br>
+	3) try avoid GPIO 6-11, which might have unexpected behaviors </b><br><br>
+<br><br></span>
+
 <b>Using a Multiplexer for the receiving circuit:</b> While we will not do it in this pset, we could also use a second multiplexer to reduce the number of pins required for the receiving circuit, i.e. the electrode rows. When using the multiplexer for receiving, we would redirect the received signal on CH0-15 to the SIG pin that is then read by the ESP. Similar to above, we would only have to specify which channel (CH0-15) we want to read and the ESP would then retrieve the signal from the respective channel. Thus, this second multiplexer would reduce the number of receiver pins by combining multiple rows into one pin on the ESP. <br><br>
 
 <span style="color:red">How can the student test that everything works?</span><br><br>
