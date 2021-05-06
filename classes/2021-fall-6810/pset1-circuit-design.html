@@ -45,7 +45,7 @@
 	<!-- to be filled by javascript, see header.html -->
 </header>
 
-<script src="../../scripts/prism.js"></script> 
+<script src="../../js/prism.js"></script> 
 
 <section class="main_container">
 	<div class="container">
@@ -85,22 +85,113 @@ In the user interface, create two input fields that allow the user to set the de
 
 <img src="images/pset1/user-interface-inputs.png" width="300px"><br><br>
 
+In the skeleton code, put your code for creating the user interface into the createUI() function:
+
+<pre>
+	<code class="language-processing">
+		void createUI() {
+		}
+	</code>
+</pre>
+<br>
 
 <h3>(2) Drawing the Electrodes and Wires</h3>
 
-<b>Drawing one electrode:</b> Next, draw one electrode. An electrode is a rectangle rotated by 45 degrees. You can use the variable which is defined as 'electrodeSize' in the set1_header file for the size of the electrode.
-
-<pre class="line-numbers"> <code class="language-processing"> float electrodeSize = 6*mm;      // A side length of an electrode: 6 mm in pixels </code></pre>
-
-<!-- For now, don't worry about the exact size. To draw the electrode, you should use a <a href="https://processing.org/reference/PGraphics.html">PGraphics</a> canvas and then draw a <a href="https://processing.org/reference/PImage.html">PImage</a> onto it. --> <br><br>
-
-<b>Drawing multiple electrodes & Connecting to UI input:</b> Once you can draw one electrode, create a second electrode at an offset either horizontally to start forming a row or vertically to start forming a column. For now, don't worry about the exact number for the offset. Next, connect the number of electrodes to your user interface input elements, i.e. when the user sets the number of electrodes for the columns to be '10' and rows to be '6' your screen should draw ten electrodes vertically and 6 electrodes horizontally.<br><br>
-
-<b>Drawing Wires:</b> Next, draw the wires that connect the electrodes. For now don't worry about the exact thickness. At the end of each row/column, the wire is routed to the side to connect to an FPC connector. For now, don't worry about the exact spacing on the FPC connector. <br><br>
-
-
 <img src="images/pset1/drawing-electrodes-wires.png" width="350px"><br><br>
 
+<b>Drawing one electrode:</b> Next, draw one electrode. An electrode is a rectangle rotated by 45 degrees.
+Use the variable defined as 'electrodeSize' in the set1_header file for the size of the electrode.
+You can assign the exact size of the electrode to this variable later.
+<br>
+
+<pre>
+	<code class="language-processing">
+		float electrodeSize = 6*mm;		// A side length of an electrode: 6 mm in pixels
+	</code>
+</pre>
+
+<br>
+
+In the skeleton code, put your code for drawing one electrode into the drawSingleElectrode() function:
+
+<pre>
+	<code class="language-processing">
+		void drawSingleElectrode(float _x, float _y, float _sideLength){
+		}
+	</code>
+</pre>
+
+<br>
+
+<!-- For now, don't worry about the exact size. To draw the electrode, you should use a <a href="https://processing.org/reference/PGraphics.html">PGraphics</a> canvas and then draw a <a href="https://processing.org/reference/PImage.html">PImage</a> onto it. -->
+
+<b>Drawing multiple electrodes & Connecting to UI input:</b> Once you can draw one electrode, create a second electrode at an offset either horizontally to start forming a row or vertically to start forming a column.
+Use the variable defined as 'electrodeOffset' in the set1_header file for the offset.
+You can assign the exact number of the offset to this variable later.
+<br>
+<!-- For now, don't worry about the exact number for the offset. -->
+
+<pre>
+	<code class="language-processing">
+		float electrodeOffset = 1*mm;	// An offset between electrodes: 1 mm in pixels
+	</code>
+</pre>
+
+<br>
+
+Next, connect the number of electrodes to your user interface input elements, i.e. when the user sets the number of electrodes for the columns to be '10' and rows to be '6' your screen should draw ten electrodes vertically and 6 electrodes horizontally.<br><br>
+
+In the skeleton code, put your code for drawing multiple electrodes into the drawElectrodes() function:
+
+<pre>
+	<code class="language-processing">
+		void drawElectrodes(int _row, int _col, int _init_x, int _init_y) {
+			// (call 2a) Call drawQuad() function iteratvily to draw multiple electrodes
+			drawSingleElectrode(_init_x, _init_y, electrodeSize);  // "electrodeSize" is defined in the pset1_header file.
+		}
+	</code>
+</pre>
+
+<br>
+
+<b>Drawing Wires:</b> Next, draw the wires that connect the electrodes.
+Use the variable defined as 'wireThicknessInside' and 'wireThicknessOutside' in the set1_header file for the thickness of wires.
+You can assign the exact thickness to those variables later.
+<br><br>
+
+<!-- For now don't worry about the exact thickness. -->
+<pre>
+	<code class="language-processing">
+		float wireThicknessInside = 0.3*mm;		// the thickness of the wires inside of multi-touch pad that connect electrodes, in mm (default value: 0.3mm)
+		float wireThicknessOutside = 0.5*mm;	// the thickness of the wires outside of multi-touch pad that connect to FPC connectors, in mm (default value: 0.5mm)
+	</code>
+</pre>
+
+<br>
+
+At the end of each row/column, the wire is routed to the side to connect to an FPC connector.
+Use the variable defined as 'spacing' in the set1_header file for the spacing on the FPC connector.
+You can assign the exact spacing on the FPC connector to this variable later.
+<!-- For now, don't worry about the exact spacing on the FPC connector. -->
+<br><br>
+<pre>
+	<code class="language-processing">
+		float spacing = 0.5*mm;	// the spacing of wires on the FPC connector in mm
+	</code>
+</pre>
+
+<br>
+
+In the skeleton code, put your code for drawing wires into the drawWires() function:
+
+<pre>
+	<code class="language-processing">
+		void drawWires(float _spacing, float _thicknessInside, float _thicknessOutside) {
+		}
+	</code>
+</pre>
+
+<br>
 
 <h3>(3) Preview Function to Look at Each Layer Individually</h3>
 
@@ -108,12 +199,34 @@ For the preview function, create one button that switches between the design's t
 
 <img src="images/pset1/switch-view.png" width="700px"><br><br>
 
+In the skeleton code, put your code for switching views between the design's top and bottom layer into the switchView() function:
+
+<pre>
+	<code class="language-processing">
+		public void switchView() {
+		}
+	</code>
+</pre>
+
+<br>
+
 <h3>(4) Export Function to Save Fabrication Files</h3>
 
 For export, create one button that when clicked saves the generated electrodes into two .pdf files. The bottom-electrodes.pdf should contain the rows, and the top-electrodes.pdf should contain the columns. Make sure the exported .pdf files have all settings correctly set for conductive inkjet printing <a href="lab1-circuit-design-for-inkjet-printing.html">(if you don't remember, go back to Lab1).</a> 
 <br><br>
 
 <img src="images/pset1/layer1pdf.png" width="300px"> <img src="images/pset1/layer2pdf.png" width="320px"><br><br>
+
+In the skeleton code, put your code for saving fabrication files into the saveViews() function:
+
+<pre>
+	<code class="language-processing">
+		public void saveViews() {
+		}
+	</code>
+</pre>
+
+<br>
 
 <h3>(5) Finding your dpi to convert pixel to mm</h3>
 
