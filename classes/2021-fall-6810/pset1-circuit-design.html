@@ -15,6 +15,9 @@
 	<!-- jQuery -->
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
+	<!-- Prism for adding the code snippets-->
+	<link href="../../css/prism.css" rel="stylesheet" />
+
 	<!-- Google Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
@@ -41,6 +44,8 @@
 <header class="main_header">
 	<!-- to be filled by javascript, see header.html -->
 </header>
+
+<script src="../../scripts/prism.js"></script> 
 
 <section class="main_container">
 	<div class="container">
@@ -76,18 +81,22 @@ Start by downloading <a href="software/pset1_skeleton.zip">the skeleton code for
 
 <h3>(1) Create Input Fields for Number of Electrodes</h3>
 
-In the user interface, create two input fields that allow the user to set the desired number of electrodes for the 'columns' and 'rows' (default value should be 10 electrodes). A simple trick to create UI elements in Processing is to draw a rectangle and then check if a mouse-click event occured over the rectangle to transfrom it into a button. A text label overlaid on the rectangle can be used to display the current value. You can check the <a href="https://processing.org/reference/rect_.html">Rect</a> and <a href="https://processing.org/tutorials/text/">Text and Fonts</a> Tutorial for more information. Make sure the user cannot enter negative values. The upper bound for the number of electrodes that fit onto one sheet is <span style="color:red">12 electrodes</span> and thus the user should not be allowed to exceed this number.<br><br> 
+In the user interface, create two input fields that allow the user to set the desired number of electrodes for the 'columns' and 'rows' (default value should be 10 electrodes). A simple trick to create UI elements in Processing is to draw a rectangle and then check if a mouse-click event occured over the rectangle to transfrom it into a button. A text label overlaid on the rectangle can be used to display the current value. You can check the <a href="https://processing.org/reference/rect_.html">Rect</a> and <a href="https://processing.org/tutorials/text/">Text and Fonts</a> Tutorial for more information. Make sure the user cannot enter negative values. The upper bound for the number of electrodes that fit onto one sheet is 12 electrodes and thus the user should not be allowed to exceed this number.<br><br> 
 
 <img src="images/pset1/user-interface-inputs.png" width="300px"><br><br>
 
 
 <h3>(2) Drawing the Electrodes and Wires</h3>
 
-<b>Drawing one electrode:</b> Next, draw one electrode. An electrode is a rectangle rotated by 45 degrees. For now, don't worry about the exact size. To draw the electrode, you should use a <a href="https://processing.org/reference/PGraphics.html">PGraphics</a> canvas and then draw a <a href="https://processing.org/reference/PImage.html">PImage</a> onto it. <br><br>
+<b>Drawing one electrode:</b> Next, draw one electrode. An electrode is a rectangle rotated by 45 degrees. You can use the variable which is defined as 'electrodeSize' in the set1_header file for the size of the electrode.
+
+<pre class="line-numbers"> <code class="language-processing"> float electrodeSize = 6*mm;      // A side length of an electrode: 6 mm in pixels </code></pre>
+
+<!-- For now, don't worry about the exact size. To draw the electrode, you should use a <a href="https://processing.org/reference/PGraphics.html">PGraphics</a> canvas and then draw a <a href="https://processing.org/reference/PImage.html">PImage</a> onto it. --> <br><br>
 
 <b>Drawing multiple electrodes & Connecting to UI input:</b> Once you can draw one electrode, create a second electrode at an offset either horizontally to start forming a row or vertically to start forming a column. For now, don't worry about the exact number for the offset. Next, connect the number of electrodes to your user interface input elements, i.e. when the user sets the number of electrodes for the columns to be '10' and rows to be '6' your screen should draw ten electrodes vertically and 6 electrodes horizontally.<br><br>
 
-<b>Drawing Wires:</b> Next, draw the wires that connect the electrodes. For now don't worry about the exact thickness. At the end of each row/column, the wire is routed to the side to  connect to an FPC connector. For now, don't worry about the exact spacing on the FPC connector. <br><br>
+<b>Drawing Wires:</b> Next, draw the wires that connect the electrodes. For now don't worry about the exact thickness. At the end of each row/column, the wire is routed to the side to connect to an FPC connector. For now, don't worry about the exact spacing on the FPC connector. <br><br>
 
 
 <img src="images/pset1/drawing-electrodes-wires.png" width="350px"><br><br>
@@ -106,7 +115,6 @@ For export, create one button that when clicked saves the generated electrodes i
 
 <img src="images/pset1/layer1pdf.png" width="300px"> <img src="images/pset1/layer2pdf.png" width="320px"><br><br>
 
-
 <h3>(5) Finding your dpi to convert pixel to mm</h3>
 
 Our multi-touch pad design is printed in <b>millimeter</b> but Processing handles everything in <b>pixel</b>. How do we know how many pixels are in one millimeter? Without this conversion factor, we don't know how many pixels we should use for the electrodes, thickness of the wires, and spacing/offsets between these components. The conversion factor from pixel to mm is different for each operating system. We will thus do a small test to figure this out for your OS. <br><br>
@@ -123,14 +131,9 @@ In Adobe Illustrator, make sure the drawing is set to 'inch' not 'points' (File 
 <img src="images/pset1/setting-units-to-inches.png" width="300px">  <img src="images/pset1/checking-width.png" width="360px"> <br><br>
 
 
-<h3>(5) Adjust Multi-Touch Pad Dimensions</h3>
+<h3>(6) Adjust Multi-Touch Pad Dimensions</h3>
 
-
-<b>Applying Scaling Factor to Electrodes:</b>: Thus, if our electrodes are 6mm in size, for a dpi of 120 they will be around 6mm * 120 dots / 25.4mm = 28 pixels wide.<br><br>
-
-
-
-
+<b>Applying Scaling Factor to Electrodes:</b> Thus, if our electrodes are 6mm in size, for a dpi of 120 they will be around 6mm * 120 dots / 25.4mm = 28 pixels wide.<br><br>
 
 Other parameters that you need to set in your code but don't have to display in the UI, are: <br>
 <!--  for the design (you don't have to display them in the UI, but please do think of good reasons for them, you can start from <a href="http://ww1.microchip.com/downloads/en/DeviceDoc/FAQs%20-%20Sensor%20Design%20Guidelines.pdf">here</a>): <br> -->
@@ -147,13 +150,6 @@ Other parameters that you need to set in your code but don't have to display in 
 <img src="images/pset1/fpc-spacing_new.png" height="240px">
 <img src="images/pset1/multitouch-measurements.png" height="240px"><br><br>
 
-
-
-
-
-
-
-
 <b>Testing your Program</b><br>
 
 When you are done, make sure you test your user interface by exporting several different multi-touch pad sizes, e.g. 4x10, 12x6, 5x5.
@@ -161,12 +157,15 @@ If you are unsure if everything has the right dimension, use a regular color pri
 
 <br>
 
+<b>Export a multi-touch pad design</b>
+Once your circuit design tool is ready, export a multi-touch pad design of <b>8x9 electrodes</b> from your user interface. With the top layer and bottom layer combined together (8x9 electrodes + 9x8 electrodes), we have a 8x9 multi-touch pad.<br><br>
+
 <h3>Upload your Code and Design Files, Show Hardware to TA</h3>
 
 For grading, please upload the following to your google drive student folder:<br>
 
 <ul>
-	<li>the .pde file of your Processing program </li>
+	<li>the .pde files of your Processing program </li>
 	<li>the two .pdf files for a multi-touch pad design of 8x9 electrodes which are exported from your processing program</li>
 	<!-- <li>3-5 photos showing your assembled circuit from different perspectives (include top view + side views)</li> -->
 	<!-- <li><span style="color:red">bring your assembled multi-touch pad to your spray session</span></li> -->
