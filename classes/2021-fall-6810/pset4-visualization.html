@@ -49,19 +49,13 @@
       <section class="col-md-8 pull-right main-content">
 </br></br></br></br>
         <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2020)</a><br></h4>
-        <h2 class="headline">Problem Set Series: Multi-Touch Pad</h2>
-
-
-<img src="images/pset4/pset2-overall.png" width="400px">
-<img src="images/pset4/UI-blob-touch-3.png" width="340px"> <br>
+        <h2 class="headline">Pset4: Visualizing Multi-Touch Input</h2>
 
           <hr>
 
+In this problem set, you will write Processing code that takes as input the sensor signals and visualizes the resulting touch points as blobs in a 2D image.<br><br>
 
-<h2 class="headline">Problem Set 3 (due Friday, Oct. 23, 2020, 11.59pm)</h2>
-
-Now that you have the hardware ready and Arduino sensing code prepared, you will write the Processing code that visualizes the sensor signals and extracts the touch point coordinates. To accomplish this, you will do the following five steps:<br>
-
+<b>Steps:</b>
 <ol>
 	<li>Read the multi-touch sensing data into Processing via the Serial Port.</li>
 	<li>Clean the sensing data from noise by determining the noise baseline and subtracting it from the received signals.</li>
@@ -71,30 +65,22 @@ Now that you have the hardware ready and Arduino sensing code prepared, you will
 </ol>
 <br>
 
-<h3>Skeleton Code</h3>
+<h3>(1) Download Skeleton Code and Install Libraries</h3><br>
 
-Start by downloading <a href="software/pset3_visualization_skeleton_v3.zip">the skeleton code for the PSet3 from  here</a>. <br>
-Before you can execute it, you first have to install two libraries (see next step). <br><br>
+<b>Download Skeleton Code:</b> Start by downloading <a href="software/pset3_visualization_skeleton_v3.zip"><span style="color:red">the skeleton code for the PSet3 from  here</a>.<br><br>
 
-<h3>Install external libraries</h3>
+<b>Install Libraries:</b> Before you can execute the skeleton code, you first have to install two libraries.</span> <br><br>
 
-For this PSet, we will be using two Processing libraries: 
-<ol>
-	<li>OpenCV (a library that helps with image processing, in our case we will draw our touch signals into an image, see picture at start of pset3)</li>
-	<li>BlobDetection (a library that helps to find blobs inside of images, in our case the blobs are the touch points on the multi-touch pad)</li>
-</ol>
+<i>Install OpenCV library:</i> OpenCV is a library that helps with image processing. In our case we will draw our touch signals into an image. You can install the library directly in Processing by going to: 'Sketch/Import Library/Add Library'</b>' and searching for 'OpenCV'.<br><br>
 
-You can install them directly in Processing by going to:<br>
-<b>Sketch/Import Library/Add Library</b> and searching for their name.<br><br>
+<i>Install BlobDetection library:</i> BlobDetection is a library that helps to find blobs inside of images, in our case the blobs are the touch points on the multi-touch pad. You can install the library directly in Processing by going to: 'Sketch/Import Library/Add Library'</b>' and searching for 'BlobDetection'.<br><br>
 
 <img src="images/pset4/processing-library-opencv.png" width="370px">
 <img src="images/pset4/processing-library-blob-detection.png" width="370px"> <br><br>
 
+<h3>(2) Read the Multi-Touch Sensing Data into Processing</h3><br>
 
-<h3>(1) Read the Multi-Touch Sensing Data into Processing</h3><br>
-
-<b>Refresher from PSet2</b><br>
-In pset2, you already wrote the <b>Arduino</b> code that reads the receiver pins from the multi-touch pad and writes the resulting data onto the serial port in the following way: <br><br>
+<b>Read Data from Serial Port Into Processing:</b> At the end of the last pset, your <b>Arduino</b> code wrote the received touch data onto the serial port in the format seen below. <br><br>
 
 <pre>
 0,50,83,58,79,108,75,82,54   //columm0, row0val, row1val, row2val
@@ -109,21 +95,12 @@ In pset2, you already wrote the <b>Arduino</b> code that reads the receiver pins
 ...
 </pre> <br>
 
-<b>Read Data from Serial Port Into Processing</b><br>
-Next, you need to read this data from the serial port into Processing.<br>
-We have already shown you how to read data from the serial port into Processing in Lab 1 & 2 and you can check your prior code from back then to see how to do it.<br><br>
-
-In the skeleton code, put your code for reading the data into the <b>readSerial()</b> function: <br>
+Next, you need to read this data from the serial port into Processing. We have already shown you how to read data from the serial port into Processing in Lab 3 & 4 and you can check your prior code from back then to see how to do it. Put your code for reading the data into the <b>readSerial()</b> function: <br>
 <img src="images/pset4/readSerial-skeleton-code.png" width="700px"> <br>
 
-<b>Save Data for One Complete Scanning Pass into a 2D Array</b><br>
-The data for a single pass on all columns and rows should be saved into a 2D array.<br>
-When considering the size of your 2D array, remember that we build a 9x8 multi-touch pad.<br>
-Printing the 2D array to the Processing command line should look something like this:<br><br>
+<b>Save Data for One Complete Scanning Pass into a 2D Array:</b> The data for a single pass on all columns and rows should be saved into a 2D array. When considering the size of your 2D array, remember that we build a 9x8 multi-touch pad. Printing the 2D array to the Processing command line should look something like the print out below. <span style="color:red">Every time a new pass over all columns/rows starts, you need to override your array values.</span><br><br>
 
 <img src="images/pset4/serial-read-array-one-pass.png" width="750px"> <br><br>
-
-Every time a new pass over all columns/rows starts, you need to override your array values.<br><br>
 
 <h3>(2) Cleaning the Received Signal by Reducing Noise</h3><br>
 
@@ -169,6 +146,7 @@ You should also make sure the "clean" sensing values stored after the subtractio
 
 Now that we have "clean" sensing values, our next step is to find out where the multi-touch pad was actually touched.<br><br>
 
+
 <b>Using Image Processing for Detecting Touch Points</b><br>
 While there are multiple different ways to find our where the multi-touch pad was touched, we will use an approach based on image-processing.<br>
 First, we will convert our sensor signals into grayscale values and then draw the grayscale values into a 9x8 pixel image.<br> 
@@ -178,6 +156,7 @@ After this, we can use 'blob' detection to extract the white blobs in the image 
 Let's do this one step at a time.<br>
 
 <img src="images/pset4/UI-blob-touch-3.png" width="400px"><br>
+
 
 <b>Creating the Image</b><br>
 For our visualization, we will construct an image (PImage) the same size as our 2D array that contains the sensing data.<br>
