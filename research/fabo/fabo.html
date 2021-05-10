@@ -488,7 +488,7 @@
 		We developed a framework that allows designers to use on-screen visual content to integrate fabrication with games, and the players to fabricate objects from their gameplay. As shown in Figure 2, our framework takes existing games as input and outputs fabrication files of game-objects. To achieve this, designers use our system to choose gameplay moments as fabrication events by tagging visual content as cues, such as text or images. Designers can also tag on-screen regions to extract game objects for fabrication. Using our system, the designers then export all the fabrication events in a single file. Players load this events file while playing the game. Our system then monitors their gameplay, searches for cues of the tagged events and outputs the fabrication files of the game objects.
 		<br>
 		<br>
-		<img src="images/fig2-framework.png" alt="mosculpt-runner" width="720" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/fig2-framework.png" alt="mosculpt-runner" width="750" style="padding-bottom:0px; margin-bottom:10px"/>
 		<br>
 		<b>
 		Figure 2. FabO's framework uses on-screen visual content to (1) allow designers to integrate fabrication with existing games and (2) auto-generate the fabrication files to allow players to fabricate objects from their gameplay.
@@ -511,7 +511,7 @@
 		The first step for designers is to select an existing game, for example, we selected Pokemon Lets Go. The next step is to choose the gameplay moments to integrate with fabrication. We choose the moments when the players capture Pokemons as the fabrication events so they can fabricate a collectible of their Pokemons.
 		<br>
 		<br>
-		<img src="images/fig3-designer-ui.png" alt="mosculpt-runner" width="720" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/fig3-designer-ui.png" alt="mosculpt-runner" width="750" style="padding-bottom:0px; margin-bottom:10px"/>
 		<br>
 		<br>
 		<b>
@@ -535,7 +535,7 @@
 		Before playing the respective game, players load the exported 'Fabrication Events' file into the player interface. While playing, the player interface monitors a player's screen, scans for tagged cues, and identifies fabrication events. Once identified, the player interface notifies players with a prompt message. At this point, players can either continue playing or pause the game to fabricate the object from the fabrication event using the player interface (Figure 4a). Based on the setting for the object's fabrication, the player interface either (1) automatically extracts the object's outline from the on-screen region, or (2) loads the pre-linked external fabrication file, or (3) allows players to choose an object for fabrication by marking an area on-screen.  
 		<br>
 		<br>
-		<img src="images/fig4-player-ui.png" alt="mosculpt-runner" width="720" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/fig4-player-ui.png" alt="mosculpt-runner" width="750" style="padding-bottom:0px; margin-bottom:10px"/>
 		<br>
 		<br>
 		<b>
@@ -550,7 +550,7 @@
 		Designers can decide the sequence of fabrication events, such that only when a certain fabrication event has occurred, the subsequent events are unlocked. This feature allows designers to impose linearity in the fabrication of objects during the gameplay (Figure 5a). To support designers with estimating the frequency of their embedded events, the preview feature allows them to check when and how often the embedded events occur in a gameplay video by scanning the source video for tagged cues and highlighting them on the video timeline (Figure 5b). To expand the use of objects extracted from the games that use game-controllers, the player interface has a library of outlines of standard game controllers that players can overlay on their fabrication files. For example, an outline of the game controller Nintendo Switch can be combined with the outline of a sword extracted from an on-screen game object to make a personalized sword-shaped game controller for the game The Legend of Zelda (Figure 5c).
 		<br>
 		<br>
-		<img src="images/fig5-additional-features.png" alt="mosculpt-runner" width="720" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/fig5-additional-features.png" alt="mosculpt-runner" width="750" style="padding-bottom:0px; margin-bottom:10px"/>
 		<br>
 		<br>
 		<b>
@@ -567,7 +567,7 @@
 		Figure 6 shows the implementation pipeline of the FabO toolkit which mirrors the framework described in Section 3.1. We implemented the FabO toolkit in Python using the PyQt5 library as a GUI wrapper. In the FabO designer interface, we use the Autopy library to take gameplay screenshots, and display them in an editable OpenCV canvas. This editable canvas allows designers to draw bounding boxes on the loaded screenshot image and mark the text and image cues as well as select the region to monitor for cues. For text extraction from a region, we use OpenCV's thresholding function and Python-tesseract, an optical character recognition (OCR) tool. For processing the image cues, we use list slicing to crop the scene image to the cue region. We save the fabrication events, and the associated cues' properties in a JSON file encoded as a dictionary.  
 		<br>
 		<br>
-		<img src="images/fig6-implementation.png" alt="mosculpt-runner" width="720" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/fig6-implementation.png" alt="mosculpt-runner" width="750" style="padding-bottom:0px; margin-bottom:10px"/>
 		<br>
 		<br>
 		<b>
@@ -601,14 +601,14 @@
 		Altogether, the 12 participants attempted to integrate fabrication with 35 existing digital games (2-3 games per participant) across 9 genres by tagging 47 events (1-2 events per game). We tested the success of the fabrication events across three conditions: (1) were the participants able to tag on-screen visual content of their chosen gameplay moment, (2) did FabO identify those moments by scanning for the visual cues, and (3) did FabO generate a fabrication file of a game object for laser cutting. If all three conditions were met, we counted an event as a successful fabrication event. 
 		<br>
 		<br>
-		<img src="images/fig7-us1-results.png" alt="mosculpt-runner" width="720" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/fig7-us1-results.png" alt="mosculpt-runner" width="750" style="padding-bottom:0px; margin-bottom:10px"/>
 		<br>
 		<b>
 		Figure 7. (a) User study participants tested 35 games (24 successful) across 9 genres. (b) Fabricated game-objects using FabO.
 		</b>
 		<br>
 		<br>
-		From the 35 games attempted shown in Figure7a: (1) the participants were able to tag on-screen content for 33 games (94.29 %). In 2 games, they struggled to identify a discrete moment to tag a text or image cue for integration. (2) Within the 33 tagged games, participants tagged 47 events - 15 using text cues and 32 using image cues. Of these 47 tagged events, FabO detected 35 events (74.47\%) - 12/15 text cues (80 %) and 23/32 image cues (71.19 %). In total 24 games had successfully detected events. (3) For the 35 detected events, FabO successfully auto-extracted the fabrication files for all game objects as marked by the participants. Thus, in total, the participants successfully integrated fabrication in 24 out of 35 games (68.57 %) across all three conditions. Figure7b shows the objects that we fabricated from the generated files. These objects ranged from commemorative trophies and collectibles to supportive gameplay tools, such as maps.
+		From the 35 games attempted shown in Figure7a: (1) the participants were able to tag on-screen content for 33 games (94.29 %). In 2 games, they struggled to identify a discrete moment to tag a text or image cue for integration. (2) Within the 33 tagged games, participants tagged 47 events - 15 using text cues and 32 using image cues. Of these 47 tagged events, FabO detected 35 events (74.47 %) - 12/15 text cues (80 %) and 23/32 image cues (71.19 %). In total 24 games had successfully detected events. (3) For the 35 detected events, FabO successfully auto-extracted the fabrication files for all game objects as marked by the participants. Thus, in total, the participants successfully integrated fabrication in 24 out of 35 games (68.57 %) across all three conditions. Figure7b shows the objects that we fabricated from the generated files. These objects ranged from commemorative trophies and collectibles to supportive gameplay tools, such as maps.
 		<br>
 		<br>
 		<b><strong>Study Insights</strong></b><br>
@@ -619,7 +619,7 @@
 		When tagging an event, the designer has to find a text or image cue on screen that indicates that the event occurred. While most games offer such discrete cues through text messages or images, some games are continuous and do not contain such cues. An example of a game with a discrete cue is the game Prof. Layton [p2] (Figure 8a), in which a text message appears on-screen when players acquire a coin, thus indicating that the event occurred. However, in the 2 games for which participants failed to integrate fabrication events, i.e., Unrailed [p4] (Figure 8a) and Parkitect [p5], the gameplay was continuous with no discrete cues to indicate event occurrence, i.e., the players built a track and a park continuously, thereby making it difficult to select a discrete moment.
 		<br>
 		<br>
-		<img src="images/fig7-insight-visual-content.png" alt="mosculpt-runner" width="720" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/fig7-insight-visual-content.png" alt="mosculpt-runner" width="750" style="padding-bottom:0px; margin-bottom:10px"/>
 		<br>
 		<b>
 		Figure 8. Examples from user study where FabO (a) successfully detected the text cues (that had legible text), (b) failed to detect text cues (that were pixelated) (c) onscreen text was tagged as image cue because of the font
@@ -636,10 +636,10 @@
 		When analyzing the successfully embedded fabrication events from the study, we observed that the timing of integration within the gameplay was crucial. We noted that fabrication was integrated either at the start (7/47 events, 15 %), during the gameplay when there are natural pauses (31/47 events, 66 %), or at the end of the gameplay (9/47 events, 19 %) when the player can shift focus to fabrication.
 		<br>
 		<br>
-		<img src="images/fig8-insights-moments.png" alt="mosculpt-runner" width="720" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/fig8-insights-moments.png" alt="mosculpt-runner" width="750" style="padding-bottom:0px; margin-bottom:10px"/>
 		<br>
 		<b>
-		Figure 9. User study \#1 examples of gameplay moments when fabrication was integrated at the start, during, or end of the gameplay. [(e): fabrication event, and (o): fabrication object.
+		Figure 9. User study #1 examples of gameplay moments when fabrication was integrated at the start, during, or end of the gameplay. [(e): fabrication event, and (o): fabrication object.
 		</b>
 		<br>
 		<br>
@@ -664,21 +664,21 @@
 		For the study, we selected the game \textit{Pokemon Planet} because it has a short gameplay and an open-ended story line. Using FabO, we embedded fabrication events that corresponded to when players received either a Pokeball or captured a Pokemon. We recruited 12 new participants from our institution (8f, 4m) aged between 17-28 years (M=22.75, STD.=4) with varied experience of playing games from few times a month to everyday. We conducted the 30min study per participant remotely over Zoom, where they played the game for 15 mins on our computer via Zoom's remote control. We did not brief the participants about the FabO system and simply asked them to play the game as they normally would on their own. When they encountered a fabrication event in the game, FabO notified them with a text prompt. At this point, they could either continue playing or pause the game to fabricate the object. For fabrication, the participants first reviewed the auto-generated fabrication files in the FabO player interface and then fabricated the objects, such as Pokeballs and their captured Pokemons using a remote paper-plotter via Zoom's remote control feature, and watched their objects get fabricated over the video call. We then collected feedback on their experience in a semi-structured interview and a post-study feedback form. 
 		<br>
 		<br>
-		<img src="images/fig10-userstudy2.png" alt="mosculpt-runner" width="720" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/fig10-userstudy2-old.png" alt="mosculpt-runner" width="750" style="padding-bottom:0px; margin-bottom:10px"/>
 		<br>
 		<b>
-		Figure 10. (a) User study \#2 setup wherein the participants remotely (via Zoom's remote control) played the game PokemonPlanet integrated with fabrication events, (b) fabricated objects from their gameplay using FabO and a remote paper-plotter. (c) Participants' feedback.
+		Figure 10. (a) User study #2 setup wherein the participants remotely (via Zoom's remote control) played the game PokemonPlanet integrated with fabrication events, (b) fabricated objects from their gameplay using FabO and a remote paper-plotter. (c) Participants' feedback.
 		</b>
 		<br>
 		<br>
 		<b><i>Participant Feedback</i></b><br>
-		<b><i>Fabrication of Objects was Meaningful:}</i></b> 11 out of 12 (91.6 %) participants found the ability to have physical versions of digital objects from their gameplay meaningful. For example, p4 said "There are many times during a game where I [have] thought it would be amazing to have a physical version of the equipment" and p7 said "I think it can be nice to build collections and to hold pride about." However, p8 highlighted the need for closely integrating fabrication - "The main risk of the modified game is for the fabrication event to feel out of place." Some participants also recommended using the system for educational purposes. For example p12 said "As an educational tool, especially for getting kids excited about fabrication, I can see it being really empowering and engaging while teaching really valuable skills in STEM."
+		<b><i>Fabrication of Objects was Meaningful:}</i></b> 11 out of 12 (91.6 %) participants found the ability to have physical versions of digital objects from their gameplay meaningful. For example, p4 said <i>"There are many times during a game where I [have] thought it would be amazing to have a physical version of the equipment"</i> and p7 said <i>"I think it can be nice to build collections and to hold pride about."</i> However, p8 highlighted the need for closely integrating fabrication - <i>"The main risk of the modified game is for the fabrication event to feel out of place."</i> Some participants also recommended using the system for educational purposes. For example p12 said <i>"As an educational tool, especially for getting kids excited about fabrication, I can see it being really empowering and engaging while teaching really valuable skills in STEM."</i>
 		<br>
 		<br>
-		<b><i>Choice of Objects for Fabrication:</i></b> When asked if they preferred to choose which objects to fabricate and when to fabricate them, 7 out of 12 (58 %) participants wanted to choose themselves. For example, p3 said "I would love to see players given the opportunity to design and embed their own events as well - to trade in games." In contrast, 5 participants preferred the experience designed by someone else because it builds anticipation. For example, p10 said "the anticipation of fabricating pokemon in real life encourages me to keep playing the game to discover new pokemon...so I can make more collectibles. The excitement and anticipation of playing the game and fabrication game items builds on each other." In addition, p4 said "randomizing the fabrication events rather than having them be predictable is fun!"
+		<b><i>Choice of Objects for Fabrication:</i></b> When asked if they preferred to choose which objects to fabricate and when to fabricate them, 7 out of 12 (58 %) participants wanted to choose themselves. For example, p3 said <i>"I would love to see players given the opportunity to design and embed their own events as well - to trade in games."</i> In contrast, 5 participants preferred the experience designed by someone else because it builds anticipation. For example, p10 said <i>"the anticipation of fabricating pokemon in real life encourages me to keep playing the game to discover new pokemon...so I can make more collectibles. The excitement and anticipation of playing the game and fabrication game items builds on each other."</i> In addition, p4 said <i>"randomizing the fabrication events rather than having them be predictable is fun!"</i>
 		<br>
 		<br>
-		<b><i>Timing of Fabrication Events:</i></b> 7 out of 12 (58 %) participants found the idea of fabricating objects during their gameplay enjoyable. From the other 5 participants, 3 stated that they preferred to fabricate the objects after the gameplay and not while playing the game as it halted their gameplay. For example, p2 said "depending on the pace of gameplay, e.g., on a mission or adventure, it may feel distracting to keep having to switch out of the game to fabricate." and p12 said "perhaps pausing [the] game to make fab files print-ready was a bit intrusive and detracted a bit from gameplay." 
+		<b><i>Timing of Fabrication Events:</i></b> 7 out of 12 (58 %) participants found the idea of fabricating objects during their gameplay enjoyable. From the other 5 participants, 3 stated that they preferred to fabricate the objects after the gameplay and not while playing the game as it halted their gameplay. For example, p2 said <i>"depending on the pace of gameplay, e.g., on a mission or adventure, it may feel distracting to keep having to switch out of the game to fabricate."</i> and p12 said <i>"perhaps pausing [the] game to make fab files print-ready was a bit intrusive and detracted a bit from gameplay."</i> 
 		<br>
 		<br>
 		<b><strong>Study Insights</strong></b><br>
