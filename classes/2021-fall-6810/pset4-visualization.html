@@ -95,125 +95,68 @@ In this problem set, you will write Processing code that takes as input the sens
 ...
 </pre> <br>
 
-Next, you need to read this data from the serial port into Processing. We have already shown you how to read data from the serial port into Processing in Lab 3 & 4 and you can check your prior code from back then to see how to do it. Put your code for reading the data into the <b>readSerial()</b> function: <br>
+You now need to read this data from the serial port into Processing. We have already shown you how to read data from the serial port into Processing in Lab 3 & 4 and you can check your prior code from back then to see how to do it. Put your code for reading the data into the <b>readSerial()</b> function: <br>
 <img src="images/pset4/readSerial-skeleton-code.png" width="700px"> <br>
 
-<b>Save Data for One Complete Scanning Pass into a 2D Array:</b> The data for a single pass on all columns and rows should be saved into a 2D array. When considering the size of your 2D array, remember that we build a 9x8 multi-touch pad. Printing the 2D array to the Processing command line should look something like the print out below. <span style="color:red">Every time a new pass over all columns/rows starts, you need to override your array values.</span><br><br>
+<b>Save Data for One Complete Scanning Pass into a 2D Array:</b> The data for a single pass on all columns and rows should be saved into a 2D array. When considering the size of your 2D array, remember that we build a <span style="color:red">9x8 multi-touch pad</span>. Printing the 2D array to the Processing command line should look something like the print out below. <span style="color:red">Every time a new pass over all columns/rows starts, you need to override your array values.</span><br><br>
 
 <img src="images/pset4/serial-read-array-one-pass.png" width="750px"> <br><br>
 
-<h3>(2) Cleaning the Received Signal by Reducing Noise</h3><br>
+<h3>(3) Cleaning the Received Signal by Reducing Noise</h3><br>
 
-<b>What is noise?</b><br>
-As you may have noticed, even when you are not touching the multi-touch pad, the receiver pins almost always receive some value although you would expect that they should receive '0'.<br>
-This is what we call "noise" in signal processing.<br><br>
+As you may have noticed, even when you are not touching the multi-touch pad, the receiver pins almost always receive some value although you would expect that they should receive '0'. This is what we call "noise" in signal processing.<br><br>
 
-<b>What causes noise?</b><br>
-Noise can be caused by a variety of factors.<br>
-On the entire multi-touch pad, noise can be caused by the substrate the multi-touch pad is placed on, i.e. depending on if you place it on a glass table or a wooden table the noise level will be different.<br>Additionally, noise can be different at each of the connection points in the circuit. For instance, each FPC connector and each wire may have different noise levels since the conductive lines all make slightly different levels of contact.<br>
-Furthermore, since the inkjet printed circuit may not be perfectly consistent everywhere either because of uneven printing or because of different aging levels over time, the different printed paths may also have different levels of noise.<br>
-Finally, in addition to the reasons above, we can also have different noise levels on a single row of electrodes because the distance between the receiver pin and each electrode in the row is different, thus the electodes further away accumulate noise over a larger distance.<br>
-All of these factors together result in different noise levels at each point in your multi-touch pad.<br><br> 
+<b>Factors that Cause Noise:</b> Noise can be caused by a variety of factors. On the entire multi-touch pad, noise can be caused by the <i>substrate the multi-touch pad is placed on</i>, i.e. depending on if you place it on a glass table or a wooden table the noise level will be different. Additionally, noise can be different at each of the connection points in the circuit. For instance, <i>each FPC connector and each wire</i> may have different noise levels since the conductive lines all make slightly different levels of contact.
+Furthermore, since the inkjet printed circuit may not be perfectly consistent everywhere either because of <i>uneven printing</i> or because of <i>different aging levels over time</i>, the different printed paths may also have different levels of noise.
+Finally, in addition to the reasons above, we can also have different noise levels on a single row of electrodes because the <i>distance between the receiver pin and each electrode in the row is different</i>, thus the electodes further away accumulate noise over a larger distance.
+All of these factors together result in different noise levels at each point in your multi-touch pad. Noise is an issue because it can lead to false positives, i.e. your code may think the multi-touch pad was touched although no interaction occured. To prevent this, we need to eliminate the noise in our signal.<br><br>
 
-<b>Why is noise an issue?</b><br>
-Noise is an issue because it can lead to false positives, i.e. your code may think the multi-touch pad was touched although no interaction occured.<br>
-To prevent this, we need to eliminate the noise in our signal.<br><br>
+<b>Eliminating Noise with a Noise Baseline Filter:</b> In order to eliminate the noise and have more "clean" data, we will implement a simple noise baseline filter. A noise baseline filter works in two steps:<br><br>
 
-<b>How can we eliminate the noise?</b><br>
-In order to eliminate the noise and have more "clean" data, there are many different processing steps that one can take.<br> 
-In our case, we will implement a simple noise baseline filter.<br><br>
-
-<b>How does a noise baseline filter work?</b><br>
-A noise baseline filter works in two steps:<br><br>
-
-<i>(1) Record Noise Baseline Signal:</i> First, you need to record the signal when you are <b>not</b> touching the multi-touch pad. The signal is recorded over some period of time and the recorded values are then averaged and saved as the noise baseline value. You only have to do this once at the beginning (and please only do it once). In our case, we found that recording <b>2 seconds</b> of non-touch sensing data is sufficient for the multi-touch noise reduction. Note that we record the noise baseline for every position in our multi-touch pad for the reasons mentioned above, i.e. that every position has its own level of noise. We therefore record the noise baseline for every received <b>value</b> and thus we are having 9x8 = 72 noiseline base values in total.<br><br> 
-
-Implement the noise baseline filtering in the <b>setBaseLine()</b> function and change the <b>boolean baseLineSet</b> in the skeleton code to "true" once the baseline is set. <br>
-You will find the Java's native <b><i>System.nanoTime()</i></b> or Processing's <b><i>millis()</i></b> funtion to be helpful. For more details, you can look at <a href="https://processing.org/reference/millis_.html"> the reference here </a>.<br><br>
+<i>(1) Record Noise Baseline Signal:</i> First, record the signal when you are <b>not</b> touching the multi-touch pad. Record 2 seconds of non-touch data and then average the values to create the noise baseline value. Note that you need to record and compute the noise baseline for every position in your multi-touch pad for the reasons mentioned above, i.e. that every position has its own level of noise. Thus, in the end you should have 9x8 = 72 noiseline base values in total (<span style="color:red">should I save this in an array or doesn't matter?</span>). You only have to do this once at the beginning (and please only do it once and not again and again in the loop()). <span style="color:red">Implement the noise baseline filtering in the 'setBaseLine()'' function and change the 'boolean baseLineSet' in the skeleton code to "true" once the baseline is set.</span> Java's native 'System.nanoTime()' or Processing's 'millis()' funtion may be helpful. For more details, you can look at <a href="https://processing.org/reference/millis_.html"> the reference here </a>.<br>
 
 <img src="images/pset4/setBaseLine-skeleton-code.png" width="600px"> <br>
 
-<i>(2) Subtract Noise Baseline from Usage Signal:</i> After you stored the noise baseline for each value, we can look into how to use it to create better signals during the actual user interaction. During interaction, the signal for each value is again recorded but this time you subtract the previously recorded noise baseline value from each new incoming signal value. Thus, if you don't touch the multi-touch pad, the noisy incoming signal minus the noise baseline will equal 0 (or at least be close to it). Therefore, the chance of false positives is much smaller, i.e. the chance that your code thinks that a touch occured although there was none is greatly reduced.<br><br>  
-
-Implement the noise baseline substraction in the <b>subtractBaseLine()</b> function and subtract the baseline values from corresponding new incoming raw values <b>only when the baseline is set.</b> <br>
-You should also make sure the "clean" sensing values stored after the subtraction are not negative.<br><br>
+<i>(2) Subtract Noise Baseline from Incoming Signal:</i> Next, you need to subtract the noise baseline value from the incoming signal. If you don't touch the multi-touch pad, the noisy incoming signal minus the noise baseline will equal 0 (or at least be close to it) and thus the chance of false positives is much smaller, i.e. the chance that your code thinks that a touch occured although there was none is greatly reduced. Implement this in the 'subtractBaseLine()' function. <span style="color:red">You should also make sure the "clean" sensing values stored after the subtraction are not negative (and why would that happen? what should I do? set them to 0 then?).</span><br>
 
 <img src="images/pset4/substractBaseLine-skeleton-code.png" width="600px"> <br>
 
+<h3>(4) Converting the Received Signals into Grayscale Values that can be Displayed as an Image</h3>
 
-<!-- <h3>(3) Set the background image color and bicubic interpolation</h3> -->
-<h3>(3) Converting the Received Signals into Grayscale Values that can be Displayed as an Image</h3>
+Now that we have "clean" sensing values, our next step is to find out <b>where</b> the multi-touch pad was actually touched.<br><br>
 
-Now that we have "clean" sensing values, our next step is to find out where the multi-touch pad was actually touched.<br><br>
+<b>Using Image Processing for Detecting Touch Points:</b> While there are multiple different ways to find our where the multi-touch pad was touched, we will use an approach based on image-processing. First, we will convert our 9x8 analog sensor signals into grayscale values and then draw the grayscale values into a 9x8 pixel image. Brighter pixels will correspond to higher sensor signals (i.e. touch points) while darker pixels will correspond to areas that were not touched. Since image processing on such a small 9x8 pixel image is too difficult, we will increase the size of the image to 500x500px using bicubic interpolation to fill in for the missing pixel values. After this, we can use 'blob' detection to extract the white blobs in the image (i.e. the touch points) and get the touch coordinates from the blobs.<br><br>
 
+<img src="images/pset4/UI-blob-touch-3.png" width="300px"><br><br>
 
-<b>Using Image Processing for Detecting Touch Points</b><br>
-While there are multiple different ways to find our where the multi-touch pad was touched, we will use an approach based on image-processing.<br>
-First, we will convert our sensor signals into grayscale values and then draw the grayscale values into a 9x8 pixel image.<br> 
-Brighter pixels will correspond to higher sensor signals (i.e. touch points) while darker pixels will correspond to areas that were not touched.<br>
-Since image processing on such a small 9x8 pixel image is too difficult, we will increase the size of the image to 500x500px using bicubic interpolation to fill in for the missing pixel values.<br>
-After this, we can use 'blob' detection to extract the white blobs in the image (i.e. the touch points) and get the touch coordinates from the blobs.<br>
-Let's do this one step at a time.<br>
+<b>Creating the 9x8 Pixel Image:</b> Construct an image (PImage) the same size as the 2D array that contains the sensing data. This PImage will be tiny (9x8 pixel) and you will likely have to search a bit for it on screen in case you decide to display it for debugging purposes.<br><br>
 
-<img src="images/pset4/UI-blob-touch-3.png" width="400px"><br>
+<b>Converting the Sensor Signals into Grayscale Values:</b> Before we can draw our analog sensor signals into the PImage as grayscale values, we have to make sure they have the correct range, i.e. are between 0-255. You therefore have to scale your sensor signals accordingly. To scale your sensor values to a range of 0 - 255, you can use <a href="https://processing.org/reference/map_.html">the 'map()' function</a> in Processing. As you can see in <a href="https://processing.org/reference/map_.html">the map() function reference,</a> apart from the incoming value to be converted, we also have to set four "scaling" values:<br><br>
 
+<img src="images/pset4/map-function-parameters.png" width="350px"> <br><br>
 
-<b>Creating the Image</b><br>
-For our visualization, we will construct an image (PImage) the same size as our 2D array that contains the sensing data.<br>
-Note that this PImage will be tiny (9x8 pixel) and you will likely have to search a bit for it on screen if you decide to display it for debugging purposes.<br><br>
+<i>start2/stop2 (target):</i> The last two parameters, i.e. our target range, are pretty straight forward since we already discussed we want to scale to 0 - 255.<br><br>
 
-<b>Creating a Grayscale Image</b><br>
-The PImage will be gray-scale since for our purposes we are only interested in brighter vs. darker spots for the purpose of touch detection.<br>
-If you set a PImage's pixels to a color value from 0 (black) - 255 (white), it will automatically be treated as grayscale.<br><br>
+<i>start1/stop1 (source):</i> <span style="color:red">For the source parameters, use the middle-to-low end sensor reading when you are not touching for start1, and middle-to-high sensor reading when you are touching for stop1. (this is super confusing, how would I even get a middle-to-high sensor reading?)</span> You can think of these 2 parameters as "min-input-range" and "max-input-range" of your incoming sensing data. <span style="color:red">We will revisit this later and it will become more clear why that is a good strategy.</span><br><br>
 
-<b>Converting the Sensor Signals into Grayscale Values</b><br>
+<b>Drawing the Grayscale Values into the 9x8 Pixel Image:</b> After you scaled your sensor values, use them to set the pixel color of each pixel in the 9x8 pixel PImage. If you set a PImage's pixels to a single color value from 0 (black) - 255 (white), it will automatically be treated as grayscale.<br><br>
 
-Before we can draw our sensor signals into the PImage as grayscale values, we have to make sure they have the correct range, i.e. are between 0-255.<br>
-We therefore have to scale our sensor signals accordingly.<br><br> 
+Put your code into the <b>setColors()</b> function in the skeleton code <span style="color:red">which part of the code? we may want to reference that earlier</span>: <br><br>
+<img src="images/pset4/setColors-skeleton-code.png" width="700px"> <br><br>
 
-To scale your sensor values to a range of 0 - 255, you can use <a href="https://processing.org/reference/map_.html">the <b>map()</b> function</a> in Processing.<br>
-As you can see in <a href="https://processing.org/reference/map_.html">the map() function reference,</a> apart from the incoming value to be converted, we also have to set four "scaling" values:<br><br>
+<h3>(5) Scaling up the Generated Image Using Bicubic Interpolation</h3>
 
-<img src="images/pset4/map-function-parameters.png" width="400px"> <br><br>
+<b>Why do we need to scale our image?:</b> Each sensor value represents the measured value at the intersection of an electrode column with a row. While this gives us 9x8 = 72 values, it is a very sparse representation of what is actually going on on the multi-touch pad, i.e. where the user is touching. To increase the space of sensor values, you can use 'interpolation' to make an informed guess about signal values that would occur in the space between two measured signals. Thus, in the next step, we will first increase the overall image size, then draw in the few pixel values we know for sure, and then use interpolation to guess the grayscale values at each of the pixels that don't have an actual sensor value associated with them.<br><br>
 
-<b>start2/stop2 (target):</b> The last two parameters, i.e. our target range, are pretty straight forward since we already discussed we want to scale to 0 - 255.<br><br>
+<b>Scaling the Image:</b> Scale up the image to 500px x 500px.<br><br>
 
-<b>start1/stop1 (source):</b> For the source parameters, use the middle-to-low end sensor reading when you are not touching for start1, and middle-to-high sensor reading when you are touching for stop1. You can think of these 2 parameters as "min-input-range" and "max-input-range" of your incoming sensing data. We will revisit this later and it will become more clear why that is a good strategy.<br><br>
-
-After you scaled your sensor values, use them to set the pixel color of each pixel in the 9x8 pixel PImage.<br><br>
-
-Put your code into the <b>setColors()</b> function in the skeleton code: <br><br>
-<img src="images/pset4/setColors-skeleton-code.png" width="700px"> <br>
-
-
-<h3>(4) Scaling up the Generated Image Using Bicubic Interpolation</h3>
-
-<b>Why do we need to scale our image?</b><br>
-While the tiny 9x8 pixel PImage that we just created is accurately representing our sensor values, it is not exactly the best image for visualization, nor it is a good representation of the physical size of our multi-touch pad. <br>
-We therefore have to scale up the image to a size that is more suitable for further image processing, such as blob detection.<br>
-In our case, we want to scale up the image to <b>500px x 500px.</b><br>
-Since our original tiny 9x8 pixel image only contains 9x8 values, we need to figure out what values we should use for all the newly generated 'gaps' in the 500x500px image since it needs 500x500 values to be completely filled in at each pixel.<br>
-To do this, we use a technique called interpolation.<br><br>
-
-<b>What is interpolation?</b><br>
-Interpolation can help fill in values where no actual values are present and can thus help us determine what value the 'in-between' pixels in our 500x500px image should have.<br>
-There are many different interpolation techniques that can be used to interpolate the pixel values to create a smooth scaled up appearance of the original input image.<br>
-Some of simplest interpolation methods are bi-linear and bi-cubic interpolation. <br><br>
-
-<b>What is the difference between bi-linear and bi-cubic interpolation?</b><br>
+<b>Interpolate Pixels:</b> There are many different interpolation techniques that can be used to interpolate the pixel values to create a smooth scaled up appearance of the original input image. Some of simplest interpolation methods are bi-linear and bi-cubic interpolation. <br><br>
 
 <i>Bi-linear interpolation:</i> considers the closest 2x2 neighborhood of known pixel values surrounding the unknown pixel. It then takes a weighted (by distance) average of these 4 pixels to arrive at its final interpolated value.<br><br>
-<img src="images/pset4/linear-1.png" width="230px">
-<img src="images/pset4/linear-2.png" width="230px">
-<img src="images/pset4/linear-3.png" width="230px"> <br><br>
 
 <i>Bi-cubic interpolation:</i> is considering the closest 4x4 neighborhood of known pixels — for a total of 16 pixels. Since these are at various distances from the unknown pixel, closer pixels are given a higher weighting in the calculation. Bicubic produces noticeably smoother images than the bi-linear interpolation. 
 
 <br> <br>
-
-<img src="images/pset4/cubic-1.png" width="230px">
-<img src="images/pset4/cubic-2.png" width="230px">
-<img src="images/pset4/cubic-3.png" width="270px"> <br><br>
 
 Thus, a benefit of bicubic interpolation is that it gives you a smoother interpolation result since it considers more values than bilinear interpolation. However, this also comes at the drawback of needing higher computational power since more values need to be processed to generate the interpolated value. For our small multi-touch pad with only a few hundred interpolated values this is not an issue but if you had to do more interpolation it may slow the processing down and the multi-touch pad detection would start lagging behind the user's finger movements.<br><br>
 
@@ -297,7 +240,7 @@ Let's assume for a moment your middle-to-high sensor reading when touching was 1
 Similarly, if you see too much noise in your image, i.e. everything is white (or multiple areas get "too white" when only touching with one finger), perhaps your non-touch sensor reading value is too low and you should set it to something higher, so that more signal values are treated as black non-touch pixels. <br>
 Note that you may have to slightly adjust these values when you change the setup in which you use your multi-touch pad. For instance, if place your multi-touch pad on a different surface (glass vs. wooden table) or if anything else in your environment undergoes a significant change (e.g. increase in humidity), the sensor values and the noise level may change. We therefore recommend you find yourself a place where you do the calibration once and then try to not change it too much.<br><br>
 
-<h3>(5) Implement blob detection</h3>
+<h3>(6) Implement blob detection</h3>
 
 While you can now determine with your eyes where the multi-touch pad was touched, we also want to teach our program to do this automatically and tell us at which (x,y) coordinate it sees a touch point.<br>
 To do this, we need to write code that detects the white 'blobs' in the image.<br>
