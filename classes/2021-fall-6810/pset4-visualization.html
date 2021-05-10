@@ -199,46 +199,31 @@ Note that you may have to slightly adjust these values when you change the setup
 
 <h3>(6) Implement blob detection</h3>
 
-While you can now determine with your eyes where the multi-touch pad was touched, we also want to teach our program to do this automatically and tell us at which (x,y) coordinate it sees a touch point.<br>
-To do this, we need to write code that detects the white 'blobs' in the image.<br>
-This is called 'blob detection'.<br><br> 
+While you can now determine with your eyes where the multi-touch pad was touched, we also want to teach our program to do this automatically and tell us at which (x,y) coordinate it sees a touch point. To do this, we need to write code that detects the white 'blobs' in the image. This is called 'blob detection'.<br><br> 
 
-<b>Library for Blob Detection</b><br>
-Lucky for us, somebody else has already provided a library for blob detection.<br>
-You already installed that library at the beginning of this pset and we already imported it into the skeleton code using the following line:<br>
+<b>Library for Blob Detection:</b> Luckily, somebody else has already provided a library for blob detection and you can see the <a href="http://www.v3ga.net/processing/BlobDetection/index-page-documentation.html">BlobDetection Reference here</a> for details on the different functions. You already installed that library at the beginning of this pset and we already imported it into the skeleton code using the following line:<br>
 
 <pre>import blobDetection.*;</pre><br>
 
-You can see the <a href="http://www.v3ga.net/processing/BlobDetection/index-page-documentation.html"><b>BlobDetection Reference</b> here</a> for details on the different functions.<br><br>
-
-Let's briefly review how blob detection works.<br><br>
-
 <b>Blob Detection works on Black/White Images:</b><br>
+
 Blob detection (also called 'Connected Components' search) works on black and white images. <br>
 Thus, a first step before blob detection can actually be performed is to convert our grayscale image into a black and white image.<br>
 To do this, the algorithm needs as input a 'threshold', i.e. a number that defines which grayscale values will be set to white and which will be set to black.<br>
 You can see an example of thresholding below: all the dark gray values (e.g., all pixels below a grayscale value of 100) were set to black and all the brighter gray values (e.g., all pixels above a gray scale value of 100) were set to white.<br><br>
 
-<img src="images/pset4/threshold.jpg" width="550px"> <br><br>
+
+
+The library automatically converts your grayscale image into black and white, performs blob detection, and then returns you the number of blobs, their locations in the image, as well as their outlines.
+
+
 
 Our library does the thresholding automatically when we call its computeBlobs() function (we will do this in a minute, keep reading). However, if your blob detection is not finding all the blobs in your image, consider using the <b>setThreshold()</b> function to determine which grayscale level from 0-255 will be used to determine which pixels will become white and thus potential blobs and which pixels will be set to black. Note that the threshold takes as input a float value from 0-1 so you need to scale your values accordingly.<br><br>
 
-<b>Blob Detection Looks for 'Connected Components'</b><br>
-Once the image is converted into black/white, the blob detection starts to look for areas that form larger blobs.<br>
-The outcome of blob detection looks something like the image below.<br>
-Every white area ('blob') has a label, e.g. 1, 2, 3. You can see that there are 'original labels' (big numbers) and 'parent labels' (tiny blue numbers in the upper right corners).<br>
-If you consider the parent labels for those pixels that have them, you can see that each 'blob' has the same overall label, e.g. there is one blob with label '1' and one blob with label '3'.<br><br>
-
-So let's see how we get there from an unlabeled black/white image.<br>
-First, we start by going over each pixel.<br>
-We start with the top left corner pixel and check if the pixel is white.<br>
-If it is not white like in our case, we continue searching through the row before moving onto the next row.<br>
 
 <b>Implementating Blob Detection: Finding Blobs in the Image</b><br>
-Lucky for us, somebody else has already provided a library with the blob detection algorithm.<br>
 The library automatically converts your grayscale image into black and white, performs blob detection, and then returns you the number of blobs, their locations in the image, as well as their outlines.<br><br>
 
-You can find the <a href="http://www.v3ga.net/processing/BlobDetection/index-page-documentation.html"><b>BlobDetection Reference</b> here</a> for details on the different functions.<br><br>
 
 First, construct a new object of the BlobDetection class using our interpolated PImage height and width.<br>
 You can then use the <b>computeBlobs()</b> function to detect the blobs.<br>
