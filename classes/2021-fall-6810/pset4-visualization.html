@@ -229,53 +229,10 @@ The outcome of blob detection looks something like the image below.<br>
 Every white area ('blob') has a label, e.g. 1, 2, 3. You can see that there are 'original labels' (big numbers) and 'parent labels' (tiny blue numbers in the upper right corners).<br>
 If you consider the parent labels for those pixels that have them, you can see that each 'blob' has the same overall label, e.g. there is one blob with label '1' and one blob with label '3'.<br><br>
 
-<img src="images/pset4/blobdetection-step_10.png" width="650px"> <br><br>
-
 So let's see how we get there from an unlabeled black/white image.<br>
 First, we start by going over each pixel.<br>
 We start with the top left corner pixel and check if the pixel is white.<br>
 If it is not white like in our case, we continue searching through the row before moving onto the next row.<br>
-In row 2, pixel 3 we finally find a white pixel.<br><br>
-
-<img src="images/pset4/blobdetection-step_1.png" width="650px"> <br><br>
-
-Once we found a white pixel, we need to check if any of its neighbor pixels are white and if yes, if they already have a label.<br><br>
-
-<img src="images/pset4/blobdetection-step_2.png" width="650px"> <br><br>
-
-In our case, none of the neighbor pixels has a label yet, so we give our selected pixel a new label. We use the label '1' since this is the first label we are creating. In addition, since there is no neighbor pixel with a lower label count, we also set the parent label (tiny blue number) to '1'. Note that when the parent is equal to the original label, we don't show it in the images further down.<br><br>
-
-<img src="images/pset4/blobdetection-step_3.png" width="650px"> <br><br>
-
-We then check the next pixel. This time the pixel has a white neighbor pixel that already has a label (i.e. the one we just labeled).<br><br>
-
-<img src="images/pset4/blobdetection-step_4.png" width="650px"> <br><br>
-
-We therefore set it to the same label '1' and also set its parent label to '1' since there is no neighbor with a lower label number.<br><br>
-
-<img src="images/pset4/blobdetection-step_5.png" width="650px"> <br><br>
-
-The next pixel does not have a white neighbor pixel with a label.<br><br>
-
-<img src="images/pset4/blobdetection-step_6.png" width="650px"> <br><br>
-
-We therefore increase the label count to '2'.<br>
-In addition, since there is no lower label in the neighborhood we set the parent to '2' as well.<br><br>
-
-<img src="images/pset4/blobdetection-step_7.png" width="650px"> <br><br>
-
-Let's fast forward a bit and look at a pixel that has several white neighbors with different labels.<br> 
-You can see below this happens in row 3.<br>
-To resolve this, we need to check all the different labels (i.e. we find '1' and '2') and choose the smallest available label (i.e. '1') as the label for the pixel.<br>
-In addition, we update the 'parent label' of all the neighbors to be the smallest available label. As you can see, the neighbor with the label '2' now has a parent label '1' in the top right corner.<br><br>
-
-<img src="images/pset4/blobdetection-step_8.png" width="650px"> <br><br>
-
-If you repeat this process for every pixel in the image a few more times, you end up with the image we showed you at the beginning and which is shown below again for your reference.<br>
-Note that the bottom area (row 8) where the main label is 6 and the parent label is 3 required several passes over all pixels to propagate the '3' parent label from the pixels further on the right.<br>
-Once there are no more changes in labels, you can be sure that all pixels that have the same label belong to one 'blob', i.e. 'connected component'.<br><br>
-
-<img src="images/pset4/blobdetection-step_10.png" width="650px"> <br><br>
 
 <b>Implementating Blob Detection: Finding Blobs in the Image</b><br>
 Lucky for us, somebody else has already provided a library with the blob detection algorithm.<br>
