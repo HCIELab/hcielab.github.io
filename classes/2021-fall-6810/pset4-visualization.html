@@ -209,7 +209,7 @@ While you can now determine with your eyes where the multi-touch pad was touched
 
 <b>Performing Blob Detection:</b> Next, you can use the BlobDetection instance's 'computeBlobs()'' function to detect the blobs.<br><br>
 
-<b>Retrieving Blob Number:</b> Use the BlobDetection instance's 'getBlobNb()'' function to retrieve the number of blobs (i.e. fingers) in the image.<br><br>
+<b>Retrieving Blob Number:</b> Use the BlobDetection instance's 'getBlobNb()'' function to retrieve the number of blobs (i.e. fingers) in the image. If you get '0' for your blob number no matter how much you press on the multi-touch pad, read below in 'improving your results' on how to debug this.<br><br>
 
 <b>Drawing Blob Centers and Contours Into the Image:</b> Next, we want to extract for each blob: (1) the center of the blob (i.e., center of the touch point), and (2) the contour of blob (i.e., the outline of the touch point) and then draw the touch point center, the touch point outline, and the touch point coordinates as (x,y) into our PImage. To retrieve the information from a specific blob, you can use the BlobDetection instance's getBlob() function, which returns a 'Blob' object and then use its instance functions to get its blob center and edges (refer to <a href="http://www.v3ga.net/processing/BlobDetection/index-page-documentation.html">the 'Blob' class in the documentation here</a>). Note that the contour is provided as a list of edges (i.e. lines).<br><br>
 
@@ -217,22 +217,13 @@ Implement this in the <b>drawBlobsAndEdges()</b> function in the skeleton code:<
 
 <img src="images/pset4/drawBlobsAndEdges-skeleton-code.png" width="600px"> <br><br>
 
-<b>Checking your Results</b><br>
-
-Once you finished this part, you should be seeing something like this depending on if one or multiple fingers are touching: <br><br>
-
 <img src="images/pset4/UI-blob-touch-1.png" width="240px"> 
 <img src="images/pset4/UI-blob-touch-2.png" width="240px"> 
-<img src="images/pset4/UI-blob-touch-3.png" width="240px"> <br>
+<img src="images/pset4/UI-blob-touch-3.png" width="240px"> <br><br>
 
+<b>Improving your Results with a Custom Threshold:</b> If your blob detection is not finding all the blobs in your image, consider the following: Before performing blob detection, the library automatically converts your image from a grayscale image into a black/white image. The reason the library does this is because blob detection groups pixels of similar color together to find 'blobs' and that is easier to do when pixels are either white or black and not something in between as would be the case for grayscale. The library automatically picks a 'threshold' value, for instance, it may decide to convert all pixels with a value below' '100' to black (i.e. '0') and all pixels above to white (i.e. '255'). If you are not getting any blobs, it may mean that during thresholding all pixels were converted to black and no white pixels are left because the threshold value was set too high. To see if a lower threshold would leave you with more white pixels, you can use the 'setThreshold()'' function to determine which brightness levels from 0-255 should be taking into account when searching for blobs. Note that the threshold takes as input a float value from 0-1 so you need to scale your 0-255 values accordingly.<br><br>
 
-<b>Thresholding the Grayscale Image to become a Black/White Image:</b> Blob detection works on black and white images, i.e. it identifies where pixels of the same color (i.e. either black or white) are close together. With grayscale that would be hard to do since even a small variation in color would prevent the grouping. Thus, as a first step before you can perform blob detection on your image is to convert your grayscale image into a black and white image. To do this, the algorithm needs as input a 'threshold', i.e. a number that defines which grayscale values will be set to white and which will be set to black. The BlobDetection library automatically finds the best threshold value when you call its function for finding the blobs. However, if your blob detection is not finding all the blobs in your image, consider using the setThreshold() function to determine which grayscale level from 0-255 will be used to determine which pixels will become white and thus potential blobs and which pixels will be set to black. Note that the threshold takes as input a float value from 0-1 so you need to scale your values accordingly.<br><br>
-
-If your blob detection is not finding all the blobs in your image, consider using the <b>setThreshold()</b> function to determine which brightness levels from 0-255 should be taking into account when searching for blobs. Note that the threshold takes as input a float value from 0-1 so you need to scale your values accordingly.<br><br>
-
-
-
-<br>
+<span style="color:red">Can we give students some sample data here so they can check the OpenCV blob detection part independent of what their specific multi-touch pad returns?</span><br><br>
 
 <h3>Upload your Processing Code and Pictures of your Visualization</h3>
 
@@ -246,7 +237,7 @@ For grading, please upload the following to your google drive student folder:<br
 
 <h3>Grading</h3>
 
-We will give 25 pts in total:
+We will give 20 pts in total:
 <ul>
 	<li>5 pts: you read the sensing data from the serial port into Processing and saved it correctly into a 2D array.</li>
 	<li>5 pts: you recorded 2 seconds of noise, set the noise baseline correctly based on the recorded noise, and are substracting the noise baseline correctly from the incoming live signal during use</li>
