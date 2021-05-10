@@ -146,32 +146,16 @@ Put your code into the <b>setColors()</b> function in the skeleton code <span st
 
 <h3>(5) Scaling up the Generated Image Using Bicubic Interpolation</h3>
 
-<b>Why do we need to scale our image?:</b> Each sensor value represents the measured value at the intersection of an electrode column with a row. While this gives us 9x8 = 72 values, it is a very sparse representation of what is actually going on on the multi-touch pad, i.e. where the user is touching. To increase the space of sensor values, you can use 'interpolation' to make an informed guess about signal values that would occur in the space between two measured signals. Thus, in the next step, we will first increase the overall image size, then draw in the few pixel values we know for sure, and then use interpolation to guess the grayscale values at each of the pixels that don't have an actual sensor value associated with them.<br><br>
+Each sensor value represents the measured value at the intersection of an electrode column with a row. While this gives us 9x8 = 72 values, it is a very sparse representation of what is actually going on on the multi-touch pad, i.e. where the user is touching. To increase the space of sensor values, you can use 'interpolation' to make an informed guess about signal values that would occur in the space between two measured signals. Thus, in the next step, we will first increase the overall image size, then draw in the few pixel values we know for sure, and then use interpolation to guess the grayscale values at each of the pixels that don't have an actual sensor value associated with them.<br><br>
+
+<b>Interpolation Methods:</b> There are many different interpolation techniques that can be used to interpolate the pixel values to create a smooth scaled up appearance of the original input image. Some of simplest interpolation methods are bi-linear and bi-cubic interpolation. <i>Bi-linear interpolation</i> considers the closest 2x2 neighborhood of known pixel values surrounding the unknown pixel. It then takes a weighted (by distance) average of these 4 pixels to arrive at its final interpolated value. <i>Bi-cubic interpolation</i> is similar but considers the closest 4x4 neighborhood of known pixels — for a total of 16 pixels. Closer pixels are given a higher weighting in the calculation. Bicubic interpolation produces noticeably smoother images than the bi-linear interpolation since it considers more values than bilinear interpolation. However, it also needs higher computational power since more values need to be processed to generate the interpolated value. For our small multi-touch pad with only a few hundred interpolated values this is not an issue but if you had to do more interpolation it may slow the processing down and the multi-touch pad detection would start lagging behind the user's finger movements.<br><br>
+
+<img src="images/pset4/multi-touch-interpolate-bilinear-bicubic.png" width="500px"><br><br>
+
+<b>Implementing Bi-Cubic Interpolation with OpenCV</b><br>
 
 <b>Scaling the Image:</b> Scale up the image to 500px x 500px.<br><br>
 
-<b>Interpolate Pixels:</b> There are many different interpolation techniques that can be used to interpolate the pixel values to create a smooth scaled up appearance of the original input image. Some of simplest interpolation methods are bi-linear and bi-cubic interpolation. <br><br>
-
-<i>Bi-linear interpolation:</i> considers the closest 2x2 neighborhood of known pixel values surrounding the unknown pixel. It then takes a weighted (by distance) average of these 4 pixels to arrive at its final interpolated value.<br><br>
-
-<i>Bi-cubic interpolation:</i> is considering the closest 4x4 neighborhood of known pixels — for a total of 16 pixels. Since these are at various distances from the unknown pixel, closer pixels are given a higher weighting in the calculation. Bicubic produces noticeably smoother images than the bi-linear interpolation. 
-
-<br> <br>
-
-Thus, a benefit of bicubic interpolation is that it gives you a smoother interpolation result since it considers more values than bilinear interpolation. However, this also comes at the drawback of needing higher computational power since more values need to be processed to generate the interpolated value. For our small multi-touch pad with only a few hundred interpolated values this is not an issue but if you had to do more interpolation it may slow the processing down and the multi-touch pad detection would start lagging behind the user's finger movements.<br><br>
-
-
-You can see the difference of bi-liner vs. bi-cubic interpolation in the images below (these are from our multi-touch pad with roughly the same location touched by finger, <b><i>Left: Bilinear vs. Right: Bicubic) </i></b>.<br> 
-
-<img src="images/pset4/multi-touch-interpolate-bilinear.png" width="350px"> 
-<img src="images/pset4/multi-touch-interpolate-bicubic.png" width="350px"> <br><br>
-
-For a more close look, below are the resulting interpolated images from a 5x5 input data via bi-linear and bi-cubic.<br><br>
-
-<img src="images/pset4/linear-interpolation.png" width="300px"> 
-<img src="images/pset4/cubic-interpolation.png" width="300px"> <br><br>
-
-<b>Implementing Bi-Cubic Interpolation with OpenCV</b><br>
 
 Luckily, you do not have to implement the bicubic interpolation from scratch.<br>
 There is an image processing and computer vision library called <a href="https://opencv.org/courses/"><b>OpenCV.</b></a><br>
