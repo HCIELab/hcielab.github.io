@@ -205,24 +205,7 @@ While you can now determine with your eyes where the multi-touch pad was touched
 
 <pre>import blobDetection.*;</pre><br>
 
-<b>Blob Detection works on Black/White Images:</b><br>
-
-Blob detection (also called 'Connected Components' search) works on black and white images. <br>
-Thus, a first step before blob detection can actually be performed is to convert our grayscale image into a black and white image.<br>
-To do this, the algorithm needs as input a 'threshold', i.e. a number that defines which grayscale values will be set to white and which will be set to black.<br>
-You can see an example of thresholding below: all the dark gray values (e.g., all pixels below a grayscale value of 100) were set to black and all the brighter gray values (e.g., all pixels above a gray scale value of 100) were set to white.<br><br>
-
-
-
-The library automatically converts your grayscale image into black and white, performs blob detection, and then returns you the number of blobs, their locations in the image, as well as their outlines.
-
-
-
-Our library does the thresholding automatically when we call its computeBlobs() function (we will do this in a minute, keep reading). However, if your blob detection is not finding all the blobs in your image, consider using the <b>setThreshold()</b> function to determine which grayscale level from 0-255 will be used to determine which pixels will become white and thus potential blobs and which pixels will be set to black. Note that the threshold takes as input a float value from 0-1 so you need to scale your values accordingly.<br><br>
-
-
-<b>Implementating Blob Detection: Finding Blobs in the Image</b><br>
-The library automatically converts your grayscale image into black and white, performs blob detection, and then returns you the number of blobs, their locations in the image, as well as their outlines.<br><br>
+<b>Thresholding the Grayscale Image to become a Black/White Image:</b> Blob detection works on black and white images, i.e. it identifies where pixels of the same color (i.e. either black or white) are close together. With grayscale that would be hard to do since even a small variation in color would prevent the grouping. Thus, as a first step before you can perform blob detection on your image is to convert your grayscale image into a black and white image. To do this, the algorithm needs as input a 'threshold', i.e. a number that defines which grayscale values will be set to white and which will be set to black. The BlobDetection library automatically finds the best threshold value when you call its function for finding the blobs. However, if your blob detection is not finding all the blobs in your image, consider using the setThreshold() function to determine which grayscale level from 0-255 will be used to determine which pixels will become white and thus potential blobs and which pixels will be set to black. Note that the threshold takes as input a float value from 0-1 so you need to scale your values accordingly.<br><br>
 
 
 First, construct a new object of the BlobDetection class using our interpolated PImage height and width.<br>
