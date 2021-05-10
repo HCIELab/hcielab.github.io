@@ -152,16 +152,8 @@ Each sensor value represents the measured value at the intersection of an electr
 
 <img src="images/pset4/multi-touch-interpolate-bilinear-bicubic.png" width="500px"><br><br>
 
-<b>Implementing Bi-Cubic Interpolation with OpenCV</b><br>
-
-<b>Scaling the Image:</b> Scale up the image to 500px x 500px.<br><br>
-
-
-Luckily, you do not have to implement the bicubic interpolation from scratch.<br>
-There is an image processing and computer vision library called <a href="https://opencv.org/courses/"><b>OpenCV.</b></a><br>
-OpenCV exists as a library for many different programming languages, in our case we will use OpenCV's implementation for Java and Processing.<br>
-Remember, at the beginning of pset3, you already installed the <b>OpenCV library.</b><br>
-If you scroll up in your skeleton code, you can see that we already imported several classes of the library with<br><br>
+<b>Using OpenCV for Bi-Cubic Interpolation:</b> Luckily, you do not have to implement the bicubic interpolation from scratch. There is an image processing and computer vision library called <a href="https://opencv.org/courses/">'OpenCV' that has functions for this.</a> OpenCV exists as a library for many different programming languages, in our case we will use OpenCV's implementation for Java and Processing.
+Remember, at the beginning of pset3, you already installed the OpenCV library. If you scroll up in your skeleton code, you can see that we already imported several classes of the library with:<br><br>
 
 <pre>
 import gab.opencv.*;
@@ -170,52 +162,33 @@ import org.opencv.core.Mat;
 import org.opencv.core.Size;
 </pre><br>
 
-If you look <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/imgproc/Imgproc.html">at the documentation of the <b>Imgproc class,</b></a> you will see that it provides a <b>resize()</b> function, which also allows us to specify which interpolation method we want to use.<br><br>
+If you look <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/imgproc/Imgproc.html">at the documentation of the 'Imgproc' class,</a> you will see that it provides a 'resize()'' function, which allows us to specify which interpolation method we want to use.<br><br>
 
 <img src="images/pset4/imgproc-resize.png" width="750px"><br><br>
 
-So let's see how we can fill out the parameters.<br><br>
+<i>Mat src:</i> <span style="color:red">Is there a reason we are <a href="http://atduskgreg.github.io/opencv-processing/reference/">not using the toCV() function?</a></span> This is the input image (9x8px) that we want to resize. As you can see, the image here is in the format <b>Mat</b> (Matrix) and not PImage. We therefore first have to convert our PImage into a Mat. In image processing, images are handled as 2D matrices, where every matrix entry is the color value of one pixel (i.e. 0-255 in our case). You can also think of the 2D matrix as a 2D array with pixel values in rows and columns. To convert your PImage into a Mat, first construct a new OpenCV object by providing the PImage in the constructor and <span style="color:red">using 'this' for the PApplet</span> and then call the 'getGray()' function on your OpenCV object, which will return the image as a Mat.<br><br>  
 
-<b>Mat src:</b> This is the input image (9x8px) that we want to resize. As you can see, the image here is in the format <b>Mat</b> (Matrix) and not PImage. We therefore first have to convert our PImage into a Mat. In image processing, images are handles as 2D matrices, where every matrix entry is the color value of one pixel (i.e. 0-255 in our case). You can also think of the 2D matrix as a 2D array with pixel values in rows and columns.<br>
-Before we can convert our PImage into a Mat, we first have to construct a new OpenCV object.<br> 
-For this, you need to call the corresponding OpenCV constructor in the <a href="http://atduskgreg.github.io/opencv-processing/reference/gab/opencv/OpenCV.html">OpenCV class documentation</a>.<br>
-Once you constructed your OpenCV object, you can call the <b>getGray()</b> function on it to retrieve the image as a Mat (check <a href="http://atduskgreg.github.io/opencv-processing/reference/gab/opencv/OpenCV.html">the OpenCV class documentation</a> again). This is your src input parameter for interpolation. <br><br>
+<i>Mat dest:</i> This is the interpolated output image. Create an empty matrix of 500x500px and use it as the parameter. To create the matrix, you can use the constructor from the <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/core/Mat.html">OpenCV Mat Reference</a> called 'Mat(int rows, int cols, int type)'. Similar to how other variables have a type, e.g. int or float, matrices also have types, which refer to what types of values can be stored in the matrix. Since the type of our src matrix and our dest matrix need to match, it is best to directly retrieve the type from the src matrix and then use this as the parameter in the Mat constructor. Check the <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/core/Mat.html">OpenCV Mat Reference</a> and you will see that each Mat has a 'type()' function that returns you the type.<br><br>
 
-<b>Mat dest:</b> This is the output image, i.e. the resized 500x500px image. Again it needs to be in the format of a matrix. For the output image, we want to create a new empty matrix of our desired size. You can find the <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/core/Mat.html"><b>OpenCV Mat Reference</b> here</a>. 
+<i>Size dsize:</i> Construct a new Size object with 500x500px. To see how the constructor works, you can find the <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/core/Size.html">OpenCV Size Reference</a> here. <br><br>
 
-<img src="images/pset4/mat-constructor.png" width="350px"><br>
+<i>double fx, double fy:</i> These are scale factors but since we already created our output image and the size object in the correct dimensions, we don't need to scale our image any further. Set these to 0.<br><br>
 
-Similar to how other variables have a type, e.g. int or float, matrices also have <a href="http://ninghang.blogspot.com/2012/11/list-of-mat-type-in-opencv.html">types,</a> which describe what types of values can be stored in them. Since we want to make sure the input  and the output images match, you need to reference the image type of your source matrix as the type argument. If you check the Mat reference again, you can see that there is an instance function for getting the matrix type. <br><br>
-
-<b>Size dsize:</b> You can find the <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/core/Size.html"><b>OpenCV Size</b> Reference</a> here. Construct a new Size object with 500x500px. <br><br>
-
-<b>double fx, double fy:</b> These are scale factors but since we don't want to scale our image any further, we set these to 0.<br><br>
-
-<b>int interpolation:</b> These are the different interpolation options. If you look at the different fields in the <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/imgproc/Imgproc.html"><b>OpenCV Imgproc</a></b> Reference, you will see that there are several options, such as:<br>
+<i>int interpolation:</i> These are the different interpolation options. If you look at the different fields in the <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/imgproc/Imgproc.html">OpenCV Imgproc</a> Reference, you will see that there are several options. We want to use the inter-cubic option.<br><br>
 
 <img src="images/pset4/interlinear.png" width="750px"><br>
 <img src="images/pset4/intercubic.png" width="720px"><br><br>
 
-We want to use the inter-cubic option as our last parameter.<br><br>
+<b>Convert Matrix back to PImage:</b> After you resized the image, you have to convert your output matrix back into a PImage for use in Processing. For this, you can go back to the <a href="http://atduskgreg.github.io/opencv-processing/reference/">OpenCV class documentation</a> and look at the toPImage() function. <span style="color:red">ok but what do I use for the PImage parameter? Do I have to make a new PImage that is 500x500px first?</span><br><br>
 
 Implement this part in the <b>interpolate()</b> function in the skeleton code: <br><br>
 
 <img src="images/pset4/interpolate-skeleton-code.png" width="600px"> <br><br>
 
-<b>Convert Matrix back to PImage:</b> Finally, after you resized the image with our desired interpolation method, you have to convert your output matrix back into a PImage. For this, you can go back to the <a href="http://atduskgreg.github.io/opencv-processing/reference/"><b>OpenCV class</b> documentation</a> and look for the method that gives you a PImage.<br> This should also still go into the interpolate function in the skeleton code.<br><br>
+<b>Checking Your Results:</b> Once you are done implementing, you should be able to see images like the ones below. The image should be darker when the multi-touch pad is not touched and have some bright spots when the multi-touch pad is touched. What exactly you see depends on your specific noise level and how well your noise baseline works. <br><br>
 
-<b>Checking Your Results:</b><br>
-
-Once you finished the interpolation, you should be able to see images like the ones below. The image should be darker when the multi-touch pad is not touched and have some bright spots when the multi-touch pad is touched. What exactly you see depends on your specific noise level and how well your noise baseline works. <br><br>
-
-<i>Not Touched:</i><br>
-<img src="images/pset4/UI-no-blob-no-touch-1.png" width="350px"> 
-<img src="images/pset4/UI-no-blob-no-touch-2.png" width="350px"> <br><br>
-
-<i>Touched:</i><br>
-left: 1 finger touching, right: 2 fingers touching <br>
-<img src="images/pset4/UI-no-blob-touch-1.png" width="350px"> 
-<img src="images/pset4/UI-no-blob-touch-2.png" width="350px"> <br><br>
+<img src="images/pset4/UI-no-blob-no-touch-1.png" width="300px"> 
+<img src="images/pset4/UI-no-blob-touch-2.png" width="300px"> <br><br>
 
 <b>Improving your Results</b><br>
 If your results don't look as good as above, try changing how you map your sensors signals to the grayscale values of 0 - 255.<br> 
