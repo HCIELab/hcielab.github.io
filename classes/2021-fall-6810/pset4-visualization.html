@@ -53,7 +53,7 @@
 
           <hr>
 
-In this problem set, you will write Processing code that takes as input the sensor signals and visualizes the resulting touch points as blobs in a 2D image.<br><br>
+In this problem set, you will write Processing code that takes as input the sensor signals and visualizes the resulting touch points as white pixels in a 2D image.<br><br>
 
 <b>Steps:</b>
 <ol>
@@ -61,11 +61,10 @@ In this problem set, you will write Processing code that takes as input the sens
 	<li>Clean the sensing data from noise by determining the noise baseline and subtracting it from the received signals.</li>
 	<li>Convert the received signals into grayscale values that can be displayed as pixels in a 9x8 pixel image.</li>
 	<li>Scale the image to 500x500px using bicubic interpolation to facilitate touch point extraction.</li>
-	<li>Implement blob detection to extract the touch point locations.</li>
 </ol>
 <br>
 
-<h3>(1) Download Skeleton Code and Install Libraries</h3><br>
+<h3>Download Skeleton Code and Install Libraries</h3><br>
 
 <b>Download Skeleton Code:</b> Start by downloading <a href="software/pset3_visualization_skeleton_v3.zip"><span style="color:red">the skeleton code for the PSet3 from  here</a>.<br><br>
 
@@ -73,12 +72,12 @@ In this problem set, you will write Processing code that takes as input the sens
 
 <i>Install OpenCV library:</i> OpenCV is a library that helps with image processing. In our case we will draw our touch signals into an image. You can install the library directly in Processing by going to: 'Sketch/Import Library/Add Library'</b>' and searching for 'OpenCV'.<br><br>
 
-<i>Install BlobDetection library:</i> BlobDetection is a library that helps to find blobs inside of images, in our case the blobs are the touch points on the multi-touch pad. You can install the library directly in Processing by going to: 'Sketch/Import Library/Add Library'</b>' and searching for 'BlobDetection'.<br><br>
+<i>Install BlobDetection library:</i> BlobDetection is a library that helps to find blobs inside of images, in our case the blobs are the touch points on the multi-touch pad. We will use this in pset5 later. You can install the library directly in Processing by going to: 'Sketch/Import Library/Add Library'</b>' and searching for 'BlobDetection'.<br><br>
 
 <img src="images/pset4/processing-library-opencv.png" width="370px">
 <img src="images/pset4/processing-library-blob-detection.png" width="370px"> <br><br>
 
-<h3>(2) Read the Multi-Touch Sensing Data into Processing</h3><br>
+<h3>(1) Read the Multi-Touch Sensing Data into Processing</h3><br>
 
 <b>Read Data from Serial Port Into Processing:</b> At the end of the last pset, your <b>Arduino</b> code wrote the received touch data onto the serial port in the format seen below. <br><br>
 
@@ -102,7 +101,7 @@ You now need to read this data from the serial port into Processing. We have alr
 
 <img src="images/pset4/serial-read-array-one-pass.png" width="750px"> <br><br>
 
-<h3>(3) Cleaning the Received Signal by Reducing Noise</h3><br>
+<h3>(2) Cleaning the Received Signal by Reducing Noise</h3><br>
 
 As you may have noticed, even when you are not touching the multi-touch pad, the receiver pins almost always receive some value although you would expect that they should receive '0'. This is what we call "noise" in signal processing.<br><br>
 
@@ -121,7 +120,7 @@ All of these factors together result in different noise levels at each point in 
 
 <img src="images/pset4/substractBaseLine-skeleton-code.png" width="600px"> <br>
 
-<h3>(4) Converting the Received Signals into Grayscale Values that can be Displayed as an Image</h3>
+<h3>(3) Converting the Received Signals into Grayscale Values that can be Displayed as an Image</h3>
 
 Now that we have "clean" sensing values, our next step is to find out <b>where</b> the multi-touch pad was actually touched.<br><br>
 
@@ -144,7 +143,7 @@ Now that we have "clean" sensing values, our next step is to find out <b>where</
 Put your code into the <b>setColors()</b> function in the skeleton code <span style="color:red">which part of the code? we may want to reference that earlier</span>: <br><br>
 <img src="images/pset4/setColors-skeleton-code.png" width="700px"> <br><br>
 
-<h3>(5) Scaling up the Generated Image Using Bicubic Interpolation</h3>
+<h3>(4) Scaling up the Generated Image Using Bicubic Interpolation</h3>
 
 Each sensor value represents the measured value at the intersection of an electrode column with a row. While this gives us 9x8 = 72 values, it is a very sparse representation of what is actually going on on the multi-touch pad, i.e. where the user is touching. To increase the space of sensor values, you can use 'interpolation' to make an informed guess about signal values that would occur in the space between two measured signals. Thus, in the next step, we will first increase the overall image size, then draw in the few pixel values we know for sure, and then use interpolation to guess the grayscale values at each of the pixels that don't have an actual sensor value associated with them.<br><br>
 
@@ -190,40 +189,8 @@ Implement this part in the <b>interpolate()</b> function in the skeleton code: <
 <img src="images/pset4/UI-no-blob-no-touch-1.png" width="300px"> 
 <img src="images/pset4/UI-no-blob-touch-2.png" width="300px"> <br><br>
 
-<b>Improving your Results</b><br>
-If your results don't look as good as above, try changing how you map your sensors signals to the grayscale values of 0 - 255.<br> 
-Remember, when you mapped your sensor signals to the 0 - 255 range, we had recommended that you use the middle-to-low sensor reading when not touching to map to 0 (black), and the middle-to-high sensor reading when touching to 255 (white). <br>
-Let's assume for a moment your middle-to-high sensor reading when touching was 1500 and you mapped it to 255 (white). As a result, any sensor reading above 1500 is now leading to white pixels, whereas anything below will lead to darker pixels. If you find that you only see dark areas in your image and nothing is white (or not "white" enough) when touched, then perhaps the 1500 threshold is too high. Consider using a lower value to increase what signal values are being treated as 'touched' white pixels.<br> 
-Similarly, if you see too much noise in your image, i.e. everything is white (or multiple areas get "too white" when only touching with one finger), perhaps your non-touch sensor reading value is too low and you should set it to something higher, so that more signal values are treated as black non-touch pixels. <br>
-Note that you may have to slightly adjust these values when you change the setup in which you use your multi-touch pad. For instance, if place your multi-touch pad on a different surface (glass vs. wooden table) or if anything else in your environment undergoes a significant change (e.g. increase in humidity), the sensor values and the noise level may change. We therefore recommend you find yourself a place where you do the calibration once and then try to not change it too much.<br><br>
+<b>Improving your Results:</b> If your results don't look as good as above, try changing how you map your sensors signals to the grayscale values of 0 - 255. Remember, when you mapped your sensor signals to the 0 - 255 range, we had recommended that you use the middle-to-low sensor reading when not touching to map to 0 (black), and the middle-to-high sensor reading when touching to 255 (white). Let's assume for a moment your middle-to-high sensor reading when touching was 1500 and you mapped it to 255 (white). As a result, any sensor reading above 1500 is now leading to white pixels, whereas anything below will lead to darker pixels. If you find that you only see dark areas in your image and nothing is white (or not "white" enough) when touched, then perhaps the 1500 threshold is too high. Consider using a lower value to increase what signal values are being treated as 'touched' white pixels. Similarly, if you see too much noise in your image, i.e. everything is white (or multiple areas get "too white" when only touching with one finger), perhaps your non-touch sensor reading value is too low and you should set it to something higher, so that more signal values are treated as black non-touch pixels. Note that you may have to slightly adjust these values when you change the setup in which you use your multi-touch pad. For instance, if place your multi-touch pad on a different surface (glass vs. wooden table) or if anything else in your environment undergoes a significant change (e.g. increase in humidity), the sensor values and the noise level may change. We therefore recommend you find yourself a place where you do the calibration once and then try to not change it too much.<br><br>
 
-<h3>(6) Implement blob detection</h3>
-
-While you can now determine with your eyes where the multi-touch pad was touched, we also want to teach our program to do this automatically and tell us at which (x,y) coordinate it sees a touch point. To do this, we need to write code that detects the white 'blobs' in the image. This is called 'blob detection'.<br><br> 
-
-<b>Library for Blob Detection:</b> Luckily, somebody else has already provided a library for blob detection and you can see the <a href="http://www.v3ga.net/processing/BlobDetection/index-page-documentation.html">BlobDetection Reference here</a> for details on the different functions. You already installed that library at the beginning of this pset and we already imported it into the skeleton code using the following line:<br>
-
-<pre>import blobDetection.*;</pre><br>
-
-<b>Constructing BlobDetection Object:</b> First, construct a new object of the BlobDetection class using our interpolated PImage height and width. You can find the <a href="http://www.v3ga.net/processing/BlobDetection/index-page-documentation.html">BlobDetection Reference here</a>.<br><br>
-
-<b>Performing Blob Detection:</b> Next, you can use the BlobDetection instance's 'computeBlobs()'' function to detect the blobs.<br><br>
-
-<b>Retrieving Blob Number:</b> Use the BlobDetection instance's 'getBlobNb()'' function to retrieve the number of blobs (i.e. fingers) in the image. If you get '0' for your blob number no matter how much you press on the multi-touch pad, read below in 'improving your results' on how to debug this.<br><br>
-
-<b>Drawing Blob Centers and Contours Into the Image:</b> Next, we want to extract for each blob: (1) the center of the blob (i.e., center of the touch point), and (2) the contour of blob (i.e., the outline of the touch point) and then draw the touch point center, the touch point outline, and the touch point coordinates as (x,y) into our PImage. To retrieve the information from a specific blob, you can use the BlobDetection instance's getBlob() function, which returns a 'Blob' object and then use its instance functions to get its blob center and edges (refer to <a href="http://www.v3ga.net/processing/BlobDetection/index-page-documentation.html">the 'Blob' class in the documentation here</a>). Note that the contour is provided as a list of edges (i.e. lines).<br><br>
-
-Implement this in the <b>drawBlobsAndEdges()</b> function in the skeleton code:<br><br>
-
-<img src="images/pset4/drawBlobsAndEdges-skeleton-code.png" width="600px"> <br><br>
-
-<img src="images/pset4/UI-blob-touch-1.png" width="240px"> 
-<img src="images/pset4/UI-blob-touch-2.png" width="240px"> 
-<img src="images/pset4/UI-blob-touch-3.png" width="240px"> <br><br>
-
-<b>Improving your Results with a Custom Threshold:</b> If your blob detection is not finding all the blobs in your image, consider the following: Before performing blob detection, the library automatically converts your image from a grayscale image into a black/white image. The reason the library does this is because blob detection groups pixels of similar color together to find 'blobs' and that is easier to do when pixels are either white or black and not something in between as would be the case for grayscale. The library automatically picks a 'threshold' value, for instance, it may decide to convert all pixels with a value below' '100' to black (i.e. '0') and all pixels above to white (i.e. '255'). If you are not getting any blobs, it may mean that during thresholding all pixels were converted to black and no white pixels are left because the threshold value was set too high. To see if a lower threshold would leave you with more white pixels, you can use the 'setThreshold()'' function to determine which brightness levels from 0-255 should be taking into account when searching for blobs. Note that the threshold takes as input a float value from 0-1 so you need to scale your 0-255 values accordingly.<br><br>
-
-<span style="color:red">Can we give students some sample data here so they can check the OpenCV blob detection part independent of what their specific multi-touch pad returns?</span><br><br>
 
 <h3>Upload your Processing Code and Pictures of your Visualization</h3>
 
@@ -243,7 +210,6 @@ We will give 20 pts in total:
 	<li>5 pts: you recorded 2 seconds of noise, set the noise baseline correctly based on the recorded noise, and are substracting the noise baseline correctly from the incoming live signal during use</li>
 	<li>5 pts: you created a grayscale image of the correct size and converted the sensor signals into the correct grayscale values using the map function.</li>
 	<li>5 pts: you scaled the image correctly using bicubic interpolation</li>
-	<li>5 pts: you implemented the blob detection and drew the touch center, outline, and coordinate into the visualization. You showed that your touch pad can recognize 1, 2, and 3 fingers touching correctly.</li>
 </ul>
 
 
