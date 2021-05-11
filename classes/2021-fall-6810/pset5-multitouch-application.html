@@ -142,38 +142,51 @@ Once you have the blob detection working, you can move on to build the gesture r
  }
 </pre> <br>
 
-<h4>Tracking the finger gestures </h4> <br>
+<b>Tracking the finger gestures:</b> Now that you have defined how your gesture looks like and what function should be called when it is detected, you still have to tell your code when it should start looking for the gesture. We want to start tracking gestures when our code detects a 'finger blob'.
+Therefore, you need to add the tracking function below in the blob detection method where it determines if a finger was successfully detected. The x/y coordinate in the function are the x/y coordinate of your touch point.<br>
 
-Now that you have defined how your gesture looks like and what function should be called when it is detected, you still have to tell your code when it should start tracking finger input.<br>
+<pre> oneDollar.track(int x-coordinate, int y-coordinate);</pre>
 
-We want to start tracking our gesture when our code detects a 'finger blob'.<br>
-Therefore, we need to add the tracking function below in the blob detection method where it determines if a finger was successfully detected.<br><br>
+Note that you don't have to 'stop' tracking. The track() function will only be executed when Processing goes through its loop and detects a finger blob, i.e. knows a finger is present. If no finger has been present for a while, i.e. no new data is fed to the gesture recognizer, the recognizer will automatically determine that the gesture has ended and will provide its best guess at what gesture was executed. <br><br>
 
-<pre> oneDollar.track(int x-coordinate, int y-coordinate); </pre><br>
+<b>Visualize Gesture Detection Result:</b> Finally, once your gesture is detected, your callback function should visualize the detected gesture. You can do this by writing the name of the detected gesture into the Processing UI window as shown in the top left corner of the images below.<br>
 
-The x/y coordinate in the function are the x/y coordinate of your touch point.<br><br>
+<img src="images/pset5/UI-recognizer-A2.png" width="350px">
+<img src="images/pset5/UI-recognizer-C2.png" width="350px"> <br><br>
 
-Note that you don't have to 'stop' tracking. The track() function will only be executed when Processing goes through its infinite loop and detects a finger blob, i.e. knows a finger is present. If no finger has been present for a while, i.e. no new data is fed to the gesture recognizer, it will automatically determine that the gesture has ended and will provide its best guess at what gesture was executed. <br><br>
+<b>Create 3 Different Gestures:</b> Implement 3 different finger gestures that can be recognized by your multi-touch pad. For example, you can implement finger input for recognizing letters (A, C etc.), 2D shapes (triangle, circle etc.), and symbols (check mark etc.). Note that in good gesture design, the gesture should be related to what function is being called. For instance, you cannot draw a 'star' and associate it with a 'smile'. Instead, it would be better to draw a 'half circle', which more closely resembles a 'smile'. Similarly, gestures cannot be too abstract. For instance, you cannot have your finger draw one straight line on the multi-touch pad and the system recognizes it as 'fish'. Instead, there are better one-stroke gestures that could represent a fish outline. <br><br>
 
-<h4>Visualize Gesture Detection Result</h4> <br>
+<h3>(3) Rotoscope</h3>
 
-Finally, once your gesture is detected, your callback function should visualize the detected gesture.<br>
-You can do this by writing the name of the detected gesture into the Processing UI window as shown in the top left corner of the images below.<br>
+Finally, as the last part of this problem set, you will create presentation materials that you can use for your website or other project portfolio to showcase your work.<br><br>
 
-<img src="images/pset5/UI-recognizer-A.png" width="350px">
-<img src="images/pset5/UI-recognizer-C.png" width="350px"> <br><br>
+Create a rotoscope of your multi-touch pad. You can find information on <a href="visualization-rotoscope.html">how to do this here</a>. Below are some examples from last year.<br><br>
 
-<h4>Create 3 Different Gestures</h4> <br>
+<img src="images/pset5/roto-amadou.png" width="350px">
+<img src="images/pset5/roto-april.png" width="350px">
+<img src="images/pset5/roto-emily.png" width="350px">
+<img src="images/pset5/roto-olivia.png" width="350px">
 
-Implement 3 different finger gestures that can be recognized by your multi-touch pad. <br>
-For example, you can implement finger input for recognizing letters (A, C etc.), 2D shapes (triangle, circle etc.), and symbols (check mark etc.). <br><br>
+<h3>(4) Photos</h3>
 
-Note that in good gesture design, the gesture should be related to what function is being called. For instance, you cannot draw a 'star' and associate it with a 'smile'. Instead, it would be better to draw a 'half circle', which more closely resembles a 'smile'. Similarly, gestures cannot be too abstract. For instance, you cannot have your finger draw one straight line on the multi-touch pad and the system recognizes it as 'fish'. Instead, there are better one-stroke gestures that could represent a fish outline. <br><br>
+Take some photos using a clean backdrop. You can find information on <a href="visualization-rotoscope.html">how to do this here</a>. Below are some examples from last year. Note that last year we also implemented a 3D visualization that you can see in some of the photos below. We took it out this year since you already have enough to do.<br><br>
 
-Take a short video of your gesture recognizer showing how you perform all three different gestures and how they are correctly classified and upload this video to your google drive.<br><br>
+<img src="images/pset5/photo-olivia.jpg" width="350px">
+<img src="images/pset5/photo-olivia2.jpg" width="350px">
+<img src="images/pset5/photo-katya.jpg" width="350px">
+<img src="images/pset5/photo-will.jpg" width="350px"><br><br>
 
+<h3>(5) Video (optional)</h3>
 
+The video is optional but may be a nice addition to your project portfolio. You can find information on <a href="visualization-video.html">how to do this here</a>. Below are some examples from last year.<br>
 
+ <video width="350" height="260" controls>
+  <source src="images/pset5/video-olivia.mp4" type="video/mp4">
+</video> 
+
+ <video width="350" height="260" controls>
+  <source src="images/pset5/video-katie.mp4" type="video/mp4">
+</video> 
 <h3>Upload your Processing Code and Video of Gestures</h3>
 
 For grading, please upload the following to your google drive student folder:<br>
