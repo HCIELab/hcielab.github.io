@@ -113,6 +113,8 @@ Now that you are generating the PWM signal at the sender pin on the ESP that is 
 
 <b>How to redirect the signal to a desired channel?:</b> The multiplexer receives the PWM signal on the input pin (SIG). It then needs to determine to which of the output pins (C0-C15) the signal should be forwarded to. To do this, it uses the S0 - S3 pins to create the address that determines which output pin (electrode column) the signal should be send to. Why four pins? The multiplexer expects a binary signal. For instance, sending 0,0,0,0 to S0-S3 results in the output pin C0, vs. 0,1,1,0 sends the signal to C6. Let's implement this in the next section.<br><br>
 
+
+
 <b>Setup Address Pins (S0-S3) as Digital Pins:</b> First, check which GPIO pin numbers you used for the multiplexer's S0 - S3 pins. Create the digital pins in your Arduino code and set the correct PinMode. <br><br>
 
 <b>Compute the Bit Values for the Address Pins:</b> Fill out the "selectChannelOut(int channel)" function in the skeleton code. The function takes as input an 'int' for the channel number (0-8, since we have 9 sender lines in our 8x9 multi-touch pad) and then assigns the correct bit values to the 4 select pins (S0 - S3). Use 'digitalWrite' to write the correct value to each of the S0-S3 pins after you determined if they should be 0 or 1.<br><br>

@@ -155,15 +155,19 @@ As mentioned in lecture, the multitouch pad consists of sender electrodes (e.g.,
 
 <span style="color:red"><b>Testing if each pin on your multiplexer is soldered:</b> How can the students test if each pin on the multiplexer is correctly soldered, i.e. makes a connection to the header pin?</span><br><br>
 
-<b>Connecting the Multiplexer to the electrode columns:</b> If you look at your multiplexer, you can see that it has 16 channels (pins on the left side from C0-C15). When the ESP sends a signal to the multiplexer, we can select to which channel, i.e. which electrode column, we want to send the signal. Connect each of your electrode colunmns to one of the pins. You can connect the FPC connector breakout boards to the multiplexer via male-to-female jumper wires and a breadboard.<br><br>
+<b>Providing the Input Signal from the ESP (SIG):</b> First, let's start by providing our multiplexer with the input signal from the ESP. For this, connect the signal pin (SIG) on the multiplexer to one of the pins on the ESP that can generate a PWM signal (<span style="color:red">any GPIO pin works</span>). <br><br>
+
+<b>Connecting the output channels to the electrode columns (C0-C8):</b> If you look at your multiplexer, you can see that it has 16 output channels (pins on the left side from C0-C15). We want to connect each output channel to one column of our multi-touch pad (we don't need all 16 channels since our multi-touch pad only had 9 columns). We can then use the multiplexer to redirect the input signal from the SIG pin to one of the channels, thereby injecting the signal into a specific column of the multi-touch pad. Connect each of your electrode colunmns to one of the pins. You can connect the FPC connector breakout boards to the multiplexer via male-to-female jumper wires and a breadboard.<br><br>
 
 <span style="color:red">add an image of the FPC chip with jumper wires?</span><br><br>
 
-<b>Selecting which channel the signal is send to:</b> The question remains how to we tell the multiplexer which channel our input signal should be directed to, i.e. how can we tell the multiplexer to send the input signal to e.g., the C12 output pin. The way our multiplexer does this is by asking us to send the desired output address using the four pins on the right side, labeled S0-S3. Why four pins? The multiplexer expects a binary signal, e.g. sending 0,0,0,0 to S0-S3 results in the output pin C0, vs. 0,1,1,0 send to to S0-S3 results in C6 as output pin. The signal pin (SIG) is the pin that takes our PWM signal as input and VCC and GND are there to power the multiplexer. Thus, by using the multiplexer we can send a signal to up to 16 electrode columns (CH0-15)  using only 5 pins (SIG + S0,S1,S2,S3) on the ESP!<br><br>
+<b>Selecting which Channel to send the Signal to (S0-S3):</b> The question remains how to we tell the multiplexer which channel our input signal should be directed to, i.e. how can we tell the multiplexer to send the input signal to e.g., the C12 output pin. The way our multiplexer does this is by asking us to send the desired output address using the four pins on the right side, labeled S0-S3. Why four pins? The multiplexer expects a binary signal, e.g. sending 0,0,0,0 to S0-S3 results in the output pin C0, vs. 0,1,1,0 send to to S0-S3 results in C6 as output pin. Thus, by using the multiplexer we can send a signal to up to 16 electrode columns (CH0-15)  using only 5 pins (SIG + S0,S1,S2,S3) on the ESP! Wire up the S0-S3 pins to <span style="color:red">GPIO pins on the ESP</span>.<br><br>
+
+<b>Powering the Multiplexer:</b> Finally, connect the power VCC and GND pins on the multiplexer to the corresponding pins on the ESP to power the multiplexer.<br><br>
 
 <img src="images/pset2/multiplexer.png" width="400px"> <br><br>
 
-<span style="color:red">anything students can test here to see if they did it correctly or do we do this at the very end?</span><br><br>
+<span style="color:red">anything students can test here to see if they wired everything up correctly or do we do this at the very end?</span><br><br>
 
 <h3>(5) Build Receiving Circuit</h3>
 
@@ -175,7 +179,7 @@ As you can see in the schematic, the circuit for receiving is very similar to wh
 
 <img src="images/pset3/adc-pin-chip.png" width="250px"><br><br>
 
-<b>Connecting the Receiving Electrodes to the ADC component:</b> Let's first connect the receiving electrodes from our multi-touch pad to the ADC component by connecting them to <b>channel 0 - 7</b>. Don't forget to add the <b>100kOhm resistor</b> to each electrode row.<br><br>
+<b>Connecting the Receiving Electrodes to the ADC component:</b> Let's first connect the receiving electrodes from our multi-touch pad to the ADC component by connecting them to channel CH0 - CH7 (see component image below). Don't forget to add the 100kOhm resistor to each electrode row.<br><br>
 
 <b>Powering the ADC component:</b> Next, power the ADC component by connecting the Vdd pin to 3.3V and the Dgnd pin to GND.<br><br>
 
