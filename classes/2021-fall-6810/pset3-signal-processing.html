@@ -62,6 +62,10 @@ In this problem set, you will write code to sense the touch signals from your mu
 </ol>
 <br>
 
+ <div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Ask a TA to give you a wired up multi-touch pad if something went wrong in pset2</b><br>
+In case you did not finish pset2, you can ask a TA to provide you with a wired up multi-touch pad, i.e. with the completed circuit. If you finished pset2, but it turns out that your circuit is incorrect you can either ask a TA to fix it with you or they can give you a new clean circuit they build from scratch.</div>
+
 <h3>(1) Generate the PWM signal for the sender pin </h3>
 
 Let's start by writing the code that generates the PWM signal at the sender pin. <br><br>
@@ -128,7 +132,7 @@ Now that you are generating the PWM signal at the sender pin on the ESP that is 
 
 <h3>(3) Receive Signals from Electrode Rows via SPI Communication</h3>
 
-Remmber from pset1 that we had wired up an additional ADC converter (MCP3008 chip) to get cleaner signals from our multi-touch pad, i.e. the MCP3008 chip converts our analog touch signals better than the ESP GPIO pins would be able to do. We had also discussed that the MCP3008 chip communicates with the ESP via the Serial Peripheral Interface (SPI). To read the signals via SPI, you will have to do the following steps. <br><br> 
+Remember from pset1 that we had wired up an additional ADC converter (MCP3008 chip) to get cleaner signals from our multi-touch pad, i.e. the MCP3008 chip converts our analog touch signals better than the ESP GPIO pins would be able to do. We had also discussed that the MCP3008 chip communicates with the ESP via the Serial Peripheral Interface (SPI). To read the signals via SPI, you will have to do the following steps. <br><br> 
 
 <b>Install MCP3008 Library</b>: Download and install the MCP3008 library by opening the Arduino IDE and going to Sketch -> Include Library -> Manage Libraries and search for the MCP3008 library. Restart your Arduino IDE after you installed the library.<br><br>
 
@@ -157,7 +161,7 @@ Now that you have code for telling your multiplexer to send the PWM signal to a 
 
 <b>Putting your Code in loop():</b> Since we will continuously read data from our multi-touch pad, your code should be in the 'loop()' function. <br><br>
 
-<b>Inject Column #1, Read all Rows, Inject Column #2, Read all Rows...:</b> Your code needs to first send a signal through column #1, then read each row of the multi-touch pad one after another (rows #1-#9), and then continues to inject the signal into column #2, reads again row #1-#9 and so on.<br><br>
+<b>Inject Column #1, Read all Rows, Inject Column #2, Read all Rows...:</b> Your code needs to first send a signal through column #1, then read each row of the multi-touch pad one after another <span style="color:red">(rows #1-#9)</span>, and then continues to inject the signal into column #2, reads again <span style="color:red">row #1-#9</span> and so on.<br><br>
 
 <b>Averaging Read Signals: </b> When reading the signal from a specific row, it helps to sample multiple times (e.g., execute read() 20 times and average them together) to get a more accurate and smooth signal. <br><br>
 
@@ -175,7 +179,7 @@ Now that you have code for telling your multiplexer to send the PWM signal to a 
 ...
 </pre> <br>
 
-<b>Checking Result in Serial Plotter:</b> If you open up the Serial Plotter, it should look like the image on the left when the multi-touch pad is not touched, i.e. all values are roughly the same height. The middle shows a start of touching and the right the end of touching. <br><br>
+<b>Checking Result in Serial Plotter:</b> If you open up the Serial Plotter, it should look like the image on the left when the multi-touch pad is not touched, i.e. all values are roughly the same height. The middle shows a start of touching and the right the end of touching. <span style="color:red">and what do I do if I don't see this?</span><br><br>
 
 <img src="images/pset3/multi-touch-pad-not-touch.png" width="250px"><img src="images/pset3/multi-touch-pad-touch-1.png" width="250px"><img src="images/pset3/multi-touch-pad-touch-2.png" width="250px"><br><br>
 
