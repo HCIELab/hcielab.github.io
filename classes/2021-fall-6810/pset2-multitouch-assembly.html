@@ -132,6 +132,10 @@ Once you have the multi-touch pad printed and assembled, you need to connect its
 
 <h3>(4) Build Sending Circuit</h3>
 
+ <div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Use the large breadboard we gave you for the multi-touch pad circuit:</b><br>
+For building the circuit, please use the large breadboard we gave you. The idea is that you use the large breadboard for your multi-touch pad and the small breadboards you received earlier for the labs. This way, you don't have to unplug any wires when you switch between working on labs vs. working on psets.</div>
+
 As mentioned in lecture, the multitouch pad consists of sender electrodes (e.g., columns) and receiver electrodes (e.g., rows). A signal is injected into the sender electrodes and the receiver electrodes then pick up the signal and any modulation of it that occured because the user's finger is present. We will first build the sending circuit.<br><br> 
 
 <b>Injecting Circuit:</b> The sending circuit injects a PWM signal into the sender electrodes. When powered, the multitouch pad is sending the PWM signal to the sender electrode columns one by one, i.e. first sends the PWM signal to the first sender electrode column, then the second, then the third and so on. After it reached the last sender electrode column, it continues again from the front.<br><br> 
@@ -149,7 +153,11 @@ As mentioned in lecture, the multitouch pad consists of sender electrodes (e.g.,
 <img src="images/pset2/multiplexer-no-headers.png" width="170px"> 
 <img src="images/pset2/headerpins.png" width="150px"><img src="images/pset2/multiplexer.jpg" width="400px"> <br><br>
 
+<span style="color:red"><b>Testing if each pin on your multiplexer is soldered:</b> How can the students test if each pin on the multiplexer is correctly soldered, i.e. makes a connection to the header pin?</span><br><br>
+
 <b>Connecting the Multiplexer to the electrode columns:</b> If you look at your multiplexer, you can see that it has 16 channels (pins on the left side from C0-C15). When the ESP sends a signal to the multiplexer, we can select to which channel, i.e. which electrode column, we want to send the signal. Connect each of your electrode colunmns to one of the pins. You can connect the FPC connector breakout boards to the multiplexer via male-to-female jumper wires and a breadboard.<br><br>
+
+<span style="color:red">add an image of the FPC chip with jumper wires?</span><br><br>
 
 <b>Selecting which channel the signal is send to:</b> The question remains how to we tell the multiplexer which channel our input signal should be directed to, i.e. how can we tell the multiplexer to send the input signal to e.g., the C12 output pin. The way our multiplexer does this is by asking us to send the desired output address using the four pins on the right side, labeled S0-S3. Why four pins? The multiplexer expects a binary signal, e.g. sending 0,0,0,0 to S0-S3 results in the output pin C0, vs. 0,1,1,0 send to to S0-S3 results in C6 as output pin. The signal pin (SIG) is the pin that takes our PWM signal as input and VCC and GND are there to power the multiplexer. Thus, by using the multiplexer we can send a signal to up to 16 electrode columns (CH0-15)  using only 5 pins (SIG + S0,S1,S2,S3) on the ESP!<br><br>
 
