@@ -58,9 +58,14 @@ In this lab, you will wire up your silver inkjet printed music card to a microco
 
 <h3>Steps:</h3>
 <ol>
-	<li><a href="#INSTALL">Wire up the music card</a></li>
-	<li><a href="#INSTALL">Write code to sense touch signals using capacitive touch sensing (through Arduino's CapacitiveSensor Library)</a></li>
-	<li><a href="#INSTALL">apply filtering to the signals</a></li>
+	<li><a href="#INSTALLARDUINO">Install Arduino and ESP Microcontroller Drivers</a></li>
+	<li><a href="#TOUCHBUTTONBREADBOARD">Connect Printed Touch Button to Breadboard</a></li>
+	<li><a href="#SENSINGCIRCUIT">Build Sensing Circuit on the Breadboard</a></li>
+	<li><a href="#CAPACITIVELIBRARY">Install Arduino Capacitive Sensing Library</a></li>
+	<li><a href="#SAMPLECODE">Run Sample Code to Test if Touch Sensing Circuit Works</a></li>
+	<li><a href="#EXTENDCIRCUITCODE">Extend Circuit and Code to 3x Touch Sensors</a></li>
+	<li><a href="#THRESHOLD">Threshold Touch Signals: Touched or not Touched?</a></li>
+	<li><a href="#SERIALOUTPUT">Format Serial Output</a></li>
 </ol>
 
 
@@ -69,22 +74,26 @@ In this lab, you will wire up your silver inkjet printed music card to a microco
 At the end of the lab, upload to your student google drive:
 <ol>
 	<li>the Arduino code you wrote for touch sensing and Serial Communication (.ino file format)</li>
+	<li>a photo of your wired up music card connected to the breadboard and ESP microcontroller</li>
 </ol>
 <br>
 
 <hr>
 
-<h3 id="INSTALL">(1) Install Arduino and ESP Microcontroller Drivers</h3>
+<h3 id="INSTALLARDUINO">(1) Install Arduino and ESP Microcontroller Drivers</h3>
 
 First, please <a href="install-arduino-esp.html">follow the instructions here to install Arduino, the ESP Core Board Manager, and the USB cable driver</a>. If you already have any of those but you installed them more than 3 months ago, we still recommend you reinstall everything to make sure you have the latest version. Once you have the Blink program working, you are ready to go!<br><br>
 
-<h3 id="INSTALL">(2) Connecting a Printed Circuit to a Breadboard</h3>
+<h3 id="TOUCHBUTTONBREADBOARD">(2) Connect Printed Touch Button to Breadboard</h3>
+
+ <div style="color:black; border: black 1px solid; padding: 5px;margin-bottom:5px;">
+<b>Use the small breadboards:</b> For all labs, please use the small breadboards. Use the large breadboard only for the pset.</div>
 
 To connect a printed touch button to a breadboard, start by using a crocodile clamp to connect the touch button to a breadboard. One side of the crocodile clamp goes onto the connector pad of the touch button, the other side clips onto the end of a regular breadboard wire. The regular breadboard wire can then be used to connect to the breadboard. You will later repeat this procedure for all touch buttons and slider segments but let's first finish wiring up one of the touch buttons (continue below).<br><br>
 
 <img src="images/lab2/lab1-crocodile-clamp-wire_new.jpg" width="357px" /><br><br>
 
-<h3 id="INSTALL">(3) Building the Sensing Circuit on the Breadboard</h3>
+<h3 id="SENSINGCIRCUIT">(3) Build Sensing Circuit on the Breadboard</h3>
 
 <b>Capacitive Touch Sensing:</b> We will implement touch sensing based on the principle of capacitive touch sensing. The circuit for capacitive touch sensing requires a <b>sender pin</b>, which outputs a signal, and a <b>receiver pin</b>, which listens to the signal. The sender and receiver pin have the touch button connected between them. When a user touches the touch button, the signal that was injected by the sender pin will change and thus the receiver pin will receive a different signal. We can then analyze the change in signal to detect touch. The circuit also requires a resistor <span style="color:red">why? to reduce sensitivity to noise?</span>.<br><br>
 
@@ -100,7 +109,7 @@ Let's build the circuit from the schematic above:<br><br>
 
 <img src="images/lab2/esp32-pinout.jpg" width="500px" /><br><br>
 
-<h3 id="INSTALL">(4) Install Arduino Capacitive Sensing Library</h3>
+<h3 id="CAPACITIVELIBRARY">(4) Install Arduino Capacitive Sensing Library</h3>
 
 Next, we will write a program that receives the touch sensor signal and plots them on our computer. To process the sensor signals, we will use the <i><a href="https://playground.arduino.cc/Main/CapacitiveSensor/">CapacitiveSensor library</a></i>.<br><br>
 
@@ -113,7 +122,7 @@ Next, we will write a program that receives the touch sensor signal and plots th
 <b>Alternative Install from github:</b> First, remove the previously installed library. You can delete it on Mac under <span style="color:red">'Macintosh HD/Users/your-username/Documents/Arduino/libraries'</span> and on windows this is under <span style="color:red">'My Documents\Arduino\libraries\</span>'. Once the library is deleted, <a href="https://github.com/PaulStoffregen/CapacitiveSensor">go to the library's GitHub repository</a> and download it as a .zip file. Re-install the library via the .zip file. The <a href="https://www.arduino.cc/en/guide/libraries#toc4"> <span style="color:red">instructions to do so can be found here.</span></a><br><br>
 
 
-<h3 id="INSTALL">(5) Test if Touch Sensing Circuit Works</h3>
+<h3 id="SAMPLECODE">(5) Run Sample Code to Test if Touch Sensing Circuit Works</h3>
 
 By now, you should have already downloaded the <a href="images/touch-button.zip">starter code</a>, opened it in your Arduino IDE and upload it to your microcontroller. The sample code can read the signal from one touch button and write it to Arduino's serial monitor.<br> <br> 
 
@@ -157,7 +166,7 @@ void loop()
 
 <img src="images/lab2/lab1-touching-plotting.png" width="680px"><br><br>
 
-<h3 id="INSTALL">(6) Extend Circuit and Code to 3x Touch Sensors</h3>
+<h3 id="EXTENDCIRCUITCODE">(6) Extend Circuit and Code to 3x Touch Sensors</h3>
 
 <b>Extend Circuit:</b> Since we have three notes that serve as touch buttons, we need to extend our circuit to read those touch signals as well. Use a breadboard to make 3 touch button circuits, each connecting to one of the notes. You can use the <b>same sender pin</b> for all three touch buttons. Only the receiver pin has to vary, i.e. you need one receiver pin for each touch signal you want to read. Also each touch sensor needs its own 100k Ohm resistor. The pin numbers are up to you.<br><br>
 
@@ -167,20 +176,20 @@ void loop()
 
 <img src="images/lab2/lab1-plotting-signals_new.png" width="480px"><br><br>
 
-<h3 id="INSTALL">(7) Extend Circuit and Code to Other Touch Sensors</h3>
+<h3 id="THRESHOLD">(7) Threshold Touch Signals: Touched or not Touched?</h3>
 
-<!-- <img src="images/lab1-plotting-signals3.png" width="680px"><br><br> -->
+Next, we want to convert the raw signal into either button touched or button not touched. As you saw in the serial plotter, the values for each sensor can vary pretty wildly as mentioned in lecture. We will do more filtering of signals later in class, but for now we will make a rough estimate in which range our sensor signal falls for each touch button and then use a simple if/then statement. Look at the serial plotter to determine the range for each touch button. Write code that iterates over all sensors and outputs every 200ms if each touch button was touched or not.<br><br>
 
-<h4>Thresholding Touch Signals: Touched or not Touched?</h4><br>
+<h3 id="SERIALOUTPUT">(8) Format Serial Output</h3>
 
-Next, we want to rewrite our code so to not return the raw signal values but to return if a button was touched or not touched.<br><br>
+In the next lab, we will read the output from the Serial Monitor into a program called Processing. For this, we want to make sure our output is formatted well.<br><br>
 
-For each sensor, we want to reformat our output so that:
+<b>Formatting Output for each Sensor:</b> For each sensor, we want to reformat our output so that:<br>
 
-<code>(sensor ID),(is_touched);</code><br><br>
+<code>(sensor ID),(is_touched);</code><br>
     
-(sensor ID) is either 0, 1 or 2 and represents the ID of the observed touch sensor.<br>
-(is_touched) is either 0 or 1 (0 if the sensor is not touched, and 1 if it is touched).<br><br>
+<i>(sensor ID):</i> is either 0, 1 or 2 and represents the ID of the observed touch sensor.<br>
+<i>(is_touched):</i> is either 0 or 1 (0 if the sensor is not touched, and 1 if it is touched).<br><br>
 
 A sample output for touching only sensor 0 should look like:<br>
 <pre><code>0,1;
@@ -188,22 +197,11 @@ A sample output for touching only sensor 0 should look like:<br>
 2,0;
 </code></pre>
 
-The sensor ID is easy to plot, but how do we know if the sensor is touched or not?<br>
-As you saw in the serial plotter, the values for each sensor can vary pretty wildly as mentioned in lecture.<br><br>
-
-We will do more filtering of signals later, for now you can use a simple if/then statement and make a rough estimate in which range your sensor signal falls for each touch button (look at the serial plotter for some help in determining the range).<br><br>
-
-Rewrite the code such that it iterates over all sensors and outputs every 200ms the correct output (see sample output above again for correct formatting).<br>
 We are still writing to the Serial Monitor, so use strings for your numbers.<br><br>
 
-<h4>Print Serial Messages only when Button State Changes</h4><br>
+<b>Print Serial Messages only when Button State Changes:</b> So far we have been printing all touch button values to the Serial monitor no matter if the state of the touch button changed or not. As the last step in this lab, we want to print new information only if the sensor state changes, i.e. a touch button was not touched before but is now being touched, or the touch button was touched but the user just released the finger. Change the code such that it tracks in which state each sensors is currently in. Check for a state change and send the Serial message only then. <br><br>
 
-So far we have been printing all touch button values to the Serial monitor no matter if the state of the touch button changed or not.<br>
-Next, we want to print new information only if the sensor state changes, i.e. a touch button was not touched before but is now being touched, or the touch button was touched but the user just released the finger.<br><br> 
-
-Change the code such that it tracks in which state each sensors is currently in.<br> 
-Check for a state change and send the Serial message only then. <br><br>
-Example:<br><br>
+Example:<br>
 
 If sensor 0 gets touched, this message is printed once:<br>
 <pre><code>0,1;</code></pre>
@@ -211,30 +209,16 @@ If sensor 0 gets touched, this message is printed once:<br>
 Then when the user lifts the finger again, this message is printed once:<br>
 <pre><code>0,0;</code></pre>
 
+<h3>Deliverables</h3>
+
+At the end of the lab, upload to your student google drive:
+<ol>
+	<li>the Arduino code you wrote for touch sensing and Serial Communication (.ino file format)</li>
+	<li>a photo of your wired up music card connected to the breadboard and ESP microcontroller</li>
+</ol>
 <br>
 
-<h4>Serial Communication to Send Touch Signals to Processing</h4><br>
-
-Let's zoom out for a moment.<br>
-What we have done so far is that we have written a program for our microcontroller in the Arduino Programming Environment.<br>
-We have then uploaded that program onto our ESP microcontroller.<br>
-The microcontroller is constantly running our program on its built-in processor going through the loop() function, reading the sensor signals and thresholding them.<br>
-It then communicates the sensor signals in the format we defined back to our laptop using Serial communication through the USB cable.<br>
-So far, we have only used the Arduino IDE to 'listen' to the Serial communication from the USB cable and to show the values in the Serial Monitor or the Serial Plotter.<br>
-However, since any software can listen to the Serial Communication, we can also write programs in other programming languages and IDEs to read and do something with the sensor signals.<br><br>
-
-In the next lab, we are going to write a program in Processing.<br>
-Processing is a programming environment that makes it very easy to built on-screen UIs.<br>
-For our purposes, we will build a digital version of our music card that will highlight the corresponding areas on the card when you push the button on the physical card and will also play the corresponding song.<br>
-
-<h2 class="headline">Deliverables Lab 2 (due Friday, Sept. 11, 2020, 11.59pm)</h2>
-
-Upload to your student google drive:
-<ul>
-	<li>the circuit drawing (.pdf file format) you used for conductive inkjet printing</li>
-	<li>the Arduino code you wrote for Serial Communication (.ino file format)</li>
-</ul>
-
+<b>Footnotes</b><br>
 <p id="section1">[1] Pin GPIO 0 (TOUCH1) cannot be used as receiver because it is the strapping pin for this version (DevKitC) of ESP32 and cannot be used due to external auto program circuits. However, you could still use the pin as a sender.</p>
 
 <!-- <span style="color:red">we still have to change the signal to plot not as a string "1" but as an integer 1, we can do this at the start of the next lab.</span> -->
