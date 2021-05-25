@@ -107,7 +107,8 @@ The alignment between the top and bottom electrodes is critical for receiving an
 Finally, since the conductive side of the top sheet is facing towards the user, the top electrodes are still exposed, and you need to cover them up to prevent the user from touching them directly. For this, you will laminate the Multi-touch pad with a laminating sheet. We will let you use the lamination machine in the lab/at the OH. The Multi-touch pad should be placed inside of the laminating sheet except for the wires to connect it to the FPC connector.
 <br><br>
 
-<img src="images/pset2/lamination.png" width="400">
+<img src="images/pset2/lamination.png" height="400">
+<img src="images/pset2/lamination.gif" height="400">
 <br><br>
 
 <span style="color:red">to come once we figured out the lamination step. this may also replace the top cover step from above. to come once we figured out the lamination step. this may also replace the top cover step from above. to come once we figured out the lamination step. this may also replace the top cover step from above.</span><br><br>
@@ -187,7 +188,8 @@ As mentioned in lecture, the multitouch pad consists of sender electrodes (e.g.,
 
 <b>Powering the Multiplexer:</b> Finally, connect the power VCC and GND pins on the multiplexer to the corresponding pins on the ESP to power the multiplexer.<br><br>
 
-<img src="images/pset2/multiplexer.png" width="400px"> <br><br>
+<img src="images/pset2/multiplexer.png" height="350px">
+<img src="images/pset2/fritzing_circuit_sender.png" height="350px"> <br><br>
 
 <span style="color:red">anything students can test here to see if they wired everything up correctly or do we do this at the very end?</span><br><br>
 
@@ -211,7 +213,8 @@ As you can see in the schematic, the circuit for receiving is very similar to wh
 
 <b>Connecting the ADC component to the ESP:</b> Sending data from the ADC component to the ESP is a little more complicated. The MCP3008 chip communicates with the ESP via the Serial Peripheral Interface (SPI). We use basic SPI between one master (ESP) and one slave (MCP3008 chip). SPI communication is setup via 4 types of pins, i.e. MOSI is the line for the master to send data to the slave, MISO is the line for the slave to send data to the master, SCK is the line for the clock signal that determines how fast bits of data can be send, and NSS/CS is a line for the master to select which slave to send data to. The ADC chip uses different names on its pinout for these pins, i.e. <b>MOSI (DIn), MISO (DOut), SCK (CLK), and NSS/CS (CS/SHDN)</b> as shown above in the MPC chip pinout. The ESP uses the regular names as shown on the ESP pinout below. Wire up these four SPI pins between the ADC chip and the ESP.<br><br>
 
- <img src="images/pset3/esp32-pinout.png" width="750px"><br><br>
+<img src="images/pset3/esp32-pinout.png" width="750px"><br><br>
+<img src="images/pset2/fritzing_circuit.png" width="750px"><br><br>
 
 <b>Using a Multiplexer for the receiving circuit:</b> While we will not do it in this pset, we could also use a second multiplexer to reduce the number of pins required for the receiving circuit, i.e. the electrode rows. When using the multiplexer for receiving, we would redirect the received signal on CH0-15 to the SIG pin that is then read by the ESP. Similar to above, we would only have to specify which channel (CH0-15) we want to read and the ESP would then retrieve the signal from the respective channel. Thus, this second multiplexer would reduce the number of receiver pins by combining multiple rows into one pin on the ESP. <br><br>
 
