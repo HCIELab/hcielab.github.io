@@ -104,25 +104,21 @@ Let's build the circuit from the schematic above:<br><br>
 
 Next, we will write a program that receives the touch sensor signal and plots them on our computer. To process the sensor signals, we will use the <i><a href="https://playground.arduino.cc/Main/CapacitiveSensor/">CapacitiveSensor library</a></i>.<br><br>
 
-<b>Install Library via Arduino Library Manager:</b> To install the library, open Arduino and go to <b>Sketch -> Include Library -> Manage Libraries</b> and search for the <b>CapacitiveSensor</b> library and install it.<br><br>
+<b>Install Library via Arduino Library Manager:</b> To install the library, open Arduino and go to 'Sketch -> Include Library -> Manage Libraries' and search for the 'CapacitiveSensor' library and install it.<br><br>
 
 <img src="images/lab2/capacitivesensorlibrary.png" width="650px"><br><br>
 
-<b>Run Sample Code:</b> Download this starter code <a href="images/touch-button.zip">here</a> and see if you can compile it. It the compiling completes without error messages, then you are all set to move on to the next section on sensing touch signals. However, if the installed library does not work and returns an error message like "'XXX' does not name a type" upon compiling, please try the alternative install below.<br><br>
+<b>Run Sample Code:</b> Download <a href="images/touch-button.zip">this starter code here</a> and see if you can compile it. It the compiling completes without error messages, then you are all set to move on to the next section on sensing touch signals. However, if the installed library does not work and returns an error message like "'XXX' does not name a type" upon compiling, please try the alternative install below.<br><br>
 
-<b>Install Library directly from github:</b> First, remove the previously installed library. You can delete it on Mac under <span style="color:red">'Macintosh HD/Users/your-username/Documents/Arduino/libraries'</span> and on windows this is under <span style="color:red">'My Documents\Arduino\libraries\</span>'. Once the library is deleted, <a href="https://github.com/PaulStoffregen/CapacitiveSensor">go to the library's GitHub repository</a> and download it as a .zip file. Re-install the library via the .zip file. The <a href="https://www.arduino.cc/en/guide/libraries#toc4"> <span style="color:red">instructions to do so can be found here.</span></a><br><br>
+<b>Alternative Install from github:</b> First, remove the previously installed library. You can delete it on Mac under <span style="color:red">'Macintosh HD/Users/your-username/Documents/Arduino/libraries'</span> and on windows this is under <span style="color:red">'My Documents\Arduino\libraries\</span>'. Once the library is deleted, <a href="https://github.com/PaulStoffregen/CapacitiveSensor">go to the library's GitHub repository</a> and download it as a .zip file. Re-install the library via the .zip file. The <a href="https://www.arduino.cc/en/guide/libraries#toc4"> <span style="color:red">instructions to do so can be found here.</span></a><br><br>
 
 
-<h3 id="INSTALL">(4) Sensing the Touch Signals</h3>
+<h3 id="INSTALL">(5) Test if Touch Sensing Circuit Works</h3>
 
-<h4>Write Code to Read Touch Signal</h4><br>
+By now, you should have already downloaded the <a href="images/touch-button.zip">starter code</a>, opened it in your Arduino IDE and upload it to your microcontroller. The sample code can read the signal from one touch button and write it to Arduino's serial monitor.<br> <br> 
 
-The basic program below can read one touch sensor and send it to Arduino's serial monitor.<br>
-You can download this starter code <a href="images/touch-button.zip">here</a> or alternative you can copy paste from this website.<br>
-
-<code><pre>
-
-/*******************************************************************************
+<pre>
+<code>/*******************************************************************************
 * Capacitive Sensing for Touch and Proximity
 *
 * Prints the values of a capacitive sensor.
@@ -154,51 +150,25 @@ void loop()
 
 
   delay(10);
-}
-</pre>
-</code>
+}</code></pre>
 <br>
 
-Open the code in your Arduino IDE and upload it to your microcontroller.<br>
-Open the serial monitor, you should see a bunch of numbers fly by.<br>
-If you touch your touch sensor, the values should change significantly.<br> 
-Remember to not touch the silver side directly but to interact on the side of the visual design, i.e. the side that has no silver. <br><br>
+<b>Use Serial Monitor to Observe Signal Changes During Touch:</b> If you open the serial monitor, you should see a bunch of numbers fly by. If you touch your touch sensor, the values should change significantly. Remember: do not touch the silver directly but interact on the visual design, i.e. the side that has no silver. If your numbers don't change, there may be something wrong with your circuit. Please double check your circuit and then ask a TA for help.<br><br>
 
 <img src="images/lab2/lab1-touching-plotting.png" width="680px"><br><br>
 
-<h4>Extend Circuit to all Three Touch Sensors</h4><br>
+<h3 id="INSTALL">(6) Extend Circuit and Code to 3x Touch Sensors</h3>
 
-Since we have three notes that serve as touch buttons, we need to both extend our circuit as well as our code to read those touch signals as well.<br><br>
+<b>Extend Circuit:</b> Since we have three notes that serve as touch buttons, we need to extend our circuit to read those touch signals as well. Use a breadboard to make 3 touch button circuits, each connecting to one of the notes. You can use the <b>same sender pin</b> for all three touch buttons. Only the receiver pin has to vary, i.e. you need one receiver pin for each touch signal you want to read. Also each touch sensor needs its own 100k Ohm resistor. The pin numbers are up to you.<br><br>
 
-Use a breadboard to make 3 touch button circuits, each connecting to one of the notes.<br>
-Note that you can use the <b>same sender pin</b> for all three touch buttons.<br>
-Only the receiver pin has to vary, i.e. you need one receiver pin for each touch signal you want to read.<br>
-Also each touch sensor needs its own 100k Ohm resistor.<br>
-Choose any suitable receiver pin number you like.<br><br>
+<b>Extend Code:</b> Next, extend your code to read and print all 3 of your touch sensors. When you print your touch values, please use Serial.print() not Serial.println(). Each sensed value should be separated by a tabulator symbol Serial.print(","); and the line should finish with a new line Serial.print("\n").<br><br>
 
-<!-- Connect pin 2 (sender) with three 100k Ohm resistor to the receiver pins 4 (already done), 17, and 18.<br>
-Then connect pin 4 (already done), 17, and 18 with a wire and crocodile clamp to the touch sensors.<br><br>
- -->
-<h4>Extend Code to all Three Touch Sensors</h4><br>
+<b>Test If Circuit and Sensing Works:</b> Use the Serial plotter to visualize the received signals by clicking on 'Tools->Serial Plotter'. Because of the formatting we used (comma seperated using Serial.print()), we can see all three variables plotted at the same time. Similar to before, touch the sensors and see how the signal changes. If you see no changes, either your circuit or your code have a bug. Below you see how we touch the button 1 first, then button 2 and finally button 3. You can increase the number of times the signal is sampled by increasing the value of 'samples_touch' in your code.<br><br>
 
-Next, extend your code to read and print all 3 of your touch sensors.<br>
-When you print your touch values, please <b>use Serial.print()</b> not Serial.println().<br>
-Each value should be seperated by a tabulator symbol Serial.print(","); and the line should finish with a new line Serial.print("\n").<br><br>
+<img src="images/lab2/lab1-plotting-signals_new.png" width="480px"><br><br>
 
-<h4>Plotting Signals on the Serial Plotter</h4><br>
+<h3 id="INSTALL">(7) Extend Circuit and Code to Other Touch Sensors</h3>
 
-Next, we will use the Serial plotter to visualize the received signals by clicking on <b>Tools->Serial Plotter</b>.<br>
-Because of the formatting we used (comma seperated using Serial.print()), we can see all three variables plotted at the same time.<br><br>
-
-Try touching the sensors and see how the signal changes when you touch the sensors.<br>
-Below you see how we touch the button 1 first, then button 2 and finally button 3.<br><br>
-
-<img src="images/lab2/lab1-plotting-signals_new.png" width="680px"><br><br>
-
-Also change the values of <b>samples_touch</b> in your code and see how the value range changes.<br>
-Below is one example with higher number for samples_touch.<br>
-
-<img src="images/lab2/lab1-plotting-signals2_new.png" width="680px"><br><br>
 <!-- <img src="images/lab1-plotting-signals3.png" width="680px"><br><br> -->
 
 <h4>Thresholding Touch Signals: Touched or not Touched?</h4><br>
