@@ -49,7 +49,7 @@
       <section class="col-md-8 pull-right main-content">
 </br></br></br></br>
         <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2021)</a><br></h>
-        <h2 class="headline">Lab1: Circuit Drawings and Conductive Inkjet Printing</h2>
+        <h2 class="headline">Lab1: Circuit Drawings for Conductive Inkjet Printing</h2>
 
 In this lab, you will first create the circuit drawing for your music card and then print out the circuit using conductive inkjet printing.<br><br>
 
@@ -260,270 +260,6 @@ At the end of the lab, upload to your student google drive:
 
 
 
-<!-- Theoretically, we can use a single printer to print both the circuit design and the visual design since most printers have two cartridges.<br>
-For instance, our Canon PIXMA TR150 Printer has both a 'CMYK' cartridge for printing color documents and an extra 'K' cartridge for printing only black.<br> 
-So in theory, you could use the 'CMYK' cartridge for printing the visual design and the 'K' cartridge for printing silver.<br><br> -->
-
-<!-- However, printing with the silver ink we use requires a special photo paper that chemically sinters the silver ink when it is deposited on the paper. This special photo paper requires printing with a 'high quality photo' settings, which in the Canon PIXMA driver automatically selects the CMYK cartridge since photos are typically are full color. Thus, we can't use the 'K' cartridge for silver but need to empty out the CMYK cartridge and put silver in this one.<br> Since we now only have the 'K' cartridge left for normal printing, we can't print color anymore. Thus, we use a second printer to print the color.<br> 
- -->
-
-<!-- <img src="images/lab1/lab1-printing-explained_new.png" width="350px" />
-<img src="images/lab1/lab1-silver-inkjet-printer-cartridge_new.jpg" width="350px" /><br><br> -->
-
-<!-- For our class, however, we are using two 2D inkjet printers, one for the circuit printing and one for the visual design.<br>
-The reason for this is that the printer drivers of our inkjet printers do not support printing 'with only the K cartridge' for high-quality photo printing (e.g. when printing with photo papers), they will always use the CMY cartridge as well for part of the print to achieve a "richer" black, even if you set the print to be "black and white only".<br>
-Therefore, we use two printers: In one printer, we use the CMY cartridge as original intended for color printing. In the other printer, we empty the CMY cartridge and replace it with silver ink. The "K" (Black) cartridge remains in its original form, i.e. contains black ink. <br><br>  -->
-
-<!-- <img src="images/lab1/lab1-printing-explained_new2.png" width="750px" /><br><br> -->
-
-<!-- <h4>Buying Materials and Preparing the Printer</h4><br>
-
-While we have already done this for you, we provide you here with the details in case you want to try this yourself in the future:<br><br>
-
-<b>2D Printer:</b> For the class, we are using the <a href="https://www.amazon.com/Canon-TR150-Wireless-Airprint-Compatible/dp/B085VMW9YD">Canon PIXMA TR150 Printer</a> for the silver inkjet printing, and the <a href="https://www.officedepot.com/a/products/5969402/Epson-Expression-ET-2760-EcoTank-Wireless/?cm_mmc=Affiliates-_-CJ-_-1634220-_-11553109">Epson EcoTank ET-2760 All-in-One Supertank Printer</a> for normal color printing. Both printers work for silver inkjet printing (other 2D printers may work as well but it depends on their nozzle diameter and print head type, i.e. the silver may clogg them if they are too small. Also note that the print head should be a piezoelectric print head.<br><br>
- -->
-
-<!-- <b>Syringe:</b> To fill the silver into the cartridge, you need a syringe. We bought syringes from <a href="https://www.amazon.com/5ml-Oral-Syringes-Individually-Administration/dp/B07GX34NBV/ref=pd_bxgy_img_3/131-4743964-2993361?_encoding=UTF8&pd_rd_i=B07GX34NBV&pd_rd_r=7f8c8270-6e29-404c-8aba-640c11b3923e&pd_rd_w=XPpPv&pd_rd_wg=85mK1&pf_rd_p=ce6c479b-ef53-49a6-845b-bbbf35c28dd3&pf_rd_r=X526NNSME57D10CNY14E&psc=1&refRID=X526NNSME57D10CNY14E">here</a><br><br>
- -->
- <!-- <span style="color:red">from here (add link)</span> -->
-
-<!-- <b>Drying out:</b> Note that if the silver is too long in the cartridge, it will eventually dry out and not print anymore.<br><br>
- -->
-<!-- <h4>Printing your Design in Two Passes</h4><br>
-
-As mentioned before, we will be printing the design files on <b>2 sides of the same photo paper sheet</b>.<br><br>
- --><!-- 
-<span style="color:red">update this part based on using two different printers</span>
-While we can use the same printer for both visual and circuit design, we cannot print color (CMY) and silver (K) at the same time (same pass).<br>
-The reason is that in order to 'force' the printer to use the 'K' cartridge, we need to select 'grayscale' in the printer driver and that naturally doesn't allow for color.<br> On the contrary, in order to 'force' the printer to use the 'CMY' cartridge, we select 'full color' printing (this does not use the 'K' cartridge).<br><br> 
-
-Since we can only select either grayscale or color printing, we need to do two seperate passes, i.e. we first print the circuit in silver, take the paper out, reinsert, and then print the color for the visual design.<br><br> -->
-
-<!-- <span style="color:red">clean up later:</span><br>
-We can later sense the user's touch using a principle called <b>capacitive touch sensing</b>, which as discussed in lecture requires only one electrode (i.e. the touch button) and the other electrode is your finger.<br> Below is the image from lecture as a reminder of how this works.<br><br>
-
-<img src="images/lab1/lab1-touch-example-lecture.png" width="600px"><br><br>
-
- -->
-
-<!-- <span style="color:red">we still have to change the signal to plot not as a string "1" but as an integer 1, we can do this at the start of the next lab.</span> -->
-
-<!--
-<h2 class="headline">Laser Cutting the Mask Layer for your EL Display</h2>
-
-Next, design the mask layer for your EL display.<br>
-You could cut it out with scissor, a cutting plotter, or a laser cutter.<br>
-For today, we will use a laser cutter.<br><br>
-
-To make a file for laser cutting, you need to stick to a few specifications.<br>
-The document you will create your mask layer in has to be RGB mode.<br>
-The line color has to be pure red (R=255, G=0, B=0).<br>
-The line thickness needs to be 0.0001mm or less.<br><br>
-
-<img src="images/lab1/exercise-drawing.png" width="217px" /><br><br>
-
-Once you create the mask layer, send us the file. <br>
-We will then help you to log in remotely into our laser cutter computer to cut the file under our guidance.<br>
-You will then receive it with your next package.<br><br>
-
-<img src="images/lab1/laser-cutter.png" width="317px" />
-<img src="images/lab1/laser-cutter-cutting.png" width="317px" /><br><br>
-
--->
-
-
-
-
-<!--Follow these instructions to add the ESP32 library to the ARDUINO IDE: <a href="https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/">https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/</a><br><br> -->
-
-<!-- 
-<b>Continous Sliders (Different Aesthetic Design Options):</b><br>
-<img src="images/lab1/slider-designs3.png" width="300px"> <img src="images/lab1/slider-designs2.png" width="300px"><br>
-From the paper <a href="https://dl.acm.org/doi/10.1145/2971763.2971777">DuoSkin (ISWC 2016)</a><br><br>
-
-
-<h4>Dials (aka multiple touch buttons circularly arranged)</h4><br>
-
-Touch-dials consist of multiple touch buttons circularly arranged, i.e. several shapes and each shape has its own wire that connects to the micro-controller.<br><br>
-
-<img src="images/lab1/dial.png" width="300px"><br>
-Example from the paper <a href="https://dl.acm.org/doi/10.1145/2971763.2971777">DuoSkin (ISWC 2016)</a><br><br>
-
-<h4>Electroluminescent Area Display</h4><br>
-
-In your package next week, you will also received a printed display.<br>
-This display is called electroluminescent display and we screen printed it from four different materials printed into four layers.<br>
-<br>
-
-<b>Making Custom Shaped Displays:</b> The display you will get is a simple area display that can turn on/off but does not have pixels. Note that although we will send you a square display, you can create your own shape either in non-destructive way (allows for reuse) or destructive way. The non-destructive way requires you to mask the display, i.e. cutting a shape from e.g. from cardboard and attaching it to the display to cover the remaining area so that no light comes through. The destructive way includes cutting out the shape (making sure you are not cutting into the wire connection to the microcontroller and also make sure you unplugged the display before cutting since most scissors are conductive on their blades). Since we want you to reuse the display some time, we will use the non-destructive way, i.e. we will laser cut a mask layer in a moment.<br><br>
-
-<img src="images/lab1/printscreen2.jpg" width="145px">
-<img src="images/lab1/printscreen3.jpg" width="345px"><br>
-Examples of masked and cut EL displays.<br><br>
-
-Please limit the size of the touch button to something that is roughly the size of a finger tip (an area around 2cm x 2cm) and the wire length to no more than 10cm for now. The display that you will get shipped is 5x5cm in area and you can cut it into any shape you like (not cutting into the wires).<br><br>
-
- -->
-
-<!-- <h2 class="headline">Making your touch interface designs</h2><br>
-    
-Open your drawing program and set the document color mode to CMYK.</br>
-Draw a design that has at least three different touch buttons, one for a different song each.<br>
-It should also include the display that will blink to the beat of the long. Include the display as a square area of XXcm by XXcm so you will leave enough space for it. We will draw the mask layer seperately in a moment.<br>
-Make sure you use the correct wire thickness (at least 1mm) and connector pad size (at least 1cm x 1cm), and that you fill each touch button with a fill color (make CMYK = 100).<br>
-We recommend all your connector pads route to a common location where you will attach the microcontroller later.<br>
-Make sure all the silver you draw has the line/area color 'black (CMYK: 0,0,0,255)'.<br>
-The touch button should also be surrounded by a decorative color design to show that you can print color and silver together. <br><br>
- -->
-<!-- <img src="images/lab1/Cool_Jams.jpg" width="300px"><br> -->
-
-
-<!-- 
-<img src="images/lab1/silver-ink.jpg" width="317px" />
-<img src="images/lab1/silver-inkjet-printing.png" width="317px" /><br><br>
- -->
-
-<!-- <img src="images/lab1/touch-button-decorative2.png" width="300px"><br>
-Silver touch button in the middle is overprinted with white in a second layer. In addition, the red flame is added as a decorative element (it has no input functionality).<br><br>
- -->
-
-<!-- The shape of the touch buttons and display is completely up to you -- be creative and please don't just make a rectangle. Also keep in mind that the wire does not have to be a straight line but can be any decorative pattern you'd like to use (e.g. a wavy line).  <br><br> -->
-
-<!--
-Processing is a program that makes it easy to prototype user interfaces. Once you got your microcontroller in the mail, we will wire everything up and write code to send the touch button input directly to Processing, so that it can visualize if the button is pressed or not. Today, we are going to prepare the UI in Processing so you have everything ready when the rest comes in the mail.<br><br>
-
-<div style="background:#04a47c;padding:10px;">Checkoff 1: The Teaching Team printed your Touch Sensor and it works</div>
-
-</br>
-
- <h3 class="headline">Install Processing</h3>
-
-You can download Processing for Windows, Mac, Linux here: <a href="https://processing.org/download/">https://processing.org/</a>.<br>
-Once you downloaded it, you should see an IDE similar to the one Arduino uses.
-
-<br><br>
-
-<img src="images/lab1/processing-ui.png" width="350px"><br><br>
-
- <h3 class="headline">Code Structure: setup() and draw()</h3>
-
-Similar to Arduino, Processing works with two functions:<br><br>
-
-<b>setup():</b> is only run once at the beginning<br>
-<b>draw():</b> is run repeatedly similar to Arduino's loop() function<br><br>
-
-While the simple examples below do not require you to have this structure in place (i.e. you can simple type the code into the empty window, it is good practice to put the code for redrawing the window into draw() and the code that is only required once into setup()).<br><br>
-
- <h3 class="headline">Getting Started: Drawing a Shape and Mouse Input</h3>
-
-If you haven't done it yet, please do the getting started tutorial to learn how to draw a shape and do mouse input:<br>
-<a href="https://processing.org/tutorials/gettingstarted/">https://processing.org/tutorials/gettingstarted/</a><br><br>
-
-<h3 class="headline">Loading in an Image of the Mug</h3>
-
-First, display the image below as the background of your Processing application.<br><br>
-Make sure your image file is inside your project folder (Documents -> Processing -> project folder) otherwise it cannot be loaded.<br><br>
-
-To load an image, you can use the <a href="https://processing.org/reference/PImage.html">documentation for PImage</a>.<br><br>
-
-<img src="images/lab1/load-image-card.png" width="200px"> <br><br>
-
- <h3 class="headline">Create Touch Button in Processing</h3>
-
-Processing allows us to quickly create user interfaces on screen.<br><br>
-
- <h5>Creating Touch Button on Image</h5>
-
-Next, we want to create a touch button and place it on the mug where our final touch button will be in the design.<br>
-For simplicity, we will assume that you touch button is rectangular for now.<br>
-We will show you later how to load the actual geometry of your button.<br><br>
-
-Make a rectangle with round corners and in silver (gray) color like shown in the image below:<br>
-<a href="https://processing.org/reference/rect_.html">Processing Reference for rect()</a><br>
-<a href="https://processing.org/reference/fill_.html">Processing Reference for fill()</a><br><br>
-
-<img src="images/lab1/processing-fill-color-rect-card.png" width="200px"><br><br>
-
-If you need it later, you can find the full reference here: <br>
-<ul><li><a href="https://processing.org/reference/">Complete Processing Reference</a>.</li></ul><br>
-
- <h5>Changing Color of Button if Button is Pressed</h5>
-
-In the future, we will receive a signal from our Arduino that will either say 'touched' or 'not touched' and based on that we want to visualize in our UI that the button is pressed or not. Here, we are going to simulate this: When the mouse is over the touch button and the mouse is pressed, we want to color the button in green, otherwise the button should remain colored in gray/silver to show that it is inactive. In addition, we want to render a piece of text showing the button was pressed as shown below. <br><br>
-
-To implement this you will need:
-<ul>
-  <li>if/else statement (works the same as in other programming languages)</li>
-  <li>for mouse click, you may want to look at <a href="https://processing.org/reference/mousePressed_.html">Mouse Pressed Processing Reference</a></li>
-  <li>for mouse click on the button: unfortunately processing does not have an intersect function, so you need to check if the mouse coordinates are within the X/Y bounds of the touch button</li>
-  <li>for the text, you may want to look at <a href="https://processing.org/reference/PFont.html">Processing Reference for Pfont</a> and <a href="https://processing.org/tutorials/text/">text tutorial here</a></li>
-</ul>
-<br><br>
-
-<img src="images/lab1/card-animated.gif" width="250px"><br><br>
-
-
-<div style="background:#04a47c;padding:10px;">Checkoff 2: Show your completed push/unpush program.</div>
-
-
-<h5>Importing Vector Graphics</h5>
-
-Next, we will import your actual drawing to the canvas.<br>
-For this, we prepared this .svg import class. <br><br>
-
-To load your .svg file, make sure your image file is inside your project folder (Documents -> Processing -> project folder) otherwise it cannot be loaded.<br><br>
-
-You can use the <a href="https://processing.org/reference/PShape.html">Processing PShape reference</a> to see how to load it.</br>
-Position it where your former touch button was.</br></br>
-
-If you create your SVG file in Illustrator, make sure you change the following export option: When you save the svg 1) choose "More Options" in the SVG Options dialog, and then 2) select the "Style Attributes" in the drop CSS Properties drop down to make it compatible with Processing. <br><br>
-
-<img src="images/lab1/readsvg2.png" width="350px">
-
-<h5>Checking for Mouse Input on a Vector Graphic of Arbitrary Shape</h5>
-
-With a vector graphics, our simple boundary checking doesn't really work anymore, so we need something more sophisticated.<br>
-For this, we implemented you the following collision detection class that you can use in your project.<br>
-
-All possible ways are described here <a href="http://jeffreythompson.org/collision-detection/table_of_contents.php">http://jeffreythompson.org/collision-detection/table_of_contents.php</a>.<br>
-We provide you with a code file that handles for you the point (mouse cursor) and polygon (shape) detection.<br>
-You can read more about it here <a href="http://jeffreythompson.org/collision-detection/poly-point.php">http://jeffreythompson.org/collision-detection/poly-point.php</a><br><br>
-
-<div style="background:#04a47c;padding:10px;">Checkoff 3: Show your vector graphics button.</div>
-
-
-<h3>Processing Tutorials and Problem Set 1:</h3>
-
-If you still have time left, we recommend you use it to check out some of the <a href="https://processing.org/tutorials/">additional Processing tutorials</a>.<br><br>
-
-Alternatively, you can start with <a href="conductive-inkjet-design.html">Problem Set 1, which we released today.</a>
-
-
-
-
-<b>Materials and Layerstack:</b> An EL display contains (1) phosphor, which can glow when current is applied. To make it glow, the phosphor has to be sandwiched by a bottom and top electrodide. The bottom electrode can be a conductive material, such as (2) our silver ink (alternatively copper can be used for even higher conductivity). The top electrode cannot be made from silver since you would otherwise not see the phosphor anymore! Thus, the top electrode is made from a transparent conductive material called (3) PEDOT:PSS. Finally, since the phosphor and the electrodes are all conductive, we cannot lay them all on top of each other since this would create a short circuit. Therefore, we need to add (4) a dielectric insulating layer between the bottom electrode and the phosphor (conceptually, the dielectric could also be between the phosphor and the top electrode, but again then you wouldn't see anything anymore since the dieletric is not transparent). <br><br>
-
-You can buy the materials here: <br>
-<ul>
-	<li>copper ink (add link)</li>
-	<li>PEDOT:PSS (add link)</li>
-	<li>Phosphor (add link)</li>
-	<li>Dieletric (add link)</li>
-</ul>
-
-<img src="images/lab1/el-materials.png" width="400px"><br>
-<img src="images/lab1/el-layerstack.png" width="500px"><br><br>
-
-<b>Size of each layer:</b> Note that the dieletric layer is a bit larger than the other layers. Since the dieletric layer prevents everything from short circuiting, it should be a bit larger to make sure all other layers are really seperated from each other and not touching. <br><br>
-
-<img src="images/lab1/el-area-sizes.png" width="500px"><br><br>
-
-<b>Fabrication:</b> While the silver ink and PEDOT:PSS can be inkjet printed, the phosphor and dieletric have unfortunately too large particules in their inks, which clogg printer nozzles. We there screen printed the display you got. Below, you can see images of how we did it.<br><br>
-
-<img src="images/lab1/screen-printing.jpg" width="500px"><br><br>
- -->
-
-
 <br>
 
         <br />
@@ -532,44 +268,27 @@ You can buy the materials here: <br>
       </section>
 
       <aside class="col-md-4 pull-left">
-         <br /> <br /> <br /> <br />
-<!-- 				 <h4>Pset Steps</h4><br>
-				 <ul>
-		 			<li><a href="#pset1">pset1 (due Sept. 21, 11.59pm): laser cut and bend the acrylic base</a><br /></li>
-		 			<li><a href="#pset2">pset2 (due Oct. 5, 1pm): insert LEDs, add USB connecting and solder everything</a><br /></li>
-		 			<li><a href="#pset3">pset3 (due Oct. 19, 1pm): write touch recognition so that you can determine (x,y) location of each finger</a><br /></li>
-		 			<li><a href="#pset4">pset4 (due Oct. 26, 1pm): add an application of your choice</a><br /></li>
-				</ul>
-				<br /> <br /> <br /> <br />
-        <img src="../2018-fall-6810/images/multi-touch-pad/iap1.jpg" width="220px">
+         <br /> <br /> <br /> <br /><br>
 
-		<img src="../2018-fall-6810/images/multi-touch-pad/iap2.jpg" width="220px">
+                 <h4 class="medium.headline" style="padding-bottom:10px;"><a href="6810-engineering-interactive-technologies.html"><b>Lab Series: Inkjet Printed Music Card</b></a><br></h4>
 
-		<img src="../2018-fall-6810/images/multi-touch-pad//iap3.jpg" width="220px">
+<ul>
+    <li><a href="lab1-circuit-design-for-inkjet-printing.html">Lab 1: Circuit Drawings for Conductive Inkjet Printing</a></li>
+    <li><a href="lab2-sensing-touch-button.html">Lab 2: Sensing Touch from Inkjet Printed Circuit</a></li>
+   	<li><a href="lab3-sending-touch-data-to-processing.html">Lab 3: Sending Touch Data to Processing</a></li>
+    <li><a href="lab4-touch-slider-extension.html">Lab 4: Sensing Input from a Touch Slider</a></li>
+</ul><br>
 
-		<img src="../2018-fall-6810/images/multi-touch-pad/iap4.jpg" width="220px">
 
-		<img src="../2018-fall-6810/images/multi-touch-pad/iap5.jpg" width="220px">
- -->
+<iframe width="280" height="158" src="https://www.youtube.com/embed/R7qxT6_8TE4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
+
+In this lab series, you will create an interactive music card. Underneath the visual design, the music card has an inkjet printed circuit with touch buttons and a slider that allow the user to play songs and control the volume. The card is connected to a microcontroller for analyzing user input and then sends the signals to a program called Processing for visualizing user input on screen.<br><br>
 
 
 
-        <!-- Publication -->
 
         <br><br><br><br><br>
 
-        <!-- Publication -->
-
-<!-- <h4>Side Bar</h4><br>
-
-    <ul>
-      <li>Prof. Stefanie Mueller (Instructor)</li>
-      <li>Lotta-Gili Blumberg (TA)</li>
-      <li>Xin Wen (UTA)</li>
-      <li>Loren Maggiore (LA)</li>
-      <li>Mark Chounlakone (LA)</li>
-    </ul>
- -->
 </br>
 </br>
 </br>

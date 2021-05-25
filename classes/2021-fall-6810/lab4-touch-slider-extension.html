@@ -264,183 +264,6 @@ At the end of Lab 4, upload to your student google drive:
 </ul><br>
 
     
-<!--   This means that when touching one of the touch buttons, your ESP should send a message to your computer that the Processing script can understand and change its background color.
- -->
-
-<!--  In particular, we are going to wire up a button, and when the button is pressed, we will show this in Processing by coloring the corresponding button in the digital UI and starting a song.<br><br>
-<!--
-<h4>Replacing the Standard Button with your Printed Touch Button</h4><br>
-
-We hope you received your custom touch button from last week. If not, your original package has a standard printed touch button (square) that you can use instead.<br><br>
-
-We are now going to replace the standard touch button with your custom touch button.<br>
-First, use the multimeter to check if you touch button is conductive and didn't break during transport.<br>
-If you don't remember how to use the multimeter, check last week's tutorial.<br><br>
-
-<img src="images/lab4/multimeter.jpg" width="300px"><br><br>
-
-Ok, if your multimeter shows low resistance, we are ready to wire up your touch button.<br>
-
-<b>Electronics:</b> To build the circuit to implement touch sensing you only need your touch sensor and one resistor (say some more why this is necessary). Low resistors (1kOhm - 100kOhm) are mostly used for sensing touch (see Figure below).<br><br>
-
-<img src="images/touch-sensing-principle.png" width="300px"> <img src="images/touch-sensing-circuit.png" width="300px"><br><br>
-
-<img src="images/touch-sensor-on-breadboard.jpg" width="300px"> <img src="images/touch-sensor-on-breadboard-schematic.png" width="300px"><br><br>
-
-<b>Connecting the Touchbutton to the microcontroller:</b> To connect the touch button to the microcontroller and remaining electronics, we are going to use conductive tape. Cut a piece of conductive tape and attach it to the connector pad and then to the end of a wire that goes to the microcontroller (would be great to have the break out board so this is less messy).<br><br>
-
-<b>Code:</b> Once you build your circuit, you can write the code to read input from your touch sensor. Capacitive touch sensing is luckily already supported by the Arduino Toolkit.<br><br>
-
-Download the latest <a href="https://github.com/PaulStoffregen/CapacitiveSensor"> library CapacitiveSensor for Arduino from here</a> and place it into your Documents / Arduino / Libraries folder (unzip it and rename it to 'CapacitiveSensor'). Restart your Arduino software, otherwise the library is not recognized.<br><br>
-
-First you need to import the library:<br>  
-<code>#include CapacitiveSensor.h</code><br>  <br>  
-
-Next, you need to create a new CapacitiveSensor object:<br>  
-<code>CapacitiveSensor sensor1 = CapacitiveSensor(sender, touch_pin_1);</code><br>  
-It takes as input the pin that has the high signal and the receiver pin.<br><br>  
-
-In the loop function, you are now ready to read from the sensor.<br>  <br>  
-
-<code>double analog_touch = sensor1.capacitiveSensor(samples_touch);</code><br>  
-The argument <b>samples</b> defines the sensitivity of the sensor.<br>  <br>  
-For touch sensing a low sensitivity is common with samples between 1 and 20. <br><br>
-
-If you print analog_touch to the Serial monitor and you touch your touch button, you should be able to see the values change quite drastically. Do some simple thresholding to determine when the button is pushed and when it is not pushed (e.g., values above XX equal pushed, values below XX equal unpushed). <br><br> 
-
-<div style="background:#04a47c;padding:10px;">Checkoff 2: Show your working touch sensor that when pushed, prints 'pushed' to the Serial monitor and otherwise prints 'unpushed'.</div><br>
-
- <h3 class="headline">Performing Input in Processing<br> and Using it on the Microcontroller</h3>
-
-Let's do it the other way around and write some output from Processing onto the microcontroller.<br>
-In our simple example, we will light up an LED when the user clicks a button in the Processing UI, and then later replace it with our printed EL display.<br><br>
-
-<h4>Wiring Up an LED and Write Basic On/Off Code</h4>
-
-Let's start by wiring up an LED on the breadboard and writing the basic code to turn the LED on/off. <br>
-If you haven't coded in Arduino for a while, you may want to look at 'Examples -> Blink' to see how to read input from a pin and turn your LED on/off.<br><br>
-
-<img src="images/led-on-breadboard.jpg" width="250px"> <img src="images/led-on-breadboard-schematic.png" width="350px"><br><br>
-
-<h4>Create Microcontroller Script that Reads from Serial Monitor</h4>
-
-Once you confirmed that your LED works (i.e. you tested it turns on), we will now write a piece of Arduino code that will listen to the Serial communication and whenever it encounters a '2' it will light up the LED and when it encounters a '3' it will turn the LED off.<br><br> 
-
-This part is very similar to the previous Arduino code, just that instead of Serial.write() you are now going to use <a href="https://www.arduino.cc/reference/en/language/functions/communication/serial/read">Serial.read()</a> to determine if a 2 or 3 was send and the LED should be on or off.<br><br>
-
-Complete the rest of the Arduino script for turning on/off your LED by reading from the Serial connection and upload it to the microcontroller.<br>
-We will test this in a moment when we connect it to Processing.<br><br>
-
-<h4>Create Processing Script that Writes to Serial Monitor</h4>
-
-Once you uploaded your Arduino code, we are now ready to write a Processing script to write to the serial connection the '2' or '3' values, which can then be used by the Arduino code to decide if the LED should be on or off.<br>
-Whenever a button is clicked in the Processing UI, we want to write a '2', otherwise a '3'. <br><br>
-
-The setup code is the same as in the previous Processing example above, but now you are using<br>
-<code>myPort.write(2); // 2 or 3 depending on state</code><br><br>
-
-        <!--
-    
-<h4>Blinking LED to Beat</h4><br>
-
-To blink the LED to the beat, we prepared this custom Processing script for you.<br>
-All you need to do is to send a '2' or '3' whenever our script tells us that the beat just happened.<br>
-
-<div style="background:#04a47c;padding:10px;">Checkoff 3: Show your working LED that can be turned on by pushing the button in Processing and can also blink to the beat of a song.</div><br><br>
-
-<h4>Replacing the Standard LED with your Printed Display</h4><br>
-
-With that information in mind, we are now ready to connect your EL display to the microcontroller.<br>
-First, use the multimeter to check if your display is conductive and didn't break during transport.<br>
-
-<img src="images/multimeter.jpg" width="300px"><br><br>
-
-Ok, if your multimeter shows low resistance, we are ready to wire up your EL display.<br>
-
-<b>Electronics:</b> To light up your EL display, you need to build the following circuit (add more information here).<br><br>
-
-<b>Connecting the Display to the microcontroller:</b> To connect the display to the microcontroller and remaining electronics, we are going to use conductive tape. Cut a piece of conductive tape and attach it to the connector pad of the display and then to the end of a wire that goes to the microcontroller (would be great to have the break out board so this is less messy).<br><br>
-
-<img src="images/touch-sensing-circuit.png" width="300px"><br><br>
-
-<b>Code:</b> Once you build your circuit, you can write the code to light up your EL display (add more information here). <br><br>
-
-    
-<h4>Connecting EL Display to Processing</h4><br>
-
-Now that you know your EL display is working properly, you can make it light up based on the information coming from the Serial communication, i.e. the beat of the song. Replace the hard coded on/off for the EL display with the '2' or '3' date you are reading from the Serial monitor. <br><br>
-
-
-<h2 class="headline">Miniatiarizing the Microcontroller</h4>
-
-Right now, we are using a pretty big and clunky microcontroller, which doesn't integrate well with our design.<br>
-In the final step today, we want to replace the big microcontroller with a smaller one: the ATTiny.<br>
-
-<img src="images/attiny.jpg" width="300px"><br><br>
-
-Looking at this image, you may have a few questions, such as how to know which pin is which since nothing is labeled and how to program the thing since there is no space for a USB cable connection!<br><br>
-
-<h4>Identifying Pins on the ATTiny</h4><br>
-
-To find our which pin is which, you first need to know where is the top left corner of the Attiny. If you look very closely, you can see a small dot on the top black surface. The small dot indicates the top left corner of the controller. Once you know which corner is the top left, you can search for the <a href="https://components101.com/microcontroller/attiny85-pinout-datasheet">data sheet of the ATTiny on google</a>.<br><br>
-
-<img src="images/attiny-top-left.png" width="200px"> <img src="images/attiny-datasheet.png" width="350px"><br><br>
-
-Ok great, so now you know where VCC and GND are and where the data pins are for analog and digital communication.<br>
-However, the question still remains, how to upload code.<br><br>
-
-<h4>Uploading Code to ATTiny</h4><br>
-
-There are several different ways how to program an ATTiny, one of the most straight forward is to use a device, such as the Tiny Programmer, see below.<br>
-
-<img src="images/attiny-programmer.png" width="200px"> <br><br>
-
-To program your ATTiny, you simply put it in the slot with the breadboard pins.<br>
-In the next step, you then connect jumper wires to go from the connecting pins to your breadboard.<br>
-You can use the USB connection on the Tiny Programmer to connect to your laptop.<br>
-
-<img src="images/tiny-programmer-in-action.png" width="500px"> <br><br>
-
-Once you confirmed that your code is correct and everything is working, you can move the ATTiny off the Tiny Programmer and put it onto your breadboard where it will keep looping its code there to perform its function.<br><br>
-
-<h4>How to get Rid of the Breadboard? SMD Components. </h4><br>
-
-Ok so this is already better than before, but still not great because we still have the breadboard there.<br>
-So far, you have used for the ATTiny is called a DIP (dual inline package) that has two rows of pins that needly fit into a breadboard. To make it even smaller, you can get the same ATTiny as an SMD (surface mount device), which means it will not have pins but instead needs to be soldered onto a PCB.<br><br>
-
-To produce the ATTiny as an SMD on a PCB, we used (this PCB manufacturing facility) and gave them (this specification) and (these design files). As a result, we got the following SMD component back.<br><br> 
-
-<img src="images/attiny-smd.jpg" width="300px"> <br><br>
-
-Ok, so now we are back at square one, how do we program the thing? Since it doesn't have pins anymore, it doesn't fit into the Tiny Programmer.<br>
-Lucky for us, there is <a href="https://www.amazon.com/gp/product/B00HHH65T4/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1">another device for this</a> that you can see below.<br><br>
-
-<img src="images/attiny-testclip.png" width="300px"> <br><br>
-
-To use it, you clamp the front onto your ATtiny.<br>
-Then you use jumper wires to connect the upper part back to the Tiny Programmer (Stefanie: I will try this out and update here once I know more).<br><br>
-
-<img src="images/attiny-testclip2.png" width="300px"> <br><br>
-
-<h4>Attaching the SMD Microcontroller to the rest of the Circuit with Z-Tape</h4><br>
-
-Now that we have programmed the ATTiny PCB, we can attach it to our card.<br>
-If you flip your ATTiny and look at the back you can see that we create the PCB as a double-sided PCB, i.e. the connections extend all the way to the back.<br><br>
-
-<img src="images/attiny-front.jpg" width="300px"><img src="images/attiny-back.jpg" width="300px"> <br>
-Front and back of the ATtiny PCB.<br><br>
-
-We can now use z-tape and attach it to the back of the PCB.<br>
-ztape is a special tape that conducts vertically but isolates horizontally.<br>
-Once the ztape is on, you can peel back the other side of the ztape layer and attach it to your card.<br>
-(Stefanie: If we want to do this part, we need to ask them to redraw their wire connections so they fit the ATTiny and not the ESP32. Perhaps this could be a good moment to use the silver pen?)<br><br> 
-
--->
-
-<!--  <h3 class="headline">Bringing it all together</h3>
-
- -->
-
 
 
         <br />
@@ -448,45 +271,25 @@ Once the ztape is on, you can peel back the other side of the ztape layer and at
         <br />
       </section>
 
-      <aside class="col-md-4 pull-left">
-         <br /> <br /> <br /> <br />
-<!-- 				 <h4>Pset Steps</h4><br>
-				 <ul>
-		 			<li><a href="#pset1">pset1 (due Sept. 21, 11.59pm): laser cut and bend the acrylic base</a><br /></li>
-		 			<li><a href="#pset2">pset2 (due Oct. 5, 1pm): insert LEDs, add USB connecting and solder everything</a><br /></li>
-		 			<li><a href="#pset3">pset3 (due Oct. 19, 1pm): write touch recognition so that you can determine (x,y) location of each finger</a><br /></li>
-		 			<li><a href="#pset4">pset4 (due Oct. 26, 1pm): add an application of your choice</a><br /></li>
-				</ul>
-				<br /> <br /> <br /> <br />
-        <img src="../2018-fall-6810/images/multi-touch-pad/iap1.jpg" width="220px">
+      
+     <aside class="col-md-4 pull-left">
+         <br /> <br /> <br /> <br /><br>
 
-		<img src="../2018-fall-6810/images/multi-touch-pad/iap2.jpg" width="220px">
+                 <h4 class="medium.headline" style="padding-bottom:10px;"><a href="6810-engineering-interactive-technologies.html"><b>Lab Series: Inkjet Printed Music Card</b></a><br></h4>
 
-		<img src="../2018-fall-6810/images/multi-touch-pad//iap3.jpg" width="220px">
-
-		<img src="../2018-fall-6810/images/multi-touch-pad/iap4.jpg" width="220px">
-
-		<img src="../2018-fall-6810/images/multi-touch-pad/iap5.jpg" width="220px">
- -->
+<ul>
+    <li><a href="lab1-circuit-design-for-inkjet-printing.html">Lab 1: Circuit Drawings for Conductive Inkjet Printing</a></li>
+    <li><a href="lab2-sensing-touch-button.html">Lab 2: Sensing Touch from Inkjet Printed Circuit</a></li>
+   	<li><a href="lab3-sending-touch-data-to-processing.html">Lab 3: Sending Touch Data to Processing</a></li>
+    <li><a href="lab4-touch-slider-extension.html">Lab 4: Sensing Input from a Touch Slider</a></li>
+</ul><br>
 
 
+<iframe width="280" height="158" src="https://www.youtube.com/embed/R7qxT6_8TE4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
 
-        <!-- Publication -->
+In this lab series, you will create an interactive music card. Underneath the visual design, the music card has an inkjet printed circuit with touch buttons and a slider that allow the user to play songs and control the volume. The card is connected to a microcontroller for analyzing user input and then sends the signals to a program called Processing for visualizing user input on screen.<br><br>
 
-        <br><br><br><br><br>
 
-        <!-- Publication -->
-
-<!-- <h4>Side Bar</h4><br>
-
-    <ul>
-      <li>Prof. Stefanie Mueller (Instructor)</li>
-      <li>Lotta-Gili Blumberg (TA)</li>
-      <li>Xin Wen (UTA)</li>
-      <li>Loren Maggiore (LA)</li>
-      <li>Mark Chounlakone (LA)</li>
-    </ul>
- -->
 </br>
 </br>
 </br>
