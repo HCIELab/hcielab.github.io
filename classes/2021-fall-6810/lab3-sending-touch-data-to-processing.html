@@ -51,67 +51,55 @@
         <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2021)</a><br></h>
         <h2 class="headline">Lab 3: Sending Touch Data to Processing</h2>
       
+In this lab, you are going to connect your card to Processing: When you push the physical touch button it will light up the corresponding digital touch button in Processing and the associated song will play.<br><br>
 
-Today, we are going to connect your card to Processing: When you push the physical touch button it will light up the corresponding digital touch button in Processing and the associated song will play. We will also extend the circuit and signal processing to include the touch slider for the music volume, which we haven't wired up yet.<br><br>
+<img src="images/lab3/lab2-touched-not-touched.png" width="400px"> <img src="images/lab3/card_buttons_new.png" width="340px"><br>
 
-<b>(5) Visualizing User Input:</b> Next, you will setup the touch buttons <!-- and sliders --> in a programming environment called Processing, which will visualize when physical input on the touch buttons <!-- and sliders --> on screen and also play the corresponding songs. <br>
-<b>(6) Wiring up and Visualizing the Slider:</b> Finally, you will add the slider to your circuit and user interface and use it to control the music volume.<br>
 
-<h2 class="headline">Deliverables Lab 3 (due Friday, Sept. 11, 2020, 11.59pm)</h2>
+<h3>Steps:</h3>
+<ol>
+  <li></li>
+  <li></li>
+  <li></li>
+</ol>
 
-At the end of Lab 3, upload to your student google drive:
-<ul>
+<h3>Deliverables</h3>
+
+At the end of the lab, upload to your student google drive:
+<ol>
   <li>the Processing code (.pde) you wrote for Serial communication that displays the three touch bars and the slider bar</li>
   <li>the Processing code (.pde) of the completed music card application</li>
-  <li>the Arduino code you wrote for Serial Communication (.ino file format) with the slider added</li>
-  <li>a short video (.mov or .mp4, max. 1 minute) showing how you use each function of the printed music card, i.e. touch the buttons with your finger to play/pause a song, go to the previous/next song, and adjust the volume</li>
-</ul><br>
+  <li>a short video (.mov or .mp4, max. 1 minute, 50MB or less) showing how you use the printed music card, i.e. touch the buttons with your finger to play/pause a song and go to the previous/next song</li>
+</ol>
+
+<h3>Make sure everything from last lab is still working</h3>
+
+Before getting started with the new content, let's first make sure everything from last lab is still working. Connect your printed music card to the ESP32 and the ESP to your computer via USB. Upload the Arduino program that you wrote in the last lab. Double check that when touching one of the touch buttons you see the touch signals printed on the Arduino Serial monitor. If you see this, you are ready to start today's lab.<br><br>
 
 <hr>
 
+<h3 id="INSTALLARDUINO">(1) Install Processing</h3>
 
-<h2 class="headline">Make sure everything from last lab is still working</h2>
+Since Arduino has no libraries for graphical user interfaces, we will send our touch input to a program called Processing that can render our music card and the touch buttons on the screen. <a href="https://processing.org" target="_blank">Processing</a> is a user interface protoyping platform that is based on Java. It was created by MIT students (and others) in their spare time in 2001 and is nowadays used by thousands of makers and UI designers.<br><br>
 
-Before getting started with the new content, let's first make sure everything from last time is still working and no wires came lose.<br> 
-To do this, connect your music card and ESP32 again to your computer via USB and upload the Arduino program that you haven written in the last lab.<br> 
-Double check that everything is still working, i.e. when touching one of the touch buttons you should see the touch signals show on the Serial monitor.<br><br>
+<b>Install Processing:</b> You can <a href="https://processing.org/download/">download and install Processing using this link here</a>.<br><br>
 
-<hr>
+<b>Getting Started Tutorials:</b> Processing has a <a href="https://processing.org/tutorials/" target="_blank">lot of useful minitutorials with code snippets that you can find here</a>.<br><br>
 
- <h3 class="headline">(5) Visualizing User Input with Processing</h3><br>
+<b>Processing API:</b> You can find all <a href="https://processing.org/reference/" target="_blank">available classes and functions here in the Processing API.</a><br><br>
 
 
-<h4>Receiving Touch Input in Processing:<br> Create Processing Script that Listens to Serial Communication</h4><br>
+<h3 id="INSTALLARDUINO">(2) Open Serial Connection in Processing</h3>
 
-In the last lab, we sent the touch input to the Arduino IDE and plotted it in the Serial Monitor or Serial Plotter.<br>
-Since Arduino has no libraries for graphical user interfaces, we now want to instead send our touch input to Processing.<br>
-<br>
+In the last lab, we wrote a program that sends our touch signals from the ESP microcontroller through the Serial port (USB cable) to our computer. We had then used the Serial Monitor in the Arduino Programming environment to look at the touch signals coming through the Serial port. However, since any program can read from the Serial port, we are not dependent on Arduino, and can also use Processing to read the data and do something interesting with it.<br><br>
 
-<a href="https://processing.org" target="_blank">Processing</a> is a user interface protoyping platform that is based on Java. It was created by MIT students (and others) in their spare time starting in Spring 2001 and is nowadays used by thousands of makers and UI designers. You can find useful information on how to use it in their <a href="https://processing.org/tutorials/" target="_blank">tutorial section</a>.<br><br>
+<b>Create New Processing Program:</b> Open Processing and create a new program.<br><br>
 
-In the last lab, we encoded a touch event in the format:<br><br>
-
-<code>(sensor ID),(is_touched)(newline)</code><br><br>
-    
-(sensor ID) is either 0, 1 or 2 and represents the ID of the observed touch sensor.<br>
-(is_touched) is either 0 or 1 (0 if the sensor is not touched, and 1 if it is touched).<br><br>
-
-And wrote it to the Serial port using <code>Serial.print()</code>.<br><br>
-
-The resulting messages looked like this:<br><br>
-
-If sensor 0 gets touched, this message is printed once:<br>
-<pre><code>0,1;</code></pre>
-
-Then when the user lifts the finger again, this message is printed once:<br>
-<pre><code>0,0;</code></pre>
-
-To use this information in Processing for our graphical user interface, we need to write a Processing script that listens to the Serial communication.<br><br>
-
-To do this, open Processing, create a new program, and import the <a href="https://processing.org/reference/libraries/serial/index.html">Serial library</a>.<br>
+<b>Import Serial Library:</b> Import the <a href="https://processing.org/reference/libraries/serial/index.html">Serial library</a>.<br>
 <pre>import processing.serial.*;</pre><br>
 
-Next, you need to create a new port that can be used for communication by creating an object from this class: <br>
+<b>Open Serial Connection:</b> 
+To open the serial connection, you need to create a new port that can be used for communication by creating an object from this class: <br>
 <pre>Serial myPort;</pre><br>
 
 To create the port, you need to define three things: (1) you need to tell the port which application will listen to it (i.e. 'this' one), (2) you need to tell the port its portname (same as you used in Arduino), and (3) you need to tell the port at which baudrate it should listen to be able to decode the messages (same as you used in Arduino). <br><br>
@@ -132,6 +120,32 @@ Check in your Arduino program with which baudrate you initialized the Serial com
 If you use a different baudrate than you wrote into the Arduino program, you will only get a lot of random stuff back since your Processing application will not know how to 'translate' the messages that are coming from the microcontroller since it would 'speak' at a different frequency than the Processing application would 'listen'.<br><br>
 
 Now that your port is defined, we are ready to listen to it and check if data is available, but before we do this let's briefly look at the Processing program structure.<br><br>
+
+<h3 id="INSTALLARDUINO">(3) Serial Read Data into Processing</h3>
+
+
+
+
+In the last lab, we encoded a touch event in the format:<br><br>
+
+<code>(sensor ID),(is_touched)(newline)</code><br><br>
+    
+(sensor ID) is either 0, 1 or 2 and represents the ID of the observed touch sensor.<br>
+(is_touched) is either 0 or 1 (0 if the sensor is not touched, and 1 if it is touched).<br><br>
+
+And wrote it to the Serial port using <code>Serial.print()</code>.<br><br>
+
+The resulting messages looked like this:<br><br>
+
+If sensor 0 gets touched, this message is printed once:<br>
+<pre><code>0,1;</code></pre>
+
+Then when the user lifts the finger again, this message is printed once:<br>
+<pre><code>0,0;</code></pre>
+
+To use this information in Processing for our graphical user interface, we need to write a Processing script that listens to the Serial communication.<br><br>
+
+
 
 <h4>Processing Program Structure: setup() and draw() functions</h4><br>
 
