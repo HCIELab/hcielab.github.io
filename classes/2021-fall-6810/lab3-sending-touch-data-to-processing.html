@@ -184,7 +184,7 @@ In the next step, we want to create a bar that goes up if the touch sensor is to
 
 Once you are done it should look like this:<br><br>
 
-<img src="images/lab3/lab2-bar-up.png" width="300px"><br>
+<img src="images/lab3/lab2-bar-up.png" width="250px"><br>
 
 <h3 id="INSTALLARDUINO">(7) Connect Incoming Touch Signal to On-Screen Touch Button</h3>
 
@@ -192,7 +192,7 @@ Next, we will connect the height of the bar to the incoming touch signal.<br>
 A high bar shows that the sensor is being touched.<br>
 A low bar shows that the sensor is not being touched.<br><br>
 
-<img src="images/lab3/lab2-touched-not-touched.png" width="600px"><br><br>
+<img src="images/lab3/lab2-touched-not-touched.png" width="550px"><br><br>
 
 <b>Identifying if Incoming Touch Signal is for Touch Button 1:</b> If you use a String comparison to find which data belongs to touch button 1, remember you cannot use <code>stringVariable == "StringValue"</code>. Instead you need to use <code>equals()</code>. Check <a href="https://processing.org/reference/String_equals_.html">the reference here for equals()</a>. If you plan to use a boolean in Processing, the datatype is spelled out <code>boolean myVariable;</code> not <code>bool</code> like in Arduino.<br><br>
 
@@ -200,98 +200,66 @@ A low bar shows that the sensor is not being touched.<br><br>
 
 Once you are done, it should look like in the image above.<br><br>
  
-<h3 id="INSTALLARDUINO">(8) Extend Visualization to 3x Touch Buttons</h3>
-
-Next, we want to extend our user interface to have a bar for all three touch sensors.<br>
+<b>Extend Visualization to 3x Touch Buttons</b> Once you have the first touch bar done, extend the user interface to have a bar for all three touch sensors.<br>
 It should look like the image below.<br><br>
 
-Only touch button 1 is touched, touch button 2 and 3 are not touched.<br>
-<img src="images/lab3/lab2-three-bars-one-touched.png" width="300px"><br><br>
+<img src="images/lab3/lab2-three-bars-multiple-touched2.png" width="650px"><br><br>
 
-Touching multiple touch sensors simultaenously also works.<br>
-This should be a bit surprising to you, since we can only read one message at a time in the draw() function.<br>
-The reason it still works is that we are reading messages at such a high speed that the processing gap is not visible to the human eye.<br><br>
+Touching multiple touch sensors simultaenously also works. This should be a bit surprising to you, since we can only read one message at a time in the draw() function. The reason it still works is that we are reading messages at such a high speed that the processing gap is not visible to the human eye.<br><br>
 
-Only touch button 1 and 2 are touched, touch button 3 is not touched.<br>
-<img src="images/lab3/lab2-three-bars-multiple-touched.png" width="300px"><br><br>
+<h3 id="INSTALLARDUINO">(8) Install Processing Sound Library + Run Skeleton Code</h3>
 
+Now that you have basic touch input working in Processing, you can connect it to our music player application.<br><br>
 
-<!-- We created a Processing script for you that has the bars already implemented but lacks the Serial Communication.<br> -->
-<!-- You can download the script here: <a href="images/lab2/Serial_Processing.zip">SCRIPT</a><br><br>     -->
+<b>Install Processing Sound Library:</b> Before you can use Processing to play music, you need to install the Processing Sound Library. In Processing, go to 'Sketch -> Import Library -> Add Library'. Then in the 'Libraries' Tab, search for 'sound' and install the one that is officially from Processing (see image below).<br><br>
 
-<h4>Prepare for playing music: Install Processing 3 Sound Library</h4><br>
+<img src="images/lab3/lab2-add-library.png" width="300px"><img src="images/lab3/lab2-add-library-sound.png" width="400px"><br><br>
 
-Now that we have basic touch input working in Processing, we can connect it to our music play application.<br>
-To install the Processing Sound Library, go to <b>Sketch -> Import Library -> Add Library</b>.<br>
-Then in the 'Libraries' Tab, search for 'sound' and install the one that is officially from Processing (see image below).<br><br>
-
-<img src="images/lab3/lab2-add-library.png" width="300px"><br><br>
-<img src="images/lab3/lab2-add-library-sound.png" width="600px"><br><br>
-
-<h4>Run Skeleton Code</h4><br>
-
-Once you have the library installed, download the <a href="software/music_card_nosolution.zip">skeleton code we provide for you from here</a>.<br>
-Inside the folder, open and run the <b>music_card_nosolution.pde</b>, it will take a little while to load until you see the music card image in the view because we also load the mp3 audio files for the songs, which takes some time.<br>
-You should see the music card being loaded into your application as shown below. If you don't see it, please let us know.<br><br>
+<b>Run Skeleton Code:</b> Once you have the library installed, download our <a href="software/music_card_nosolution.zip">music card skeleton code from here</a>. Inside the folder, open and run the 'music_card_nosolution.pde', it will take a little while to load until you see the music card image in the view because we also load the mp3 audio files for the songs, which takes some time. You should see the music card being loaded into your application as shown below. If you don't see it, please let us know.<br><br>
     
-<img src="images/lab3/lab2-loadedcard_new.png" width="600px"><br><br>
+<img src="images/lab3/lab2-loadedcard_new.png" width="400px"><br><br>
 
-<h4>Add Touch Buttons onto the Card</h4><br>
 
-Next, we want to mark the three notes as digital touch buttons.<br>
-We will use the: <br>
+<h3 id="INSTALLARDUINO">(9) Implement Digital Music Card</h3>
+
+Let's first implement the digital music card i.e. when we press the notes on the screen they should play/pause the music or go the next/previous song.<br><br>
+
+<b>Music Card Functionality:</b> 
 <ul>
-  <li>left touch button for previous song</li>
-  <li>middle touch button for play/pause</li>
-  <li>right touch button for next song</li>
-</ul>
+  <li>left note: previous song</li>
+  <li>middle note: play/pause</li>
+  <li>right note: next song</li>
+</ul><br>
 
-<br>
-
-To make this easier for you, we already implemented a class 'Buttons' for you.<br>
-You can make a new button with:<br><br>
+<b>Convert On-Screen Notes into Buttons:</b> To convert the notes on screen into buttons, we already implemented a class 'Buttons' for you. You can make a new button with:<br>
 
 <pre><span style="red">myButtons.add(new Button(x_top_left, y_top_left, x_bottom_right, y_bottom_right, drawing-mode));</span></pre>
 
-Please add your buttons to line 49 onwards.<br>
-One of the buttons is already defined there:<br><br>
-
+Please add your buttons to line 49 onwards. One of the buttons is already defined there:<br>
 <pre>myButtons.add(new Button(360, 180, 440, 260, "Ellipse")); //line 49</pre><br>
     
-Your final result should look like this:<br><br>
+Your final result should look like this:<br>
     
 <img src="images/lab3/card_buttons_new.png" width="350px"><br clear=all><br>
 
-<h4>Create Touch Events for Playing / Pausing the Music and Next/Previous Song</h4><br>
 
-To create events on mouse click, we need to implement several mousePressed() events.<br>
-We already did this for you in the code further down in the class.<br><br>
+<b>Create Button Press Events:</b> To create events on mouse click, we need to implement several mousePressed() events. We already did this for you in the code further down in the class.<br><br>
 
 <img src="images/lab3/lab2-button-presses.png" width="600px"><br clear=all><br>
 
-We first iterate over all the buttons you created and then depending on the button ID, we want to execute a music function.<br>
-We created a music class that loads several example songs in your project folder and has the functions:<br><br>
+We first iterate over all the buttons you created and then depending on the button ID, we execute a music function. We created a music class that loads several example songs in your project folder and has the functions:<br><br>
 <pre>music.play();
 music.pause();
 music.back();
 music.forward();
 </pre><br>
 
-You can see in the switch/case code that we already assigned the middle button to play and pause music.<br><br>
+You can see in the switch/case code that we already assigned the middle button to play and pause music. Extend the code to also go to the next and previous songs. To test your code, click onto each note and see if the expected music playing functionality is executed.<br><br>
 
-Extend the code to also go to the next and previous songs.<br>
-Click onto the virtual touch buttons, i.e. onto each note, to see if your code works.<br><br>
+<b>Hide the Touch Buttons:</b> While we want to have a touch button on each note, we don't want to see the white ellipses since they make the card look less good. We already prepared a piece of code for this for you: Press the 'h' key on your keyboard while your program runs.
+It will hide the buttons but you can still click on them. If you want to see them again, press 's' (for show). Study the code to see where this was implemented and how we did it.<br><br>
 
-<h4>Hide the Touch Buttons</h4><br>
-
-While we want to have a touch button on each note, we don't want to see the white ellipses since they make the card look less good.<br>
-We already prepared a piece of code for this for you:<br>
-Press the 'h' key on your keyboard while your program runs.<br>
-It will hide the buttons but you can still click on them.<br>
-If you want to see them again, press 's' (for show).<br>
-Study the code to see where this was implemented and how we did it.<br><br>
-
-<h4>Now let's play some music from the Inkjet Printed Physical Card</h4><br>
+<h3 id="INSTALLARDUINO">(10) Integrate Touch Sensing with Music Application</h3>
 
 Now that we have the user interface that we can control digitally and we tested that everything works by clicking onto each note to play/pause and go to previous/next song, we also want to play some music from the physical card.<br><br>
 
@@ -300,26 +268,14 @@ Add this code to the music card UI and instead of increasing the height of your 
 
 Once you have finished the code, try if it works by touching the notes of your printed music card to play/pause the song and go to the next/previous song.<br><br>
 
-<h2 class="headline">Deliverables Lab 2 (due Friday, Sept. 11, 2020, 11.59pm)</h2>
+<h3>Deliverables</h3>
 
-At the end of Lab 3, upload to your student google drive:
-<ul>
+At the end of the lab, upload to your student google drive:
+<ol>
   <li>the Processing code (.pde) you wrote for Serial communication that displays the three touch bars and the slider bar</li>
   <li>the Processing code (.pde) of the completed music card application</li>
-</ul><br>
-
-<h4>Serial Communication to Send Touch Signals to Processing</h4><br>
-
-It then communicates the sensor signals in the format we defined back to our laptop using Serial communication through the USB cable.<br>
-So far, we have only used the Arduino IDE to 'listen' to the Serial communication from the USB cable and to show the values in the Serial Monitor or the Serial Plotter.<br>
-However, since any software can listen to the Serial Communication, we can also write programs in other programming languages and IDEs to read and do something with the sensor signals.<br><br>
-
-In the next lab, we are going to write a program in Processing.<br>
-Processing is a programming environment that makes it very easy to built on-screen UIs.<br>
-For our purposes, we will build a digital version of our music card that will highlight the corresponding areas on the card when you push the button on the physical card and will also play the corresponding song.<br>
-
-
-
+  <li>a short video (.mov or .mp4, max. 1 minute, 50MB or less) showing how you use the printed music card, i.e. touch the buttons with your finger to play/pause a song and go to the previous/next song</li>
+</ol><br>
 
         <br />
         <br />
