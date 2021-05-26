@@ -58,6 +58,11 @@ In this lab, you are going to connect your card to Processing: When you push the
 
 <h3>Steps:</h3>
 <ol>
+  <li><a href="#INSTALLARDUINO">Install Processing</a></li>
+  <li><a href="#INSTALLARDUINO">Create New Processing Program</a></li>
+  <li><a href="#INSTALLARDUINO">Open Serial Connection in Processing</a></li>
+  <li></li>
+  <li></li>
   <li></li>
   <li></li>
   <li></li>
@@ -88,42 +93,55 @@ Since Arduino has no libraries for graphical user interfaces, we will send our t
 
 <b>Processing API:</b> You can find all <a href="https://processing.org/reference/" target="_blank">available classes and functions here in the Processing API.</a><br><br>
 
+<h3 id="INSTALLARDUINO">(2) Create New Processing Program</h3>
 
-<h3 id="INSTALLARDUINO">(2) Open Serial Connection in Processing</h3>
+<b>Create New Processing Program:</b> Open Processing and create a new program.<br><br>
+
+<b>setup() and draw() functions:</b> Similar to Arduino, every Processing program has two functions: one that is run only once (setup()) and one that is looping forever (draw()). Create both functions in your empty Processing file.<br><br>
+
+<pre>
+void setup() { // runs only once
+  
+}
+</pre><br>
+
+<pre>
+void draw() { //runs infinitely
+  
+}
+</pre><br>
+
+<h3 id="INSTALLARDUINO">(3) Open Serial Connection in Processing</h3>
 
 In the last lab, we wrote a program that sends our touch signals from the ESP microcontroller through the Serial port (USB cable) to our computer. We had then used the Serial Monitor in the Arduino Programming environment to look at the touch signals coming through the Serial port. However, since any program can read from the Serial port, we are not dependent on Arduino, and can also use Processing to read the data and do something interesting with it.<br><br>
 
-<b>Create New Processing Program:</b> Open Processing and create a new program.<br><br>
 
 <b>Import Serial Library:</b> Import the <a href="https://processing.org/reference/libraries/serial/index.html">Serial library</a>.<br>
 <pre>import processing.serial.*;</pre><br>
 
-<b>Open Serial Connection:</b> 
-To open the serial connection, you need to create a new port that can be used for communication by creating an object from this class: <br>
+<b>Open Serial Connection:</b> Next, let's define the serial connection in the setup() function we just created. To open the serial connection, you need to create a new port that can be used for communication by creating an object from this class: <br>
 <pre>Serial myPort;</pre><br>
 
-To create the port, you need to define three things: (1) you need to tell the port which application will listen to it (i.e. 'this' one), (2) you need to tell the port its portname (same as you used in Arduino), and (3) you need to tell the port at which baudrate it should listen to be able to decode the messages (same as you used in Arduino). <br><br>
+To create the port, you need to define three things: 
+<ol>
+<li>which application will listen to the port (i.e. 'this' one)</li> 
+<li>which portname to use (same as you used in Arduino)</li>
+<li>which baudrate is expected to be able to decode the messages (same as you used in Arduino)</li>
+</ol> 
 
-<pre>myPort = new Serial(this, portName, baudrate);</pre><br>
-    
-For the <code>portName,</code> you can get a list of all available ports from the Serial library (see below).<br> 
-By accessing different buckets of the list, you can get access to the name of each port.<br>
-The correct port is the one you also used in your Arduino program, i.e. this is where the microcontroller is connected to your laptop.<br>
-Check if the correct portname is in bucket 0, 1, or 2 by printing it.<br><br>
+<pre>myPort = new Serial(this, <span style="color:red">int</span> portName, <span style="color:red">int</span> baudrate);</pre><br>
+
+<i>portName:</i> For the <code>portName,</code> you can get a list of all available ports from the Serial library. By accessing different buckets of the list, you can get access to the name of each port. The correct port is the one you also used in your Arduino program, i.e. this is where the microcontroller is connected to your laptop. Check if the correct portname is in bucket 0, 1, or 2 by printing it and then use the bucket as the parameter in the Serial constructor.<br>
 
 <pre>// check which port you use: 0, 1, 2?
 String portName = Serial.list()[2];
 print(portName);</pre><br>
 
-For the <code>baudrate</code>, you also already know this from your Arduino program that you uploaded to the microcontroller.<br>
-Check in your Arduino program with which baudrate you initialized the Serial communication.<br>
-If you use a different baudrate than you wrote into the Arduino program, you will only get a lot of random stuff back since your Processing application will not know how to 'translate' the messages that are coming from the microcontroller since it would 'speak' at a different frequency than the Processing application would 'listen'.<br><br>
+<i>baudrate:</i> For the <code>baudrate</code>, you already know this from your Arduino program that you uploaded to the microcontroller. Check in your Arduino program with which baudrate you initialized the Serial communication and then use it as the parameter in the Serial constructor. If you use a different baudrate than you wrote into the Arduino program, you will only get a lot of random stuff back since your Processing application will not know how to 'translate' the messages that are coming from the microcontroller since it would 'speak' at a different frequency than the Processing application would 'listen'.<br><br>
 
-Now that your port is defined, we are ready to listen to it and check if data is available, but before we do this let's briefly look at the Processing program structure.<br><br>
+Now that the port is defined, your program can listen to it and check if data is available.<br><br>
 
-<h3 id="INSTALLARDUINO">(3) Serial Read Data into Processing</h3>
-
-
+<h3 id="INSTALLARDUINO">(4) Serial Read Data into Processing</h3>
 
 
 In the last lab, we encoded a touch event in the format:<br><br>
@@ -145,29 +163,9 @@ Then when the user lifts the finger again, this message is printed once:<br>
 
 To use this information in Processing for our graphical user interface, we need to write a Processing script that listens to the Serial communication.<br><br>
 
+, but before we do this let's briefly look at the Processing program structure.
 
 
-<h4>Processing Program Structure: setup() and draw() functions</h4><br>
-
-Similar to Arduino, every Processing program has two functions: one that is run only once (setup()) and one that is looping forever (draw()).<br><br>
-
-Before we move to the next step, let's create a setup function:<br><br>
-
-<pre>
-void setup() { // runs only once
-  
-}
-</pre><br>
-
-Move the port constructor code into the setup() funtion since we only need to construct the port once.<br><br>
-
-Next, create an empty draw function:<br><br>
-
-<pre>
-void draw() { //runs infinitely
-  
-}
-</pre><br>
 
 We are going to fill this in the next step with the code that will continously listen to the port and see if any new messages are there from the microcontroller.<br><br>
 
