@@ -58,7 +58,7 @@ In this lab, you will extend your circuit, signal processing, and the Processing
 
 <h3>Steps:</h3>
 <ol>
-  <li><a href="#INSTALLPROCESSING"></a></li>
+  <li><a href="#INSTALLPROCESSING">Build the Slider Circuit</a></li>
   <li><a href="#NEWPROCESSINGPROGRAM"></a></li>
   <li><a href="#OPENSERIAL"></a></li>
   <li><a href="#SERIALREAD"></a></li>
@@ -78,46 +78,46 @@ At the end of the lab, upload to your student google drive:
 
 <hr>
 
-<h3 id="INSTALLPROCESSING">(1) Wire up the Circuit for the Slider</h3>
+<h3 id="INSTALLPROCESSING">(1) Build the Slider Circuit</h3>
 
-Start by wiring up each slider segment exactly the way how you wired up the individual touch buttons.<br>
-Remember they can all use the same sender pin but need a different receiver pin.<br>
-<a href="lab1-circuit-design-and-processing.html">Refer to Lab 1</a> if you don't remember how this works.<br><br>
+<b>One Sender Pin, Different Receiver Pins:</b> Start by wiring up each slider segment exactly the way how you wired up the touch buttons. Remember they can all use the same sender pin but need a different receiver pin. Refer to Lab 2 if you don't remember how this works.<br><br>
 
-Here is the pin out again for your reference.<br>
-Remember, use the pins with "TOUCHX" labels for better signal quality but <b>do not use the one pin labeled as pin0 (TOUCH1) as receiver</b> (you can still use it as sender).
- <br><br>
+<b>Use 'TOUCH' Pins:</b> Remember, use the pins with "TOUCHX" labels for better signal quality but do not use the one pin labeled as pin0 (TOUCH1) as receiver (you can still use it as sender). Below is the ESP pin out again for your reference.<br><br>
 
-<img src="images/lab4/esp32-pinout.jpg" width="600px" /><br><br>
+<img src="images/lab4/esp32-pinout.jpg" width="400px" /><br><br>
 
-<h3 id="INSTALLPROCESSING">(2) Thresholding Slider Signals</h3>
+<h3 id="INSTALLPROCESSING">(2) Extend Microcontroller Code to Read Slider Segments</h3>
 
-<b>Thresholding Slider Signals: How much is each segment touched?</b><br>
+<b>Read Slider Segment Signal Values:</b> Once finished with the wiring, extend your Arduino code to also read each slider segment's raw touch signal.<br><br>
 
-Once finished with the wiring, extend the <b>Arduino code</b> so that it can also read each slider segment's touch signal.<br><br>
+<b>Plot each Signal Value to the Serial Plotter:</b> Next, serial print the received raw touch signals for each slider segment and look at them in the Serial plotter. <span style="color:red">do we have to format the serial print statement in a specific way to get the serial plotter to work?</span><br><br>
 
-For the touch buttons, we were merely interested if the button is touched or not, thus we converted the touch signal into a <b>binary value 0 or 1</b> to indicated if it is pressed or not.<br>
-Remember that for the slider we want to do something more sophisticated, i.e. have a continuous signal that allows us to smoothly adjust the music volume (rather than jumping from one discrete noise level to the next).<br>
-Thus, each slider segment should return a <b>continuous value from 0.0 to 1.0</b> when touched depending on the area the finger overlaps with the slider segment.<br><br>
+Below you can see the serial plotter output for individually touching each of the five slider segments.<br><br>
+<img src="images/lab4/lab2-slider-segments-raw-value.png" width="400px" /><br><br>
 
-<img src="images/lab4/lab2-slider-segments.png" width="400px" /><br><br>
 
-We can see by 'how much' a slider segment is touched by looking at the raw touch signals coming from the microcontroller.<br>
-When looking at the Serial Plotter, you will notice that the raw value has a strong correlation with how much space of the slider segment is touched, i.e. the larger the area the higher the value is. <br><br>
+<h3 id="INSTALLPROCESSING">(3) Determine Finger Overlap with Slider Segments</h3>
 
-You can thus calculate the continuous value from 0.0 - 1.0 by first determining the max value when the slider segment is fully touched and then checking how the returned value relates to this max value.<br>
-We also recommend you only do the computation when the received value is above a certain minimum threshold to avoid noise.<br><br>
+For the touch buttons, we were merely interested if the button is touched or not, thus we converted the touch signal into a <i>binary value 0 or 1</i>. For the slider, each slider segment should return a <i>continuous value from 0.0 to 1.0</i> depending on the area the finger overlaps with the slider segment. This will allow us to more smoothly adjust the music volume rather than jumping from one discrete volume level to the next. We can see by 'how much' a slider segment is touched by looking at the raw touch signals coming from the microcontroller. When looking at the Serial Plotter, you will notice that the raw value has a strong correlation with how much space of the slider segment is touched, i.e. the larger the area the higher the value is. <br><br>
 
-<img src="images/lab4/lab2-minimum-touch-threshold.png" width="600px" /><br><br>
+<img src="images/lab4/lab2-slider-segments.png" width="330px" /><img src="images/lab4/lab2-minimum-touch-threshold.png" width="420px" /><br><br>
 
-For our example, we assume that each of your slider segments behaves the same, i.e. has the same threshold for being touched and the same max touch value. This should be the case since all of your slider segments have the same size, and while each has a slightly different wire length this should be negligible. In our example, we thus share the threshold values among all slider segments. If your slider segments have vastly different values (e.g. because of some damage to the slider segments' silver area), you need to create separate thresholds for each segment. You can check this by plotting each silder segments' raw values. <br><br>
+Let's start by computing the continues value for one slider segment.<br><br>
 
-Below: Individually touching each of the slider segments.<br>
-<img src="images/lab4/lab2-slider-segments-raw-value.png" width="600px" /><br><br>
+<b>Determine Min Value when Slider Segment is Touched only a little:</b> First, we want to determine what is noise (i.e. small signal readings when nothing is actually touched) and want to discard those values. To find the minimum value when you should consider a touch signal, we recommend looking at the Serial plotter and investigating the values when no touch occurs and when the finger barely touches a slider segment. Choose a value close to the 'barely touch' value.<br><br>
 
-<b>Computing Global Slider Value</b><br>
-Once you have the continous signal (0.0 - 1.0) for each slider segment, you need to compute the overall slider value.<br>
-In our Arduino code, we can then write the overall slider value to the Serial port so that we can read it from Processing.<br><br>
+<b>Determine Max Value when Slider Segment is Fully Touched:</b> Next, determine the max value when the slider segment is fully touched with you finger, i.e. your finger overlaps with the entire slider segment.<br><br>
+
+<b>Compare Current Signal Value against Max Value to Determine Percentage of Overlap:</b> Next, check how the current touch signal value related to the maximum value to compute the percentage of overlap, i.e. the value beteen 0.0 and 1.0. 
+
+<b>Extend Code to all Slider Segments:</b> Next, extend the code to compute the individual percentage for each slider segment. You can assume that for each of your slider segments you can use the same thresholds since all of your slider segments have the same size, and while each has a slightly different wire length this should be negligible. If your slider segments have vastly different values (e.g., because of some damage to the silver), you need to create separate thresholds for each segment. You can check this by plotting each silder segments' raw values. <br><br>
+
+<h3 id="INSTALLPROCESSING">(4) Computing the Overall Slider Value</h3>
+
+Once you have the continous signal (0.0 - 1.0) for each slider segment, you can compute the overall slider value. 
+
+
+
 
 The task here is to convert the five seperate slider segment values (all from 0.00-1.00) and combine them into one value that represents the overall slider position ranging from 0.00-1.00 (0-100 percent).<br><br>
 
@@ -168,8 +168,9 @@ For this, we first compute the mean of both values ((0.75+0.78)/2 = 0.765) and t
 
 <img src="images/lab4/lab2-slider-segments-final-value.png" width="400px"><br><br>
 
-Next, we need to write the final slider value to the serial part.<br>
-For the calculated slider value, format the output like we did before for the touch button so that:
+<h3 id="INSTALLPROCESSING">(5) Write Slider Value to Serial Port</h3>
+
+Write the overall slider value to the Serial port so that you can read it later from Processing. For the calculated slider value, format the output like we did before for the touch button so that:<br>
 
 <code>(sensor ID),(slider_value);</code><br><br>
     
