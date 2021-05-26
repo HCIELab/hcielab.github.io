@@ -62,10 +62,11 @@ In this lab, you are going to connect your card to Processing: When you push the
   <li><a href="#INSTALLARDUINO">Create New Processing Program</a></li>
   <li><a href="#INSTALLARDUINO">Open Serial Connection in Processing</a></li>
   <li><a href="#INSTALLARDUINO">Serial Read Data into Processing</a></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
+  <li><a href="#INSTALLARDUINO">Extracting Touch Sensor Information from the String</a></li>
+  <li><a href="#INSTALLARDUINO">Drawing a Digital Touch Button</a></li>
+  <li><a href="#INSTALLARDUINO">Connect Incoming Touch Signal to On-Screen Touch Button</a></li>
+  <li><a href="#INSTALLARDUINO">Extend Visualization to 3x Touch Buttons</a></li>
+  <li><a href="#INSTALLARDUINO">Extend Visualization to 3x Touch Buttons</a></li>
 </ol>
 
 <h3>Deliverables</h3>
@@ -185,30 +186,21 @@ Once you are done it should look like this:<br><br>
 
 <img src="images/lab3/lab2-bar-up.png" width="300px"><br>
 
-<h3 id="INSTALLARDUINO">(7) Connecting the Incoming Touch Signal to the On-Screen Touch Button</h3>
+<h3 id="INSTALLARDUINO">(7) Connect Incoming Touch Signal to On-Screen Touch Button</h3>
 
 Next, we will connect the height of the bar to the incoming touch signal.<br>
 A high bar shows that the sensor is being touched.<br>
 A low bar shows that the sensor is not being touched.<br><br>
 
-<img src="images/lab3/lab2-bar-down.png" width="300px">
-<img src="images/lab3/lab2-bar-up.png" width="300px"><br>
-
-
-<b>Tips</b>
-<ul>
-  <li>If you plan to use a boolean in Processing, the datatype is spelled out <code>boolean myVariable;</code> not <code>bool</code> like in Arduino.</li>
-  <li>If you do a String comparison, remember you cannot use <code>stringVariable == "StringValue"</code>, instead you need to use <code>equals()</code>, check the reference here <a href="https://processing.org/reference/String_equals_.html">equals()</a></li>
-  <li>Don't forget to clear the background at the beginning of the draw() function. Otherwise, you are just drawing each update on top of the previous update, so you may actually not see the bar changing since a shorter bar overlaid over a longer bar is not visible. Use <code>background(255,255,255);</code> or any other color you like.</li>
-</ul>
-
-<br>
-
-Once you are done, it should look like this:<br><br>
-
 <img src="images/lab3/lab2-touched-not-touched.png" width="600px"><br><br>
+
+<b>Identifying if Incoming Touch Signal is for Touch Button 1:</b> If you use a String comparison to find which data belongs to touch button 1, remember you cannot use <code>stringVariable == "StringValue"</code>. Instead you need to use <code>equals()</code>. Check <a href="https://processing.org/reference/String_equals_.html">the reference here for equals()</a>. If you plan to use a boolean in Processing, the datatype is spelled out <code>boolean myVariable;</code> not <code>bool</code> like in Arduino.<br><br>
+
+<b>Redrawing the Bar:</b> When you redraw the bar with its new height, remember to first clear the background at the beginning of the draw() function. Otherwise, you are just drawing each update on top of the previous update, so you may actually not see the bar changing since a shorter bar overlaid over a longer bar is not visible. Use <code>background(255,255,255);</code> or any other color you like.<br><br>
+
+Once you are done, it should look like in the image above.<br><br>
  
-<h4>Extend Visualization to Three Bars</h4><br>
+<h3 id="INSTALLARDUINO">(8) Extend Visualization to 3x Touch Buttons</h3>
 
 Next, we want to extend our user interface to have a bar for all three touch sensors.<br>
 It should look like the image below.<br><br>
