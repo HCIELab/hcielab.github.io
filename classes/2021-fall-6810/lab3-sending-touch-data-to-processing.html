@@ -61,7 +61,7 @@ In this lab, you are going to connect your card to Processing: When you push the
   <li><a href="#INSTALLARDUINO">Install Processing</a></li>
   <li><a href="#INSTALLARDUINO">Create New Processing Program</a></li>
   <li><a href="#INSTALLARDUINO">Open Serial Connection in Processing</a></li>
-  <li></li>
+  <li><a href="#INSTALLARDUINO">Serial Read Data into Processing</a></li>
   <li></li>
   <li></li>
   <li></li>
@@ -143,52 +143,30 @@ Now that the port is defined, your program can listen to it and check if data is
 
 <h3 id="INSTALLARDUINO">(4) Serial Read Data into Processing</h3>
 
+Now that we have the port defined, we can see if data is available and if the answer is yes, we can read the data from the port.<br><br>
 
-In the last lab, we encoded a touch event in the format:<br><br>
-
-<code>(sensor ID),(is_touched)(newline)</code><br><br>
-    
-(sensor ID) is either 0, 1 or 2 and represents the ID of the observed touch sensor.<br>
-(is_touched) is either 0 or 1 (0 if the sensor is not touched, and 1 if it is touched).<br><br>
-
-And wrote it to the Serial port using <code>Serial.print()</code>.<br><br>
-
-The resulting messages looked like this:<br><br>
-
-If sensor 0 gets touched, this message is printed once:<br>
-<pre><code>0,1;</code></pre>
-
-Then when the user lifts the finger again, this message is printed once:<br>
-<pre><code>0,0;</code></pre>
-
-To use this information in Processing for our graphical user interface, we need to write a Processing script that listens to the Serial communication.<br><br>
-
-, but before we do this let's briefly look at the Processing program structure.
-
-
-
-We are going to fill this in the next step with the code that will continously listen to the port and see if any new messages are there from the microcontroller.<br><br>
-
-<h4>Reading Data from the Serial Port</h4><br>
-
-Now that we have the port defined, we can see if data is available and if the answer is yes, we can read the data from the port.<br>
-In the draw function, add the following lines:<br><br>
+<b>Reading Serial Data into a String:</b> Below, we provide some starter code for you to read the Serial data into a string. Add the lines to your draw() function so they are executed continuously:<br><br>
 
 <pre>
+// we are sending data in the format: <i>(sensor ID),(is_touched)(newline)</i> (4 characters)
+// (sensor ID) is either 0, 1 or 2 and represents the ID of the observed touch sensor
+// (is_touched) is either 0 or 1 (0 if the sensor is not touched, and 1 if it is touched)
+
 // If there is a message with at least 4 characters 
-// remember we are sending in the format: <i>sensorNumber comma touched semicolon</i> with one character each
 if (myPort.available() >= 4) { 
 
-    // read a String until the character ';' is found, which indicates the end of our message
+    <span style="color:red">// read a String until the character ';' is found, which indicates the end of our message</span>
     String val = myPort.readStringUntil(';'); 
   }</pre><br>
 
-Note that we use <code>myPort.readStringUntil()</code>, which we can do because we are sending a string on the serial port from our Arduino program that is looping on the microcontroller. If we send other data-types, we would have to use a different function so Processing knows how to convert the un-typed data that is coming through the port at the specific baudrate.<br><br>
+<b>Reading Strings vs. other Datatypes:</b> Note that we use <code>myPort.readStringUntil()</code>, which we can do because we are sending a String on the serial port from our microcontroller. If we send other data-types, we would have to use a different function so Processing knows how to convert the un-typed data that is coming through the port at the specific baudrate.<br><br>
 
-Next, check if this is working. We recommend you <a href="https://processing.org/reference/print_.html">print()</a> the String value to the Processing command line, run your Processing program, and touch your touch sensor to see if the statements you printed to Serial port (via Arduino IDE) gets printed on the Processing command line. If you are getting a ‘port busy’ error, make sure you close the Serial Monitor / Plotter on Arduino IDE. <br>
-If that doesn't work, now would be a good moment to get some help.<br><br>
+<b>Print Received Strings:</b> Next, print the received String values to the Processing command line using the <a href="https://processing.org/reference/print_.html">print() function</a>.<br><br>
 
-<h4>Creating a Visualization for the Incoming Touch Sensor Data</h4><br>
+<b>Testing if you Receive Data:</b> Before you run your Processing program, check one more time that the printed music card is connected to the ESP and the ESP is connected to your computer, and that the ESP is actually on and running its microcontroller program. Once you confirmed this, run your Processing program, and touch your touch sensor to see if the statements you printed to Serial port are getting printed on the Processing command line. If you are getting a ‘port busy’ error, make sure you close the Serial Monitor / Plotter on Arduino IDE since only one program can read from the Serial port at a time.<br><br>
+
+<h3 id="INSTALLARDUINO">(5) Creating a Visualization for the Incoming Touch Sensor Data</h3>
+
 
 Now we can do something based on the incoming Strings.<br>
 In the next step, we want to create a bar that goes up if the touch sensor is touched and down if the sensor is not touched.</br>
