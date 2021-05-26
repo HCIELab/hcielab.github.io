@@ -58,15 +58,16 @@ In this lab, you are going to connect your card to Processing: When you push the
 
 <h3>Steps:</h3>
 <ol>
-  <li><a href="#INSTALLARDUINO">Install Processing</a></li>
-  <li><a href="#INSTALLARDUINO">Create New Processing Program</a></li>
-  <li><a href="#INSTALLARDUINO">Open Serial Connection in Processing</a></li>
-  <li><a href="#INSTALLARDUINO">Serial Read Data into Processing</a></li>
-  <li><a href="#INSTALLARDUINO">Extracting Touch Sensor Information from the String</a></li>
-  <li><a href="#INSTALLARDUINO">Drawing a Digital Touch Button</a></li>
-  <li><a href="#INSTALLARDUINO">Connect Incoming Touch Signal to On-Screen Touch Button</a></li>
-  <li><a href="#INSTALLARDUINO">Extend Visualization to 3x Touch Buttons</a></li>
-  <li><a href="#INSTALLARDUINO">Extend Visualization to 3x Touch Buttons</a></li>
+  <li><a href="#INSTALLPROCESSING">Install Processing</a></li>
+  <li><a href="#NEWPROCESSINGPROGRAM">Create New Processing Program</a></li>
+  <li><a href="#OPENSERIAL">Open Serial Connection in Processing</a></li>
+  <li><a href="#SERIALREAD">Serial Read Data into Processing</a></li>
+  <li><a href="#EXTRACTTOUCHSTRING">Extract Touch Sensor Information from the String</a></li>
+  <li><a href="#DRAWDIGITALBUTTON">Draw Digital Touch Button</a></li>
+  <li><a href="#TOUCHSIGNALTOBUTTON">Connect Incoming Touch Signal to On-Screen Touch Button</a></li>
+  <li><a href="#PROCESSINGSOUND">Install Processing Sound Library + Run Skeleton Code</a></li>
+  <li><a href="#DIGITALCARD">Implement Digital Music Card</a></li>
+  <li><a href="#INTEGRATEDTOUCHSENSING">Integrate Touch Sensing with Music Application</a></li>
 </ol>
 
 <h3>Deliverables</h3>
@@ -84,7 +85,7 @@ Before getting started with the new content, let's first make sure everything fr
 
 <hr>
 
-<h3 id="INSTALLARDUINO">(1) Install Processing</h3>
+<h3 id="INSTALLPROCESSING">(1) Install Processing</h3>
 
 Since Arduino has no libraries for graphical user interfaces, we will send our touch input to a program called Processing that can render our music card and the touch buttons on the screen. <a href="https://processing.org" target="_blank">Processing</a> is a user interface protoyping platform that is based on Java. It was created by MIT students (and others) in their spare time in 2001 and is nowadays used by thousands of makers and UI designers.<br><br>
 
@@ -94,7 +95,7 @@ Since Arduino has no libraries for graphical user interfaces, we will send our t
 
 <b>Processing API:</b> You can find all <a href="https://processing.org/reference/" target="_blank">available classes and functions here in the Processing API.</a><br><br>
 
-<h3 id="INSTALLARDUINO">(2) Create New Processing Program</h3>
+<h3 id="NEWPROCESSINGPROGRAM">(2) Create New Processing Program</h3>
 
 <b>Create New Processing Program:</b> Open Processing and create a new program.<br><br>
 
@@ -112,7 +113,7 @@ void draw() { //runs infinitely
 }
 </pre><br>
 
-<h3 id="INSTALLARDUINO">(3) Open Serial Connection in Processing</h3>
+<h3 id="OPENSERIAL">(3) Open Serial Connection in Processing</h3>
 
 In the last lab, we wrote a program that sends our touch signals from the ESP microcontroller through the Serial port (USB cable) to our computer. We had then used the Serial Monitor in the Arduino Programming environment to look at the touch signals coming through the Serial port. However, since any program can read from the Serial port, we are not dependent on Arduino, and can also use Processing to read the data and do something interesting with it.<br><br>
 
@@ -142,7 +143,7 @@ print(portName);</pre><br>
 
 Now that the port is defined, your program can listen to it and check if data is available.<br><br>
 
-<h3 id="INSTALLARDUINO">(4) Serial Read Data into Processing</h3>
+<h3 id="SERIALREAD">(4) Serial Read Data into Processing</h3>
 
 Now that we have the port defined, we can see if data is available and if the answer is yes, we can read the data from the port.<br><br>
 
@@ -166,13 +167,13 @@ if (myPort.available() >= 4) {
 
 <b>Testing if you Receive Data:</b> Before you run your Processing program, check one more time that the printed music card is connected to the ESP and the ESP is connected to your computer, and that the ESP is actually on and running its microcontroller program. Once you confirmed this, run your Processing program, and touch your touch sensor to see if the statements you printed to Serial port are getting printed on the Processing command line. If you are getting a ‘port busy’ error, make sure you close the Serial Monitor / Plotter on Arduino IDE since only one program can read from the Serial port at a time.<br><br>
 
-<h3 id="INSTALLARDUINO">(5) Extracting Touch Sensor Information from the String</h3>
+<h3 id="EXTRACTTOUCHSTRING">(5) Extract Touch Sensor Information from the String</h3>
 
 What we are currently printing to the command line are Strings in the format of "0,1;" (sensor_ID,is_touched;). However, to do something useful with this data in our code, we have to split it into individual values, i.e. the sensor_ID and and if the sensor is touched/not touched.<br><br>
 
 <b>String split() function:</b> Use the String split() function to split your String into individual values. You can find information on <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html" target="_blank">split() and how to use it in the Java String reference</a>. Once you have both the <code>sensor_ID</code> and <code>is_touched</code> separated, we recommend you check that this is working by printing them to the command line before moving on.<br><br>
 
-<h3 id="INSTALLARDUINO">(6) Drawing a Digital Touch Button</h3>
+<h3 id="DRAWDIGITALBUTTON">(6) Draw a Digital Touch Button</h3>
 
 In the next step, we want to create a bar that goes up if the touch sensor is touched and down if the touch sensor is not touched. Let's start with a single bar for touch sensor #1 and we can do the rest later.<br><br>
 
@@ -186,7 +187,7 @@ Once you are done it should look like this:<br><br>
 
 <img src="images/lab3/lab2-bar-up.png" width="250px"><br>
 
-<h3 id="INSTALLARDUINO">(7) Connect Incoming Touch Signal to On-Screen Touch Button</h3>
+<h3 id="TOUCHSIGNALTOBUTTON">(7) Connect Incoming Touch Signal to On-Screen Touch Button</h3>
 
 Next, we will connect the height of the bar to the incoming touch signal.<br>
 A high bar shows that the sensor is being touched.<br>
@@ -207,7 +208,7 @@ It should look like the image below.<br><br>
 
 Touching multiple touch sensors simultaenously also works. This should be a bit surprising to you, since we can only read one message at a time in the draw() function. The reason it still works is that we are reading messages at such a high speed that the processing gap is not visible to the human eye.<br><br>
 
-<h3 id="INSTALLARDUINO">(8) Install Processing Sound Library + Run Skeleton Code</h3>
+<h3 id="PROCESSINGSOUND">(8) Install Processing Sound Library + Run Skeleton Code</h3>
 
 Now that you have basic touch input working in Processing, you can connect it to our music player application.<br><br>
 
@@ -220,7 +221,7 @@ Now that you have basic touch input working in Processing, you can connect it to
 <img src="images/lab3/lab2-loadedcard_new.png" width="400px"><br><br>
 
 
-<h3 id="INSTALLARDUINO">(9) Implement Digital Music Card</h3>
+<h3 id="DIGITALCARD">(9) Implement Digital Music Card</h3>
 
 Let's first implement the digital music card i.e. when we press the notes on the screen they should play/pause the music or go the next/previous song.<br><br>
 
@@ -259,14 +260,13 @@ You can see in the switch/case code that we already assigned the middle button t
 <b>Hide the Touch Buttons:</b> While we want to have a touch button on each note, we don't want to see the white ellipses since they make the card look less good. We already prepared a piece of code for this for you: Press the 'h' key on your keyboard while your program runs.
 It will hide the buttons but you can still click on them. If you want to see them again, press 's' (for show). Study the code to see where this was implemented and how we did it.<br><br>
 
-<h3 id="INSTALLARDUINO">(10) Integrate Touch Sensing with Music Application</h3>
+<h3 id="INTEGRATEDTOUCHSENSING">(10) Integrate Touch Sensing with Music Application</h3>
 
 Now that we have the user interface that we can control digitally and we tested that everything works by clicking onto each note to play/pause and go to previous/next song, we also want to play some music from the physical card.<br><br>
 
-You already implemented the Serial communication and the message decoding in the previous exercise, i.e. the Processing application you wrote for displaying the touch bars that go up and down. <br>
-Add this code to the music card UI and instead of increasing the height of your bar you are now calling the music functions. <br><br>
+<b>Add Previous Touch Bar Code to Music Application:</b> You already implemented the Serial communication and the message decoding in the previous exercise, i.e. the Processing application you wrote for displaying the touch bars that go up and down. Add this code to the music card program and instead of increasing the height of your bar you are now calling the music functions.<br><br>
 
-Once you have finished the code, try if it works by touching the notes of your printed music card to play/pause the song and go to the next/previous song.<br><br>
+<b>Test Physical Card:</b> Once you have finished the code, try if it works by touching the notes of your printed music card to play/pause the song and go to the next/previous song. Remember to not interact on the silver side but to touch on the side of the visual design.<br><br>
 
 <h3>Deliverables</h3>
 
