@@ -107,17 +107,11 @@ Below, you'll find a video tutorial that shows you all steps to add one touch bu
 
 <b>Create a New Layer:</b> Start by creating a new layer in your design file for the circuit design. You need to create the circuit design on a separate layer than the visual design because later you need to export two files separately, the visual design in one pdf and the circuit design in a separate pdf. Using a separate layer for each allows you to turn each part of the design on/off quickly for export.<br><br>
 
-<b>Every Shape's Color:</b> Double check that every single one of your circuit lines and shapes is set to black by maxing out CMYK, i.e. CMYK = 100%.<br><br>
-        
-<img src="images/lab1/lab1-cmyk-setting.png" width="250px"><br><br>
-
 <b>Draw the Touch Button Shape:</b> Once you created your circuit design layer, draw the first touch button shape on it. A touch button should be large enough for a user's finger. The size of a finger tip is roughly an area of 2cm x 2cm. In the design we gave you, the size of each note body is roughly the size of a finger pad, so as long as you make a shape the size of the note it should be fine.<br><br>
 
-<b>Draw the Wire:</b> Next, draw a wire from the touch button to the edge of the card (we recommend you route all your wires to the right edge of the card). We typically draw 'rectangles' for the wires rather than 'lines' since a rectangle allows us to see its 'width' in the shape properties. Your wire should be 1mm thick. The thickness of the wire determines its conductivity (larger cross-section == higher conductivity). With 1mm we are on the safe side given the conductive ink we use and its resistance.<br><br>
-
-<b>Draw the Connector Pad:</b> One end of your wire connects to your touch button, the other end of your wire will connect to a connector pad which we will later use to connect to the ESP microcontroller. The connector pad for the microcontroller needs to be large enough to connect to a crocodile clamp. Therefore, the connector pad should be 1cm x 1cm to be on the safe side. Make sure your connector pads are close enough to the border so that a crocodile clamp can reach it (recommended to have lesser than 5mm distance from the border).<br><br>
-
-<b>Adjust Color of Lines/Shapes:</b> Finally, make sure your touch button, wire, and connector pad all have the correct color assigned. The color for your circuit design should be set to full <span style="color:red">CMYK (255,255,255,255)</span> since the specific printer we use has a  <span style="color:red">CMYK cartridge</span>, which we filled with silver ink. By setting all <span style="color:red">four channels to the maximum, we will maximize the amount of silver that will be deposited, which ensures our circuit will have maximum conductivity.</span><span style="color:blue">I'm not sure if this is true anymore with the printer setting that we use. We will test it and add the findings to this section</span><br><br>
+<b>Draw the Connector Pad:</b> In order to connect the touch sensor to your ESP32 microcontroller in a later lab, we have to add connector pads at the edge of the music card. The connector pad for the microcontroller needs to be large enough to connect to a crocodile clamp. Therefore, the connector pad should be 1cm x 1cm to be on the safe side. Make sure your connector pads are close enough to the border of the card so that a crocodile clamp can reach it (recommended to have lesser than 5mm distance from the border). Make sure to not exceed the boundaries of the music card since we will later cut it out.<br><br>
+    
+<b>Draw the Wire:</b> Next, draw a wire from the touch button to the edge of the card (we recommend you route all your wires to the right edge of the card). Your wire should be 1mm thick. The thickness of the wire determines its conductivity (larger cross-section == higher conductivity). With 1mm we are on the safe side given the conductive ink we use and its resistance. Make sure that all wires are located inside the boundaries of your card since we will layer cut out the card.<br><br>
 
 Repeat all steps for the other two touch buttons.<br><br>
 
@@ -159,13 +153,14 @@ Before printing out your design, let's double check that everything is correct. 
 
 <b>Slider Segments not overlapping enough:</b> Finally, your slider segments should be overlapping quite a bit. If they don't overlap enough, your finger will only touch one of them, which will not result in a continous slider signal. Aim for a distance of 2mm between the segments.<br><br>
 
-<b>Slider Segments too close to each other:</b> Make sure there is sufficient space between each slider segment. If they are too close, you will also have problems with short circuits, i.e. touching one slider segment will automatically activate the other as well. Aim for a distance of 2mm between the segments.</span>..<br><br>
+<b>Slider Segments too close to each other:</b> Make sure there is sufficient space between each slider segment. If they are too close, you will also have problems with short circuits, i.e. touching one slider segment will automatically activate the other as well. Aim for a distance of 2mm between the segments.<br>
+    <br>
 
 <img src="images/lab1/common-design-issues-slider.jpg" width="500px"><br><br>
 
-<b>Every Shape's Color:</b> Double check that every single one of your circuit lines and shapes is set to black by maxing out CMYK, i.e. CMYK = 100%.<br><br>
-
-<img src="images/lab1/lab1-cmyk-setting.png" width="250px"><br><br>
+    <b>Check your design for no overlapping wires and connector pads</b>
+    In the next step, we will cut out the music card. Before doing so, check if all your silver traces are within the boundaries of the card. If you have any errors here, you have to resdesign your silver traces and print the card again.<br><br>
+    
 
 <h3 id="EXPORT">(5) Export your Design</h3>
 
@@ -178,7 +173,7 @@ Now that you have verified your design, you are ready to export and print it. Si
 
 <b>Export .pdf files:</b> Save your design as two separate .pdf files, one for the visual design and one for the circuit design. To export the visual design, turn the circuit layer off by going to the layer tap and clicking on the 'eye' icon in front of the layer's name. Save the document as a .pdf by clicking on File -> Save as.... and select as file type "pdf". Repeat the process for exporting the circuit design layer. Finally, also save the combined design as a third pdf for the teaching team to help you with debugging if needed.<br><br>
 
-<b>Upload .pdf's to Google Drive:</b> Once you have your three .pdfs, add them to your student google drive folder. Please name them: combined-visual-circuit.pdf with both layers, visual-design.pdf with only the visual design, and circuit-design.pdf with only the circuit design. Let us know on slack that you are ready to have your design checked by us.<br><br>
+<b>Upload .pdf's to Google Drive:</b> Once you have your three .pdfs, add them to your student google drive folder. Please name them: <b>combined-visual-circuit.pdf</b> with both layers, <b>visual-design.pdf</b> with only the visual design, and <b>circuit-design.pdf</b> with only the circuit design. Let us know on slack that you are ready to have your design checked by us.<br><br>
 
 <img src="images/lab1/music-card-design_new.png" width="317px" />
 <img src="images/lab1/lab1-exporting-design-circuit_new.png" width="317px" /><br><br>
@@ -247,11 +242,37 @@ Once you have the visual design printed on the back side it should look like thi
 <img src="images/lab1/lab1-assembled2_new.jpg" width="374px" /><br><br>
 
 <h3 id="LAMINATION">(8) Laminate your Circuit Design</h3>
+The last step for lab 1 is cutting the music card from the access paper around it and finally laminating your card, so it's protected from any damage before you use it for the next labs.<br><br>
+    
+<b>Check your design for no overlapping wires and connector pads</b>
+    In the next step, we will cut out the music card. Before doing so, check if all your silver traces are within the boundaries of the card. If you have any errors here, you have to redesign your silver traces and print the card again.<br><br>
+<b>Cut the music card</b><br>
+Before you can start laminating the card, you have to cut it out. We have a few scissors and rotary trimmers prepared for you. If you can't find any, you can ask a TA for help.<br><br>
+<img src="images/lab1/cutting_card.jpg" width="357px"><br><br>   
+<b>Cutting the lamination sheet into shape</b><br>
+Before you can start laminating, you have to cut the lamination sheet to fit the music card and add holes at the location of the connector pads to make sure you can access them after lamination and connect them to the ESP32 microcontroller.<br><br>
+    
+The lamination sheets are two transparent sheets that are glued together on one end. Put you music card between the two sheets and push the card up to the side with the glued together edges.<br><br>
+    <img src="images/lab1/placing_card_in_sheets.jpg" width="357px"><br><br>   
+    
+Next, with the card inside the lamination sheets, cut the lamination sheet along the edges of the music card while leaving an offset of 1-2cm from the edges of the card. This frame will later glue together and hold the music card in place.<br><br>
+    
+To be able to access the connector pad also after lamination, you have to cut out holes in the lamination sheets right on top of the connector pads. To do that, turn around the music card such that you can see the silver traces. Take a scissor and cut out a rectangle of the top lamination sheet right where the connector pads are. This should look similar to the Figure below. Once this is done, you are reade to laminate your card.<br><br>
+    
+<img src="images/lab1/card_in_sheets_labels.jpg" width="500px"><br><br>
+    
+<b>Laminate your card</b><br>
+Make sure that the laminator is turn on and set to hot lamination. If it is not warm, ask a TA for help.<br>
+Slide your music card in fromt he front of the laminator. At some point you should feel that the machine starts to pull the card in. Now, you only have to wait for a few seconds. When the lamination is done, you can pull out you card from the back of the laminator. Congratulations, you successfully finished lab 1.<br><br>
+    
+<img src="images/lab1/lamination1.JPG" width="357px">
+<img src="images/lab1/lamination2.JPG" width="357px"><br><br>
+    
+Your end result should look like this:<br><br>
+<img src="images/lab1/result.JPG" width="357px"><br><br>
 
-<span style="color:red">please add instructions and images for lamination</span><br><br>
 
-
-<h3>Deliverables:</h3>
+<h3>Deliverables:</h3> 
 
 At the end of the lab, upload to your student google drive:
 <ol>
