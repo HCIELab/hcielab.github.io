@@ -99,10 +99,16 @@ The alignment between the top and bottom electrodes is critical for receiving an
 
 <img src="images/pset2/pset1-tatto-paper.png" width="600px"> <br><br>
 
+<!--
 <b>Protecting the top sheet with a transparent cover:</b> Finally, since the conductive side of the top sheet is facing towards the user, the top electrodes are still exposed and you need to cover them up to prevent the user from touching them directly. For this, you will add a transparent film on top, which we will also give you in lab/at the OH. You can attach the transparent sheet by using scotch tape again. <br><br>
 
 <img src="images/pset2/pset1-attach-transparent-sheet.png" width="300px"> <br><br>
+-->
 
+<b>Cut out area around multi-touch wires for FPC connection:</b> The multi-touch pad wires will need to fit into the FPC connector. Thus, you need to cut out some free space around the wires on your multi-touch pad. When you cut out the area for the connector pay extra attention that it will fit inside the FPC connector. Check that the little pins inside the FPC connector head align with the wires of your multi-touch pad.<br><br>
+
+<img src="images/pset2/aligning-inkjet-print-with-fpc.jpg" width="390px">
+<img src="images/pset2/fpc-connector-slot.jpg" width="330px"><br><br>
 <b>Laminating the Multi-touch pad:</b>
 Finally, since the conductive side of the top sheet is facing towards the user, the top electrodes are still exposed, and you need to cover them up to prevent the user from touching them directly. For this, you will laminate the Multi-touch pad with a laminating sheet. We will let you use the lamination machine in the lab/at the OH. The Multi-touch pad should be placed inside of the laminating sheet except for the wires to connect it to the FPC connector.
 <br><br>
@@ -137,11 +143,6 @@ Once you have the multi-touch pad printed and assembled, you need to connect its
 <b>Testing if each pin on your FPC chip is soldered:</b> You can use a multimeter to test if each pin on the FPC connector is correctly soldered.<br><br>
 
 <iframe width="600" height="360" src="https://www.youtube.com/embed/tw4zh9UIV4o" title="YouTube video player" frameborder="0" allowfullscreen></iframe><br><br>
-
-<b>Cut out area around multi-touch wires for FPC connection:</b> The multi-touch pad wires will need to fit into the FPC connector. Thus, you need to cut out some free space around the wires on your multi-touch pad. When you cut out the area for the connector pay extra attention that it will fit inside the FPC connector. Check that the little pins inside the FPC connector head align with the wires of your multi-touch pad.<br><br>
-
-<img src="images/pset2/aligning-inkjet-print-with-fpc.jpg" width="390px">
-<img src="images/pset2/fpc-connector-slot.jpg" width="330px"><br><br>
 
 <b>Connecting the FPC connectors to the wires of the multi-touch pad:</b> When you connect your FPC connector, make sure the conductive side with the silver traces is facing towards the breakout board. Pull out the little tab on the FPC connector, then insert the wires, then push the little tab back in to secure the wires. Once you are done connecting one side of the multi-touch pad, repeat the procedure with the other side and connect it to the second FPC connector.<br><br>
 
@@ -195,7 +196,7 @@ As mentioned in lecture, the multitouch pad consists of sender electrodes (e.g.,
 <b>Powering the Multiplexer:</b> Finally, connect the power VCC and GND pins on the multiplexer to the corresponding pins on the ESP to power the multiplexer.<br><br>
 
 <img src="images/pset2/multiplexer.png" height="350px"> <br><br>
-<img src="images/pset2/mux_fritzing_label.png" width="900px"> <br><br>
+<!--<img src="images/pset2/mux_fritzing_label.png" width="900px">--><br><br>
 
 <span style="color:red">anything students can test here to see if they wired everything up correctly or do we do this at the very end?</span><br><br>
 
@@ -220,7 +221,7 @@ As you can see in the schematic, the circuit for receiving is very similar to wh
 <b>Connecting the ADC component to the ESP:</b> Sending data from the ADC component to the ESP is a little more complicated. The MCP3008 chip communicates with the ESP via the Serial Peripheral Interface (SPI). We use basic SPI between one master (ESP) and one slave (MCP3008 chip). SPI communication is setup via 4 types of pins, i.e. MOSI is the line for the master to send data to the slave, MISO is the line for the slave to send data to the master, SCK is the line for the clock signal that determines how fast bits of data can be send, and NSS/CS is a line for the master to select which slave to send data to. The ADC chip uses different names on its pinout for these pins, i.e. <b>MOSI (DIn), MISO (DOut), SCK (CLK), and NSS/CS (CS/SHDN)</b> as shown above in the MPC chip pinout. The ESP uses the regular names as shown on the ESP pinout below. Wire up these four SPI pins (not VSPI) between the ADC chip and the ESP. <br><br>
 
 <img src="images/pset3/esp32-pinout.png" width="750px"><br><br>
-<img src="images/pset2/adc_fritzing_label.png" width="900px"><br><br>
+<!--<img src="images/pset2/adc_fritzing_label.png" width="900px">--><br><br>
 
 <b>Using a Multiplexer for the receiving circuit:</b> While we will not do it in this pset, we could also use a second multiplexer to reduce the number of pins required for the receiving circuit, i.e. the electrode rows. When using the multiplexer for receiving, we would redirect the received signal on CH0-15 to the SIG pin that is then read by the ESP. Similar to above, we would only have to specify which channel (CH0-15) we want to read and the ESP would then retrieve the signal from the respective channel. Thus, this second multiplexer would reduce the number of receiver pins by combining multiple rows into one pin on the ESP. <br><br>
 
