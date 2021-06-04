@@ -234,26 +234,23 @@ As you can see in the schematic, the circuit for receiving is very similar to wh
 
 <span style="color:red">How can the student test that everything works?</span><br><br>
 
-<h3>Upload your Code and Design Files, Show Hardware to TA</h3>
+<h3>Show Hardware to TA</h3>
 
 For grading, please upload the following to your google drive student folder:<br>
 
 <ul>
-	<li>the .pde file of your Processing program</li>
-	<li>the two .pdf files you used for conductive inkjet printing</li>
 	<li>3-5 photos showing your assembled circuit from different perspectives (include top view + side views)</li>
 	<!-- <li><span style="color:red">bring your assembled multi-touch pad to your spray session</span></li> -->
 </ul>
-
 
 <h3>Grading</h3>
 
 We will give 20 pts in total:
 <ul>
-	<li>did you finish assembling your multi-touch pad, i.e. did you inkjet print both the top and bottom electrode layer, glued them together, and connected the FPC chips? (5 pts)</li>
-	<li>did you correctly build the multi-touch sensing circuit using the multiplexer, resistors and ESP? (5 pts)</li>
+	<li>did you finish assembling your multi-touch pad, i.e. did you inkjet print both the top and bottom electrode layer, glued them together, and connected the FPC chips? (10 pts)</li>
+	<li>did you correctly build the sending circuit using the multiplexer, <span style="color:red">resistors</span> and ESP? (5 pts)</li>
+	<li>did you correctly build the recieving circuit using the ADC component, <span style="color:red">resistors</span> and ESP? (5 pts)</li>
 </ul>
-
 
 <!-- Footnote 1: Unfortunately, the ESP32 ADC/TOUCH pins are only reliable in the middle of the ESP's voltage range (~0.5V to maybe 3.0V) but not at the lower and upper ends of the range. Our touch sensing circuit functions at the lower range. Even worse, because our circuit (receiver pins) outputs between -0.6V and 1.2V (yes that is a minus), we end up with negative voltages on the ADC pins, which are completely out of the spec of the ESP32's ADC inputs and would create a signal that is non-linear and would require a lot of calibration. The reason we can have negative voltages is because we are practically generating a high-frequency AC signal with the PWM. This creates capacitive coupling between the breadboard channels and wires. To make the ESP ADC pins work with negative voltages, you could add rectification circuits and amplifiers before having the signal go into the ADC pin, but that is quite some extra effort. For our purposes, it is therefore easier to not use the ESP ADC pins and instead use another ADC component that can work well within the Voltage range we use for the multi-touch pad.<br><br>
  -->
