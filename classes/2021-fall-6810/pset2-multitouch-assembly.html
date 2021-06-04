@@ -80,6 +80,11 @@ In case you did not finish pset1, you can ask a TA to provide you with the fabri
 
 <!-- <img src="images/lab11/pset1-printing-setting.png" width="600px"> <br><br> -->
 
+<span style="color:rgb(255, 0, 157)"><b>TODO: Add instructions before you assemble to test each electrode line/wire with a multimeter to see if the print is conductive enough</b><br>
+Test 1 test conductivity within a row/column: Probe at end of diamond and one at the connecting electrode (around 300 ohms)<br>
+Test 2 that there is no connection between adjacent rows/columns: two probes row by row to check if there is no cross talk, with no cross talk it show > mega ohms range<br>
+</span>
+
 <b>Assemble:</b> To assemble both sheets together, please ask a TA to help you with this either in lab or in an OH.<br><br> 
 
 <b>Conductive side should face upwards:</b> First, check that both of your sheets have the conductive side facing upwards.<br><br>
@@ -152,7 +157,7 @@ Once you have the multi-touch pad printed and assembled, you need to connect its
 
 <iframe width="600" height="360" src="https://www.youtube.com/embed/FyLFEpmPYOg" title="YouTube video player" frameborder="0" allowfullscreen></iframe><br><br>
 
-<span style="color:red"><b>Disconnecting/Reconnecting Multi-Touch pad from Circuit:</b> Add a section on how to properly disconnect the FPC connectors if needed. Last year students unclipped the multi-touch pad at the front, but it would be better to remove the wires. We should show a photo here with correct/incorrect (maybe this should be further down in the sending circuit section?)</span><br><br>
+<span style="color:rgb(255, 0, 157)"><b>TODO: Disconnecting/Reconnecting Multi-Touch pad from Circuit:</b> Add a section on how to properly disconnect the FPC connectors if needed. Last year students unclipped the multi-touch pad at the front, but it would be better to remove the wires. We should show a photo here with correct/incorrect (maybe this should be further down in the sending circuit section?)</span><br><br>
 
 
 <h3>(3) Build Sending Circuit</h3>
@@ -184,13 +189,14 @@ As mentioned in lecture, the multitouch pad consists of sender electrodes (e.g.,
 <iframe width="600" height="360" src="https://www.youtube.com/embed/FyLFEpmPYOg" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
 <br><br>
 
-<b>Providing the Input Signal from the ESP (SIG):</b> First, let's start by providing our multiplexer with the input signal from the ESP. For this, connect the signal pin (SIG) on the multiplexer to one of the pins on the ESP that can generate a PWM signal (<span style="color:red">any GPIO pin works</span>). <br><br>
+<b>Providing the Input Signal from the ESP (SIG):</b> First, let's start by providing our multiplexer with the input signal from the ESP. For this, connect the signal pin (SIG) on the multiplexer to <b>GPIO16 pin on the ESP</b>. Though Any GPIO pins that can generate a PWM signal work, we specified GPIO16 pin to check the submitted circuit easily.<br><br>
 
-<b>Connecting the output channels to the electrode columns (C0-C8):</b> If you look at your multiplexer, you can see that it has 16 output channels (pins on the left side from C0-C15). We want to connect each output channel to one column of our multi-touch pad (we don't need all 16 channels since our multi-touch pad only had 9 columns). We can then use the multiplexer to redirect the input signal from the SIG pin to one of the channels, thereby injecting the signal into a specific column of the multi-touch pad. Connect each of your electrode colunmns to one of the pins. You can connect the FPC connector breakout boards to the multiplexer via male-to-female jumper wires and a breadboard.<br><br>
+<b>Connecting the output channels to the electrode columns (C0-C8):</b> If you look at your multiplexer, you can see that it has 16 output channels (pins on the left side from C0-C15). We want to connect each output channel to one column of our multi-touch pad (we don't need all 16 channels since our multi-touch pad only had 9 columns). We will use <b>channels from C0 to C8</b>. We can then use the multiplexer to redirect the input signal from the SIG pin to one of the channels, thereby injecting the signal into a specific column of the multi-touch pad. Connect each of your electrode colunmns to one of the pins. You can connect the FPC connector breakout boards to the multiplexer via male-to-female jumper wires and a breadboard.<br><br>
 
-<span style="color:red">add an image of the FPC chip with jumper wires?</span><br><br>
+<span style="color:rgb(255, 0, 157)"><b>TODO: add an image of the FPC chip with jumper wires (or in general some breadboarding pictures)
+</b></span><br><br>
 
-<b>Selecting which Channel to send the Signal to (S0-S3):</b> The question remains how to we tell the multiplexer which channel our input signal should be directed to, i.e. how can we tell the multiplexer to send the input signal to e.g., the C12 output pin. The way our multiplexer does this is by asking us to send the desired output address using the four pins on the right side, labeled S0-S3. Why four pins? The multiplexer expects a binary signal, e.g. sending 0,0,0,0 to S0-S3 results in the output pin C0, vs. 0,1,1,0 send to to S0-S3 results in C6 as output pin. Thus, by using the multiplexer we can send a signal to up to 16 electrode columns (CH0-15)  using only 5 pins (SIG + S0,S1,S2,S3) on the ESP! Wire up the S0-S3 pins to <span style="color:red">GPIO pins on the ESP</span>.<br><br>
+<b>Selecting which Channel to send the Signal to (S0-S3):</b> The question remains how to we tell the multiplexer which channel our input signal should be directed to, i.e. how can we tell the multiplexer to send the input signal to e.g., the C12 output pin. The way our multiplexer does this is by asking us to send the desired output address using the four pins on the right side, labeled S0-S3. Why four pins? The multiplexer expects a binary signal, e.g. sending 0,0,0,0 to S0-S3 results in the output pin C0, vs. 0,1,1,0 send to to S0-S3 results in C6 as output pin. Thus, by using the multiplexer we can send a signal to up to 16 electrode columns (CH0-15) using only 5 pins (SIG + S0,S1,S2,S3) on the ESP! <b>Wire up the S0-S3 pins to GPIO19, GPIO18, GPIO5, GPIO17 pin on the ESP.</b> Though any GPIO pins on the ESP can be used, we specified GPIO16 pin to check the submitted circuit easily.<br><br>
 
 <b>Powering the Multiplexer:</b> Finally, connect the power VCC and GND pins on the multiplexer to the corresponding pins on the ESP to power the multiplexer.<br><br>
 
