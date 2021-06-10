@@ -74,7 +74,7 @@ In this lab, you are going to connect your card to Processing: When you push the
 
 At the end of the lab, upload to your student google drive:
 <ol>
-  <li>the Processing code (.pde) you wrote for Serial communication that displays the three touch bars and the slider bar</li>
+  <li>the Processing code (.pde) you wrote for Serial communication that displays the three touch buttons and the slider bar</li>
   <li>the Processing code (.pde) of the completed music card application</li>
   <li>a short video (.mov or .mp4, max. 1 minute, 50MB or less) showing how you use the printed music card, i.e. touch the buttons with your finger to play/pause a song and go to the previous/next song</li>
 </ol>
@@ -87,7 +87,7 @@ Before getting started with the new content, let's first make sure everything fr
 
 <h3 id="INSTALLPROCESSING">(1) Install Processing</h3>
 
-Since Arduino has no libraries for graphical user interfaces, we will send our touch input to a program called Processing that can render our music card and the touch buttons on the screen. <a href="https://processing.org" target="_blank">Processing</a> is a user interface protoyping platform that is based on Java. It was created by MIT students (and others) in their spare time in 2001 and is nowadays used by thousands of makers and UI designers.<br><br>
+Since Arduino has no libraries for graphical user interfaces, we will send our touch input to a program called <i>Processing</i> that can render our music card and the touch buttons on the screen. <a href="https://processing.org" target="_blank">Processing</a> is a user interface protoyping platform that is based on Java. It was created by MIT students (and others) in their spare time in 2001 and is nowadays used by thousands of makers and UI designers.<br><br>
 
 <b>Install Processing:</b> You can <a href="https://processing.org/download/">download and install Processing using this link here</a>.<br><br>
 
@@ -161,11 +161,16 @@ if (myPort.available() >= 4) {
     String val = myPort.readStringUntil(';'); 
   }</pre><br>
 
-<b>Reading Strings vs. other Datatypes:</b> Note that we use <code>myPort.readStringUntil()</code>, which we can do because we are sending a String on the serial port from our microcontroller. If we send other data-types, we would have to use a different function so Processing knows how to convert the un-typed data that is coming through the port at the specific baudrate.<br><br>
+<b>Check if Serial messages are available:</b>
+    Before we execute any code, we have to check if the Arduino has sent something we can process. When you think back to lab 2, you might remember that we formatted the touch signals with two numbers and two other character, e.g., <code>0,1;</code>. These are obviously 4 characters. Thus, we want to execute any code only if at least 4 characters got send over Serial. You can do that with the function <code>myPort.available()</code>, which returns how many characters are available on the Serial stack and we execute any code only if this stack has equal or more than 4 characters.<br><br>
+    
+    
+<b>Reading Serial messages:</b> 
+    Serial messages can be read into the Processing Script by using the function <code>myPort.readStringUntil()</code>. This function reads in all characters until a stop symbol is found and converts this message into a string. You formatted in lab 2 all Serial message to end with a semicolon (;). You can now use this stop symbol to read in exactly one touch event at a time.<br><br>
 
 <b>Print Received Strings:</b> Next, print the received String values to the Processing command line using the <a href="https://processing.org/reference/print_.html">print() function</a>.<br><br>
 
-<b>Testing if you Receive Data:</b> Before you run your Processing program, check one more time that the printed music card is connected to the ESP and the ESP is connected to your computer, and that the ESP is actually on and running its microcontroller program. Once you confirmed this, run your Processing program, and touch your touch sensor to see if the statements you printed to Serial port are getting printed on the Processing command line. If you are getting a ‘port busy’ error, make sure you close the Serial Monitor / Plotter on Arduino IDE since only one program can read from the Serial port at a time.<br><br>
+<b>Testing if you Receive Data:</b> Before you run your Processing program, check one more time that the printed music card is connected to the ESP and the ESP is connected to your computer, and that the ESP is actually on and running its microcontroller program. Once you confirmed this, run your Processing program, and touch your touch sensor to see if the statements you printed to Serial port are getting printed on the Processing command line. If you are getting a ‘port busy’ error, <b>make sure you close the Serial Monitor / Plotter on Arduino IDE</b> since only one program can read from the Serial port at a time.<br><br>
 
 <h3 id="EXTRACTTOUCHSTRING">(5) Extract Touch Sensor Information from the String</h3>
 
@@ -175,36 +180,37 @@ What we are currently printing to the command line are Strings in the format of 
 
 <h3 id="DRAWDIGITALBUTTON">(6) Draw a Digital Touch Button</h3>
 
-In the next step, we want to create a bar that goes up if the touch sensor is touched and down if the touch sensor is not touched. Let's start with a single bar for touch sensor #1 and we can do the rest later.<br><br>
+In the next step, we want to create a touch button (i.e., a circle) that is gray if the touch sensor is touched and red if the touch sensor is not touched. Let's start with a single button for touch sensor #1 and we can extend this script later.<br><br>
 
 <b>Set Size of GUI window:</b> By default, Processing already gives us a GUI window of a default size. However, for our purposes we need a larger window. Set the size of the window to 500px x 500px. You can <a href="https://processing.org/reference/size_.html">find more about it here in the size() reference</a>.<br><br>
 
-<b>Create a bar:</b> Create a bar (i.e. rectangle) with a fixed width of 100px and a fixed height of 300px. You can find useful information on how to do this here in the <a href="https://processing.org/reference/rect_.html">Rect reference</a> and the <a href="https://processing.org/reference/rectMode_.html">RectMode reference</a>.<br><br>
 
-<b>Color the bar:</b> Color the bar in a color of your choice. You can find more information about this in the <a href="https://processing.org/reference/fill_.html">Fill reference</a>. If you also want to color the background you can find out about this in the <a href="https://processing.org/reference/background_.html">Background reference</a>.<br><br>
+<b>Create a button/circle:</b> Create a button (i.e. circle) with a fixed width of 100px and a fixed height of 100px. You can find useful information on how to do this here in the <a href="https://processing.org/reference/ellipse_.html">ellipse reference</a> and the <a href="https://processing.org/reference/ellipseMode_.html">ellipseMode reference</a>.<br><br>
+
+<b>Color the circle:</b> Color the circle in a color of your choice. You can find more information about this in the <a href="https://processing.org/reference/fill_.html">Fill reference</a>. If you also want to color the background you can find out about this in the <a href="https://processing.org/reference/background_.html">Background reference</a>.<br><br>
 
 Once you are done it should look like this:<br><br>
 
-<img src="images/lab3/lab2-bar-up.png" width="250px"><br>
+<img src="images/lab3/1-touchbutton-nottouched.png" width="250px"><br>
 
 <h3 id="TOUCHSIGNALTOBUTTON">(7) Connect Incoming Touch Signal to On-Screen Touch Button</h3>
 
-Next, we will connect the height of the bar to the incoming touch signal.<br>
-A high bar shows that the sensor is being touched.<br>
-A low bar shows that the sensor is not being touched.<br><br>
+Next, we will connect the color of the circle to the incoming touch signal.<br>
+A red circle shows that the sensor is being touched.<br>
+A gray circle shows that the sensor is not being touched.<br><br>
 
-<img src="images/lab3/lab2-touched-not-touched.png" width="550px"><br><br>
+<img src="images/lab3/1-touchbutton.png" width="550px"><br><br>
 
 <b>Identifying if Incoming Touch Signal is for Touch Button 1:</b> If you use a String comparison to find which data belongs to touch button 1, remember you cannot use <code>stringVariable == "StringValue"</code>. Instead you need to use <code>equals()</code>. Check <a href="https://processing.org/reference/String_equals_.html">the reference here for equals()</a>. If you plan to use a boolean in Processing, the datatype is spelled out <code>boolean myVariable;</code> not <code>bool</code> like in Arduino.<br><br>
 
-<b>Redrawing the Bar:</b> When you redraw the bar with its new height, remember to first clear the background at the beginning of the draw() function. Otherwise, you are just drawing each update on top of the previous update, so you may actually not see the bar changing since a shorter bar overlaid over a longer bar is not visible. Use <code>background(255,255,255);</code> or any other color you like.<br><br>
+<b>Redrawing the Circle:</b> When you add or modify a shape in Processing, the old shape will not disappear but remain in the Processing window. Use <code>background(255);</code> or any other color you like to erase all content in your window and let the new circles be redrawn everytime the <code>draw()</code> function is executed.<br><br>
 
-Once you are done, it should look like in the image above.<br><br>
+Once you are done, it should look like in the image above (without the text).<br><br>
  
-<b>Extend Visualization to 3x Touch Buttons</b> Once you have the first touch bar done, extend the user interface to have a bar for all three touch sensors.<br>
-It should look like the image below.<br><br>
+<b>Extend Visualization to 3x Touch Buttons</b> Once you have the first touch button done, extend the user interface to have a circle for all three touch sensors.<br>
+It should look like the image below .<br><br>
 
-<img src="images/lab3/lab2-three-bars-multiple-touched2.png" width="650px"><br><br>
+<img src="images/lab3/2-three-buttons-notouch.png" width="275px"><br><br>
 
 Touching multiple touch sensors simultaenously also works. This should be a bit surprising to you, since we can only read one message at a time in the draw() function. The reason it still works is that we are reading messages at such a high speed that the processing gap is not visible to the human eye.<br><br>
 
