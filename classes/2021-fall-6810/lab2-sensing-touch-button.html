@@ -80,34 +80,49 @@ At the end of the lab, upload to your student google drive:
 
 <hr>
 
-<h3 id="INSTALLARDUINO">(1) Install Arduino and ESP Microcontroller Drivers</h3>
+<h3 id="INSTALLARDUINO">(1) Install Arduino IDE and ESP Microcontroller Drivers</h3>
 
 First, please <a href="install-arduino-esp.html">follow the instructions here to install Arduino, the ESP Core Board Manager, and the USB cable driver</a>. If you already have any of those but you installed them more than 3 months ago, we still recommend you reinstall everything to make sure you have the latest version. Once you have the Blink program working, you are ready to go!<br><br>
 
-<h3 id="TOUCHBUTTONBREADBOARD">(2) Connect Printed Touch Button to Breadboard</h3>
+<h3 id="TOUCHBUTTONBREADBOARD">(2) Mounting ESP and the touch sensors to 2 small breadboard</h3>
 
  <div style="color:black; border: black 1px solid; padding: 5px;margin-bottom:5px;">
 <b>Use the small breadboards:</b> For all labs, please use the small breadboards. Use the large breadboard only for the pset.</div>
 
-To connect a printed touch button to a breadboard, start by using a crocodile clamp to connect the touch button to a breadboard. One side of the crocodile clamp goes onto the connector pad of the touch button, the other side clips onto the end of a regular breadboard wire. The regular breadboard wire can then be used to connect to the breadboard. You will later repeat this procedure for all touch buttons and slider segments but let's first finish wiring up one of the touch buttons (continue below).<br><br>
+The ESP32 microcontroller is too large to be mounted on a single breadboard while still having access to all pins. Thus, we will put too small breadboard next to each other and mount the ESP32 right in the middle between the two.<br><br>
+    
+    When you look at a breadboard, you'll notice that there are two power lanes between these red and blue lines on the sides of a breadboard. In order to properly mount your ESP micrcontroller between two breadboards, you have to to break off one of these power lanes one one breadboard (not both!) and then connect the two breadboard together. <br><br>
+    (1) Let's get started with placing the breadboards side by side.<br>
+    (2) Now, take one of the breadboard and break off one of the power lanes on one side<br><br>
+    
+<img src="images/lab2/breadboards-2.jpg" height="250px">
+<img src="images/lab2/breadboard-break.jpg" height="250px"><br><br>
+    
+    (3) Next, connect the two breadboard using the small pins on their sides<br>
+    (4) And finally, put your ESP32 right onto the middle between the two breadboards<br><br>
+    
+<img src="images/lab2/breadboard-join.jpg" height="250px">
+<img src="images/lab2/breadboard-esp.jpg" height="250px"><br><br>
+    
+To connect a printed touch button to a breadboard, we will use a crocodile clamp and a jumper wire. One side of the crocodile clamp goes onto the connector pad of the touch button, the other side clips into the end of a jumper wire. The jumper wire can then be used to connect to the breadboard. You will later repeat this procedure for all touch buttons and slider segments but let's first finish wiring up one of the touch buttons.<br><br>
 
 <img src="images/lab2/lab1-crocodile-clamp-wire_new.jpg" width="357px" /><br><br>
 
 <h3 id="SENSINGCIRCUIT">(3) Build Sensing Circuit on the Breadboard</h3>
 
-<b>Capacitive Touch Sensing:</b> We will implement touch sensing based on the principle of capacitive touch sensing. The circuit for capacitive touch sensing requires a <b>sender pin</b>, which outputs a signal, and a <b>receiver pin</b>, which listens to the signal. The sender and receiver pin have the touch button connected between them. When a user touches the touch button, the signal that was injected by the sender pin will change and thus the receiver pin will receive a different signal. We can then analyze the change in signal to detect touch. The circuit also requires a resistor <span style="color:red">why? to reduce sensitivity to noise?</span>.<br><br>
+<b>Capacitive Touch Sensing:</b> We will implement touch sensing based on the principle of capacitive touch sensing. The circuit for capacitive touch sensing requires a <b>sender pin</b>, which outputs a signal, and a <b>receiver pin</b>, which listens to the signal. The sender and receiver pin have the touch button connected between them. When a user touches the touch button, the signal that was injected by the sender pin will take longer to discharge due to a capacitive object nearby, for example, your finger. The ESP32 can measure this time difference and, thus, detect touch. To delay this dicharge and make the time difference measurable for the ESP32, we have to mount a resistor between the sender and the receiver signal. A higher resistance enables more sensitive sensing. Using, for example a 10MOhm resistor even enables to sense a finger in up to about 10cm distance at the cost of speed because the signal takes longer to discharge. We will use in this lab a 100kOhm resistor because it offers a good trade-off between sensitivity and sensing speed.<br><br>
 
 <img src="images/lab2/capsense.png" width="300px"><img src="images/lab2/lab1-circuit.png" width="400px"><br><br>
 
 Let's build the circuit from the schematic above:<br><br>
 
-<b>Sender Pin:</b> For the sender pin, you can use any GPIO pin on the ESP. For this first exercise, we ask you to use <i>pin 2</i>. Wire the ESP sender pin to the breadboard. <br><br>
+<b>Sender Pin:</b> For the sender pin, you can use any GPIO pin on the ESP. For this first exercise, we ask you to use <i>pin 25</i>.<br><br>
 
-<b>Receiver Pin:</b> For the receiver pin, it is best to use a pin that is labeled 'TOUCH' (see ESP pin out below). These pins are optimized to serve as receivers for capacitive sensing and therefore return cleaner signals, so we will use them for our sensing application. <span style="color:red">Do *not* use TOUCH1, it does not work on this particular model of ESP32</span> <a href="#section1">[1]</a>. For this first exercise, we ask you to use <i>pin 4</i>. Wire the ESP receiver pin to the breadboard.<br><br>
+<b>Receiver Pin:</b> For the receiver pin, it is best to use a pin that is labeled 'TOUCH' (see ESP pin out below). These pins are optimized to serve as receivers for capacitive sensing and therefore return cleaner signals, so we will use them for our sensing application. <span style="color:red">Do *not* use TOUCH0, it does not work on this particular model of ESP32</span> <a href="#section1">[1]</a>. For this first exercise, we ask you to use <i>pin 14</i>.<br><br>
 
-<b>Resistor:</b> We will use one <i>100k Ohm resistor</i>. Add the resistor to the circuit.<br><br>
+<b>Resistor:</b> We will use one <i>100k Ohm resistor</i>. Add the resistor to the circuit between your sender and receiver pin.<br><br>
 
-<img src="images/lab2/esp32-pinout.jpg" width="500px" /><br><br>
+<img src="images/lab2/esp32-pinout.png" width="750px" /><br><br>
 
 <h3 id="CAPACITIVELIBRARY">(4) Install Arduino Capacitive Sensing Library</h3>
 
@@ -137,9 +152,9 @@ By now, you should have already downloaded the <a href="images/touch-button.zip"
 
 double analog_touch;
 
-int sender = 2;
+int sender = 25;
 
-int touch_pin_1 = 4;
+int touch_pin_1 = 14;
 
 int samples_touch = 10;
 
@@ -162,25 +177,25 @@ void loop()
 }</code></pre>
 <br>
 
-<b>Use Serial Monitor to Observe Signal Changes During Touch:</b> If you open the serial monitor, you should see a bunch of numbers fly by. If you touch your touch sensor, the values should change significantly. Remember: do not touch the silver directly but interact on the visual design, i.e. the side that has no silver. If your numbers don't change, there may be something wrong with your circuit. Please double check your circuit and then ask a TA for help.<br><br>
+<b>Use Serial Monitor to Observe Signal Changes During Touch:</b> The Arduino IDE has a build in monitor to display signals (e.g., the touch signals) on your computer. You can open the serial monitor by clicking on the squared icon in the upper right corder of your Arduino IDE window (see image below).  If you open the serial monitor, you should see a bunch of numbers fly by. If you touch your touch sensor, the values should change significantly. Remember: do not touch the silver directly but interact on the visual design, i.e. the side that has no silver. If your numbers don't change, there may be something wrong with your circuit. Please double check your circuit and then ask a TA for help.<br><br>
 
-<img src="images/lab2/lab1-touching-plotting.png" width="680px"><br><br>
+<img src="images/lab2/serial_monitor.png" width="600px"><br><br>
 
 <h3 id="EXTENDCIRCUITCODE">(6) Extend Circuit and Code to 3x Touch Sensors</h3>
 
  <div style="color:black; border: black 1px solid; padding: 5px;margin-bottom:5px;">In this lab, we will only build the circuit and write the code for the touch buttons. We will take care of the slider in a later lab.</div>
 
-<b>Extend Circuit:</b> Since we have three notes that serve as touch buttons, we need to extend our circuit to read those touch signals as well. Use a breadboard to make 3 touch button circuits, each connecting to one of the notes. You can use the <b>same sender pin</b> for all three touch buttons. Only the receiver pin has to vary, i.e. you need one receiver pin for each touch signal you want to read. Also each touch sensor needs its own 100k Ohm resistor. The pin numbers are up to you.<br><br>
+<b>Extend Circuit:</b> Since we have three notes that serve as touch buttons, we need to extend our circuit to read those touch signals as well. Use a breadboard to make 3 touch button circuits, each connecting to one of the notes. You can use the <b>same sender pin</b> for all three touch buttons. Only the receiver pin has to vary, i.e. you need one receiver pin for each touch signal you want to read. Also each touch sensor needs its own 100k Ohm resistor. The pin numbers are up to you.<br><br> 
 
 <b>Extend Code:</b> Next, extend your code to read and print all 3 of your touch sensors. When you print your touch values, please use Serial.print() not Serial.println(). Each sensed value should be separated by a tabulator symbol Serial.print(","); and the line should finish with a new line Serial.print("\n").<br><br>
 
-<b>Test If Circuit and Sensing Works:</b> Use the Serial plotter to visualize the received signals by clicking on 'Tools->Serial Plotter'. Because of the formatting we used (comma seperated using Serial.print()), we can see all three variables plotted at the same time. Similar to before, touch the sensors and see how the signal changes. If you see no changes, either your circuit or your code have a bug. Below you see how we touch the button 1 first, then button 2 and finally button 3. You can increase the number of times the signal is sampled by increasing the value of 'samples_touch' in your code.<br><br>
+<b>Test If Circuit and Sensing Works:</b> Instead of reading raw numbers in the Serial Monitor, you can also plot the received values in a nice graph. To do this, open the Serial plotter to visualize the received signals by clicking on 'Tools->Serial Plotter'. Because of the formatting we used (comma seperated using Serial.print()), we can see all three variables plotted at the same time. Similar to before, touch the sensors and see how the signal changes. If you see no changes, either your circuit or your code have a bug. Below you see how we touch the button 1 first, then button 2 and finally button 3. You can increase the number of times the signal is sampled by increasing the value of 'samples_touch' in your code.<br><br>
 
 <img src="images/lab2/lab1-plotting-signals_new.png" width="480px"><br><br>
 
 <h3 id="THRESHOLD">(7) Threshold Touch Signals: Touched or not Touched?</h3>
 
-Next, we want to convert the raw signal into either button touched or button not touched. As you saw in the serial plotter, the values for each sensor can vary pretty wildly as mentioned in lecture. We will do more filtering of signals later in class, but for now we will make a rough estimate in which range our sensor signal falls for each touch button and then use a simple if/then statement. Look at the serial plotter to determine the range for each touch button. Write code that iterates over all sensors and outputs every 200ms if each touch button was touched or not.<br><br>
+Next, we want to convert the raw signal into touch events, i.e. 'button touched' or 'button not touched'. As you saw in the serial plotter, the values for each sensor can vary pretty wildly as mentioned in lecture. We will do more filtering of signals later in class, but for now we will make a rough estimate in which range our sensor signal falls for each touch button and then use a simple if/then statement. Look at the serial plotter to determine the range for each touch button. Write code that iterates over all sensors and outputs every 200ms if each touch button was touched or not.<br><br>
 
 <h3 id="SERIALOUTPUT">(8) Format Serial Output</h3>
 
@@ -191,7 +206,9 @@ In the next lab, we will read the output from the Serial Monitor into a program 
 <code>(sensor ID),(is_touched);</code><br>
     
 <i>(sensor ID):</i> is either 0, 1 or 2 and represents the ID of the observed touch sensor.<br>
-<i>(is_touched):</i> is either 0 or 1 (0 if the sensor is not touched, and 1 if it is touched).<br><br>
+<i>(is_touched):</i> is either 0 or 1 (0 if the sensor is not touched, and 1 if it is touched).<br>
+<i>(,):</i> the comma is the separator between the two numbers.<br>
+<i>(;):</i> the semicolon is the end symbol of the message.<br><br>
 
 A sample output for touching only sensor 0 should look like:<br>
 <pre><code>0,1;
@@ -199,9 +216,7 @@ A sample output for touching only sensor 0 should look like:<br>
 2,0;
 </code></pre>
 
-We are still writing to the Serial Monitor, so use strings for your numbers.<br><br>
-
-<b>Print Serial Messages only when Button State Changes:</b> So far we have been printing all touch button values to the Serial monitor no matter if the state of the touch button changed or not. As the last step in this lab, we want to print new information only if the sensor state changes, i.e. a touch button was not touched before but is now being touched, or the touch button was touched but the user just released the finger. Change the code such that it tracks in which state each sensors is currently in. Check for a state change and send the Serial message only then. <br><br>
+<b>Print Serial Messages only when Button State Changes:</b> So far we have been printing all touch button values to the Serial monitor no matter if the state of the touch button changed or not. As the last step in this lab, we want to print new information only if the sensor state changes, i.e. a touch button was not touched before but is now being touched, or the touch button was touched but the user just released the finger. Change the code such that it tracks in which state each sensors is currently in. Check for a state change and send the Serial message only once. <br><br>
 
 Example:<br>
 
@@ -210,6 +225,8 @@ If sensor 0 gets touched, this message is printed once:<br>
 
 Then when the user lifts the finger again, this message is printed once:<br>
 <pre><code>0,0;</code></pre>
+    
+In between these two events, no message should be sent.<br><br>
 
 <h3>Deliverables</h3>
 
