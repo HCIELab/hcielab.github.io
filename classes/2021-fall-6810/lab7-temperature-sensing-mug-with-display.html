@@ -78,7 +78,88 @@ In this lab, we will build an interactive mug that can sense its own temperature
     </ul>
     
     
+    <h3 class="headline">(1) Designing the inkjet printed temperature sensor</h3>
+
+    First, you will use conductive inkjet printing to make your own temperature sensor from scratch.<br><br>
+
+    <b>Why can conductive wires be used to sense temperature?</b><br>
+    Conductive wires can be used to sense temperature by making use of a material property that most conductive metals share: Their resistance changes with changes in temperature. This property is called <b>thermal resistivity p</b> and is shown in the formula for determining the overall resistance of a wire below. As you can see, given a wire with a fixed length l and cross section A, the higher the thermal resistivity the higher the overall resistance. For our silver, the thermal resistivity p increases with increasing temperature. Thus, the higher the temperature, the higher the thermal resistivity and the higher the overall resistance of our wire. Thus, by reading the overall resistance of the wire with our microcontroller, we can determine the mug's temperature.<br><Br> 
+
+    <img src="images/lab6/resistance.png" width="400px"><br><br>
+
+    <b>How high should the resistance of the wire be to work as a reliable temperature sensor?</b><br>
+    The higher the resistance of the conductive wire, the more sensitive it will be to temperature changes.<br>
+    Consider the following, if you have a small resistor (e.g., 50Ohm) and the resistance changes a little bit (e.g. 5%), the change will be very small (i.e., 5% of 50Ohm = 2.5Ohm). This is difficult to measure since there is always a bit of noise in electronics. In contrast, if you use a large resistor (e.g., 1kOhm), the change will be larger (i.e., 5% of 1,000 Ohm = 50Ohm). Therefore, our ideal temperature sensor should be a wire with high resistance. We choose 1kOhm since that gives us a pretty high sensitivity, but you could also go higher.<br><br>
+
+    <b>How can we create a conductive wire with high resistance?</b><br>
+    If you look again at the image above, you can see that the resistance of a conductive wire is determined by its cross-section A and its length l. Note that when we talk about the cross-section A in our example here, we mean the width of the wire since the height will be the same for all our prints. <br> 
+    To create a high resistance wire, should the <b>cross-section A</b> be larger or smaller?<br>
+    To create a high resistance wire, should the <b>length of the wire l</b> be longer or shorter? <br>
+    Look at the formula in the image.<br><br>
+
+    To create a high resistance wire, the cross-section A (width of the wire) should be as small as possible.<br>
+    To create a high resistance wire, the length of the wire should be as long as possible.
+
+    <br><br>
+
+    <b>How thin and how long should the wire be?</b><br>
+    As you just figured out, the thinner and longer the conductive wire the higher the resistance.<br><br>
+
+    <i>Thickness:</i> Since long wires take up space on our prototype, we should first try to minimize the thickness to increase the resistance. We ran a few experiments and found that the thinnest trace we can print is 0.3mm wide. Any thinner than this and the silver does not connect reliably anymore.<br><br> 
+ 
+    <i>Resistance of a 1cm long trace:</i> So now that we know the smallest thickness is 0.3mm wide, how much resistance does a wire like that have? To determine this, we printed a trace of 0.3mm width and 1cm length and found that its resistance was 7.5 Ohm/cm at room temperature.<br>
+     Note that this can vary depending on the substrate, the 2D printer, and the silver ink mixture, so if you change any of these you would have to remeasure the resistance.<br><br> 
+
+     <i>Required Length of the wire for 1kOhm?</i> Assuming that the thermal resistivity p and the height of the trace is constant, how long does your conductive wire have to be to have 1kOhm resistance?<br>
+     Remember that the thermal resistance p at room temperature 20C for a 0.3mm cross-section wire is p(20C) = 7.5Ohm/cm.<br> 
+
+     We can therefore estimate the resistance of a trace of length l at room temperature by calculating<br><br>
     
+    <pre>resistance = l * p(20C) = l * 7.5 Ohm/cm</pre><br>
+
+
+     <b>Shaping a long conductive wire into a compact form factor:</b><br>
+    Now that we know how long the wire has to be, the next question that arises is how to best shape it to take up minimal space on our design? A classic method to create a long wire on a small area is to design it in a horse shoe pattern similar to this:<br><br>
+    
+    <img src="images/lab6/hsp.png" width="700px"><br><br>
+       
+    <b>Write Processing Script to generate line layout:</b><br>
+
+    Since drawing this manually is quite the pain, we instead want to leverage our computational design capabilities in Processing. Write a Processing Script that generates a temperature sensor layout of variable length depending on a desired overall resistance. Reuse your code from pset1 to write this script. <br><br>
+
+    The Processing script should have the following features:<br><br>
+    <ol>
+        <li>user input elements for line thickness (default: 0.3mm), overall resistance, and overall width of  temperature sensor (default: 7cm)</li>
+        <li>generate a set of horizontal lines of the given thickness and connect them with vertical lines on alternating sides, the distance between each horizontal trace should be 0.5mm</li>
+        <li>output a .pdf that contains the temperature sensor</li>
+    </ol><br>
+  
+    Once you exported your pdf, you are ready to move onto the next step.<br><br>
+
+    <h3 class="headline">(2) Extend Temperature Sensor Circuit with Wires<br> that Connect to EL display</h3>
+    
+    Now that we have our temperature sensor, it's time to plan how it will connect to the EL display so we can create the overall circuit layout that we want to attach to the mug. <br>
+    Open your temperature sensor in Adobe Illustrator to extend it with the remaining circuit.<br><br>
+
+    Below, you see an image of the mug for reference. <br><br>
+
+    <img src="images/lab6/mug.png" width="300px"><br><br>
+
+    And further below you see an image of the overall circuit layout that fits onto the mug and has all the elements you need for the circuit.<br><br>
+
+    <img src="images/lab6/mugCircuit.PNG" width="700px"><br><br>
+
+    For your drawn circuit, aim for a total size aim of 17cm width and 7.5cm height so that the final design will fit nicely on the mug.<br>
+
+    Your drawn circuit needs to include:<br><br>
+    <ol>
+        <li>the imported temperature sensor placed near the mug's handle</li>
+        <li>your sprayed EL display on the opposite side of the handle <span style="color:red">(nothing you need to draw here, just make sure you plan for the space, i.e. there should be no overlap with the temperature sensor)</span></li>
+        <li>4 connector pads to connect your microcontroller to the mug's circuit (each size: 3cmx1cm), i.e. two will be used to connect to the temperature sensor, the other two to the EL display </li>
+        <li>2 printed wires that connect the connector pads to the temperature sensor (wire thickness: 1mm)</li>
+        <li>2 printed wires that connect the connector pads to the EL display (wire thickness: 2mm, with a distance of a least 3cm between them at the location where they connect to the EL display to avoid short circuits). Note that the location of these wires depends on where you put the copper flap and copper strip onto your sprayed EL display. If they are not at the bottom of the display but instead at the top, you need to route one of the wires above the temperature sensors.
+        </li>
+    </ol><br>
     <h3 class="headline">(3) Fabrication and Assembly of Circuit, EL display, and Mug</h3><br>
 
     Now that you have the design ready, you can come in for fabrication and assembly.<br><br>
