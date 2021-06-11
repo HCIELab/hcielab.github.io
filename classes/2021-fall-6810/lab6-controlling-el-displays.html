@@ -96,7 +96,7 @@ While building your circuit, you must adhere to the following rules:
 <img src="images/lab6/battery-holder.png" width="590px"><br><br>
 
 
- <h3 id="XX">(2) Connect Inverter Output to EL Display</h3><br>
+ <h3 id="XX">(2) Connect Inverter Output to EL Display</h3>
 
 <b>AC vs. DC current:</b> EL displays require an alternating current between the two elecrodes to excite the phosphor and make it light up. Therefore, just connecting it to a DC power supply, like the 3.3V DC from your ESP32, won't do the trick. We therefore use an inverter to generate AC current from DC.<br><br>
 
@@ -110,7 +110,7 @@ While building your circuit, you must adhere to the following rules:
 <img src="images/lab6/wiring-interverter-output.png" width="750px"><br><br>
 
 
- <h3 id="XX">(3) Connect Inverter Input to Battery</h3><br>
+ <h3 id="XX">(3) Connect Inverter Input to Battery</h3>
 
 <b>Add Jumper Wires to Inverter Input:</b> The inverter input is the black/red cable. Take two jumper wires and stick them into the white connector of the interverter input.<br><br>
 
@@ -120,22 +120,19 @@ While building your circuit, you must adhere to the following rules:
 
 <span style="color:red">can we have an image here with wiring as described but without battery?</span><br><br>
 
- <h3 id="XX">(4) Power up Your Display</h3><br>
+ <h3 id="XX">(4) Power up Your Display</h3>
 
-Once you are done wiring, turn the display around such that you see the top side. <br>
-The copper should be on the bottom now and you can't see it anymore. <br><br>
+<b>Flip Display:</b> Once you are done wiring, turn the display around such that you see the top side. The copper should be on the bottom now and you can't see it anymore. <br><br>
 
-When this is done, make sure you are not touching the circuit anymore at any place.<br> 
-Then insert the AA battery into the battery holder. <br>
-You should see a bright EL display in the shape of the coffee mug now. <br>
-If you see that, congratulations. <br>
-If not, remove the battery, then check if all wires are connected properly, and try again.<br>
-If it still does not work, ask for some help from the TAs.<br><br>
+<b>Insert AA Battery (do not touch the circuit anymore):</b> Before you insert the battery, make sure you are not touching the circuit anymore at any place, do not touch the display. Then insert the AA battery into the battery holder. You should see a bright EL display in the shape of the coffee mug now. <br><br>
+
+<b>Debugging the Display:</b> If your display does not light up, remove the battery, then check if all wires are connected properly. Before you reinsert the battery, remember you should not touch the circuit or display.<br><br>
     
-<img src="images//lab3/displayconnected.jpg" width="600px"><br><br>
+<img src="images/lab6/displayconnected-cropped.jpg" width="450px"><br><br>
 
 
-<h3 class="headline">Building the control circuit for EL Displays</h3>
+<h3 id="XX">(5) Build Control Circuit for Display</h3>
+
 
 Now you can turn on/off your display by plugging and unplugging the battery.<br> 
 That's ok but it would be nicer to do this via code and not by physically plugging/unplugging the battery.<br>
@@ -172,14 +169,14 @@ Bringing it all together, our AC switch circuit should look like this:<br><br>
 Get yourself a breadboard, wires and the components and build it.<br>
 <span style="color:red">Note that the optocoupler has to be plugged in in a specific orientation.</span> Look at the <a href="https://www.mouser.com/datasheet/2/308/MOC3163M-D-1811983.pdf" target="_blank">datasheet of the optocoupler here</a> to find out where the pins are. <br> The little dot on its top indicates the top left corner of the component. <br><br>
 
-<h3 class="headline">Write a Program to turn the Display On/Off</h3>
+<h3 id="XX">(6) Write Program to turn the Display On/Off</h3>
 
 Now that we have wired up our control circuit, we still have to write the code for it.<br>
 As an example, we will write a script that lets the display blink. <br>
 This is very simple with the circuit you already built.<br>
 Check again, to which pin you connected the <b>optocoupler</b> and use this pin to turn it on and off.<br><br>
 
-<h3 class="headline">Write a Program to Dim the Display</h3>
+<h3 id="XX">(7) Write Program to Dim Display</h3>
 
 Finally, we want to not just turn the display on/off but also set the displays brightness (e.g. dimming it down).<br>
 In 6.08 (pre-requisit for this class), you already learned about pulse-width-modulation (PWM) to dim light sources like an LED.<br><br>
