@@ -60,14 +60,14 @@
 
 <h3>Steps:</h3>
 <ol>
-  <li><a href="#XXXX">Safety Instructions</a></li>
-  <li><a href="#XXXX">Connect Inverter Output to EL Display</a></li>
-  <li><a href="#XXXX">Connect Inverter Input to Battery</a></li>
-  <li><a href="#XXXX">Power up Your Display</a></li>
-  <li><a href="#XXXX">Isolate Display and Control Circuit</a></li>
-  <li><a href="#XXXX">Add Switch to Control Circuit</a></li>
-  <li><a href="#XXXX">Write Program to Turn the Display On/Off</a></li>
-  <li><a href="#XXXX">Write Program to Dim Display</a></li>
+  <li><a href="#safety">Safety Instructions</a></li>
+  <li><a href="#inverteroutput">Connect Inverter Output to EL Display</a></li>
+  <li><a href="#inverterinput">Connect Inverter Input to Battery</a></li>
+  <li><a href="#poweringdisplay">Power up Your Display</a></li>
+  <li><a href="#isolatecircuits">Isolate Display and Control Circuit</a></li>
+  <li><a href="#addingswitch">Add Switch to Control Circuit</a></li>
+  <li><a href="#displayonoffcode">Write Program to Turn the Display On/Off</a></li>
+  <li><a href="#displaydimcode">Write Program to Dim Display</a></li>
 </ol>
 
 
@@ -80,7 +80,7 @@ At the end of the lab, upload to your student google drive:
   <li>a short video (.mov or .mp4, max. 1 minute) showing how you display dims and performs a full cycle from bright to dark and dark to bright again</li>
 </ol><br>
 
- <h3 id="XX">(1) Safety Instructions</h3>
+ <h3 id="safety">(1) Safety Instructions</h3>
 
 In this tutorial, we will generate 50V AC from a 1.2V AA battery using an inverter. 50V AC is the maximum allowed voltage for class activities. You are not allowed to use the inverter with anything else than the 1.2V AA battery we provide for you. Our 50V AC are low current and not dangerous, but you will feel a sensation at the tips of your fingers when touching the circuit. Therefore, never plug the display in while you are working on the circuit and you are touching the wires!<br><br>
 
@@ -96,7 +96,7 @@ While building your circuit, you must adhere to the following rules:
 <img src="images/lab6/battery-holder.png" width="590px"><br><br>
 
 
- <h3 id="XX">(2) Connect Inverter Output to EL Display</h3>
+ <h3 id="inverteroutput">(2) Connect Inverter Output to EL Display</h3>
 
 <b>AC vs. DC current:</b> EL displays require an alternating current between the two elecrodes to excite the phosphor and make it light up. Therefore, just connecting it to a DC power supply, like the 3.3V DC from your ESP32, won't do the trick. We therefore use an inverter to generate AC current from DC.<br><br>
 
@@ -110,7 +110,7 @@ While building your circuit, you must adhere to the following rules:
 <img src="images/lab6/wiring-interverter-output.png" width="750px"><br><br>
 
 
- <h3 id="XX">(3) Connect Inverter Input to Battery</h3>
+ <h3 id="inverterinput">(3) Connect Inverter Input to Battery</h3>
 
 <b>Add Jumper Wires to Inverter Input:</b> The inverter input is the black/red cable. Take two jumper wires and stick them into the white connector of the interverter input.<br><br>
 
@@ -120,7 +120,7 @@ While building your circuit, you must adhere to the following rules:
 
 <span style="color:red">can we have an image here with wiring as described but without battery?</span><br><br>
 
- <h3 id="XX">(4) Power up Your Display</h3>
+ <h3 id="poweringdisplay">(4) Power up Your Display</h3>
 
 <b>Flip Display:</b> Once you are done wiring, turn the display around such that you see the top side. The copper should be on the bottom now and you can't see it anymore. <br><br>
 
@@ -131,7 +131,7 @@ While building your circuit, you must adhere to the following rules:
 <img src="images/lab6/displayconnected-cropped.jpg" width="450px"><br><br>
 
 
-<h3 id="XX">(5) Isolate Display and Control Circuit</h3>
+<h3 id="isolatecircuits">(5) Isolate Display and Control Circuit</h3>
 
 You already know how to turn on/off your display by plugging and unplugging the battery. It would be nicer to do this via code and not by physically plugging/unplugging the battery. Thus, we will next build a control circuit that lets you do this.<br><br>
 
@@ -148,7 +148,7 @@ You already know how to turn on/off your display by plugging and unplugging the 
 
 <b>Connect the Display Circuit to the Optocoupler:</b> <span style="color:red">Connect the optocoupler to display circuit. <span style="color:red">please explain more how.</span> This will ensure that when the octocouplers LED is set to high, the display circuit is closed and current will flow from GND from the inverter the top of the display.</span><br><br>
 
-<h3 id="XX">(6) Add Switch to Control Circuit</h3>
+<h3 id="addingswitch">(6) Add Switch to Control Circuit</h3>
 
 <span style="color:red">I don't understand why I need the triac. Why can I not just use a GPIO pin from the ESP instead of VCC and then turn on/off the optocoupler as my switch?</span>
 
@@ -168,14 +168,14 @@ In the above setup, we could have wired the VCC to an ESP GPIO pin to turn the o
 
 
 
-<h3 id="XX">(7) Write Program to Turn the Display On/Off</h3>
+<h3 id="displayonoffcode">(7) Write Program to Turn the Display On/Off</h3>
 
 Now that we have wired up our control circuit, we still have to write the code for it.<br>
 As an example, we will write a script that lets the display blink. <br>
 This is very simple with the circuit you already built.<br>
 Check again, to which pin you connected the <b>optocoupler</b> and use this pin to turn it on and off.<br><br>
 
-<h3 id="XX">(8) Write Program to Dim Display</h3>
+<h3 id="displaydimcode">(8) Write Program to Dim Display</h3>
 
 Finally, we want to not just turn the display on/off but also set the displays brightness (e.g. dimming it down).<br>
 In 6.08 (pre-requisit for this class), you already learned about pulse-width-modulation (PWM) to dim light sources like an LED.<br><br>
