@@ -85,7 +85,7 @@ In the user interface, create two input fields that allow the user to set the de
 
 <img src="images/pset1/user-interface-inputs.png" width="300px"><br><br>
 
-In the skeleton code, put your code for creating the user interface into the createUI() function:
+In the skeleton code, put your code for creating the input fields into the <code>createUI()</code> function:
 
 <pre>
 	<code class="language-processing">
@@ -100,9 +100,7 @@ In the skeleton code, put your code for creating the user interface into the cre
 <img src="images/pset1/drawing-electrodes-wires.png" width="350px"><br><br>
 
 <b>Drawing one electrode:</b> Next, draw one electrode. An electrode is a rectangle rotated by 45 degrees.
-Use the variable defined as 'electrodeSize' in the set1_header file for the size of the electrode.
-You can assign the exact size of the electrode to this variable later.
-<br>
+Use the variable <code>electrodeSize</code> from the pset1_header.pde file for the size of the electrode.<br>
 
 <pre>
 	<code class="language-processing">
@@ -112,7 +110,7 @@ You can assign the exact size of the electrode to this variable later.
 
 <br>
 
-In the skeleton code, put your code for drawing one electrode into the drawSingleElectrode() function:
+In the skeleton code, put your code for drawing one electrode into the <code>drawSingleElectrode()</code> function:
 
 <pre>
 	<code class="language-processing">
@@ -125,9 +123,8 @@ In the skeleton code, put your code for drawing one electrode into the drawSingl
 
 <!-- For now, don't worry about the exact size. To draw the electrode, you should use a <a href="https://processing.org/reference/PGraphics.html">PGraphics</a> canvas and then draw a <a href="https://processing.org/reference/PImage.html">PImage</a> onto it. -->
 
-<b>Drawing multiple electrodes & Connecting to UI input:</b> Once you can draw one electrode, create a second electrode at an offset either horizontally to start forming a row or vertically to start forming a column.
-Use the variable defined as 'electrodeOffset' in the set1_header file for the offset.
-You can assign the exact number of the offset to this variable later.
+<b>Drawing multiple electrodes:</b> Once you can draw one electrode, create a second electrode at an offset either horizontally to start forming a row or vertically to start forming a column.
+Use the variable <code>electrodeOffset</code> from the pset1_header.pde file for the offset.
 <br>
 <!-- For now, don't worry about the exact number for the offset. -->
 
@@ -139,9 +136,7 @@ You can assign the exact number of the offset to this variable later.
 
 <br>
 
-Next, connect the number of electrodes to your user interface input elements, i.e. when the user sets the number of electrodes for the columns to be '10' and rows to be '6' your screen should draw ten electrodes vertically and 6 electrodes horizontally.<br><br>
-
-In the skeleton code, put your code for drawing multiple electrodes into the drawElectrodes() function:
+In the skeleton code, put your code for drawing multiple electrodes into the <code>drawElectrodes()</code> function:
 
 <pre>
 	<code class="language-processing">
@@ -152,14 +147,11 @@ In the skeleton code, put your code for drawing multiple electrodes into the dra
 	</code>
 </pre>
 
-<br>
+<b>Connect electrode number to UI input:</b> Next, connect the number of electrodes to your UI input elements, i.e. when the user sets the number of electrodes for the columns to be '10' and rows to be '6' your screen should draw 10 electrodes vertically and 6 electrodes horizontally.<br><br>
 
 <b>Drawing Wires:</b> Next, draw the wires that connect the electrodes.
-Use the variable defined as 'wireThicknessInside' and 'wireThicknessOutside' in the set1_header file for the thickness of wires.
-You can assign the exact thickness to those variables later.
-<br><br>
+Use the variables <code>wireThicknessInside</code> and <code>wireThicknessOutside</code> from the pset1_header.pde file for the thickness of wires.<br>
 
-<!-- For now don't worry about the exact thickness. -->
 <pre>
 	<code class="language-processing">
 		float wireThicknessInside = 0.3*mm;		// the thickness of the wires inside of multi-touch pad that connect electrodes, in mm (default value: 0.3mm)
@@ -170,10 +162,8 @@ You can assign the exact thickness to those variables later.
 <br>
 
 At the end of each row/column, the wire is routed to the side to connect to an FPC connector.
-Use the variable defined as 'spacing' in the set1_header file for the spacing on the FPC connector.
-You can assign the exact spacing on the FPC connector to this variable later.
-<!-- For now, don't worry about the exact spacing on the FPC connector. -->
-<br><br>
+Use the variable defined as <code>spacing</code> in the pset1_header.pde file for the spacing on the FPC connector.
+<br>
 <pre>
 	<code class="language-processing">
 		float spacing = 0.5*mm;	// the spacing of wires on the FPC connector in mm
@@ -182,7 +172,7 @@ You can assign the exact spacing on the FPC connector to this variable later.
 
 <br>
 
-In the skeleton code, put your code for drawing wires into the drawWires() function:
+In the skeleton code, put your code for drawing wires into the <code>drawWires()</code> function:
 
 <pre>
 	<code class="language-processing">
@@ -191,15 +181,16 @@ In the skeleton code, put your code for drawing wires into the drawWires() funct
 	</code>
 </pre>
 
+<span style="color:red"><b>Mirror Bottom/Top Layers:</b> The Preview Function section was confusing because we haven't told people about making two layers and how they differ. I think we first need to tell people how the first layer differs from the second layer. Does it need to be rotated? Or is it enough to simply draw the wires to another place?</span><br>
 <br>
 
 <h3>(3) Preview Function to Look at Each Layer Individually</h3>
 
-For the preview function, create one button that switches between the design's top and bottom layer view. Clicking the button should either show the top layer or the bottom layer so the layers can be looked at individually.<br><br>
+<b>Create 'Switch Views' Button:</b> Create one button that switches between the design's top and bottom layer view. Clicking the button should either show the top layer or the bottom layer so the layers can be looked at individually.<br><br>
 
 <img src="images/pset1/switch-view.png" width="700px"><br><br>
 
-In the skeleton code, put your code for switching views between the design's top and bottom layer into the switchView() function:
+In the skeleton code, put your code for switching views between the design's top and bottom layer into the <code>switchView()</code> function:
 
 <pre>
 	<code class="language-processing">
