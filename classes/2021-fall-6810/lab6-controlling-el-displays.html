@@ -60,10 +60,10 @@
 
 <h3>Steps:</h3>
 <ol>
-  <li><a href="#XXXX">XXXX</a></li>
-  <li><a href="#XXXX">XXXX</a></li>
-  <li><a href="#XXXX">XXXX</a></li>
-  <li><a href="#XXXX">XXXX</a></li>
+  <li><a href="#XXXX">Safety Instructions</a></li>
+  <li><a href="#XXXX">Connect Inverter Output to EL Display</a></li>
+  <li><a href="#XXXX">Connect Inverter Input to Battery</a></li>
+  <li><a href="#XXXX">Power up Your Display</a></li>
   <li><a href="#XXXX">XXXX</a></li>
   <li><a href="#XXXX">XXXX</a></li>
   <li><a href="#XXXX">XXXX</a></li>
@@ -80,58 +80,47 @@ At the end of the lab, upload to your student google drive:
   <li>a short video (.mov or .mp4, max. 1 minute) showing how you display dims and performs a full cycle from bright to dark and dark to bright again</li>
 </ol><br>
 
- <h3 id="XX">(1) Wire up EL Display</h3><br>
+ <h3 id="XX">(1) Safety Instructions</h3>
 
+In this tutorial, we will generate 50V AC from a 1.2V AA battery using an inverter. 50V AC is the maximum allowed voltage for class activities. You are not allowed to use the inverter with anything else than the 1.2V AA battery we provide for you. Our 50V AC are low current and not dangerous, but you will feel a sensation at the tips of your fingers when touching the circuit. Therefore, never plug the display in while you are working on the circuit and you are touching the wires!<br><br>
 
-EL displays require an alternating current between the two elecrodes to excite the phosphor and make it light up.<br>
-Therefore, just connecting it to a DC power supply, like the 3.3V DC from your ESP32, won't do the trick.<br>
-We therefore use an inverter to generate AC current from DC.<br><br>
-
-<span style="color:red">In this tutorial, we will generate 50V AC from a 1.2V AA battery using our inverter.<br>
-50V AC is the maximum allowed voltage for class activities.<br>
-You are not allowed to use the inverter with anything else than the 1.2V AA battery we provided for you.<br> </span><br>
-
-Our 50V AC are low current and not really dangerous, but you might feel a little sensation at the tips of your fingers when touching the circuit. Therefore, never plug the display in while you are working on the circuit and you are touching the wires! <br><br>    
-
-<img src="images/lab6/battery-holder.png" width="600px"><br><br>
-
-<img src="images/lab6/inverter.png" width="400px"><br><br>
-
-<span style="color:red">While building your circuit, you must adhere to the following rules:
+While building your circuit, you must adhere to the following rules:
 <ul>
-  <li>never touch the display or any part of the circuit while the battery is plugged in, i.e. the circuit is powered</li>
   <li>unplug the battery <b>before</b> you do any wiring, only after it is unplugged you are allowed to touch the circuit and exchange wires and components</li>
   <li>once you are done wiring and you have made sure you are not touching any part of the circuit anymore, plug the battery back in</li>
+  <li>never touch the display or any part of the circuit while the battery is plugged in, i.e. the circuit is powered</li>
 </ul> 
-</span><br>
-
-
-<b>Connecting Inverter Output to Display</b><br>
-
-Before you do anything, remove the battery from your battery holder to remove all power from the circuit.<br>
-Next, connect the inverter 'output' (50V AC) to the display.<br>
-As you can see in the image above, the inverter output are the two black wires from the inverter.<br>
-Connect jumper wires to each inverter output cable by sticking them into the white connector of the inverter.<br><br>
-
-Connecting to the bottom side of the display (copper layer with copper tape flap): Next, use crocodile clamps to connect the first inverter output to the copper side of the display. Connect one end of the crocodile clamp to the jumper wire. The other end of the crocodile clamp goes onto the little copper flap. Be careful that you don't rip of the copper flap while working with the wires.<br><br>
-
-Connecting to the top side of the display (ITO with copper tape): Next, use crocodile clamps to connect the other inverter output to the front of the display. Connect one end of the crocodile clamp to the jumper wire. The other end of the crocodile clamp goes onto the ITO sheet where we have the copper tape. Be careful that you don't rip of the copper flap while working with the wires.<br><br>
-
-
-
-<img src="images/lab6/invertertodisplay.jpg" width="300px">
-<img src="images/lab6/crocodile-connected-to-copper.jpg" width="445px"><br><br>
-
-
 <br>
- 
-<b>Connecting Inverter Input to Battery</b><br>
-Next, connect the inverter input to the 1.2V battery holder <span style="color:red">(make sure your battery is still removed, never wire while we have power on).</span><br>
-The inverter input is the black/red cable, see image above.<br>
-To connect to the inverter, use jumper wires again and stick them into the white connector element.<br>
-Next, use a crocodile clamp to connect the red wire to the + pol of your battery holder and another crocodile clamp to connect black to -.<br><br>
 
-<b>Powering up the Display</b><br>
+<span style="color:red">add images showing somebody unplugging, wiring, pluggin.</span><br>
+<img src="images/lab6/battery-holder.png" width="590px"><br><br>
+
+
+ <h3 id="XX">(2) Connect Inverter Output to EL Display</h3><br>
+
+<b>AC vs. DC current:</b> EL displays require an alternating current between the two elecrodes to excite the phosphor and make it light up. Therefore, just connecting it to a DC power supply, like the 3.3V DC from your ESP32, won't do the trick. We therefore use an inverter to generate AC current from DC.<br><br>
+
+<b>Add Jumper Wires to Inverter Output:</b> Before you do anything, remove the battery from your battery holder to remove all power from the circuit. The inverter output is the black/black cable. Take two jumper wires and stick them into the white connector of the interverter output.<br><br>
+
+<b>Crocodile Clamp to Display Bottom Layer (copper layer with copper tape flap):</b> Next, use a crocodile clamp to connect the first inverter output to the copper side of the display. One end of the crocodile clamp goes onto the jumper wire, the other goes onto the little copper flap. Be careful that you don't rip of the copper flap while working with the wires.<br><br>
+
+<b>Crocodile Clamp to Display Top Layer (ITO with copper tape):</b> Next, use a second crocodile clamp to connect the other inverter output to the top layer of the display, i.e. the ITO. One end of the crocodile clamp goes on the jumper wire, the other goes onto the ITO sheet where there is  copper tape.<br><br>
+
+<img src="images/lab6/wiring-interverter-output.png" width="750px"><br><br>
+
+
+ <h3 id="XX">(3) Connect Inverter Input to Battery</h3><br>
+
+<b>Add Jumper Wires to Inverter Input:</b> The inverter input is the black/red cable. Take two jumper wires and stick them into the white connector of the interverter input.<br><br>
+
+<b>Crocodile Clamp to + pol of Battery Holder:</b> Before you do this, make sure the battery is still removed and not in the holder. Use a crocodile clamp to connect the red wire to the + pol of your battery holder.<br><br>
+
+<b>Crocodile Clamp to - pol of Battery Holder:</b> Use another crocodile clamp to connect black to -.<br><br>
+
+<span style="color:red">can we have an image here with wiring as described but without battery?</span><br><br>
+
+ <h3 id="XX">(4) Power up Your Display</h3><br>
+
 Once you are done wiring, turn the display around such that you see the top side. <br>
 The copper should be on the bottom now and you can't see it anymore. <br><br>
 
