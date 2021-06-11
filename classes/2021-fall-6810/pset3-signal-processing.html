@@ -75,7 +75,7 @@ Let's start by writing the code that generates the PWM signal at the sender pin.
 
 <img src="images/pset3/multitouch-schematic-sending.png" width="450px"> <img src="images/pset3/pwm-explanation.png" width="250px"> <br><br>
 
-<b>Download Skeleton Code:</b> Start by downloading <a href="software/pset-skeleton_Arduino.zip"><span style="color:red">the skeleton code for the PSet2 from here</span></a>. You will fill out the 'setupPWM()'' function to create the PWM signal using the steps below.<br><br>
+<b>Download Skeleton Code:</b> Start by downloading <a href="software/pset-skeleton_Arduino.zip"><span style="color:red">the skeleton code for the PSet3 from here</span></a>. You will fill out the 'setupPWM()'' function to create the PWM signal using the steps below.<br><br>
 
 <!-- <img src="images/pset3/setup-pwm.png" width="450px"> <br><br> -->
 
@@ -101,13 +101,9 @@ If we need at least 4MHz for the frequency, what are the possible duty resolutio
 
 <pre>ledcWrite(channel_number, duty_cycle): </pre>
 
-<i>Duty Cycle:</i> In the duty cycle parameter, you tell the ledcWrite() function, which of the duty cycles from your duty resolution should be used. Continuing the example from above, let's assume you chose 4 bits, which gives you 16 values ranging from 6.25%, 12.5%, 18.75%, 25%, 31.25% .... 100%, then your duty cycle parameter is the index of the duty cycle you want to use. For instance, using 2 would give you 18.75% for the duty cycle. Based on the duty resolution you chose for question number 1, choose the correct duty cycle parameter. <a href=" <a href="https://forms.gle/yizyDh85aV4eYp356">Submit your answer (question 3) in the Google Form here and then use it as the parameter in the function.</a><br><br>
+<i>Duty Cycle:</i> In the duty cycle parameter, you tell the ledcWrite() function, which of the duty cycles from your duty resolution should be used. Continuing the example from above, let's assume you chose 4 bits, which gives you 16 values ranging from 6.25%, 12.5%, 18.75%, 25%, 31.25% .... 100%, then your duty cycle parameter is the index of the duty cycle you want to use. For instance, using 2 would give you 18.75% for the duty cycle. Based on the duty resolution you chose for question number 1, choose the correct duty cycle parameter. <a href="https://forms.gle/yizyDh85aV4eYp356">Submit your answer (question 3) in the Google Form here and then use it as the parameter in the function.</a><br><br>
 
-Once you submitted all your answers with the google form, feel free to reach out on slack to have your answers confirmed before you move on since they may impact how well your code will work in the rest of the pset2.<br><br>
-
-<b>Testing if you are generating the right signal:</b> If you want to test if you are generating the correct signal, <span style="color:red">we will have an oscilloscope ready at the IDC. If you know how to use an oscilloscope, you can come in and use it yourself outside the OH.</span> If you don't know how to use it, please come to an OH. You can also go ahead and do the rest of the coding first before coming in.<br><br>
-
-<img src="images/pset3/oscilloscope.jpg" width="450px"><br><br>  
+Once you submitted all your answers with the google form, feel free to reach out on slack to have your answers confirmed before you move on since they may impact how well your code will work in the rest of the pset3. However, you don't have to check your PWM right now, you will still be able to work on (2) and (3) even if it’s not correct. You can check the (1) correctness at the end. <br><br>
 
 
 <h3>(2) Configure the Multiplexer to send the PWM signal to the right electrode column</h3>
@@ -183,6 +179,21 @@ Now that you have code for telling your multiplexer to send the PWM signal to a 
 <b>Checking Result in Serial Plotter:</b> If you open up the Serial Plotter, it should look like the image on the left when the multi-touch pad is not touched, i.e. all values are roughly the same height. The middle shows a start of touching and the right the end of touching. <span style="color:red">and what do I do if I don't see this?</span><br><br>
 
 <img src="images/pset3/multi-touch-pad-not-touch.png" width="250px"><img src="images/pset3/multi-touch-pad-touch-1.png" width="250px"><img src="images/pset3/multi-touch-pad-touch-2.png" width="250px"><br><br>
+
+
+<h3>Debug Your Circuit</h3>
+
+If you do not see the above signals on your Serial Plotter, you can check the following parts of your circuit before coming to OHs for help. <br>
+
+<b>Testing if you are generating the right signal:</b> If you want to test if you are generating the correct signal, <span style="color:red">we will have an oscilloscope ready at the IDC. If you know how to use an oscilloscope, you can come in and use it yourself outside the OH.</span> If you don't know how to use it, please come to an OH.<br><br>
+
+<img src="images/pset3/oscilloscope.jpg" width="450px"><br><br>  
+
+<b>Testing the Multiplexier Channel Select Function:</b> You can test if your channel selection function works properly in the following way: First, choose an output pin for testing from the C0-C8 output pins and set it in your function. Next, use a multimeter to measure if the channel actually receives any voltage. Note that this is different than measuring resistance. Therefore, you need to set the multimeter into 'V' mode for measuring voltage, and then measure on the output pin and on GND. You should see 3.3V in the display. If you see 0, no voltage is applied and you need to debug your code to figure out why the pin is not receiving the signal.<br><br>
+
+<img src="images/pset3/multimeter-v.png" width="250px"> <br><br>
+
+
 
 <h3>Upload your Arduino Code</h3>
 
