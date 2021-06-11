@@ -177,30 +177,18 @@ Now that you wired up our control circuit, you are ready to write the code for i
 
 <h3 id="displaydimcode">(8) Write Program to Dim Display</h3>
 
-Finally, we want to not just turn the display on/off but also set the displays brightness (e.g. dimming it down).<br>
-In 6.08 (pre-requisit for this class), you already learned about pulse-width-modulation (PWM) to dim light sources like an LED.<br><br>
+Finally, we want to not just turn the display on/off but also set the displays brightness (e.g. dimming it down).<br><br>
 
-<b>Duty Cycle:</b> When you create a PWM signal it means that you turn on and off a signal for a certain duty cycle.<br> 
-The longer the signal is turned on in one duty cycle the brighter the light source will be (see Figure below).<br>
-Similarly, the longer the signal is turned off in one duty cycle the darker the light source will be.<br>
-Thus, a duty cycle of 25% results in a darker display than a duty cycle of 75%.<br><br>
+<b>Duty Cycle:</b> When you create a PWM signal it means that you turn on and off a signal for a certain duty cycle. The longer the signal is turned on in one duty cycle the brighter the light source will be (see Figure below). Similarly, the longer the signal is turned off in one duty cycle the darker the light source will be. Thus, a duty cycle of 25% results in a darker display than a duty cycle of 75%.<br><br>
 
-<img src="images/lab6/pwm-explanation2.png" width="500px"><br><br>
-        
 <b>Frequency:</b> So how is the duty cycle related to the frequency? The duty cycle only tells you the percentage the signal is on/off within a cycle (e.g., 25%). It does not say how long a cycle is. For this, you need to define the frequency. A higher frequency results in a shorter overall cycle (not affecting the percentage the signal is on/off) than a lower frequency as you can see below.<br><br>
 
-<img src="images/lab6/ac-frequency.png" width="500px"><br><br>
+<img src="images/lab6/pwm-explanation2.png" width="350px"> <img src="images/lab6/ac-frequency.png" width="390px"><br><br>
 
-<b>What frequency should the PWM signal have?</b><br>
-If the frequency is very high and thus the duty cycle is compressed into a short time window, the turning on and off of the signal (i.e. the display) happens very fast.<br>
-If it is fast enough, humans do not notice that the display is turned on and off, which is great because we can use the on/off mechanism to create different brightness level without the user noticing that we are effectively just turning the display on/off at a very fast rate. <br>
-The frequency should thus be high enough that the duty cycles are not visible to the human eye.<br><br>
+<b>High Frequencies and the Human Eye:</b> If the frequency is very high and thus the duty cycle is compressed into a short time window, the turning on and off of the signal (i.e. the display) happens very fast. If it is fast enough, humans do not notice that the display is turned on and off because of limitations of visual perception, which is great because we can use the on/off mechanism to create different brightness level without the user noticing that we are effectively just turning the display on/off at a very fast rate. The frequency should thus be high enough that the duty cycles are not visible to the human eye.<br><br>
 
-But can the frequency be arbitrary high?<br>
-It turns out, the answer is no.<br><br>
-<!-- ecause of zero-crossing circuit inside the optocoupler
- -->
-<b>Why can the frequency not be arbitrarily high?</b><br>
+<b>Why can the frequency not be arbitrarily high?</b> We just said higher frequency, i.e. faster switching on/off, is better. The frequency, however, can not be infinitely high.
+
 
 Before we can answer this question, it is important to realize that in our circuit, we are dealing with two different signals.<br>
 One signal is coming in the form of the <b>AC signal from our inverter</b>. <br>
