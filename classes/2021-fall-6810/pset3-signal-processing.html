@@ -55,10 +55,10 @@ In this problem set, you will write code to sense the touch signals from your mu
 
 <b>Steps:</b>
 <ol>
-	<li>Generate the PWM signal for the sender pin.</li>
-	<li>Configure the Multiplexer to send the PWM signal to the right electrode column.</li>
-	<li>Receive Signals from Electrode Rows via SPI Communication.</li>
-	<li>Injecting Signals into Columns and Reading Signals from Rows in the correct order.</li>
+	<li><a href="#PWM">Generate the PWM signal for the sender pin.</a></li>
+	<li><a href="#Multiplexer">Configure the Multiplexer to send the PWM signal to the right electrode column.</a></li>
+	<li><a href="#SPI">Receive Signals from Electrode Rows via SPI Communication.</a></li>
+	<li><a href="#Signals">Injecting Signals into Columns and Reading Signals from Rows in the correct order.</a></li>
 </ol>
 <br>
 
@@ -66,7 +66,7 @@ In this problem set, you will write code to sense the touch signals from your mu
 <b>Ask a TA to give you a wired up multi-touch pad if something went wrong in pset2</b><br>
 In case you did not finish pset2, you can ask a TA to provide you with a wired up multi-touch pad, i.e. with the completed circuit. If you finished pset2, but it turns out that your circuit is incorrect you can either ask a TA to fix it with you or they can give you a new clean circuit they build from scratch.</div>
 
-<h3>(1) Generate the PWM signal for the sender pin </h3>
+<h3 id="PWM">(1) Generate the PWM signal for the sender pin </h3>
 
 Let's start by writing the code that generates the PWM signal at the sender pin. <br><br>
 
@@ -106,7 +106,7 @@ If we need at least 4MHz for the frequency, what are the possible duty resolutio
 Once you submitted all your answers with the google form, feel free to reach out on slack to have your answers confirmed before you move on since they may impact how well your code will work in the rest of the pset3. However, you don't have to check your PWM right now, you will still be able to work on (2) and (3) even if it’s not correct. You can check the (1) correctness at the end. <br><br>
 
 
-<h3>(2) Configure the Multiplexer to send the PWM signal to the right electrode column</h3>
+<h3 id="Multiplexer">(2) Configure the Multiplexer to send the PWM signal to the right electrode column</h3>
 
 Now that you are generating the PWM signal at the sender pin on the ESP that is connected to the multiplexer, we will write up the function that determines to which pin (i.e. electrode column) the multiplexer will send the signal as output. <br><br>
 
@@ -127,7 +127,7 @@ Now that you are generating the PWM signal at the sender pin on the ESP that is 
 <span style="color:red">Note that in the code, there is a delay function. You may need to adjust the delay slightly depending on the amount of capacitive coupling your specific circuit layout has, which interferes and slows down the signal assign (e.g. digitalWrite()) slightly and can result in undefined behavior. The delay allows the multiplexer gets stable select pin values and assign correct output channel. Usually a delay of 2 - 5 milliseconds should be sufficient enough.</span> <br><br>
 
 
-<h3>(3) Receive Signals from Electrode Rows via SPI Communication</h3>
+<h3 id="SPI">(3) Receive Signals from Electrode Rows via SPI Communication</h3>
 
 Remember from pset1 that we had wired up an additional ADC converter (MCP3008 chip) to get cleaner signals from our multi-touch pad, i.e. the MCP3008 chip converts our analog touch signals better than the ESP GPIO pins would be able to do. We had also discussed that the MCP3008 chip communicates with the ESP via the Serial Peripheral Interface (SPI). To read the signals via SPI, you will have to do the following steps. <br><br> 
 
@@ -152,7 +152,7 @@ Remember from pset1 that we had wired up an additional ADC converter (MCP3008 ch
 <b>Testing your Code:</b> You can check if the SPI communication between the ESP and the MPC chip works properly by doing the following: Connect a 3.3V output pin from the ESP to one of the MCP CH input channels and plot the result on the Serial Plotter.<br>
 You should see a signal there around 1000. If you see '0' nothing is coming through and you either wired up the MPC chip incorrectly or you are reading from the wrong channel.<br><br>
 
-<h3>(4) Injecting Signals into Columns and Reading Signals from Rows in the correct order</h3>
+<h3 id="Signals">(4) Injecting Signals into Columns and Reading Signals from Rows in the correct order</h3>
 
 Now that you have code for telling your multiplexer to send the PWM signal to a specific electrode column, and you code for your ADC chip to read the signal from a specific electrode row, you are ready to write the meta-level code that tells your program when to inject into which electrode column and when to read which row.<br><br>
 
