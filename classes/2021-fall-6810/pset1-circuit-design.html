@@ -72,14 +72,14 @@ Once both sheets are printed, you layer them on top of each other to build the m
 Start by downloading <a href="software/pset1_skeleton.zip">the skeleton code for the PSet1 from  here</a>. <br>
 <h3>Steps:</h3>
 <ol>
-	<li>Create input fields for number of electrodes</li>
-	<li>Draw the electrodes and wires</li>
-	<li>Create a preview function for looking at rows/columns individually</li>
-	<li>Create an export function to save the fabrication files as .pdf</li>
-	<li>Check that your drawing has the correct size when printed out</li>
+	<li><a href="#INPUT">Create input fields for number of electrodes</a></li>
+	<li><a href="#DRAW">Draw the electrodes and wires</a></li>
+	<li><a href="#PREVIEW">Create a preview function for looking at rows/columns individually</a></li>
+	<li><a href="#EXPORT">Create an export function to save the fabrication files as .pdf</a></li>
+	<li><a href="#CHECK">Check that your drawing has the correct size when printed out</a></li>
 </ol>
 
-<h3>(1) Create Input Fields for Number of Electrodes</h3>
+<h3 id="INPUT">(1) Create Input Fields for Number of Electrodes</h3>
 
 In the user interface, create two input fields that allow the user to set the desired number of electrodes for the 'columns' and 'rows' (default value should be 10 electrodes). A simple trick to create UI elements in Processing is to draw a rectangle and then check if a mouse-click event occured over the rectangle to transfrom it into a button. A text label overlaid on the rectangle can be used to display the current value. You can check the <a href="https://processing.org/reference/rect_.html">Rect</a> and <a href="https://processing.org/tutorials/text/">Text and Fonts</a> Tutorial for more information. Make sure the user cannot enter negative values. The upper bound for the number of electrodes that fit onto one sheet is 12 electrodes and thus the user should not be allowed to exceed this number.<br><br> 
 
@@ -95,7 +95,7 @@ In the skeleton code, put your code for creating the input fields into the <code
 </pre>
 <br>
 
-<h3>(2) Drawing the Electrodes and Wires</h3>
+<h3 id="DRAW">(2) Drawing the Electrodes and Wires</h3>
 
 <img src="images/pset1/drawing-electrodes-wires.png" width="350px"><br><br>
 
@@ -184,7 +184,7 @@ In the skeleton code, put your code for drawing wires into the <code>drawWires()
 <span style="color:red"><b>Mirror Bottom/Top Layers:</b> The Preview Function section was confusing because we haven't told people about making two layers and how they differ. I think we first need to tell people how the first layer differs from the second layer. Does it need to be rotated? Or is it enough to simply draw the wires to another place?</span><br>
 <br>
 
-<h3>(3) Preview Function to Look at Each Layer Individually</h3>
+<h3 id="PREVIEW">(3) Preview Function to Look at Each Layer Individually</h3>
 
 <b>Create 'Switch Views' Button:</b> Create one button that switches between the design's top and bottom layer view. Clicking the button should either show the top layer or the bottom layer so the layers can be looked at individually.<br><br>
 
@@ -201,12 +201,12 @@ In the skeleton code, put your code for switching views between the design's top
 
 <br>
 
-<h3>(4) Export Function to Save Fabrication Files</h3>
+<h3 id="EXPORT">(4) Export Function to Save Fabrication Files</h3>
 
 <b>Create 'Save Views' Button:</b> For export, create one button that when clicked saves the generated electrodes into two .pdf files. The bottom-electrodes.pdf should contain the rows, and the top-electrodes.pdf should contain the columns. <br><br>
 
-<b>Ensure Correct Drawing Settings:</b> Make sure the exported .pdf files have all settings correctly set for conductive inkjet printing <span style="color:red">what does this mean? does this mean that the electrodes should be made full black etc? I don't think we have that requirement anymore so we can probably take this out.</span><a href="lab1-circuit-design-for-inkjet-printing.html">(if you don't remember, go back to Lab1).</a> 
-<br><br>
+<!--<b>Ensure Correct Drawing Settings:</b> Make sure the exported .pdf files have all settings correctly set for conductive inkjet printing <span style="color:red">what does this mean? does this mean that the electrodes should be made full black etc? I don't think we have that requirement anymore so we can probably take this out.</span><a href="lab1-circuit-design-for-inkjet-printing.html">(if you don't remember, go back to Lab1).</a> 
+<br><br>-->
 
 <img src="images/pset1/layer1pdf.png" width="300px"> <img src="images/pset1/layer2pdf.png" width="320px"><br><br>
 
@@ -221,7 +221,7 @@ In the skeleton code, put your code for saving fabrication files into the <code>
 
 <br>
 
-<h3>(5) Finding your dpi to convert pixel to mm</h3>
+<h3 id="CHECK">(5) Finding your dpi to convert pixel to mm</h3>
 
 Our multi-touch pad design is printed in <b>millimeter</b> but Processing handles everything in <b>pixel</b>. How do we know how many pixels are in one millimeter? Without this conversion factor, we don't know how many pixels we should use for the electrodes, thickness of the wires, and spacing/offsets between these components. The conversion factor from pixel to mm is different for each operating system. We will thus do a small test to figure this out for your OS. <br><br>
 
