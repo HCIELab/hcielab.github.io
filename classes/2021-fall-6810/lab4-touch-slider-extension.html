@@ -83,126 +83,83 @@ At the end of the lab, upload to your student google drive:
 
 <h3 id="INSTALLPROCESSING">(1) Build the Slider Circuit</h3>
 
-<b>One Sender Pin, Different Receiver Pins:</b> Start by wiring up each slider segment exactly the way how you wired up the touch buttons. Remember they can all use the same sender pin but need a different receiver pin. Refer to Lab 2 if you don't remember how this works.<br><br>
+In the last lab, you built and implemented the hardware and software for the touch sensors on your music card. In this lab, you will implement the slider on the bottom of your music card. The first step is to connect each slider element as a regular touch sensor to your ESP32. Converting the received touch signals to a continuous slider signal will be done in software. Let's first build the touch circuits for the slider elements:<br><br>
+    
+<b>One Sender Pin, Different Receiver Pins:</b> Start by wiring up each slider segment exactly the way how you wired up the touch buttons. Remember they can all use the same sender pin but need a different receiver pin. Refer to <a href="lab2-sensing-touch-button.html" target="_blank">Lab 2</a> if you don't remember how this works.<br><br>
 
-<b>Use 'TOUCH' Pins:</b> Remember, use the pins with "TOUCHX" labels for better signal quality but do not use the one pin labeled as pin0 (TOUCH1) as receiver (you can still use it as sender). Below is the ESP pin out again for your reference.<br><br>
-
-<img src="images/lab4/esp32-pinout.jpg" width="400px" /><br><br>
-<span style="color:red">Replace schematic with new ESP32</span>
+    <b>Use 'TOUCH' Pins:</b> Remember to use the pins with "TOUCHX" labels for better signal quality but do not use the one pin labeled as pin0 (TOUCH1) as receiver (you can still use it as sender). Below is the ESP pin out again for your reference.<span style="color:red">Faraz: Check if this is still correct with the new ESP32</span><br><br>
+    
+<img src="images/lab2/esp32.png" width="750px" /><br><br>
 
 <h3 id="INSTALLPROCESSING">(2) Extend Microcontroller Code to Read Slider Segments</h3>
 
 <b>Read Slider Segment Signal Values:</b> Once finished with the wiring, extend your Arduino code to also read each slider segment's raw touch signal.<br><br>
 
-<b>Plot each Signal Value to the Serial Plotter:</b> Next, serial print the received raw touch signals for each slider segment and look at them in the Serial plotter. <span style="color:red">do we have to format the serial print statement in a specific way to get the serial plotter to work?</span><br><br>
+<b>Plot each Signal Value to the Serial Plotter:</b> Next, serial print the received raw touch signals for each slider segment and look at them in the Serial plotter. To visualize only the slider touch signals in the serial plotter, you have to format the serial output in the same way as you did in lab 2. This is: "slider1","slider2","slider3","slider4","slider5""newline" <br><br>
 
 Below you can see the serial plotter output for individually touching each of the five slider segments.<br><br>
 <img src="images/lab4/lab2-slider-segments-raw-value.png" width="400px" /><br><br>
 
 
-<h3 id="INSTALLPROCESSING">(3) Determine Finger Overlap with Slider Segments</h3>
+<h3 id="INSTALLPROCESSING">(3) Measure Min and Max Signal Thresholds</h3>
 
-For the touch buttons, we were merely interested if the button is touched or not, thus we converted the touch signal into a <i>binary value 0 or 1</i>. For the slider, each slider segment should return a <i>continuous value from 0.0 to 1.0</i> depending on the area the finger overlaps with the slider segment. This will allow us to more smoothly adjust the music volume rather than jumping from one discrete volume level to the next. We can see by 'how much' a slider segment is touched by looking at the raw touch signals coming from the microcontroller. When looking at the Serial Plotter, you will notice that the raw value has a strong correlation with how much space of the slider segment is touched, i.e. the larger the area the higher the value is. <br><br>
+For the touch buttons, we were merely interested if the button is touched or not, thus we converted the touch signal into a <i>binary value 0 or 1</i>. For the slider, we want to compute at which position the finger is between two slider elements. This will allow us to more smoothly adjust the music volume rather than jumping from one discrete volume level to the next. We can see by 'how much' a slider segment is touched by looking at the raw touch signals coming from the microcontroller. When looking at the Serial Plotter, you will notice that the raw value has a strong correlation with how much space of the slider segment is touched, i.e. the larger the touch area of you finger on the slider segment the higher the value is. <br><br>
+    
+<span style="color:red">Faraz: Replace image below with a demo video. Finger moves on one slider segemnt from the left to the right. ScreenCapture the serial plotter that shows only one signal of the active slider segment. It should be visible how the value slowlier rises from 0 to max and then drops from max to 0 again</span><br><br>
 
 <img src="images/lab4/lab2-slider-segments.png" width="330px" /><img src="images/lab4/lab2-minimum-touch-threshold.png" width="420px" /><br><br>
 
 Let's start by computing the continues value for one slider segment.<br><br>
 
-<b>Determine Min Value when Slider Segment is Touched only a little:</b> First, we want to determine what is noise (i.e. small signal readings when nothing is actually touched) and want to discard those values. To find the minimum value when you should consider a touch signal, we recommend looking at the Serial plotter and investigating the values when no touch occurs and when the finger barely touches a slider segment. Choose a value close to the 'barely touch' value.<br><br>
+<b>Determine Min Value when Slider Segment is Not Touched:</b> First, we want to determine what is noise (i.e. small signal readings when nothing is actually touched) and want to discard those values. To find the minimum value when you should consider a touch signal, we recommend looking at the Serial plotter and noting down the values of the slider segments when none of them are touched. This will be your minimum threshold to check if a button is touched.<br><br>
 
 <b>Determine Max Value when Slider Segment is Fully Touched:</b> Next, determine the max value when the slider segment is fully touched with you finger, i.e. your finger overlaps with the entire slider segment.<br><br>
+    
+<h3 id="INSTALLPROCESSING">(4) Computing the Relative Position of a Finger</h3>
+    
+<b>Add min and max threshold to your code:</b> Create two integer arrays Min and Max that contain the min and max values that you measured for each slider element<br><br>
 
-<b>Compare Current Signal Value against Max Value to Determine Percentage of Overlap:</b> Next, check how the current touch signal value related to the maximum value to compute the percentage of overlap, i.e. the value beteen 0.0 and 1.0. 
+<b>Compute relative position of a finger:</b> Now, let's create a function that computes the relative position between two slider segments. The function should read in two sensor signals and the two sensorIDs of the touched segments and it sould return a float between 0..1 that represents the relative position of the finger between two segements (0:left segment, 1:right segment).<br>
+Compute the fraction of the received sensor signal compared to its corresponding max value: frac1 = sensor1/MAXsensor1 and frac2 = sensor2/MAXsensor2. These are the estimates of the relative finger position from each slider segment. Finally, compute an average between both values. Be aware that moving the finger to the right means that slider1 will drop in value and slider2 will increase in value. Thus, compute the relative averaged finger position as res = ((1-frac1)+frac2)/2. This is the return value of your function.
 
-<b>Extend Code to all Slider Segments:</b> Next, extend the code to compute the individual percentage for each slider segment. You can assume that for each of your slider segments you can use the same thresholds since all of your slider segments have the same size, and while each has a slightly different wire length this should be negligible. If your slider segments have vastly different values (e.g., because of some damage to the silver), you need to create separate thresholds for each segment. You can check this by plotting each silder segments' raw values. <br><br>
+<h3 id="INSTALLPROCESSING">(5) Computing the Overall Slider Value</h3>
+    
+The task here is to extend the code to compute the finger position on all 5 slider segments.<br><br>
+    
+<b>Identify if two slider segments are touched</b><br>
+Implement an if statement that constantly checks if two slider segments exceed their min threshold at the same time. In that case, we can assume that a finger is touching 2 slider segments and you can pass over the received signals and slider segments IDs to the function you created in the previous step.<br><br>
+    
+<b>Compute the relative position of a finger</b><br>
+You should receive from your function of the previous step a value between 0 and 1. To convert this value to a position on the whole slider segment, you have to to take into account the position of the touched slider segments. For example, if slider segment 3 and 4 are touched, the values should range between 0.5 and 0.75. Thus, we first have to scale down the returned value of the function to 0.25 by multiplying 0.25*res. The range of the return value will now be between 0 and 0.25. Next, we have to add the relative position. If slider 3 and 4 are active, you have to add 0.5 to the function value. Altogether, the relative position can be computered as RelPos + 0.25*res. RelPos should be 0 for the first slider segment, 0.25 for the second and so on.<br><br>
+    
+<img src="images/lab2/slider_vis_continuous.png" width="400px"><br><br>
+    
+<b>Identify if only on slider segment is touched</b><br>
+In case only one slider segment exceeds its MinThreshold, you can simply compute the the discrete position on the whole slider. This would be the Relpos value of the previous paragraph. For example, 0 for slider segment 1 or 0.25 for slider segment 2, and so on.<br><br>
+    
+<img src="images/lab2/slider_vis_discrete.png" width="400px">
 
-<h3 id="INSTALLPROCESSING">(4) Computing the Overall Slider Value</h3>
+<h3 id="INSTALLPROCESSING">(6) Write Slider Value to Serial Port</h3>
 
-Once you have the continous signal (0.0 - 1.0) for each slider segment, you can compute the overall slider value. 
-
-
-
-
-The task here is to convert the five seperate slider segment values (all from 0.00-1.00) and combine them into one value that represents the overall slider position ranging from 0.00-1.00 (0-100 percent).<br><br>
-
-<img src="images/lab4/lab2-slider-segments-global-value.png" width="400px" /><br><br>
-
-For this, we will use some simple linear interpolation.<br>
-We can also assume that at any given time, there will be at most 2 adjunct slider segments being touched (i.e. the user will only use one finger on the slider at any given time and the one finger will touch at max two adjacent slider segments since we made each segment roughly the size of the finger). <br><br>
-
-<b>Assigning Slider Portions to Percentage Values</b><br>
-
-Since we have 5 slider segments in our example, one could say that each slider segment is representing 20% (0.2) of the overall music volume.<br>
-Thus, when we know slider segment 2 is touched, it must be a music volume between 20-40%.<br>
-To figure out the exact value between 20-40%, we can then look at the slider segments value.<br><br>
-
-However, because we have overlapping slider segments, looking at each segment individually actually doesn't help us very much to compute one global continous value.<br>
-Instead, we need to consider two adjacent segments since they will almost always be touched together.<br>
-To be able to consider adjacent segments, we therefore split the slider into 4 segments that overlap with each other as shown below. Each overlapping segment thus represents 25% of the overall volume.<br>
-If we only touch the first or only touch the last segment, we assume we are at 0% or 100%.<br><br>
-
-<img src="images/lab4/lab2-slider-segments-overlap-segments.png" width="400px" /><br><br>
-
-
-<!-- <b>Global Slider Value When Only One Slider Segment is Touched</b><br>
-Let's look at the most easy example, i.e. only one slider segment is touched.<br>
-
-Let's assume, we read a value of 0.2 from the slider segment 3, we can then conclude that we are at 1/5th of the overall range from 40-60%, i.e. 1/5th of 20 = 4, 40% + 4% = 44%). <br><br>
-
-Thus, when only one slider segment is touched, we can calculate the overall slider value based on:<br> 
-1) the touched slider segment's order (0 to 4 representing 0-20%, 20-40%, 40%-60%, etc.) <br>
-2) the touched slider segment's value (0.00-1.00 representing intermediate values) <br> <br>
- -->
-<!-- We can you the following formula:
- -->
-<!-- <b> slider_value = slider_segment_value * 0.2 + slider_segment_order * 0.2 </b>, e.g. the second slider segemnt touched with the value 0.80, the overall slider value would be 0.80 * 0.2 + 1 * 0.2 = 0.36; the third slider segemnt touched with the value 0.80, the overall slider value would be 0.80 * 0.2 + 2 * 0.2 = 0.56. <br><br> -->
-
-<b>Global Slider Value When Two Slider Segments are Touched</b><br>
-
-<span style="color:red">Individual lower threshold per segment. pos+0.25*(C2/(C1+C2))</span>
-Consider what happens as we slide from left to right from slider segment 2 towards slider segment 3.<br>
-First, the slider value of segment 2 will get higher as more and more area of our finger overlaps with the slider segment.<br>
-Then, as we move towards the slider segment 3, the value of slider segment 2 decreases again as more and more of our finger leaves the slider segment 2 and instead overlaps with the slider segment 3.<br>
-Thus, once we know that the finger touches the slider segment 3, a lower sensor value of segment 2 actually means a higher slider value and not a lower one!<br>
-To compensate for this, if we detect that segment 3 is touched, we subtract the segment 2 slider value from 1.0.<br>
-e.g. segment2 = 0.25 && segment3 is touched then segment2 = 1.0-0.25 (results in 0.75).<br>
-For slider segment 3, we can simply read the regular value and use it.<br><br>
-
-Next, we still have to map the two slider values to an overall slider value.<br>
-For this, we first compute the mean of both values ((0.75+0.78)/2 = 0.765) and then map the resulting number onto the value range of the slider volume area (i.e in our example the area we are looking at is from 25%-50% since this covers both slider segment 2 and 3). Since the slider volume slider area is 25-50% and we are at 76.5% between these values, the final slider value is 25%+((50-25)*0.765) = 44.125% as the final slider value. <br><br>
-
-<img src="images/lab4/lab2-slider-segments-final-value.png" width="400px"><br><br>
-
-<h3 id="INSTALLPROCESSING">(5) Write Slider Value to Serial Port</h3>
-
-Write the overall slider value to the Serial port so that you can read it later from Processing. For the calculated slider value, format the output like we did before for the touch button so that:<br>
+Write the slider value to the Serial port so that you can read it out later in Processing. For the calculated slider value, format the output like we did before for the touch button so that:<br>
 
 <code>(sensor ID),(slider_value);</code><br><br>
     
 (sensor ID) is 3, and represents the ID of the slider (we already used up sensor IDs 0, 1, 2 for the touch buttons).<br>
-(slider_value) is ranging from 0.00 to 1.00 to indicate the overall slider position (music volume).<br><br>
+(slider_value) is ranging from 0.0 to 1.0 to indicate the overall slider position (music volume).<br><br>
 
 A sample output hould look like:<br>
 <pre><code>3,0.78;
 3,0.86;
-3,0.97;
+3,0.97; 
 </code></pre> 
 The output should print continuously as long as the slider is touched. <br>
 
 <br>
 
-<h4>Create Slider Visualization</h4><br>
-<span style="color:red">Remove</span>
-Now that the slider values are printing to the Serial port, we can read them from Processing.<br>
-Open your Processing program that had the three touch bars and add a horizontal bar for the slider.<br> 
-The bar represents the entire slider. Thus, if the finger is on the left side of slider, the bar should be short and if the finger slides more to the right side of the slider, the bar should be long.<br><br>
+<h3 id="INSTALLPROCESSING">(7) Add Slider onto the Card</h3>
 
-<img src="images/lab4/lab2-slider-visulization-low.png" width="300px">
-<img src="images/lab4/lab2-slider-visulization-high.png" width="300px"><br><br>
-
-<h4>Add Slider onto the Card</h4><br>
-
-Now that you know the slider values can be visualized in Processing, let's add it to the music card to control the music volume.<br> Open the music card code again.<br><br>
+Let's add the slider to the music card to control the music volume.<br> Open the music card code again.<br><br>
 
 We already implemented a class 'Slider' for you.<br>
 You can make a new slider with:<br><br>
@@ -237,12 +194,11 @@ Once you finished your code, test if the music volume actually changes by first 
 
 Similar to the previously added buttons, you can hide the Slider by pressing the 'h' key on your keyboard while your program runs.<br>
 If you want to see them again, press 's' (for show).<br><br>
-    <span style="color:red">Remove</span>
 
 <h4>Now Let's Change Music Volume from the Inkjet Printed Physical Card</h4><br>
 
 Now that we can control the slider digitally, we also want to adjust the volume of the music from the physical card.<br><br>
-Copy over your code that reads the slider value for the Serial Port from the other Processing application you just wrote and integrate it into the music card.<br>
+Read in the Serial messages from your ESP32 that include the values for the finger position on the slider. Use these values to change the valume of the music and integrate it into the music card Processing Script.<br>
 
 <img src="images/lab4/lab2-volume-low_new.png" width="350px">
 <img src="images/lab4/lab2-volume-middle_new.png" width="350px">
