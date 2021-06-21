@@ -98,6 +98,8 @@ At the end of the lab, upload to your student google drive:
 
     <b>Effect of Overall Resistance (R) on Temperature Sensor Resolution:</b> The higher the overall resistance of the conductive wire, the more sensitive it will be to temperature changes. Consider the following example: If your wire has a small resistance (50Ohm) and the resistance changes a little bit (5%), the change will be very small (5% of 50Ohm = 2.5Ohm). This is difficult to measure since there is always noise in electronics. In contrast, if your wire has a large resistance (1kOhm), the change will be larger (5% of 1,000 Ohm = 50Ohm), which is easier to measure. Thus, a wire with a larger resistance allows you to measure smaller changes in temperature, and thus results in a temperature sensor with a higher sensing resolution. For our temperature sensor, we will use <code>R = 1kOhm</code> at room temperature since that gives us a pretty high sensitivity, but you could also go higher. <span style="color:red">Could we say something here about what ohm differences are realistic to measure? what does 'pretty high sensitvity' mean? 10 values? 100 values? 0.1C or 0.01C measurements?</span><br><br>
 
+    <span style="color:red">perhaps we can add a small todo for students here? i.e. you want to measure XX temperature resolution, what overall resistance should you use?</span><br><br>
+
     <h3 id="XX">(3) Choose Wire Thickness (A)</h3>
 
     Now that we know that our desired overall resistance R is 1kOhm, what values should we use for wire length (l) and the wire thickness (A). As you can see in the formula, the longer the wire (l) and the thinner (A) the wire, the higher the resistance will be. Since longer wires take up more space on our prototype, which we don't want, we should first try to minimize the thickness to increase the resistance.<br><br>
@@ -115,23 +117,11 @@ At the end of the lab, upload to your student google drive:
 
     <h3 id="XX">(4) Determine Wire Length (l)</h3>
 
+    Finally, we can determine the wire length (l) based on all the other values.<br><br>
 
-
-
-    <i>Length of the Wire (l):</i> Now we have R (1kOhm) and A (0.3mm), how do we determine the wire length (l) that we need to use? Since the thermal resistivity p is a dynamic value based on temperature, we can't simply solve for l in the formula. 
-
-
-
+    <b>Wire length (l) for 1kOhm:</b> Using the formula below, how long does your wire have to be to achieve a 1kOhm resistance? You will need to know your wire length when you design the inkjet printed wire in the next step.<br><br> 
     
- 
-
-
-     <i>Required Length of the wire for 1kOhm?</i> Assuming that the thermal resistivity p and the height of the trace is constant, how long does your conductive wire have to be to have 1kOhm resistance?<br>
-     Remember that the thermal resistance p at room temperature 20C for a 0.3mm cross-section wire is p(20C) = 7.5Ohm/cm.<br> 
-
-     We can therefore estimate the resistance of a trace of length l at room temperature by calculating<br><br>
-    
-    <pre>resistance = l * p(20C) = l * 7.5 Ohm/cm</pre><br>
+    <pre>Overall Resistance (R) = wire length (l) * thermal resisvity (p(20C)) = l * 7.5 Ohm/cm</pre><br>
 
 
 
