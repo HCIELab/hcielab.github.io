@@ -48,10 +48,12 @@
 
       <section class="col-md-8 pull-right main-content">
 </br></br></br></br>
-        <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2020)</a><br></h4>
+        <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2021)</a><br></h4>
         <h2 class="headline">Lab 7: Inkjet Printed Temperature Sensor</h2>
 
-In this lab, we will design an ink-jet printed temperature sensor to sense the heat of the mug and we will use the display which you sprayed in the last lab to signal to the user the current temperature of the mug's content.<br><br>        
+In this lab, we will design an ink-jet printed temperature sensor to sense the heat of the mug and we will use the display which you sprayed in the last lab to signal to the user the current temperature of the mug's content.<br><br>   
+
+<span style="color:red">don't forget to bring your EL display</span> <br><br>       
           
  <img src="images/lab6/mugCircuit.PNG" width="550px"><img src="images/labseries-mug/circuitOnMug.jpg" width="194px" /><br>
 
@@ -74,9 +76,8 @@ In this lab, we will design an ink-jet printed temperature sensor to sense the h
 At the end of the lab, upload to your student google drive:
 <ol>
         <li>the Processing code (.pde) to generate the temperature sensor</li>
-        <li>the Arduino code (.ino) for controlling your display and reading the temperature</li>
-        <li>2-3 photos (.jpg or .png) from different angles of your mug</li>
-        <li>a short video (.mov or .mp4, max. 1 minute) showing how your display turned off at room temperature and starts blinking after pouring in boiling hot water in it.</li>
+        <li>the Adobe Illustrator file (.pdf) with the completed circuit design</li>
+        <li>1 photo (.jpg or .png) of your inkjet printed temperature sensor</li>
     </ol>
     
     
@@ -123,271 +124,81 @@ At the end of the lab, upload to your student google drive:
     
     <pre>Overall Resistance (R) = wire length (l) * thermal resisvity (p(20C)) = l * 7.5 Ohm/cm</pre><br>
 
+    <h3 id="XX">(5) Create Wire Trace Using Processing Script</h3>
 
+    Now that you know how long the wire has to be, the next question that arises is how to best shape it to take up minimal space on our mug?<br><br>
 
-     <h3 id="XX">(1) Designing the inkjet printed temperature sensor</h3>
+    <b>Horse Shoe Pattern:</b> A classic method to create a long wire on a small area is to design it in a horse shoe pattern, which looks like this:<br><br>
 
-
-    
-
-
-
-     <b>Shaping a long conductive wire into a compact form factor:</b><br>
-    Now that we know how long the wire has to be, the next question that arises is how to best shape it to take up minimal space on our design? A classic method to create a long wire on a small area is to design it in a horse shoe pattern similar to this:<br><br>
+    <span style="color:red">can we update the image below to show the measurements, i.e. what we mean with 'width of temperature sensor' and 'vertical space 0.5mm' etc.</span><br><br>
     
     <img src="images/lab6/hsp.png" width="700px"><br><br>
        
-    <b>Write Processing Script to generate line layout:</b><br>
+    <b>Write Processing Script to Generate Line Layout:</b> Since drawing a horse shoe pattern manually is quite the pain, let's leverage our computational design capabilities in Processing. Write a Processing Script that generates a temperature sensor layout of variable length depending on a desired overall resistance. Reuse your code from pset1 to write this script. <br><br>
 
-    Since drawing this manually is quite the pain, we instead want to leverage our computational design capabilities in Processing. Write a Processing Script that generates a temperature sensor layout of variable length depending on a desired overall resistance. Reuse your code from pset1 to write this script. <br><br>
+    <i>Create User Input Fields:</i> First, create three user input fields, one for <span style="color:red">line thickness l (default: 0.3mm) (do we need this?)</span>, one for overall resistance R, and one for overall width of temperature sensor (default: 7cm). <br><br>
 
-    The Processing script should have the following features:<br><br>
-    <ol>
-        <li>user input elements for line thickness (default: 0.3mm), overall resistance, and overall width of  temperature sensor (default: 7cm)</li>
-        <li>generate a set of horizontal lines of the given thickness and connect them with vertical lines on alternating sides, the distance between each horizontal trace should be 0.5mm</li>
-        <li>output a .pdf that contains the temperature sensor</li>
-    </ol><br>
-  
-    Once you exported your pdf, you are ready to move onto the next step.<br><br>
+     <i>Generate Horse Shoe Pattern:</i> Generate a set of horizontal lines of the given thickness and connect them with vertical lines on alternating sides. The distance between each horizontal trace should be 0.5mm.<br><br>
 
-    <h3 class="headline">(2) Extend Temperature Sensor Circuit with Wires<br> that Connect to EL display</h3>
-    
-    Now that we have our temperature sensor, it's time to plan how it will connect to the EL display so we can create the overall circuit layout that we want to attach to the mug. <br>
-    Open your temperature sensor in Adobe Illustrator to extend it with the remaining circuit.<br><br>
+     <i>Export Temperature Sensor as PDF:</i> Output a .pdf that contains the temperature sensor ready for inkjet printing. <span style="color:red">What width should they use for the exported file?</span><br><br>
 
-    Below, you see an image of the mug for reference. <br><br>
+     <b>Check Temperature Sensor in Illustrator:</b> Open your temperature sensor pdf in Adobe Illustrator and measure to confirm that: <span style="color:red">anything else? what about total height?</span>
 
-    <img src="images/lab6/mug.png" width="300px"><br><br>
-
-    And further below you see an image of the overall circuit layout that fits onto the mug and has all the elements you need for the circuit.<br><br>
-
-    <img src="images/lab6/mugCircuit.PNG" width="700px"><br><br>
-
-    For your drawn circuit, aim for a total size aim of 17cm width and 7.5cm height so that the final design will fit nicely on the mug.<br>
-
-    Your drawn circuit needs to include:<br><br>
-    <ol>
-        <li>the imported temperature sensor placed near the mug's handle</li>
-        <li>your sprayed EL display on the opposite side of the handle <span style="color:red">(nothing you need to draw here, just make sure you plan for the space, i.e. there should be no overlap with the temperature sensor)</span></li>
-        <li>4 connector pads to connect your microcontroller to the mug's circuit (each size: 3cmx1cm), i.e. two will be used to connect to the temperature sensor, the other two to the EL display </li>
-        <li>2 printed wires that connect the connector pads to the temperature sensor (wire thickness: 1mm)</li>
-        <li>2 printed wires that connect the connector pads to the EL display (wire thickness: 2mm, with a distance of a least 3cm between them at the location where they connect to the EL display to avoid short circuits). Note that the location of these wires depends on where you put the copper flap and copper strip onto your sprayed EL display. If they are not at the bottom of the display but instead at the top, you need to route one of the wires above the temperature sensors.
-        </li>
-    </ol><br>
-    <h3 class="headline">(3) Fabrication and Assembly of Circuit, EL display, and Mug</h3><br>
-
-    Now that you have the design ready, you can come in for fabrication and assembly.<br><br>
-
-    <b>Inkjet print your circuit</b><br>
-    Once you are done with your circuit design, please put it in your google drive, let us know on slack that you are ready for inkjet printing, and then book an OH slot.<br><br>
-
-    <span style="color:red">Before you come to the office hour to print, please double check that:</span>
-
-    <ol>
-        <li>Thermal trace line width is 0.3mm</li>
-<li>Spacing between thermal traces is 0.5mm</li>
-<li>Total horizontal length of the thermal “block” is 7cm max</li>
-<li>The spacing between your display-connected traces matches the distance between the two pieces of copper on YOUR display.</li>
-<li>The total height of the system (e.g. the minimum bounding rectangle) is of maximum height 3in</li>
-<li>The temperature sensor does not overlap with the display.</li>
-<li>Please bring the EL display with you to the OH so we can double check everything there.</li>
-</ol><br>
-    
-    Also when you come in, please don't forget to pick up:<br><br>
-    <ol>
-        <li>the mug</li>
-        <li>a 1 kOhm resistor</li>
-        <li>a roll of copper tape</li>
+      <ol>
+        <li>Wire thickness = 0.3mm</li>
+        <li>Spacing between thermal traces = 0.5mm</li>
+        <li>Width of temperature sensor = 7cm</li>
     </ol>
+  
+    <h3 class="headline">(6) Integrate Temperature Sensor and EL Display Circuit</h3>
 
-    <img src="images/lab7/copper-tape.png" width="300px"><br><br>
+    Now that you have the temperature sensor, it's time to extend the circuit to also include the EL display, whose brightness we want to control based on temperature changes. Below, you see an image of the mug for reference and the overall circuit layout that fits onto the mug, which has all the elements you need for the circuit. <br><br>
 
-    <b>Test resistance of your temperature sensor</b><br>
-    Once your print is done and before you continue with assembly, check if the temperature sensor has the correct resistance of 1kOhm.<br> 
-    Use a multimeter and hold its two electrodes on the two corresponding connector pads (see image below).<br> 
-    You should read a value close to 1 kOhm. If not, please let us know and we can help debug.<br><br>
+    <span style="color:red">please update the image on the right with all the measurements so students don't have to go back to the text. also add a placeholder for the copper strip and copper flap.</span><br>
+    <img src="images/lab6/mug.png" width="180px"> 
+    <img src="images/lab6/mugCircuit.PNG" width="550px"><br><br>
+
+    <b>Download Overall Circuit File:</b> <span style="color:red">Download the overall circuit file from here.</span> It contains a rectangle that shows you how much space you have on the mug (width: 17cm, height: 7.5cm) but otherwise doesn't contain anything.<br><br> 
+
+    <b>Add Temperature Sensor to Circuit:</b> Open your temperature sensor pdf in Adobe Illustrator. Copy the temperature sensor into your overall circuit file. The imported temperature sensor should be placed near the mug's handle as shown below.<br><br>
+
+    <b>Add two Connector Pads to Temperature Sensor:</b> Draw two connector pads (each size: 3cm x 1cm) and connect them with two wires (thickness: 1mm) to the temperature sensor start and end of the horse shoe pattern. We will later connect our microcontroller to those connector pads.<br><br>
+
+    <b>Draw a placeholder for your EL display:</b> Measure the size of your EL display and draw a placeholder rectangle in your overall circuit design. The sprayed EL display should be placed on the opposite side of the handle as shown in the image below. There should be a <span style="color:red">1cm gap between the temperature sensor and the edge of your EL display to ensure they do not touch each other</span>.<br><br> 
+
+    <b>Draw a placeholder for copper flaps:</b> Also draw two placeholders for the copper connectors on your EL display. One connector is the copper flap that we attached to the copper sprayed area, the other connector is the copper tape at the bottom of the display. Draw their position accurately into your circuit drawing.<br><br> 
+
+    <b>Draw two Connector Pads to EL Display:</b> Next, draw an additional two connector pads (each size: 3cm x 1cm) and connect them with two wires (thickness: 2mm) to the EL display copper flap/stripe. There should be at least a distance of 3cm between the wires at the location where they connect to the EL display to avoid short circuits. The position of the wire is essential, if it is placed too high or too low it will not make a connection to your EL display.<br><br>
+
+    Once you are done, double check one more time: <span style="color:red">anything else?</span>
+    <ol>
+        <li>The spacing between your display-connected traces matches the distance between the two pieces of copper on YOUR display.</li>
+        <li>The height of your circuit (i.e., the bounding rectangle) is of maximum height <span style="color:red">3in (let's use mm or cm)</span></li>
+        <li>The temperature sensor does not overlap with the display, there is a gap of at least 1cm between them.</li>
+</ol><br>
+
+
+    <h3 class="headline">(7) Inkjet Print your Temperature Sensor Circuit</h3>
+
+    Once you are done with your circuit design, please put it in <span style="color:red">your google drive</span> and <span style="color:red">let us know on slack</span> that you are ready for inkjet printing.<br><br>
+
+    <b>Inkjet Print Circuit:</b> Once we confirmed that everything looks good, go ahead and inkjet print your circuit on <span style="color:red">white inkjet paper sheets</span>.<br><br>
+
+    <b>Check Resistance of your Temperature Sensor:</b> Once your print is done, check if the temperature sensor has the correct resistance of 1kOhm. Use a multimeter and hold its two electrodes on the two corresponding connector pads, you should read a value close to 1 kOhm.<br><br>
 
     <img src="images/lab7/testingTemperature2.jpg" width="300px"><br><br>
+
+
+<h3>Deliverables</h3>
+
+At the end of the lab, upload to your student google drive:
+<ol>
+        <li>the Processing code (.pde) to generate the temperature sensor</li>
+        <li>the Adobe Illustrator file (.pdf) with the completed circuit design</li>
+        <li>1 photo (.jpg or .png) of your inkjet printed temperature sensor</li>
+    </ol>
     
-    <b>Attach your sprayed EL Display on the Circuit</b><br>
-    Once you have printed your circuit and verified that the temperature sensor is having the right resistance, you are ready to attach your EL display to it.<br><br>
-
-    First lay your circuit on a flat surface. Take a roll of copper tape and cut of two 6cm long pieces. Glue one half of each copper stripe on the two wires that lead to your display and bend the other half around such that the adhesive side faces upwards. <br>  
-    Make sure that the two copper stripes don't connect to each other and have a save distance of at least 1cm. <br><br>
-
-    <img src="images/lab7/copperOpen.png" width="350px">
-    <img src="images/lab7/copperClosed.jpg" width="350px"><br><br>
-
-
-    Next, stick your display onto the sticky area of the bend-over copper stripes.<br>
-    Make sure that one copper strip connects only to the ITO and the other copper strip only connects to the sprayed copper layer.<br><br>
-
-    <img src="images/lab7/copperDisplay.png" width="350px">
-    <img src="images/lab7/displayOnCopper.jpg" width="350px"><br><br> 
-
-    <b>Test Display Connection</b><br>
-
-    Now, it's time to test if the connection between the display and the printed traces is working.<br>
-    Take your battery and inverter circuit and connect it to the two connector pads on the left hand side of the circuit. <br>
-    You should see that the display lights up.<br> 
-    We will have an inverter and power supply at the OH, so you don't have to bring your own.<br><br>
-
-    <img src="images/lab7/displayTesting.png" width="400px"><br><br> 
-
-    Once, you verified that everything works, you can tape the display on its edges onto the circuit sheet.<br> 
-    Take some scotch tape and apply a stripe on the left and the right edge of your display.<br><br>
-
-    <img src="images/lab7/scotchOnOneSide.png" width="350px">
-    <img src="images/lab7/scotchOnBothSides.jpg" width="350px"><br><br>
-
-    <b>Attaching the entire circuit to the mug</b><br>
-    Now we are ready to attach the entire circuit to the mug.<br>
-    For this, we will use double sided tape.<br>
-    In the OH, cut off a tape strip the length of your circuit design, i.e. it should be 17cm and attach it across the surface of the mug.<br> 
-    Next, also remove the protective foil from the tape such that it is also adhesive on the top side.<br><br>
-
-    <img src="images/lab7/attachingTape.png" width="240x">
-    <img src="images/lab7/mugWithTape.jpg" width="280px"><br><br>
-
-    Now take your printed circuit and glue it onto your mug.<br><br>
     
-    <img src="images/lab7/circuitToMug.png" width="300x">
-    <img src="images/lab7/circuitOnMug.jpg" width="300px"><br><br>
-    
-    <b>Attaching wires to the silver connector pads</b><br>
-    
-    Next, you'll need jumper wires that can connect the mug to a breadboard and your ESP32.<br>
-    Since the silver connector pads are not suitable for soldering, we instead solder the jumper wires onto little piece of copper tape and then attach those to the silver connector pads.<br><br>
-
-    To do this, first cut of a copper strip for each silver connector pad.<br>
-    The copper stripes should be about 3cm long, which is the size of your printed silver pads.<br>
-    Take a soldering iron and apply a drop of solder on them. <br>
-    Next, take a short jumper wire, hold it over the solder drop and press it down with the solder iron until it is well connected.<br><br>
-    
-    <img src="images/lab7/copperDrop.jpg" width="250x">
-    <img src="images/lab7/jumperOnCopper.jpg" width="250px"><br><br>
-    
-    Repeat this for all 4 jumper wires.<br><br>
-    
-    Now, carefully attach the copper stripes onto your mug's connector pads.<br><br>
-    <img src="images/lab7/fourConnectors.jpg" width="250x">
-    <img src="images/lab7/jumpersAttached.jpg" width="250px"><br><br>
-    
-    To extend the wires and make them longer, you can connect male-to-female jumper wires that you got in your grey boxes to the four dangling wires.<br><br>
-    
-    <img src="images/lab7/jumperTogether.jpg" width="300px"><br><br> 
-    
-    <b>Protecting the Circuit from Moisture and Touching</b><br>
-
-    The last step you need to do is to protect it from moisture.<br>
-    This is especially important since we want to fill hot and cold water into it and some water may spill over (try to avoid it).<br>
-    Also, we want to protect the circuit from constant touching, which may happen with a mug.<br>
-    To protect the circuit, we will use clear tape to cover all the electronics.<br><br>
-    
-    To do this, cut off a 19cm long stripe of our extra wide 3inch tape.<br> 
-    Carefully apply the tape on the entire circuit.<br> 
-    If you make a mistake here, you need to continue rolling the tape over the circuit. You cannot remove the tape anymore since you might rip off the silver traces.<br>
-    Therefore, be extra careful.<br><br>
-    
-    <img src="images/lab7/tapeOnDisplay.jpg" width="400px"><br><br> 
-
-    <h3 class="headline">(4) Connecting to the Microcontroller and Building the Circuit</h3><br>
-    
-    Controlling this mug interface requires 2 parts.<br>
-    <ol>
-        <li>a circuit to control the EL display. You have completed this circuit already in lab 3 and will will use it in this lab. </li>
-        <li>a circuit to read the resistance of your printed temperature sensor. We will do this now. 
-        </ol>
-        <br>
-    
-    <b>Building the temperature sensor circuit</b><br>
-    Remember that to measure the temperature of the liquid in the mug, we need to measure the changes in resistance of the silver trace that makes up our temperature sensor.<br>
-    So how can we measure resistance on the ESP?<br>
-    Unfortunately, we can't. The ESP can only measure voltage but not resistance.<br><br> 
-
-    However, there is a way to use changes in voltage to determine resistance. A circuit that allows us to do this is called a <b>voltage divider</b>. A schematic of a voltage divider looks like this:<br><br>
-
-     <img src="images/lab7/voltage_divider.png" width="200px"><br><br>
-    
-    It consists of one <b>known resistor (R1)</b> and one <b>unknown resistor (R2)</b> that we want to measure. In our case, the unknown resistor R2 is our temperature sensor. For the known resistor R1, we can simply pick one but it's a good idea to pick something that matches your other resistor R2, i.e. we will use 1kOhm.<br><br>
-
-    <b>Vin</b> is the 3.3V supply voltage from the ESP32.<br> 
-    <b>Vout</b> is a voltage than will change when the resistance of our temperature sensor (R2) changes.<br><br>
-
-    We can compute VOut using the following formula:<br><br>
-    
-    <pre>Vout = (R2*Vin)/(R1+R2)</pre><br>
-    
-    If we use a 1kOhm resistor for R1 and we connect the temperature sensor as R2, then we can solve the equation for R2 to determine the change in resistance, which ultimately allows us to determine the current temperature of the mug.<br><br>
-
-    To get started with this, build the voltage divider on a breadboard and connect your temperature sensor on the mug to this circuit.<br><br>
-    
-    <b>Building the EL display control circuit</b><br>
-    If you finished all task from lab3, you already have this circuit.<br>
-    All that's left to do is to connect your EL display control cicuit to the corresponding wires on the mug. <br><br>
-
-    <h3 class="headline">(5) Code for Reading Mug's Current Temperature and Adjusting Display</h3><br>
-
-    Now that everything is wired up, you are ready to write the code for determining the temperature and adjusting the display brightness accordingly.<br>
-    The display should be turned off when the mug is cold. It should start blinking at temperatures above >70C to help users avoid getting burned.<br><br>
-    
-    <b>Code for Reading Voltage from Voltage Divider Circuit</b><br>
-    Use analogRead() to read the incoming voltage value from your voltage divider and write it to the Serial monitor. analogRead() returns the voltage value between 0V and 3.3V and maps it to an output range of 0 - 4095. What this means is that if you read a value of 2047 (4095/2), your voltage is around 1.65V (3.3V/2). If you see the voltage readings in the Serial monitor, move to the next stpe. <br><br> 
-    
-    <img src="images/lab7/voltage-readings.png" width="700px"><br><br>
-
-    <b>Converting Voltage To Resistance Values</b><br>
-    
-    Now, it's time to apply the voltage divider formula from above.<br> 
-    Use it to compute the resistance of your temperature sensor R2 and plot the values.<br><br>
-    
-    <img src="images/lab7/resistance-readings.png" width="700px"><br><br>
-
-    <b>Smoothing the Signal with a Box Filter</b><br>
-    You'll notice that the resistance values are fluctuating a lot.<br> 
-    This is due to the limited precision of the ESP32 and environmental electric noise that slightly changes the read in voltage values. <br><br>
-    
-    Recall from the lecture 'Sensing: Touch', that we introduced a filtering technique to smooth out such noise.<br> 
-    It's called a box filter and it works by saving an array of sensor values (the box) of a specific width (e.g., 300 values) and computing the mean of this box.<br> 
-    As new sensing values get read in through analogRead(), the box moves forward by one value, i.e. the oldest element in the array gets replaced by the new value and you need to recompute the mean.<br><br>
-    
-    Implement a box filter that smoothens out the values from analogRead().<br> 
-    Use a box width of 300 values.<br> 
-    Once you have completed the filter, your results should look like this:<br><br>
-
-    <img src="images/lab7/filtered_large3.png" width="700px"><br><br>
-
-    You see that the filter first collects 300 values and the mean is increasing with every new value. When the box is full, we can have a stable resistance value. Below we see a zoomed in graph of the filtered values. The fluctuation is reduced to just 20Ohm  (instead of 300Ohm without filtering, which is 15x more noisy!).<br><br>
-    <img src="images/lab7/filtered_small2.png" width="700px"><br><br>
-
-    <b>Measuring temperature with resistance increase</b><br>
-    Now, it's time to conduct an experimen.<br>
-    How much does the resistance changes as the temperature of a liquid inside the mug increases?<br><br>
-
-    First, note down your current mean resistance at room temperature.<br> 
-    Get some water to boil to 100C and pour it into the mug while you continue to plot the resistance values with the serial plotter.<br> 
-    You should notice that the values start increasing while the mug is heating up. <br>
-    Once you reached a stable value, note it down as well.<br> 
-    The value increase should be around 4%.<br><br>
-    
-    <b>Connecting Temperature/Resistance Increase to Display Behavior</b><br>
-    Next, use your temperature sensor values to set different states for your display. <br> 
-    While the mug is at room temperature or below around 60C, it should be turned off.<br>
-    The display should blink if the mug is really hot and ready to drink (i.e., the temperature when you poured in the boiling water, around 80C (the boiling water gets a bit colder than 100C when you pour it into a cold mug).<br><br> 
-    
-    Your final design should look like this:<br><br>
-
-    <iframe width="260" height="315" src="https://www.youtube.com/embed/E8sfqrH_1Ks" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
-
-    <h3 class="headline">Deliverables Lab 4 (due Wednesday, Oct. 7, 2020, 11.59pm)</h3>
-    
-    At the end of Lab 4, upload to your student google drive:
-    <ul>
-        <li>the Processing code (.pde) to generate a temperature sensor</li>
-        <li>the Arduino code (.ino) for controlling your display and reading the temperature</li>
-        <li>2-3 photos (.jpg or .png) from different angles of your mug</li>
-        <li>a short video (.mov or .mp4, max. 1 minute) showing how your display turned off at room temperature and starts blinking after pouring in boiling hot water in it.</li>
-    </ul>
 
 <hr>
 
