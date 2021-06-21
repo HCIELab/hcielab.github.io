@@ -51,7 +51,7 @@
         <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2021)</a><br></h4>
         <h2 class="headline">Lab 7: Inkjet Printed Temperature Sensor</h2>
 
-In this lab, we will design an ink-jet printed temperature sensor to sense the heat of the mug and we will use the display which you sprayed in the last lab to signal to the user the current temperature of the mug's content.<br><br>   
+In this lab, we will first create the digital design of an ink-jet printed temperature sensor to sense the heat of the mug when a hot drink is poured in. We will then create the overall circuit design for the mug, which contains the temperature sensor and connector pads for the EL display. Finally, we will print out the circuit design on the inkjet printer. In the next lab, we will then assemble everything into the final mug.<br><br>   
 
 <span style="color:red">don't forget to bring your EL display</span> <br><br>       
           
@@ -60,14 +60,14 @@ In this lab, we will design an ink-jet printed temperature sensor to sense the h
 
 <h3>Steps:</h3>
 <ol>
-  <li><a href="#XXXX">Design an inkjet printed temperature sensor using Processing.</a></li>
-  <li><a href="#XXXX">Extend the inkjet printed temperature with wires to attach to your sprayed electrolumiscent (EL) display.</a></li>
-  <li><a href="#XXXX">Fabricate and assemble the printed circuit and EL display, then attach both to the mug.</a></li>
-  <li><a href="#XXXX">Build the circuit for the mug to read the temperature and control the EL display accordingly.</a></li>
-  <li><a href="#XXXX">Write the code that reads the current temperature and that adjusts the brightness of the EL display accordingly.</a></li>
-  <li><a href="#XXXX">XXXX</a></li>
-  <li><a href="#XXXX">XXXX</a></li>
-  <li><a href="#XXXX">XXXX</a></li>
+  <li><a href="#temperaturesensing">Understand Temperature Sensing</a></li>
+  <li><a href="#overallresistance">Choose Overall Resistance (R) for Temperature Sensor</a></li>
+  <li><a href="#wirethickness">Determine Minimum Wire Thickness (A) for Temperature Sensor</a></li>
+  <li><a href="#thermalresistivity">Determine Thermal Resistivity (p) for Inkjet Printed Silver</a></li>
+  <li><a href="#wirelength">Determine Wire Length (l) to Achieve 1kOhm Resistance.</a></li>
+  <li><a href="#processingscript">Generate Temperature Sensor Using Processing Script</a></li>
+  <li><a href="#overallcircuit">Integrate Temperature Sensor and EL Display Circuit</a></li>
+  <li><a href="#inkjetprintcircuit">Inkjet Print Circuit</a></li>
 </ol>
 
 
@@ -81,7 +81,7 @@ At the end of the lab, upload to your student google drive:
     </ol>
     
     
-     <h3 id="XX">(1) Understand Temperature Sensing</h3>
+     <h3 id="temperaturesensing">(1) Understand Temperature Sensing</h3>
 
      You will make your own temperature from scratch using conductive inkjet printing. But why can conductive traces be used to sense temperature?<br><br>
 
@@ -93,7 +93,7 @@ At the end of the lab, upload to your student google drive:
 
     <img src="images/lab6/resistance.png" width="400px"><br><br>
 
-    <h3 id="XX">(2) Choose Overall Resistance (R)</h3>
+    <h3 id="overallresistance">(2) Choose Overall Resistance (R) for Temperature Sensor</h3>
 
     As you can see in the formula above, the only part that is given is the thermal resistivity (p) for our material silver, which is determined by nature. However, we can freely choose the overall resistance (R), the wire length (l) and the thickness of the wire (A). Let's first determine what overall resistance (R) would be good to use.<br><br> 
 
@@ -101,13 +101,13 @@ At the end of the lab, upload to your student google drive:
 
     <span style="color:red">perhaps we can add a small todo for students here? i.e. you want to measure XX temperature resolution, what overall resistance should you use?</span><br><br>
 
-    <h3 id="XX">(3) Choose Wire Thickness (A)</h3>
+    <h3 id="wirethickness">(3) Determine Minimum Wire Thickness (A) for Temperature Sensor</h3>
 
     Now that we know that our desired overall resistance R is 1kOhm, what values should we use for wire length (l) and the wire thickness (A). As you can see in the formula, the longer the wire (l) and the thinner (A) the wire, the higher the resistance will be. Since longer wires take up more space on our prototype, which we don't want, we should first try to minimize the thickness to increase the resistance.<br><br>
 
     <b>Thickness of the Wire (A):</b> We ran a few experiments and found that the thinnest trace we can print is <span style="color:red">0.3mm wide</span>. Any thinner than this and the silver does not connect reliably anymore to form a trace. Thus, we will use <code>A = 0.3mm</code> for our temperature sensor.<br><br> 
 
-    <h3 id="XX">(4) Determine Thermal Resistivity (p)</h3>
+    <h3 id="thermalresistivity">(4) Determine Thermal Resistivity (p) for Inkjet Printed Silver</h3>
 
     Next, we need to determine the thermal resistivity (p). Since we want to solve the formula for <code>R = 1kOhm</code> at room temperature, we will determine p at <span style="color:red">23&#8451; (what temperature did you use?).</span>. <span style="color:red">why is it enough to only do this for one p? we will never determine the other p right? they will be implicitly measured in the overall resistance R?</span><br><br> 
 
@@ -116,7 +116,7 @@ At the end of the lab, upload to your student google drive:
      Note that this can also vary depending on the substrate, the 2D printer, and the silver ink mixture, so if you change any of these you would have to remeasure the resistance.<br><br> 
 
 
-    <h3 id="XX">(4) Determine Wire Length (l)</h3>
+    <h3 id="wirelength">(5) Determine Wire Length (l) to Achieve 1kOhm Resistance</h3>
 
     Finally, we can determine the wire length (l) based on all the other values.<br><br>
 
@@ -124,7 +124,7 @@ At the end of the lab, upload to your student google drive:
     
     <pre>Overall Resistance (R) = wire length (l) * thermal resisvity (p(20C)) = l * 7.5 Ohm/cm</pre><br>
 
-    <h3 id="XX">(5) Create Wire Trace Using Processing Script</h3>
+    <h3 id="processingscript">(6) Generate Temperature Sensor Using Processing Script</h3>
 
     Now that you know how long the wire has to be, the next question that arises is how to best shape it to take up minimal space on our mug?<br><br>
 
@@ -150,7 +150,7 @@ At the end of the lab, upload to your student google drive:
         <li>Width of temperature sensor = 7cm</li>
     </ol>
   
-    <h3 class="headline">(6) Integrate Temperature Sensor and EL Display Circuit</h3>
+    <h3 id="overallcircuit">(7) Integrate Temperature Sensor and EL Display Circuit</h3>
 
     Now that you have the temperature sensor, it's time to extend the circuit to also include the EL display, whose brightness we want to control based on temperature changes. Below, you see an image of the mug for reference and the overall circuit layout that fits onto the mug, which has all the elements you need for the circuit. <br><br>
 
@@ -178,7 +178,7 @@ At the end of the lab, upload to your student google drive:
 </ol><br>
 
 
-    <h3 class="headline">(7) Inkjet Print your Temperature Sensor Circuit</h3>
+    <h3 id="inkjetprintcircuit">(8) Inkjet Print Circuit</h3>
 
     Once you are done with your circuit design, please put it in <span style="color:red">your google drive</span> and <span style="color:red">let us know on slack</span> that you are ready for inkjet printing.<br><br>
 
