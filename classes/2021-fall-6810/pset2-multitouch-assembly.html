@@ -234,7 +234,11 @@ As you can see in the schematic, the circuit for receiving is very similar to wh
 <b>Connecting the ADC component to the ESP:</b> Sending data from the ADC component to the ESP is a little more complicated. The MCP3008 chip communicates with the ESP via the Serial Peripheral Interface (SPI). We use basic SPI between one master (ESP) and one slave (MCP3008 chip). SPI communication is setup via 4 types of pins, i.e. MOSI is the line for the master to send data to the slave, MISO is the line for the slave to send data to the master, SCK is the line for the clock signal that determines how fast bits of data can be send, and NSS/CS is a line for the master to select which slave to send data to. The ADC chip uses different names on its pinout for these pins, i.e. <b>MOSI (DIn), MISO (DOut), SCK (CLK), and NSS/CS (CS/SHDN)</b> as shown above in the MPC chip pinout. The ESP uses the regular names as shown on the ESP pinout below. Wire up these four SPI pins (not VSPI) between the ADC chip and the ESP. <br><br>
 
 <img src="images/pset3/esp32-pinout.png" width="800px" style="cursor:pointer;"><br><br>
-<!--<img src="images/pset2/adc_fritzing_label.png" width="900px">--><br><br>
+<b>**** Important Notes **** <br>
+	1) GPIO 34-39 are INPUT only <br> 
+	2) do not use GPIO 0 as INPUT <br>
+	3) try avoid GPIO 6-11, which might have unexpected behaviors </b><br><br>
+<!--<img src="images/pset2/adc_fritzing_label.png" width="900px">-->
 
 <b>Using a Multiplexer for the receiving circuit:</b> While we will not do it in this pset, we could also use a second multiplexer to reduce the number of pins required for the receiving circuit, i.e. the electrode rows. When using the multiplexer for receiving, we would redirect the received signal on CH0-15 to the SIG pin that is then read by the ESP. Similar to above, we would only have to specify which channel (CH0-15) we want to read and the ESP would then retrieve the signal from the respective channel. Thus, this second multiplexer would reduce the number of receiver pins by combining multiple rows into one pin on the ESP. <br><br>
 

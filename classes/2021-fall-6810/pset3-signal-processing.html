@@ -125,7 +125,7 @@ Once you submitted all your answers with the google form, feel free to reach out
 
 <h3 id="Multiplexer">(2) Configure the Multiplexer to send the PWM signal to the right electrode column</h3>
 
-Now that you are generating the PWM signal at the sender pin on the ESP that is connected to the multiplexer, we will write up the function that determines to which pin (i.e. electrode column) the multiplexer will send the signal as output. <br><br>
+Now that you are generating the PWM signal at the sender pin on the ESP that is connected to the multiplexer, we will write up the function that determines to which pin (i.e. electrode column) the multiplexer will send the signal as output. Note that even if you didn’t get PWM signal in (1) working, you can still work on this section here in (2), just use digitalWrite(HIGH) for the multiplexer's SIG pin for now.<br><br>
 
 <img src="images/pset3/multiplexer.png" width="350px"><br><br>  
 
@@ -140,7 +140,9 @@ Now that you are generating the PWM signal at the sender pin on the ESP that is 
 
 <h3 id="SPI">(3) Receive Signals from Electrode Rows via SPI Communication</h3>
 
-Remember from pset1 that we had wired up an additional ADC converter (MCP3008 chip) to get cleaner signals from our multi-touch pad, i.e. the MCP3008 chip converts our analog touch signals better than the ESP GPIO pins would be able to do. We had also discussed that the MCP3008 chip communicates with the ESP via the Serial Peripheral Interface (SPI). To read the signals via SPI, you will have to do the following steps. <br><br> 
+<b><i>**Note:</i></b> the Section (2) and (3) can be worked on independently, i.e. if you don’t get (2) to work you can still do (3) here. <br><br>
+
+Remember from pset2 that we had wired up an additional ADC converter (MCP3008 chip) to get cleaner signals from our multi-touch pad, i.e. the MCP3008 chip converts our analog touch signals better than the ESP GPIO pins would be able to do. We had also discussed that the MCP3008 chip communicates with the ESP via the Serial Peripheral Interface (SPI) <a href="pset2-multitouch-assembly.html#RECEIVING">here</a>. To read the signals via SPI, you will have to do the following steps. <br><br> 
 
 <b>Install MCP3008 Library</b>: Download and install the MCP3008 library by opening the Arduino IDE and going to Sketch -> Include Library -> Manage Libraries and search for the MCP3008 library. Restart your Arduino IDE after you installed the library.<br><br>
 

@@ -1,4 +1,9 @@
 
+//----- Circuit Pin Recommendations -----
+// PWM pin: 16
+// Multiplexer Select Pins: 17, 5, 18, 19
+// SPI pins for MCP3008 ADC chip (sck, mosi, miso, cs): (14, 13, 12, 25)
+
 //----- TODO: Include library for MCP3008 -----
 
 
