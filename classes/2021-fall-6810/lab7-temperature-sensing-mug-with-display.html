@@ -80,37 +80,51 @@ At the end of the lab, upload to your student google drive:
     </ol>
     
     
-     <h3 id="XX">(1) Designing the inkjet printed temperature sensor</h3>
+     <h3 id="XX">(1) Understand Temperature Sensing</h3>
 
-    First, you will use conductive inkjet printing to make your own temperature sensor from scratch.<br><br>
+     You will make your own temperature from scratch using conductive inkjet printing. But why can conductive traces be used to sense temperature?<br><br>
 
-    <b>Why can conductive wires be used to sense temperature?</b><br>
-    Conductive wires can be used to sense temperature by making use of a material property that most conductive metals share: Their resistance changes with changes in temperature. This property is called <b>thermal resistivity p</b> and is shown in the formula for determining the overall resistance of a wire below. As you can see, given a wire with a fixed length l and cross section A, the higher the thermal resistivity the higher the overall resistance. For our silver, the thermal resistivity p increases with increasing temperature. Thus, the higher the temperature, the higher the thermal resistivity and the higher the overall resistance of our wire. Thus, by reading the overall resistance of the wire with our microcontroller, we can determine the mug's temperature.<br><Br> 
+     <b>Thermal Resistivity (Resistance Changes with Temperature):</b> Conductive wires can be used to sense temperature by making use of a material property that most conductive metals share: Their resistance changes with changes in temperature. This property is called <i>thermal resistivity p</i>.<br><br>
+
+     <b>Formula for Computing Overall Resistance based on Thermal Resistivity:</b> The formula for determining the overall resistance of a wire based on thermal resistivity, length of a wire, and thickness of a wire (cross section) is shown in the picture below. As you can see, given a wire with a fixed length l and a fixed cross section A, the higher the thermal resistivity (i.e. the resistance introduced by changes in heat) the higher the overall resistance. (Note that we use wire thickness instead of cross section, we discard height since all wires have the same height)<br><br> 
+
+     <b>Thermal Resistivity for Silver Used in Conductive Inkjet Printing:</b> For silver, the thermal resistivity p increases with increases in temperature. Thus, the higher the temperature, the higher the thermal resistivity and the higher the overall resistance of our wire. Thus, by reading the overall resistance of the wire with our microcontroller, we can determine the mug's temperature.<br><br> 
 
     <img src="images/lab6/resistance.png" width="400px"><br><br>
 
-    <b>How high should the resistance of the wire be to work as a reliable temperature sensor?</b><br>
-    The higher the resistance of the conductive wire, the more sensitive it will be to temperature changes.<br>
-    Consider the following, if you have a small resistor (e.g., 50Ohm) and the resistance changes a little bit (e.g. 5%), the change will be very small (i.e., 5% of 50Ohm = 2.5Ohm). This is difficult to measure since there is always a bit of noise in electronics. In contrast, if you use a large resistor (e.g., 1kOhm), the change will be larger (i.e., 5% of 1,000 Ohm = 50Ohm). Therefore, our ideal temperature sensor should be a wire with high resistance. We choose 1kOhm since that gives us a pretty high sensitivity, but you could also go higher.<br><br>
+    <h3 id="XX">(2) Choose Overall Resistance (R)</h3>
 
-    <b>How can we create a conductive wire with high resistance?</b><br>
-    If you look again at the image above, you can see that the resistance of a conductive wire is determined by its cross-section A and its length l. Note that when we talk about the cross-section A in our example here, we mean the width of the wire since the height will be the same for all our prints. <br> 
-    To create a high resistance wire, should the <b>cross-section A</b> be larger or smaller?<br>
-    To create a high resistance wire, should the <b>length of the wire l</b> be longer or shorter? <br>
-    Look at the formula in the image.<br><br>
+    As you can see in the formula above, the only part that is given is the thermal resistivity (p) for our material silver, which is determined by nature. However, we can freely choose the overall resistance (R), the wire length (l) and the thickness of the wire (A). Let's first determine what overall resistance (R) would be good to use.<br><br> 
 
-    To create a high resistance wire, the cross-section A (width of the wire) should be as small as possible.<br>
-    To create a high resistance wire, the length of the wire should be as long as possible.
+    <b>Effect of Overall Resistance (R) on Temperature Sensor Resolution:</b> The higher the overall resistance of the conductive wire, the more sensitive it will be to temperature changes. Consider the following example: If your wire has a small resistance (50Ohm) and the resistance changes a little bit (5%), the change will be very small (5% of 50Ohm = 2.5Ohm). This is difficult to measure since there is always noise in electronics. In contrast, if your wire has a large resistance (1kOhm), the change will be larger (5% of 1,000 Ohm = 50Ohm), which is easier to measure. Thus, a wire with a larger resistance allows you to measure smaller changes in temperature, and thus results in a temperature sensor with a higher sensing resolution. For our temperature sensor, we will use <code>R = 1kOhm</code> at room temperature since that gives us a pretty high sensitivity, but you could also go higher. <span style="color:red">Could we say something here about what ohm differences are realistic to measure? what does 'pretty high sensitvity' mean? 10 values? 100 values? 0.1C or 0.01C measurements?</span><br><br>
 
-    <br><br>
+    <h3 id="XX">(3) Choose Wire Thickness (A)</h3>
 
-    <b>How thin and how long should the wire be?</b><br>
-    As you just figured out, the thinner and longer the conductive wire the higher the resistance.<br><br>
+    Now that we know that our desired overall resistance R is 1kOhm, what values should we use for wire length (l) and the wire thickness (A). As you can see in the formula, the longer the wire (l) and the thinner (A) the wire, the higher the resistance will be. Since longer wires take up more space on our prototype, which we don't want, we should first try to minimize the thickness to increase the resistance.<br><br>
 
-    <i>Thickness:</i> Since long wires take up space on our prototype, we should first try to minimize the thickness to increase the resistance. We ran a few experiments and found that the thinnest trace we can print is 0.3mm wide. Any thinner than this and the silver does not connect reliably anymore.<br><br> 
+    <b>Thickness of the Wire (A):</b> We ran a few experiments and found that the thinnest trace we can print is <span style="color:red">0.3mm wide</span>. Any thinner than this and the silver does not connect reliably anymore to form a trace. Thus, we will use <code>A = 0.3mm</code> for our temperature sensor.<br><br> 
+
+    <h3 id="XX">(4) Determine Thermal Resistivity (p)</h3>
+
+    Next, we need to determine the thermal resistivity (p). Since we want to solve the formula for <code>R = 1kOhm</code> at room temperature, we will determine p at <span style="color:red">23&#8451; (what temperature did you use?).</span>. <span style="color:red">why is it enough to only do this for one p? we will never determine the other p right? they will be implicitly measured in the overall resistance R?</span><br><br> 
+
+    <b>Experimentally Determining Thermal Resistivity (p):</b> To determine (p), we printed a wire of thickness <code>A = 0.3mm</code> and wire length <code>l = 1cm</code>. We measured the overall resistance <code>R</code> at room temperature <span style="color:red">23&#8451;</span> using a multimeter and found the overall resistance <code>R = 7.5 Ohm/cm</code>. <span style="color:red">So how does this tell us the thermal resistivity (p)? Since the wire thickness (A) is constant, you can remove it from the formula. This leaves us with R = p * l.</span> Since we used l = 1cm, we can conclude that R = p. Thus, <code>p = 7.5 Ohm/cm</code> at room temperature <span style="color:red">23&#8451;</span>. <br><br> 
+
+     Note that this can also vary depending on the substrate, the 2D printer, and the silver ink mixture, so if you change any of these you would have to remeasure the resistance.<br><br> 
+
+
+    <h3 id="XX">(4) Determine Wire Length (l)</h3>
+
+
+
+
+    <i>Length of the Wire (l):</i> Now we have R (1kOhm) and A (0.3mm), how do we determine the wire length (l) that we need to use? Since the thermal resistivity p is a dynamic value based on temperature, we can't simply solve for l in the formula. 
+
+
+
+    
  
-    <i>Resistance of a 1cm long trace:</i> So now that we know the smallest thickness is 0.3mm wide, how much resistance does a wire like that have? To determine this, we printed a trace of 0.3mm width and 1cm length and found that its resistance was 7.5 Ohm/cm at room temperature.<br>
-     Note that this can vary depending on the substrate, the 2D printer, and the silver ink mixture, so if you change any of these you would have to remeasure the resistance.<br><br> 
+
 
      <i>Required Length of the wire for 1kOhm?</i> Assuming that the thermal resistivity p and the height of the trace is constant, how long does your conductive wire have to be to have 1kOhm resistance?<br>
      Remember that the thermal resistance p at room temperature 20C for a 0.3mm cross-section wire is p(20C) = 7.5Ohm/cm.<br> 
@@ -118,6 +132,14 @@ At the end of the lab, upload to your student google drive:
      We can therefore estimate the resistance of a trace of length l at room temperature by calculating<br><br>
     
     <pre>resistance = l * p(20C) = l * 7.5 Ohm/cm</pre><br>
+
+
+
+     <h3 id="XX">(1) Designing the inkjet printed temperature sensor</h3>
+
+
+    
+
 
 
      <b>Shaping a long conductive wire into a compact form factor:</b><br>
