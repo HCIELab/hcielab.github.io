@@ -51,11 +51,11 @@
         <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2021)</a><br></h4>
         <h2 class="headline">Lab 8: Mug Assembly &  Display Control Using Temperature</h2>
 
-In this lab, we will design an ink-jet printed temperature sensor to sense the heat of the mug and we will use the display which you sprayed in the last lab to signal to the user the current temperature of the mug's content.<br><br>   
+In this lab, we will assemble the mug, i.e. attach your inkjet printed circuit to it. We will then write code to measure the temperature of the mug by reading the overall resistance from the temperature sensor. We will then adjust our display code to blink the display when the temperature is very high to warn the user, and otherwise we will just set the display brightness according to the current tempreature of the liquid inside.<br><br>   
 
 <span style="color:red">don't forget to bring your EL display</span> <br><br>       
           
- <img src="images/lab6/mugCircuit.PNG" width="550px"><img src="images/labseries-mug/circuitOnMug.jpg" width="194px" /><br>
+ <img src="images/lab7/jumpersAttached.jpg" width="150px"><img src="images/lab7/resistance-readings.png" width="600px" /><br>
 
 
 <h3>Steps:</h3>
@@ -74,91 +74,65 @@ In this lab, we will design an ink-jet printed temperature sensor to sense the h
 <h3>Deliverables</h3>
 
 At the end of the lab, upload to your student google drive:
-<ol>
-        <li>the Processing code (.pde) to generate the temperature sensor</li>
-        <li>the Arduino code (.ino) for controlling your display and reading the temperature</li>
-        <li>2-3 photos (.jpg or .png) from different angles of your mug</li>
+    <ol>
+        <li>2-3 photos (.jpg or .png) from different angles of your assembled mug</li>
+        <li>the Arduino code (.ino) for reading the temperature and controlling your display</li>
         <li>a short video (.mov or .mp4, max. 1 minute) showing how your display turned off at room temperature and starts blinking after pouring in boiling hot water in it.</li>
     </ol>
     
     
-    <h3 class="headline">(3) Fabrication and Assembly of Circuit, EL display, and Mug</h3><br>
+    <h3 id="XX">(1) Attach Sprayed EL Display to the Circuit</h3>
 
-    Now that you have the design ready, you can come in for fabrication and assembly.<br><br>
-   
-    
-    Also when you come in, please don't forget to pick up:<br><br>
-    <ol>
-        <li>the mug</li>
-        <li>a 1 kOhm resistor</li>
-        <li>a roll of copper tape</li>
-    </ol>
-
-    <img src="images/lab7/copper-tape.png" width="300px"><br><br>
-
-   
-    
-    <b>Attach your sprayed EL Display on the Circuit</b><br>
     Once you have printed your circuit and verified that the temperature sensor is having the right resistance, you are ready to attach your EL display to it.<br><br>
 
-    First lay your circuit on a flat surface. Take a roll of copper tape and cut of two 6cm long pieces. Glue one half of each copper stripe on the two wires that lead to your display and bend the other half around such that the adhesive side faces upwards. <br>  
-    Make sure that the two copper stripes don't connect to each other and have a save distance of at least 1cm. <br><br>
+    <b>Attach Copper Tape to Circuit for EL Display Connections:</b> Take a roll of copper tape and cut of two 6cm long pieces. Glue one half of each copper stripe on the two wires that lead to your display and bend the other half around such that the adhesive side faces upwards. Make sure that the two copper stripes don't connect to each other and have a save distance of at least 1cm. <br><br>
 
-    <img src="images/lab7/copperOpen.png" width="350px">
-    <img src="images/lab7/copperClosed.jpg" width="350px"><br><br>
+    <span style="color:red">label 1cm distance in image</span><br>
+    <img src="images/lab7/copperOpen.png" width="370px">
+    <img src="images/lab7/copperClosed.jpg" width="310px"><br><br>
 
-
-    Next, stick your display onto the sticky area of the bend-over copper stripes.<br>
-    Make sure that one copper strip connects only to the ITO and the other copper strip only connects to the sprayed copper layer.<br><br>
+    <b>Attach your Display to Copper Tape:</b> Next, stick your display onto the sticky area of the bend-over copper stripes. Make sure that one copper strip connects only to the ITO and the other copper strip only connects to the sprayed copper layer.<br><br>
 
     <img src="images/lab7/copperDisplay.png" width="350px">
-    <img src="images/lab7/displayOnCopper.jpg" width="350px"><br><br> 
+    <img src="images/lab7/displayOnCopper.jpg" width="365px"><br><br> 
 
-    <b>Test Display Connection</b><br>
-
-    Now, it's time to test if the connection between the display and the printed traces is working.<br>
-    Take your battery and inverter circuit and connect it to the two connector pads on the left hand side of the circuit. <br>
-    You should see that the display lights up.<br> 
-    We will have an inverter and power supply at the OH, so you don't have to bring your own.<br><br>
+    <b>Test Display Connection:</b> Let's test if the connection between the display and the printed wires is working. Take your battery and inverter circuit and connect it to the two connector pads on the left hand side of the circuit. If you don't remember how to do this, look back at lab 6. Remember: do not touch the display or any part of the circuit while the battery is in use and the inverter is on. You should see that the display lights up.<br><br>
 
     <img src="images/lab7/displayTesting.png" width="400px"><br><br> 
 
-    Once, you verified that everything works, you can tape the display on its edges onto the circuit sheet.<br> 
-    Take some scotch tape and apply a stripe on the left and the right edge of your display.<br><br>
+    <b>Tape Down Edges of Display with Transparent Tape:</b> Once, you verified that everything works, you can tape the display on its edges onto the circuit sheet using some transparent scotch tape.  
+    Apply a stripe of tape on the left and the right edge of your display.<br><br>
 
     <img src="images/lab7/scotchOnOneSide.png" width="350px">
-    <img src="images/lab7/scotchOnBothSides.jpg" width="350px"><br><br>
+    <img src="images/lab7/scotchOnBothSides.jpg" width="340px"><br><br>
 
-    <b>Attaching the entire circuit to the mug</b><br>
-    Now we are ready to attach the entire circuit to the mug.<br>
-    For this, we will use double sided tape.<br>
-    In the OH, cut off a tape strip the length of your circuit design, i.e. it should be 17cm and attach it across the surface of the mug.<br> 
-    Next, also remove the protective foil from the tape such that it is also adhesive on the top side.<br><br>
+    <h3 id="XX">(2) Attach Circuit to the Mug</h3>
 
-    <img src="images/lab7/attachingTape.png" width="240x">
-    <img src="images/lab7/mugWithTape.jpg" width="280px"><br><br>
+    Now that your EL display and temperature sensor are assembled together, you are ready to attach the entire circuit to the mug.<br><br>
+   
+    <b>Attach Double Sided Tape to Mug:</b> We will use double sided tape to attach the entire circuit to the mug. Cut off a tape strip the length of your circuit design (17cm) and attach it across the surface of the mug. Next, remove the protective foil from the tape to expose the other adhesive side.<br><br>
 
-    Now take your printed circuit and glue it onto your mug.<br><br>
+    <img src="images/lab7/attachingTape.png" width="260x">
+    <img src="images/lab7/mugWithTape.jpg" width="235px"><br><br>
+
+    <b>Attach Circuit onto Double Sided Tape:</b> Next, take your printed circuit and glue it onto your mug.<br><br>
     
     <img src="images/lab7/circuitToMug.png" width="300x">
-    <img src="images/lab7/circuitOnMug.jpg" width="300px"><br><br>
+    <img src="images/lab7/circuitOnMug.jpg" width="290px"><br><br>
     
-    <b>Attaching wires to the silver connector pads</b><br>
-    
-    Next, you'll need jumper wires that can connect the mug to a breadboard and your ESP32.<br>
-    Since the silver connector pads are not suitable for soldering, we instead solder the jumper wires onto little piece of copper tape and then attach those to the silver connector pads.<br><br>
+    <h3 id="XX">(3) Solder on Jumper Wires for Breadboarding</h3>
 
-    To do this, first cut of a copper strip for each silver connector pad.<br>
-    The copper stripes should be about 3cm long, which is the size of your printed silver pads.<br>
-    Take a soldering iron and apply a drop of solder on them. <br>
-    Next, take a short jumper wire, hold it over the solder drop and press it down with the solder iron until it is well connected.<br><br>
+    Next, we want to solder jumper wires to the connector pads, which we can then use to connect to a breadboard and our microcontroller. Since the silver connector pads are not suitable for soldering, we instead solder the jumper wires onto little piece of copper tape and then attach those to the silver connector pads.<br><br>
+
+    <b>Cut of One Copper Tape Strips for each Connector Pad:</b> First cut of four copper strips, i.e. one for each of the four silver connector pads. The copper stripes should be about 3cm long, which is the size of your printed silver pads.<br><br>
+    
+    <b>Solder Jumper Wire onto Copper Tape Strips:</b> Take a soldering iron and apply a drop of solder on one of the copper strips. Next, take a short jumper wire, hold it over the solder drop, and press it down with the solder iron to melt it into the solder until it is well connected. Repeat this for all 4 jumper wires.<br><br>
     
     <img src="images/lab7/copperDrop.jpg" width="250x">
     <img src="images/lab7/jumperOnCopper.jpg" width="250px"><br><br>
     
-    Repeat this for all 4 jumper wires.<br><br>
-    
-    Now, carefully attach the copper stripes onto your mug's connector pads.<br><br>
+    <b>Attach Copper Tape/Jumper Wires to Connector Pads:</b> Next, carefully attach the copper stripes onto your mug's connector pads.<br><br>
+
     <img src="images/lab7/fourConnectors.jpg" width="250x">
     <img src="images/lab7/jumpersAttached.jpg" width="250px"><br><br>
     
