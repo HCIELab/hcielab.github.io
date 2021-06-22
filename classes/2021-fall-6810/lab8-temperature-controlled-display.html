@@ -60,14 +60,15 @@ In this lab, we will assemble the mug, i.e. attach your inkjet printed circuit t
 
 <h3>Steps:</h3>
 <ol>
-  <li><a href="#XXXX">Attach Sprayed EL Display to the Circuit</a></li>
-  <li><a href="#XXXX">Attach Circuit to the Mug</a></li>
-  <li><a href="#XXXX">Solder on Jumper Wires for Breadboarding</a></li>
-  <li><a href="#XXXX">Cover Circuit with Tape to Protect from Moisture & Touch</a></li>
-  <li><a href="#XXXX">XXXX</a></li>
-  <li><a href="#XXXX">XXXX</a></li>
-  <li><a href="#XXXX">XXXX</a></li>
-  <li><a href="#XXXX">XXXX</a></li>
+  <li><a href="#attacheldisplay">Attach Sprayed EL Display to the Circuit</a></li>
+  <li><a href="#attachcircuittomug">Attach Circuit to the Mug</a></li>
+  <li><a href="#solderonjumperwires">Solder on Jumper Wires for Breadboarding</a></li>
+  <li><a href="#tapeoncircuit">Cover Circuit with Tape to Protect from Moisture & Touch</a></li>
+  <li><a href="#temperaturecircuit">Build Temperature Sensing Circuit</a></li>
+  <li><a href="#determineresistance">Write Code to Determine Resistance of Temperature Sensor</a></li>
+  <li><a href="#correlateresistance">Correlate Resistance with Temperature Change</a></li>
+  <li><a href="#addeldisplaycircuit">Add EL Display Control Circuit to Mug</a></li>
+  <li><a href="#blinkdisplaywhenhot">Blink Display When High Temperature is Measured</a></li>
 </ol>
 
 
@@ -81,7 +82,7 @@ At the end of the lab, upload to your student google drive:
     </ol>
     
     
-    <h3 id="XX">(1) Attach Sprayed EL Display to the Circuit</h3>
+    <h3 id="attacheldisplay">(1) Attach Sprayed EL Display to the Circuit</h3>
 
     Once you have printed your circuit and verified that the temperature sensor is having the right resistance, you are ready to attach your EL display to it.<br><br>
 
@@ -106,7 +107,7 @@ At the end of the lab, upload to your student google drive:
     <img src="images/lab7/scotchOnOneSide.png" width="350px">
     <img src="images/lab7/scotchOnBothSides.jpg" width="340px"><br><br>
 
-    <h3 id="XX">(2) Attach Circuit to the Mug</h3>
+    <h3 id="attachcircuittomug">(2) Attach Circuit to the Mug</h3>
 
     Now that your EL display and temperature sensor are assembled together, you are ready to attach the entire circuit to the mug.<br><br>
    
@@ -120,7 +121,7 @@ At the end of the lab, upload to your student google drive:
     <img src="images/lab7/circuitToMug.png" width="300x">
     <img src="images/lab7/circuitOnMug.jpg" width="290px"><br><br>
     
-    <h3 id="XX">(3) Solder on Jumper Wires for Breadboarding</h3>
+    <h3 id="solderonjumperwires">(3) Solder on Jumper Wires for Breadboarding</h3>
 
     Next, we want to solder jumper wires to the connector pads, which we can then use to connect to a breadboard and our microcontroller. Since the silver connector pads are not suitable for soldering, we instead solder the jumper wires onto little piece of copper tape and then attach those to the silver connector pads.<br><br>
 
@@ -140,7 +141,7 @@ At the end of the lab, upload to your student google drive:
     
     <img src="images/lab7/jumperTogether.jpg" width="450px"><br><br> 
     
-    <h3 id="XX">(4) Cover Circuit with Tape to Protect from Moisture & Touch</h3>
+    <h3 id="tapeoncircuit">(4) Cover Circuit with Tape to Protect from Moisture & Touch</h3>
 
     The last step you need to do is to protect the mug from moisture and touch. This is especially important since we want to fill hot and cold water into it and some water may spill over (try to avoid it). Also, we want to protect the circuit from constant touching, which may happen with a mug.
     To protect the circuit, we will use clear tape to cover all the electronics.<br><br>
@@ -150,7 +151,7 @@ At the end of the lab, upload to your student google drive:
     <span style="color:red">it would be really good to have better images here</span><br>
     <img src="images/lab7/tapeOnDisplay.jpg" width="400px"><br><br> 
 
-    <h3 id="XX">(5) Build Temperature Sensing Circuit</h3>
+    <h3 id="temperaturecircuit">(5) Build Temperature Sensing Circuit</h3>
     
     To measure the temperature of the liquid in the mug, we need to measure the changes in resistance of the silver trace that makes up our temperature sensor as explained in the last lab. So how can we measure resistance on the microcontroller?<br><br>
 
@@ -165,7 +166,7 @@ At the end of the lab, upload to your student google drive:
 
     <span style="color:red">Can we have an image of the voltage divider circuit build from an angle that doesn't show everything? Just showing how it is connected to the mug.</span><br><br>
 
-   <h3 id="XX">(6) Write Code to Determine Resistance of Temperature Sensor</h3>
+   <h3 id="determineresistance">(6) Write Code to Determine Resistance of Temperature Sensor</h3>
 
    Now that we have the voltage divider circuit wired up, the question remains how does measuring the voltage <code>Vout</code> help us determine the resistance of the temperature sensor?<br><br>
 
@@ -193,7 +194,7 @@ At the end of the lab, upload to your student google drive:
 
     <img src="images/lab7/filtered_large3.png" width="600px"><br><br>
 
-   <h3 id="XX">(6) Correlating Resistance with Temperature Change</h3>
+   <h3 id="correlateresistance">(7) Correlate Resistance with Temperature Change</h3>
 
    Now we can determine the resistance of our temperature sensor, but how much does the resistance increase with changes in temperature? For this, you will run an experiment.<br><br>
 
@@ -203,38 +204,39 @@ At the end of the lab, upload to your student google drive:
 
    <b>Write Code to Determine Current Temperature:</b> <span style="color:red">(This section was missing)</span> For the purpose of this lab, we assume that temperature and resistance increase linearly. Write some code that uses your resistance value at room temperature and at 100&#8451;C to determine other temperatures based on new incoming resistance values. Compute the expected resistance for 30&#8451;C, 40&#8451;C, 50&#8451;C etc. <span style="color:red">(this is a little fuzzy, can we just tell them what display states they should have? e.g. 8 different temperatures from 20-100&#8451;C in 10 degree increments?)</span><br><br>
 
-    <h3 id="XX">(7) Build EL Display Control Circuit</h3>
+    <h3 id="addeldisplaycircuit">(8) Add EL Display Control Circuit to Mug</h3>
     
-    If you finished all task from lab3, you already have this circuit.<br>
-    All that's left to do is to connect your EL display control cicuit to the corresponding wires on the mug. <br><br>
+    Next, we want to connect our temperature readings to the display so that we can blink it when the liquid is too hot.<br><br>
 
-    Now that everything is wired up, you are ready to write the code for determining the temperature and adjusting the display brightness accordingly.<br>
-    The display should be turned off when the mug is cold. It should start blinking at temperatures above >70C to help users avoid getting burned.<br><br>
+    <b>Connect Display Circuit to Mug:</b> You already have the display circuit from a previous lab.
+    All that's left to do is to connect this cicuit to the corresponding wires on the mug.<br><br>
 
-    <h3 id="XX">(8) Build EL Display Control Circuit</h3>
+    <span style="color:red">Can we have an image for this to make sure the tutorial is skimmable?</span><br><br>
 
+    <h3 id="blinkdisplaywhenhot">(9) Blink Display When High Temperature is Measured</h3>
 
-    <b>Connecting Temperature/Resistance Increase to Display Behavior</b><br>
-    Next, use your temperature sensor values to set different states for your display. <br> 
-    While the mug is at room temperature or below around 60C, it should be turned off.<br>
-    The display should blink if the mug is really hot and ready to drink (i.e., the temperature when you poured in the boiling water, around 80C (the boiling water gets a bit colder than 100C when you pour it into a cold mug).<br><br> 
+    In this final step, you will use your temperature readings to determine the display behavior. The display should start blinking at temperatures above >70C to help users avoid getting burned and otherwise can either be turned off or <span style="color:red">dimmed according to the current temperature (getting increasingly brighter as temperature increases). (dimming was not included, is there a reason we only had display off and display blinking?)</span><br><br>
+
+    <b>Integrate Display Code with Temperature Sensing Code:</b> You already wrote code for turning the display on/off and <span style="color:red">dimming it</span> in one of the last labs. Integrate the code with your temperature sensing code.<br><br>
     
     Your final design should look like this:<br><br>
 
     <iframe width="260" height="315" src="https://www.youtube.com/embed/E8sfqrH_1Ks" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
 
-    <h3 class="headline">Deliverables Lab 4 (due Wednesday, Oct. 7, 2020, 11.59pm)</h3>
-    
-    At the end of Lab 4, upload to your student google drive:
-    <ul>
-        <li>the Processing code (.pde) to generate a temperature sensor</li>
-        <li>the Arduino code (.ino) for controlling your display and reading the temperature</li>
-        <li>2-3 photos (.jpg or .png) from different angles of your mug</li>
+
+<h3>Deliverables</h3>
+
+At the end of the lab, upload to your student google drive:
+    <ol>
+        <li>2-3 photos (.jpg or .png) from different angles of your assembled mug</li>
+        <li>the Arduino code (.ino) for reading the temperature and controlling your display</li>
         <li>a short video (.mov or .mp4, max. 1 minute) showing how your display turned off at room temperature and starts blinking after pouring in boiling hot water in it.</li>
-    </ul>
+    </ol>
 
 <hr>
-
+<br />
+        <br />
+        <br />
         <br />
         <br />
         <br />
