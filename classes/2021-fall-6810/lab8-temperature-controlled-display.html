@@ -150,42 +150,31 @@ At the end of the lab, upload to your student google drive:
     <span style="color:red">it would be really good to have better images here</span><br>
     <img src="images/lab7/tapeOnDisplay.jpg" width="400px"><br><br> 
 
-    <h3 id="XX">(5) Connecting to the Microcontroller and Building the Circuit</h3><br>
+    <h3 id="XX">(5) Build Temperature Sensing Circuit</h3>
     
-    Controlling this mug interface requires 2 parts.<br>
-    <ol>
-        <li>a circuit to control the EL display. You have completed this circuit already in lab 3 and will will use it in this lab. </li>
-        <li>a circuit to read the resistance of your printed temperature sensor. We will do this now. 
-        </ol>
-        <br>
-    
-    <b>Building the temperature sensor circuit</b><br>
-    Remember that to measure the temperature of the liquid in the mug, we need to measure the changes in resistance of the silver trace that makes up our temperature sensor.<br>
-    So how can we measure resistance on the ESP?<br>
-    Unfortunately, we can't. The ESP can only measure voltage but not resistance.<br><br> 
+    To measure the temperature of the liquid in the mug, we need to measure the changes in resistance of the silver trace that makes up our temperature sensor as explained in the last lab. So how can we measure resistance on the microcontroller?<br><br>
 
-    However, there is a way to use changes in voltage to determine resistance. A circuit that allows us to do this is called a <b>voltage divider</b>. A schematic of a voltage divider looks like this:<br><br>
+    <b>Measuring Resistance with a Voltage Divider Circuit:</b> Unfortunately, we cannot directly measure resistance with the microcontroller. The microcontroller can only measure <code>voltage</code> but not resistance. However, there is a way to use changes in voltage to determine resistance. A circuit that allows us to do this is called a <code>voltage divider</code>. <br><br>
 
+    <b>Voltage Divider Circuit:</b> The schematic of a voltage divider is shown below. It consists of one <code>known resistor (R1)</code> and one <code>unknown resistor (R2)</code> that we want to measure. In our case, the unknown resistor R2 is our temperature sensor. For the known resistor R1, we can simply pick one but it's a good idea to pick something that matches your other resistor R2, i.e. we will use 1kOhm. <code>Vin</code> is the 3.3V supply voltage from the ESP32. <code>Vout</code> is a voltage than will change when the resistance of our temperature sensor (R2) changes.<br><br>
+
+    <span style="color:red">can we label this schematic so that it says 'known resistor' and 'unknown resistor' and also 'temperature sensor', also label ESP and read out voltage.</span><br>
      <img src="images/lab7/voltage_divider.png" width="200px"><br><br>
-    
-    It consists of one <b>known resistor (R1)</b> and one <b>unknown resistor (R2)</b> that we want to measure. In our case, the unknown resistor R2 is our temperature sensor. For the known resistor R1, we can simply pick one but it's a good idea to pick something that matches your other resistor R2, i.e. we will use 1kOhm.<br><br>
 
-    <b>Vin</b> is the 3.3V supply voltage from the ESP32.<br> 
-    <b>Vout</b> is a voltage than will change when the resistance of our temperature sensor (R2) changes.<br><br>
+    <b>Build the Voltage Divider Circuit:</b> Build the voltage divider on a breadboard and connect your temperature sensor on the mug to this circuit.<br><br>
 
-    We can compute VOut using the following formula:<br><br>
-    
-    <pre>Vout = (R2*Vin)/(R1+R2)</pre><br>
-    
-    If we use a 1kOhm resistor for R1 and we connect the temperature sensor as R2, then we can solve the equation for R2 to determine the change in resistance, which ultimately allows us to determine the current temperature of the mug.<br><br>
+    <span style="color:red">Can we have an image of the voltage divider circuit build from an angle that doesn't show everything? Just showing how it is connected to the mug.</span><br><br>
 
-    To get started with this, build the voltage divider on a breadboard and connect your temperature sensor on the mug to this circuit.<br><br>
-    
-    <b>Building the EL display control circuit</b><br>
-    If you finished all task from lab3, you already have this circuit.<br>
-    All that's left to do is to connect your EL display control cicuit to the corresponding wires on the mug. <br><br>
+   <h3 id="XX">(6) Write Code to Determine Current Temperature</h3>
 
-    <h3 class="headline">(5) Code for Reading Mug's Current Temperature and Adjusting Display</h3><br>
+
+
+    <b>Computing R2 (Resistance of Temperature Sensor):</b> We can compute R2, i.e. the resistance of the temperature sensor, using the following formula:<br>
+    
+    <pre>Vout = (R2*Vin)/(R1+R2)</pre>
+    
+    We know <code>Vin</code> since this is the 3.3V we apply with the microcontroller. We also know <code>Vout</code> since this is the voltage measurement from our microcontroller. We also know <code>R1</code>, which is our chosen resistor of 1kOhm. Thus, we have everything to solve the equation for R2 to determine the current resistance of the temperature sensor.<br><br> 
+
 
     Now that everything is wired up, you are ready to write the code for determining the temperature and adjusting the display brightness accordingly.<br>
     The display should be turned off when the mug is cold. It should start blinking at temperatures above >70C to help users avoid getting burned.<br><br>
@@ -229,6 +218,11 @@ At the end of the lab, upload to your student google drive:
     Once you reached a stable value, note it down as well.<br> 
     The value increase should be around 4%.<br><br>
     
+    <h3 id="XX">(6) Build EL Display Control Circuit</h3>
+    
+    If you finished all task from lab3, you already have this circuit.<br>
+    All that's left to do is to connect your EL display control cicuit to the corresponding wires on the mug. <br><br>
+
     <b>Connecting Temperature/Resistance Increase to Display Behavior</b><br>
     Next, use your temperature sensor values to set different states for your display. <br> 
     While the mug is at room temperature or below around 60C, it should be turned off.<br>
