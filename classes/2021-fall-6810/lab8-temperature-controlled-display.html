@@ -167,24 +167,22 @@ At the end of the lab, upload to your student google drive:
 
    <h3 id="XX">(6) Write Code to Determine Current Temperature</h3>
 
+   Now that we have the voltage divider circuit wired up, the question remains how does measuring the voltage <code>Vout</code> help us determine the resistance of the temperature sensor?<br><br>
 
-
-    <b>Computing R2 (Resistance of Temperature Sensor):</b> We can compute R2, i.e. the resistance of the temperature sensor, using the following formula:<br>
+    <b>Computing R2 (Resistance of Temperature Sensor):</b> In a voltage divider circuit, we can compute R2, i.e. the resistance of our temperature sensor, using the following formula:<br>
     
     <pre>Vout = (R2*Vin)/(R1+R2)</pre>
     
     We know <code>Vin</code> since this is the 3.3V we apply with the microcontroller. We also know <code>Vout</code> since this is the voltage measurement from our microcontroller. We also know <code>R1</code>, which is our chosen resistor of 1kOhm. Thus, we have everything to solve the equation for R2 to determine the current resistance of the temperature sensor.<br><br> 
 
+    <b>Read Voltage Vout from Voltage Divider Circuit:</b> Create a new Arduino program and use 
+     <code>analogRead()</code> to read the voltage value <code>Vout</code> from the voltage divider. Write the incoming values to the <span style="color:red">Serial monitor.</span> analogRead() returns the voltage value between 0V and 3.3V and maps it to an output range of 0 - 4095. What this means is that if you read a value of 2047 (4095/2), your voltage is around 1.65V (3.3V/2).<br><br> 
 
-    Now that everything is wired up, you are ready to write the code for determining the temperature and adjusting the display brightness accordingly.<br>
-    The display should be turned off when the mug is cold. It should start blinking at temperatures above >70C to help users avoid getting burned.<br><br>
-    
-    <b>Code for Reading Voltage from Voltage Divider Circuit</b><br>
-    Use analogRead() to read the incoming voltage value from your voltage divider and write it to the Serial monitor. analogRead() returns the voltage value between 0V and 3.3V and maps it to an output range of 0 - 4095. What this means is that if you read a value of 2047 (4095/2), your voltage is around 1.65V (3.3V/2). If you see the voltage readings in the Serial monitor, move to the next stpe. <br><br> 
-    
-    <img src="images/lab7/voltage-readings.png" width="700px"><br><br>
+     <span style="color:red">this looks more like the serial plotter but above we talk about serial monitor?</span><br>
+     <span style="color:red">can we increase the font size on the axis? it's impossible to read.</span><br>
+    <img src="images/lab7/voltage-readings.png" width="500px"><br><br>
 
-    <b>Converting Voltage To Resistance Values</b><br>
+    <b>Converting Voltage To Resistance Values:</b> 
     
     Now, it's time to apply the voltage divider formula from above.<br> 
     Use it to compute the resistance of your temperature sensor R2 and plot the values.<br><br>
@@ -222,6 +220,9 @@ At the end of the lab, upload to your student google drive:
     
     If you finished all task from lab3, you already have this circuit.<br>
     All that's left to do is to connect your EL display control cicuit to the corresponding wires on the mug. <br><br>
+
+    Now that everything is wired up, you are ready to write the code for determining the temperature and adjusting the display brightness accordingly.<br>
+    The display should be turned off when the mug is cold. It should start blinking at temperatures above >70C to help users avoid getting burned.<br><br>
 
     <b>Connecting Temperature/Resistance Increase to Display Behavior</b><br>
     Next, use your temperature sensor values to set different states for your display. <br> 
