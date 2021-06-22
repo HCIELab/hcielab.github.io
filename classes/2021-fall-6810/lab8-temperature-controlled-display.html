@@ -165,7 +165,7 @@ At the end of the lab, upload to your student google drive:
 
     <span style="color:red">Can we have an image of the voltage divider circuit build from an angle that doesn't show everything? Just showing how it is connected to the mug.</span><br><br>
 
-   <h3 id="XX">(6) Write Code to Determine Current Temperature</h3>
+   <h3 id="XX">(6) Write Code to Determine Resistance of Temperature Sensor</h3>
 
    Now that we have the voltage divider circuit wired up, the question remains how does measuring the voltage <code>Vout</code> help us determine the resistance of the temperature sensor?<br><br>
 
@@ -182,32 +182,19 @@ At the end of the lab, upload to your student google drive:
      <span style="color:red">can we increase the font size on the axis? it's impossible to read.</span><br>
     <img src="images/lab7/voltage-readings.png" width="500px"><br><br>
 
-    <b>Converting Voltage To Resistance Values:</b> 
+    <b>Write Code to Determine Resistance R2 of our Temperature Sensor:</b> Now, it's time to apply the voltage divider formula from above. Use it to compute the resistance of your temperature sensor R2 and plot the values on the Serial Plotter. <span style="color:red">any specific formatting students have to follow, e.g. use semicolon at the end?</span><br><br>
     
-    Now, it's time to apply the voltage divider formula from above.<br> 
-    Use it to compute the resistance of your temperature sensor R2 and plot the values.<br><br>
-    
-    <img src="images/lab7/resistance-readings.png" width="700px"><br><br>
+    <b>Smoothing the Signal with a Box Filter:</b> You'll notice that the resistance values are fluctuating a lot in the image above <span style="color:red">(between 800 - 1200 ohm</span> although they should be steady). This is due to the limited measurement precision of the microcontroller and environmental electric noise that slightly changes the read in voltage values. To smooth out such noise, you can use a filter. For this lab, we will use a <code>box filter</code>, which when implemented can produce a more clean signal, with fluctuations only between <span style="color:red">2032 - 2056 ohm). In the next section, we will tell you how to implement the box filter.</span><br><br>
 
-    <b>Smoothing the Signal with a Box Filter</b><br>
-    You'll notice that the resistance values are fluctuating a lot.<br> 
-    This is due to the limited precision of the ESP32 and environmental electric noise that slightly changes the read in voltage values. <br><br>
-    
-    Recall from the lecture 'Sensing: Touch', that we introduced a filtering technique to smooth out such noise.<br> 
-    It's called a box filter and it works by saving an array of sensor values (the box) of a specific width (e.g., 300 values) and computing the mean of this box.<br> 
-    As new sensing values get read in through analogRead(), the box moves forward by one value, i.e. the oldest element in the array gets replaced by the new value and you need to recompute the mean.<br><br>
-    
-    Implement a box filter that smoothens out the values from analogRead().<br> 
-    Use a box width of 300 values.<br> 
-    Once you have completed the filter, your results should look like this:<br><br>
+    <span style="color:red">Can we update this image to have the same ohm range as the filter image? right now this one is 800-1200 ohm and the other one is 2030-2056 ohm which is not the same temperature). Also please label left image: no filter (raw readings), right image: box filter</span>
+    <img src="images/lab7/resistance-readings.png" width="370px"><img src="images/lab7/filtered_small2.png" width="370px"><br><br>
 
-    <img src="images/lab7/filtered_large3.png" width="700px"><br><br>
+    <b>Write Code for the Box Filter:</b> A <code>box filter</code> works by saving an array of sensor values (the box) of a specific width (e.g., 300 values) and then computing the mean of this box. As new sensing values get read in through analogRead(), the box moves forward by one value, i.e. the oldest element in the array gets replaced by the new value and you need to recompute the mean. Implement a box filter with 300 values that smoothens out the values from analogRead(). Once you have completed the filter, your results should look like the image below. You see that the filter first collects 300 values and the mean is increasing with every new value. When the box is full, we can have a stable resistance value.<br><br>
 
-    You see that the filter first collects 300 values and the mean is increasing with every new value. When the box is full, we can have a stable resistance value. Below we see a zoomed in graph of the filtered values. The fluctuation is reduced to just 20Ohm  (instead of 300Ohm without filtering, which is 15x more noisy!).<br><br>
-    <img src="images/lab7/filtered_small2.png" width="700px"><br><br>
+    <img src="images/lab7/filtered_large3.png" width="600px"><br><br>
 
     <b>Measuring temperature with resistance increase</b><br>
-    Now, it's time to conduct an experimen.<br>
+    Now, it's time to conduct an experiment.<br>
     How much does the resistance changes as the temperature of a liquid inside the mug increases?<br><br>
 
     First, note down your current mean resistance at room temperature.<br> 
