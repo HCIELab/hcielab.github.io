@@ -62,14 +62,13 @@ In this lab, you will 3D model the lamp base and lamp shade and then 3D print it
 
 <h3>Steps:</h3>
 <ol>
-        <li><a href="#XXX">Install 3D Editor</a></li>
-        <li><a href="#XXX">Watch 3D Modeling Getting Started Tutorials</a></li>
-        <li><a href="#XXX">XXXX</a></li>
-        <li><a href="#XXX">XXXX</a></li>
-        <li><a href="#XXX">XXXX</a></li>
-        <li><a href="#XXX">XXXX</a></li>
-        <li><a href="#XXX">XXXX</a></li>
-        <li><a href="#XXX">XXXX</a></li>
+        <li><a href="#install3deditor">Install 3D Editor</a></li>
+        <li><a href="#gettingstarted">Watch 3D Modeling Getting Started Tutorials</a></li>
+        <li><a href="#shortcuts3dmodeling">Short Cuts for 3D Modeling</a></li>
+        <li><a href="#3dmodellampbase">3D Model the Lamp Base</a></li>
+        <li><a href="#3dmodellampshade">3D Model the Lamp Shade</a></li>
+        <li><a href="#3dmodelrecess">Create Recess that Holds the Lamp Shade on the Base</a></li>
+        <li><a href="#exportstl">Export .stl File for Each 3D Model</a></li>
     </ol>
 
 
@@ -83,19 +82,19 @@ At the end of the lab, upload to your student google drive:
     </ol><br>
 
 
-<h3 id="XXX">(1) Install 3D Editor</h3>
+<h3 id="install3deditor">(1) Install 3D Editor</h3>
 
 For 3D modeling, we will use the 3D editor Blender, which is open source.
 Blender is available for all major operating systems.
 Install the latest version of Blender from here: <a href="https://www.blender.org/download/">https://www.blender.org/download/</a>. If you are already familier with a different 3D editor (e.g. Rhino3D, Fusion 360), you can also use it but if you get stuck, we will not be able to help you.<br><br>
 
-<h3 id="XXX">(2) Watch 3D Modeling Getting Started Tutorials</h3>
+<h3 id="gettingstarted">(2) Watch 3D Modeling Getting Started Tutorials</h3>
 
 If you are not familiar with Blender, we recommend you watch these getting started tutorials on youtube (number 1-15, each is 3-12 minutes, ca. 75 minutes total): <a href="https://www.youtube.com/playlist?list=PLa1F2ddGya_-UvuAqHAksYnB0qL9yWDO6">Blender Tutorials</a>. <br><br>
 
   <a href="https://www.youtube.com/playlist?list=PLa1F2ddGya_-UvuAqHAksYnB0qL9yWDO6"><img src="images/install-blender/blender-tutorials.png" width="600px" /> </a>
 
-<h3 id="XXX">(3) Short Cuts for 3D Modeling</h3>
+<h3 id="shortcuts3dmodeling">(3) Short Cuts for 3D Modeling</h3>
 
 Here is a summary of the short cuts which may come handy when you do your 3D modeling in the next steps:
   <br><br>
@@ -110,34 +109,52 @@ Here is a summary of the short cuts which may come handy when you do your 3D mod
     <b>'G' + 'z'</b> = grab and move in z<br><br>
 
 
-<h3 id="XXX">(3) 3D Model the Lamp Base</h3>
+<h3 id="3dmodellampbase">(4) 3D Model the Lamp Base</h3>
 
 Our lamp consists of two parts: the base of the lamp (the cylindrical shape that will house the electronics), and the shade of the lamp (the cone shape that will be covered with fabric).<br><br>
 
 We made video tutorials that guide you through the modelling. The video quality might be better if you click on the youtube icon in the lower left corner. This opens a new tab and you can set the quality to 1080p.<br><br>
     
-    <b>Create Cylinder for Housing Electronics:</b> Make a circle (vertices: 64, location: 0,0,0, radius: 5.0cm). Extrude to height 4.0cm. Select all edges on the circle, extrude inwards to close off bottom of cylinder. Increase wallthickness by selecting all edges on top of circle and extrude inwards by 2mm, then extrude downwards to create the walls of the cylinder, extrude inwards to create walls at the bottom.<br><br>
+    <b>Create Cylinder for Housing Electronics:</b> Make a circle (vertices: 64, location: 0,0,0, radius: 5.0cm). Extrude to height 4.0cm. Select all edges on the circle, extrude inwards to close off bottom of cylinder. Increase wallthickness by selecting all edges on top of circle and extrude inwards by 2mm, then extrude downwards to create the walls of the cylinder, extrude inwards to create walls at the bottom. <span style="color:red">would it be better to make several shorter videos?</span><br><br>
 
     <iframe width="560" height="315" src="https://www.youtube.com/embed/8269mlmas3E" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
 
-    <b>Add Hole for USB Cable to Cylinder:</b> <span style="color:red">Where is the video for the hole?</span><br><br>
+    <b>Add Hole for USB Cable to Cylinder:</b> Create a cylinder (vertices: 64, radius: 0.6cm) and rotate it on x axis to make it horizontal. Move cylinder to where the hole should be on the lamp base. Select the lamp base, use the boolean modified subtract to subtract the cylinder from the lamp base, leaving the whole. Delete the cylinder.<br><br>
 
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/8269mlmas3E" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
+   <iframe width="560" height="315" src="https://www.youtube.com/embed/yOQEGSIkLY0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
 
-<h3 id="XXX">(4) 3D Model the Lamp Shade</h3>
+    <h3 id="3dmodellampshade">(5) 3D Model the Lamp Shade</h3>
 
     The lamp shade will be placed on top of the lamp base. It has holes to let light shine through and it will be the place on which you can mount RGB LEDs. The video quality might be better if you click on the youtube icon in the lower left corner. This opens a new tab and you can set the quality to 1080p.<br><br>
 
+    <b>Create Cylinder:</b> Make a circle (vertices: 64, location: 0,0,0, radius: 4.7cm). Extrude upwards by 0.3cm.<br><br>
+
+    <b>Create Lamp Shade Pillars:</b> Select every second face. Then extrude upwards (height: 8.3cm) to create pillars from the faces. Scale faces inwards to create angled pillars (inside radius: 1cm). Select inward facing edges, scale inwards.<br><br>
+
+    <b>Create Connector Ring for Pillars:</b> To merge two pillars together, select two adjacent vertices, merge them at the center. After all pillars are connected, extrude upwards (height: 2mm) <br><br>
+
     <iframe width="560" height="315" src="https://www.youtube.com/embed/zS9SA4X_kyg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
     
-    <b>Adding a recess to the lamp base:</b> The base and the shade of the lamp do not really fit to each other and wouldn't connect tightly when just placed on top of each other. Therefore, add a recess to base of the lamp that has enough space such that the lamp shade fits in it nicely. We will also add a whole for the USB cable to the base of the lamp. The video quality might be better if you click on the youtube icon in the lower left corner. This opens a new tab and you can set the quality to 1080p.<br><br>
+    <h3 id="3dmodelrecess">(6) Create Recess that Holds the Lamp Shade on the Base</h3>
+
+    The way we modeled the base and the shade of the lamp, they do not really fit to each other and wouldn't connect tightly when just placed on top of each other. Therefore, we will add a recess to base of the lamp that has enough space such that the lamp shade fits in it nicely. The video quality might be better if you click on the youtube icon in the lower left corner. This opens a new tab and you can set the quality to 1080p.<br><br>
     
+    <b>Load both Models into one 3D Editor File:</b> First, load both the 3D model of the lamp shade and the lamp base into one 3D editor file.<br><br>
+
+    <b>Align Lamp Shade over Lamp Base:</b> Next, move the lamp shade down until the lower ring of the lamp shade overlaps with the lamp base.<br><br>
+
+    <b>Subtract Lamp Shade from Lamp Base:</b> Select the Lamp base, use a boolean modified to subtract the lamp shade from the lamp base, this creates a small recess.<br><br>
+
     <iframe width="560" height="315" src="https://www.youtube.com/embed/yOQEGSIkLY0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   
 
-<h3 id="XXX">(5) Export .stl File for Each 3D Model</h3>
+<h3 id="exportstl">(7) Export .stl File for Each 3D Model</h3>
 
 In the next lab, we will slice the 3D model for 3D printing. For this, The 3D models have to be converted from Blender's internal file format (.blend) to another file format that the slicing software can load and process. The standard for saving digital models is .stl and we will use this file format to load models into the slicing software. The video below shows how you can save each of your 3D models as .stl files. The video quality might be better if you click on the youtube icon in the lower left corner. This opens a new tab and you can set the quality to 1080p.<br><br>
+
+<b>Export Lamp Base:</b> Select only the lamp base, go to File -> Export -> Export .stl, click checkbox 'selection only', use scale factor: 10, click export.<br><br>
+
+<b>Export Lamp Shade:</b> Select only the lamp shade, go to File -> Export -> Export .stl, click checkbox 'selection only', use scale factor: 10, click export.<br><br>
 
 <span style="color:red">Can we split your youtube videos into shorter segments? e.g. just exporting the stls?</span><br>
 
