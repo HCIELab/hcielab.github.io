@@ -53,9 +53,7 @@
       
 In this lab, you will extend your circuit, signal processing, and the Processing visualization to include the touch slider for control the volume of the music that is being played.<br><br>
 
-<img src="images/lab2/slider_teaser.png" width="350px" /><img src="images/lab4/lab2-volume-middle_UI_new.png" width="400px"><br>
-
-<span style="color:red">Replace finger image with a GIF</span>
+<img src="images/lab2/slider_teaser.png" width="750px"><br>
     
 <h3>Steps:</h3>
 <ol>
@@ -104,23 +102,24 @@ Below you can see the serial plotter output for individually touching each of th
 
 <h3 id="3">(3) Measure Min and Max Signal Thresholds</h3>
 
-For the touch buttons, we were merely interested if the button is touched or not, thus we converted the touch signal into a <i>binary value 0 or 1</i>. For the slider, we want to compute at which position the finger is between two slider elements. This will allow us to more smoothly adjust the music volume rather than jumping from one discrete volume level to the next. We can see by 'how much' a slider segment is touched by looking at the raw touch signals coming from the microcontroller. When looking at the Serial Plotter, you will notice that the raw value has a strong correlation with how much space of the slider segment is touched, i.e. the larger the touch area of you finger on the slider segment the higher the value is. <br><br>
-    
-<span style="color:red">Faraz: Replace image below with a demo video. Finger moves on one slider segemnt from the left to the right. ScreenCapture the serial plotter that shows only one signal of the active slider segment. It should be visible how the value slowlier rises from 0 to max and then drops from max to 0 again</span><br><br>
+For the touch buttons, we were merely interested if the button is touched or not. Thus, we converted the touch signal into a <i>binary value 0 or 1</i>. For the slider, we want to compute at which position the finger is between two slider elements. This will allow us to more smoothly adjust the music volume rather than jumping from one discrete volume level to the next. We can see by 'how much' a slider segment is touched by looking at the raw touch signals coming from the microcontroller. When looking at the Serial Plotter, you will notice that the raw value has a strong correlation with how much area of the slider segment is touched, i.e. the larger the touch area of you finger on the slider segment the higher the value is. <br><br>
 
-<img src="images/lab4/lab2-slider-segments.png" width="330px" /><img src="images/lab4/lab2-minimum-touch-threshold.png" width="420px" /><br><br>
+<img src="images/lab2/2021_images/combined-gif.gif" width="750px"><br>
+<img src="images/lab2/2021_images/touchsignal_labeled.png" width="750px"><br><br>
 
-Let's start by computing the continues value for one slider segment.<br><br>
+<b>Determine Min Value when Slider Segment is Not Touched:</b> First, we want to distinguish between noise (i.e. small signal readings when nothing is actually touched) and the minimal value when one segment is just barely touched. To find this minimum threshold when a slider segment is just touched a bit, open the Serial Plotter and slide with your finger over the segment you want to measure. At some point, you will see that the values will start increasing. Write down the value which is consistently above the noise level when the segment is just touched a bit. Repeat this procedure for each segment<br><br>
 
-<b>Determine Min Value when Slider Segment is Not Touched:</b> First, we want to determine what is noise (i.e. small signal readings when nothing is actually touched) and want to discard those values. To find the minimum value when you should consider a touch signal, we recommend looking at the Serial plotter and noting down the values of the slider segments when none of them are touched. This will be your minimum threshold to check if a button is touched.<br><br>
-
-<b>Determine Max Value when Slider Segment is Fully Touched:</b> Next, determine the max value when the slider segment is fully touched with you finger, i.e. your finger overlaps with the entire slider segment.<br><br>
+<b>Determine Max Value when Slider Segment is Fully Touched:</b> Next, determine the max value when the slider segment is fully touched with you finger, i.e. your finger overlaps with the entire slider segment. Write this value down for each segment.<br><br>
     
 <h3 id="4">(4) Computing the Relative Position of a Finger</h3>
     
-<b>Add min and max threshold to your code:</b> Create two integer arrays Min and Max that contain the min and max values that you measured for each slider element<br><br>
-
-<b>Compute relative position of a finger:</b> Now, let's create a function that computes the relative position between two slider segments. The function should read in two sensor signals and the two sensorIDs of the touched segments and it sould return a float between 0..1 that represents the relative position of the finger between two segements (0:left segment, 1:right segment).<br>
+<b>Add min and max threshold to your code:</b> Create two integer arrays Min and Max that contain the min and max values that you measured for each slider element. The size of both arrays should be 5 because we have 5 segments.<br><br>
+    
+There are two things that can happen when you slide with your finger over the slider: (1) Only one segment is touched at a time, or (2) two segments are touched at the same time. For (2), we want to interpolate between both touch sensor values to determine the relative position of the finger between these two segments, which we look at in the next step.<br><br>
+    
+<b>Compute relative position of a finger:</b>There are two things that can happen when you slide with your finger over the slider: (1) Only one segment is touched at a time, or (2) two segments are touched at the same time. For (2), we want to interpolate between both touch sensor values to determine the relative position of the finger between these two segments, which we look at in the next step.<br><br>
+    
+Now, let's create a function that computes the relative position of a finger <b>between</b> two slider segments. The function should read in two sensor signals and the two sensorIDs of the touched segments and it sould return a float between 0..1 that represents the relative position of the finger between two segements (0:left segment, 1:right segment).<br>
 Compute the fraction of the received sensor signal compared to its corresponding max value: frac1 = sensor1/MAXsensor1 and frac2 = sensor2/MAXsensor2. These are the estimates of the relative finger position from each slider segment. Finally, compute an average between both values. Be aware that moving the finger to the right means that slider1 will drop in value and slider2 will increase in value. Thus, compute the relative averaged finger position as res = ((1-frac1)+frac2)/2. This is the return value of your function.
 
 <h3 id="5">(5) Computing the Overall Slider Value</h3>
@@ -199,7 +198,7 @@ If you want to see them again, press 's' (for show).<br><br>
 <h3 id="8">(8) Connect your Physical Music Card to Processing</h3>
 
 Now that we can control the slider digitally, we also want to adjust the volume of the music from the physical card.<br><br>
-Read in the Serial messages from your ESP32 that include the values for the finger position on the slider. Use these values to change the valume of the music and integrate it into the music card Processing Script.<br>
+Read in the Serial messages from your ESP32 that include the values for the finger position on the slider. Use these values to change the volume of the music and integrate it into the music card Processing Script.<br>
 
 <img src="images/lab4/lab2-volume-low_new.png" width="350px">
 <img src="images/lab4/lab2-volume-middle_new.png" width="350px">
@@ -209,7 +208,6 @@ Read in the Serial messages from your ESP32 that include the values for the fing
 Now test if everything works by using your physical printed card to play/pause songs and the physical slider to adjust the music volume. If it works, congrats, you are done :)!<br><br>
 
 <h3>Deliverables</h3>
-
 At the end of the lab, upload to your student google drive:
 <ol>
  <li>the updated Arduino code you wrote for Serial Communication of the slider touch values (.ino file format)</li>
