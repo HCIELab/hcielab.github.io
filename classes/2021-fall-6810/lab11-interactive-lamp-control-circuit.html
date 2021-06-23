@@ -48,111 +48,82 @@
 
       <section class="col-md-8 pull-right main-content">
 </br></br></br></br>
-        <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2020)</a><br></h>
-        <h2 class="headline">Lab 11: XX</h2>
+        <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2021)</a><br></h>
+        <h2 class="headline">Lab 11: Control Circuit for the Interactive Lamp</h2>
       
+In this lab, you will add the circuit to the lamp and then program the lamp to change its color when the user interacts with one of the touch buttons. There is also one touch button to turn the lamp on/off.<br><br>
 
-In the last lab, you 3D printed the base of our interactive lamp. In this lab, you will add the interactive lamp shade by sewing touch sensors with conductive yarn into its fabric. In addition, you will mount LEDs into the base of the lamp that will light up in different colors depending on which touch sensor on the lamp shade it touched. Finally, you will build the control circuit and program the touch recognition and LED lighting.<br><br>  
-
-<img src="images/lab10/lamp.jpg" width="240px"><br><br>    
-
-          <hr>
+<img src="images/lab10/circuit_1.jpg" width="350px">
+<img src="images/lab10/circuit_done.jpg" width="350x"><br>
 
 
-<h3 class="headline">Your Task</h3>
-
-In today's lab, you will create the interactive parts of the lamp by following these steps:
-    <ol>
-        <li>laser cut the fabric for the lamp shade</li>
-        <li>sew the fabric lamp shade cover together</li>
-        <li>embroider the touch button with conductive yarn</li>
-        <li>connect the touch buttons to jumper wires</li>
-        <li>add LEDs to the lamp shade</li>
-        <li>build a control circuit for the touch sensors and LED lights and add it to the base of the lamp</li>
-        <li>write a program that senses touch and controls the LEDs</li>
+<h3>Steps:</h3>
+<ol>
+        <li><a href="#XXX">laser cut the fabric for the lamp shade</a></li>
+        <li><a href="#XXX">sew the fabric lamp shade cover together</a></li>
+        <li><a href="#XXX">embroider the touch button with conductive yarn</a></li>
+        <li><a href="#XXX">connect the touch buttons to jumper wires</a></li>
+        <li><a href="#XXX">add LEDs to the lamp shade</a></li>
+        <li><a href="#XXX">build a control circuit for the touch sensors and LED lights and add it to the base of the lamp</a></li>
+        <li><a href="#XXX">write a program that senses touch and controls the LEDs</a></li>
     </ol>
 
-    Below you can see the final lamp in action.<br><br>    
 
-   <iframe width="560" height="315" src="https://www.youtube.com/embed/05BrSUOn_-g" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h3>Deliverables</h3>
     
-
- <h3 class="headline">Deliverables Lab 6 (due Wednesday, Oct. 28, 2020, 11.59pm)</h3>
-    
-    At the end of lab 6, upload to your student google drive:
-    <ul>
+At the end of the lab, upload to your student google drive:
+    <ol>
         <li>the ESP32 code to sense touch and control the LEDs</li>
         <li>2-3 photos (.jpg or .png) of your 3D printed lamp that shows the circuit and the assembled lamp</li>
         <li>a video that shows how the lamp turns on/off when touching the "on/off" button and how the lamp changes its color when pressing the three color scheme buttons</li>
-    </ul><br>
+    </ol><br>
 
-<h3 class="headline">Before Starting Lab 6</h3>
-
-Make sure you have your 3D printed lamp base and lamp shade from lab 5 at hand.<br><br>
 
       
-      <h3 id="XXX">(6) Build Touch and LED Control Circuit</h3>
+ <h3 id="XXX">(1) Attach ESP to Mini-Breadboard</h3>
     
-Now that the lamp shade is fully assembled, you can build the circuit for the touch buttons and the LEDs. <br><br>
+Now that the lamp shade is fully assembled, you can build the circuit for the touch buttons and the LEDs. Since the lamp base is too small for regular breadboards, we supply you with a mini-breadboard. <br><br>
     
-<b>Use Minibreadboard for Lamp Base:</b> Since the lamp base is too small for regular breadboards, we supply you with a mini-breadboard. Remove the backing from the mini-breadboard, which will expose a layer of double-sided tape. Next, place your microcontroller onto the layer of double sided tape, the pins of the microcontroller should be facing away from the double sided tape (don't worry, the microcontroller is easy to pull off later if you need to remove it to work on your pset or project).<br><br>
+<b>Tape ESP to Mini-Breadboard:</b> Remove the backing from the mini-breadboard, which will expose a layer of double-sided tape. Next, place your microcontroller onto the layer of double sided tape, the pins of the microcontroller should be facing away from the double sided tape (don't worry, the microcontroller is easy to pull off later if you need to remove it to work on your pset or project).<br><br>
 
     <img src="images/lab9/minib_1.png" width="380px">
     <img src="images/lab9/minib_2.png" width="330px"><br><br>
     
-  
+          
+ <h3 id="XXX">(2) Build LED Control Circuit</h3>
 
-<h3 class="headline">(6) Building the Touch and LED Control Circuit</h3>
-    
-Now that the lamp shade is full assembled, you can move on to building the circuit for the touch buttons and for controlling the LEDs colors. <br><br>
-    
-Since the lamp base is too small for regular breadboards, we supply you with mini-breadboards (see below).<br>
-Remove the backing from the mini-breadboard, which will expose a layer of double-sided tape.<br>
-Next, place your ESP onto the layer of double sided tape, the pins of the ESP should be facing away from the double sided tape (don't worry, the ESP is easy to pull off later if you need to remove it to work on your pset).<br>
-The mini-breadboard and ESP should now hold together.<br><br>
-
-    <img src="images/lab10/minib_1.png" width="380px">
-    <img src="images/lab10/minib_2.png" width="330px"><br><br>
-    
-
-<b>Building the LED Control Circuit</b><br>
-
-    Next, we connect the LEDs.<br> 
-    You see on the LED strip that there are 3 pins labeled <b>GND, 5V, and DIN</b>. <br><br>
+Next, we will add the LEDs to our mini-breadboard. If you look at your LED strip, you can see that there are 3 pins labeled <code>GND, 5V, and DIN</code>. <br><br>
    
-    <ul>
-        <li>
-            <b>GND:</b> Connect it to the GND pin on the ESP32. Always connect the GND first to protect the LEDs from voltage spikes!
-        </li> 
-        <li><b>5V:</b> This is different from the 3.3V we have used so far in the other labs and psets. Luckily, the ESP32 also has a 5V pin at the VIN pin. Usually, this pin is used to connect to an external power supply. However, if you connect your ESP with a USB cable to your computer, the pin will use the 5V power supply from the USB cable.
-        </li>
-        <li><b>DIN (Data-In):</b> This channel is used to encode which LED should turn on with which color. Connect DIN to a GPIO pin of your ESP32.</li>
-    </ul><br>
+<b>Connect LED GND to GND pin on ESP:</b> Connect the LED GND wire to the GND pin on the microcontroller. Always connect the GND first to protect the LEDs from voltage spikes, which may blow them up!<br><br>
 
-    Before we will implement the color control, let's finish the rest of the circuit.<br><br>
+<b>Connect LED 5V to VIN pin on ESP:</b> The LEDs need 5V, not 3.3V as we have used so far in other labs. The ESP32 can supply 5V at the <code>VIN</code> pin. Usually, this pin is used to connect to an external power supply (e.g. external battery pack). However, if you connect your ESP with a USB cable to your computer, the pin will use the 5V power supply from the USB cable to drive the pin.<br><br>
 
-<b>Building the Touch Button Control Circuit</b><br>
+<b>DIN (Data-In):</b> This channel is used to encode which LED should turn on with which color. Connect <code>DIN</code> to a GPIO pin of your ESP32.
 
-Let's start by connecting the 4 touch buttons to the ESP32 as you have learned in lab 1+2.<br> 
-You will again use a 100kOhm resistor between the sender pin and the 4 receiver pins (please reuse your resistors from lab1/2).<br> 
-Your final circuit should look similar to this:<br><br>
+<h3 id="XXX">(3) Build Touch Control Circuit</h3>
+
+Now that the LEDs are wired up, we also need to build the touch control circuit.<br><br>
+
+<b>Wire Up Conductive Yarn Touch Buttons to Microcontroller:</b> Wire up each of the four touch buttons to the ESP. If you don't remember how the circuit for touch buttons looks like, <a href="lab2-sensing-touch-button.html">you can look back at Lab 2.</a> Use a 100kOhm resistor between the sender pin and the 4 receiver pins (reuse your resistors from the music card). Your final circuit should look similar to this:<br><br>
     
     <img src="images/lab10/circuit_1.jpg" width="350px">
     <img src="images/lab10/circuit_2.jpg" width="350px"><br><br>
 
-<b>Mounting the Circuit into the Lamp Base</b><br>
+ <h3 id="XXX">(4) Mount LED and Touch Control Circuits into Lamp Base</h3>
     
-    Now place the circut inside your lamp base.<br> 
-    First pull the USB cable through the hole that you 3D modeled into your lamp base in lab 5.<br>
-    Next, connect the USB cable to your ESP32 and carefully place the ESP with the circuit inside the lamp base.<br><br>
-    
+Now place the circut inside your lamp base.<br><br>
+
+<b>Stick USB cable through Lamp Base Hole:</b> First stick the USB cable through the hole in your 3D printed lamp base.<br><br>
+
+<b>Connect USB cable to ESP:</b> Next, connect the USB cable to your ESP32 so you can program the lamp.<br><br>
+
+<b>Place ESP with Circuit Inside Lamp Base:</b> Finally, carefully place the ESP with the circuit inside the lamp base. Don't put the lamp shade on top of the base just yet.<br><br>
+
     <img src="images/lab10/usb_1.png" width="350px">
     <img src="images/lab10/usb_2.png" width="350px"><br><br>
     
-    Don't put the lamp shade on top of the base just yet.<br> 
-    We will first write the code for reading the touch input and controlling the light of the LEDs before we put everything together.<br><br>
-    
-<h3 class="headline">(7) Program the Touch Sensing and LED Blinking</h3>
+
+ <h3 id="XXX">(5) Program the Touch Sensing and LED Blinking</h3>
 
 In this final step, we will write code that can sense touch on all four touch buttons, implement the on/off functionality for the on/off button, and implement the 3 light color programs that are triggered with the other 3 touch buttons.<br><br>
     
@@ -238,14 +209,14 @@ Once everything works, put the lamp shade on the base.<br><br>
     <iframe width="560" height="315" src="https://www.youtube.com/embed/05BrSUOn_-g" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
     
- <h3 class="headline">Deliverables Lab 6 (due Wednesday, Oct. 28, 2020, 11.59pm)</h3>
+<h3>Deliverables</h3>
     
-    At the end of lab 6, upload to your student google drive:
-    <ul>
+At the end of the lab, upload to your student google drive:
+    <ol>
         <li>the ESP32 code to sense touch and control the LEDs</li>
         <li>2-3 photos (.jpg or .png) of your 3D printed lamp that shows the circuit and the assembled lamp</li>
         <li>a video that shows how the lamp turns on/off when touching the "on/off" button and how the lamp changes its color when pressing the three color scheme buttons</li>
-    </ul><br>
+    </ol><br>
 
         <br />
         <br />
