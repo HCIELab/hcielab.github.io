@@ -223,13 +223,10 @@ In the skeleton code, put your code for saving fabrication files into the <code>
 
 <h3 id="CHECK">(5) Finding your dpi to convert pixel to mm</h3>
 
-Our multi-touch pad design is printed in <b>millimeter</b> but Processing handles everything in <b>pixel</b>. How do we know how many pixels are in one millimeter? Without this conversion factor, we don't know how many pixels we should use for the electrodes, thickness of the wires, and spacing/offsets between these components. The conversion factor from pixel to mm is different for each operating system. We will thus do a small test to figure this out for your OS. <br><br>
+Our multi-touch pad design is printed in <b>millimeter</b> but Processing handles everything in <b>pixel</b>. How do we know how many pixels are in one millimeter? Without this conversion factor, we don't know how many pixels we should use for the electrodes, thickness of the wires, and spacing/offsets between these components. The conversion factor from pixel to mm is different for each operating system. We will thus do a test to figure this out for your OS. <br><br>
 
-<b>Determing dpi:</b> Create a new document in illustrator. <br><br>
-<img src="images/pset1/01_new_file.gif" width="800px">
-<br><br>
+<b>Determing dpi:</b> Create a new document in Illustrator. Set the drawing unit as 'millimeter (File -> Document Setup -> Units 'Milimeters'). <br><br>
 
-Set the drawing unit as 'millimeter (File -> Document Setup -> Units 'Milimeters'). <br><br>
 <img src="images/pset1/02_document_setup_mm.gif" width="800px">
 <br><br>
 
@@ -243,14 +240,15 @@ Change the drawing unit as 'pixel' (File -> Document Setup -> Units 'Pixels'). T
 
 Now you know that 1 mm is the same as 2.835 pixels. <br><br>
 
-<b>Confirming dpi:</b> To confirm that this is indeed the correct dpi for your OS, go back to Processing, draw a line of 2.835 pixel.
+<b>Confirming dpi:</b> To confirm that this is indeed the correct dpi for your OS, go back to Processing, draw a line of 2.835 pixel, which should correspond to 1mm.
 
 <pre>
 	<code class="language-processing">
 		void drawLine() {
 			background(255);
 			int offset = 100;
-			line(offset,offset,offset+2.835,offset);
+			<span style="color:red">float line_length = 2.835;</span>
+			line(offset,offset,offset+line_length,offset);
 			stroke(204, 102, 0);
 		}
 	</code>
