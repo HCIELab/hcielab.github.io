@@ -77,6 +77,9 @@ Start by downloading <a href="software/pset1_skeleton.zip">the skeleton code for
 	<li><a href="#PREVIEW">Create a preview function for looking at rows/columns individually</a></li>
 	<li><a href="#EXPORT">Create an export function to save the fabrication files as .pdf</a></li>
 	<li><a href="#CHECK">Check that your drawing has the correct size when printed out</a></li>
+	<li><a href="#DPISCALEFACTOR">Adjust Multi-Touch Pad Dimensions Using DPI Scale Factor</a></li>
+	<li><a href="#EXPORTPDFS">Export Multi-touch Pad</a></li>
+	<li><a href="#DOUBLECHECK">Final Check before you Submit</a></li>
 </ol>
 
 <h3 id="INPUT">(1) Create Input Fields for Number of Electrodes</h3>
@@ -271,12 +274,17 @@ In Adobe Illustrator, make sure the drawing is set to 'inch' not 'points' (File 
 <img src="images/pset1/setting-units-to-inches.png" width="300px">  <img src="images/pset1/checking-width.png" width="360px"> <br><br> -->
 
 
-<h3>(6) Adjust Multi-Touch Pad Dimensions</h3>
+<h3 id="DPISCALEFACTOR">(6) Adjust Multi-Touch Pad Dimensions Using DPI Scale Factor</h3>
 
+Now that you have your dpi scale factor, it's time to update all the multi-touch elements to have the right size.<br><br> 
+
+<span style="color:red">is this already in the code? do I need to do something here?</span>
 <b>Applying Scaling Factor to Electrodes:</b> Thus, if our electrodes are 6mm in size, they will be around 6 mm * 2.835 pixels = 17.01 pixels wide.<br><br>
 
 Other parameters that you need to set in your code but don't have to display in the UI, are: <br>
 <!--  for the design (you don't have to display them in the UI, but please do think of good reasons for them, you can start from <a href="http://ww1.microchip.com/downloads/en/DeviceDoc/FAQs%20-%20Sensor%20Design%20Guidelines.pdf">here</a>): <br> -->
+
+<span style="color:red">is this already in the code? do I need to do something here?</span>
 <ul> 
 	<li>the edge length of the electrodes (diamond shape) in mm (default value: 6mm)</li>
 	<li>the spacing between adjacent electrodes in mm (default value: 1mm)</li>
@@ -288,9 +296,9 @@ Other parameters that you need to set in your code but don't have to display in 
 <br>
 
 <table BORDER=0 CELLPADDING=0 CELLSPACING=0>
-	<tr>
+<!-- 	<tr>
 		<td align = center><img src="images/pset1/07-fpc-spacing.png" width="590px"></td>
-	</tr>
+	</tr> -->
 	<tr>
 		<td align = center><img src="images/pset1/07_size.gif" width="590px"></td>
 	</tr>
@@ -301,34 +309,19 @@ Other parameters that you need to set in your code but don't have to display in 
 
 <br><br>
 
+<h3 id="EXPORTPDFS">(7) Export Multi-touch Pad</h3>
 
-When you are done, make sure you test your user interface by exporting several different multi-touch pad sizes, e.g. 4x10, 12x6, 5x5.
-If you are unsure if everything has the right dimension, use a regular color printer to print out your design and measure it with a ruler.<br>
+When you are done with your code, export a multi-touch pad design of <code>8x9 electrodes</code> from your user interface.<br><br>
 
-<br>
-
-<b>Export a multi-touch pad design</b>
-Once your circuit design tool is ready, export a multi-touch pad design of <b>8x9 electrodes</b> from your user interface. With the top layer and bottom layer combined together (8x9 electrodes + 9x8 electrodes), we have a 8x9 multi-touch pad.<br><br>
-
-<h3>Final check before you submit/upload</h3>
+<h3 id="DOUBLECHECK">(8) Final Check before you Submit</h3>
 
 Before you submit files, please check the following: <br><br>
 
-<ul>
-	<li>You should have 2 pdf files:
-		<ul>
-			<li>bottom-electrodes.pdf</li>
-			<li>top-electrodes.pdf</li>
-		</ul>
-	</li>
+<b>Two PDF Files:</b> You should have 2 pdf files: bottom-electrodes.pdf and top-electrodes.pdf.<br><br>
 
-<br>
+<b>Check Alignment of both Top/Bottom Layers:</b> Open both PDF files in Illustrator and overlay them on top of each other to check that the columns and rows of the multi-touch pad are correctly positioned.<br><br>
 
-	<li>Overlay the pdf files in Illustrator to check that the columns and rows of the multi-touch pad are well connected and aligned.</li>
-
-<br>
-
-	<li>Open the pdf file in Illustrator and measure the length of:
+<b>Check Dimensions:</b> Open each .pdf file in Illustrator and measure the length of:
 		<ul>
 			<li>the edge of the electrodes (6mm)</li>
 			<li>the spacing between adjacent electrodes (1mm)</li>
