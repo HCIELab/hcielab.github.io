@@ -59,13 +59,14 @@ In this lab, you will add the circuit to the lamp and then program the lamp to c
 
 <h3>Steps:</h3>
 <ol>
-        <li><a href="#XXX">laser cut the fabric for the lamp shade</a></li>
-        <li><a href="#XXX">sew the fabric lamp shade cover together</a></li>
-        <li><a href="#XXX">embroider the touch button with conductive yarn</a></li>
-        <li><a href="#XXX">connect the touch buttons to jumper wires</a></li>
-        <li><a href="#XXX">add LEDs to the lamp shade</a></li>
-        <li><a href="#XXX">build a control circuit for the touch sensors and LED lights and add it to the base of the lamp</a></li>
-        <li><a href="#XXX">write a program that senses touch and controls the LEDs</a></li>
+        <li><a href="#minibreadboard">Attach Microcontroller to Mini-Breadboard</a></li>
+        <li><a href="#ledcircuit">Build LED Control Circuit</a></li>
+        <li><a href="#touchcircuit">Build Touch Control Circuit</a></li>
+        <li><a href="#circuitlampbase">Mount LED and Touch Control Circuits into Lamp Base</a></li>
+        <li><a href="#touchsensingcode">Write Code for Touch Sensing</a></li>
+        <li><a href="#ledcolorcode">Control LED Colors</a></li>
+        <li><a href="#touchledcode">Change LED Colors Upon Touch</a></li>
+        <li><a href="#lamponoffcode">Turn Lamp On/off Upon Touch</a></li>
     </ol>
 
 
@@ -80,7 +81,7 @@ At the end of the lab, upload to your student google drive:
 
 
       
- <h3 id="XXX">(1) Attach ESP to Mini-Breadboard</h3>
+ <h3 id="minibreadboard">(1) Attach Microcontroller to Mini-Breadboard</h3>
     
 Now that the lamp shade is fully assembled, you can build the circuit for the touch buttons and the LEDs. Since the lamp base is too small for regular breadboards, we supply you with a mini-breadboard. <br><br>
     
@@ -90,7 +91,7 @@ Now that the lamp shade is fully assembled, you can build the circuit for the to
     <img src="images/lab9/minib_2.png" width="330px"><br><br>
     
           
- <h3 id="XXX">(2) Build LED Control Circuit</h3>
+ <h3 id="ledcircuit">(2) Build LED Control Circuit</h3>
 
 Next, we will add the LEDs to our mini-breadboard. If you look at your LED strip, you can see that there are 3 pins labeled <code>GND, 5V, and DIN</code>. <br><br>
    
@@ -100,7 +101,7 @@ Next, we will add the LEDs to our mini-breadboard. If you look at your LED strip
 
 <b>DIN (Data-In):</b> This channel is used to encode which LED should turn on with which color. Connect <code>DIN</code> to a GPIO pin of your ESP32.
 
-<h3 id="XXX">(3) Build Touch Control Circuit</h3>
+<h3 id="touchcircuit">(3) Build Touch Control Circuit</h3>
 
 Now that the LEDs are wired up, we also need to build the touch control circuit.<br><br>
 
@@ -109,7 +110,7 @@ Now that the LEDs are wired up, we also need to build the touch control circuit.
     <img src="images/lab10/circuit_1.jpg" width="350px">
     <img src="images/lab10/circuit_2.jpg" width="350px"><br><br>
 
- <h3 id="XXX">(4) Mount LED and Touch Control Circuits into Lamp Base</h3>
+ <h3 id="circuitlampbase">(4) Mount LED and Touch Control Circuits into Lamp Base</h3>
     
 Now place the circut inside your lamp base.<br><br>
 
@@ -122,13 +123,13 @@ Now place the circut inside your lamp base.<br><br>
     <img src="images/lab10/usb_1.png" width="350px">
     <img src="images/lab10/usb_2.png" width="350px"><br><br>
     
- <h3 id="XXX">(5) Write Code for Touch Sensing</h3>
+ <h3 id="touchsensingcode">(5) Write Code for Touch Sensing</h3>
 
 Let's start programming our lamp by writing the code that can sense touch from all the four touch buttons. <br><br>
   
 <b>Reuse Code from Lab 2:</b> For touch sensing, you can reuse the code from lab 2. Print your touch signals to the Serial Monitor/Plotter to see if it works. Make sure that you get a clear signal from all 4 touch buttons. Select a suitable threshold for each touch button to detect touch reliably.<br><br>
     
- <h3 id="XXX">(6) Write Code for LED Blinking</h3>
+ <h3 id="ledcolorcode">(6) Control LED Colors</h3>
 
 Next, let's write some code that can change the color of the LEDs.<br><br>
 
@@ -180,17 +181,17 @@ The function requires the following parameters:<br><br>
 
 Send a few different colors to different LEDs to see if your code works.<br><br>
     
- <h3 id="XXX">(7) Write Code to Change LED Color Upon Touch</h3>
+ <h3 id="touchledcode">(7) Change LED Colors Upon Touch</h3>
 
 The last thing that is missing is a piece of code that can change the LED color upon touch. We also want to be able to turn the lamp on/off.<br><br>
 
 <b>Connect Touch Button Code to Different Color Schemes:</b> Connect your touch button code so that when one of the 3 touch buttons is touched, the lamp will light up in a different color scheme of your choice (e.g. red, green, blue or whatever color scheme you like).<br><br>
 
- <h3 id="XXX">(7) Write Code to Turn Lamp On/off Upon Touch</h3>
+ <h3 id="lamponoffcode">(8) Turn Lamp On/off Upon Touch</h3>
 
 Finally, we also want to add functionality for the fourth touch button to turn the lamp on/off.<br><br>
 
-<b>Turn Lamp On:</b> When the on/off button is touched and the lamp is off, the lamp should turn on. You can either set it by default to a white color or if you want to be fancy you could load the last used color scheme.<br><br>
+<b>Turn Lamp On:</b> When the on/off button is touched and the lamp is off, the lamp should turn on. You can either set it by default to a white color or if you want to be fancy you could load the last used color scheme. <span style="color:red">How do I turn the LEDs off? do I set color to black?</span><br><br>
 
 <b>Turn Lamp Off:</b> When the on/off button is touched and the lamp is on, the lamp should turn off.<br><br>
 
