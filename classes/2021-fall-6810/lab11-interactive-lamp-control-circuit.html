@@ -122,38 +122,27 @@ Now place the circut inside your lamp base.<br><br>
     <img src="images/lab10/usb_1.png" width="350px">
     <img src="images/lab10/usb_2.png" width="350px"><br><br>
     
+ <h3 id="XXX">(5) Write Code for Touch Sensing</h3>
 
- <h3 id="XXX">(5) Program the Touch Sensing and LED Blinking</h3>
+Let's start programming our lamp by writing the code that can sense touch from all the four touch buttons. <br><br>
+  
+<b>Reuse Code from Lab 2:</b> For touch sensing, you can reuse the code from lab 2. Print your touch signals to the Serial Monitor/Plotter to see if it works. Make sure that you get a clear signal from all 4 touch buttons. Select a suitable threshold for each touch button to detect touch reliably.<br><br>
+    
+ <h3 id="XXX">(6) Write Code for LED Blinking</h3>
 
-In this final step, we will write code that can sense touch on all four touch buttons, implement the on/off functionality for the on/off button, and implement the 3 light color programs that are triggered with the other 3 touch buttons.<br><br>
-    
-<b>Code for Touch Sensing</b><br>    
-For touch sensing, you can reuse the code from lab 1+2.<br> 
-Print your touch signals to the Serial Monitor/Plotter to see if it works.<br> 
-Make sure that you get a clear signal from all 4 touch buttons.<br>
-Select a suitable threshold for each touch button to detect touch.<br><br>
-    
-<b>Programming the LEDs</b><br>    
+Next, let's write some code that can change the color of the LEDs.<br><br>
 
-The LEDs on the strip are called NEOPIXELS (WS2812B).<br>
-Each LED represents a 'pixel' that can be addressed individually and can thus change color and brightness independent of the other LEDs on the strip.<br> 
-The DIN (Data-In) pin on the strip transmits a specific protocol to address each LED individually.<br>
-This is why the LEDs do not turn on immediately when you connect them to the power supply.<br>
-Instead we first have to provide data through the DIN pin.<br><br>
+<b>Individually Addressable LEDs on an LED strip via a Single Pin:</b> The LEDs on the strip are called NEOPIXELS (WS2812B). Each LED represents a 'pixel' that can be addressed individually and can thus change color and brightness independent of the other LEDs on the strip. The DIN (Data-In) pin on the strip transmits a specific protocol to address each LED individually. This is why the LEDs do not turn on immediately when you connect them to the power supply. Instead we first have to provide data through the DIN pin to say which LEDs we want to turn on on the strip and what color and brightness they should have.<br><br>
     
-To control the LEDs, you can use a library that handles the signal encoding for you.<br> 
-This library is called <b>FastLED</b>.<br> 
-You can download it directly from the Arduino IDE by clicking on <b>Sketch->Inlcude Libraries->Manage Libraries.</b><br> 
-Search for FastLED and install it.<br>
-If you are interested to see what is available in the <a href="http://fastled.io/docs/3.1/annotated.html">FastLED library, you can look at the documentation here.</a> <br><br>
+<b>Install FastLED library:</b> To control the LEDs, you can use a library that handles the signal encoding for you. This library is called <code>FastLED</code>. You can download it directly from the Arduino IDE by clicking on <code>Sketch->Inlcude Libraries->Manage Libraries.</code> Search for FastLED and install it. If you are interested to see what is available in the <a href="http://fastled.io/docs/3.1/annotated.html">FastLED library, you can look at the documentation here.</a> <br><br>
     
     <img src="images/lab10/fastled.png" width="700px"><br><br>
 
-You have to include the library to be able to use it in your script:<br><br>
+<b>Include Library in your Code:</b> Before you can use the library in your code, you have to include it at the top of the file:<br><br>
 
     <pre><code>#include &lt;FastLED.h&gt;</code></pre>
 
-To declare an LED, you can use the CRGB datatype.<br>
+<b>Declaring an LED:</b> To declare an LED, you can use the CRGB datatype.<br>
 
 <pre>
 <code>CRGB led1;
@@ -165,30 +154,37 @@ However, rather than declaring 4 LED variables individually to address each LED,
     
 CRGB leds[NUM_LEDS];
 </code></pre>
-    
-The library also requires to add each LED to its internal data structures.<br> 
-You can do this in the setup() function with the following line:<br>
+  
+<b>Add LEDs to Library's Internal Datastructure:</b> The library also requires to add each LED to its internal data structures. You can do this in the <code>setup()</code> function with the following line:<br>
 
 <pre><code>FastLED.addLeds&lt;NEOPIXEL,LED_PIN&gt;(leds,NUM_LEDS)
 </code></pre>
 
-The function requires the following parameters:<br>
-<b>NEOPIXEL:</b> The FastLED library is a generic library for all sorts of LED types. So we need to tell it which LED type we have so it knows which protocol to use to send the data to the LED. NEOPIXEL is a constant defined in the <a href="http://fastled.io/docs/3.1/annotated.html">documentation of the FastLED library</a> and we can simply use it as an argument here. <br>
-<b>LED_PIN:</b> this is the GPIO pin to the DIN pin. This variable has to be a constant so you should declare it with #define.<br>
-<b>leds + NUM_LEDS:</b> We already declared these above so you just insert them here.<br><br>
+The function requires the following parameters:<br><br>
+
+<i>NEOPIXEL:</i> The FastLED library is a generic library for all sorts of LED types. So we need to tell it which LED type we have so it knows which protocol to use to send the data to the LEDs. <code>NEOPIXEL</code> is a constant defined in the <a href="http://fastled.io/docs/3.1/annotated.html">documentation of the FastLED library</a> and we can simply use it as an argument here. <br><br>
+
+<i>LED_PIN:</i> this is the GPIO pin to the DIN pin. This variable has to be a constant so you should declare it with <code>#define</code>.<br><br>
+
+<i>leds, NUM_LEDS:</i> We already declared these above so you just insert them here.<br><br>
     
-You can assign a color to an LED by writing:<br><br>
+<b>Define Color for an LED:</b> You can assign a color to an LED by writing:<br>
 
 <pre><code>leds[0] = CRGB::White;
 </code></pre>
-    
-This color does not get sent to the LED immediately each time you assign a color to an LED.<br> 
-Instead, you have to make the sending explicit by executing the command:<br><br>
+   
+<b>Send Color to the LED:</b> The color is not getting sent to the LED when you assign it. Instead, you have to make the sending explicit by executing the command:<br>
 
 <pre><code>FastLED.show();
 </code></pre>
+
+Send a few different colors to different LEDs to see if your code works.<br><br>
     
-<b>Changing LED Color on Touch</b><br>    
+ <h3 id="XXX">(7) Write Code to Change LED Color Upon Touch</h3>
+
+
+
+
 Let's bring it all together.<br>
 Implement the following end-to-end workflow:<br>
 
