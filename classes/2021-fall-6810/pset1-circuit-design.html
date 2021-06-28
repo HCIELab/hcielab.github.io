@@ -65,7 +65,7 @@ Each row/column consists of multiple electrodes and has a single wire at the end
 Once both sheets are printed, you layer them on top of each other to build the multi-touch pad.<br><br>
 
 <!--<img src="images/pset1/multitouch-overview.png" height="180px">-->
-<img src="images/pset1/pset1-multitouch-pad-explanation2.png" height="180px"><br><br>
+<img src="images/pset1/pset1-multitouch-pad-explanation2.png" height="180px" style="cursor:pointer;"><br><br>
 
 <h3>Skeleton Code:</h3>
 
@@ -86,7 +86,7 @@ Start by downloading <a href="software/pset1_skeleton.zip">the skeleton code for
 
 In the user interface, create two input fields that allow the user to set the desired number of electrodes for the 'columns' and 'rows' (default value should be 10 electrodes). A simple trick to create UI elements in Processing is to draw a rectangle and then check if a mouse-click event occured over the rectangle to transfrom it into a button. A text label overlaid on the rectangle can be used to display the current value. You can check the <a href="https://processing.org/reference/rect_.html">Rect</a> and <a href="https://processing.org/tutorials/text/">Text and Fonts</a> Tutorial for more information. Make sure the user cannot enter negative values. The upper bound for the number of electrodes that fit onto one sheet is 12 electrodes and thus the user should not be allowed to exceed this number.<br><br> 
 
-<img src="images/pset1/user-interface-inputs-new.png" width="300px"><br><br>
+<img src="images/pset1/user-interface-inputs-new.png" width="370px" style="cursor:pointer;"><br><br>
 
 In the skeleton code, put your code for creating the input fields into the <code>createUI()</code> function:
 
@@ -100,7 +100,7 @@ In the skeleton code, put your code for creating the input fields into the <code
 
 <h3 id="DRAW">(2) Drawing the Electrodes and Wires</h3>
 
-<img src="images/pset1/drawing-electrodes-wires-new.png" width="350px"><br><br>
+<img src="images/pset1/drawing-electrodes-wires-new.png" width="370px" style="cursor:pointer;"><br><br>
 
 <b>Drawing one electrode:</b> Next, draw one electrode. An electrode is a rectangle rotated by 45 degrees.
 Use the variable <code>electrodeSize</code> from the pset1_header.pde file for the size of the electrode.<br>
@@ -191,7 +191,7 @@ In the skeleton code, put your code for drawing wires into the <code>drawWires()
 
 <b>Create 'Switch Views' Button:</b> Create one button that switches between the design's top and bottom layer view. Clicking the button should either show the top layer or the bottom layer so the layers can be looked at individually.<br><br>
 
-<img src="images/pset1/switch_view_note.png" width="700px"><br><br>
+<img src="images/pset1/switch_view_note.png" width="900px" style="cursor:pointer;"><br><br>
 
 In the skeleton code, put your code for switching views between the design's top and bottom layer into the <code>switchView()</code> function:
 
@@ -211,7 +211,7 @@ In the skeleton code, put your code for switching views between the design's top
 <!--<b>Ensure Correct Drawing Settings:</b> Make sure the exported .pdf files have all settings correctly set for conductive inkjet printing <span style="color:red">what does this mean? does this mean that the electrodes should be made full black etc? I don't think we have that requirement anymore so we can probably take this out.</span><a href="lab1-circuit-design-for-inkjet-printing.html">(if you don't remember, go back to Lab1).</a> 
 <br><br>-->
 
-<img src="images/pset1/switch_view_01.png" width="320px"> <img src="images/pset1/switch_view_02.png" width="320px"><br><br>
+<img src="images/pset1/switch_view_01.png" width="370px" style="cursor:pointer;"> <img src="images/pset1/switch_view_02.png" width="370px" style="cursor:pointer;"><br><br>
 
 In the skeleton code, put your code for saving fabrication files into the <code>saveViews()</code> function:
 
@@ -230,15 +230,15 @@ Our multi-touch pad design is printed in <b>millimeter</b> but Processing handle
 
 <b>Determing dpi:</b> Create a new document in Illustrator. Set the drawing unit as 'millimeter (File -> Document Setup -> Units 'Milimeters'). <br><br>
 
-<img src="images/pset1/02_document_setup_mm.gif" width="800px">
+<img src="images/pset1/02_document_setup_mm.gif" width="800px" style="cursor:pointer;">
 <br><br>
 
 Then draw an 1 mm line with the pen tool. You can set line width as 1 mm and height as 0 mm in the property window. <br><br>
-<img src="images/pset1/03_draw_line_with_pen_tool.gif" width="800px">
+<img src="images/pset1/03_draw_line_with_pen_tool.gif" width="800px" style="cursor:pointer;">
 <br><br>
 
 Change the drawing unit as 'pixel' (File -> Document Setup -> Units 'Pixels'). Then select the line to see the line length in the property panel in pixels. <br><br>
-<img src="images/pset1/04_document_setup_pixel.gif" width="800px">
+<img src="images/pset1/04_document_setup_pixel.gif" width="800px" style="cursor:pointer;">
 <br><br>
 
 Now you know that 1 mm is the same as 2.835 pixels. <br><br>
@@ -259,7 +259,7 @@ Now you know that 1 mm is the same as 2.835 pixels. <br><br>
 <br>
 
 Export the line using your implemented .pdf export function, and open it in Adobe Illustrator. Don't forget to set the document units to 'milimeters'. Then select the line. Do you now see 1 mm? If yes, you can now be confident that 1mm is 2.835 pixels for your OS.<br><br>
-<img src="images/pset1/05_test_dpi.gif" width="800px">
+<img src="images/pset1/05_test_dpi.gif" width="800px" style="cursor:pointer;">
 <br><br>
 
 <!-- For starters, let's assume a 96dpi conversion factor, i.e. 96 dots (pixel) fit into 1 inch (25.4mm). To find out if this is correct for your OS, create a rectangle in Processing that is 96x96 pixel wide (rect(96,96)). Export the rectangle using your implemented .pdf export function and open it in Adobe Illustrator. 
@@ -298,8 +298,8 @@ You need to <b>find pixels per mm of your system</b>, which can be different fro
 </ul>
 <br> -->
 
-<img src="images/pset1/multitouch-measurements-new.png" width="600px">
-<img src="images/pset1/07_size.gif" width="600px" height="360px">
+<img src="images/pset1/multitouch-measurements-new.png" width="600px" style="cursor:pointer;">
+<img src="images/pset1/07_size.gif" width="600px" height="360px" style="cursor:pointer;">
 <br><br>
 
 <h3 id="EXPORTPDFS">(7) Export Multi-touch Pad</h3>
@@ -324,7 +324,7 @@ Before you submit files, please check the following: <br><br>
 			<li>spacing of wires on the FPC connector: 0.5mm</li>
 		</ul><br>
 
-		<img src="images/pset1/06_how_to_measure_the_length.gif" width="800px">
+		<img src="images/pset1/06_how_to_measure_the_length.gif" width="800px" style="cursor:pointer;">
 
 
 <h3>Upload your Code and Design Files</h3>
@@ -428,4 +428,13 @@ In this pset series, you will create an inkjet printed multi-touch pad. You will
 <script type="text/javascript" src="../../js/headerstrap-for-subpage.js"></script>
 
 </body>
+
+<!-- popup image in new window when click it-->
+<script type="text/javascript">
+	var img = document.getElementsByTagName("img");
+		for (var x = 0; x < img.length; x++) {
+			img.item(x).onclick=function() {window.open(this.src)}; 
+		}
+</script>
+
 </html>
