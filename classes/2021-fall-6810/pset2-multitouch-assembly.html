@@ -59,11 +59,11 @@
         <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2021)</a><br></h>
         <h2 class="headline">Pset2: Assembling the Multi-Touch Pad and Circuit</h2>
 
-In this problem set, you will print out your multi-touch pad on the conductive inkjet printer and assemble the top and bottom layer together. After this, you will build the touch sensing circuit and connect your multi-touch pad to it. As part of building the circuit, you will also have to solder some of the components with header pins first. At the end of this problem set, you will download a piece of test code that will verify that you assembled your multi-touch pad and the corresponding circuit correctly, i.e. the test code will verify that your hardware can sense touch data from a user's finger.<br><br>
+In this problem set, you will print out your multi-touch pad on the conductive inkjet printer and assemble the top and bottom layer. After this, you will build the touch-sensing circuit and connect your multi-touch pad to it. As part of building the circuit, you will also have to solder some header pins to some of the components first. At the end of this problem set, you will download a piece of test code that will verify that the assembled multi-touch pad and the corresponding circuit is correct, i.e. the test code will verify that your hardware can sense touch data from a user's finger.<br><br>
 
 <b>Steps:</b>
 <ol>
-	<li><a href="#PRINT">Inkjet Print and Assemble Top and Bottom Electrode Layers</a></li>
+	<li><a href="#PRINT">Inkjet Print and Assemble the Top and Bottom Electrode Layers</a></li>
 	<li><a href="#FPC">Connect the FPC Connectors to the Electrodes</a></li>
 	<li><a href="#SENDING">Build the Sending Circuit</a></li>
 	<li><a href="#RECEIVING">Build the Receiving Circuit</a></li>
@@ -71,15 +71,15 @@ In this problem set, you will print out your multi-touch pad on the conductive i
 
  <div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
 <b>Ask a TA to give you the fabrication files (.pdfs) if something went wrong in pset1</b><br>
-In case you did not finish pset1, you can ask a TA to provide you with the fabrication files (i.e., the two pdfs for the top and bottom electrode layer) so you can continue pset2. If you finished pset1, but upon review by the teaching team it turns out that your fabrication files have a problem that cannot be easily fixed, you can also ask a TA to give you the fabrication files.</div>
+In case you did not finish pset1, you can ask a TA to provide you with the fabrication files (i.e., the two pdfs for the top and bottom electrode layers) so you can continue pset2. If you finished pset1, but upon review by the teaching team, it turns out that your fabrication files have a problem that cannot be easily fixed, you can also ask a TA to give you the fabrication files.</div>
 
-<h3 id="PRINT">(1) Inkjet Print and Assemble Top and Bottom Electrode Layers</h3>
+<h3 id="PRINT">(1) Inkjet Print and Assemble the Top and Bottom Electrode Layers</h3>
 
 <b>Inkjet Print:</b> Once the TAs have verified the two fabrication files (.pdfs) you generated in pset1, you can print them out. Ask a TA to give you the two transparent sheets (one for the columns and one for the rows) you need for printing.<br> 
 If you don't remember <b>how to print</b>, you can find information <a href="./how-to-print.html" target="_blank"><b>HERE</b></a>.<br><br>
 
 <!-- <img src="images/lab11/pset1-printing-setting.png" width="600px"> <br><br> -->
-<b>Check conductivity of printed electrodes:</b> Test each electrode line with a multimeter to see if the print is conductive enough before assembling the top and bottom electrode layers. Sometimes during printing not enough silver ink comes out (e.g. because of clogged print nozzles) and the resulting print is not conductive enough. To test this, take the multimeter and hold one probe to the left most electrode and the other probe to the right most electrode. If you see that resistance is less than 300 ohms there is no issue.
+<b>Check conductivity of printed electrodes:</b> Test each electrode line with a multimeter to see if the print is conductive enough before assembling the top and bottom electrode layers. Sometimes during printing not enough silver ink comes out (e.g. because of clogged print nozzles) and the resulting print is not conductive enough. To test this, take the multimeter and hold one probe to the leftmost electrode and the other probe to the rightmost electrode. If you see that the resistance reading is less than 300 ohms, there is no issue.
 <br><br>
 
 <iframe width="600" height="360" src="https://www.youtube.com/embed/-MoEOHQVPco" title="YouTube video player" frameborder="0" allowfullscreen></iframe><br><br>
@@ -96,18 +96,18 @@ Test that there is no connection between adjacent rows/columns using a multimete
 
 <b>Conductive side should face upwards:</b> First, check that both of your sheets have the conductive side facing upwards.<br><br>
 
-<b>Align both electrode sheets:</b> Next, align both electrode sheets on top of each other. 
+<b>Align both electrode sheets:</b> Next, with one on top of the other, align the electrode sheets. 
 The alignment between the top and bottom electrodes is critical for receiving an accurate sensing signal.<br><br>
 
 <b>Attach tape to maintain alignment:</b> To help maintain the relative alignment, we will tape the two sheets together on one side using regular scotch tape.<br><br>
 
-<b>Flip top sheet over:</b> Flip the top layer up, so that the bottom layer is exposed and we can apply glue in the next step.<br><br>
+<b>Flip top sheet over:</b> Flip the top layer up, so that the bottom layer is exposed, and we can apply glue in the next step.<br><br>
 
 <img src="images/pset2/pset1-scotch-tape.png" width="800px" style="cursor:pointer;"> <br><br>
 
-<b>Glueing with tape vs. tattoo transfer paper:</b> While you could use simple double-sided transparent tape for glueing the sheets together, the tape has a certain thickness to it. This is a problem because more space between the electrode layers results in worse sensing. The electrodes are already spaced out by the thickness of the sheet on which the electrodes were printed, so the tape would add even more thickness to it. To keep the glue layer as thin as possible, you will instead use the <a href="https://www.amazon.com/gp/product/B0043WJ3OA/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1">adhesive of temporary transfer paper</a>.<br><br>
+<b>Glueing with tape vs. tattoo transfer paper:</b> While you could use simple double-sided transparent tape for glueing the sheets together, the tape has a certain thickness to it. This is a problem because more space between the electrode layers results in worse sensing. The electrodes are already spaced out by the thickness of the sheet on which they were printed, so the tape would add even more thickness. To keep the glue layer as thin as possible, you will instead use the <a href="https://www.amazon.com/gp/product/B0043WJ3OA/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1" target="_blank">adhesive of temporary transfer paper</a>.<br><br>
 
-<b>Using the tattoo transfer paper to glue top and bottom sheet together:</b> Ask a TA to give you the tattoo transfer paper and help you with this step. Pull off the protective cover from one side of the tattoo transfer paper, then attach the now exposed sticky side of the tattoo transfer paper to the bottom electrode sheet to cover all the electrodes (no need to cover the wires). Next, remove the second protective cover from the other side of the tattoo transfer paper to reveal the second sticky side. Now flip back the top electrode layer to make everything sticks together (check your electrode alignment one more time before you do this).<br><br>
+<b>Using the tattoo transfer paper to glue the top and bottom sheets together:</b> Ask a TA to give you the tattoo transfer paper and help you with this step. Pull off the protective cover from one side of the tattoo transfer paper, then attach the now exposed sticky side of the tattoo transfer paper to the bottom electrode sheet to cover all the electrodes (no need to cover the wires). Next, remove the second protective cover from the other side of the tattoo transfer paper to reveal the second sticky side. Now flip back the top electrode layer to make everything sticks together (check your electrode alignment one more time before you do this).<br><br>
 
 <img src="images/pset2/pset1-tatto-paper.png" width="600px" style="cursor:pointer;"> <br><br>
 
@@ -117,12 +117,12 @@ The alignment between the top and bottom electrodes is critical for receiving an
 <img src="images/pset2/pset1-attach-transparent-sheet.png" width="300px"> <br><br>
 -->
 
-<b>Cut out area around multi-touch wires for FPC connection:</b> The multi-touch pad wires will need to fit into the FPC connector. Thus, you need to cut out some free space around the wires on your multi-touch pad. When you cut out the area for the connector pay extra attention that it will fit inside the FPC connector. Check that the little pins inside the FPC connector head align with the wires of your multi-touch pad.<br><br>
+<b>Cut out the area around multi-touch wires for FPC connection:</b> The multi-touch pad wires will need to fit into the FPC connector. Thus, you need to cut out some free space around the wires on your multi-touch pad. When you cut out the area for the connector, pay extra attention to ensure that it will fit inside the FPC connector; the little pins inside the FPC connector head should align with the wires of your multi-touch pad.<br><br>
 
 <img src="images/pset2/aligning-inkjet-print-with-fpc.jpg" width="390px" style="cursor:pointer;">
 <img src="images/pset2/fpc-connector-slot.jpg" width="330px" style="cursor:pointer;"><br><br>
 <b>Laminating the Multi-touch pad:</b>
-Finally, since the conductive side of the top sheet is facing towards the user, the top electrodes are still exposed, and you need to cover them up to prevent the user from touching them directly. For this, you will laminate the Multi-touch pad with a laminating sheet. We will let you use the lamination machine in the lab/at the OH. The Multi-touch pad should be placed inside of the laminating sheet except for the wires to connect it to the FPC connector.
+Finally, since the conductive side of the top sheet is facing towards the user, the top electrodes are still exposed, and you need to cover them up to prevent the user from touching them directly. For this, you will laminate the Multi-touch pad with a laminating sheet. We will let you use the lamination machine in the lab/during OH. The grid of the Multi-touch pad should be placed inside the laminating sheet, but leave the wires that connect to the FPC connector exposed.
 <br><br>
 
 <img src="images/pset2/lamination.png" height="340" style="cursor:pointer;">
@@ -133,9 +133,9 @@ Finally, since the conductive side of the top sheet is facing towards the user, 
 
 Once you have the multi-touch pad printed and assembled, you need to connect its inkjet printed wires to a breadboard so it can work with the rest of the circuit.<br><br> 
 
-<b>FPC connectors:</b> In the labs, we used crocodile clamps to connect our inkjet printed circuit to a breadboard but for the multi-touch pad, the wire spacing is so tight that crocodile clamps will not work here. A component that is more suitable for our purposes is a Flexible Printed Circuit (FPC) Connector. The FPC connector has high resolution connectors on one side, which we will use to connect to the inkjet printed circuit, and on the other side has more widely spaced connectors, which we can use to connect to our breadboard. We bought these <a href="https://www.amazon.com/gp/product/B07VCJG54G/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1">FPC connectors here</a>.<br><br>  
+<b>FPC connectors:</b> In the labs, we used crocodile clamps to connect our inkjet printed circuit to a breadboard but for the multi-touch pad, the wire spacing is so tight that crocodile clamps will not work. A component that is more suitable for our purposes is a Flexible Printed Circuit (FPC) Connector. The FPC connector has high resolution connectors on one side, which we will use to connect to the inkjet printed circuit, and on the other side has more widely spaced connectors, which we can use to connect to our breadboard. We bought these <a href="https://www.amazon.com/gp/product/B07VCJG54G/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1" target="_blank">FPC connectors here</a>.<br><br>  
 
-<b>Soldering header pins onto the FPC connectors:</b> You have two FPC connectors, one for the top and one for the bottom electrodes. Since they don't have the header pins on them yet, you need to solder them on yourself. You have some header pins in your fabrication bag for this.<br><br>
+<b>Soldering header pins onto the FPC connectors:</b> You have two FPC connectors, one for the top and another for the bottom electrodes. Since they don't have the header pins on them yet, you need to solder them on yourself. You have some header pins in your fabrication bag.<br><br>
 <table BORDER=0 CELLPADDING=0 CELLSPACING=0>
 	<tr>
 		<td rowspan="2"><img class="freezeframebutton" src="images/pset2/how_to_solder.gif" height="362px" style="cursor:pointer;"></td>
@@ -148,23 +148,23 @@ Once you have the multi-touch pad printed and assembled, you need to connect its
 <!--<img src="images/pset2/headerpins.png" width="170px">-->
 <br><br>
 
-<b>Testing if each pin on your FPC chip is soldered:</b> You can use a multimeter to test if each pin on the multiplexer is correctly soldered. Contact one probe to the soldered header pin and the other probe to the leg of the chip at the end of the trace which is started from the soldered header pin. If the header pin was soldered properly, the multimeter will beep, which means continuity is detected. <br><br>
+<b>Testing if each pin on your FPC chip is soldered:</b> You can use a multimeter to test if each pin on the multiplexer is correctly soldered. Place one tip of the probe on the soldered header pin and the other probe on the leg of the chip at the end of the trace which starts at the corresponding soldered header pin. If the header pin was soldered properly, the multimeter will beep, which means there's continuity. <br><br>
 
 <img src="images/pset2/trace_fpc.png" height="240" style="cursor:pointer;">
 <iframe width="600" height="360" src="https://www.youtube.com/embed/YQoJ_9FC77E" title="YouTube video player" frameborder="0" allowfullscreen></iframe><br><br>
 
-<b>Connecting the FPC connectors to the wires of the multi-touch pad:</b> When you connect your FPC connector, make sure the conductive side with the silver traces is facing towards the breakout board. Pull out the little tab on the FPC connector, then insert the wires, then push the little tab back in to secure the wires. Once you are done connecting one side of the multi-touch pad, repeat the procedure with the other side and connect it to the second FPC connector.<br><br>
+<b>Connecting the FPC connectors to the wires of the multi-touch pad:</b> When you connect your FPC connector, make sure the conductive side with the silver traces is facing towards the breakout board. Pull out the little tab on the FPC connector, insert the wires, then push the little tab back in to secure the wires. Once you are done connecting one side of the multi-touch pad, repeat the procedure for the other side to connect the second FPC connector.<br><br>
 
 <img src="images/pset2/FPC_open_connect_close.png" width="800px" style="cursor:pointer;"><br><br>
 
 <!-- <b>(2) Flip-up:</b> <br> -->
 <!-- <img src="images/pset2/pset1-fpc-connector_1.jpg" width="330px"><br><br> -->
 
-<b>Testing if your FPC chip makes a connection to each wire from the multi-touch pad:</b> You can use a multimeter to test if each pin on the FPC connector is correctly connected to each wire from the multi-touch pad.<br><br>
+<b>Testing if your FPC chip makes a connection to each wire from the multi-touch pad:</b> You can use a multimeter to test if each pin on the FPC connector is properly connected to each of the Multi-touch pad wires.<br><br>
 
 <iframe width="600" height="360" src="https://www.youtube.com/embed/bJtLXKXzuwc" title="YouTube video player" frameborder="0" allowfullscreen></iframe><br><br>
 
-<b>Disconnecting/Reconnecting Multi-Touch pad from Circuit:</b> When you disconnect your FPC connector, keep the printed wire in the connector and unplug jumper wires from the soldered header pins of the FPC connector instead.
+<b>Disconnecting/Reconnecting the Multi-Touch pad from Circuit:</b> When you disconnect your FPC connector, keep the printed wire in the connector and only unplug the jumper wires from the soldered header pins of the FPC connector instead.
 <br><br>
 
 <img src="images/pset2/plug_unplug.png" width="500px" style="cursor:pointer;"><br><br>
@@ -173,38 +173,38 @@ Once you have the multi-touch pad printed and assembled, you need to connect its
 
  <div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
 <b>Use the large breadboard we gave you for the multi-touch pad circuit:</b><br>
-For building the circuit, please use the large breadboard we gave you. The idea is that you use the large breadboard for your multi-touch pad and the small breadboards you received earlier for the labs. This way, you don't have to unplug any wires when you switch between working on labs vs. working on psets.</div>
+For building the circuit, please use the large breadboard we gave you. The idea is that you use the large breadboard for your multi-touch pad and the small breadboards you received earlier for the labs. That way, you don't have to unplug any wires when you switch between working on labs vs. working on psets.</div>
 
-As mentioned in lecture, the multitouch pad consists of sender electrodes (e.g., columns) and receiver electrodes (e.g., rows). A signal is injected into the sender electrodes and the receiver electrodes then pick up the signal and any modulation of it that occured because the user's finger is present. We will first build the sending circuit.<br><br> 
+As mentioned in lecture, the multitouch pad consists of sender electrodes (e.g., columns) and receiver electrodes (e.g., rows). A signal is injected into the sender electrodes and the receiver electrodes then pick up the signal and any modulation to it that occured due to a user's finger. We will first build the sending circuit.<br><br> 
 
-<b>Injecting Circuit:</b> The sending circuit injects a PWM signal into the sender electrodes. When powered, the multitouch pad is sending the PWM signal to the sender electrode columns one by one, i.e. first sends the PWM signal to the first sender electrode column, then the second, then the third and so on. After it reached the last sender electrode column, it continues again from the front.<br><br> 
+<b>Injecting Circuit:</b> The sending circuit injects a PWM signal into the sender electrodes. When powered, the multitouch pad sends a PWM signal to each of the sender electrode columns one by one, i.e. first sends the PWM signal to the first sender electrode column, then the second, then the third and so on. After it reaches the last sender electrode column, it restarts from the first.<br><br> 
 
-<b>Number of Sender Pins:</b> Since we need to send a PWM signal to each column of electrodes individually one after another, sharing a single PWM sender pin like we did in lab does not work since it would send a signal to all electrodes simultaenously at the same time. To send a PWM signal one by one to each column, we thus need the same number of sender pins as we have columns. While we have enough GPIO/PWM pins on the ESP for our 8x9 multi-touch pad (i.e. 17 in total, 8 for receiving and 9 for sending), we would quickly run out of pins if we used a multi-touch pad with a higher resolution. We thus want to introduce a new component, i.e. a multiplexer, that allows you to scale up the number of pins you have available by reducing the number of ESP pins needed to send the signals.<br><br>
+<b>Number of Sender Pins:</b> Since we need to send a PWM signal to each column of electrodes individually one after another, sharing a single PWM sender pin like we did in lab does not work since it would send a signal to all electrodes simultaenously. To send a PWM signal one by one to each column, we need as many sender pins as we have columns. While we have enough GPIO/PWM pins on the ESP for our 8x9 Multi-touch pad (i.e. 17 in total, 8 for receiving and 9 for sending), we would quickly run out of pins if we used a multi-touch pad with a higher resolution. We, thus, want to introduce a new component: a multiplexer, that allows you to scale up the number of pins you have available while reducing the number of ESP pins needed to send the signals.<br><br>
 
 <img src="images/pset2/multitouch-schematic-sending.png" width="600px" style="cursor:pointer;"> <br><br>
 
-<b>Using a Multiplexer to Scale up the Number of Sender Pins:</b> A multiplexer can take one single input and direct it to multiple outputs (de-multiplexing). Thus, for sending, we can use a single pin on the ESP to generate the PWM signal and then pipe the signal through the multiplexer, which can direct it to the individual electrode column where the signal should be applied. We bought the following <a href="https://www.amazon.com/gp/product/B07K7JF3HX/ref=ppx_od_dt_b_asin_title_s00?ie=UTF8&psc=1">multiplexer from here.</a> You can find the <a href="https://www.ti.com/lit/ds/symlink/cd74hc4067.pdf?ts=1598252309140&ref_url=https%253A%252F%252Fwww.google.com%252F">datasheet here</a> and <a href="http://cdn.sparkfun.com/datasheets/BreakoutBoards/Analog-Digital-Mux-Breakout-v11.pdf"> the schematic file here</a>.<br><br>  
+<b>Using a Multiplexer to Scale up the Number of Sender Pins:</b> A multiplexer can take one single input and direct it to multiple outputs (de-multiplexing). Thus, for sending, we can use a single pin on the ESP to generate the PWM signal and then pipe the signal through the multiplexer, which can direct it to the individual electrode column that the signal should be applied. We bought the following <a href="https://www.amazon.com/gp/product/B07K7JF3HX/ref=ppx_od_dt_b_asin_title_s00?ie=UTF8&psc=1" target="_blank">multiplexer from here.</a> You can find the <a href="https://www.ti.com/lit/ds/symlink/cd74hc4067.pdf?ts=1598252309140&ref_url=https%253A%252F%252Fwww.google.com%252F" target="_blank">datasheet here</a> and <a href="http://cdn.sparkfun.com/datasheets/BreakoutBoards/Analog-Digital-Mux-Breakout-v11.pdf" target="_blank"> the schematic file here</a>.<br><br>  
 
 <img src="images/pset2/demux-labeled.png" width="400px" style="cursor:pointer;"> <br><br>
 
-<b>Soldering header pins onto the multiplexer:</b> The multiplexer we bought has no header pins attached yet, so you need to solder them on yourself. You have some header pins in your fabrication bag. After you are done soldering, it should look like this. <br><br>
+<b>Soldering header pins onto the multiplexer:</b> The multiplexer we bought has no header pins attached yet, so you need to solder them. You have some header pins in your fabrication bag. After you are done soldering, it should look like this: <br><br>
 
 <img src="images/pset2/mux_soldering.png" height="300px" style="cursor:pointer;"> 
 <br><br>
 
-<b>Testing if each pin on your multiplexer is soldered:</b> You can use a multimeter to test if each pin on the multiplexer is correctly soldered. Contact one probe to the soldered header pin and the other probe to the leg of the chip at the end of the trace which is started from the soldered header pin. If the header pin was soldered properly, the multimeter will beep, which means continuity is detected. <br><br>
+<b>Testing if each pin on your multiplexer is soldered:</b> You can use a multimeter to test if each pin on the multiplexer is correctly soldered. Place the tip of one probe on the soldered header pin, and the other probe on the leg of the chip at the end of the trace that starts at the corresponding soldered header pin. If the header pin was soldered properly, the multimeter will beep, which means there's continuity. <br><br>
 
 <img src="images/pset2/trace.png" height="360" style="cursor:pointer;">
 <iframe width="600" height="360" src="https://www.youtube.com/embed/va-0KGMV0OU" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
 <br><br>
 
-<b>Providing the Input Signal from the ESP (SIG):</b> First, let's start by providing our multiplexer with the input signal from the ESP. For this, connect the signal pin (SIG) on the multiplexer to <b>GPIO16 pin on the ESP</b>. Though Any GPIO pins that can generate a PWM signal work, we specified GPIO16 pin to check the submitted circuit easily.<br><br>
+<b>Providing the Input Signal from the ESP (SIG):</b> First, let's start by providing our multiplexer with the input signal from the ESP. For this, connect the signal pin (SIG) on the multiplexer to <b>GPIO16 pin on the ESP</b>. Though any of the GPIO pins that can generate a PWM signal will work, we specified GPIO16 pin to check the submitted circuits easily.<br><br>
 
-<b>Connecting the output channels to the electrode columns (C0-C8):</b> If you look at your multiplexer, you can see that it has 16 output channels (pins on the left side from C0-C15). We want to connect each output channel to one column of our multi-touch pad (we don't need all 16 channels since our multi-touch pad only had 9 columns). We will use <b>channels from C0 to C8</b>. We can then use the multiplexer to redirect the input signal from the SIG pin to one of the channels, thereby injecting the signal into a specific column of the multi-touch pad. Connect each of your electrode colunmns to one of the pins. You can connect the FPC connector breakout boards to the multiplexer via male-to-female jumper wires and a breadboard.<br><br>
+<b>Connecting the output channels to the electrode columns (C0-C8):</b> If you look at your multiplexer, you will see that it has 16 output channels (pins on the left side, C0-C15). We want to connect each output channel to one column of our multi-touch pad (we don't need all 16 channels since our multi-touch pad only has 9 columns). We will use <b>channels C0 through C8</b>. We can then use the multiplexer to redirect the input signal from the SIG pin to one of the channels, thereby injecting the signal into a specific column of the Multi-touch pad. Connect each of your electrode colunmns to one of the pins. You can connect the FPC connector breakout boards to the multiplexer via male-to-female jumper wires and a breadboard.<br><br>
 
 <img src="images/pset2/breadboarding_crop.png" height="350px" style="cursor:pointer;"> <br><br>
 
-<b>Selecting which Channel to send the Signal to (S0-S3):</b> The question remains how to we tell the multiplexer which channel our input signal should be directed to, i.e. how can we tell the multiplexer to send the input signal to e.g., the C12 output pin. The way our multiplexer does this is by asking us to send the desired output address using the four pins on the right side, labeled S0-S3. Why four pins? The multiplexer expects a binary signal, e.g. sending 0,0,0,0 to S0-S3 results in the output pin C0, vs. 0,1,1,0 send to to S0-S3 results in C6 as output pin. Thus, by using the multiplexer we can send a signal to up to 16 electrode columns (CH0-15) using only 5 pins (SIG + S0,S1,S2,S3) on the ESP! <b>Wire up the S0-S3 pins to GPIO19, GPIO18, GPIO5, GPIO17 pin on the ESP.</b> Though any GPIO pins on the ESP can be used, we specified GPIO16 pin to check the submitted circuit easily.<br><br>
+<b>Selecting which Channel to send the Signal to (S0-S3):</b> How do we tell the multiplexer which channel our input signal should be directed to, i.e. how can we tell the multiplexer to send the input signal to, say, the C12 output pin? We do this by providing the multiplexer with a 4-bit, binary enconding of our desired output through the four pins on the right side, labeled S0-S3. Why four pins? The multiplexer expects a binary signal, e.g. sending 0,0,0,0 to S0-S3 directs the output to pin C0, whereas sending 0,1,1,0 to S0-S3 directs the output to pin C6. Thus, by using the multiplexer we can send a signal to up to 16 electrode columns (C0-C15) using only 5 pins (SIG + S0,S1,S2,S3) on the ESP! <b>Wire up the S0-S3 pins to GPIO19, GPIO18, GPIO5, GPIO17 pin on the ESP.</b> Again, though any GPIO pins on the ESP can be used, we specified the following pins so that the submitted circuits can be verified easily.<br><br>
 
 <b>Powering the Multiplexer:</b> Finally, connect the power VCC and GND pins on the multiplexer to the corresponding pins on the ESP to power the multiplexer.<br><br>
 
@@ -217,41 +217,40 @@ As you can see in the schematic, the circuit for receiving is very similar to wh
 
 <img src="images/pset2/multitouch-schematic-receiving.png" width="600px" style="cursor:pointer;"> <br><br>
 
-<b>Using a separate ADC component:</b> Unfortunately, the ADC/TOUCH pins on the ESP32 are not reliable enough for our purposes, i.e. they do not output clean enough signals for our multi-touch pad (footnote 1). We will thus use a separate ADC component that will replace the ADC pins on the ESP32. The component we use to have better ADC channels is the <a href="https://www.adafruit.com/product/856">MCP3008</a> chip and you can find <a href="https://cdn-shop.adafruit.com/datasheets/MCP3008.pdf">its datasheet here</a>.<br><br>
+<b>Using a separate ADC component:</b> Unfortunately, the ADC/TOUCH pins on the ESP32 are not reliable enough for our purposes, i.e. they do not output clean signals for our multi-touch pad (footnote 1). We will use a separate ADC component in place of the ADC pins on the ESP32. The component we use is the <a href="https://www.adafruit.com/product/856" target="_blank">MCP3008</a> chip, and you can find <a href="https://cdn-shop.adafruit.com/datasheets/MCP3008.pdf" target="_blank">its datasheet here</a>.<br><br>
 
 <img src="images/pset3/adc-pin-chip.png" width="250px" style="cursor:pointer;"><br><br>
 
-<b>Connecting the Receiving Electrodes to the ADC component:</b> Let's first connect the receiving electrodes from our multi-touch pad to the ADC component by connecting them to channel CH0 - CH7 (see component image below). Don't forget to add the 100kOhm resistor to each electrode row.<br><br>
+<b>Connecting the Receiving Electrodes to the ADC component:</b> Let's first connect the receiving electrodes from our multi-touch pad to the ADC component by connecting them to channels CH0 - CH7 (see the component image below). Don't forget to add the 100kOhm resistor to each electrode row.<br><br>
 
 <b>Powering the ADC component:</b> Next, power the ADC component by connecting the Vdd pin to 3.3V and the Dgnd pin to GND.<br><br>
 
-<b>Reference Signal:</b> The MCP3008 chip also needs a reference voltage to calculate the unknown voltage from the incoming CH0-7 pins (ADC conversion). This reference voltage needs to be equal or less than the operating voltage of the ADC component. Since we use 3.3V on Vdd, you can connect the reference voltage pin VRef pin to 3.3V as well and then connect the AGND pin to ground.<br><br>
+<b>Reference Signal:</b> The MCP3008 chip also needs a reference voltage to calculate the unknown voltage from the incoming CH0-7 pins (ADC conversion). This reference voltage needs to be less than or equal to the operating voltage of the ADC component. Since we use 3.3V on Vdd, you can connect the reference voltage pin VRef pin to 3.3V as well, and then connect the AGND pin to ground.<br><br>
 
 <img src="images/pset2/mpc-pin-out-labeled.png" width="480px" style="cursor:pointer;">
 <img src="images/pset2/spi-labeled.png" width="260px" style="cursor:pointer;"> 
  <br><br>
 
-<b>Connecting the ADC component to the ESP:</b> Sending data from the ADC component to the ESP is a little more complicated. The MCP3008 chip communicates with the ESP via the Serial Peripheral Interface (SPI). We use basic SPI between one master (ESP) and one slave (MCP3008 chip). SPI communication is setup via 4 types of pins, i.e. MOSI is the line for the master to send data to the slave, MISO is the line for the slave to send data to the master, SCK is the line for the clock signal that determines how fast bits of data can be send, and NSS/CS is a line for the master to select which slave to send data to. The ADC chip uses different names on its pinout for these pins, i.e. <b>MOSI (DIn), MISO (DOut), SCK (CLK), and NSS/CS (CS/SHDN)</b> as shown above in the MPC chip pinout. The ESP uses the regular names as shown on the ESP pinout below. Wire up these four SPI pins (not VSPI) between the ADC chip and the ESP. <br><br>
+<b>Connecting the ADC component to the ESP:</b> Sending data from the ADC component to the ESP is a little more complicated. The MCP3008 chip communicates with the ESP via a Serial Peripheral Interface (SPI). We use basic SPI between one master (ESP) and one slave (MCP3008 chip). SPI communication is setup via 4 types of pins, i.e. MOSI is the line for the master to send data to the slave, MISO is the line for the slave to send data to the master, SCK is the line for the clock signal that determines how fast bits of data can be sent, and NSS/CS is a line for the master to select which slave to send data to. The ADC chip uses different names on its pinout for these pins, i.e. <b>MOSI (DIn), MISO (DOut), SCK (CLK), and NSS/CS (CS/SHDN)</b> as shown above in the MPC chip pinout. The ESP uses the regular names as shown on the ESP pinout below. Wire up these four SPI pins (not VSPI) between the ADC chip and the ESP. <br><br>
 
 <img src="images/pset3/esp32-pinout.png" width="800px" style="cursor:pointer;"><br><br>
 <b>**** Important Notes **** <br>
 	1) GPIO 34-39 are INPUT only <br> 
 	2) do not use GPIO 0 as INPUT <br>
-	3) try avoid GPIO 6-11, which might have unexpected behaviors </b><br><br>
+	3) try to avoid GPIO 6-11, which might have unexpected behaviors </b><br><br>
 <!--<img src="images/pset2/adc_fritzing_label.png" width="900px">-->
 
-<b>Using a Multiplexer for the receiving circuit:</b> While we will not do it in this pset, we could also use a second multiplexer to reduce the number of pins required for the receiving circuit, i.e. the electrode rows. When using the multiplexer for receiving, we would redirect the received signal on CH0-15 to the SIG pin that is then read by the ESP. Similar to above, we would only have to specify which channel (CH0-15) we want to read and the ESP would then retrieve the signal from the respective channel. Thus, this second multiplexer would reduce the number of receiver pins by combining multiple rows into one pin on the ESP. <br><br>
+<b>Using a Multiplexer for the receiving circuit:</b> While we will not do it in this pset, we could also use a second multiplexer to reduce the number of pins required for the receiving circuit, i.e. the electrode rows. When using the multiplexer for receiving, we would redirect the received signal on C0-C15 to the SIG pin that is then read by the ESP. Similar to above, we would only have to specify which channel (C0-C15) we want to read and the ESP would then retrieve the signal from the respective channel. Thus, this second multiplexer would reduce the number of receiver pins by combining multiple rows into one pin on the ESP. <br><br>
 
 <h3>Final check before you submit/upload</h3>
+Before you submit files, please check the following:
 <ul>
 	<li>You should have an assembled laminated multi-touch pad, a sending circuit, and a receiving circuit.</li>
 	<li>The multi-touch pad, sending circuit, and receiving circuit should be wired.</li>
-	<li>Check soldering condition of two FPC connectors.</li>
-	<li>Check the connection between the FPC connector and wires of the multi-touch pad.</li>
+	<li>Check the soldering condition of the two FPC connectors.</li>
+	<li>Check the connection between the FPC connector and the wires of the Multi-touch pad.</li>
 	<li>Check the soldering condition of the multiplexer.</li>
 </ul>
-
-Before you submit files, please check the following:
 
 <h3>Upload the Files and Show Hardware to TA</h3>
 
@@ -266,11 +265,11 @@ For grading, please upload the following to your google drive student folder:<br
 
 We will give 20 pts in total:
 <ul>
-	<li>did you finish assembling your multi-touch pad, i.e. did you inkjet print both the top and bottom electrode layer, glued them together, and connected the FPC chips? (7 pts)</li>
-	<li>did you soldered the FPC connectors and the multiplexer? (2 pts)</li>
-	<li>did you correctly build the sending circuit using the multiplexer and ESP? (4 pts)</li>
-	<li>did you correctly build the recieving circuit using the ADC component, resistors and ESP? (4 pts)</li>
-	<li>did you correctly connect between the sending circuit and receiving circuit? (3 pts)</li>
+	<li>Did you finish assembling your multi-touch pad, i.e. did you inkjet print both the top and bottom electrode layers, glued them together, and connected the FPC chips? (7 pts)</li>
+	<li>Did you soldered the FPC connectors and the multiplexer? (2 pts)</li>
+	<li>Did you correctly build the sending circuit using the multiplexer and ESP? (4 pts)</li>
+	<li>Did you correctly build the recieving circuit using the ADC component, resistors, and ESP? (4 pts)</li>
+	<li>Did you correctly link the sending circuit and receiving circuit? (3 pts)</li>
 </ul>
 
 <!-- Footnote 1: Unfortunately, the ESP32 ADC/TOUCH pins are only reliable in the middle of the ESP's voltage range (~0.5V to maybe 3.0V) but not at the lower and upper ends of the range. Our touch sensing circuit functions at the lower range. Even worse, because our circuit (receiver pins) outputs between -0.6V and 1.2V (yes that is a minus), we end up with negative voltages on the ADC pins, which are completely out of the spec of the ESP32's ADC inputs and would create a signal that is non-linear and would require a lot of calibration. The reason we can have negative voltages is because we are practically generating a high-frequency AC signal with the PWM. This creates capacitive coupling between the breadboard channels and wires. To make the ESP ADC pins work with negative voltages, you could add rectification circuits and amplifiers before having the signal go into the ADC pin, but that is quite some extra effort. For our purposes, it is therefore easier to not use the ESP ADC pins and instead use another ADC component that can work well within the Voltage range we use for the multi-touch pad.<br><br>
