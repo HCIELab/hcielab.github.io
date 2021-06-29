@@ -57,38 +57,38 @@
         <h2 class="headline">Pset1: User Interface for Multi-Touch Pad Fabrication Files</h2>
 
 
-In this problem set, you will write a user interface in Processing that will automatically generate the fabrication files for making multi-touch pads of different dimensions (e.g., 8x4 electrodes or 4x6 electrodes). A user will be able to input parameters, such as the number of electrodes for the rows and columns of the multi-touch pad and then automatically receive the matching fabrication files, i.e. 2D drawings of the electrode layouts in .pdf file format that the user can then send to their 2D printer for conductive inkjet printing. You will implement this interface in Processing.<br><br>
+In this problem set, you will create a user interface that will automatically generate the fabrication files for making multi-touch pads of different dimensions (e.g., 8x4 electrodes or 4x6 electrodes). A user will be able to input parameters, such as the number of electrodes for the rows and columns of the multi-touch pad and then automatically receive the matching fabrication files, i.e. 2D drawings of the electrode layouts in .pdf file format that the user can then send to their 2D printer for conductive inkjet printing. You will implement this interface in Processing.<br><br>
 
-For the multi-touch pad, we will be using the classical two-layered diamond pattern that is commonly used for mutual-capacitive touch sensing.
-As explained in lecture, this means that your multi-touch pad has two electrode layers that are printed separately: One layer contains the rows, the other layer contains the columns.
+For the multi-touch pad, we will use the classical two-layered diamond pattern that is commonly used for mutual-capacitive touch sensing.
+As explained in lecture, this means that your multi-touch pad has two electrode layers, printed separately: One layer contains the rows, the other contains the columns.
 Each row/column consists of multiple electrodes and has a single wire at the end.
-Once both sheets are printed, you layer them on top of each other to build the multi-touch pad.<br><br>
+Once both sheets are printed, you will layer them on top of each other to build the multi-touch pad.<br><br>
 
 <!--<img src="images/pset1/multitouch-overview.png" height="180px">-->
 <img src="images/pset1/pset1-multitouch-pad-explanation2.png" height="180px" style="cursor:pointer;"><br><br>
 
 <h3>Skeleton Code:</h3>
 
-Start by downloading <a href="software/pset1_skeleton.zip">the skeleton code for the PSet1 from  here</a>. <br>
+Start by downloading <a href="software/pset1_skeleton.zip">the skeleton code for the PSet1 here</a>. <br>
 <h3>Steps:</h3>
 <ol>
-	<li><a href="#INPUT">Create input fields for number of electrodes</a></li>
+	<li><a href="#INPUT">Create input fields for the number of electrodes</a></li>
 	<li><a href="#DRAW">Draw the electrodes and wires</a></li>
-	<li><a href="#PREVIEW">Create a preview function for looking at rows/columns individually</a></li>
-	<li><a href="#EXPORT">Create an export function to save the fabrication files as .pdf</a></li>
+	<li><a href="#PREVIEW">Create a preview function for looking at the rows/columns individually</a></li>
+	<li><a href="#EXPORT">Create an export function to save the fabrication files as a .pdf</a></li>
 	<li><a href="#CHECK">Check that your drawing has the correct size when printed out</a></li>
-	<li><a href="#DPISCALEFACTOR">Adjust Multi-Touch Pad Dimensions Using DPI Scale Factor</a></li>
-	<li><a href="#EXPORTPDFS">Export Multi-touch Pad</a></li>
-	<li><a href="#DOUBLECHECK">Final Check before you Submit</a></li>
+	<li><a href="#DPISCALEFACTOR">Adjust the Multi-Touch Pad dimensions using DPI scale factor</a></li>
+	<li><a href="#EXPORTPDFS">Export the Multi-touch Pad</a></li>
+	<li><a href="#DOUBLECHECK">Final check before you submit</a></li>
 </ol>
 
-<h3 id="INPUT">(1) Create Input Fields for Number of Electrodes</h3>
+<h3 id="INPUT">(1) Create Input Fields for the Number of Electrodes</h3>
 
-In the user interface, create two input fields that allow the user to set the desired number of electrodes for the 'columns' and 'rows' (default value should be 10 electrodes). A simple trick to create UI elements in Processing is to draw a rectangle and then check if a mouse-click event occured over the rectangle to transfrom it into a button. A text label overlaid on the rectangle can be used to display the current value. You can check the <a href="https://processing.org/reference/rect_.html">Rect</a> and <a href="https://processing.org/tutorials/text/">Text and Fonts</a> Tutorial for more information. Make sure the user cannot enter negative values. The upper bound for the number of electrodes that fit onto one sheet is 12 electrodes and thus the user should not be allowed to exceed this number.<br><br> 
+In the user interface, create two input fields that allow the user to set the desired number of electrodes for the 'rows' and 'columns' (default value should be 10 electrodes for both). A simple trick to creating UI elements in Processing is to first draw a rectangle; then, you can check if a mouse-click event occured over the rectangle to create a button, or you can overlay a text label on the rectangle to display the current value. Refer to the <a href="https://processing.org/reference/rect_.html" target="_blank">Rect</a> and <a href="https://processing.org/tutorials/text/" target="_blank">Text and Fonts</a> tutorials for more information. Make sure the user cannot enter negative values. The upper bound for the number of electrodes that fit on one sheet is 12 electrodes and thus the user should not be allowed to exceed this number.<br><br> 
 
 <img src="images/pset1/user-interface-inputs-new.png" width="370px" style="cursor:pointer;"><br><br>
 
-In the skeleton code, put your code for creating the input fields into the <code>createUI()</code> function:
+In the skeleton code, put your code for creating the input fields in the <code>createUI()</code> function:
 
 <pre>
 	<code class="language-processing">
@@ -113,7 +113,7 @@ Use the variable <code>electrodeSize</code> from the pset1_header.pde file for t
 
 <br>
 
-In the skeleton code, put your code for drawing one electrode into the <code>drawSingleElectrode()</code> function:
+In the skeleton code, put your code for drawing one electrode in the <code>drawSingleElectrode()</code> function:
 
 <pre>
 	<code class="language-processing">
@@ -126,7 +126,7 @@ In the skeleton code, put your code for drawing one electrode into the <code>dra
 
 <!-- For now, don't worry about the exact size. To draw the electrode, you should use a <a href="https://processing.org/reference/PGraphics.html">PGraphics</a> canvas and then draw a <a href="https://processing.org/reference/PImage.html">PImage</a> onto it. -->
 
-<b>Drawing multiple electrodes:</b> Once you can draw one electrode, create a second electrode at an offset either horizontally to start forming a row or vertically to start forming a column.
+<b>Drawing multiple electrodes:</b> Once you can draw one electrode, create a second electrode at an offset either horizontally to start forming a row, or vertically to start forming a column.
 Use the variable <code>electrodeOffset</code> from the pset1_header.pde file for the offset.
 <br>
 <!-- For now, don't worry about the exact number for the offset. -->
@@ -139,7 +139,7 @@ Use the variable <code>electrodeOffset</code> from the pset1_header.pde file for
 
 <br>
 
-In the skeleton code, put your code for drawing multiple electrodes into the <code>drawElectrodes()</code> function:
+In the skeleton code, put your code for drawing multiple electrodes in the <code>drawElectrodes()</code> function:
 
 <pre>
 	<code class="language-processing">
@@ -150,10 +150,10 @@ In the skeleton code, put your code for drawing multiple electrodes into the <co
 	</code>
 </pre>
 
-<b>Connect electrode number to UI input:</b> Next, connect the number of electrodes to your UI input elements, i.e. when the user sets the number of electrodes for the columns to be '10' and rows to be '6' your screen should draw 10 electrodes vertically and 6 electrodes horizontally.<br><br>
+<b> Translate UI input into electrode count:</b> Next, translate the UI input into the correct number of eletrodes generated by your functions, i.e. when the user sets the number of electrodes for the columns to be '10' and the rows to be '6', your program should draw a grid with 10 electrodes vertically and 6 electrodes horizontally.<br><br>
 
 <b>Drawing Wires:</b> Next, draw the wires that connect the electrodes.
-Use the variables <code>wireThicknessInside</code> and <code>wireThicknessOutside</code> from the pset1_header.pde file for the thickness of wires.<br>
+Use the variables <code>wireThicknessInside</code> and <code>wireThicknessOutside</code> from the pset1_header.pde file for the thickness of the wires.<br>
 
 <pre>
 	<code class="language-processing">
@@ -165,7 +165,7 @@ Use the variables <code>wireThicknessInside</code> and <code>wireThicknessOutsid
 <br>
 
 At the end of each row/column, the wire is routed to the side to connect to an FPC connector.
-Use the variable defined as <code>spacing</code> in the pset1_header.pde file for the spacing on the FPC connector.
+Use the variable, <code>spacing</code>, in the pset1_header.pde file for the spacing on the FPC connector.
 <br>
 <pre>
 	<code class="language-processing">
@@ -175,7 +175,7 @@ Use the variable defined as <code>spacing</code> in the pset1_header.pde file fo
 
 <br>
 
-In the skeleton code, put your code for drawing wires into the <code>drawWires()</code> function:
+In the skeleton code, put your code for drawing wires in the <code>drawWires()</code> function:
 
 <pre>
 	<code class="language-processing">
@@ -186,14 +186,14 @@ In the skeleton code, put your code for drawing wires into the <code>drawWires()
 
 <h3 id="PREVIEW">(3) Preview Function to Look at Each Layer Individually</h3>
 
-<b>Top and Bottom Layer of Multi-touch Pad:</b> The multi-touch pad consists of two layers; a bottom layer and a top layer. If the bottom layer has x columns and y rows of electrodes, the top layer should have y columns and x rows of electrodes. Thus you can draw two layers at once by swapping columns and rows variables that the user entered.
+<b>Top and Bottom Layer of Multi-touch Pad:</b> The multi-touch pad consists of two layers; a bottom layer and a top layer. If the bottom layer has x rows and y columns of electrodes, the top layer should have y rows and x columns of electrodes. Thus you can draw two layers at once by swapping the row and column variables that the user entered.
 <br><br>
 
-<b>Create 'Switch Views' Button:</b> Create one button that switches between the design's top and bottom layer view. Clicking the button should either show the top layer or the bottom layer so the layers can be looked at individually.<br><br>
+<b>Create 'Switch Views' Button:</b> Create a button that switches between the design's top and bottom layer view. That way, clicking the button should either show the top layer or the bottom layer so the layers can be looked at individually.<br><br>
 
 <img src="images/pset1/switch_view_note.png" width="900px" style="cursor:pointer;"><br><br>
 
-In the skeleton code, put your code for switching views between the design's top and bottom layer into the <code>switchView()</code> function:
+In the skeleton code, put your code for switching views between the design's top and bottom layer in the <code>switchView()</code> function:
 
 <pre>
 	<code class="language-processing">
@@ -206,14 +206,14 @@ In the skeleton code, put your code for switching views between the design's top
 
 <h3 id="EXPORT">(4) Export Function to Save Fabrication Files</h3>
 
-<b>Create 'Save Views' Button:</b> For export, create one button that when clicked saves the generated electrodes into two .pdf files. The bottom-electrodes.pdf should contain the rows, and the top-electrodes.pdf should contain the columns. <br><br>
+<b>Create 'Save Views' Button:</b> Add a button that, when clicked, saves the generated electrode layers into two .pdf files. The bottom-electrodes.pdf should contain the rows, and the top-electrodes.pdf should contain the columns. <br><br>
 
 <!--<b>Ensure Correct Drawing Settings:</b> Make sure the exported .pdf files have all settings correctly set for conductive inkjet printing <span style="color:red">what does this mean? does this mean that the electrodes should be made full black etc? I don't think we have that requirement anymore so we can probably take this out.</span><a href="lab1-circuit-design-for-inkjet-printing.html">(if you don't remember, go back to Lab1).</a> 
 <br><br>-->
 
 <img src="images/pset1/switch_view_01.png" width="370px" style="cursor:pointer;"> <img src="images/pset1/switch_view_02.png" width="370px" style="cursor:pointer;"><br><br>
 
-In the skeleton code, put your code for saving fabrication files into the <code>saveViews()</code> function:
+In the skeleton code, put your code for saving fabrication files in the <code>saveViews()</code> function:
 
 <pre>
 	<code class="language-processing">
@@ -224,26 +224,26 @@ In the skeleton code, put your code for saving fabrication files into the <code>
 
 <br>
 
-<h3 id="CHECK">(5) Finding your dpi to convert pixel to mm</h3>
+<h3 id="CHECK">(5) Finding Your DPI to Convert Pixel to mm</h3>
 
-Our multi-touch pad design is printed in <b>millimeter</b> but Processing handles everything in <b>pixel</b>. How do we know how many pixels are in one millimeter? Without this conversion factor, we don't know how many pixels we should use for the electrodes, thickness of the wires, and spacing/offsets between these components. The conversion factor from pixel to mm is different for each operating system. We will thus do a test to figure this out for your OS. <br><br>
+Our multi-touch pad design is printed in <b>millimeters</b> but Processing handles everything in <b>pixels</b>. How do we know the number of pixels in one millimeter? Without this conversion factor, we won't know how many pixels we should use for the electrodes lengths, wire thicknesses, and the spacing/offsets between these components. The conversion factor from pixel to mm is different for each operating system. We will thus do a test to figure this out for your specific OS. <br><br>
 
-<b>Determing dpi:</b> Create a new document in Illustrator. Set the drawing unit as 'millimeter (File -> Document Setup -> Units 'Milimeters'). <br><br>
+<b>Determing DPI:</b> Create a new document in Illustrator. Set the drawing unit to 'millimeters' (File -> Document Setup -> Units 'Milimeters'). <br><br>
 
 <img src="images/pset1/02_document_setup_mm.gif" width="800px" style="cursor:pointer;">
 <br><br>
 
-Then draw an 1 mm line with the pen tool. You can set line width as 1 mm and height as 0 mm in the property window. <br><br>
+Then draw an 1 mm line with the pen tool. You can set line width to 1 mm and height to 0 mm in the property window. <br><br>
 <img src="images/pset1/03_draw_line_with_pen_tool.gif" width="800px" style="cursor:pointer;">
 <br><br>
 
-Change the drawing unit as 'pixel' (File -> Document Setup -> Units 'Pixels'). Then select the line to see the line length in the property panel in pixels. <br><br>
+Change the drawing unit to 'pixels' (File -> Document Setup -> Units 'Pixels'). Then select the line to see the line length in the property panel in pixels. <br><br>
 <img src="images/pset1/04_document_setup_pixel.gif" width="800px" style="cursor:pointer;">
 <br><br>
 
 Now you know that 1 mm is the same as 2.835 pixels. <br><br>
 
-<b>Confirming dpi:</b> To confirm that this is indeed the correct dpi for your OS, go back to Processing, draw a line of 2.835 pixel, which should correspond to 1mm.
+<b>Confirming dpi:</b> To confirm that this is indeed the correct DPI for your OS, go back to Processing, and use the code below to draw a line of 2.835 pixels, which should correspond to 1mm.
 
 <pre>
 	<code class="language-processing">
@@ -276,10 +276,10 @@ In Adobe Illustrator, make sure the drawing is set to 'inch' not 'points' (File 
 
 <h3 id="DPISCALEFACTOR">(6) Adjust Multi-Touch Pad Dimensions Using DPI Scale Factor</h3>
 
-Now that you have your dpi scale factor, it's time to update all the multi-touch elements to have the right size.<br><br> 
+Now that you have your DPI scale factor, it's time to update all the multi-touch elements to have the right size.<br><br> 
 
 <!--<span style="color:red">is this already in the code? do I need to do something here?</span>-->
-<b>Applying Scaling Factor to Electrodes:</b> Thus, if our electrodes are 6mm in size, they will be around 6 * 2.835 = 17.01 pixels wide.<br><br>
+<b>Applying Scaling Factor to Electrodes:</b> So, if our electrodes are 6mm in size, they will be around 6 * 2.835 = 17.01 pixels wide.<br><br>
 
 You need to <b>find pixels per mm of your system</b>, which can be different from 2.835.<br><br>
 <!--<span style="color:red">Say that variable mm needs to be set to your 2.835 factor</span>-->
@@ -314,7 +314,7 @@ Before you submit files, please check the following: <br><br>
 
 <b>Check Alignment of both Top/Bottom Layers:</b> Open both PDF files in Illustrator and overlay them on top of each other to check that the columns and rows of the multi-touch pad are correctly positioned.<br><br>
 
-<b>Check Dimensions:</b> Open each .pdf file in Illustrator and measure the length of each element to confirm it has the right size. Below we show a short video how to measure something in Illustrator.
+<b>Check Dimensions:</b> Open each .pdf file in Illustrator and measure the length of each element to confirm that it has the right size. Below is a short video of how to measure an element in Illustrator.
 		<ul>
 			<li>edge length of the electrodes: 6mm</li>
 			<li>spacing between adjacent electrodes: 1mm</li>
@@ -333,7 +333,7 @@ For grading, please upload the following to your google drive student folder:<br
 
 <ul>
 	<li>the .pde files of your Processing program </li>
-	<li>the two .pdf files for a multi-touch pad design of 8x9 electrodes which are exported from your processing program</li>
+	<li>the two .pdf files for a multi-touch pad design of 8x9 electrodes, exported from your processing program</li>
 	<!-- <li>3-5 photos showing your assembled circuit from different perspectives (include top view + side views)</li> -->
 	<!-- <li><span style="color:red">bring your assembled multi-touch pad to your spray session</span></li> -->
 </ul>
@@ -343,9 +343,9 @@ For grading, please upload the following to your google drive student folder:<br
 
 We will give 20 pts in total:
 <ul>
-	<li>does the Processing UI have input elements that correctly set the number of electrodes in x-direction and the number of electrodes in y-direction with appropriate default values? does the Processing UI have lower and upper bounds for each input field?(5 pts)</li>
-	<li>does the electrode pattern on the screen is correct? are lines going to the connector pad and the connector pad itself correct? are predefined variables used for drawing electrodes and wires? (5 pts)</li>
-	<li>does the Processing UI export function export a drawing in the correct dimensions into two seperate .pdf files that are named correctly and that have the correct settings for conductive inkjet printing? are the toggle functions for showing/hiding layers implemented? (5 pts)</li>
+	<li>Does the Processing UI have input elements that correctly set the number of electrodes in the x-direction and the number of electrodes in the y-direction with appropriate default values? Does the Processing UI have lower and upper bounds for each input field?(5 pts)</li>
+	<li>Is the electrode pattern on the screen is correct? Are lines going to the connector pad, and the connector pad itself correct? Are the predefined variables used for drawing electrodes and wires? (5 pts)</li>
+	<li>Does the Processing UI export function export drawings of the correct dimensions onto two seperate .pdf files that are named correctly, and have the correct settings for conductive inkjet printing? Is the toggle function for showing/hiding layers implemented? (5 pts)</li>
 	<li>Does the edge length of the electrodes, the spacing between adjacent electrodes, the spacing between non-connected electrodes, the thickness of the wires inside of multi-touch pad that connect electrodes, the thickness of the wires outside of multi-touch pad that connect to FPC connectors, and the spacing of wires on the FPC connector correctly set in the Processing code? (5 pts)</li>
 </ul>
 
@@ -378,7 +378,7 @@ On <b>Mac,</b> you are also most likely to encounter a 96dpi resolution but it m
 <img src="images/pset-multi-touch-pad/pset-processing1.png" width="350px">
 <br><br>
 
-In this pset series, you will create an inkjet printed multi-touch pad. You will first write a Processing program that automatically generates the fabrication files for the multi-touch pad. Next, you will print your multi-touch pad, assemble it, and then build the circuit for sensing touch input. You will then write the microcontroller code for reading the touch signals from each electrode. Next, you will extend your code to draw the touch signals into an image and then extract the touch points via computer vision. Finally, you will write a gesture recognizer that can differentiate between different user inputs.<br><br>
+In this pset series, you will create an inkjet printed multi-touch pad. You will first write a Processing program that automatically generates the fabrication files for the multi-touch pad. Next, you will print your multi-touch pad, assemble it, and then build the circuit for sensing touch input. You will then write the microcontroller code for reading the touch signals from each electrode. Next, you will extend your code to draw the touch signals onto an image and then extract the touch points via computer vision. Finally, you will write a gesture recognizer that can differentiate between different user inputs.<br><br>
 
 
 </br>
