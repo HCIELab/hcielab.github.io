@@ -118,7 +118,7 @@ While building your circuit, you must adhere to the following rules:
 
 <b>Crocodile Clamp to - pol of Battery Holder:</b> Use another crocodile clamp to connect black to -.<br><br>
 
-<span style="color:red">can we have an image here with wiring as described but without battery?</span><br><br>
+<img src="images/lab3/batteryandinverter.jpg" width="350px"><br><br>
 
  <h3 id="poweringdisplay">(4) Power up Your Display</h3>
 
@@ -132,13 +132,20 @@ While building your circuit, you must adhere to the following rules:
 
 
 <h3 id="isolatecircuits">(5) Isolate Display and Control Circuit</h3>
+    
+    <img src="images/lab3/switch_circuit.png" width="650px"><br><br>
 
 You already know how to turn on/off your display by plugging and unplugging the battery. It would be nicer to do this via code and not by physically plugging/unplugging the battery. Thus, we will next build a control circuit that lets you do this.<br><br>
+    
+We want to connect our ESP to the display to be able to turn it on/off via code. But there is a problem. The ESP32 is rated only up to 12V so a higher voltage like the 50V AC we use for our display could potentially damage the microcontroller. Therefore, we have to isolate the ESP32 from the 50V AC power supply. For this purpose, we will use an optocoupler, which uses optical signaling rather than electrical signaling.<br><br>
 
-<b>What is an Optocoupler:</b> We want to connect our ESP to the display to be able to turn it on/off via code. But there is a problem. The ESP32 is rated only up to 12V so a higher voltage like the 50V AC we use for our display could potentially damage the microcontroller. Therefore, we have to isolate the ESP32 from the 50V AC power supply. For this purpose, we will use an optocoupler, which uses optical signaling rather than electrical signaling. An optocoupler houses an LED and a photo-triac. When the LED turns on, it activates the photo-triac and energy <span style="color:red">flows from GND from the inverter to VCC on the inverter</span>. Since communication is solely through light, no voltage of the 50V power supply from the display can jump over to the ESP microcontroller. Thus optocouplers allow to isolate each part of the circuit while still enabling communication between the two. <span style="color:red">All we need to do is to later send a high signal to the optocoupler to turn its internal LED on whenever we want the display to be on, i.e. receiving energy.</span>
+<b>What is an Optocoupler:</b> An optocoupler is in its function similar to a transistor or a thyristor and often used as a switch in a circuit. Similar to a transistor, it also has two pins (A1,A2) that are connected to the load that should be switched. In our case, this would be the 50VAC and the EL display. An optocoupler also has a third pin, the gate, that triggers the optocoupler to open or close the switch between the main lines A1 and A2. This pin is often connected to a microcontroller and enables you to control the optocoupler as a switch.<br><br>
 
-<span style="color:red">in the schematic, I don't understand what the GND and 50V AC refer to. Is the 50V AC both lines of the interver output? or just one? Can we label this consistent with what we had in the previous sections.</span><br>
-<img src="images/lab6/led-on.png" width="550px"> <img src="images/lab6/led-off.png" width="550px"><br><br>
+The main difference between a transistor and an optocoupler is how the gate can trigger the optocupler to open and close the main circuit. In contrast to a transistor, the gate is not connect through a physical contact to the rest of the circuit but fully isolated from the it. Instead of using a direct connection, the optocoupler can open and close a circuit through a light signal using a LED and a photodiode. When the gate is powered, the internal LED turns on. The photodiode can capture light energy and turn it into an electric signal again. This signal is then triggering the switch on the main circuit.<br><br>
+
+    <img src="images/lab3/optocoupler.png" width="350px"><br><br>
+    
+ Since communication is solely through light, no voltage of the 50V power supply from the display can jump over to the ESP microcontroller. Thus optocouplers allow to isolate each part of the circuit while still enabling communication between the two. All we need to do is to later send a high signal to the optocoupler to turn its internal LED on whenever we want the display to be on, i.e. receiving energy.<br><br>
 
 <b>Connect Optocoupler to ESP:</b> Use jumper wires to connect the optocoupler to 3.3V and GND on the ESP. Note that the optocoupler has to be plugged in in a specific orientation. Look at the <a href="https://www.mouser.com/datasheet/2/308/MOC3163M-D-1811983.pdf" target="_blank">datasheet of the optocoupler here</a> to find out where the pins are. The little dot on its top indicates the top left corner of the component. <span style="color:red">I think this is to complicated, I wouldn't know what to do with the datasheet.</span><br><br>
 
