@@ -64,8 +64,7 @@
   <li><a href="#inverteroutput">Connect Inverter Output to EL Display</a></li>
   <li><a href="#inverterinput">Connect Inverter Input to Battery</a></li>
   <li><a href="#poweringdisplay">Power up Your Display</a></li>
-  <li><a href="#isolatecircuits">Isolate Display and Control Circuit</a></li>
-  <li><a href="#addingswitch">Add Switch to Control Circuit</a></li>
+  <li><a href="#isolatecircuits">Build the Control Circuit</a></li>
   <li><a href="#displayblinkcode">Write Program to Blink Display</a></li>
   <li><a href="#displaydimcode">Write Program to Dim Display</a></li>
 </ol>
@@ -131,54 +130,51 @@ While building your circuit, you must adhere to the following rules:
 <img src="images/lab6/displayconnected-cropped.jpg" width="450px"><br><br>
 
 
-<h3 id="isolatecircuits">(5) Isolate Display and Control Circuit</h3>
-    
-    <img src="images/lab3/switch_circuit.png" width="650px"><br><br>
+<h3 id="isolatecircuits">(5) Build the Control Circuit</h3>
 
 You already know how to turn on/off your display by plugging and unplugging the battery. It would be nicer to do this via code and not by physically plugging/unplugging the battery. Thus, we will next build a control circuit that lets you do this.<br><br>
     
 We want to connect our ESP to the display to be able to turn it on/off via code. But there is a problem. The ESP32 is rated only up to 12V so a higher voltage like the 50V AC we use for our display could potentially damage the microcontroller. Therefore, we have to isolate the ESP32 from the 50V AC power supply. For this purpose, we will use an optocoupler, which uses optical signaling rather than electrical signaling.<br><br>
+    
+<b>Tl;dr:</b> Below, you'll find the circuit that you should build to control an EL display with your ESP32. If you are interested how and why everything works, you will find more details below:<br><br>
+<img src="images/lab3/switch_circuit.png" width="650px"><br><br>
 
-<b>What is an Optocoupler:</b> An optocoupler is in its function similar to a transistor or a thyristor and often used as a switch in a circuit. Similar to a transistor, it also has two pins (A1,A2) that are connected to the load that should be switched. In our case, this would be the 50VAC and the EL display. An optocoupler also has a third pin, the gate, that triggers the optocoupler to open or close the switch between the main lines A1 and A2. This pin is often connected to a microcontroller and enables you to control the optocoupler as a switch.<br><br>
+<b>How does this circuit work?</b>
+To control the EL display, you have to put a switch in between the inverter's 50V power supply and the EL display. Circuits with alternating current often use a triac to open and close the circuit. Because of that, the first step is to put a triac between the inverter and the display.<br><br>
+    
+<img src="images/lab6/only_triac.png" width="400px"><br><br>
+
+<b>What is a Triac?</b> Triacs are similar to transistors but block alternating current (AC) instead of direct current (DC). By switching the triac on/off, we can thus block the AC current coming from our inverter. This allows us to turn the display on/off computationally. The triac's pins and how you add it to a circuit is similar to a transistor. It has two connectors for VCC and GND and a Gate that triggers if current passes through or is blocked.<br><br>
+    
+The triac is controlled with the "Gate" pin and you could connect it directly to a GPIO pin of your ESP32. Setting this GPIO pin to HIGH would open the circuit and setting it to LOW would close it. However, this is not a good idea. The inverter outputs 50V AC while the ESP32 is only rated for up to 12V. Thus, your ESP32 could be damaged because current from the inverter could flow directly into the microcontroller. Instead, we will use another component that can transfer the signals from the microcontroller to the triac while also protecting the ESP32 from any high voltage. This component is called optocoupler and we will describe its function in the next paragraph.<br><br>
+    
+<b>What is an Optocoupler?</b> An optocoupler is in its function similar to a transistor or a triac and often used as a switch in a circuit. Similar to a transistor, it also has two pins (A1,A2) that are connected to the load that should be switched. In our case, this would be the triac that controls the 50VAC and the EL display. An optocoupler also has a third pin, the gate, that triggers the optocoupler to open or close the switch between the main lines A1 and A2.<br><br>
 
 The main difference between a transistor and an optocoupler is how the gate can trigger the optocupler to open and close the main circuit. In contrast to a transistor, the gate is not connect through a physical contact to the rest of the circuit but fully isolated from the it. Instead of using a direct connection, the optocoupler can open and close a circuit through a light signal using a LED and a photodiode. When the gate is powered, the internal LED turns on. The photodiode can capture light energy and turn it into an electric signal again. This signal is then triggering the switch on the main circuit.<br><br>
 
-    <img src="images/lab3/optocoupler.png" width="350px"><br><br>
+<img src="images/lab6/oc.PNG" width="200px"><img src="images/lab3/optocoupler.png" width="350px"><br><br>
     
- Since communication is solely through light, no voltage of the 50V power supply from the display can jump over to the ESP microcontroller. Thus optocouplers allow to isolate each part of the circuit while still enabling communication between the two. All we need to do is to later send a high signal to the optocoupler to turn its internal LED on whenever we want the display to be on, i.e. receiving energy.<br><br>
+ Since communication is solely through light, no current of the 50V power supply from the display can jump over to the ESP microcontroller. Thus optocouplers allow to isolate each part of the circuit while still enabling communication between the two. All we need to do is to later send a high signal to the optocoupler to turn its internal LED on whenever we want the display to be on, i.e. receiving energy.<br><br>
+    
+<b>Adding the optocoupler to the triac: </b>
+As stated above, you have to connect the optocoupler to the Gate of the triac. We use pin 4 of the main terminal to connect to the triac's gate. This main terminal also has to get some power to have a strong enough signal to open the triac. We will get this power from the main 50V AC circuit by connecting pin 6 of the optocoupler directly to the display. In addition, we have to put a resistor between the 50V AC and the optocoupler to limit the current that can flow through the optocoupler to the gate of the triac. <br><br>
+    
+<img src="images/lab3/switch_circuit.png" width="650px"><br><br>
 
-<b>Connect Optocoupler to ESP:</b> Use jumper wires to connect the optocoupler to 3.3V and GND on the ESP. Note that the optocoupler has to be plugged in in a specific orientation. Look at the <a href="https://www.mouser.com/datasheet/2/308/MOC3163M-D-1811983.pdf" target="_blank">datasheet of the optocoupler here</a> to find out where the pins are. The little dot on its top indicates the top left corner of the component. <span style="color:red">I think this is to complicated, I wouldn't know what to do with the datasheet.</span><br><br>
+<b>Connect Optocoupler to ESP:</b> Use jumper wires to connect the optocoupler to a GPIO pin and GND on the ESP. Note that the optocoupler has to be plugged in in a specific orientation. The little dot on its top indicates the top left corner of the component.<br><br>
 
 <img src="images/lab6/opto_img.PNG" width="150px"><br><br>
 
-<b>Add Resistor to Optocoupler:</b> The optocoupler needs one 330ohm resistor to limit the current that reaches the optocoupler's LED and prevents it from blowing up. Add the resistor to your circuit.<br><br>
+<b>Add Resistor to Optocoupler:</b> The optocoupler needs one 330ohm resistor to limit the current that reaches the optocoupler's LED and prevents it from blowing up. Add the resistor to your circuit.<br><br> 
 
-<b>Connect the Display Circuit to the Optocoupler:</b> <span style="color:red">Connect the optocoupler to display circuit. <span style="color:red">please explain more how.</span> This will ensure that when the octocouplers LED is set to high, the display circuit is closed and current will flow from GND from the inverter the top of the display.</span><br><br>
-
-<h3 id="addingswitch">(6) Add Switch to Control Circuit</h3>
-
-<span style="color:red">I don't understand why I need the triac. Why can I not just use a GPIO pin from the ESP instead of VCC and then turn on/off the optocoupler as my switch? Explain that the Optocoupler can only be switched on once and then it stays on (because of some reason Michael will add... large current). That's why we need the triac to act as a switch.</span>
-
-In the above setup, we could have wired the VCC to an ESP GPIO pin to turn the optocoupler LED on/off and thereby the display on/off. However, we don't want to do this because <span style="color:red">what the reason is.</span> Instead, we are going to use a component called a triac.<br><br>
-
-<!-- In our case, since we use AC not DC, we need an AC switch. The ESP32 microcontroller does not have a suitable AC switch built-in. Thus, we have to build our own -->
-<b>What are Triacs?</b> Triacs are similar to transistors but block alternating current (AC) instead of direct current (DC). By switching the triac on/off, we can thus block the AC current coming from our battery. This allows us to turn the display on/off under computer control. The triac's pins and how you add it to a circuit is similar to a transistor. It has two connectors for VCC and GND and a Gate that triggers if current passes through or is blocked.<br><br>
     
-<img src="images/lab6/triac_image.png" width="200px"><br><br>
-    
-<b>Connect Optocoupler to Triac:</b> Connect the output of the optocoupler to the gate of the triac. Thus, when the optocoupler's LED is high, the triacs gate will close and current will flow. <br><br>
-
-<b>Add Resistors:</b> Finally, add two 330 ohm resistors to the triac circuit that limit the current that reaches the triac to prevent it from being damaged. <br>
-    
-    <span style="color:red">can we color code this schematic similar to above to show triac open/closed and what happens to the rest of the circuit?</span><br>
-<img src="images/lab6/optotriac_circuit.PNG" width="700px"><br><br>   
-
+<b>Why don't we use only the optocoupler and get rid of the triac?</b> As noted in the datasheet of the component, optocouplers are only intended to be used as a trigger device and should not drive the entire load of the circuit. Since the main purpose of an optocoupler is to protect a low-voltage device (like a microcontroller), the intention is to keep high voltages and currents far away from the optocoupler, too. An optocoupler can also break and let current through. This break voltage varies from optocoupler to optocoupler but should typically be a lot higher that the voltage of your main circuit.
 
 <h3 id="displayblinkcode">(7) Write Program to Blink Display</h3>
 
 Now that you wired up our control circuit, you are ready to write the code for it. As an example, we will write a script that lets the display blink. This is very simple with the circuit you already built.<br><br>
 
-<b>Set Optocoupler Pin to HIGH/LOW to Blink:</b> Connect your ESP to your laptop and create a new Arduino program. Check to which pin you connected the optocoupler (<span style="color:red">It's new to me that the optocoupler is connected to a pin? in the schematic it looked like it is only connected to GND and VCC?</span>), declare the pin in your Arduino code and set it to HIGH and LOW alternating whenever one second has passed.<br><br>
+<b>Set Optocoupler Pin to HIGH/LOW to Blink:</b> Connect your ESP to your laptop and create a new Arduino program. Check to which pin you connected the optocoupler, declare the pin in your Arduino code and set it to HIGH and LOW alternating whenever one second has passed.<br><br>
 
 <span style="color:red">can we have a short video here showing the display blinking?</span><br><br>
 

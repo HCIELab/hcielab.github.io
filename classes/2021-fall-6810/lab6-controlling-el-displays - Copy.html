@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HCI Engineering Group</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!-- CSAIL ICON -->
+	<link rel="CSAIL" href="../../../images/icon/csail.ico" type="image/x-icon" />
+
+	<!-- Bootstrap -->
+	<link href="../../css/bootstrap.css" rel="stylesheet">
+	<link href="../../css/custom-style.css" rel="stylesheet">
+
+	<!-- jQuery -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+
+	<!-- Google Analytic -->
+	<script type="text/javascript" src="../../js/analytics.js"></script>
+
+	<style>
+	.etech-sch-col1 {width:60px; border: 1px solid black;padding:10px;}
+	.etech-sch-col2 {width:120px; border: 1px solid black;padding:10px;}
+	.etech-sch-col3 {width:450px; border: 1px solid black;padding:10px;}
+	.etech-sch-col4 {width:70px; border: 1px solid black;padding:10px;}
+  .etech-sch-col5 {width:70px; border: 1px solid black;padding:10px;}
+  /*.etech-sch-col6 {width:170px; border: 1px solid black;padding:10px;}*/
+  ul {
+    padding:0px;padding-left:10px;margin:0px;
+  }
+	</style>
+</head>
+
+<body>
+<header class="main_header">
+	<!-- to be filled by javascript, see header.html -->
+</header>
+
+<section class="main_container">
+	<div class="container">
+    <div class="row nothing">
+
+      <section class="col-md-8 pull-right main-content">
+</br></br></br></br>
+        <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2021)</a><br></h>
+        <h2 class="headline">Lab 6: Controlling Electroluminescent Displays</h2>
+      
+    In this lab, you will create the control circuit for your electrolumiscent display so that you can turn on/off the display and even dim it to a specific brightness using your ESP microcontroller.<br><br>
+
+    <span style="color:red">can we have some nice images here or a video showing the display dimming?</span><br>
+
+<img src="images/lab6/battery-holder.png" width="480px">
+<img src="images//lab3/displayconnected.jpg" width="252px"><br>
+
+<h3>Steps:</h3>
+<ol>
+  <li><a href="#safety">Safety Instructions</a></li>
+  <li><a href="#inverteroutput">Connect Inverter Output to EL Display</a></li>
+  <li><a href="#inverterinput">Connect Inverter Input to Battery</a></li>
+  <li><a href="#poweringdisplay">Power up Your Display</a></li>
+  <li><a href="#isolatecircuits">Isolate Display and Control Circuit</a></li>
+  <li><a href="#addingswitch">Add Switch to Control Circuit</a></li>
+  <li><a href="#displayblinkcode">Write Program to Blink Display</a></li>
+  <li><a href="#displaydimcode">Write Program to Dim Display</a></li>
+</ol>
+
+
+<h3>Deliverables</h3>
+
+At the end of the lab, upload to your student google drive:
+<ol>
+  <li>the Arduino code (.ino) for dimming your display</li>
+  <li>2-3 photos (.jpg or .png) from different angles of your circuit</li>
+  <li>a short video (.mov or .mp4, max. 1 minute) showing how you display dims and performs a full cycle from bright to dark and dark to bright again</li>
+</ol><br>
+
+ <h3 id="safety">(1) Safety Instructions</h3>
+
+In this tutorial, we will generate 50V AC from a 1.2V AA battery using an inverter. 50V AC is the maximum allowed voltage for class activities. You are not allowed to use the inverter with anything else than the 1.2V AA battery we provide for you. Our 50V AC are low current and not dangerous, but you will feel a sensation at the tips of your fingers when touching the circuit. Therefore, never plug the display in while you are working on the circuit and you are touching the wires!<br><br>
+
+While building your circuit, you must adhere to the following rules:
+<ul>
+  <li>unplug the battery <b>before</b> you do any wiring, only after it is unplugged you are allowed to touch the circuit and exchange wires and components</li>
+  <li>once you are done wiring and you have made sure you are not touching any part of the circuit anymore, plug the battery back in</li>
+  <li>never touch the display or any part of the circuit while the battery is plugged in, i.e. the circuit is powered</li>
+</ul> 
+<br>
+
+<span style="color:red">add images showing somebody unplugging, wiring, pluggin.</span><br>
+<img src="images/lab6/battery-holder.png" width="590px"><br><br>
+
+
+ <h3 id="inverteroutput">(2) Connect Inverter Output to EL Display</h3>
+
+<b>AC vs. DC current:</b> EL displays require an alternating current between the two elecrodes to excite the phosphor and make it light up. Therefore, just connecting it to a DC power supply, like the 3.3V DC from your ESP32, won't do the trick. We therefore use an inverter to generate AC current from DC.<br><br>
+
+<b>Add Jumper Wires to Inverter Output:</b> Before you do anything, remove the battery from your battery holder to remove all power from the circuit. The inverter output is the black/black cable. Take two jumper wires and stick them into the white connector of the interverter output.<br><br>
+
+<b>Crocodile Clamp to Display Bottom Layer (copper layer with copper tape flap):</b> Next, use a crocodile clamp to connect the first inverter output to the copper side of the display. One end of the crocodile clamp goes onto the jumper wire, the other goes onto the little copper flap. Be careful that you don't rip of the copper flap while working with the wires.<br><br>
+
+<b>Crocodile Clamp to Display Top Layer (ITO with copper tape):</b> Next, use a second crocodile clamp to connect the other inverter output to the top layer of the display, i.e. the ITO. One end of the crocodile clamp goes on the jumper wire, the other goes onto the ITO sheet where there is  copper tape.<br><br>
+
+<span style="color:red">can we replace the middle image? the display is not yet supposed to be on.</span><br>
+<img src="images/lab6/wiring-interverter-output.png" width="750px"><br><br>
+
+
+ <h3 id="inverterinput">(3) Connect Inverter Input to Battery</h3>
+
+<b>Add Jumper Wires to Inverter Input:</b> The inverter input is the black/red cable. Take two jumper wires and stick them into the white connector of the interverter input.<br><br>
+
+<b>Crocodile Clamp to + pol of Battery Holder:</b> Before you do this, make sure the battery is still removed and not in the holder. Use a crocodile clamp to connect the red wire to the + pol of your battery holder.<br><br>
+
+<b>Crocodile Clamp to - pol of Battery Holder:</b> Use another crocodile clamp to connect black to -.<br><br>
+
+<img src="images/lab3/batteryandinverter.jpg" width="350px"><br><br>
+
+ <h3 id="poweringdisplay">(4) Power up Your Display</h3>
+
+<b>Flip Display:</b> Once you are done wiring, turn the display around such that you see the top side. The copper should be on the bottom now and you can't see it anymore. <br><br>
+
+<b>Insert AA Battery (do not touch the circuit anymore):</b> Before you insert the battery, make sure you are not touching the circuit anymore at any place, do not touch the display. Then insert the AA battery into the battery holder. You should see a bright EL display in the shape of the coffee mug now. <br><br>
+
+<b>Debugging the Display:</b> If your display does not light up, remove the battery, then check if all wires are connected properly. Before you reinsert the battery, remember you should not touch the circuit or display.<br><br>
+    
+<img src="images/lab6/displayconnected-cropped.jpg" width="450px"><br><br>
+
+
+<h3 id="isolatecircuits">(5) Isolate Display and Control Circuit</h3>
+
+You already know how to turn on/off your display by plugging and unplugging the battery. It would be nicer to do this via code and not by physically plugging/unplugging the battery. Thus, we will next build a control circuit that lets you do this.<br><br>
+    
+We want to connect our ESP to the display to be able to turn it on/off via code. But there is a problem. The ESP32 is rated only up to 12V so a higher voltage like the 50V AC we use for our display could potentially damage the microcontroller. Therefore, we have to isolate the ESP32 from the 50V AC power supply. For this purpose, we will use an optocoupler, which uses optical signaling rather than electrical signaling.<br><br>
+    
+<b>Tl;dr:</b> Below, you'll find the circuit that you should build to control an EL display with your ESP32. If you are interested how and why everything works, you will find more details below:<br><br>
+<img src="images/lab3/switch_circuit.png" width="650px"><br><br>
+    
+
+<b>What is an Optocoupler:</b> An optocoupler is in its function similar to a transistor or a thyristor and often used as a switch in a circuit. Similar to a transistor, it also has two pins (A1,A2) that are connected to the load that should be switched. In our case, this would be the 50VAC and the EL display. An optocoupler also has a third pin, the gate, that triggers the optocoupler to open or close the switch between the main lines A1 and A2. This pin is often connected to a microcontroller and enables you to control the optocoupler as a switch.<br><br>
+
+The main difference between a transistor and an optocoupler is how the gate can trigger the optocupler to open and close the main circuit. In contrast to a transistor, the gate is not connect through a physical contact to the rest of the circuit but fully isolated from the it. Instead of using a direct connection, the optocoupler can open and close a circuit through a light signal using a LED and a photodiode. When the gate is powered, the internal LED turns on. The photodiode can capture light energy and turn it into an electric signal again. This signal is then triggering the switch on the main circuit.<br><br>
+
+<img src="images/lab6/oc.PNG" width="200px"><img src="images/lab3/optocoupler.png" width="350px"><br><br>
+    
+ Since communication is solely through light, no voltage of the 50V power supply from the display can jump over to the ESP microcontroller. Thus optocouplers allow to isolate each part of the circuit while still enabling communication between the two. All we need to do is to later send a high signal to the optocoupler to turn its internal LED on whenever we want the display to be on, i.e. receiving energy.<br><br>
+
+<b>Connect Optocoupler to ESP:</b> Use jumper wires to connect the optocoupler to 3.3V and GND on the ESP. Note that the optocoupler has to be plugged in in a specific orientation. Look at the <a href="https://www.mouser.com/datasheet/2/308/MOC3163M-D-1811983.pdf" target="_blank">datasheet of the optocoupler here</a> to find out where the pins are. The little dot on its top indicates the top left corner of the component. <span style="color:red">I think this is to complicated, I wouldn't know what to do with the datasheet.</span><br><br>
+
+<img src="images/lab6/opto_img.PNG" width="150px"><br><br>
+
+<b>Add Resistor to Optocoupler:</b> The optocoupler needs one 330ohm resistor to limit the current that reaches the optocoupler's LED and prevents it from blowing up. Add the resistor to your circuit.<br><br>
+
+<b>Connect the Display Circuit to the Optocoupler:</b> <span style="color:red">Connect the optocoupler to display circuit. <span style="color:red">please explain more how.</span> This will ensure that when the octocouplers LED is set to high, the display circuit is closed and current will flow from GND from the inverter the top of the display.</span><br><br>
+
+<h3 id="addingswitch">(6) Add Switch to Control Circuit</h3>
+
+<span style="color:red">I don't understand why I need the triac. Why can I not just use a GPIO pin from the ESP instead of VCC and then turn on/off the optocoupler as my switch? Explain that the Optocoupler can only be switched on once and then it stays on (because of some reason Michael will add... large current). That's why we need the triac to act as a switch.</span>
+
+In the above setup, we could have wired the VCC to an ESP GPIO pin to turn the optocoupler LED on/off and thereby the display on/off. However, we don't want to do this because <span style="color:red">what the reason is.</span> Instead, we are going to use a component called a triac.<br><br>
+
+<!-- In our case, since we use AC not DC, we need an AC switch. The ESP32 microcontroller does not have a suitable AC switch built-in. Thus, we have to build our own -->
+<b>What are Triacs?</b> Triacs are similar to transistors but block alternating current (AC) instead of direct current (DC). By switching the triac on/off, we can thus block the AC current coming from our battery. This allows us to turn the display on/off under computer control. The triac's pins and how you add it to a circuit is similar to a transistor. It has two connectors for VCC and GND and a Gate that triggers if current passes through or is blocked.<br><br>
+    
+<img src="images/lab6/triac_image.png" width="200px"><br><br>
+    
+<b>Connect Optocoupler to Triac:</b> Connect the output of the optocoupler to the gate of the triac. Thus, when the optocoupler's LED is high, the triacs gate will close and current will flow. <br><br>
+
+<b>Add Resistors:</b> Finally, add two 330 ohm resistors to the triac circuit that limit the current that reaches the triac to prevent it from being damaged. <br>
+    
+    <span style="color:red">can we color code this schematic similar to above to show triac open/closed and what happens to the rest of the circuit?</span><br>
+<img src="images/lab6/optotriac_circuit.PNG" width="700px"><br><br>   
+
+
+<h3 id="displayblinkcode">(7) Write Program to Blink Display</h3>
+
+Now that you wired up our control circuit, you are ready to write the code for it. As an example, we will write a script that lets the display blink. This is very simple with the circuit you already built.<br><br>
+
+<b>Set Optocoupler Pin to HIGH/LOW to Blink:</b> Connect your ESP to your laptop and create a new Arduino program. Check to which pin you connected the optocoupler (<span style="color:red">It's new to me that the optocoupler is connected to a pin? in the schematic it looked like it is only connected to GND and VCC?</span>), declare the pin in your Arduino code and set it to HIGH and LOW alternating whenever one second has passed.<br><br>
+
+<span style="color:red">can we have a short video here showing the display blinking?</span><br><br>
+
+<h3 id="displaydimcode">(8) Write Program to Dim Display</h3>
+
+Finally, we want to not just turn the display on/off but also set the displays brightness (e.g. dimming it down).<br><br>
+
+<b>Duty Cycle:</b> When you create a PWM signal it means that you turn on and off a signal for a certain duty cycle. The longer the signal is turned on in one duty cycle the brighter the light source will be (see Figure below). Similarly, the longer the signal is turned off in one duty cycle the darker the light source will be. Thus, a duty cycle of 25% results in a darker display than a duty cycle of 75%.<br><br>
+
+<b>Frequency:</b> So how is the duty cycle related to the frequency? The duty cycle only tells you the percentage the signal is on/off within a cycle (e.g., 25%). It does not say how long a cycle is. For this, you need to define the frequency. A higher frequency results in a shorter overall cycle (not affecting the percentage the signal is on/off) than a lower frequency as you can see below.<br><br>
+
+<img src="images/lab6/pwm-explanation2.png" width="350px"> <img src="images/lab6/ac-frequency.png" width="390px"><br><br>
+
+<b>High Frequencies and the Human Eye:</b> If the frequency is very high and thus the duty cycle is compressed into a short time window, the turning on and off of the signal (i.e. the display) happens very fast. If it is fast enough, humans do not notice that the display is turned on and off because of limitations of visual perception, which is great because we can use the on/off mechanism to create different brightness level without the user noticing that we are effectively just turning the display on/off at a very fast rate. The frequency should thus be high enough that the duty cycles are not visible to the human eye.<br><br>
+
+<b>Why can the frequency not be arbitrarily high?</b> We just said higher frequency, i.e. faster switching on/off, is better. The frequency, however, can not be infinitely high because of the specific setup we chose for our display circuit. We are dealing with two different signals. One signal is coming in the form of the AC signal from our inverter (frequency: 800Hz).
+The other signal is coming in the form of the PWM signal from our ESP (our choice of frequency). Having the inverter frequency given at 800Hz limits our choice for the frequency of the PWM signal from the ESP because of something called 'zero crossing circuit'.<br><br>
+
+<img src="images/lab6/inverter-pwm-signal.png" width="350px"><br><br>
+
+<b>What is a zero-crossing?</b> A zero-crossing is when the AC signal crosses the x-axis. When and how often that occurs depends on the frequency of the signal. When you check out <a href="https://www.mouser.com/datasheet/2/308/MOC3163M-D-1811983.pdf" target="_blank">the optocoupler's datasheet,</a> you will see that it contains a "zero-crossing circuit". What this means is that the optocoupler will only switch the display on/off when the AC signal of the inverter crosses zero AND the PWM signal tells the optocoupler to change the display state <span style="color:red">I don't understand this. so they both have to cross at the same time right? We should emphasize this.</span><br><br>
+
+<b>PWM Frequency higher than Inverter Frequency:</b> So what happens if your PWM frequency is higher than your inverter frequency? The middle image below shows this: Although the PWM frequency demands that the display be switched off/on, the optocoupler will do nothing since there is no zero-crossing of the inverter in that time frame. Thus, if our PWM signal is faster than the inverter's AC frequency, the optocoupler switch cannot react fast enough. As a result, the optocoupler switch will react at some random point in time later, which disrupts the chosen duty cycle and makes it longer or shorter. Since the duty cycle is not consistent anymore, you will see the display flicker since it goes into random brightness states. <br><br>
+
+<b>PWM Frequency lower than Inverter Frequency:</b> Now let's look at the same scenario when the PWM frequency is lower than the inverter frequency. This will work well as you can see in the right image below. When the PWM frequency demands the display to be switched off/on, there are several zero-crossings where the optocoupler can take action right away. Thus, we have to select a PWM frequency that is significantly lower than the AC power supply frequency. To be significantly below the inverter's AC frequency, we should set the PWM signal to around 100Hz to get a good result in our dimming.<br><br>
+
+<img src="images/lab6/zero-crossing-circuit-optocoupler.png" width="165px"><img src="images/lab6/inverter-pwm.png" width="275px"><img src="images/lab6/inverter-pwm-slow.png" width="310px"><br><br>
+
+<b>Set the PWM frequency:</b> You can set the PWM frequency using the ledcSetup command. <br>
+  
+<pre>ledcSetup(<span style="color:red">int</span> ledChannel, <span style="color:red">int</span> freq, <span style="color:red">int</span> duty_resolution);</pre>
+
+<i>Channel Number:</i> The ESP has 16 internal channels which can generate independent waveforms (note that these are NOT pin numbers on the ESP, but internal channels inside the ESP). The channel numbers range from 0-15. For our purposes, you can pick any channel you like.<br><br>
+
+<i>Frequency:</i> As mentioned previously, the frequency should be '100' Hz.<br><br>
+
+<i>Duty resolution:</i> The duty resolution is expressed in bits and determines how many different duty cycles we can choose from, i.e. how many different brightness options we will have when dimming the display. For instance, 3 bits gives us 8 different cycles to choose from (12.5%, 25%, 37.5%,... 100%). <span style="color:red">For our purposes '3' is a good choice.</span><br><br>
+
+<b>Specify the Output Pin of the PWM Signal:</b> Now that you specified the signal with ledcSetup(), you need to specify on which GPIO pin number of the ESP the signal should appear.  <br>
+<pre>ledcAttachPin(GPIO_PIN, channel_number) </pre> 
+
+<i>GPIO Pin:</i> This is the pin that goes from the ESP to the display control circuit.<br><br> 
+
+<i>Channel Number:</i> The PWM channel number is the same as above.<br><br> 
+
+<b>Generate the PWM Signal on the Output Pin:</b> Finally, you need to generate the actual PWM signal, which you had previously defined with the ledcSetup() and ledcAttachPin() functions.<br>
+<pre>ledcWrite(channel_number, duty_cycle): </pre> 
+
+<i>Channel Number:</i> The PWM channel number is the same as above.<br><br> 
+
+<i>Duty Cycle:</i> The duty <b>cycle</b> is different from the duty <b>resolution</b>. In the duty cycle parameter, you tell the ledcWrite() function, which of the duty cycles from your duty resolution should be used. Since we chose 3 bits, which gives us 8 values ranging from 12.5%, 25%, 37.5% .... 100%, then our duty cycle parameter is the index of the duty cycle you want to use. For instance, using 2 for the duty cycle parameter would give you 37.5% for the duty cycle. 
+
+<b>Dim the Display Repeatedly:</b> Write a piece of code that puts the ledcWrite(channel_number, duty_cycle) function in loop() to repeatedly increase brightness from 0% to 100% in 2 seconds and then reduces the brightness down again in another 2 seconds. The display should repeat this dimming cycle infinitely.<br><br>
+
+<span style="color:red">can we include a short video here showing this?</span><br><br>
+
+
+<h3>Deliverables</h3>
+
+At the end of the lab, upload to your student google drive:
+<ol>
+  <li>the Arduino code (.ino) for dimming your display</li>
+  <li>2-3 photos (.jpg or .png) from different angles of your circuit</li>
+  <li>a short video (.mov or .mp4, max. 1 minute) showing how you display dims and performs a full cycle from bright to dark and dark to bright again</li>
+</ol><br>
+
+<hr>
+
+
+        <br />
+        <br />
+        <br />
+      </section>
+
+     <aside class="col-md-4 pull-left">
+         <br /> <br /> <br /> <br /><br>
+
+                 <h4 class="medium.headline" style="padding-bottom:10px;"><a href="lab-series-interactive-mug.html"><b>Lab Series: Interactive Mug</b></a><br></h4>
+
+<ul>
+    <li><a href="lab5-fabricating-el-display.html">Lab 5: Fabricating the Electroluminescent Display</a></li>
+    <li><a href="lab6-controlling-el-displays.html">Lab 6: Controlling the Electroluminescent Display</a></li>
+    <li><a href="lab7-temperature-sensing-mug-with-display.html">Lab 7: Inkjet Printed Temperature Sensor</a></li>
+    <li><a href="lab8-temperature-controlled-display.html">Lab 8: Mug Assembly &  Display Control Using Temperature</a></li>
+</ul><br>
+
+
+<iframe width="173" height="210" src="https://www.youtube.com/embed/E8sfqrH_1Ks" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
+
+In this lab series, you will create an interactive mug. The mug consists of a sprayed electroluminescent display and an inkjet printed temperature sensor. When the user pours in tea or coffee, the mug can sense the temperature of the liquid and when its too hot, blink the display as a warning.<br><br>
+
+
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+      </aside>
+
+    </div>
+  </div>
+  </div>
+</section>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 footer" style="text-align: center;">
+			<span class="copyright">
+			Since 2017 &copy; MIT CSAIL (HCI Engineering group) [redesign by
+			<a href="http://punpongsanon.info/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			moji
+			</a>].
+			All Rights Reserved.
+
+			<a href="http://mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/mit.svg" alt="MIT" class="footer-logo" />
+			</a>
+			<a href="http://csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/csail.svg" alt="CSAIL" class="footer-logo"/>
+			</a>
+			<a href="http://hci.csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/hci.svg" alt="HCI" class="footer-logo"/>
+			</a>
+			</span>
+		</div>
+	</div>
+</div>
+
+<!-- Bootstrap -->
+<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+<!-- header -->
+<script type="text/javascript" src="../../js/headerstrap-for-subpage.js"></script>
+
+</body>
+</html>
