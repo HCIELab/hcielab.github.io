@@ -56,7 +56,7 @@
         <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2021)</a><br></h>
         <h2 class="headline">Pset3: Sensing Multi-Touch Input</h2>
 
-In this problem set, you will write code to sense the touch signals from your multi-touch pad. At the end of this problem set, you will be able to recognize when a user is touching.<br><br>
+In this problem set, you will write Arduino code to sense the touch signals from your multi-touch pad. At the end of this problem set, you will be able to recognize when a user is touching.<br><br>
 
 <b>Steps:</b>
 <ol>
@@ -84,7 +84,7 @@ Let's start by writing the code that generates the PWM signal at the sender pin.
 
 <b>Download Skeleton Code:</b> Start by downloading <a href="software/pset-skeleton_Arduino.zip"><span style="color:blue">the skeleton code for pset3 from here</span></a>. You will fill out the 'setupPWM()'' function to create the PWM signal using the steps below.<br><br>
 
-<!-- <img src="images/pset3/setup-pwm.png" width="450px"> <br><br> -->
+<img src="images/pset3/setuppwm-function.png" width="350px"> <br><br>
 
 <b>Configuring the PWM Signal:</b> First, you need to specify which type of PWM signal you want to generate. For this, you can use the 'ledcSetup()' function, which generates the PWM signal on the LED control (LEDC) peripheral. The function name reflects that it is primarily designed to control the intensity of LEDs, but it can also be used to generate PWM signals for other purposes. <br>
 
@@ -127,17 +127,19 @@ Once you submitted all your answers with the google form, feel free to reach out
 
 <h3 id="Multiplexer">(2) Configure the Multiplexer to send the PWM signal to the right electrode column</h3>
 
-Now that you are generating the PWM signal at the sender pin on the ESP that is connected to the multiplexer, we will write up the function that determines to which pin (i.e. electrode column) the multiplexer will send the signal as output. Note that even if you didn’t get PWM signal in (1) working, you can still work on this section here in (2), just use digitalWrite(HIGH) for the multiplexer's SIG pin for now.<br><br>
+Now that you are generating the PWM signal at the ESP GPIO sender pin that is connected to the multiplexer SIG pin, you are ready to write a function that will tell the multiplexer to which pin (i.e. electrode column) it should forward the signal to. Note that even if you did not get the PWM signal in section #1 working, you can still work on this section here (instead of the PWM signal just use digitalWrite(HIGH) for the multiplexer's SIG pin).<br><br>
 
 <img src="images/pset3/multiplexer.png" width="350px"><br><br>  
 
-<b>How to redirect the signal to a desired channel?:</b> The multiplexer receives the PWM signal on the input pin (SIG). It then needs to determine to which of the output pins (C0-C15) the signal should be forwarded to. To do this, it uses the S0 - S3 pins to create the address that determines which output pin (electrode column) the signal should be send to. Why four pins? The multiplexer expects a binary signal. For instance, sending 0,0,0,0 to S0-S3 results in the output pin C0, vs. 0,1,1,0 sends the signal to C6. Let's implement this in the next section.<br><br>
+<b>How to redirect the signal to a desired channel?:</b> The multiplexer receives the PWM signal on the input pin (SIG). It then needs to determine to which of the output pins (C0-C15) the signal should be forwarded to. To do this, it uses the S0 - S3 pins to create the address that determines which output pin (electrode column) the signal should be send to. Why four pins? The multiplexer expects a binary signal. For instance, sending 0,0,0,0 to S0-S3 results in the output pin C0. In contrast, sending 0,1,1,0 sends the signal to C6. Let's implement this in the next section.<br><br>
 
 
 
 <b>Setup Address Pins (S0-S3) as Digital Pins:</b> First, check which GPIO pin numbers you used for the multiplexer's S0 - S3 pins. Create the digital pins in your Arduino code and set the correct PinMode. <br><br>
 
 <b>Compute the Bit Values for the Address Pins:</b> Fill out the "selectChannelOut(int channel)" function in the skeleton code. The function takes as input an 'int' for the channel number (0-8, since we have 9 sender lines in our 8x9 multi-touch pad) and then assigns the correct bit values to the 4 select pins (S0 - S3). Use 'digitalWrite' to write the correct value to each of the S0-S3 pins after you determined if they should be 0 or 1.<br><br>
+
+<img src="images/pset3/selectchannelout-function.png" width="580px"> <br><br>
 
 
 <h3 id="SPI">(3) Receive Signals from Electrode Rows via SPI Communication</h3>
