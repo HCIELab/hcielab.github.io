@@ -69,7 +69,7 @@ Once both sheets are printed, you will layer them on top of each other to build 
 
 <h3>Skeleton Code:</h3>
 
-Start by downloading <a href="software/pset1_skeleton.zip" style="color:red">the skeleton code for the PSet1 here</a>. <br>
+Start by downloading <a href="software/pset1_skeleton.zip" style="color:blue">the skeleton code for the PSet1 here</a>. <br>
 <h3>Steps:</h3>
 <ol>
 	<li><a href="#INPUT">Create input fields for the number of electrodes</a></li>
@@ -84,7 +84,7 @@ Start by downloading <a href="software/pset1_skeleton.zip" style="color:red">the
 
 <h3 id="INPUT">(1) Create Input Fields for the Number of Electrodes</h3>
 
-In the user interface, create two input fields that allow the user to set the desired number of electrodes for the 'rows' and 'columns' (default value should be 10 electrodes for both). A simple trick to creating UI elements in Processing is to first draw a rectangle; then, you can check if a mouse-click event occured over the rectangle to create a button, or you can overlay a text label on the rectangle to display the current value. Refer to the <a href="https://processing.org/reference/rect_.html" target="_blank">Rect</a> and <a href="https://processing.org/tutorials/text/" target="_blank">Text and Fonts</a> tutorials for more information. Make sure the user cannot enter negative values. The upper bound for the number of electrodes that fit on one sheet is 12 electrodes and thus the user should not be allowed to exceed this number.<br><br> 
+In the user interface, create two input fields that allow the user to set the desired number of electrodes for the 'rows' and 'columns' (default value should be 10 electrodes for both). A simple trick to creating UI elements in Processing is to first draw a rectangle; then, you can check if a mouse-click event occured over the rectangle to create a button. You can also overlay a text label on the rectangle to display the current value. Refer to the <a href="https://processing.org/reference/rect_.html" target="_blank">Rect</a> and <a href="https://processing.org/tutorials/text/" target="_blank">Text and Fonts</a> tutorials for more information. Make sure the user cannot enter negative values. The upper bound for the number of electrodes that fit on one sheet is 12 electrodes and thus the user should not be allowed to input values that exceed this number.<br><br> 
 
 <img src="images/pset1/user-interface-inputs-new.png" width="370px" style="cursor:pointer;"><br><br>
 
@@ -107,7 +107,7 @@ Use the variable <code>electrodeSize</code> from the pset1_header.pde file for t
 
 <pre>
 	<code class="language-processing">
-		float electrodeSize = 6*mm;		// A side length of an electrode: 6 mm in pixels
+		float electrodeSize = 6*mm;		// A side length of an electrode: 6mm in pixels
 	</code>
 </pre>
 
@@ -133,7 +133,7 @@ Use the variable <code>electrodeOffset</code> from the pset1_header.pde file for
 
 <pre>
 	<code class="language-processing">
-		float electrodeOffset = 1*mm;	// An offset between electrodes: 1 mm in pixels
+		float electrodeOffset = 1*mm;	// An offset between electrodes: 1mm in pixels
 	</code>
 </pre>
 
@@ -144,7 +144,7 @@ In the skeleton code, put your code for drawing multiple electrodes in the <code
 <pre>
 	<code class="language-processing">
 		void drawElectrodes(int _row, int _col, int _init_x, int _init_y) {
-			// (call 2a) Call drawSingleElectrode() function iteratvily to draw multiple electrodes
+			// call drawSingleElectrode() function iteratvily to draw multiple electrodes
 			drawSingleElectrode(_init_x, _init_y, electrodeSize);  // "electrodeSize" is defined in the pset1_header file.
 		}
 	</code>
@@ -165,7 +165,7 @@ Use the variables <code>wireThicknessInside</code> and <code>wireThicknessOutsid
 <br>
 
 At the end of each row/column, the wire is routed to the side to connect to an FPC connector.
-Use the variable, <code>spacing</code>, in the pset1_header.pde file for the spacing on the FPC connector.
+Use the variable <code>spacing</code> in the pset1_header.pde file for the spacing on the FPC connector.
 <br>
 <pre>
 	<code class="language-processing">
@@ -186,12 +186,12 @@ In the skeleton code, put your code for drawing wires in the <code>drawWires()</
 
 <h3 id="PREVIEW">(3) Preview Function to Look at Each Layer Individually</h3>
 
-<b>Top and Bottom Layer of Multi-touch Pad:</b> The multi-touch pad consists of two layers; a bottom layer and a top layer. If the bottom layer has x rows and y columns of electrodes, the top layer should have y rows and x columns of electrodes. Thus you can draw two layers at once by swapping the row and column variables that the user entered.
+<b>Top and Bottom Layer of Multi-touch Pad:</b> The multi-touch pad consists of two layers; a bottom layer and a top layer. If the bottom layer has x rows and y columns of electrodes, the top layer should have y rows and x columns of electrodes. Thus, all you need to do to generate the second layer is to swap the row and column variables that the user entered.
 <br><br>
 
 <b>Create 'Switch Views' Button:</b> Create a button that switches between the design's top and bottom layer view. That way, clicking the button should either show the top layer or the bottom layer so the layers can be looked at individually.<br><br>
 
-<img src="images/pset1/switch_view_note.png" width="900px" style="cursor:pointer;"><br><br>
+<img src="images/pset1/switch_view_note.png" width="750px" style="cursor:pointer;"><br><br>
 
 In the skeleton code, put your code for switching views between the design's top and bottom layer in the <code>switchView()</code> function:
 
@@ -211,7 +211,7 @@ In the skeleton code, put your code for switching views between the design's top
 <!--<b>Ensure Correct Drawing Settings:</b> Make sure the exported .pdf files have all settings correctly set for conductive inkjet printing <span style="color:red">what does this mean? does this mean that the electrodes should be made full black etc? I don't think we have that requirement anymore so we can probably take this out.</span><a href="lab1-circuit-design-for-inkjet-printing.html">(if you don't remember, go back to Lab1).</a> 
 <br><br>-->
 
-<img src="images/pset1/switch_view_01.png" width="370px" style="cursor:pointer;"> <img src="images/pset1/switch_view_02.png" width="370px" style="cursor:pointer;"><br><br>
+<img src="images/pset1/switch_view_01.png" width="370px" style="cursor:pointer;"> <img src="images/pset1/switch_view_02.png" width="360px" style="cursor:pointer;"><br><br>
 
 In the skeleton code, put your code for saving fabrication files in the <code>saveViews()</code> function:
 
@@ -241,9 +241,9 @@ Change the drawing unit to 'pixels' (File -> Document Setup -> Units 'Pixels'). 
 <img src="images/pset1/04_document_setup_pixel.gif" width="800px" style="cursor:pointer;">
 <br><br>
 
-Now you know that 1 mm is the same as 2.835 pixels. <br><br>
+Now you know that 1 mm is a certain number of pixels (i.e. in our example 1mm is the same as 2.835 pixels but that value may be different for you because you have a different operating system). <br><br>
 
-<b>Confirming dpi:</b> To confirm that this is indeed the correct DPI for your OS, go back to Processing, and use the code below to draw a line of 2.835 pixels, which should correspond to 1mm.
+<b>Confirming dpi:</b> To confirm that this is indeed the correct DPI for your OS, go back to Processing, and use the code below to draw a line of the number of pixels that Illustrator had showed you for 1mm (i.e in our case we draw a line of 2.835 pixels).
 
 <pre>
 	<code class="language-processing">
@@ -258,7 +258,8 @@ Now you know that 1 mm is the same as 2.835 pixels. <br><br>
 </pre>
 <br>
 
-Export the line using your implemented .pdf export function, and open it in Adobe Illustrator. Don't forget to set the document units to 'milimeters'. Then select the line. Do you now see 1 mm? If yes, you can now be confident that 1mm is 2.835 pixels for your OS.<br><br>
+Export the line using your implemented .pdf export function, and open it in Adobe Illustrator. Don't forget to set the document units to 'milimeters'. Then select the line. Do you now see 1 mm? If yes, you can now be confident that 1mm is the number of pixels you thought (i.e. 2.835 pixels in our example).<br><br>
+
 <img src="images/pset1/05_test_dpi.gif" width="800px" style="cursor:pointer;">
 <br><br>
 
@@ -279,42 +280,22 @@ In Adobe Illustrator, make sure the drawing is set to 'inch' not 'points' (File 
 Now that you have your DPI scale factor, it's time to update all the multi-touch elements to have the right size.<br><br> 
 
 <!--<span style="color:red">is this already in the code? do I need to do something here?</span>-->
-<b>Applying Scaling Factor to Electrodes:</b> So, if our electrodes are 6mm in size, they will be around 6 * 2.835 = 17.01 pixels wide.<br><br>
+<b>Applying Scaling Factor to Electrodes:</b> To apply the scaling factor to everything you draw, we have created the variable <code>mm</code> in the skeleton code pset1_header.pde. Replace the value for <code>mm</code> with the number of pixels you just determined in the previous section. Once you did this, all your drawn elements will be scaled appropriately.
 
-You need to <b>find pixels per mm of your system</b>, which can be different from 2.835.<br><br>
-<!--<span style="color:red">Say that variable mm needs to be set to your 2.835 factor</span>-->
 
-<!-- Other parameters that you need to set in your code but don't have to display in the UI, are: <br> -->
-<!--  for the design (you don't have to display them in the UI, but please do think of good reasons for them, you can start from <a href="http://ww1.microchip.com/downloads/en/DeviceDoc/FAQs%20-%20Sensor%20Design%20Guidelines.pdf">here</a>): <br> -->
-
-<!-- <span style="color:red">is this already in the code? do I need to do something here?</span>
-<ul> 
-	<li>the edge length of the electrodes (diamond shape) in mm (default value: 6mm)</li>
-	<li>the spacing between adjacent electrodes in mm (default value: 1mm)</li>
-	<li>the spacing between non-connected electrodes, i.e. rows and columns, in mm (default value: 1mm)</li>
-	<li>the thickness of the wires inside of multi-touch pad that connect electrodes, in mm (default value: 0.3mm)</li>
-	<li>the thickness of the wires outside of multi-touch pad that connect to FPC connectors, in mm (default value: 0.5mm)</li>
-	<li>the spacing of wires on the FPC connector in mm (we are using the 1mm in FPC spacing, notice that the board has two sides and could also be used for 0.5mm if the 0.5mm connector was soldered on the other side. For more details, please look at the data sheet of the FPC connector <a href="https://datasheet.octopart.com/FH12-10%284%29SA-1SH%2855%29-Hirose-datasheet-8324494.pdf">here</a>)</li>
-</ul>
-<br> -->
-
-<img src="images/pset1/multitouch-measurements-new.png" width="600px" style="cursor:pointer;">
-<img src="images/pset1/07_size.gif" width="600px" height="360px" style="cursor:pointer;">
-<br><br>
+So, if our electrodes are 6mm in size, they will be around 6 * 2.835 = 17.01 pixels wide.<br><br>
 
 <h3 id="EXPORTPDFS">(7) Export Multi-touch Pad</h3>
 
 When you are done with your code, export a multi-touch pad design of <code>8x9 electrodes</code> from your user interface.<br><br>
 
-<h3 id="DOUBLECHECK">(8) Final Check before you Submit</h3>
-
-Before you submit files, please check the following: <br><br>
-
 <b>Two PDF Files:</b> You should have 2 pdf files: bottom-electrodes.pdf and top-electrodes.pdf.<br><br>
 
-<b>Check Alignment of both Top/Bottom Layers:</b> Open both PDF files in Illustrator and overlay them on top of each other to check that the columns and rows of the multi-touch pad are correctly positioned.<br><br>
+<h3 id="DOUBLECHECK">(8) Check Multi-Touch Dimensions in mm in Illustrator</h3>
 
-<b>Check Dimensions:</b> Open each .pdf file in Illustrator and measure the length of each element to confirm that it has the right size. Below is a short video of how to measure an element in Illustrator.
+Now that you have the .pdf files, let's check in Illustrator that everything has the right size in mm and that both layers are aligned when placed on top of each other.<br><br> 
+
+<b>Check Dimensions in mm:</b> Open each .pdf file in Illustrator and measure the length of each element to confirm that it has the right size. Below is a short video of how to measure an element in Illustrator.
 		<ul>
 			<li>edge length of the electrodes: 6mm</li>
 			<li>spacing between adjacent electrodes: 1mm</li>
@@ -326,6 +307,17 @@ Before you submit files, please check the following: <br><br>
 
 		<img src="images/pset1/06_how_to_measure_the_length.gif" width="800px" style="cursor:pointer;">
 
+
+
+<img src="images/pset1/multitouch-measurements-new.png" width="600px" style="cursor:pointer;">
+<img src="images/pset1/07_size.gif" width="600px" height="360px" style="cursor:pointer;">
+<br><br>
+
+
+
+
+
+<b>Check Alignment of both Top/Bottom Layers:</b> Open both PDF files in Illustrator and overlay them on top of each other to check that the columns and rows of the multi-touch pad are correctly positioned.<br><br>
 
 <h3>Upload your Code and Design Files</h3>
 
