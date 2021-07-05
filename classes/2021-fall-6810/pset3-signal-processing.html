@@ -131,12 +131,12 @@ Now that you are generating the PWM signal at the ESP GPIO sender pin that is co
 
 <img src="images/pset3/multiplexer.png" width="350px"><br><br>  
 
-<b>How to redirect the signal to a desired channel?:</b> The multiplexer receives the PWM signal on the input pin (SIG). It then needs to determine to which of the output pins (C0-C15) the signal should be forwarded to. To do this, it uses the S0 - S3 pins to create the address that determines which output pin (electrode column) the signal should be send to. Why four pins? The multiplexer expects a binary signal. For instance, sending 0,0,0,0 to S0-S3 results in the output pin C0. In contrast, sending 0,1,1,0 sends the signal to C6. Let's implement this in the next section.<br><br>
+<b>How to redirect the signal to a desired channel?:</b> The multiplexer receives the PWM signal on the <code>input pin (SIG).</code> It then needs to determine to which of the <code>output pins (C0-C15)</code> the signal should be forwarded to. To do this, it uses the <code>address pins S0 - S3</code> to create the address that determines which output pin (electrode column) the signal should be send to. Why four pins? The multiplexer expects a binary signal. For instance, sending 0,0,0,0 to S0-S3 results in the output pin C0. In contrast, sending 0,1,1,0 sends the signal to C6. Let's implement this in the next section.<br><br>
 
 
 <b>Setup Address Pins (S0-S3) as Digital Pins:</b> First, check which GPIO pin numbers you used for the multiplexer's S0 - S3 pins. Create the digital pins in your Arduino code and set the correct PinMode. <br><br>
 
-<b>Compute the Bit Values for the Address Pins:</b> Fill out the "selectChannelOut(int channel)" function in the skeleton code. The function takes as input an 'int' for the channel number (0-8, since we have 9 sender lines in our 8x9 multi-touch pad) and then assigns the correct bit values to the 4 select pins (S0 - S3). Use 'digitalWrite' to write the correct value to each of the S0-S3 pins after you determined if they should be 0 or 1.<br><br>
+<b>Compute the Bit Values for the Address Pins:</b> Fill out the <code>selectChannelOut(int channel)</code> function in the skeleton code. The function takes as input an 'int' for the channel number (0-8, since we have 9 sender lines in our 8x9 multi-touch pad) and then assigns the correct bit values to the 4 select pins (S0 - S3). Use 'digitalWrite' to write the correct value to each of the S0-S3 pins after you determined if they should be 0 or 1.<br><br>
 
 <img src="images/pset3/selectchannelout-function.png" width="580px"> <br><br>
 
@@ -173,8 +173,7 @@ Remember from pset2 that we had wired up an additional ADC converter (MCP3008 ch
 
 <b>Start reading signals</b>: Once the channel is open, you can read the signal from one of the input channels CH0-CH7 using the <code>readADC(channelnumber)</code> function (see the 'simpletest' example code). If you serial print the result, you should see your analog signal coming through.<br><br>
 
-<b>Testing your Code:</b> You can check if the SPI communication between the ESP and the MCP chip works properly by doing the following: Connect a 3.3V output pin from the ESP to one of the MCP CH input channels and plot the result on the Serial Plotter.<br>
-You should see a signal there around 1000. If you see '0' nothing is coming through and you either wired up the MCP chip incorrectly or you are reading from the wrong channel.<br><br>
+<b>Testing your Code:</b> You can check if the SPI communication between the ESP and the MCP chip works properly by doing the following: Instead of connecting your multi-touch pad to the MCP chip, connect a GPIO pin from the ESP to one of the MCP chip CH input channels and set the GPIO pin to 'HIGH'. Next, read the signal with the readADC(channelnumber) function and plot the result on the Serial Plotter. You should see a signal there around 1000. If you see '0' your SPI communication is not working and nothing is coming through. You either <a href="pset2-multitouch-assembly.html#RECEIVING">wired up the MCP chip incorrectly in pset2</a> or you are reading from the wrong channel.<br><br>
 
 <h3 id="Signals">(4) Injecting Signals into Columns and Reading Signals from Rows in the correct order</h3>
 
