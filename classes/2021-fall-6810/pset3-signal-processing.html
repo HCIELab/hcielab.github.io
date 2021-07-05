@@ -64,6 +64,7 @@ In this problem set, you will write Arduino code to sense the touch signals from
 	<li><a href="#Multiplexer">Use Multiplexer to Send PWM Signal to Specific Electrode Columns</a></li>
 	<li><a href="#SPI">Read Signals from Electrode Rows via SPI Communication</a></li>
 	<li><a href="#Signals">Inject and Read Signals in the Correct Order</a></li>
+	<li><a href="#debug">Debug Circuit</a></li>
 </ol>
 <br>
 
@@ -207,7 +208,7 @@ Now that you have code for injecting and reading signals, you are ready to write
 <img src="images/pset3/multi-touch-pad-not-touch.png" width="250px"><img src="images/pset3/multi-touch-pad-touch-1.png" width="250px"><img src="images/pset3/multi-touch-pad-touch-2.png" width="250px"><br><br>
 
 
-<h3>(5) Debug Your Circuit</h3>
+<h3 id="debug">(5) Debug Circuit</h3>
 
 If you do not see the above signals on your Serial Plotter, you can check the following parts of your circuit before coming to OHs for help. <br><br>
 
@@ -244,7 +245,7 @@ For grading, please upload the following to your google drive student folder:<br
 
 <ul>
 	<li>the .ino file of your Arduino program</li>
-	<li>a short video showing the circuit working, i.e. show that touching the multi-touch pad produces a different signal than not touching the multi-touch pad. Make sure the Serial monitor and your multitouch pad are both visible at the same time.</li>
+	<li>a short video showing the circuit working, i.e. show that touching the multi-touch pad produces a different signal than not touching the multi-touch pad. Please record at least 2-3 subsequent touches in the video to show it works reliably. Make sure the Serial monitor and your multitouch pad are both visible at the same time.</li>
 </ul>
 
 
@@ -252,12 +253,11 @@ For grading, please upload the following to your google drive student folder:<br
 
 We will give 20 pts in total:
 <ul>
-	<li>5 pts: does your code configure and generate the PWM signal correctly? Are the answers in the google form correct?</li>
-	<li>5 pts: does your code correctly select the channel on the multiplexer to address the correct column?</li>
-	<li>5 pts: does the ESP communicate with the MCP chip correctly via SPI?</li>
-	<li>5 pts: is the receiver data read and recorded correctly?</li>
+	<li>5pts: Does the code generate the PWM signal correctly? Are the answers in the google form correct?</li>
+	<li>5pts: Does the code correctly select the channel on the multiplexer to address the correct electrode column?</li>
+	<li>5pts: Does the ESP communicate with the MCP chip correctly via SPI to read the signals from the electrode rows?</li>
+	<li>5pts: Are the signals injected and read in the correct order? Does the video show touch recognition working reliably?</li>
 </ul>
-
 
 
         <br />
