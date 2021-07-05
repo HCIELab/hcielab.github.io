@@ -134,7 +134,6 @@ Now that you are generating the PWM signal at the ESP GPIO sender pin that is co
 <b>How to redirect the signal to a desired channel?:</b> The multiplexer receives the PWM signal on the input pin (SIG). It then needs to determine to which of the output pins (C0-C15) the signal should be forwarded to. To do this, it uses the S0 - S3 pins to create the address that determines which output pin (electrode column) the signal should be send to. Why four pins? The multiplexer expects a binary signal. For instance, sending 0,0,0,0 to S0-S3 results in the output pin C0. In contrast, sending 0,1,1,0 sends the signal to C6. Let's implement this in the next section.<br><br>
 
 
-
 <b>Setup Address Pins (S0-S3) as Digital Pins:</b> First, check which GPIO pin numbers you used for the multiplexer's S0 - S3 pins. Create the digital pins in your Arduino code and set the correct PinMode. <br><br>
 
 <b>Compute the Bit Values for the Address Pins:</b> Fill out the "selectChannelOut(int channel)" function in the skeleton code. The function takes as input an 'int' for the channel number (0-8, since we have 9 sender lines in our 8x9 multi-touch pad) and then assigns the correct bit values to the 4 select pins (S0 - S3). Use 'digitalWrite' to write the correct value to each of the S0-S3 pins after you determined if they should be 0 or 1.<br><br>
@@ -144,15 +143,15 @@ Now that you are generating the PWM signal at the ESP GPIO sender pin that is co
 
 <h3 id="SPI">(3) Receive Signals from Electrode Rows via SPI Communication</h3>
 
-<b><i>**Note:</i></b> the Section (2) and (3) can be worked on independently, i.e. if you don’t get (2) to work you can still do (3) here. <br><br>
+Now that you can foward the PWM signal to specific electrode columns, you are ready to write the code for reading the signals from the electrode rows. Note that even if you did not finish section #2, you can still work on section #3 here.<br><br>
 
-Remember from pset2 that we had wired up an additional ADC converter (MCP3008 chip) to get cleaner signals from our multi-touch pad, i.e. the MCP3008 chip converts our analog touch signals better than the ESP GPIO pins would be able to do. We had also discussed that the MCP3008 chip communicates with the ESP via the Serial Peripheral Interface (SPI) <a href="pset2-multitouch-assembly.html#RECEIVING">here</a>. To read the signals via SPI, you will have to do the following steps. <br><br> 
+Remember from pset2 that we had wired up an additional ADC converter (MCP3008 chip) to get cleaner signals from our multi-touch pad, i.e. the MCP3008 chip converts our analog touch signals better than the ESP GPIO pins would be able to do. We had also discussed that the MCP3008 chip <a href="pset2-multitouch-assembly.html#RECEIVING">communicates with the ESP via the Serial Peripheral Interface (SPI)</a>. To write code that reads the signals via SPI, you will have to do the following steps. <br><br> 
 
-<b>Install MCP3008 Library</b>: Download and install the MCP3008 library by opening the Arduino IDE and going to Sketch -> Include Library -> Manage Libraries and search for the MCP3008 library. Restart your Arduino IDE after you installed the library.<br><br>
+<b>Install MCP3008 Library</b>: Download and install the MCP3008 library by opening the Arduino IDE and going to <code>Sketch -> Include Library -> Manage Libraries</code> and search for the <code>MCP3008</code> library. Restart your Arduino IDE after you installed the library.<br><br>
 
 <img src="images/pset3/mcp3008-library.png" width="700px"> <br><br>
 
-<b>Look at MCP3008 Example Code</b>: Go to File -> Examples and look at the bottom where it says 'Examples from Custom Libraries' to find example code that shows how to use the MCP3008 library. We recommend you look at the 'simpletest' example.<br><br>
+<b>Look at MCP3008 Example Code</b>: Go to <code>File -> Examples</code> and look at the bottom where it says <code>Examples from Custom Libraries</code> to find example code that shows how to use the MCP3008 library. We recommend you look at the <code>simpletest</code> example.<br><br>
 
 <img src="images/pset3/mpc-library-examples.png" width="400px"> <br><br>
 
@@ -160,7 +159,7 @@ Remember from pset2 that we had wired up an additional ADC converter (MCP3008 ch
 
 <b>Instantiate Library</b>: After this, you need to declare an object of the library.<br><br>
 
-<b>Open Communication Channel</b>: Next, you need to open the SPI communication channel with 'begin()'' in the setup function. However, we do not want to use the empty contructor begin() but instead also provide the pin numbers. You can see an example of this further down in the 'simpletest' example in the code that is commented out. Fill the pin numbers in according to your wiring.<br>
+<b>Open Communication Channel</b>: Next, you need to open the SPI communication channel with <code>begin()</code> in the setup function. However, we do not want to use the empty contructor begin() but instead also provide the pin numbers. You can see an example of this further down in the 'simpletest' example in the code that is commented out. Fill the pin numbers in according to your wiring.<br>
 
 <!-- <img src="images/pset3/mpc-library-function.png" width="400px"> <br><br> -->
 <pre>
@@ -172,7 +171,7 @@ Remember from pset2 that we had wired up an additional ADC converter (MCP3008 ch
 </pre><br>
 
 
-<b>Start reading signals</b>: Once the channel is open, you can read the signal from one of the input channels CH0-CH7 using the 'readADC(channelnumber)'' function (see the 'simpletest' example code). If you serial print the result, you should see your analog signal coming through.<br><br>
+<b>Start reading signals</b>: Once the channel is open, you can read the signal from one of the input channels CH0-CH7 using the <code>readADC(channelnumber)</code> function (see the 'simpletest' example code). If you serial print the result, you should see your analog signal coming through.<br><br>
 
 <b>Testing your Code:</b> You can check if the SPI communication between the ESP and the MCP chip works properly by doing the following: Connect a 3.3V output pin from the ESP to one of the MCP CH input channels and plot the result on the Serial Plotter.<br>
 You should see a signal there around 1000. If you see '0' nothing is coming through and you either wired up the MCP chip incorrectly or you are reading from the wrong channel.<br><br>
