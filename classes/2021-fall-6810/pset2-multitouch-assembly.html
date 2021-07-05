@@ -220,26 +220,22 @@ Before we build the sending circuit, let's briefly recap how the multi-touch pad
 
 <img src="images/pset2/demux-labeled.png" width="400px" style="cursor:pointer;"> <br><br>
 
+<b>Breadboard use:</b> <span style="color:red">Before you start building the circuit, make sure you use the large breadboard we gave you for the multi-touch pad circuit: For building the circuit, please use the large breadboard we gave you. The idea is that you use the large breadboard for your multi-touch pad and the small breadboards you received earlier for the labs. That way, you don't have to unplug any wires when you switch between working on labs vs. working on psets.</span>.<br><br>
 
- <div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
-<b><span style="color:red">Use the large breadboard we gave you for the multi-touch pad circuit:</b><br>
-For building the circuit, please use the large breadboard we gave you. The idea is that you use the large breadboard for your multi-touch pad and the small breadboards you received earlier for the labs. That way, you don't have to unplug any wires when you switch between working on labs vs. working on psets.</span></div>
 
-Next, let's build the multiplexer sending circuit. <br><br>
+<b>Connecting the Multiplexer to the ESP and FPC:</b> Let's build the multiplexer sending circuit.<br>
 
-<b>Providing the Input Signal from the ESP (SIG):</b> First, let's start by providing our multiplexer with the input signal from the ESP. For this, connect the signal pin (SIG) on the multiplexer to <code>GPIO16 pin on the ESP</code> (any GPIO pin would work but we ask you to use the pin numbers we specify which will make debugging your code in the later psets easier).<br><br>
+<i>Providing the Input Signal from the ESP (SIG):</i> First, let's start by providing our multiplexer with the input signal from the ESP. For this, connect the signal pin (SIG) on the multiplexer to <code>GPIO16 pin on the ESP</code> (any GPIO pin would work but we ask you to use the pin numbers we specify which will make debugging your code in the later psets easier).<br><br>
 
 <img src="images/pset2/multiplexer.png" height="350px" style="cursor:pointer;"> <br><br>
 
-<b>Connecting the output channels to the electrode columns (C0-C8):</b> If you look at your multiplexer, you will see that it has 16 output channels (pins on the left side, C0-C15). We want to connect each output channel to one column of our multi-touch pad (we don't need all 16 channels since our multi-touch pad only has 9 columns). We will use <b>channels C0 through C8</b>. We can then use the multiplexer to redirect the input signal from the SIG pin to one of the channels, thereby injecting the signal into a specific column of the Multi-touch pad. Connect each of your electrode colunmns to one of the pins. You can connect the FPC connector breakout boards to the multiplexer via male-to-female jumper wires and a breadboard.<br><br>
+<i>Connecting the output channels to the electrode columns (C0-C8):</i> If you look at your multiplexer, you will see that it has 16 output channels (pins on the left side, C0-C15). We want to connect each output channel to one column of our multi-touch pad (we don't need all 16 channels since our multi-touch pad only has 9 columns). We will use <code>channels C0 through C8</code>. We can then use the multiplexer to redirect the input signal from the SIG pin to one of the channels, thereby injecting the signal into a specific column of the multi-touch pad. Connect each of your electrode colunmns to one of the pins using male-to-female jumper wires from the FPC to a breadboard.<br><br>
+
+<i>Selecting which Channel to send the Signal to (S0-S3):</i> How do we tell the multiplexer which channel <code>C0-8</code> our input signal <code>SIG</code> should be directed to, i.e. how can we tell the multiplexer to send the input signal to, say, the C6 output pin? We do this by providing the multiplexer with a 4-bit, binary enconding of our desired output through the four pins on the right side, labeled <code>S0-S3</code>. Why four pins? The multiplexer expects a binary signal, e.g. sending 0,0,0,0 to S0-S3 directs the output to pin C0, whereas sending 0,1,1,0 to S0-S3 directs the output to pin C6. Thus, by using the multiplexer we can send a signal to up to 16 electrode columns (C0-C15) using only 5 pins (SIG + S0,S1,S2,S3) on the ESP rather than 16 pins! Wire up the S0-S3 pins to <code>GPIO19, GPIO18, GPIO5, GPIO17 pin</code> on the ESP. Again, though any GPIO pins on the ESP can be used, we specified the following pins so that we can easily swop out your code for our code in later psets for debugging purposes.<br><br>
+
+<i>Powering the Multiplexer:</i> Finally, connect the power VCC and GND pins on the multiplexer to the corresponding pins on the ESP to power the multiplexer.<br><br>
 
 <img src="images/pset2/breadboarding_crop.png" height="350px" style="cursor:pointer;"> <br><br>
-
-<b>Selecting which Channel to send the Signal to (S0-S3):</b> How do we tell the multiplexer which channel our input signal should be directed to, i.e. how can we tell the multiplexer to send the input signal to, say, the C12 output pin? We do this by providing the multiplexer with a 4-bit, binary enconding of our desired output through the four pins on the right side, labeled S0-S3. Why four pins? The multiplexer expects a binary signal, e.g. sending 0,0,0,0 to S0-S3 directs the output to pin C0, whereas sending 0,1,1,0 to S0-S3 directs the output to pin C6. Thus, by using the multiplexer we can send a signal to up to 16 electrode columns (C0-C15) using only 5 pins (SIG + S0,S1,S2,S3) on the ESP! <b>Wire up the S0-S3 pins to GPIO19, GPIO18, GPIO5, GPIO17 pin on the ESP.</b> Again, though any GPIO pins on the ESP can be used, we specified the following pins so that the submitted circuits can be verified easily.<br><br>
-
-<b>Powering the Multiplexer:</b> Finally, connect the power VCC and GND pins on the multiplexer to the corresponding pins on the ESP to power the multiplexer.<br><br>
-
-<!--<img src="images/pset2/mux_fritzing_label.png" width="900px">--><br><br>
 
 <h3 id="RECEIVING">(4) Build Receiving Circuit</h3>
 
