@@ -63,10 +63,15 @@ In this problem set, you will print out your multi-touch pad on the conductive i
 
 <b>Steps:</b>
 <ol>
-	<li><a href="#PRINT">Inkjet Print and Assemble the Top and Bottom Electrode Layers</a></li>
-	<li><a href="#FPC">Connect the FPC Connectors to the Electrodes</a></li>
-	<li><a href="#SENDING">Build the Sending Circuit</a></li>
-	<li><a href="#RECEIVING">Build the Receiving Circuit</a></li>
+	<li><a href="#PRINT">Inkjet Print Top and Bottom Electrode Layers</a></li>
+	<li><a href="#ELECTRODETEST">Confirm Electrodes are Conductive and No Crosstalk</a></li>
+	<li><a href="GLUE">Glue Together Top and Bottom Electrode Layers</a></li>
+	<li><a href="#LAMINATE">Laminate the Assembled Multi-Touch Pad</a></li>
+	<li><a href="#FPC">Solder FPC Connectors</a></li>
+	<li><a href="#CONNECTFPC">Connect FPC Connectors to Multi-Touch Pad</a></li>
+	<li><a href="#SOLDERMULTIPLEXER">Solder Multiplexer</a></li>
+	<li><a href="#SENDING">Build Sending Circuit</a></li>
+	<li><a href="#RECEIVING">Build Receiving Circuit</a></li>
 </ol>
 
  <div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
@@ -86,7 +91,7 @@ In case you did not finish pset1, you can ask a TA to provide you with the fabri
 <b>Print Settings:</b> The rest of the printing is the same as in lab. If you don't remember how to print, <a href="./how-to-print.html" target="_blank">you can find information here</a>.<br><br>
 
 
-<h3 id="PRINT">(2) Confirm Electrodes are Conductive and No Crosstalk</h3>
+<h3 id="ELECTRODETEST">(2) Confirm Electrodes are Conductive and No Crosstalk</h3>
 
 
 <b>Check conductivity of printed electrodes:</b> Test each electrode line with a multimeter to see if the print is conductive enough before assembling the top and bottom electrode layers. Sometimes during printing not enough silver ink comes out (e.g., because of clogged print nozzles) and the resulting print is not conductive enough. To test this, take the multimeter and hold one probe to the leftmost electrode and the other probe to the rightmost electrode. If you see that the resistance reading is less than 300 ohms, there is no issue. You can also test each electrode pair individually and you should see that electrodes closer together will have less resistance between them than electrodes further apart since resistance builds up over the length of the wire.
@@ -100,7 +105,7 @@ Test that there is no connection between adjacent rows/columns using a multimete
 
 <iframe width="600" height="360" src="https://www.youtube.com/embed/43w-7eKoK9s" title="YouTube video player" frameborder="0" allowfullscreen></iframe><br><br>
 
-<h3 id="PRINT">(3) Assemble Top and Bottom Electrode Layers</h3>
+<h3 id="GLUE">(3) Glue Together Top and Bottom Electrode Layers</h3>
 
 <b>Assemble:</b> To assemble both sheets together, please ask a TA to help you with this either in lab or in an OH.<br><br> 
 
@@ -121,7 +126,7 @@ Test that there is no connection between adjacent rows/columns using a multimete
 <img src="images/pset2/pset1-tatto-paper.png" width="600px" style="cursor:pointer;"> <br><br>
 
 
-<h3 id="PRINT">(4) Laminate the Assembled Multi-Touch Pad</h3>
+<h3 id="LAMINATE">(4) Laminate the Assembled Multi-Touch Pad</h3>
 
 Now that both layers are glued together, the next step is to laminate your multi-touch pad. This has two purposes. First, since the conductive side of the top sheet is facing towards the user, the silver of the top electrodes is still exposed, and you need to cover it up to prevent the user from touching it directly. Second, lamination helps with durability of the multi-touch pad.<br><br>
 
@@ -159,7 +164,7 @@ Once you have the multi-touch pad printed and assembled, you need to connect its
 </table>
 <br>
 
-<h3 id="FPC">(6) Connect FPC Connectors to Multi-Touch Pad</h3>
+<h3 id="CONNECTFPC">(6) Connect FPC Connectors to Multi-Touch Pad</h3>
 
 <b>Cut out the area around multi-touch wires for FPC connection:</b> Before you can connect your FPC connector to the multi-touch pad, you will need to cut out some free space around the end of the wires on your multi-touch pad. When you cut out the area for the connector, pay extra attention to ensure that it will fit inside the FPC connector; the little pins inside the FPC connector head should align precisely with the wires of your multi-touch pad, otherwise there is either no connection or a very fragile connection.<br><br>
 
@@ -183,7 +188,7 @@ Once you have the multi-touch pad printed and assembled, you need to connect its
 
 <img src="images/pset2/plug_unplug.png" width="500px" style="cursor:pointer;"><br><br>
 
-<h3 id="SENDING">(7) Solder the Multiplexer for the Sending Circuit</h3>
+<h3 id="SOLDERMULTIPLEXER">(7) Solder the Multiplexer for the Sending Circuit</h3>
 
 Before you can build the sending circuit, you need to solder header pins onto the multiplexer (we will explain in a minute what the multiplexer is for).<br><br>
 
@@ -206,7 +211,7 @@ Before you can build the sending circuit, you need to solder header pins onto th
 <br><br>
 
 
-<h3 id="SENDING">(8) Build Sending Circuit Using the Multiplexer</h3>
+<h3 id="SENDING">(8) Build Sending Circuit</h3>
 
 Before we build the sending circuit, let's briefly recap how the multi-touch pad will work.<br><br>
 
@@ -237,34 +242,34 @@ Before we build the sending circuit, let's briefly recap how the multi-touch pad
 
 <img src="images/pset2/breadboarding_crop.png" height="350px" style="cursor:pointer;"> <br><br>
 
-<h3 id="RECEIVING">(4) Build Receiving Circuit</h3>
+<h3 id="RECEIVING">(9) Build Receiving Circuit</h3>
 
 As you can see in the schematic, the circuit for receiving is very similar to what we have done in lab. Each touch-sensing row is connected to its own resistor and then connected to an ADC/TOUCH pin on the microcontroller.<br><br> 
 
 <img src="images/pset2/multitouch-schematic-receiving.png" width="600px" style="cursor:pointer;"> <br><br>
 
-<b>Using a separate ADC component:</b> Unfortunately, the ADC/TOUCH pins on the ESP32 are not reliable enough for our purposes, i.e. they do not output clean signals for our multi-touch pad (footnote 1). We will use a separate ADC component in place of the ADC pins on the ESP32. The component we use is the <a href="https://www.adafruit.com/product/856" target="_blank">MCP3008</a> chip, and you can find <a href="https://cdn-shop.adafruit.com/datasheets/MCP3008.pdf" target="_blank">its datasheet here</a>.<br><br>
+<b>Using a separate ADC component:</b> Unfortunately, the ADC/TOUCH pins on the ESP32 are not reliable enough for our purposes, i.e. they do not output clean signals for our multi-touch pad. We will use a separate ADC component in place of the ADC pins on the ESP32. The component we use is the <a href="https://www.adafruit.com/product/856" target="_blank">MCP3008</a> chip, and you can find <a href="https://cdn-shop.adafruit.com/datasheets/MCP3008.pdf" target="_blank">its datasheet here</a>.<br><br>
 
 <img src="images/pset3/adc-pin-chip.png" width="250px" style="cursor:pointer;"><br><br>
 
-<b>Connecting the Receiving Electrodes to the ADC component:</b> Let's first connect the receiving electrodes from our multi-touch pad to the ADC component by connecting them to channels CH0 - CH7 (see the component image below). Don't forget to add the 100kOhm resistor to each electrode row.<br><br>
+<b>Connecting the Receiving Electrodes to the ADC component:</b> Let's first connect the receiving electrodes from our multi-touch pad to the ADC component by connecting them to channels <code>CH0 - CH7</code> (see the component image below). Don't forget to add the <code>100kOhm resistor</code> to each electrode row.<br><br>
 
-<b>Powering the ADC component:</b> Next, power the ADC component by connecting the Vdd pin to 3.3V and the Dgnd pin to GND.<br><br>
+<b>Powering the ADC component:</b> Next, power the ADC component by connecting the <code>Vdd pin</code> to 3.3V and the <code>Dgnd pin</code> to GND.<br><br>
 
-<b>Reference Signal:</b> The MCP3008 chip also needs a reference voltage to calculate the unknown voltage from the incoming CH0-7 pins (ADC conversion). This reference voltage needs to be less than or equal to the operating voltage of the ADC component. Since we use 3.3V on Vdd, you can connect the reference voltage pin VRef pin to 3.3V as well, and then connect the AGND pin to ground.<br><br>
+<b>Reference Signal:</b> The MCP3008 chip also needs a reference voltage to calculate the unknown voltage from the incoming CH0-7 pins (ADC conversion). This reference voltage needs to be less than or equal to the operating voltage of the ADC component. Since we use 3.3V on Vdd, you can connect the <code>reference voltage pin VRef</code> to 3.3V as well, and then connect the <code>AGND pin</code> to ground.<br><br>
 
 <img src="images/pset2/mpc-pin-out-labeled.png" width="480px" style="cursor:pointer;">
 <img src="images/pset2/spi-labeled.png" width="260px" style="cursor:pointer;"> 
  <br><br>
 
-<b>Connecting the ADC component to the ESP:</b> Sending data from the ADC component to the ESP is a little more complicated. The MCP3008 chip communicates with the ESP via a Serial Peripheral Interface (SPI). We use basic SPI between one master (ESP) and one slave (MCP3008 chip). SPI communication is setup via 4 types of pins, i.e. MOSI is the line for the master to send data to the slave, MISO is the line for the slave to send data to the master, SCK is the line for the clock signal that determines how fast bits of data can be sent, and NSS/CS is a line for the master to select which slave to send data to. The ADC chip uses different names on its pinout for these pins, i.e. <b>MOSI (DIn), MISO (DOut), SCK (CLK), and NSS/CS (CS/SHDN)</b> as shown above in the MPC chip pinout. The ESP uses the regular names as shown on the ESP pinout below. Wire up these four SPI pins (not VSPI) between the ADC chip and the ESP. <br><br>
+<b>Connecting the ADC component to the ESP:</b> Sending data from the ADC component to the ESP is a little more complicated. The MCP3008 chip communicates with the ESP via a Serial Peripheral Interface (SPI). We use basic SPI between one master (ESP) and one slave (MCP3008 chip). SPI communication is setup via 4 types of pins, i.e. MOSI is the line for the master to send data to the slave, MISO is the line for the slave to send data to the master, SCK is the line for the clock signal that determines how fast bits of data can be sent, and NSS/CS is a line for the master to select which slave to send data to. The ADC chip uses different names on its pinout for these pins, i.e. <code>MOSI (DIn), MISO (DOut), SCK (CLK), and NSS/CS (CS/SHDN)</code> as shown above in the MPC chip pinout. The ESP uses the regular names as shown on the ESP pinout below. Wire up these four SPI pins (not VSPI) between the ADC chip and the ESP. <br><br>
 
 <img src="images/pset3/esp32-pinout.png" width="800px" style="cursor:pointer;"><br><br>
-<b>**** Important Notes **** <br>
+<!-- <b>**** Important Notes **** <br>
 	1) GPIO 34-39 are INPUT only <br> 
 	2) do not use GPIO 0 as INPUT <br>
 	3) try to avoid GPIO 6-11, which might have unexpected behaviors </b><br><br>
-<!--<img src="images/pset2/adc_fritzing_label.png" width="900px">-->
+ --><!--<img src="images/pset2/adc_fritzing_label.png" width="900px">-->
 
 <b>Using a Multiplexer for the receiving circuit:</b> While we will not do it in this pset, we could also use a second multiplexer to reduce the number of pins required for the receiving circuit, i.e. the electrode rows. When using the multiplexer for receiving, we would redirect the received signal on C0-C15 to the SIG pin that is then read by the ESP. Similar to above, we would only have to specify which channel (C0-C15) we want to read and the ESP would then retrieve the signal from the respective channel. Thus, this second multiplexer would reduce the number of receiver pins by combining multiple rows into one pin on the ESP. <br><br>
 
@@ -278,12 +283,12 @@ Before you submit files, please check the following:
 	<li>Check the soldering condition of the multiplexer.</li>
 </ul>
 
-<h3>Upload the Files and Show Hardware to TA</h3>
+<h3>Upload Circuit Photos</h3>
 
 For grading, please upload the following to your google drive student folder:<br>
 
 <ul>
-	<li>3-5 photos showing your assembled circuit from different perspectives (include top view + side views)</li>
+	<li>3-5 photos showing your assembled circuit and laminated multi-touch pad from different perspectives (include top view + side views)</li>
 	<!-- <li><span style="color:red">bring your assembled multi-touch pad to your spray session</span></li> -->
 </ul>
 
@@ -297,6 +302,8 @@ We will give 20 pts in total:
 	<li>Did you correctly build the recieving circuit using the ADC component, resistors, and ESP? (4 pts)</li>
 	<li>Did you correctly link the sending circuit and receiving circuit? (3 pts)</li>
 </ul>
+
+
 
 <!-- Footnote 1: Unfortunately, the ESP32 ADC/TOUCH pins are only reliable in the middle of the ESP's voltage range (~0.5V to maybe 3.0V) but not at the lower and upper ends of the range. Our touch sensing circuit functions at the lower range. Even worse, because our circuit (receiver pins) outputs between -0.6V and 1.2V (yes that is a minus), we end up with negative voltages on the ADC pins, which are completely out of the spec of the ESP32's ADC inputs and would create a signal that is non-linear and would require a lot of calibration. The reason we can have negative voltages is because we are practically generating a high-frequency AC signal with the PWM. This creates capacitive coupling between the breadboard channels and wires. To make the ESP ADC pins work with negative voltages, you could add rectification circuits and amplifiers before having the signal go into the ADC pin, but that is quite some extra effort. For our purposes, it is therefore easier to not use the ESP ADC pins and instead use another ADC component that can work well within the Voltage range we use for the multi-touch pad.<br><br>
  -->
