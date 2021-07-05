@@ -140,6 +140,9 @@ Now that you are generating the PWM signal at the ESP GPIO sender pin that is co
 
 <img src="images/pset3/selectchannelout-function.png" width="580px"> <br><br>
 
+<b>Testing the Multiplexier Channel Select Function:</b> You can test if your channel selection function works properly in the following way: First, choose one of the C0-8 channels as the output pin for testing and set it in your <code>selectChannelOut(int channel)</code> function, upload the code to the ESP. Next, connect the <code>SIG pin</code> on Multiplexer to the ESP32's <code>3.3V pin</code>, which will create a 'HIGH' signal that your code will forward to your chosen C0-8 pin if all works correctly. Use a multimeter in 'V' mode and measure with one probe on your chosen C0-8 pin and the other probe on GND. You should see 3.3V in the display if everything is ok. If you see 0, no voltage is applied. If it's not working, check both your code and your wiring.<br><br>
+
+<img src="images/pset3/multimeter-v.png" width="250px"> <br><br>
 
 <h3 id="SPI">(3) Read Signals from Electrode Rows via SPI Communication</h3>
 
@@ -177,15 +180,15 @@ Remember from pset2 that we had wired up an additional ADC converter (MCP3008 ch
 
 <h3 id="Signals">(4) Inject and Read Signals in the Correct Order</h3>
 
-Now that you have code for telling your multiplexer to send the PWM signal to a specific electrode column, and you code for your ADC chip to read the signal from a specific electrode row, you are ready to write the meta-level code that tells your program when to inject into which electrode column and when to read which row.<br><br>
+Now that you have code for injecting and reading signals, you are ready to write the meta-level code that tells your program when to inject into which electrode column and when to read which of the electrode rows.<br><br>
 
-<b>Putting your Code in loop():</b> Since we will continuously read data from our multi-touch pad, your code should be in the 'loop()' function. <br><br>
+<b>Putting your Code in loop():</b> Since we will continuously read data from our multi-touch pad, your code should be in the <code>loop()</code> function. <br><br>
 
-<b>Inject Column #1, Read all Rows, Inject Column #2, Read all Rows...:</b> Your code needs to first send a signal through column #1, then read each row of the multi-touch pad one after another (rows #1-#8), and then continues to inject the signal into column #2, reads again row #1-#8 and so on.<br><br>
+<b>Inject Column #1, Read all Rows, Inject Column #2, Read all Rows...:</b> Your code needs to first send a signal through column #1, then read each row of the multi-touch pad one after another (rows #1-#8), and then inject the signal into column #2, read again row #1-#8 and so on.<br><br>
 
-<b>Averaging Read Signals: </b> When reading the signal from a specific row, it helps to sample multiple times (e.g., execute read() 20 times and average them together) to get a more accurate and smooth signal. <br><br>
+<b>Averaging Read Signals: </b> When reading the signal from a specific row, sample multiple times (e.g., execute read() 20 times and average the readings together) to get a more accurate and smooth signal. <br><br>
 
-<b>Print Data to Serial Monitor:</b> Serial print the data in the format: columm0, row0val, row1val, row2val... A sample serial output could look like: <br>
+<b>Print Data to Serial Monitor:</b> Serial print the data in the format: columm0, row0val, row1val, row2val... Please follow the specific format since we will use it later to read the data into Processing. A sample serial output would look like this: <br>
 <pre>
 0,50,83,58,79,108,75,82,54   //columm0, row0val, row1val, row2val
 1,55,92,120,84,63,61,88,53   //columm1, row0val, row1val, row2val
@@ -199,26 +202,22 @@ Now that you have code for telling your multiplexer to send the PWM signal to a 
 ...
 </pre> <br>
 
-<b>Checking Result in Serial Plotter:</b> If you open up the Serial Plotter, it should look like the image on the left when the multi-touch pad is not touched, i.e. all values are roughly the same height. The middle shows a start of touching and the right the end of touching. <br><br>
+<b>Checking Result in Serial Plotter:</b> If you open up the Serial Plotter, it should look like the image on the left when the multi-touch pad is not touched, i.e. all values are roughly the same height. The middle shows a start of touching and the right the end of touching. If you do not see these, please move on to the next section that will help you debug common problems.<br><br>
 
 <img src="images/pset3/multi-touch-pad-not-touch.png" width="250px"><img src="images/pset3/multi-touch-pad-touch-1.png" width="250px"><img src="images/pset3/multi-touch-pad-touch-2.png" width="250px"><br><br>
 
-If you do not see these, please move on to the following "Debug Your Circuit" section and rule out some common errors first! <br><br>
 
-
-<h3>Debug Your Circuit</h3>
+<h3>(5) Debug Your Circuit</h3>
 
 If you do not see the above signals on your Serial Plotter, you can check the following parts of your circuit before coming to OHs for help. <br><br>
 
-<b>Testing the Generated PWM signal:</b> If you want to test if you are generating the correct signal, <span style="color:red">we will have an oscilloscope ready at the IDC. If you know how to use an oscilloscope, you can come in and use it yourself outside the OH.</span> If you don't know how to use it, please come to an OH.<br><br>
+<b>Testing the Generated PWM signal:</b> If you want to test if you are generating the correct PWM signal, we will have an oscilloscope ready in lab and at the OH. If you know how to use an oscilloscope, you can also use it yourself outside the OH. <br><br>
 
 <img src="images/pset3/oscilloscope.jpg" width="450px"><br><br>  
 
-<b>Testing the Multiplexier Channel Select Function:</b> You can test if your channel selection function works properly in the following way: First, choose an output pin for testing from the C0-C8 output pins and set it in your function. Next, connect the SIG pin on Multiplexier to ESP32's 3.3V and use a multimeter to measure if the channel actually receives any voltage. Note that this is different than measuring resistance. Therefore, you need to set the multimeter into 'V' mode for measuring voltage, and then measure on the output pin and on GND. You should see 3.3V in the display. If you see 0, no voltage is applied and you need to debug your code to figure out why the pin is not receiving the signal.<br><br>
+<b>Tuning the Multiplexer Delay Function:</b> In the skeleton code the function <code>selectChannelOut(int channel)</code> has a delay() function. You may need to adjust the delay slightly depending on the amount of capacitive coupling your specific circuit layout has. 
 
-<img src="images/pset3/multimeter-v.png" width="250px"> <br><br>
-
-<b>Tuning the Delay Function:</b> Note that in the skeleton code, there is a delay function. You may need to adjust the delay slightly depending on the amount of capacitive coupling your specific circuit layout has, which interferes and slows down the signal assign (e.g. digitalWrite()) slightly and can result in undefined behavior. The delay allows the multiplexer gets stable select pin values and assign correct output channel. Usually a delay of 2 - 5 milliseconds should be sufficient enough. <br>
+Capacitive coupling slows down the signal writing process to pins and can cause the multiplexer to fall behind with assigning the correct output channels C0-C8 based on the pin values from the address pins S0-S3, thus writing into the wrong output channel, which leads to weird behavior. Adding a larger delay allows the multiplexer to receive stable select pin values for S0-S3 and to assign the correct output channel from C0-C8. Usually a delay of 2 - 5 milliseconds is sufficient. <br>
 
 <pre>
 	<code class="language-c">
@@ -234,7 +233,7 @@ If you do not see the above signals on your Serial Plotter, you can check the fo
 </pre>
 <br>
 
-<b>Check Connections between Multitouch Pad and FPC Connectors:</b> Another thing to check is whether your multitouch pad is in good electrical connection to your circuit through FPC connectors. You can test this via a multimeter, please follow the <a href="pset2-multitouch-assembly.html#FPC">PSet2 Section (2)</a> for electrical connection test. <br><br>
+<b>Check Connections between Multitouch Pad and FPC Connectors:</b> Another aspect to check is whether the inkjet printed wires of your multitouch pad are still connected to your FPC connectors. If the columns are not connected anymore, the injected PWM signal will never reach your multi-touch pad. If the columns are connected to the FPC, but not the rows, a signal will be injected but the signal cannot be read. You can test with a multimeter if the FPCs are still making a connection to the inkjet printed wires, please go to <a href="pset2-multitouch-assembly.html#CONNECTFPC">pset2 section #6</a> if you need a reminder of how to test it. <br><br>
 
 If you still don't see the expected results from Arduino Serial Plotter, please come to an OH and one of our TAs will take a look with you together! <br><br>
 
@@ -245,7 +244,6 @@ For grading, please upload the following to your google drive student folder:<br
 
 <ul>
 	<li>the .ino file of your Arduino program</li>
-	<li>2-3 photos showing your assembled circuit from different perspectives (include top view + side views)</li>
 	<li>a short video showing the circuit working, i.e. show that touching the multi-touch pad produces a different signal than not touching the multi-touch pad. Make sure the Serial monitor and your multitouch pad are both visible at the same time.</li>
 </ul>
 
