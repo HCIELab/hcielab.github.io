@@ -53,14 +53,14 @@
 
           <hr>
 
-In this problem set, you will write Processing code that takes as input the sensor signals and visualizes the resulting touch points as white pixels in a 2D image.<br><br>
+In this problem set, you will write Processing code that takes as input the sensor signals and visualizes the resulting touch points as white pixels in a grayscale 2D image.<br><br>
 
 <b>Steps:</b>
 <ol>
-	<li>Read the multi-touch sensing data into Processing via the Serial Port.</li>
-	<li>Clean the sensing data from noise by determining the noise baseline and subtracting it from the received signals.</li>
-	<li>Convert the received signals into grayscale values that can be displayed as pixels in a 9x8 pixel image.</li>
-	<li>Scale the image to 500x500px using bicubic interpolation to facilitate touch point extraction.</li>
+	<li><a href="#READPROCESSING">Read Multi-Touch Sensing Data into Processing</a></li>
+	<li><a href="#REDUCENOISE">Clean Received Signal by Reducing Noise</a></li>
+	<li><a href="#GRAYSCALEIMAGE">Convert Received Signals into Grayscale Values</a></li>
+	<li><a href="#BICUBIC">Scale Up Image Using Bicubic Interpolation</a></li>
 </ol>
 <br>
 
@@ -82,7 +82,7 @@ In case you did not finish pset3, you can ask a TA to provide you with a piece o
 <img src="images/pset4/processing-library-opencv.png" width="370px">
 <img src="images/pset4/processing-library-blob-detection.png" width="370px"> <br><br>
 
-<h3>(1) Read the Multi-Touch Sensing Data into Processing</h3><br>
+<h3 id="READPROCESSING">(1) Read Multi-Touch Sensing Data into Processing</h3><br>
 
 <b>Read Data from Serial Port Into Processing:</b> At the end of the last pset, your <b>Arduino</b> code wrote the received touch data onto the serial port in the format seen below. <br><br>
 
@@ -106,7 +106,7 @@ You now need to read this data from the serial port into Processing. We have alr
 
 <img src="images/pset4/serial-read-array-one-pass.png" width="750px"> <br><br>
 
-<h3>(2) Cleaning the Received Signal by Reducing Noise</h3><br>
+<h3 id="REDUCENOISE">(2) Clean Received Signal by Reducing Noise</h3><br>
 
 As you may have noticed, even when you are not touching the multi-touch pad, the receiver pins almost always receive some value although you would expect that they should receive '0'. This is what we call "noise" in signal processing.<br><br>
 
@@ -125,7 +125,7 @@ All of these factors together result in different noise levels at each point in 
 
 <img src="images/pset4/substractBaseLine-skeleton-code.png" width="600px"> <br>
 
-<h3>(3) Converting the Received Signals into Grayscale Values that can be Displayed as an Image</h3>
+<h3 id="GRAYSCALEIMAGE">(3) Convert Received Signals into Grayscale Values</h3>
 
 Now that we have "clean" sensing values, our next step is to find out <b>where</b> the multi-touch pad was actually touched.<br><br>
 
@@ -148,7 +148,7 @@ Now that we have "clean" sensing values, our next step is to find out <b>where</
 Put your code into the <b>setColors()</b> function in the skeleton code <span style="color:red">which part of the code? we may want to reference that earlier</span>: <br><br>
 <img src="images/pset4/setColors-skeleton-code.png" width="700px"> <br><br>
 
-<h3>(4) Scaling up the Generated Image Using Bicubic Interpolation</h3>
+<h3 id="BICUBIC">(4) Scale Up Image Using Bicubic Interpolation</h3>
 
 Each sensor value represents the measured value at the intersection of an electrode column with a row. While this gives us 9x8 = 72 values, it is a very sparse representation of what is actually going on on the multi-touch pad, i.e. where the user is touching. To increase the space of sensor values, you can use 'interpolation' to make an informed guess about signal values that would occur in the space between two measured signals. Thus, in the next step, we will first increase the overall image size, then draw in the few pixel values we know for sure, and then use interpolation to guess the grayscale values at each of the pixels that don't have an actual sensor value associated with them.<br><br>
 
