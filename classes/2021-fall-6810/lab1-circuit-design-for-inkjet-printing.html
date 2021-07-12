@@ -58,7 +58,7 @@ In this lab, you will first create the circuit drawing for your music card and t
 
 <h3>Steps:</h3>
 <ol>
-	<li><a href="#INSTALL">Install Drawing Program and Download Visual Design File.</a></li>
+	<li><a href="#INSTALL">Install Drawing Program and Download Visual Design File</a></li>
 	<li><a href="#BUTTON">Add Touch Button, Wires, and Connector Pads</a></li>
 	<li><a href="#SLIDER">Add Touch Slider Segments, Wires, and Connector Pads</a></li>
 	<li><a href="#VERIFY">Verify your Design</a></li>
@@ -82,36 +82,35 @@ At the end of the lab, upload to your student google drive:
 
 <h3 id="INSTALL">(1) Install Drawing Program and Download Visual Design File</h3>
 
-<b>Download and Install Drawing Program:</b> We recommend to use <a href="https://ist.mit.edu/adobe/cc">Adobe Illustrator, as all MIT students have access to free Adobe Creative Cloud here</a>. All our instructions will be based on Adobe Illustrator. If you use a different drawing program, that's fine but we may be less knowledgable on how to use it and may not be able to help you as much.<br><br>
+<b>Download and Install Drawing Program:</b> We recommend to use <a href="https://ist.mit.edu/adobe/cc">Adobe Illustrator. All MIT students have access to free Adobe Creative Cloud licenses here</a>. All our instructions will be based on Adobe Illustrator. If you use a different drawing program that's fine but we may be less knowledgable on how to use it and may not be able to help you as much.<br><br>
 
 <b>Download and Open Visual Design File:</b> To get started, <a href="images/lab1/lab1-music-card-final-size.pdf">download the visual design file for our music card here and open it in your drawing program.</a><br><br>
 
 <b>Adjust the Document Settings:</b> Once you opened the design file, adjust the document settings if necessary in the following way:<br><br>
 
-    <ul><li><i>Set Document Color Mode to CMYK:</i> Since we will print our document later, please set the document color mode to CMYK (not RGB, which is for on-screen documents). In Illustrator, you can set the color mode by clicking on File->Document Color Mode->CMYK Color </li>
+    <ul><li><i>Set Document Color Mode to CMYK:</i> <span style="color:red">Since we will print our document later, please set the document color mode to CMYK (not RGB, which is for on-screen documents). In Illustrator, you can set the color mode by clicking on</span><code>File->Document Color Mode->CMYK Color</code></li>
     
     
-    <li><i>Set Units to mm:</i> If your drawing is still set to 'pts' as a measurement unit, set it to mm. In Illustrator, you can set the units by clicking on Edit->Preferences->Units... and set all units to mm.</li>
+    <li><i>Set Units to mm:</i> If your drawing is still set to 'pts' as a measurement unit, set it to mm. In Illustrator, you can set the units by clicking on <code>Edit->Preferences->Units</code> and set all units to mm.</li>
 </ul>
 
 <h3 id="BUTTON">(2) Add Touch Buttons</h3>
 
-For our interactive card, we want to add three touch buttons, one on each note (we will later use them to go to the next/previous song and pause/play the song). Touch-buttons consist of one shape + one wire + connector pad. One end of the wire connects to the touch button shape and the other end connects to a connector pad, which will in turn connect to the microcontroller.<br><br>
+For our interactive card, we want to add three touch buttons, one on each note (we will later use them to go to the next and previous song and pause/play the song). Touch buttons consist of one shape + one wire + one connector pad. One end of the wire connects to the touch button shape and the other end connects to the connector pad which will in turn connect to the microcontroller.<br><br>
 
 <img src="images/lab1/lab1-design-planning_new.png" width="350px" />
 <img src="images/lab1/lab1-single-touch-button_new.png" width="350px"><br><br>
     
-<b>Video Tutorial</b><br>
-Below, you'll find a video tutorial that shows you all steps to add one touch button. Your task will be to add all three touch buttons on top if the notes.<br><br>
+<b>Video Tutorial:</b> Below, you'll find a video tutorial that shows you all steps to add one touch button. Your task will be to add all three touch buttons on top if the notes.<br><br>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/lqoFW1YgBa8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
 
-<b>Create a New Layer:</b> Start by creating a new layer in your design file for the circuit design. You need to create the circuit design on a separate layer than the visual design because later you need to export two files separately, the visual design in one pdf and the circuit design in a separate pdf. Using a separate layer for each allows you to turn each part of the design on/off quickly for export.<br><br>
+<b>Create a New Layer:</b> Start by creating a new layer in your design file and rename it to <code>circuit design</code>. <span style="color:red">We already renamed the original layer to be called</span> <code>visual design</code>. You need to create the circuit design on a separate layer than the visual design because later you need to export two files separately, the visual design in one pdf and the circuit design in a separate pdf. Using a separate layer for each allows you to turn each part of the design on/off quickly for export.<br><br>
 
-<b>Draw the Touch Button Shape:</b> Once you created your circuit design layer, draw the first touch button shape on it. A touch button should be large enough for a user's finger. The size of a finger tip is roughly an area of 2cm x 2cm. In the design we gave you, the size of each note body is roughly the size of a finger pad, so as long as you make a shape the size of the note it should be fine.<br><br>
+<b>Draw the Touch Button Shape:</b> Once you created your circuit design layer, draw the first touch button on it. A touch button should be large enough for a user's finger. The size of a finger tip is roughly an area of 2cm x 2cm. In the design we gave you, the size of each note body is roughly the size of a finger pad, so as long as you make a shape the size of the note it should be fine.<br><br>
 
-<b>Draw the Connector Pad:</b> In order to connect the touch sensor to your ESP32 microcontroller in a later lab, we have to add connector pads at the edge of the music card. The connector pad for the microcontroller needs to be large enough to connect to a crocodile clamp. Therefore, the connector pad should be 1cm x 1cm to be on the safe side. Make sure your connector pads are close enough to the border of the card so that a crocodile clamp can reach it (recommended to have lesser than 5mm distance from the border). Make sure to not exceed the boundaries of the music card since we will later cut it out.<br><br>
+<b>Draw the Connector Pad:</b> In order to connect the touch sensor to your ESP32 microcontroller later, we have to add connector pads at the edge of the music card. We recommend to place all the connector pads for the touch buttons on the right side of the card (we will later draw more connector pads for the slider, so using the right side for touch buttons will ensure we will have enough space later). The connector pad for the microcontroller needs to be large enough to connect to a crocodile clamp. Therefore, the connector pad should be 1cm x 1cm. Make sure your connector pads are close enough to the border of the card so that a crocodile clamp can reach it (we recommend to place them less than 5mm away from the card border). Make sure to not exceed the boundaries of the music card since we will later cut it out.<br><br>
     
-<b>Draw the Wire:</b> Next, draw a wire from the touch button to the edge of the card (we recommend you route all your wires to the right edge of the card). Your wire should be 1mm thick. The thickness of the wire determines its conductivity (larger cross-section == higher conductivity). With 1mm we are on the safe side given the conductive ink we use and its resistance. Make sure that all wires are located inside the boundaries of your card since we will layer cut out the card.<br><br>
+<b>Draw the Wire:</b> Next, draw a wire from the touch button to the connector pad. Your wire should be 1mm thick. The thickness of the wire determines its conductivity (larger cross-section == higher conductivity). With 1mm we are on the safe side given the conductive ink we use and its resistance. Make sure that all wires are located inside the boundaries of your card since we will layer cut out the card.<br><br>
 
 Repeat all steps for the other two touch buttons.<br><br>
 
