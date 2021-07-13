@@ -62,11 +62,13 @@ In this problem set, you will add blob detection to the grayscale image you gene
 
 <b>Steps:</b>
 <ol>
-	<li>Implement blob detection to extract the touch point coordinates.</li>
-	<li>Enable the multi-touch pad to recognize different finger gestures using a gesture recognizer</li>
+	<li><a href="#BLOBDETECTION">Implement blob detection</a></li>
+	<li><a href="#COORDINATES">Extract the touch point coordinates from blob(s)</a></li>
+	<li><a href="#GESTURERECOGNIZER">Enable the multi-touch pad to recognize finger gesture using a gesture recognizer</a></li>
+	<li><a href="#FINGERGESTURES">Design your customized finger gestures</a></li>
 </ol><br>
 
-<h3>(1) Implement Blob Detection</h3>
+<h3 id="BLOBDETECTION">(1) Implement Blob Detection</h3>
 
 In pset4, you created a grayscale image in which brighter pixels correspond to higher signal values. While you can now determine with your eyes where the multi-touch pad was touched, your program should also be able to do this automatically and tell you at which (x,y) coordinate it sees a touch point. To do this, we need to write code that detects the white 'blobs' in the image. This is called 'blob detection'.<br><br> 
 
@@ -76,28 +78,31 @@ In pset4, you created a grayscale image in which brighter pixels correspond to h
 
 <b>Library for Blob Detection:</b> Luckily, somebody else has already provided a library for blob detection and you can see the <a href="http://www.v3ga.net/processing/BlobDetection/index-page-documentation.html">BlobDetection Reference here</a> for details on the different functions. You already installed that library at the beginning of the last pset and we already imported it into the skeleton code using the following line:<br>
 
-<pre>import blobDetection.*;</pre><br>
+<pre><code class="language-processing">import blobDetection.*;</code></pre><br>
 
 <b>Constructing BlobDetection Object:</b> First, construct a new object of the BlobDetection class the large interpolated grayscale PImage height and width. You can find the <a href="http://www.v3ga.net/processing/BlobDetection/index-page-documentation.html">BlobDetection Reference here</a>.<br><br>
 
-<b>Performing Blob Detection:</b> Next, you can use the BlobDetection instance's 'computeBlobs()'' function to detect the blobs.<br><br>
+<b>Performing Blob Detection:</b> Next, you can use the BlobDetection instance's <code class="language-processing">computeBlobs()</code> function to detect the blobs.<br><br>
 
-<b>Retrieving Blob Number:</b> Use the BlobDetection instance's 'getBlobNb()'' function to retrieve the number of blobs (i.e. fingers) in the image. If you get '0' for your blob number no matter how much you press on the multi-touch pad, read below in 'improving your results' on how to debug this.<br><br>
+<b>Retrieving Blob Number:</b> Use the BlobDetection instance's <code class="language-processing">getBlobNb()</code> function to retrieve the number of blobs (i.e. fingers) in the image. If you get '0' for your blob number no matter how much you press on the multi-touch pad, read below in 'improving your results' on how to debug this.<br><br>
 
-<b>Drawing Blob Centers and Contours Into the Image:</b> Next, we want to extract for each blob: (1) the center of the blob (i.e., center of the touch point), and (2) the contour of blob (i.e., the outline of the touch point) and then draw the touch point center, the touch point outline, and the touch point coordinates as (x,y) into our PImage. To retrieve the information from a specific blob, you can use the BlobDetection instance's getBlob() function, which returns a 'Blob' object and then use its instance functions to get its blob center and edges (refer to <a href="http://www.v3ga.net/processing/BlobDetection/index-page-documentation.html">the 'Blob' class in the documentation here</a>). Note that the contour is provided as a list of edges (i.e. lines).<br><br>
 
-Implement this in the 'drawBlobsAndEdges()' function in the skeleton code:<br><br>
+<h3 id="COORDINATES">(2) Extract Touch Point Coordinates</h3>
+
+<b>Drawing Blob Centers and Contours Into the Image:</b> Next, we want to extract for each blob: (1) the center of the blob (i.e., center of the touch point), and (2) the contour of blob (i.e., the outline of the touch point) and then draw the touch point center, the touch point outline, and the touch point coordinates as (x,y) into our PImage. To retrieve the information from a specific blob, you can use the BlobDetection instance's <code class="language-processing">getBlob()</code> function, which returns a 'Blob' object and then use its instance functions to get its blob center and edges (refer to <a href="http://www.v3ga.net/processing/BlobDetection/index-page-documentation.html">the 'Blob' class in the documentation here</a>). Note that the contour is provided as a list of edges (i.e. lines).<br><br>
+
+Implement this in the <code class="language-processing">drawBlobsAndEdges()</code> function in the skeleton code:<br><br>
 
 <img src="images/pset4/drawBlobsAndEdges-skeleton-code.png" width="600px"> <br><br>
 
 <b>Testing your Blob Detection:</b> We recommend you test your blob detection with 1 finger, 2 fingers, and 3 fingers touching the multi-touch pad to see if it can reliably determine where the finger is touching. This will become important for the next part of this problem set in which we will build a gesture recognizer.<br><br>
 
-<b>Improving your Results with a Custom Threshold:</b> If your blob detection is not finding all the blobs in your image, consider the following: Before performing blob detection, the library automatically converts your image from a grayscale image into a black/white image. The reason the library does this is because blob detection groups pixels of similar color together to find 'blobs' and that is easier to do when pixels are either white or black and not something in between as would be the case for grayscale. The library automatically picks a 'threshold' value, for instance, it may decide to convert all pixels with a value below '100' to black (i.e. '0') and all pixels above to white (i.e. '255'). If you are not getting any blobs, it may mean that during thresholding all pixels were converted to black and no white pixels are left because the threshold value was set too high. To see if a lower threshold would leave you with more white pixels, you can use the 'setThreshold()' function to determine which brightness levels from 0-255 should be taking into account when searching for blobs. Note that the threshold takes as input a float value from 0-1 so you need to scale your 0-255 values accordingly.<br><br>
+<b>Improving your Results with a Custom Threshold:</b> If your blob detection is not finding all the blobs in your image, consider the following: Before performing blob detection, the library automatically converts your image from a grayscale image into a black/white image. The reason the library does this is because blob detection groups pixels of similar color together to find 'blobs' and that is easier to do when pixels are either white or black and not something in between as would be the case for grayscale. The library automatically picks a 'threshold' value, for instance, it may decide to convert all pixels with a value below '100' to black (i.e. '0') and all pixels above to white (i.e. '255'). If you are not getting any blobs, it may mean that during thresholding all pixels were converted to black and no white pixels are left because the threshold value was set too high. To see if a lower threshold would leave you with more white pixels, you can use the <code class="language-processing">setThreshold()</code> function to determine which brightness levels from 0-255 should be taking into account when searching for blobs. Note that the threshold takes as input a float value from 0-1 so you need to scale your 0-255 values accordingly.<br><br>
 
 
-<span style="color:red">Can we give students some sample data here so they can check the OpenCV blob detection part independent of what their specific multi-touch pad returns?</span><br><br>
+You can still use the pre-recorded multi-touch pad data from PSet 4 for testing the blob detection here, in case your multi-touch pad or other hardware does not work properly.<br><br>
 
-<h3>(2) Gesture Recognizer</h3>
+<h3 id="GESTURERECOGNIZER">(3) Gesture Recognizer</h3>
 Once you have the blob detection working, you can move on to build the gesture recognizer. The goal is to be able to draw with your finger onto your multi-touch pad and have the multi-touch pad recognize what was drawn. For instance, if you swipe from left to right, your code should recognize that you made this gesture and if you draw an 'A' your code should know that an 'A' was drawn.<br><br>
 
 <b>$1 Unistroke Gesture Recognizer:</b> Luckily, you don't have to implement the gesture recognizer from scratch. Instead, you can use the $1 Unistroke Recognizer, which is available as a Processing library. The $1 Unistroke Gesture Recognizer is part of the so-called $1 Gesture Recognizer family, i.e. a set of different gesture recognizers with different capabilities, such as single stroke gesture recognition, multi-stroke gesture recognition etc. In this Pset, we are going to use the $1 Unistroke Recognizer since it is the only one that is available for Processing as a library.<br><br>
@@ -120,44 +125,46 @@ Once you have the blob detection working, you can move on to build the gesture r
 
 <b>Import $1 Unistroke Recognizer Library into Processing:</b> Now that you know a bit more about what the $1 Unistroke recognizer can and cannot do, you can move on to use the recognizer to detect gestures on your multi-touch pad. Start by importing the '$1 Unistroke Recognizer' library by going to 'Sketch -> Import Library' and finding it through the search bar. Next, import the $1 Unistroke Recognizer library into your Pset Processing code.<br>
 
-<pre>import de.voidplus.dollar.*; </pre> <br>
+<pre><code class="language-processing">import de.voidplus.dollar.*; </code></pre> <br>
 
 <b>Instantiate new Gesture Recognizer:</b> Construct a new object of the one dollar recognizer with:
-<pre>OneDollar oneDollar = new OneDollar(this);</pre> <br>
+<pre><code class="language-processing">OneDollar oneDollar = new OneDollar(this);</code></pre> <br>
 
 <b>Turn on Console Plotting:</b> Finally, turn on console plotting for the gesture recognizer using the line below. As soon as the gesture recognizer detects a gesture it will immediately print it on the console and also provide how similar it is to the closest match from the recorded template gestures (e.g. 84% similar).<br>
 
-<pre>oneDollar.setVerbose(true); \\activates console plotting</pre> <br>
+<pre><code class="language-processing">oneDollar.setVerbose(true); \\activates console plotting</code></pre> <br>
 
 <b>Creating a new finger gesture:</b> Next, you will create a new finger gesture. For starters, we will use a 'V' gesture, which is one of the most reliable ones that can be detected. Other reliable gestures are triangle, zigzag, checkmark, and anything that has some unique features. A circle, for instance, is one of the harder gestures to recognize due to its smooth outline that is easily susceptible to noise. To create a new finger gesture, you can use the following function:<br>
-<pre> oneDollar.learn(String gesture-name, int[] x-y-coordinates); // {x1, y1, x2, y2, x3, y3, x4, y4, ...} </pre> 
+<pre><code class="language-processing">oneDollar.learn(String gesture-name, int[] x-y-coordinates); // {x1, y1, x2, y2, x3, y3, x4, y4, ...} </code></pre> 
 
-<i>Recording x/y coordinates for New Finger Gesture:</i> While you could obtain the x-y-coordinates for your gesture template by tracking finger input from your multi-touch pad, we recommend not doing this and instead recommend that you draw the gesture with the mouse on screen and record the x-y coordinates from the mouseDragged() event. The reason for this is that the drawing with the mouse will give you very clear tracking points for creating your template gesture. Later on, when you draw the gesture with your multi-touch pad during actual use, this will be more fault resistant. In contrast, if you record your template gesture on the multi-touch pad, you will already have some noise in the data and it will be harder to match a gesture when there is additional noise during actual use later on. Below you see a recording of all the coordinates for our 'V' gesture that we then feed into the learn() function to add our new gesture.<br><br>
+<i>Recording x/y coordinates for New Finger Gesture:</i> While you could obtain the x-y-coordinates for your gesture template by tracking finger input from your multi-touch pad, we recommend not doing this and instead recommend that you draw the gesture with the mouse on screen and record the x-y coordinates from the mouseDragged() event. The reason for this is that the drawing with the mouse will give you very clear tracking points for creating your template gesture. Later on, when you draw the gesture with your multi-touch pad during actual use, this will be more fault resistant. In contrast, if you record your template gesture on the multi-touch pad, you will already have some noise in the data and it will be harder to match a gesture when there is additional noise during actual use later on. Below you see a recording of all the coordinates for our 'V' gesture that we then feed into the <code class="language-processing">learn()</code> function to add our new gesture.<br><br>
 
 <img src="images/pset5/add-gesture3.png" width="650px"> <br><br>
 
 <b>Connect Finger Gesture to a Callback Function:</b> Now that you have added your custom 'V' finger gesture to the gesture recognizer, you next have to define which function should be called when the gesture is being detected. Such a function is called a 'callback function' and it will be triggered every time the algorithm detects the corresponding finger gesture. You can bind the finger gesture to a callback function via the command below. Note that the call-back-function-name is only the same of the function without parenthesis and parameters.<br>
 
-<pre> oneDollar.bind(String gesture-name, String callback-function-name); </pre><br>
+<pre><code class="language-processing">oneDollar.bind(String gesture-name, String callback-function-name); </code></pre><br>
 
 <b>Implement the Callback Function:</b> Next, you need to implement the callback function. The callback function always has to be in the format as shown below, i.e. contain the same number of parameters and parameter types and return void. The function name and parameter names, however, are up to you. If upon recognizing the gesture, you just want to execute some action, you can simply add that code into the function body. If you want to build a location dependent gesture, you could also check where on the multi-touch pad the gesture started or ended etc.<br>
 
-<pre> void foo(String gesture-name, float percentOfSimilarity, int startX, int startY, int centroidX, int centroidY, int endX, int endY){
+<pre><code class="language-processing">void foo(String gesture-name, float percentOfSimilarity, int startX, int startY, int centroidX, int centroidY, int endX, int endY){
 	// do something when the gesture is detected
  }
-</pre> <br>
+</code></pre> <br>
 
 <b>Tracking the finger gestures:</b> Now that you have defined how your gesture looks like and what function should be called when it is detected, you still have to tell your code when it should start looking for the gesture. We want to start tracking gestures when our code detects a 'finger blob'.
 Therefore, you need to add the tracking function below in the blob detection method where it determines if a finger was successfully detected. The x/y coordinate in the function are the x/y coordinate of your touch point.<br>
 
-<pre> oneDollar.track(int x-coordinate, int y-coordinate);</pre>
+<pre><code class="language-processing">oneDollar.track(int x-coordinate, int y-coordinate);</code></pre>
 
-Note that you don't have to 'stop' tracking. The track() function will only be executed when Processing goes through its loop and detects a finger blob, i.e. knows a finger is present. If no finger has been present for a while, i.e. no new data is fed to the gesture recognizer, the recognizer will automatically determine that the gesture has ended and will provide its best guess at what gesture was executed. <br><br>
+Note that you don't have to 'stop' tracking. The <code class="language-processing">track()</code> function will only be executed when Processing goes through its loop and detects a finger blob, i.e. knows a finger is present. If no finger has been present for a while, i.e. no new data is fed to the gesture recognizer, the recognizer will automatically determine that the gesture has ended and will provide its best guess at what gesture was executed. <br><br>
 
 <b>Visualize Gesture Detection Result:</b> Finally, once your gesture is detected, your callback function should visualize the detected gesture. You can do this by writing the name of the detected gesture into the Processing UI window as shown in the top left corner of the images below.<br>
 
 <img src="images/pset5/UI-recognizer-A2.png" width="350px">
 <img src="images/pset5/UI-recognizer-C2.png" width="350px"> <br><br>
+
+<h3 id="FINGERGESTURES">(4) Design Customized Finger Gestures</h3>
 
 <b>Create 3 Different Gestures:</b> Implement 3 different finger gestures that can be recognized by your multi-touch pad. For example, you can implement finger input for recognizing letters (A, C etc.), 2D shapes (triangle, circle etc.), and symbols (check mark etc.). Note that in good gesture design, the gesture should be related to what function is being called. For instance, you cannot draw a 'star' and associate it with a 'smile'. Instead, it would be better to draw a 'half circle', which more closely resembles a 'smile'. Similarly, gestures cannot be too abstract. For instance, you cannot have your finger draw one straight line on the multi-touch pad and the system recognizes it as 'fish'. Instead, there are better one-stroke gestures that could represent a fish outline. <br><br>
 
