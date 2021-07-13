@@ -99,7 +99,7 @@ Since Arduino has no libraries for graphical user interfaces, we will send our t
 
 <b>Create New Processing Program:</b> Open Processing and create a new program.<br><br>
 
-<b>setup() and draw() functions:</b> Similar to Arduino, every Processing program has two functions: one that is run only once (setup()) and one that is looping forever (draw()). Create both functions in your empty Processing file.<br><br>
+<b>setup() and draw() functions:</b> Similar to Arduino, every Processing program has two functions: one that is executed only once (setup()) when you run the script, and another function that loops forever (draw()). Create both functions in your empty Processing file.<br><br>
 
 <pre>
 void setup() { // runs only once
@@ -131,12 +131,12 @@ To create the port, you need to define three things:
 <li>which baudrate is expected to be able to decode the messages (same as you used in Arduino)</li>
 </ol> 
 
-<pre>myPort = new Serial(this, <span style="color:red">int</span> portName, <span style="color:red">int</span> baudrate);</pre><br>
+<pre>myPort = new Serial(this, <span style="color:red">String</span> portName, <span style="color:red">int</span> baudrate);</pre><br>
 
 <i>portName:</i> For the <code>portName,</code> you can get a list of all available ports from the Serial library. By accessing different buckets of the list, you can get access to the name of each port. The correct port is the one you also used in your Arduino program, i.e. this is where the microcontroller is connected to your laptop. Check if the correct portname is in bucket 0, 1, or 2 by printing it and then use the bucket as the parameter in the Serial constructor.<br>
 
 <pre>// check which port you use: 0, 1, 2?
-String portName = Serial.list()[2];
+String portName = Serial.list()[0];
 print(portName);</pre><br>
 
 <i>baudrate:</i> For the <code>baudrate</code>, you already know this from your Arduino program that you uploaded to the microcontroller. Check in your Arduino program with which baudrate you initialized the Serial communication and then use it as the parameter in the Serial constructor. If you use a different baudrate than you wrote into the Arduino program, you will only get a lot of random stuff back since your Processing application will not know how to 'translate' the messages that are coming from the microcontroller since it would 'speak' at a different frequency than the Processing application would 'listen'.<br><br>
@@ -150,7 +150,7 @@ Now that we have the port defined, we can see if data is available and if the an
 <b>Reading Serial Data into a String:</b> Below, we provide some starter code for you to read the Serial data into a string. Add the lines to your draw() function so they are executed continuously:<br><br>
 
 <pre>
-// we are sending data in the format: <i>(sensor ID),(is_touched)(newline)</i> (4 characters)
+// we are sending data in the format: <i>(sensor ID),(is_touched);</i> (4 characters)
 // (sensor ID) is either 0, 1 or 2 and represents the ID of the observed touch sensor
 // (is_touched) is either 0 or 1 (0 if the sensor is not touched, and 1 if it is touched)
 
