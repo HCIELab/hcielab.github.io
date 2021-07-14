@@ -15,6 +15,9 @@
 	<!-- jQuery -->
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
+	<!-- Prism for adding the code snippets-->
+	<link href="../../css/prism.css" rel="stylesheet" />
+
 	<!-- Google Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
@@ -41,6 +44,8 @@
 <header class="main_header">
 	<!-- to be filled by javascript, see header.html -->
 </header>
+
+<script src="../../js/prism.js"></script> 
 
 <section class="main_container">
 	<div class="container">
@@ -69,7 +74,7 @@ In this problem set, you will write Processing code that takes as input the sens
 In case you did not finish pset3, you can ask a TA to provide you with a piece of Arduino code that will simulate sending touch data. If you finished pset3, but it turns out that the data you receive is shaky, you can also get the simulation code.</div>
 
 
-<h3>Download Skeleton Code and Install Libraries</h3><br>
+<h3>Download Skeleton Code and Install Libraries</h3>
 
 <b>Download Skeleton Code:</b> Start by downloading <a href="software/pset_visualization_skeleton_v5.zip" style="color:blue">the skeleton code for the pset4 from  here</a>.<br><br>
 
@@ -77,14 +82,16 @@ In case you did not finish pset3, you can ask a TA to provide you with a piece o
 
 <i>Install OpenCV library:</i> <code>OpenCV</code> is a library that helps with image processing. In our case we will draw our touch signals into an image. You can install the library directly in Processing by going to <code>Sketch/Import Library/Add Library</code> and searching for <code>OpenCV</code>.<br><br>
 
-<i>Install BlobDetection library:</i> <code>BlobDetection</code> is a library that helps to find blobs inside of images, in our case the blobs are the touch points on the multi-touch pad. We will use this in pset5 later. You can install the library directly in Processing by going to: <code>Sketch/Import Library/Add Library</code> and searching for <code>BlobDetection</code>. You will not be using this library in pset4. However, because pset4 & 5 use the same skeleton code, we ask you to install this library here so that the skeleton code can compile without error.<br><br>
+<i>Install BlobDetection library:</i> <code>BlobDetection</code> is a library that helps to find blobs inside of images, in our case the blobs are the touch points on the multi-touch pad. We will use this later in pset5. You can install the library directly in Processing by going to: <code>Sketch/Import Library/Add Library</code> and searching for <code>BlobDetection</code>. You will not be using this library in pset4. However, because pset4 & 5 use the same skeleton code, we ask you to install this library now so that the skeleton code can compile without error.<br><br>
 
 <img src="images/pset4/processing-library-opencv.png" width="370px">
 <img src="images/pset4/processing-library-blob-detection.png" width="370px"> <br><br>
 
-<h3 id="READPROCESSING">(1) Read Multi-Touch Sensing Data into Processing</h3><br>
+<h3 id="READPROCESSING">(1) Read Multi-Touch Sensing Data into Processing</h3>
 
-<b>Read Data from Serial Port Into Processing:</b> At the end of the last pset, your <code>Arduino</code> code wrote the received touch data onto the serial port in the format seen below. <br><br>
+<b>Use Pre-recorded Data:</b> While you are welcome to write the code for the next sections based on 'live data' from your multi-touch pad, it may be easier to start with clean pre-recorded data since this allows you to exclude potential hardware failures. You can <a href="software/pset-sudo-touch-data.txt" style="color:blue">download prerecorded data in the form of a text file from here</a>. The prerecorded data contains data for no touch, touch with one finger, and touch with two fingers in the same format as you wrote it to the Serial Port with your Arduino Code. <span style="color:red">We should provide them with the code to do this: You can read through the text file and write them into Serial port line by line (via Arudino IDE, Python etc.) and it will simulate non-touch, one-finger touch and two-finger touch states.</span><br><br>
+
+<b>Read Data from Serial Port Into Processing:</b> Remember from the last pset that the touch data is written onto the serial port one line at a time in the format seen below. <br><br>
 
 <pre>
 0,50,83,58,79,108,75,82,54   //columm0, row0val, row1val, row2val
@@ -99,80 +106,84 @@ In case you did not finish pset3, you can ask a TA to provide you with a piece o
 ...
 </pre> <br>
 
-You now need to read this data from the serial port into Processing. We have already shown you how to read data from the serial port into Processing in Lab 3 & 4 and you can check your prior code from back then to see how to do it. Put your code for reading the data into the <code>readSerial()</code> function: <br>
+You now need to read this data from the serial port into Processing. We have already shown you how to read data from the serial port into Processing in Lab 3 & 4 and you can check your prior code from back then to see how to do it. Put your code for reading the data into the <code class="language-processing">readSerial()</code> function: <br>
 <img src="images/pset4/readSerial-skeleton-code.png" width="700px"> <br>
 
-<b>Save Data for One Complete Scanning Pass into a 2D Array:</b> The data for a single pass on all columns and rows should be saved into a 2D array. When considering the size of your 2D array, remember that we build a 9x8 multi-touch pad. Printing the 2D array to the Processing command line should look something like the print out below. Every time a new pass over all columns/rows starts, you need to override your array values. You can either update the whole 2D array at once, or update it row by row whenever there is a data line coming from Serial Port. We would recommend you to update the 2D array row by row (i.e. update the corresponding row values whenever there is data coming in from Serial Port based on the "column number" at the beginning of the data). This is because (1) in the PSet3 Arudino code we send the touch values line by line, and (2) the Serial port can sometimes gets noisy and contaminates some data lines, we don't want to hold up the 2D array update due to one missing/contaminated data line.<br><br>
+<b>Save Data for One Complete Scanning Pass into a 2D Array:</b> The data for a single pass on all columns and rows should be saved into a 2D array. When considering the size of your 2D array, remember that we build a 9x8 multi-touch pad. Printing the 2D array to the Processing command line should look something like the print out below. Every time a new pass over all columns/rows starts, you need to override your array values. Instead of overriding the whole array at once, update the array row by row whenever there is new data coming from the serial port, i.e. update the row values based on the "column number" at the beginning of the data. <br><br>
 
 <img src="images/pset4/serial-read-array-one-pass.png" width="750px"> <br><br>
 
-<h3 id="REDUCENOISE">(2) Clean Received Signal by Reducing Noise</h3><br>
+<b>Use Your Own Multi-touch Pad Data & Clean up Values:</b> Once this is working, try using your own live data. You will notice that this data will be a lot more messy, i.e. sometimes a dataline will be completely missing, and othertimes there may be unrecognized characters. Make sure your <code class="language-processing">readSerial()</code> function properly handles these unexpected characters and formats, and stores only the valid data. <span style="color:red">You can look at the stringXX class for how to clean up the data.</span> This messy data was also the reason why we update the array line by line not as a whole since we don't want that a single missing/contaminated data line holds up the entire 2D array update. <br><br>
+
+
+<h3 id="REDUCENOISE">(2) Clean Received Signal by Reducing Noise</h3>
 
 As you may have noticed, even when you are not touching the multi-touch pad, the receiver pins almost always receive some value although you would expect that they should receive '0'. This is what we call "noise" in signal processing.<br><br>
 
-<b>Factors that Cause Noise:</b> Noise can be caused by a variety of factors. On the entire multi-touch pad, noise can be caused by the <i>substrate the multi-touch pad is placed on</i>, i.e. depending on if you place it on a glass table or a wooden table the noise level will be different. Additionally, noise can be different at each of the connection points in the circuit. For instance, <i>each FPC connector and each wire</i> may have different noise levels since the conductive lines all make slightly different levels of contact.
-Furthermore, since the inkjet printed circuit may not be perfectly consistent everywhere either because of <i>uneven printing</i> or because of <i>different aging levels over time</i>, the different printed paths may also have different levels of noise.
+<b>Factors that Cause Noise:</b> Noise can be caused by a variety of factors. On the entire multi-touch pad, noise can be caused by the <i>substrate the multi-touch pad is placed on</i>, i.e. if you place it on a glass table or a wooden table the noise level will be different. Additionally, noise can be different at each of the connection points in the circuit. For instance, <i>each FPC connector and each wire</i> may have different noise levels since the conductive lines all make slightly different levels of contact.
+Furthermore, since the inkjet printed circuit may not be perfectly consistent everywhere either because of <i>uneven printing</i> or because of <i>different ageing levels over time</i>, the different printed paths may also have different levels of noise.
 Finally, in addition to the reasons above, we can also have different noise levels on a single row of electrodes because the <i>distance between the receiver pin and each electrode in the row is different</i>, thus the electodes further away accumulate noise over a larger distance.
-All of these factors together result in different noise levels at each point in your multi-touch pad. Noise is an issue because it can lead to false positives, i.e. your code may think the multi-touch pad was touched although no interaction occured. To prevent this, we need to eliminate the noise in our signal.<br><br>
+All of these factors together result in different noise levels at each point in your multi-touch pad. Noise is an issue because it can lead to false positives, i.e. your code may think the multi-touch pad was touched although no interaction occured. To prevent this, we need to eliminate the noise in our signals.<br><br>
 
 <b>Eliminating Noise with a Noise Baseline Filter:</b> In order to eliminate the noise and have more "clean" data, we will implement a simple noise baseline filter. A noise baseline filter works in two steps:<br><br>
 
-<i>(1) Record Noise Baseline Signal:</i> First, record the signal when you are <b>not</b> touching the multi-touch pad. Record 2 seconds of non-touch data and then average the values to create the noise baseline value. Note that you need to record and compute the noise baseline for every position in your multi-touch pad for the reasons mentioned above, i.e. that every position has its own level of noise. Thus, in the end you should have 9x8 = 72 noiseline base values in total, which should be saved in a noise baseline 2D array. You only have to do this once at the beginning (and please only do it once and not again and again in the loop()). Implement the noise baseline in the 'setBaseLine()'' function and change the 'boolean baseLineSet' in the skeleton code to "true" once the baseline is set. Java's native 'System.nanoTime()' or Processing's 'millis()' funtion may be helpful. For more details, you can look at <a href="https://processing.org/reference/millis_.html"> the reference here </a>.<br>
+<i>(1) Record Noise Baseline Signal:</i> First, record the signal when you are <code>not</code> touching the multi-touch pad. Record 2 seconds of non-touch data and then average the values to create the noise baseline value. Note that you need to record and compute the noise baseline for every position in your multi-touch pad for the reasons mentioned above, i.e. that every position has its own level of noise. Thus, in the end you should have 9x8 = 72 noiseline base values in total, which should be saved in a noise baseline 2D array. You only have to do this once at the beginning (and please only do it once and not again and again in the loop()). Implement the noise baseline in the <code class="language-processing">setBaseLine()</code> function and change the <code>boolean baseLineSet</code> in the skeleton code to <code>true</code> once the baseline is set. Use Java's native 'System.nanoTime()' or <a href="https://processing.org/reference/millis_.html">Processing's 'millis()' funtion</a> to find out how many seconds you already recorded data.<br><br>
 
-<img src="images/pset4/setBaseLine-skeleton-code.png" width="600px"> <br>
+<img src="images/pset4/setBaseLine-skeleton-code.png" width="600px"> <br><br>
 
-<i>(2) Subtract Noise Baseline from Incoming Signal:</i> Next, you need to subtract the noise baseline value from the incoming signal. If you don't touch the multi-touch pad, the noisy incoming signal minus the noise baseline will equal 0 (or at least be close to it) and thus the chance of false positives is much smaller, i.e. the chance that your code thinks that a touch occured although there was none is greatly reduced. Implement this in the 'subtractBaseLine()' function. You should also make sure the "clean" sensing values stored after the subtraction are not negative (if the subtraction result is less than 0, set that value to 0).<br>
+<i>(2) Subtract Noise Baseline from Incoming Signal:</i> Next, you need to subtract the noise baseline value from the incoming signal. If you don't touch the multi-touch pad, the noisy incoming signal minus the noise baseline will equal 0 (or at least be close to it) and thus the chance of false positives is much smaller, i.e. the chance that your code thinks that a touch occured although there was none is greatly reduced. Implement this in the <code class="language-processing">subtractBaseLine()</code> function. You should also make sure the "clean" sensing values stored after the subtraction are not negative (if the subtraction result is less than 0, set that value to 0). Don’t worry too much if you are not getting exactly 0 for the subtracted results, as long as you are getting distinguishable numbers when you are touching vs. not touching the multi-touch pad. If you are not getting good results for the noise baseline, you can increase the baseline time period to a longer time period, such as 5 seconds instead of only 2 seconds, to be able to average more numbers together before substracting the result. <br><br>
 
-<img src="images/pset4/substractBaseLine-skeleton-code.png" width="600px"> <br>
+<img src="images/pset4/substractBaseLine-skeleton-code.png" width="600px"> <br><br>
 
 <h3 id="GRAYSCALEIMAGE">(3) Convert Received Signals into Grayscale Values</h3>
 
-Now that we have "clean" sensing values, our next step is to find out <b>where</b> the multi-touch pad was actually touched.<br><br>
+Now that we have "clean" sensing values, our next step is to find out <code>where</code> the multi-touch pad was touched. For this part, you will be mainly working on the <code class="language-processing">setColor()</code> function. Note that if you didn't finish the previous section #2, you can still work on this section here by using the pre-recorded data from section #1 and converting them to grayscale as described below.<br><br>
 
-<b>Using Image Processing for Detecting Touch Points:</b> While there are multiple different ways to find our where the multi-touch pad was touched, we will use an approach based on image-processing. First, we will convert our 9x8 analog sensor signals into grayscale values and then draw the grayscale values into a 9x8 pixel image. Brighter pixels will correspond to higher sensor signals (i.e. touch points) while darker pixels will correspond to areas that were not touched. Since image processing on such a small 9x8 pixel image is too difficult, we will increase the size of the image to 500x500px using bicubic interpolation to fill in for the missing pixel values. After this, we can use 'blob' detection to extract the white blobs in the image (i.e. the touch points) and get the touch coordinates from the blobs.<br><br>
+<img src="images/pset4/setColors-skeleton-code.png" width="730px"> <br><br>
+
+<b>Using Image Processing for Detecting Touch Points:</b> While there are multiple different ways to find our where the multi-touch pad was touched, we will use an approach based on image-processing. First, we will convert our 9x8 analog sensor signals into grayscale values and then draw the grayscale values into a 9x8 pixel image. Brighter pixels will correspond to higher sensor signals (i.e. touch points) while darker pixels will correspond to areas that were not touched. Since image processing on such a small 9x8 pixel image is too difficult, we will then increase the size of the image to 500x500px using bicubic interpolation to fill in for the missing pixel values. Later in pset5, we can then use 'blob' detection to extract the white blobs in the image (i.e. the touch points) and get the touch coordinates from the blobs. Let's get started with the first step.<br><br>
 
 <img src="images/pset4/UI-blob-touch-3.png" width="300px"><br><br>
 
 <b>Creating the 9x8 Pixel Image:</b> Construct an image (PImage) the same size as the 2D array that contains the sensing data. This PImage will be tiny (9x8 pixel) and you will likely have to search a bit for it on screen in case you decide to display it for debugging purposes.<br><br>
 
-<b>Converting the Sensor Signals into Grayscale Values:</b> Before we can draw our analog sensor signals into the PImage as grayscale values, we have to make sure they have the correct range, i.e. are between 0-255. You therefore have to scale your sensor signals accordingly. To scale your sensor values to a range of 0 - 255, you can use <a href="https://processing.org/reference/map_.html">the 'map()' function</a> in Processing. As you can see in <a href="https://processing.org/reference/map_.html">the map() function reference,</a> apart from the incoming value to be converted, we also have to set four "scaling" values:<br><br>
+<b>Converting the Sensor Signals into Grayscale Values:</b> Before we can draw our analog sensor signals into the PImage as grayscale values, we have to make sure they have the correct range, i.e. are between 0-255. You therefore have to scale your sensor signals accordingly. To scale your sensor values to a range of 0 - 255, you can use <a href="https://processing.org/reference/map_.html">the <code class="language-processing">map()</code> function</a> in Processing. As you can see in <a href="https://processing.org/reference/map_.html">the <code class="language-processing">map()</code> function reference,</a> apart from the incoming value to be converted, we also have to set four "scaling" values:<br><br>
 
 <img src="images/pset4/map-function-parameters.png" width="350px"> <br><br>
 
 <i>start2/stop2 (target):</i> The last two parameters, i.e. our target range, are pretty straight forward since we already discussed we want to scale to 0 - 255.<br><br>
 
-<i>start1/stop1 (source):</i> <span style="color:red">For the source parameters, use the middle-to-low end sensor reading when you are not touching for start1, and middle-to-high sensor reading when you are touching for stop1. (this is super confusing, how would I even get a middle-to-high sensor reading?)</span> You can think of these 2 parameters as "min-input-range" and "max-input-range" of your incoming sensing data. <span style="color:red">We will revisit this later and it will become more clear why that is a good strategy.</span><br><br>
+<i>start1/stop1 (source):</i> For the source parameters, you can think of these 2 parameters as "min-input-range" and "max-input-range" of your incoming sensing data. These two values largely depend on your own hardware (i.e., your multi-touch pad). To find a good value for the min-input-range, you can print out the no-touch baseline values from Section #2 (i.e. sensing values after the noise substruction), and pick a "middle-to-low" value from the different values in the array. To find a good value for the max-input-range, look at the printed values when you are touching the entire multi-touch pad, and pick a "middle-to-high" value. You might want to play around with these values later after we scaled up the image to achieve a more "clean" visualization.<br><br>
 
 <b>Drawing the Grayscale Values into the 9x8 Pixel Image:</b> After you scaled your sensor values, use them to set the pixel color of each pixel in the 9x8 pixel PImage. If you set a PImage's pixels to a single color value from 0 (black) - 255 (white), it will automatically be treated as grayscale.<br><br>
 
-Put your code into the <b>setColors()</b> function in the skeleton code <span style="color:red">which part of the code? we may want to reference that earlier</span>: <br><br>
-<img src="images/pset4/setColors-skeleton-code.png" width="700px"> <br><br>
-
 <h3 id="BICUBIC">(4) Scale Up Image Using Bicubic Interpolation</h3>
 
-Each sensor value represents the measured value at the intersection of an electrode column with a row. While this gives us 9x8 = 72 values, it is a very sparse representation of what is actually going on on the multi-touch pad, i.e. where the user is touching. To increase the space of sensor values, you can use 'interpolation' to make an informed guess about signal values that would occur in the space between two measured signals. Thus, in the next step, we will first increase the overall image size, then draw in the few pixel values we know for sure, and then use interpolation to guess the grayscale values at each of the pixels that don't have an actual sensor value associated with them.<br><br>
+Each sensor value represents the measured value at the intersection of an electrode column with a row. While this gives us 9x8 = 72 values, it is a very sparse representation of what is actually going on on the multi-touch pad, i.e. where the user is touching since the user's finger may be in-between rows/columns. To increase the space of sensor values, you can use <code>interpolation</code> to make an informed guess about signal values that would occur in the space between two measured signals. Thus, in the next step, we will first increase the overall image size, then draw in the few pixel values we know for sure, and then use interpolation to guess the grayscale values at each of the pixels that don't have an actual sensor value associated with them.<br><br>
 
-<b>Interpolation Methods:</b> There are many different interpolation techniques that can be used to interpolate the pixel values to create a smooth scaled up appearance of the original input image. Some of simplest interpolation methods are bi-linear and bi-cubic interpolation. <i>Bi-linear interpolation</i> considers the closest 2x2 neighborhood of known pixel values surrounding the unknown pixel. It then takes a weighted (by distance) average of these 4 pixels to arrive at its final interpolated value. <i>Bi-cubic interpolation</i> is similar but considers the closest 4x4 neighborhood of known pixels — for a total of 16 pixels. Closer pixels are given a higher weighting in the calculation. Bicubic interpolation produces noticeably smoother images than the bi-linear interpolation since it considers more values than bilinear interpolation. However, it also needs higher computational power since more values need to be processed to generate the interpolated value. For our small multi-touch pad with only a few hundred interpolated values this is not an issue but if you had to do more interpolation it may slow the processing down and the multi-touch pad detection would start lagging behind the user's finger movements.<br><br>
+<b>Interpolation Methods:</b> There are many different interpolation techniques that can be used to interpolate the pixel values to create a smooth scaled up appearance of the original input image. Some of simplest interpolation methods are bi-linear and bi-cubic interpolation. <i>Bi-linear interpolation</i> considers the closest 2x2 neighborhood of known pixel values surrounding the unknown pixel. It then takes a weighted (by distance) average of these 4 pixels to arrive at its final interpolated value. <i>Bi-cubic interpolation</i> is similar but considers the closest 4x4 neighborhood of known pixels — for a total of 16 pixels. Closer pixels are given a higher weight in the calculation. Bicubic interpolation produces noticeably smoother images than the bi-linear interpolation since it considers more values than bilinear interpolation. However, it also needs higher computational power since more values need to be processed to generate the interpolated value. For our small multi-touch pad with only a few hundred interpolated values this is not an issue but if you had to do more interpolation it may slow the processing down and the multi-touch pad's touch detection would start lagging behind the user's finger movements.<br><br>
 
 <img src="images/pset4/multi-touch-interpolate-bilinear-bicubic.png" width="500px"><br><br>
 
-<b>Using OpenCV for Bi-Cubic Interpolation:</b> Luckily, you do not have to implement the bicubic interpolation from scratch. There is an image processing and computer vision library called <a href="https://opencv.org/courses/">'OpenCV' that has functions for this.</a> OpenCV exists as a library for many different programming languages, in our case we will use OpenCV's implementation for Java and Processing.
-Remember, at the beginning of pset3, you already installed the OpenCV library. If you scroll up in your skeleton code, you can see that we already imported several classes of the library with:<br><br>
+<b>Using OpenCV for Bi-Cubic Interpolation:</b> Luckily, you do not have to implement the bicubic interpolation from scratch. There is an image processing and computer vision library called <a href="https://opencv.org/courses/"><code>OpenCV</code> that has functions for this.</a> OpenCV exists as a library for many different programming languages, in our case we will use OpenCV's implementation for Java and Processing.
+Remember, at the beginning of this pset, you already installed the OpenCV library. If you scroll up in your skeleton code, you can see that we already imported several classes of the library with:<br><br>
 
-<pre>
+<pre> 
+<code class="language-processing">
 import gab.opencv.*;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
+</code>
 </pre><br>
 
-If you look <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/imgproc/Imgproc.html">at the documentation of the 'Imgproc' class,</a> you will see that it provides a 'resize()'' function, which allows us to specify which interpolation method we want to use.<br><br>
+If you look <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/imgproc/Imgproc.html">at the documentation of the 'Imgproc' class,</a> you will see that it provides a <code class="language-processing">resize()</code> function, which allows us to specify which interpolation method we want to use.<br><br>
 
 <img src="images/pset4/imgproc-resize.png" width="750px"><br><br>
 
-<i>Mat src:</i> <span style="color:red">Is there a reason we are <a href="http://atduskgreg.github.io/opencv-processing/reference/">not using the toCV() function?</a></span> This is the input image (9x8px) that we want to resize. As you can see, the image here is in the format <b>Mat</b> (Matrix) and not PImage. We therefore first have to convert our PImage into a Mat. In image processing, images are handled as 2D matrices, where every matrix entry is the color value of one pixel (i.e. 0-255 in our case). You can also think of the 2D matrix as a 2D array with pixel values in rows and columns. To convert your PImage into a Mat, first construct a new OpenCV object by providing the PImage in the constructor and <span style="color:red">using 'this' for the PApplet</span> and then call the 'getGray()' function on your OpenCV object, which will return the image as a Mat.<br><br>  
+<i>Mat src:</i> This is the input image (9x8px) that we want to resize. As you can see, the image here is in the format <code>Mat</code> (Matrix) and not PImage. We therefore first have to convert our PImage into a Mat. In image processing, images are handled as 2D matrices, where every matrix entry is the color value of one pixel (i.e. 0-255 in our case). You can also think of the 2D matrix as a 2D array with pixel values in rows and columns. To convert your PImage into a Mat, first construct a new OpenCV object with the size of the PImage in the constructor, <span style="color:red">load the PImage, (what does that mean?)</span> and then call the <code class="language-processing">getGray()</code> function on your OpenCV object, which will return the image as a Mat.<br><br>  
 
-<i>Mat dest:</i> This is the interpolated output image. Create an empty matrix of 500x500px and use it as the parameter. To create the matrix, you can use the constructor from the <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/core/Mat.html">OpenCV Mat Reference</a> called 'Mat(int rows, int cols, int type)'. Similar to how other variables have a type, e.g. int or float, matrices also have types, which refer to what types of values can be stored in the matrix. Since the type of our src matrix and our dest matrix need to match, it is best to directly retrieve the type from the src matrix and then use this as the parameter in the Mat constructor. Check the <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/core/Mat.html">OpenCV Mat Reference</a> and you will see that each Mat has a 'type()' function that returns you the type.<br><br>
+<i>Mat dest:</i> This is the interpolated output image. Create an empty matrix of 500x500px and use it as the parameter. To create the matrix, you can use the constructor from the <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/core/Mat.html">OpenCV Mat Reference</a> called 'Mat(int rows, int cols, int type)'. Similar to how other variables have a type, e.g. int or float, matrices also have types, which refer to what types of values can be stored in the matrix. Since the type of our src matrix and our dest matrix need to match, it is best to directly retrieve the type from the src matrix and then use this as the parameter in the Mat constructor. Check the <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/core/Mat.html">OpenCV Mat Reference</a> and you will see that each Mat has a <code class="language-processing">type()</code> function that returns you the type.<br><br>
 
 <i>Size dsize:</i> Construct a new Size object with 500x500px. To see how the constructor works, you can find the <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/core/Size.html">OpenCV Size Reference</a> here. <br><br>
 
@@ -183,9 +194,9 @@ If you look <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/imgproc/Imgp
 <img src="images/pset4/interlinear.png" width="750px"><br>
 <img src="images/pset4/intercubic.png" width="720px"><br><br>
 
-<b>Convert Matrix back to PImage:</b> After you resized the image, you have to convert your output matrix back into a PImage for use in Processing. For this, you can go back to the <a href="http://atduskgreg.github.io/opencv-processing/reference/">OpenCV class documentation</a> and look at the toPImage() function. You will create a new PImage object for the function and use this PImage for later visualization.<br><br>
+<b>Convert Matrix back to PImage:</b> After you resized the image, you have to convert your output matrix back into a PImage for use in Processing. For this, you can go back to the <a href="http://atduskgreg.github.io/opencv-processing/reference/">OpenCV class documentation</a> and look at the <code class="language-processing">toPImage()</code> function. You will create a new PImage object for the function and use this PImage for later visualization.<br><br>
 
-Implement this part in the <b>interpolate()</b> function in the skeleton code: <br><br>
+Implement this part in the <code class="language-processing">interpolate()</code> function in the skeleton code: <br><br>
 
 <img src="images/pset4/interpolate-skeleton-code.png" width="600px"> <br><br>
 
@@ -211,12 +222,11 @@ For grading, please upload the following to your google drive student folder:<br
 
 We will give 20 pts in total:
 <ul>
-	<li>5 pts: you read the sensing data from the serial port into Processing and saved it correctly into a 2D array.</li>
-	<li>5 pts: you recorded 2 seconds of noise, set the noise baseline correctly based on the recorded noise, and are substracting the noise baseline correctly from the incoming live signal during use</li>
-	<li>5 pts: you created a grayscale image of the correct size and converted the sensor signals into the correct grayscale values using the map function.</li>
-	<li>5 pts: you scaled the image correctly using bicubic interpolation</li>
+	<li>5pts: you read the sensing data from your multi-touch pad from the serial port into Processing, cleaned the data from misrecognized characters, and saved it correctly into a 2D array. You will get partial credits for working on pre-recorded data only. </li>
+	<li>5pts: you recorded 2 seconds of noise, set the noise baseline correctly based on the recorded noise data, and are substracting the noise baseline correctly from the incoming live signal during use.</li>
+	<li>5pts: you created a grayscale image of the correct size and converted the sensor signals into the matching grayscale values using the map() function.</li>
+	<li>5pts: you scaled the image correctly using bicubic interpolation, and the image shows white pixels where the user touches and darker grayscale values everywhere else.</li>
 </ul>
-
 
 
         <br />
