@@ -138,18 +138,18 @@ Let's build the circuit and write the code for <code>one touch button</code>, an
 
 Next, we will write a program that receives the touch sensor signal from your first touch button and plots it on your computer. To process the touch sensor signal, we will use the Arduino <a href="https://playground.arduino.cc/Main/CapacitiveSensor/"><code>CapacitiveSensor library</code></a>.<br><br>
 
-<b>Install Library via Arduino Library Manager:</b> To install the library, open Arduino and go to <code>Sketch -> Include Library -> Manage Libraries</code> and search for the <code>CapacitiveSensor</code> library and install it.<br><br>
+<b>Install Library via Arduino Library Manager:</b> To install the library, open Arduino and go to <code>Sketch -> Include Library -> Manage Libraries</code> and search for the <code>CapacitiveSensor</code> library and install it. <code>Close</code> the Arduino IDE and <code>reopen</code> it after install. <br><br>
 
 <img src="images/lab2/capacitivesensorlibrary.png" width="700px"><br><br>
 
-<b>Run Sample Code:</b> Download <a href="images/touch-button.zip">this starter code here</a> and see if you can compile it. It the compiling completes without error messages, then you are all set to move on to the next section on sensing touch signals. However, if the installed library does not work and returns an error message like "'XXX' does not name a type" upon compiling, please try the alternative install below.<br><br>
+<b>Run Sample Code:</b> Download <a href="images/touch-button.zip" style="color:blue">this starter code here</a> and see if you can compile and upload it to your microcontroller. If the compiling completes without error messages, then you are all set to move on to the next section on sensing the touch signal. However, if the installed library does not work and returns an error message like <code>'XXX' does not name a type"</code> upon compiling, please try the alternative install below.<br><br>
 
-<b>Alternative Install from github:</b> First, remove the previously installed library. You can delete it on Mac under <span style="color:red">'Macintosh HD/Users/your-username/Documents/Arduino/libraries'</span> and on windows this is under <span style="color:red">'My Documents\Arduino\libraries\</span>'. Once the library is deleted, <a href="https://github.com/PaulStoffregen/CapacitiveSensor">go to the library's GitHub repository</a> and download it as a .zip file. Re-install the library via the .zip file. The <a href="https://www.arduino.cc/en/guide/libraries#toc4"> <span style="color:red">instructions to do so can be found here.</span></a><br><br>
+<b>Alternative Install from github:</b> First, remove the previously installed library. You can delete it on Mac under <span style="color:red">'Macintosh HD/Users/your-username/Documents/Arduino/libraries'</span> and on windows this is under <span style="color:red">'My Documents\Arduino\libraries\</span>'. Once the library is deleted, <a href="https://github.com/PaulStoffregen/CapacitiveSensor">go to the library's GitHub repository</a> and download it as a .zip file. Re-install the library via the .zip file. The <a href="https://www.arduino.cc/en/guide/libraries#toc4"> <span style="color:red">instructions to do so can be found here.</span></a> <code>Sketch -> Include Library -> Add .ZIP Library</code>. Don't forget to  <code>close</code> the Arduino IDE and <code>reopen</code> it after install. Then try to compile the starter code one more time and see if it successfully uploads to your microcontroller.<br><br>
 
 
 <h3 id="SAMPLECODE">(5) Run Sample Code to Test if Touch Sensing Circuit Works</h3>
 
-By now, you should have already downloaded the <a href="images/touch-button.zip">starter code</a>, opened it in your Arduino IDE and upload it to your microcontroller. The sample code can read the signal from one touch button and write it to Arduino's serial monitor.<br> <br> 
+By now, you should have already <a href="images/touch-button.zip" style="color:blue">downloaded the starter code</a>, opened it in your Arduino IDE and compiled and uploaded it to your microcontroller. The sample code can read the signal from one touch button and write it to Arduino's serial monitor.<br> <br> 
 
 <pre>
 <code>/*******************************************************************************
@@ -187,7 +187,7 @@ void loop()
 }</code></pre>
 <br>
 
-<b>Use Serial Monitor to Observe Signal Changes During Touch:</b> The Arduino IDE has a build in monitor to display signals (e.g., the touch signals) on your computer. You can open the serial monitor by clicking on the squared icon in the upper right corder of your Arduino IDE window (see image below).  If you open the serial monitor, you should see a bunch of numbers fly by. If you touch your touch sensor, the values should change significantly. Remember: do not touch the silver directly but interact on the visual design, i.e. the side that has no silver. If your numbers don't change, there may be something wrong with your circuit. Please double check your circuit and then ask a TA for help.<br><br>
+<b>Use Serial Monitor to Observe Signal Changes During Touch:</b> If you wired up your touch button according to our pin assignment, the code will write the touch signal to the <code>serial monitor</code> of the Arduino IDE. You can open the serial monitor by clicking on the <code>squared icon</code> in the upper right corder of your Arduino IDE window (see image below). Once you open the serial monitor, you should see a bunch of numbers fly by. If you touch your touch sensor, the values should change significantly. If your numbers don't change, there may be something wrong with your circuit. Double check your circuit and then ask a TA for help.<br><br>
 
 <img src="images/lab2/serial_monitor.png" width="600px"><br><br>
 
