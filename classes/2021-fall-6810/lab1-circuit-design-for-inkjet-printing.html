@@ -72,11 +72,10 @@ In this lab, you will first create the circuit drawing for your music card and t
 
 At the end of the lab, upload to your student google drive:
 <ol>
-	<li>the Adobe Illustrator drawing file (.pdf) that contains both your circuit and your visual design on two separate layers</li>
-	<li>the two individual pdfs (circuit_design.pdf and visual_design.pdf) you used for printing</li>
+	<li>the Adobe Illustrator drawing file (combined-visual-circuit.pdf) that contains both your circuit and your visual design on two separate layers</li>
+	<li>the two individual pdfs (circuit-design.pdf and visual-design.pdf) you used for printing</li>
 	<li>two photos showing the front and back of your inkjet printed card</li>
 </ol><br>
-
  <div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
 <b>Help us Improve Class Materials for Lab1:</b><br>
 Please let us know if you had any trouble with the fabrication devices or if anything was confusing in the write up. <br> <a href="https://docs.google.com/document/d/1BSJCTHH5N2ESQy9SZ_4qpcKA4Scwum8FL010ql_F97E/edit?usp=sharing">You can add your comments here.</a></div>
@@ -93,10 +92,10 @@ Please let us know if you had any trouble with the fabrication devices or if any
 
 <b>Adjust the Document Settings:</b> Once you opened the design file, adjust the document settings if necessary in the following way:<br><br>
 
-    <ul><li><i>Set Document Color Mode to CMYK:</i> <span style="color:red">Since we will print our document later, please set the document color mode to CMYK (not RGB, which is for on-screen documents). In Illustrator, you can set the color mode by clicking on</span><code>File->Document Color Mode->CMYK Color</code></li>
+    <ul><li><i>Set Document Color Mode to CMYK:</i> Since we will print our document later, please set the document color mode to CMYK (not RGB, which is for on-screen documents). In Illustrator, you can set the color mode by clicking on <code>File->Document Color Mode->CMYK Color</code></li>
     
     
-    <li><i>Set Units to mm:</i> If your drawing is still set to 'pts' as a measurement unit, set it to mm. In Illustrator, you can set the units by clicking on <code>Edit->Preferences->Units</code> and set all units to mm.</li>
+    <li><i>Set Units to mm:</i> If your drawing is set to 'pts' as a measurement unit, set it to 'mm'. In Illustrator, you can set the units by clicking on <code>Edit->Preferences->Units</code> and set all units to 'mm'.</li>
 </ul>
 
 <h3 id="BUTTON">(2) Add Touch Buttons</h3>
@@ -109,13 +108,13 @@ For our interactive card, we want to add three touch buttons, one on each note (
 <b>Video Tutorial:</b> Below, you'll find a video tutorial that shows you all steps to add one touch button. Your task will be to add all three touch buttons on top if the notes.<br><br>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/lqoFW1YgBa8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
 
-<b>Create a New Layer:</b> Start by creating a new layer in your design file and rename it to <code>circuit design</code>. <span style="color:red">We already renamed the original layer to be called</span> <code>visual design</code>. You need to create the circuit design on a separate layer than the visual design because later you need to export two files separately, the visual design in one pdf and the circuit design in a separate pdf. Using a separate layer for each allows you to turn each part of the design on/off quickly for export.<br><br>
+<b>Create a New Layer:</b> Start by creating a new layer in your design file. You need to create the circuit design on a separate layer than the visual design because later you need to export two files separately, the visual design in one .pdf and the circuit design in a separate .pdf. Using a separate layer for each allows you to turn each part of the design on/off quickly for export.<br><br>
 
 <b>Draw the Touch Button Shape:</b> Once you created your circuit design layer, draw the first touch button on it. A touch button should be large enough for a user's finger. The size of a finger tip is roughly an area of 2cm x 2cm. In the design we gave you, the size of each note body is roughly the size of a finger pad, so as long as you make a shape the size of the note it should be fine.<br><br>
 
-<b>Draw the Connector Pad:</b> In order to connect the touch sensor to your ESP32 microcontroller later, we have to add connector pads at the edge of the music card. We recommend to place all the connector pads for the touch buttons on the right side of the card (we will later draw more connector pads for the slider, so using the right side for touch buttons will ensure we will have enough space later). The connector pad for the microcontroller needs to be large enough to connect to a crocodile clamp. Therefore, the connector pad should be 1cm x 1cm. Make sure your connector pads are close enough to the border of the card so that a crocodile clamp can reach it (we recommend to place them less than 5mm away from the card border). Make sure to not exceed the boundaries of the music card since we will later cut it out.<br><br>
+<b>Draw the Connector Pad:</b> In order to connect the touch sensor to your ESP32 microcontroller later, we have to add connector pads at the edge of the music card. We recommend to place all the connector pads for the touch buttons on one side of the card (we will later draw more connector pads for the slider, so leaving another side free will ensure we will have enough space later). The connector pad for the microcontroller needs to be large enough to connect to a crocodile clamp. Therefore, the connector pad should be 10mm x 10mm. Make sure your connector pads are close enough to the border of the card so that a crocodile clamp can reach it (we recommend to place them less than 5mm away from the card border). Make sure to not exceed the boundaries of the music card since we will later cut it out.<br><br>
     
-<b>Draw the Wire:</b> Next, draw a wire from the touch button to the connector pad. Your wire should be 1mm thick. The thickness of the wire determines its conductivity (larger cross-section == higher conductivity). With 1mm we are on the safe side given the conductive ink we use and its resistance. Make sure that all wires are located inside the boundaries of your card since we will layer cut out the card.<br><br>
+<b>Draw the Wire:</b> Next, draw a wire from the touch button to the connector pad. Your wire should be 1mm thick. The thickness of the wire determines its conductivity (larger cross-section == higher conductivity). With 1mm we are on the safe side given the conductive ink we use and its resistance. Make sure that all wires are located inside the boundaries of your card since we will later cut out the card.<br><br>
 
 Repeat all steps for the other two touch buttons.<br><br>
 
@@ -125,70 +124,65 @@ Repeat all steps for the other two touch buttons.<br><br>
 
 In addition, the piano area should serve as a volume slider, i.e. if we drag our finger from left to right, the volume of the music that is playing will increase.<br><br>
 
-<b>Discrete vs. Continous Sliders:</b>  Touch-sliders consist of multiple touch buttons linearly arranged, i.e. several segments and each segment has its own wire and connector pad that connect to the micro-controller. In the discrete slider design, the finger tends to be only over one of the slider segments. In the continous design, the finger tends to touch two adjacent slider segments. By knowing how much the finger touches each slider segment, we can extrapolate a continous transitions between the segments. We will create a continuous slider, i.e. the segments overlap.<br><br>
+<b>Discrete vs. Continous Sliders:</b>  Touch-sliders consist of multiple touch buttons linearly arranged, i.e. several segments and each segment has its own wire and connector pad that connect to the microcontroller. In the discrete slider design, the finger is only over one of the slider segments. In the continous design, the finger touches two adjacent slider segments. By knowing how much the finger touches each slider segment, we can extrapolate continuous transitions between the segments. We will create a continuous slider, i.e. the segments overlap.<br><br>
 
 <img src="images/lab1/slider-designs1.png" width="300px"><br><br>
 
+<b>Slider Resolution:</b> The slider resolution depends on the number of slider segments. More slider segments allow for higher resolution but since each slider segment needs its own wire, connector pad, and pin on the microcontroller it can quickly add up. For our purposes, we will create <code>5 slider segments.</code><br><br>
 
-<b>Slider Resolution:</b> The slider resolution depends on the number of slider segments. More slider segments allow for higher resolution but since each slider segment needs its own wire, connector pad, and pin on the microcontroller it can quickly add up. For our purposes, we will create 5 slider segments.<br><br>
-
-<b>Draw the Slider Segments:</b> Let's draw the slider segments, as well as their wires and connector pads. Below you see an image that already has two slider segments marked up, you need to divide the remaining 'piano' area to form another three slider segments and connect them via wires to additional connector pads. When you draw your slider segments, pay close attention that each slider segment overlaps with each other, i.e. you can see how the front of the first segment reaches deep into the second segment to maximize overlap (see image down below). For the wires and connector pads for each slider segment, follow the same specification as before, i.e. use 1mm for wire thickness and 1cm x 1cm for connector pad size. A good trade-off between bringing the segments as close as possible together without risiking them to intersect is a distance of 2mm.<br><br>
+<b>Draw the Slider Segments:</b> Let's draw the slider segments, as well as their wires and connector pads. Below you see an image that already has two slider segments marked up, you need to divide the remaining 'piano' area to form another three slider segments and connect them via wires to additional connector pads. When you draw your slider segments, pay close attention that each slider segment overlaps with each other, i.e. you can see in the image below how the front of the first segment reaches deep into the second segment to maximize overlap. For the wires and connector pads for each slider segment, follow the same specification as before, i.e. use 1mm for wire thickness and 10mm x 10mm for connector pad size. For the spacing between slider segments use 2mm, this brings the slider segments as close as possible together without risking that they intersect.<br><br>
 
 <img src="images/lab1/lab1-slider-segments_new.png" width="350px">
 <img src="images/lab1/lab1-slider-overlap-labeled.png" width="360px"><br><br>
     
-<b>Video Tutorial</b><br>
-In this video tutorial, you will see how to create a slider segment and how to ensure a certain distance between them.<br><br>
+<b>Video Tutorial:</b> In this video tutorial, you will see how to create a slider segment and how to ensure a certain distance between them.<br><br>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/UTyaizfCZx4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <br><br>
+
 <h3 id="VERIFY">(4) Verify your Design</h3>
 
 Before printing out your design, let's double check that everything is correct. Below are some of the most common issues we have seen last year:<br><br>
 
-<b>Drawing in pt instead of mm:</b> Make sure your drawing is in mm not pt. You can check this if you go to Edit->Preferences->Units...<br><br>
+<b>Drawing in pt instead of mm:</b> Make sure your drawing is in 'mm' not 'pt'. You can check this if you go to <code>Edit->Preferences->Units</code>.<br><br>
 
-<b>Visual Design & Circuit Design Not Centered on Page:</b> Make sure your circuit drawing is centered on the page. If it is not centered and you print it out, your visual design and your circuit design will not overlap, i.e. your touch button will not be underneath the note. Do check if your circuit drawing is centered, click select your entire design and check if its x-coordinate is as 107.95mm or 4.25"<br><br>
+<b>Visual Design & Circuit Design Not Centered on Page:</b> Make sure your circuit drawing is centered on the page. If it is not centered and you print it out, your visual design and your circuit design will not overlap, i.e. your touch button will not be underneath the note. To check if your circuit drawing is centered, select your entire design and check if its x-coordinate is '107.95mm' or 4.25".<br><br>
 
-<b>Gaps along wires:</b> Zoom into your drawing and make sure all your wires are connected, sometimes there are tiny gaps that you don't see in zoomed out mode. If you have a gap, your wire will not work. Check: (1) is each wire connected to its corresponding touch buttons/slider segments? (2) is each wire connected to its connector pad? (3) if your wire consists of multiple individual drawn rectangles, are they all connected to each other?<br><br>
+<b>Gaps along wires:</b> Zoom into your drawing and make sure all your wires are connected, sometimes there are tiny gaps that you don't see in zoomed out mode. If you have a gap, your wire will not work. Check: (1) Is each wire connected to its corresponding touch buttons/slider segments? (2) Is each wire connected to its connector pad? (3) If your wire consists of multiple individual drawn rectangles, are they all connected to each other?<br><br>
 
-<b>Wires routed too close to Touch buttons/Slider Segments:</b> Make sure you leave sufficient space between the wires and the touch buttons and slider segments. If they are too close to each other, there can be short circuits, i.e. touching one button can create a signal on a close-by wire of another button, which then also detects that it was touched.<br><br>
+<b>Wires routed too close to Touch buttons/Slider Segments:</b> Make sure you leave sufficient space between the wires and the touch buttons and slider segments. If they are too close to each other there can be cross talk, i.e. touching one button can create a signal on a close-by wire of another button, which then also detects that it was touched.<br><br>
 
-<img src="images/lab1/common-design-issues-gaps2.jpg" width="500px"><br><br>
+<img src="images/lab1/common-design-issues-gaps2.jpg" width="650px"><br><br>
 
-<b>Slider Segments not overlapping enough:</b> Finally, your slider segments should be overlapping quite a bit. If they don't overlap enough, your finger will only touch one of them, which will not result in a continous slider signal. Aim for a distance of 2mm between the segments.<br><br>
+<b>Slider Segments not overlapping enough:</b> Finally, your slider segments should be close together. If they don't overlap enough, your finger will only touch one of them, which will not result in a continous slider signal. Aim for a distance of 2mm between slider segments.<br><br>
 
-<b>Slider Segments too close to each other:</b> Make sure there is sufficient space between each slider segment. If they are too close, you will also have problems with short circuits, i.e. touching one slider segment will automatically activate the other as well. Aim for a distance of 2mm between the segments.<br>
-    <br>
+<b>Slider Segments too close to each other:</b> Make sure there is sufficient space between each slider segment. If they are too close, you will also have problems with cross talk, i.e. touching one slider segment will automatically activate the other as well. Aim for a distance of 2mm between the segments.<br><br>
 
-<img src="images/lab1/common-design-issues-slider.jpg" width="500px"><br><br>
+<b>Check your design for no overlapping wires and connector pads:</b> After printing the card, you will cut it out. Check that all your silver traces are within the boundaries of the card design otherwise you will cut them off.<br><br>
 
-    <b>Check your design for no overlapping wires and connector pads</b>
-    In the next step, we will cut out the music card. Before doing so, check if all your silver traces are within the boundaries of the card. If you have any errors here, you have to resdesign your silver traces and print the card again.<br><br>
-    
+<img src="images/lab1/common-design-issues-slider.jpg" width="650px"><br><br>
+
 
 <h3 id="EXPORT">(5) Export your Design</h3>
 
 Now that you have verified your design, you are ready to export and print it. Since for capacitive touch sensing, the user should never touch the silver directly, we will print the circuit design on one side of a piece of paper and the visual design on the other side.<br><br>
 
-<b>Mirror the Circuit Layer:</b> In order to accommodate the double-side printing, we will need to mirror the circuit design, otherwise if we flip the sheet for printing the touch buttons and the notes will not align. We don't want to mirror the visual design for obvious reasons, i.e. it would look very odd to the user if the notes where flipped. To flip the circuit design in Adobe Illustrator, first select all objects in the circuit design layer, then go to <b> Object --> Transform --> Reflect... </b>, and select <b> Vertical</b>. Note that the vertical position of your design on the sheet doesn't matter.<br><br>
+<b>Mirror the Circuit Layer:</b> In order to accommodate the double-side printing, we will need to mirror the circuit design, otherwise if we flip the sheet for printing the touch buttons and the notes will not align. We don't want to mirror the visual design since it would look very odd to the user if the notes where flipped. To instead flip the circuit design in Adobe Illustrator, first select all objects in the circuit design layer, then go to <code> Object --> Transform --> Reflect</code>, and select <code>Vertical</code>.<br><br>
 
 <img src="images/lab1/lab1-mirror-circuit-design2.png" width="720px" /><br><br>
 <img src="images/lab1/lab1-before-after-mirror-ing2.png" width="720px" /><br><br>
 
-<b>Export .pdf files:</b> Save your design as two separate .pdf files, one for the visual design and one for the circuit design. To export the visual design, turn the circuit layer off by going to the layer tap and clicking on the 'eye' icon in front of the layer's name. Save the document as a .pdf by clicking on File -> Save as.... and select as file type "pdf". Repeat the process for exporting the circuit design layer. Finally, also save the combined design as a third pdf for the teaching team to help you with debugging if needed.<br><br>
+<b>Export .pdf files:</b> Save your design as two separate .pdf files, one for the visual design and one for the circuit design. To export the visual design, turn the circuit layer off by going to the layer tap and clicking on the <code>eye icon</code> in front of the layer's name. Save the document as a .pdf by clicking on <code>File -> Save as</code> and select as file type <code>pdf</code>. Repeat the process for exporting the circuit design layer. Finally, also save the combined design as a third pdf for the teaching team to help you with debugging if needed.<br><br>
 
-<b>Upload .pdf's to Google Drive:</b> Once you have your three .pdfs, add them to your student google drive folder. Please name them: <b>combined-visual-circuit.pdf</b> with both layers, <b>visual-design.pdf</b> with only the visual design, and <b>circuit-design.pdf</b> with only the circuit design. Let us know on slack that you are ready to have your design checked by us.<br><br>
+<b>Upload .pdf's to Google Drive:</b> Once you have your three .pdfs, add them to your student google drive folder. Please name them: <code>combined-visual-circuit.pdf</code> with both layers, <code>visual-design.pdf</code> with only the visual design, and <code>circuit-design.pdf</code> with only the circuit design. Let us know on slack that you are ready to have your design checked by us.<br><br>
 
 <img src="images/lab1/music-card-design_new.png" width="317px" />
 <img src="images/lab1/lab1-exporting-design-circuit_new.png" width="317px" /><br><br>
 
 <h3 id="CIRCUIT">(6) Print the Circuit</h3>
 
-For printing our circuit, we use silver ink from <a href="http://www.mitsubishiimaging.com/digital-imaging-diamond-jet-NANOINK.html">Mitsubishi</a> and a special paper. While in the printer, the silver ink is not yet conductive since it is not yet sintered. The special paper on which we print the silver ink has a coating, that chemically sinters the silver ink once it adheres to the sheet. For today, we are using the <a href="https://www.amazon.com/Kodak-8209017-KOD8209017-Photo-Paper/dp/B000EZ0CTU"> Kodak glossy photo paper</a> (white), which has this special coating.<br><br>
+For printing our circuit, we use silver ink from <a href="http://www.mitsubishiimaging.com/digital-imaging-diamond-jet-NANOINK.html">Mitsubishi</a> and a special paper. While in the printer, the silver ink is not yet conductive since it is not yet sintered. The special paper on which we print the silver ink has a coating that chemically sinters the silver ink once it adheres to the sheet. For today, we are using the <a href="https://www.amazon.com/Kodak-8209017-KOD8209017-Photo-Paper/dp/B000EZ0CTU"> Kodak glossy photo paper</a> (white), which has this special coating.<br><br>
 
-<b>Install Printer Driver for Silver Inkjet printer:</b> To make it easier for you to print in the future, we want you to print from your own laptop. Install the <a href="https://epson.com/Support/Printers/All-In-Ones/ET-Series/Epson-ET-2760/s/SPT_C11CG22203"printer driver for the >Epson EcoTank ET-2760 from here.</a><br><br>
-
-<b>Connect to Circuit Printer + Open Design File:</b> Let's start with printing the circuit design. Plug in the Epson printer and open your Circuit Design File.<br><br>
+<b>Open Circuit Design File:</b> Let's start with printing the circuit design. Go to one of the Epson printers and open your Circuit Design File from your student google drive folder.<br><br>
 
 <b>Insert Paper:</b> Next, insert the paper. The paper has two sides, a glossy (shining) side and a non-glossy (matte) side. The glossy side should be facing up.<br><br>
 
@@ -198,7 +192,7 @@ For printing our circuit, we use silver ink from <a href="http://www.mitsubishii
 <b>Set Printer Settings:</b> Go to print, and from the 'Printer' dropdown select the 'Epson ET-2760'. Next, click 'Setup...' (bottom left corner), then 'continue'. Go to 'Quality and Media' in the dropdown, then select 'Media Type' and 'Photo Glossy Paper'. Then go to 'Print Quality' and drag the quality to the right most 'Best' setting. Now you are ready to hit the print button.<br><br>
 
 <img src="images/lab1/printer_dialog1.png" width="700px" /><br>
-<img src="images/lab1/printer_dialog2.png" width="700px" /><br>
+<img src="images/lab1/printer_dialog2.png" width="700px" /><br><br>
 
 <b>Use Gloves to Handle Printed Circuit:</b> Right after printing, the silver ink has not yet been fully cured, this takes a few hours. Therefore, you need to handle the printed circuit carefully as you could accidentially scrape off some silver with your fingers, especially if you have sweaty hands. Therefore, we ask you to handle the newly printed silver circuits with gloves on (we will give you some). We will also provide you with one ZipLoc bag to put your printed silver circuit in so that it is protected during transportation. <br><br>
 
@@ -208,6 +202,7 @@ For printing our circuit, we use silver ink from <a href="http://www.mitsubishii
 
 <img src="images/lab1/lab1-multimeter1_new.jpg" width="350px"> <img src="images/lab1/lab1-multimeter3_new.jpg" width="350px"><br><br>  
 
+<b>Installing the Silver Inkjet Printer Driver:</b> For lab, we have you print from our shared computers since it is faster. If you want to print from your own computer in OH or during the group project, you can nstall the <a href="https://epson.com/Support/Printers/All-In-Ones/ET-Series/Epson-ET-2760/s/SPT_C11CG22203"printer driver for the >Epson EcoTank ET-2760 Printer Driver from here.</a><br><br>
 
 <!-- Here we have a fantastically low resistance of 13ohm with a beep sound. <br> -->
 
