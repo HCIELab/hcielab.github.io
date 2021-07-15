@@ -62,6 +62,7 @@ In this problem set, you will write Processing code that takes as input the sens
 
 <b>Steps:</b>
 <ol>
+	<li><a href="#INSTALLLIBRARIES">Download Skeleton Code and Install Libraries</a></li>
 	<li><a href="#READPROCESSING">Read Multi-Touch Sensing Data into Processing</a></li>
 	<li><a href="#REDUCENOISE">Clean Received Signal by Reducing Noise</a></li>
 	<li><a href="#GRAYSCALEIMAGE">Convert Received Signals into Grayscale Values</a></li>
@@ -70,11 +71,15 @@ In this problem set, you will write Processing code that takes as input the sens
 <br>
 
  <div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Help us Improve Class Materials for PSet4:</b><br>
+Please let us know if anything was confusing in the write up or if you had trouble with the test program. <br><a href="https://docs.google.com/document/d/1EzNRraolXslbVGynQtzv9MruIiqbrR7p5X7Fc_2fzu8/edit?usp=sharing">You can add your comments here.</a></div>
+
+ <div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
 <b>Ask a TA to give you Arduino signal code if you did not finish pset3:</b><br>
 In case you did not finish pset3, you can ask a TA to provide you with a piece of Arduino code that will simulate sending touch data. If you finished pset3, but it turns out that the data you receive is shaky, you can also get the simulation code.</div>
 
 
-<h3>Download Skeleton Code and Install Libraries</h3>
+<h3 id="INSTALLLIBRARIES">(1) Download Skeleton Code and Install Libraries</h3>
 
 <b>Download Skeleton Code:</b> Start by downloading <a href="software/pset_visualization_skeleton_v5.zip" style="color:blue">the skeleton code for the pset4 from  here</a>.<br><br>
 
@@ -87,7 +92,7 @@ In case you did not finish pset3, you can ask a TA to provide you with a piece o
 <img src="images/pset4/processing-library-opencv.png" width="370px">
 <img src="images/pset4/processing-library-blob-detection.png" width="370px"> <br><br>
 
-<h3 id="READPROCESSING">(1) Read Multi-Touch Sensing Data into Processing</h3>
+<h3 id="READPROCESSING">(2) Read Multi-Touch Sensing Data into Processing</h3>
 
 <b>Use Pre-recorded Data:</b> While you are welcome to write the code for the next sections based on 'live data' from your multi-touch pad, it may be easier to start with clean pre-recorded data since this allows you to exclude potential hardware failures. You can <a href="software/pset-sudo-touch-data.txt" style="color:blue">download prerecorded data in the form of a text file from here</a>. The prerecorded data contains data for no touch, touch with one finger, and touch with two fingers in the same format as you wrote it to the Serial Port with your Arduino Code. <span style="color:red">We should provide them with the code to do this: You can read through the text file and write them into Serial port line by line (via Arudino IDE, Python etc.) and it will simulate non-touch, one-finger touch and two-finger touch states.</span><br><br>
 
@@ -116,7 +121,7 @@ You now need to read this data from the serial port into Processing. We have alr
 <b>Use Your Own Multi-touch Pad Data & Clean up Values:</b> Once this is working, try using your own live data. You will notice that this data will be a lot more messy, i.e. sometimes a dataline will be completely missing, and othertimes there may be unrecognized characters. Make sure your <code class="language-processing">readSerial()</code> function properly handles these unexpected characters and formats, and stores only the valid data. <span style="color:red">You can look at the stringXX class for how to clean up the data.</span> This messy data was also the reason why we update the array line by line not as a whole since we don't want that a single missing/contaminated data line holds up the entire 2D array update. <br><br>
 
 
-<h3 id="REDUCENOISE">(2) Clean Received Signal by Reducing Noise</h3>
+<h3 id="REDUCENOISE">(3) Clean Received Signal by Reducing Noise</h3>
 
 As you may have noticed, even when you are not touching the multi-touch pad, the receiver pins almost always receive some value although you would expect that they should receive '0'. This is what we call "noise" in signal processing.<br><br>
 
@@ -135,7 +140,7 @@ All of these factors together result in different noise levels at each point in 
 
 <img src="images/pset4/substractBaseLine-skeleton-code.png" width="600px"> <br><br>
 
-<h3 id="GRAYSCALEIMAGE">(3) Convert Received Signals into Grayscale Values</h3>
+<h3 id="GRAYSCALEIMAGE">(4) Convert Received Signals into Grayscale Values</h3>
 
 Now that we have "clean" sensing values, our next step is to find out <code>where</code> the multi-touch pad was touched. For this part, you will be mainly working on the <code class="language-processing">setColor()</code> function. Note that if you didn't finish the previous section #2, you can still work on this section here by using the pre-recorded data from section #1 and converting them to grayscale as described below.<br><br>
 
@@ -157,7 +162,7 @@ Now that we have "clean" sensing values, our next step is to find out <code>wher
 
 <b>Drawing the Grayscale Values into the 9x8 Pixel Image:</b> After you scaled your sensor values, use them to set the pixel color of each pixel in the 9x8 pixel PImage. If you set a PImage's pixels to a single color value from 0 (black) - 255 (white), it will automatically be treated as grayscale.<br><br>
 
-<h3 id="BICUBIC">(4) Scale Up Image Using Bicubic Interpolation</h3>
+<h3 id="BICUBIC">(5) Scale Up Image Using Bicubic Interpolation</h3>
 
 Each sensor value represents the measured value at the intersection of an electrode column with a row. While this gives us 9x8 = 72 values, it is a very sparse representation of what is actually going on on the multi-touch pad, i.e. where the user is touching since the user's finger may be in-between rows/columns. To increase the space of sensor values, you can use <code>interpolation</code> to make an informed guess about signal values that would occur in the space between two measured signals. Thus, in the next step, we will first increase the overall image size, then draw in the few pixel values we know for sure, and then use interpolation to guess the grayscale values at each of the pixels that don't have an actual sensor value associated with them.<br><br>
 
