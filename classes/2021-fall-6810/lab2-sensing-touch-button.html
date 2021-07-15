@@ -124,7 +124,7 @@ Let's build the circuit and write the code for <code>one touch button</code>, an
 
 <b>Sender Pin:</b> For the sender pin, you can use any GPIO pin on the ESP. For this first touch button, we ask you to use <code>GPIO pin 25</code>.<br><br>
 
-<b>Receiver Pin:</b> For the receiver pin, it is best to use a pin that is labeled <code>TOUCH</code> (see ESP pin out below). These pins are optimized to serve as receivers for capacitive sensing and therefore return cleaner signals, so we will use them for our sensing application. <span style="color:blue">Do *not* use TOUCH0, it does not work on this particular model of ESP32</span> <a href="#section1">[1]</a>. For this first touch button, we ask you to use <code>GPIO pin 14</code>.<br><br>
+<b>Receiver Pin:</b> For the receiver pin, it is best to use a pin that is labeled <code>TOUCH</code> (see ESP pin out below). These pins are optimized to serve as receivers for capacitive sensing and therefore return cleaner signals, so we will use them for our sensing application. <span style="color:blue">Do *not* use TOUCH0, it does not work on this particular model of ESP32</span>. For this first touch button, we ask you to use <code>GPIO pin 14</code>.<br><br>
 
 <b>Resistor:</b> We will use a <i>100k Ohm resistor</i>. Add the resistor to the circuit between your sender and receiver pin for your first touch button.<br><br>
  
@@ -201,26 +201,28 @@ void loop()
 <pre><code>touchButtonValue1, touchButtonValue2, touchButtonValue3;</code></pre>
 You can achieve this formatting by using <code>Serial.print()</code> for each touch button value instead of <code>Serial.println()</code>. Don't forget to Serial.print() the new line character <code>"\n"</code> at the end of the line.<br><br>
 
-<b>Test If Circuit and Sensing Works:</b> You can plot the received values in a nice graph. To do this, open the Serial plotter by clicking on <code>Tools->Serial Plotter</code>. Because of the formatting we used (Serial.print() values separated by commas), we can see all three touch button variables plotted at the same time. Touch each touch button to see if the signal changes. If you see no changes, either your circuit or your code have a bug. Below you see how we touch the button 1 first, then button 2 and finally button 3. You can increase the number of times the signal is sampled by increasing the value of <code>samples_touch</code> in your code.<br><br>
+<b>Test If Touch Buttons Work:</b> You can plot the received values in a nice graph. To do this, open the Serial plotter by clicking on <code>Tools->Serial Plotter</code>. Because of the formatting we used (Serial.print() values separated by commas), we can see all three touch button variables plotted at the same time. Touch each touch button to see if the signal changes. If you see no changes, either your circuit or your code have a bug. Below you see how we touch the button 1 first, then button 2 and finally button 3. You can increase the number of times the signal is sampled by increasing the value of <code>samples_touch</code> in your code.<br><br>
 
 <img src="images/lab2/lab1-plotting-signals_new.png" width="480px"><br><br>
 
 <h3 id="THRESHOLD">(7) Threshold Touch Signals: Touched or not Touched?</h3>
 
-Next, we want to convert the raw signal into touch events, i.e. 'button touched' or 'button not touched'. As you saw in the serial plotter, the values for each sensor can vary pretty wildly as mentioned in lecture. We will do more filtering of signals later in class, but for now we will make a rough estimate in which range our sensor signal falls for each touch button and then use a simple if/then statement. Look at the serial plotter to determine the range for each touch button. Write code that iterates over all sensors and outputs every 200ms if each touch button was touched or not.<br><br>
+Next, we want to convert the raw signal into touch events, i.e. <code>button touched</code> or <code>button not touched</code>. As you saw in the serial plotter, the values for each sensor can vary pretty wildly for the reasons mentioned in lecture. We will do more filtering of signals later in class, but for now we will make a rough estimate in which range our sensor signal falls for each touch button.<br><br>
+
+<b>Write Code to Determine Touched/NotTouched:</b> Write code in the form of a simple if/else statement to determine if a touch button was touched or not. Look at the serial plotter to determine the range for each touch button. Note that the values may be different for each touch button because of inconsistencies in the print, slightly different sizes for each touch button etc.<br><br>
+
+<b>Adjust the Loop() speed to Plot Every 200ms:</b> Adjust the loop speed to output if a touch button was touched or not every <code>200ms</code>. Remember from 6.08 that using <code>delay()</code> is not a good way to do this and doing this in a <code>non-blocking</code> way is much better.<br><br>
 
 <h3 id="SERIALOUTPUT">(8) Format Serial Output</h3>
 
-In the next lab, we will read the output from the Serial Monitor into a program called Processing. For this, we want to make sure our output is formatted well.<br><br>
+In the next lab, we will read the output from the Serial Monitor into a program called <code>Processing.</code> For this, we want to make sure our output is formatted well. Replace the old Serial.write() statements with the formatting below:<br><br>
 
-<b>Formatting Output for each Sensor:</b> For each sensor, we want to reformat our output so that:<br>
+<b>Formatting Output for each Sensor:</b> For each individual touch button, we want to format our output so that:<br>
 
-<code>(sensor ID),(is_touched);</code><br>
+<pre><code>(sensor ID),(is_touched);</code></pre>
     
-<i>(sensor ID):</i> is either 0, 1 or 2 and represents the ID of the observed touch sensor.<br>
-<i>(is_touched):</i> is either 0 or 1 (0 if the sensor is not touched, and 1 if it is touched).<br>
-<i>(,):</i> the comma is the separator between the two numbers.<br>
-<i>(;):</i> the semicolon is the end symbol of the message.<br><br>
+<i>(sensor ID):</i> is either 0, 1 or 2 and corresponds to the ID of the touch button.<br>
+<i>(is_touched):</i> is either 0 or 1 (0 if the sensor is not touched, and 1 if it is touched).<br><br>
 
 A sample output for touching only sensor 0 should look like:<br>
 <pre><code>0,1;
@@ -228,9 +230,9 @@ A sample output for touching only sensor 0 should look like:<br>
 2,0;
 </code></pre>
 
-<b>Print Serial Messages only when Button State Changes:</b> So far we have been printing all touch button values to the Serial monitor no matter if the state of the touch button changed or not. As the last step in this lab, we want to print new information only if the sensor state changes, i.e. a touch button was not touched before but is now being touched, or the touch button was touched but the user just released the finger. Change the code such that it tracks in which state each sensors is currently in. Check for a state change and send the Serial message only once. <br><br>
+<b>Print Serial Messages only when Button State Changes:</b> So far we have been printing all touch button values to the Serial monitor no matter if the state of the touch button changed or not. As the last step in this lab, you need to print new information only if the <code>sensor state changes,</code> i.e. a touch button was not touched before but is now being touched, or the touch button was touched but the user just released the finger. Change the code such that it tracks in which state each sensors is currently in. Check for a state change and send the Serial message only once. <br><br>
 
-Example:<br>
+<b>Example:</b><br>
 
 If sensor 0 gets touched, this message is printed once:<br>
 <pre><code>0,1;</code></pre>
@@ -250,8 +252,6 @@ At the end of the lab, upload to your student google drive:
 </ol>
 <br>
 
-<b>Footnotes</b><br>
-<p id="section1">[1] Pin GPIO 0 (TOUCH1) cannot be used as receiver because it is the strapping pin for this version (DevKitC) of ESP32 and cannot be used due to external auto program circuits. However, you could still use the pin as a sender.</p>
 
 
 <br>
