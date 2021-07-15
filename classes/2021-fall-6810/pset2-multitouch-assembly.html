@@ -59,7 +59,7 @@
         <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2021)</a><br></h>
         <h2 class="headline">Pset2: Assembling the Multi-Touch Pad and Circuit</h2>
 
-In this problem set, you will print out your multi-touch pad on the conductive inkjet printer and assemble the top and bottom layer. After this, you will build the touch-sensing circuit and connect your multi-touch pad to it. As part of building the circuit, you will also have to solder some header pins to some of the components first. <span style="color:red">At the end of this problem set, you will download a piece of test code that will verify that the assembled multi-touch pad and the corresponding circuit is correct, i.e. the test code will verify that your hardware can sense touch data from a user's finger.</span><br><br>
+In this problem set, you will print out your multi-touch pad on the conductive inkjet printer and assemble the top and bottom layer. After this, you will build the touch-sensing circuit and connect your multi-touch pad to it. As part of building the circuit, you will also have to solder some header pins to some of the components first. At the end of this problem set, you will download a piece of test code that will verify that the assembled multi-touch pad and the corresponding circuit is correct, i.e. the test code will verify that your hardware can sense touch data from a user's finger.<br><br>
 
 <b>Steps:</b>
 <ol>
@@ -72,7 +72,12 @@ In this problem set, you will print out your multi-touch pad on the conductive i
 	<li><a href="#SOLDERMULTIPLEXER">Solder Multiplexer</a></li>
 	<li><a href="#SENDING">Build Sending Circuit</a></li>
 	<li><a href="#RECEIVING">Build Receiving Circuit</a></li>
+	<li><a href="#TESTRUN">Testing your Circuit</a></li>	
 </ol>
+
+ <div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Help us Improve Class Materials for PSet2:</b><br>
+Please let us know if anything was confusing in the write up or if you had trouble with the test program. <a href="https://docs.google.com/document/d/1RRaa5aSC7HWwmADo06eyMa9aDeZ9IokwW7t47hOEbFQ/edit?usp=sharing">You can add your comments here.</a></div>
 
  <div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
 <b>Ask a TA to give you the fabrication files (.pdfs) if something went wrong in pset1</b><br>
@@ -225,8 +230,9 @@ Before we build the sending circuit, let's briefly recap how the multi-touch pad
 
 <img src="images/pset2/demux-labeled.png" width="400px" style="cursor:pointer;"> <br><br>
 
-<b>Breadboard use:</b> <span style="color:red">Before you start building the circuit, make sure you use the large breadboard we gave you for the multi-touch pad circuit: For building the circuit, please use the large breadboard we gave you. The idea is that you use the large breadboard for your multi-touch pad and the small breadboards you received earlier for the labs. That way, you don't have to unplug any wires when you switch between working on labs vs. working on psets.</span>.<br><br>
+<b>Breadboard use:</b> Before you start wiring, we recommend strategizing about how you want to layout your breadboards. We recommend to put the two breadboards that have the ESP on it in the middle and then put one more breadboard to the right of the ESP (this can hold the circuit for the sending circuit with the multiplexer) and one more breadboard to the left of the ESP (this can hold the receiving circuit with the ADC chip, as described in section #9).<br><br>
 
+<img src="images/pset2/breadboarding.png" height="350px" style="cursor:pointer;"> <br><br>
 
 <b>Connecting the Multiplexer to the ESP and FPC:</b> Let's build the multiplexer sending circuit.<br>
 
@@ -240,7 +246,6 @@ Before we build the sending circuit, let's briefly recap how the multi-touch pad
 
 <i>Powering the Multiplexer:</i> Finally, connect the power VCC and GND pins on the multiplexer to the corresponding pins on the ESP to power the multiplexer.<br><br>
 
-<img src="images/pset2/breadboarding.png" height="350px" style="cursor:pointer;"> <br><br>
 
 <h3 id="RECEIVING">(9) Build Receiving Circuit</h3>
 
@@ -271,7 +276,32 @@ As you can see in the schematic, the circuit for receiving is very similar to wh
 	3) try to avoid GPIO 6-11, which might have unexpected behaviors </b><br><br>
  --><!--<img src="images/pset2/adc_fritzing_label.png" width="900px">-->
 
-<b>Using a Multiplexer for the receiving circuit:</b> While we will not do it in this pset, we could also use a second multiplexer to reduce the number of pins required for the receiving circuit, i.e. the electrode rows. When using the multiplexer for receiving, we would redirect the received signal on C0-C15 to the SIG pin that is then read by the ESP. Similar to above, we would only have to specify which channel (C0-C15) we want to read and the ESP would then retrieve the signal from the respective channel. Thus, this second multiplexer would reduce the number of receiver pins by combining multiple rows into one pin on the ESP. <br><br>
+<b>Using a Multiplexer for the receiving circuit:</b> While we will not do it in this pset, we could also use a second multiplexer to reduce the number of pins required for the receiving circuit, i.e. the electrode rows. When using the multiplexer for receiving, we would redirect the received signal on C0-C15 to the SIG pin that is then read by the ESP. Similar to above, we would only have to specify which channel (C0-C15) we want to read and the ESP would then retrieve the signal from the respective channel. Thus, this second multiplexer would reduce the number of receiver pins by combining multiple rows into one pin on the ESP.<br><br>
+
+<h3 id="TESTRUN">(10) Testing your Circuit</h3>
+
+Now that you build your circuit, it would be good to know if it actually works. To help you test your circuit, we compiled a test program as a binary that you will upload to your microcontroller. This is different from uploading an regular .ino file, and we will describe the steps for you below.<br><br>
+
+<b>Update Arduino IDE 'Preferences':</b> Open the Arduino IDE and go to <code>Arduino -> Preferences</code>. In the window that opens, where is says <code>Show Verbose Output During</code> check both the <code>compilation</code> and the <code>upload</code> checkbox. In addition, further down check the <code>Display line numbers</code> checkbox.<br><br>
+
+<img src="images/pset2/arduino-ide-preferences.png" width="550px"><br><br>
+
+<b>Retrieve the Compile and Upload Command:</b> <span style="color:red">Compile a random program in the Arduino IDE (e.g. choose the Blink program from the examples) and look at the compile path in the console window (the white text). Copy the entire white text into a textfile.</span>  <br><br>
+
+<img src="images/pset2/compile-path.png" width="750px"><br><br>
+
+<b>Find the File Path for the Binary File:</b> Next, you need to find the file path of the binary program that we provide to you. You can <a href="">download the <span style="color:red">'pset2-standaloneXX'</span> from here</a>. Right click the file after you downloaded it and click 'Get Info'. Under <code>Where</code> you can find its file path. Copy this part and save it in a text file as well.<br><br>
+
+<img src="images/pset2/file-info.png" width="250px"><br><br>
+
+<b>Replace File Path in Compile Pat:</b> Replace the file path of your binary in the compile/upload command (i.e. the white text you had copied into a text file). You need to replace the file path in two locations in the text. <span style="color:red">Junyi can you mark up where exactly?</span><br><br>
+
+<img src="images/pset2/replaced-file-path.png" width="750px"><br><br>
+
+<b>Replace File Path in Compile Pat:</b> Replace the file path of your binary in the compile/upload command (i.e. the white text you had copied into a text file). You need to replace the file path in two locations in the text. <span style="color:red">Junyi can you mark up where exactly?</span><br><br>
+
+<b>Execute Command on Terminal:</b> Now that your command is complete, you can paste it into the terminal of your operating system and execute it. If everything is correct, you will see on the terminal that the program is uploading. Once it is uploaded you will see <span style="color:red">XX if your circuit is working and YY if your circuit is not working.</span> <span style="color:red">Junyi, can you add an image here that shows working vs. not working?</span> If it is not working, we recommend you do the following things: XX and YY<br><br>
+
 
 <h3>Final check before you submit/upload</h3>
 Before you submit files, please check the following:
@@ -281,7 +311,9 @@ Before you submit files, please check the following:
 	<li>Check the soldering condition of the two FPC connectors.</li>
 	<li>Check the connection between the FPC connector and the wires of the Multi-touch pad.</li>
 	<li>Check the soldering condition of the multiplexer.</li>
+	<li>The test program should have successfully executed.</li>
 </ul>
+
 
 <h3>Upload Circuit Photos + Show Hardware to a TA</h3>
 
