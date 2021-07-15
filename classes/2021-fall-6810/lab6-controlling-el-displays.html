@@ -53,10 +53,8 @@
       
     In this lab, you will create the control circuit for your electrolumiscent display so that you can turn on/off the display and even dim it to a specific brightness using your ESP microcontroller.<br><br>
 
-    <span style="color:red">can we have some nice images here or a video showing the display dimming?</span><br>
-
-<img src="images/lab6/battery-holder.png" width="480px">
-<img src="images//lab3/displayconnected.jpg" width="252px"><br>
+<img src="images/lab6/display_animation.gif" width="380px"> 
+<img src="images//lab3/displayconnected.jpg" width="287px"><br>
 
 <h3>Steps:</h3>
 <ol>
@@ -176,26 +174,26 @@ Now that you wired up our control circuit, you are ready to write the code for i
 
 <b>Set Optocoupler Pin to HIGH/LOW to Blink:</b> Connect your ESP to your laptop and create a new Arduino program. Check to which pin you connected the optocoupler, declare the pin in your Arduino code and set it to HIGH and LOW alternating whenever one second has passed.<br><br>
 
-<span style="color:red">can we have a short video here showing the display blinking?</span><br><br>
+<img src="images/lab6/display_animation.gif" width="380px"><br><br>
 
 <h3 id="displaydimcode">(8) Write Program to Dim Display</h3>
 
 Finally, we want to not just turn the display on/off but also set the displays brightness (e.g. dimming it down).<br><br>
 
-<b>Duty Cycle:</b> When you create a PWM signal it means that you turn on and off a signal for a certain duty cycle. The longer the signal is turned on in one duty cycle the brighter the light source will be (see Figure below). Similarly, the longer the signal is turned off in one duty cycle the darker the light source will be. Thus, a duty cycle of 25% results in a darker display than a duty cycle of 75%.<br><br>
+<b>Duty Cycle:</b> When you create a PWM signal it means that you turn on and off a signal for a certain duty cycle. The longer the signal is turned on in one duty cycle the brighter the light source will be (see Figure below). Similarly, the longer the signal is turned off in one duty cycle the darker the light source will be. Thus, a duty cycle of 25% means that the PWM signal is HIGH for 25% of the time of one cycle and LOW for the remaining 75% of the time. This results in a darker display (25% of max brightness) than a duty cycle of 75%.<br><br>
 
 <b>Frequency:</b> So how is the duty cycle related to the frequency? The duty cycle only tells you the percentage the signal is on/off within a cycle (e.g., 25%). It does not say how long a cycle is. For this, you need to define the frequency. A higher frequency results in a shorter overall cycle (not affecting the percentage the signal is on/off) than a lower frequency as you can see below.<br><br>
 
-<img src="images/lab6/pwm-explanation2.png" width="350px"> <img src="images/lab6/ac-frequency.png" width="390px"><br><br>
+<img src="images/lab6/pwm-explanation2.png" width="350px"> <img src="images/lab6/dutycycle_frquency.png" width="390px"><br><br>
 
 <b>High Frequencies and the Human Eye:</b> If the frequency is very high and thus the duty cycle is compressed into a short time window, the turning on and off of the signal (i.e. the display) happens very fast. If it is fast enough, humans do not notice that the display is turned on and off because of limitations of visual perception, which is great because we can use the on/off mechanism to create different brightness level without the user noticing that we are effectively just turning the display on/off at a very fast rate. The frequency should thus be high enough that the duty cycles are not visible to the human eye.<br><br>
 
 <b>Why can the frequency not be arbitrarily high?</b> We just said higher frequency, i.e. faster switching on/off, is better. The frequency, however, can not be infinitely high because of the specific setup we chose for our display circuit. We are dealing with two different signals. One signal is coming in the form of the AC signal from our inverter (frequency: 800Hz).
 The other signal is coming in the form of the PWM signal from our ESP (our choice of frequency). Having the inverter frequency given at 800Hz limits our choice for the frequency of the PWM signal from the ESP because of something called 'zero crossing circuit'.<br><br>
 
-<img src="images/lab6/inverter-pwm-signal.png" width="350px"><br><br>
+<img src="images/lab6/inverter-pwm.png" width="350px"><br><br>
 
-<b>What is a zero-crossing?</b> A zero-crossing is when the AC signal crosses the x-axis. When and how often that occurs depends on the frequency of the signal. When you check out <a href="https://www.mouser.com/datasheet/2/308/MOC3163M-D-1811983.pdf" target="_blank">the optocoupler's datasheet,</a> you will see that it contains a "zero-crossing circuit". What this means is that the optocoupler will only switch the display on/off when the AC signal of the inverter crosses zero AND the PWM signal tells the optocoupler to change the display state <span style="color:red">I don't understand this. so they both have to cross at the same time right? We should emphasize this.</span><br><br>
+<b>What is a zero-crossing?</b> A zero-crossing is when the AC signal crosses the x-axis. When and how often that occurs depends on the frequency of the signal. When you check out <a href="https://www.mouser.com/datasheet/2/308/MOC3163M-D-1811983.pdf" target="_blank">the optocoupler's datasheet,</a> you will see that it contains a "zero-crossing circuit". What this means is that the optocoupler will only switch the display on/off when the AC signal of the inverter crosses zero AND the PWM signal tells the optocoupler to change the display state. Both conditions have to be met at the same time to make the optocoupler switch between an on and an off state.<br><br>
 
 <b>PWM Frequency higher than Inverter Frequency:</b> So what happens if your PWM frequency is higher than your inverter frequency? The middle image below shows this: Although the PWM frequency demands that the display be switched off/on, the optocoupler will do nothing since there is no zero-crossing of the inverter in that time frame. Thus, if our PWM signal is faster than the inverter's AC frequency, the optocoupler switch cannot react fast enough. As a result, the optocoupler switch will react at some random point in time later, which disrupts the chosen duty cycle and makes it longer or shorter. Since the duty cycle is not consistent anymore, you will see the display flicker since it goes into random brightness states. <br><br>
 
@@ -211,7 +209,7 @@ The other signal is coming in the form of the PWM signal from our ESP (our choic
 
 <i>Frequency:</i> As mentioned previously, the frequency should be '100' Hz.<br><br>
 
-<i>Duty resolution:</i> The duty resolution is expressed in bits and determines how many different duty cycles we can choose from, i.e. how many different brightness options we will have when dimming the display. For instance, 3 bits gives us 8 different cycles to choose from (12.5%, 25%, 37.5%,... 100%). <span style="color:red">For our purposes '3' is a good choice.</span><br><br>
+<i>Duty resolution:</i> The duty resolution is expressed in bits and determines how many different duty cycles we can choose from, i.e. how many different brightness options we will have when dimming the display. For instance, 3 bits gives us 8 different cycles to choose from (12.5%, 25%, 37.5%,... 100%).For our purposes '8' is a good choice because it gives us many different brightness levels to generate a smooth dimming.<br><br>
 
 <b>Specify the Output Pin of the PWM Signal:</b> Now that you specified the signal with ledcSetup(), you need to specify on which GPIO pin number of the ESP the signal should appear.  <br>
 <pre>ledcAttachPin(GPIO_PIN, channel_number) </pre> 
@@ -225,11 +223,12 @@ The other signal is coming in the form of the PWM signal from our ESP (our choic
 
 <i>Channel Number:</i> The PWM channel number is the same as above.<br><br> 
 
-<i>Duty Cycle:</i> The duty <b>cycle</b> is different from the duty <b>resolution</b>. In the duty cycle parameter, you tell the ledcWrite() function, which of the duty cycles from your duty resolution should be used. Since we chose 3 bits, which gives us 8 values ranging from 12.5%, 25%, 37.5% .... 100%, then our duty cycle parameter is the index of the duty cycle you want to use. For instance, using 2 for the duty cycle parameter would give you 37.5% for the duty cycle. 
+<i>Duty Cycle:</i> The duty <b>cycle</b> is different from the duty <b>resolution</b>. In the duty cycle parameter, you tell the ledcWrite() function, which of the duty cycles from your duty resolution should be used. Since we chose 8 bits, which gives us 255 values ranging from 0.4%, 0.8%, 1.2% .... 100%, then our duty cycle parameter is the index of the duty cycle you want to use. You can input values between 0..255 for a 8-bit resolution..
 
-<b>Dim the Display Repeatedly:</b> Write a piece of code that puts the ledcWrite(channel_number, duty_cycle) function in loop() to repeatedly increase brightness from 0% to 100% in 2 seconds and then reduces the brightness down again in another 2 seconds. The display should repeat this dimming cycle infinitely.<br><br>
+<b>Dim the Display Repeatedly:</b> Write a piece of code that puts the ledcWrite(channel_number, duty_cycle) function in loop() to repeatedly increase brightness from 0% to 100% within 2 seconds and then reduces the brightness down again in another 2 seconds. The display should repeat this dimming cycle infinitely.<br><br>
 
-<span style="color:red">can we include a short video here showing this?</span><br><br>
+<span style="color:red">can we include a short video here showing this?</span><br>
+    <span style="color:red">Michael: Capturing a video introduces flicker</span><br><br>
 
 
 <h3>Deliverables</h3>
