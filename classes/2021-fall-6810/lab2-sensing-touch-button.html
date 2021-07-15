@@ -59,8 +59,8 @@ In this lab, you will wire up your silver inkjet printed music card to a microco
 <h3>Steps:</h3>
 <ol>
 	<li><a href="#INSTALLARDUINO">Install Arduino and ESP Microcontroller Drivers</a></li>
-	<li><a href="#TOUCHBUTTONBREADBOARD">Connect Printed Touch Button to Breadboard</a></li>
-	<li><a href="#SENSINGCIRCUIT">Build Sensing Circuit on the Breadboard</a></li>
+	<li><a href="#TOUCHBUTTONBREADBOARD">Mount Microcontroller Onto Breadboard</a></li>
+	<li><a href="#SENSINGCIRCUIT">Build Capacitive Touch Sensing Circuit</a></li>
 	<li><a href="#CAPACITIVELIBRARY">Install Arduino Capacitive Sensing Library</a></li>
 	<li><a href="#SAMPLECODE">Run Sample Code to Test if Touch Sensing Circuit Works</a></li>
 	<li><a href="#EXTENDCIRCUITCODE">Extend Circuit and Code to 3x Touch Sensors</a></li>
@@ -88,47 +88,51 @@ Please let us know if you had any trouble with the circuit or programming or if 
 
 <h3 id="INSTALLARDUINO">(1) Install Arduino IDE and ESP Microcontroller Drivers</h3>
 
-First, please <a href="install-arduino-esp.html">follow the instructions here to install Arduino, the ESP Core Board Manager, and the USB cable driver</a>. If you already have any of those but you installed them more than 3 months ago, we still recommend you reinstall everything to make sure you have the latest version. Once you have the Blink program working, you are ready to go!<br><br>
+First, please <a href="install-arduino-esp.html">follow the instructions here to install the Arduino IDE, the ESP Core Board Manager, and the USB cable driver</a>. If you already have any of those installed but you installed them more than 3 months ago, we still recommend you reinstall everything to make sure you have the latest version. Once you have the Blink program working, you are ready to go!<br><br>
 
-<h3 id="TOUCHBUTTONBREADBOARD">(2) Mounting ESP and the touch sensors to 2 small breadboard</h3>
+<h3 id="TOUCHBUTTONBREADBOARD">(2) Mount Microcontroller Onto Breadboard</h3>
 
  <div style="color:black; border: black 1px solid; padding: 5px;margin-bottom:5px;">
-<b>Use the small breadboards:</b> For all labs, please use the small breadboards. Use the large breadboard only for the pset.</div>
+<b>Use only two breadboards for the labs:</b> In total, you have four breadboards. However, only two breadboards should be used for the labs and the other two should be reserved for the problem set circuit.</div>
 
-The ESP32 microcontroller is too large to be mounted on a single breadboard while still having access to all pins. Thus, we will put too small breadboard next to each other and mount the ESP32 right in the middle between the two.<br><br>
-    
-    When you look at a breadboard, you'll notice that there are two power lanes between these red and blue lines on the sides of a breadboard. In order to properly mount your ESP micrcontroller between two breadboards, you have to to break off one of these power lanes one one breadboard (not both!) and then connect the two breadboard together. <br><br>
-    (1) Let's get started with placing the breadboards side by side.<br>
-    (2) Now, take one of the breadboard and break off one of the power lanes on one side<br><br>
+The ESP32 microcontroller is too large to be mounted on a single breadboard while still having access to all pins. Thus, you will put two breadboards next to each other and mount the ESP32 right in the middle between the two (similar to how you did it in 6.08).<br><br>
+
+<b>Place the two breadboards side by side:</b> Let's get started by placing the breadboards side by side.<br><br>
+
+<b>Break Off One(!) Power Lane on One(!) Breadboard (*not* both!):</b> To be able to connect two breadboards together, we need to break off the power lane on one(!) breadboard on one(!) side (see image below).<br><br>
     
 <img src="images/lab2/breadboards-2.jpg" height="250px">
 <img src="images/lab2/breadboard-break.jpg" height="250px"><br><br>
     
-    (3) Next, connect the two breadboard using the small pins on their sides<br>
-    (4) And finally, put your ESP32 right onto the middle between the two breadboards<br><br>
+<b>Connect Both Breadboards:</b> Next, connect the two breadboard using the small pins on their sides.<br><br>
+
+<b>Mount ESP onto Breadboards:</b> Finally, put your ESP32 right onto the middle between the two breadboards<br><br>
     
 <img src="images/lab2/breadboard-join.jpg" height="250px">
 <img src="images/lab2/breadboard-esp.jpg" height="250px"><br><br>
-    
-To connect a printed touch button to a breadboard, we will use a crocodile clamp and a jumper wire. One side of the crocodile clamp goes onto the connector pad of the touch button, the other side clips into the end of a jumper wire. The jumper wire can then be used to connect to the breadboard. You will later repeat this procedure for all touch buttons and slider segments but let's first finish wiring up one of the touch buttons.<br><br>
-
-<img src="images/lab2/lab1-crocodile-clamp-wire_new.jpg" width="357px" /><br><br>
+   
 
 <h3 id="SENSINGCIRCUIT">(3) Build Sensing Circuit on the Breadboard</h3>
 
-<b>Capacitive Touch Sensing:</b> We will implement touch sensing based on the principle of capacitive touch sensing. The circuit for capacitive touch sensing requires a <b>sender pin</b>, which outputs a signal, and a <b>receiver pin</b>, which listens to the signal. The sender and receiver pin have the touch button connected between them. When a user touches the touch button, the signal that was injected by the sender pin will take longer to discharge due to a capacitive object nearby, for example, your finger. The ESP32 can measure this time difference and, thus, detect touch. To delay this dicharge and make the time difference measurable for the ESP32, we have to mount a resistor between the sender and the receiver signal. A higher resistance enables more sensitive sensing. Using, for example a 10MOhm resistor even enables to sense a finger in up to about 10cm distance at the cost of speed because the signal takes longer to discharge. We will use in this lab a 100kOhm resistor because it offers a good trade-off between sensitivity and sensing speed.<br><br>
+<b>Capacitive Touch Sensing:</b> We will implement touch sensing based on the principle of capacitive touch sensing. The circuit for capacitive touch sensing requires a <code>sender pin</code>, which outputs a signal, and a <code>receiver pin</code>, which listens to the signal. The sender and receiver pin have the touch button connected between them. When a user touches the touch button, the signal that was injected by the sender pin will take longer to discharge due to a capacitive object (finger) nearby. The microcontroller can measure this time difference and, thus, detect touch.<br><br>
+
+<b>Using Larger Resistors to Increase Sensitivity:</b> To delay the discharge from the user's finger and make the time difference measurable on the ESP32, you will add a <code>resistor</code> between the sender and the receiver pin. A higher resistance enables more sensitive sensing (a 10MOhm resistor enables sensing of a finger up to 10cm distance, while a 10kOhm resistor would not make such a large distance detectable). However, higher resistance comes at the cost of speed because the signal takes longer to discharge. Since we only want to sense touch and do not need to sense hovering of a finger, we will use a <code>100kOhm resistor</code> because it offers a good trade-off between sensitivity and sensing speed.<br><br>
 
 <img src="images/lab2/capsense.png" width="300px"><img src="images/lab2/lab1-circuit.png" width="400px"><br><br>
 
-Let's build the circuit from the schematic above:<br><br>
+Let's build the circuit and write the code for <code>one touch button</code>, and then later repeat the procedure for the other touch buttons. To get started, look at the schematic and follow these steps:<br><br>
 
-<b>Sender Pin:</b> For the sender pin, you can use any GPIO pin on the ESP. For this first exercise, we ask you to use <i>pin 25</i>.<br><br>
+<b>Sender Pin:</b> For the sender pin, you can use any GPIO pin on the ESP. For this first touch button, we ask you to use <code>GPIO pin 25</code>.<br><br>
 
-<b>Receiver Pin:</b> For the receiver pin, it is best to use a pin that is labeled 'TOUCH' (see ESP pin out below). These pins are optimized to serve as receivers for capacitive sensing and therefore return cleaner signals, so we will use them for our sensing application. <span style="color:red">Do *not* use TOUCH0, it does not work on this particular model of ESP32</span> <a href="#section1">[1]</a>. For this first exercise, we ask you to use <i>pin 14</i>.<br><br>
+<b>Receiver Pin:</b> For the receiver pin, it is best to use a pin that is labeled <code>TOUCH</code> (see ESP pin out below). These pins are optimized to serve as receivers for capacitive sensing and therefore return cleaner signals, so we will use them for our sensing application. <span style="color:blue">Do *not* use TOUCH0, it does not work on this particular model of ESP32</span> <a href="#section1">[1]</a>. For this first touch button, we ask you to use <code>GPIO pin 14</code>.<br><br>
 
-<b>Resistor:</b> We will use one <i>100k Ohm resistor</i>. Add the resistor to the circuit between your sender and receiver pin.<br><br>
+<b>Resistor:</b> We will use a <i>100k Ohm resistor</i>. Add the resistor to the circuit between your sender and receiver pin for your first touch button.<br><br>
  
 <img src="images/lab2/esp32.png" width="750px" /><br><br>
+
+<b>Connecting to the Inkjet Printed Touch Button:</b> Finally, connect your printed touch button to the circuit on the breadboard. For this, you will use a <code>crocodile clamp</code> and a <code>jumper wire</code>. One side of the crocodile clamp goes onto the connector pad of the touch button, the other side clips into the end of a jumper wire. The jumper wire can then be used to connect to the breadboard. Once you have all of this connected, you are ready to write the code for your touch button.<br><br>
+
+<img src="images/lab2/lab1-crocodile-clamp-wire_new.jpg" width="357px" /><br><br>
 
 <h3 id="CAPACITIVELIBRARY">(4) Install Arduino Capacitive Sensing Library</h3>
 
