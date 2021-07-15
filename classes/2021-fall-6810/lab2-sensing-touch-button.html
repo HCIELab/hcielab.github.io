@@ -193,13 +193,15 @@ void loop()
 
 <h3 id="EXTENDCIRCUITCODE">(6) Extend Circuit and Code to 3x Touch Sensors</h3>
 
- <div style="color:black; border: black 1px solid; padding: 5px;margin-bottom:5px;">In this lab, we will only build the circuit and write the code for the touch buttons. We will take care of the slider in a later lab.</div>
+ <div style="color:black; border: black 1px solid; padding: 5px;margin-bottom:5px;">In this lab, we will only build the circuit and write the code for the <code>touch buttons</code>. We will take care of the <code>slider</code> later.</div>
 
-<b>Extend Circuit:</b> Since we have three notes that serve as touch buttons, we need to extend our circuit to read those touch signals as well. Use a breadboard to make 3 touch button circuits, each connecting to one of the notes. You can use the <b>same sender pin</b> for all three touch buttons. Only the receiver pin has to vary, i.e. you need one receiver pin for each touch signal you want to read. Also each touch sensor needs its own 100k Ohm resistor. The pin numbers are up to you.<br><br> 
+<b>Extend Circuit:</b> Since you have three notes that serve as touch buttons, you need to extend your circuit to read those touch signals as well. When building the circuit for your other touch buttons, you can use the <code>same sender pin</code> for all three touch buttons. Only the <code>receiver pin has to vary</code>, i.e. you need one receiver pin for each touch signal you want to read. Also each touch sensor needs its <code>own 100k Ohm resistor</code>. The pin numbers are up to you. Remember to use a <code>TOUCH</code> pin for receiving.<br><br> 
 
-<b>Extend Code:</b> Next, extend your code to read and print all 3 of your touch sensors. When you print your touch values, please use Serial.print() not Serial.println(). Each sensed value should be separated by a tabulator symbol Serial.print(","); and the line should finish with a new line Serial.print("\n").<br><br>
+<b>Extend Code:</b> Next, extend your code to read all 3 of your touch sensors. Plot the results in the format:
+<pre><code>touchButtonValue1, touchButtonValue2, touchButtonValue3;</code></pre>
+You can achieve this formatting by using <code>Serial.print()</code> for each touch button value instead of <code>Serial.println()</code>. Don't forget to Serial.print() the new line character <code>"\n"</code> at the end of the line.<br><br>
 
-<b>Test If Circuit and Sensing Works:</b> Instead of reading raw numbers in the Serial Monitor, you can also plot the received values in a nice graph. To do this, open the Serial plotter to visualize the received signals by clicking on 'Tools->Serial Plotter'. Because of the formatting we used (comma seperated using Serial.print()), we can see all three variables plotted at the same time. Similar to before, touch the sensors and see how the signal changes. If you see no changes, either your circuit or your code have a bug. Below you see how we touch the button 1 first, then button 2 and finally button 3. You can increase the number of times the signal is sampled by increasing the value of 'samples_touch' in your code.<br><br>
+<b>Test If Circuit and Sensing Works:</b> You can plot the received values in a nice graph. To do this, open the Serial plotter by clicking on <code>Tools->Serial Plotter</code>. Because of the formatting we used (Serial.print() values separated by commas), we can see all three touch button variables plotted at the same time. Touch each touch button to see if the signal changes. If you see no changes, either your circuit or your code have a bug. Below you see how we touch the button 1 first, then button 2 and finally button 3. You can increase the number of times the signal is sampled by increasing the value of <code>samples_touch</code> in your code.<br><br>
 
 <img src="images/lab2/lab1-plotting-signals_new.png" width="480px"><br><br>
 
