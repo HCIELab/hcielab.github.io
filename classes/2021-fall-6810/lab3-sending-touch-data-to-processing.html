@@ -64,7 +64,7 @@ In this lab, you are going to connect your card to Processing: When you push the
   <li><a href="#SERIALREAD">Serial Read Data into Processing</a></li>
   <li><a href="#EXTRACTTOUCHSTRING">Extract Touch Sensor Information from the String</a></li>
   <li><a href="#DRAWDIGITALBUTTON">Draw Digital Touch Button</a></li>
-  <li><a href="#TOUCHSIGNALTOBUTTON">Connect Incoming Touch Signal to On-Screen Touch Button</a></li>
+  <li><a href="#TOUCHSIGNALTOBUTTON">Connect Incoming Touch Signal to Digital Touch Button</a></li>
   <li><a href="#PROCESSINGSOUND">Install Processing Sound Library + Run Skeleton Code</a></li>
   <li><a href="#DIGITALCARD">Implement Digital Music Card</a></li>
   <li><a href="#INTEGRATEDTOUCHSENSING">Integrate Touch Sensing with Music Application</a></li>
@@ -74,24 +74,29 @@ In this lab, you are going to connect your card to Processing: When you push the
 
 At the end of the lab, upload to your student google drive:
 <ol>
-  <li>the Processing code (.pde) you wrote for Serial communication that displays the three touch buttons and the slider bar</li>
-  <li>the Processing code (.pde) of the completed music card application</li>
+  <li>the Processing code (.pde) you wrote for Serial communication that displays the three touch buttons</li>
+  <li>the Processing code (.pde) of the music card application</li>
   <li>a short video (.mov or .mp4, max. 1 minute, 50MB or less) showing how you use the printed music card, i.e. touch the buttons with your finger to play/pause a song and go to the previous/next song</li>
 </ol>
 
+ <div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Help us Improve Class Materials for Lab3:</b><br>
+Please let us know if you had any trouble with the circuit or programming or if anything was confusing in the write up. <br> <a href="https://docs.google.com/document/d/1ESBkQkSE9ly5-Ch1XIx88MO-aj4yWzaTq4uezrDFTZQ/edit?usp=sharing">You can add your comments here.</a></div>
+
+
 <h3>Make sure everything from last lab is still working</h3>
 
-Before getting started with the new content, let's first make sure everything from last lab is still working. Connect your printed music card to the ESP32 and the ESP to your computer via USB. Upload the Arduino program that you wrote in the last lab. Double check that when touching one of the touch buttons you see the touch signals printed on the Arduino Serial monitor. If you see this, you are ready to start today's lab.<br><br>
+Before getting started with the new content, let's first make sure everything from last lab is still working. Connect your printed music card to the ESP32 microcontroller and the ESP to your computer via the USB cable. Upload the Arduino program that you wrote in the last lab. Check that when touching one of the touch buttons you see the touch signal printed on the Arduino Serial monitor. If you see this, you are ready to start today's lab.<br><br>
 
 <hr>
 
 <h3 id="INSTALLPROCESSING">(1) Install Processing</h3>
 
-Since Arduino has no libraries for graphical user interfaces, we will send our touch input to a program called <i>Processing</i> that can render our music card and the touch buttons on the screen. <a href="https://processing.org" target="_blank">Processing</a> is a user interface protoyping platform that is based on Java. It was created by MIT students (and others) in their spare time in 2001 and is nowadays used by thousands of makers and UI designers.<br><br>
+Since Arduino has no libraries for <code>graphical user interfaces,</code> we will send our touch signals to a program called <code>Processing</code> that can render our music card and the touch buttons on the screen. <a href="https://processing.org" target="_blank">Processing</a> is a user interface protoyping platform that is based on Java. It was created by MIT students (and others) in their spare time in 2001 and is nowadays used by thousands of makers and UI designers.<br><br>
 
-<b>Install Processing:</b> You can <a href="https://processing.org/download/">download and install Processing using this link here</a>.<br><br>
+<b>Install Processing:</b> You can <a href="https://processing.org/download/">download and install Processing using the link here</a>.<br><br>
 
-<b>Getting Started Tutorials:</b> Processing has a <a href="https://processing.org/tutorials/" target="_blank">lot of useful minitutorials with code snippets that you can find here</a>.<br><br>
+<b>Getting Started Tutorials:</b> Processing has <a href="https://processing.org/tutorials/" target="_blank">useful minitutorials with code snippets that you can find here</a>.<br><br>
 
 <b>Processing API:</b> You can find all <a href="https://processing.org/reference/" target="_blank">available classes and functions here in the Processing API.</a><br><br>
 
@@ -99,7 +104,7 @@ Since Arduino has no libraries for graphical user interfaces, we will send our t
 
 <b>Create New Processing Program:</b> Open Processing and create a new program.<br><br>
 
-<b>setup() and draw() functions:</b> Similar to Arduino, every Processing program has two functions: one that is executed only once (setup()) when you run the script, and another function that loops forever (draw()). Create both functions in your empty Processing file.<br><br>
+<b>setup() and draw() functions:</b> Similar to Arduino, every Processing program has two functions: one that is executed only once when you run the script called <code>setup()</code>, and another function that loops forever called <code>draw()</code>. Create both functions in your empty Processing file.<br><br>
 
 <pre>
 void setup() { // runs only once
@@ -115,20 +120,20 @@ void draw() { //runs infinitely
 
 <h3 id="OPENSERIAL">(3) Open Serial Connection in Processing</h3>
 
-In the last lab, we wrote a program that sends our touch signals from the ESP microcontroller through the Serial port (USB cable) to our computer. We had then used the Serial Monitor in the Arduino Programming environment to look at the touch signals coming through the Serial port. However, since any program can read from the Serial port, we are not dependent on Arduino, and can also use Processing to read the data and do something interesting with it.<br><br>
+In the last lab, we wrote a program that sends our touch signals from the ESP microcontroller through the <code>Serial port (USB cable)</code> to our computer. We had then used the <code>Serial Monitor</code> in the Arduino Programming environment to look at the touch signals coming through the Serial port. However, since any program can read from the Serial port, we are not dependent on Arduino, and can also use Processing to read the data and do something interesting with it.<br><br>
 
 
-<b>Import Serial Library:</b> Import the <a href="https://processing.org/reference/libraries/serial/index.html">Serial library</a>.<br>
+<b>Import Serial Library:</b> Import the <a href="https://processing.org/reference/libraries/serial/index.html">Serial library</a> at the top of your Processing file.<br>
 <pre>import processing.serial.*;</pre><br>
 
-<b>Open Serial Connection:</b> Next, let's define the serial connection in the setup() function we just created. To open the serial connection, you need to create a new port that can be used for communication by creating an object from this class: <br>
+<b>Open Serial Connection:</b> Next, let's define the serial connection in the <code>setup()</code> function we just created. To open the serial connection, you need to create a new <code>port</code> that can be used for communication by creating an object from this class: <br>
 <pre>Serial myPort;</pre><br>
 
 To create the port, you need to define three things: 
 <ol>
-<li>which application will listen to the port (i.e. 'this' one)</li> 
-<li>which portname to use (same as you used in Arduino)</li>
-<li>which baudrate is expected to be able to decode the messages (same as you used in Arduino)</li>
+<li>which <code>application</code> will listen to the port (i.e. <code>this</code> one)</li> 
+<li>which <code>portname</code> to use (same as you selected in the Arduino menu when you clicked <code>Tools -> Port</code>)</li>
+<li>which <code>baudrate</code> is expected to be able to decode the messages (same as you defined in your <code>Arduino .ino code</code>)</li>
 </ol> 
 
 <pre>myPort = new Serial(this, <span style="color:red">String</span> portName, <span style="color:red">int</span> baudrate);</pre><br>
@@ -147,7 +152,7 @@ Now that the port is defined, your program can listen to it and check if data is
 
 Now that we have the port defined, we can see if data is available and if the answer is yes, we can read the data from the port.<br><br>
 
-<b>Reading Serial Data into a String:</b> Below, we provide some starter code for you to read the Serial data into a string. Add the lines to your draw() function so they are executed continuously:<br><br>
+<b>Reading Serial Data into a String:</b> Below, we provide some starter code for you to read the <code>Serial data</code> into a <code>string</code>. Add the lines to your <code>draw()</code> function so they are executed continuously:<br><br>
 
 <pre>
 // we are sending data in the format: <i>(sensor ID),(is_touched);</i> (4 characters)
@@ -157,20 +162,21 @@ Now that we have the port defined, we can see if data is available and if the an
 // If there is a message with at least 4 characters 
 if (myPort.available() >= 4) { 
 
-    <span style="color:red">// read a String until the character ';' is found, which indicates the end of our message</span>
+    // read a String until the character ';' is found, which indicates the end of our message
     String val = myPort.readStringUntil(';'); 
   }</pre><br>
 
+Let's go into more detail what this code is doing:<br><br>
+
 <b>Check if Serial messages are available:</b>
-    Before we execute any code, we have to check if the Arduino has sent something we can process. When you think back to lab 2, you might remember that we formatted the touch signals with two numbers and two other character, e.g., <code>0,1;</code>. These are obviously 4 characters. Thus, we want to execute any code only if at least 4 characters got send over Serial. You can do that with the function <code>myPort.available()</code>, which returns how many characters are available on the Serial stack and we execute any code only if this stack has equal or more than 4 characters.<br><br>
-    
+    First, you have to check if the ESP microcontroller has sent something. You can do that with the function <code>myPort.available()</code>, which returns how many characters are available on the Serial stack. Remember that you formatted the touch signals with two numbers and two other character, e.g., <code>0,1;</code>. These are 4 characters. Thus, you want to process the signal only if at least 4 characters got send over Serial. <br><br>    
     
 <b>Reading Serial messages:</b> 
-    Serial messages can be read into the Processing Script by using the function <code>myPort.readStringUntil()</code>. This function reads in all characters until a stop symbol is found and converts this message into a string. You formatted in lab 2 all Serial message to end with a semicolon (;). You can now use this stop symbol to read in exactly one touch event at a time.<br><br>
+    Serial messages can be read into Processing with the function <code>myPort.readStringUntil()</code>. This function reads in all characters until a stop symbol you can define is found, and then converts the individual characters into a string. In the code above, we defined the stop signal to be a semicolon (;) since we had formatted all Serial message in lab 2 to end with one.<br><br>
 
-<b>Print Received Strings:</b> Next, print the received String values to the Processing command line using the <a href="https://processing.org/reference/print_.html">print() function</a>.<br><br>
+<b>Print Received Strings:</b> Next, print the received String values to the <code>Processing command line</code> using the <a href="https://processing.org/reference/print_.html"><code>print()</code> function</a>.<br><br>
 
-<b>Testing if you Receive Data:</b> Before you run your Processing program, check one more time that the printed music card is connected to the ESP and the ESP is connected to your computer, and that the ESP is actually on and running its microcontroller program. Once you confirmed this, run your Processing program, and touch your touch sensor to see if the statements you printed to Serial port are getting printed on the Processing command line. If you are getting a ‘port busy’ error, <b>make sure you close the Serial Monitor / Plotter on Arduino IDE</b> since only one program can read from the Serial port at a time.<br><br>
+<b>Testing if you Receive Data:</b> Before you run your Processing program, check one more time that your printed touch button is wired to the ESP and the ESP is connected to your computer. Check that the ESP is actually on and running its microcontroller program. Once you confirmed this, run your Processing program, and touch your touch sensor to see if the statements you printed to Serial port are getting printed on the <code>Processing command line</code>. If you are getting a <code>‘port busy’ error</code>, make sure you <code>close the Serial Monitor in the Arduino IDE</code>. Only one program can read from the Serial port at a time, so if the Arduino Serial Monitor reads from the Serial Port it will not be possible for Processing to get access to the data as well.<br><br>
 
 <h3 id="EXTRACTTOUCHSTRING">(5) Extract Touch Sensor Information from the String</h3>
 
@@ -278,8 +284,8 @@ Now that we have the user interface that we can control digitally and we tested 
 
 At the end of the lab, upload to your student google drive:
 <ol>
-  <li>the Processing code (.pde) you wrote for Serial communication that displays the three touch bars and the slider bar</li>
-  <li>the Processing code (.pde) of the completed music card application</li>
+  <li>the Processing code (.pde) you wrote for Serial communication that displays the three touch buttons</li>
+  <li>the Processing code (.pde) of the music card application</li>
   <li>a short video (.mov or .mp4, max. 1 minute, 50MB or less) showing how you use the printed music card, i.e. touch the buttons with your finger to play/pause a song and go to the previous/next song</li>
 </ol><br>
 
