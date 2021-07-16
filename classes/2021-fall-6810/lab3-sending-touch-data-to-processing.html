@@ -201,24 +201,23 @@ Once you are done it should look like this:<br><br>
 
 <h3 id="TOUCHSIGNALTOBUTTON">(7) Connect Incoming Touch Signal to On-Screen Touch Button</h3>
 
-Next, we will connect the color of the circle to the incoming touch signal.<br>
-A red circle shows that the sensor is being touched.<br>
-A gray circle shows that the sensor is not being touched.<br><br>
+Next, we will connect the color of the circle to the incoming touch signal for <code>touch button #1</code>.<br>
+A <code>gray</code> circle shows that the touch button is <code>not touched</code>.<br>
+A <code>red</code> circle shows that the touch button is being <code>touched</code>.<br><br>
 
 <img src="images/lab3/1-touchbutton.png" width="550px"><br><br>
 
-<b>Identifying if Incoming Touch Signal is for Touch Button 1:</b> If you use a String comparison to find which data belongs to touch button 1, remember you cannot use <code>stringVariable == "StringValue"</code>. Instead you need to use <code>equals()</code>. Check <a href="https://processing.org/reference/String_equals_.html">the reference here for equals()</a>. If you plan to use a boolean in Processing, the datatype is spelled out <code>boolean myVariable;</code> not <code>bool</code> like in Arduino.<br><br>
+<b>Identifying if Incoming Touch Signal is for Touch Button 1:</b> Use a String comparison to find out which data belongs to touch button #1. Remember you cannot use <code>stringVariable == "StringValue"</code>. Instead you need to use <code>equals()</code>. Check <a href="https://processing.org/reference/String_equals_.html">the reference here for <code>equals()</code></a>. If you plan to use a boolean in Processing, the datatype is spelled out <code>boolean myVariable;</code> not <code>bool</code> like in Arduino.<br><br>
 
 <b>Redrawing the Circle:</b> When you add or modify a shape in Processing, the old shape will not disappear but remain in the Processing window. Use <code>background(255);</code> or any other color you like to erase all content in your window and let the new circles be redrawn everytime the <code>draw()</code> function is executed.<br><br>
 
 Once you are done, it should look like in the image above (without the text).<br><br>
  
-<b>Extend Visualization to 3x Touch Buttons</b> Once you have the first touch button done, extend the user interface to have a circle for all three touch sensors.<br>
-It should look like the image below .<br><br>
+<b>Extend Visualization to 3x Touch Buttons</b> Once you have the first touch button done, extend the user interface to have a circle for all three touch sensors. It should look like the image below .<br><br>
 
 <img src="images/lab3/2-three-buttons-notouch.png" width="275px"><br><br>
 
-Touching multiple touch sensors simultaenously also works. This should be a bit surprising to you, since we can only read one message at a time in the draw() function. The reason it still works is that we are reading messages at such a high speed that the processing gap is not visible to the human eye.<br><br>
+<b>Test Touching Multiple Buttons Simultaneously:</b> Touching multiple touch sensors simultaenously also works with the code you have. This should be a bit surprising to you, since we can only read <code>one message at a time</code> in the <code>draw()</code> function. The reason it still works is that we are reading messages at such a <code>high speed</code> that the processing gap is not visible to the human eye.<br><br>
 
 <h3 id="PROCESSINGSOUND">(8) Install Processing Sound Library + Run Skeleton Code</h3>
 
