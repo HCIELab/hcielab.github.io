@@ -60,11 +60,12 @@ You already built the circuit and wrote the code for the touch buttons on your m
   <li><a href="#1">Build Slider Circuit</a></li>
   <li><a href="#2">Extend Microcontroller Code to Read Slider Segments</a></li>
   <li><a href="#3">Measure Min and Max Signal Thresholds</a></li>
-  <li><a href="#4">Compute Relative Position of Finger</a></li>
-  <li><a href="#5">Compute Overall Slider Value</a></li>
-  <li><a href="#6">Write Slider Value to Serial Port</a></li>
-  <li><a href="#7">Add Slider to Card</a></li>
-  <li><a href="#8">Connect Physical Music Card to Processing</a></li>
+  <li><a href="#4">Determine Which Slider Segment is Touched</a></li>
+  <li><a href="#5">One Slider Segment is Touched</a></li>
+  <li><a href="#5">Two Slider Segments are Touched</a></li>
+  <li><a href="#7">Write Slider Value to Serial Port</a></li>
+  <li><a href="#8">Add Slider to Card</a></li>
+  <li><a href="#9">Connect Physical Music Card to Processing</a></li>
 </ol>
 
     
@@ -142,7 +143,7 @@ A sample output for touching the slider between the first two segments should lo
 4,0;
 </code></pre>
 
-<h3 id="4">(5) Only One Slider Segment is Touched</h3>
+<h3 id="5">(5) One Slider Segment is Touched</h3>
 
 <b>Differentiate Between Touching 1 or 2 Slider Segments:</b> Next, extend your code to differentiate between two different scenarios: (1) Only <code>one slider segment is touched</code> at a time, or (2) <code>two segments are touched</code> at the same time. For (2), we want to later interpolate between both slider segment values to determine the relative position of the finger, but let's start with the simple case of touching only one segment.<br><br>
 
@@ -151,77 +152,63 @@ A sample output for touching the slider between the first two segments should lo
 <img src="images/lab2/slider_vis_discrete.png" width="400px"><br><br>
 
 
-<h3 id="4">(6) Two Slider Segments are Touched</h3>
+<h3 id="6">(6) Two Slider Segments are Touched</h3>
     
 Now let's look at the more complicated case where the finger is in-between two slider segments, i.e. two slider segments are being touched. In this case we want to <code>interpolate between both slider segment signals</code> to determine the relative position of the finger between the two segments.<br><br>
 
 <b>Determine How Much Each Segment is Touched:</b> Let's first determine how much each of the two segments are touched. The best way to do this is to <code>divide each slider segment signal by its max value</code>, which gives you the fraction that represents how much a slider segment was touched. Write the value to the Serial Monitor and see if the fraction increases as you touch more area of the slider segment.<br><br> 
 
-<b>Compute Relative Position of a Finger Between Two Slider Segments:</b> Now that you know how much each slider segment is touched, you can compute the relative position of the finger between the two segments. For this, you need to compute the average between both values. When computing the average, keep in mind that segment #1 will drop in value, which you need to reflect in your formula for the average: <code>((1-frac1)+frac2)/2</code>. Write this value to the serial monitor and see if it increases as you touch more of the slider segment further to the right.<br><br>
-         
-<b>Convert Relative Position to Overall Slider Value:</b> 
-You should receive from your function of the previous step a value between 0 and 1. To convert this value to a position on the whole slider segment, you have to to take into account the position of the touched slider segments. For example, if slider segment 3 and 4 are touched, the values should range between 0.5 and 0.75. Thus, we first have to scale down the returned value of the function to 0.25 by multiplying 0.25*res. The range of the return value will now be between 0 and 0.25. Next, we have to add the relative position. If slider 3 and 4 are active, you have to add 0.5 to the function value. Altogether, the relative position can be computered as RelPos + 0.25*res. RelPos should be 0 for the first slider segment, 0.25 for the second and so on.<br><br>
+<b>Compute Relative Position of a Finger Between Two Slider Segments:</b> Now that you know how much each slider segment is touched, you can compute the relative position of the finger between two slider segments. This will be a value between 0.0-1.0 where smaller values represent that more of the left slider segment is touched, and larger values represent that more of the right slider segment is touched. To determine the relative position, you need to compute the <code>average between both values</code>. When computing the average, keep in mind that the <code>left segment will drop in value</code> as the finger moves to the right, which you need to reflect in your formula for the average: <code>((1-frac1)+frac2)/2</code>. Write this value to the serial monitor and see if it increases as your finger slides from the left to the right on the two segments.<br><br>
+   
+<b>Scaling the Relative Position to the Slider Spacing:</b> Remember that our slider spacing is in 0.25 increments, i.e. slider segment 1-2 cover a range of 0-0.25, slider segment 2-3 cover a range of 0.25 - 0.5 and so on. However, the relative position between two slider segments we just computed is a value from 0-1.0. We thus need to <code>scale down this value to our slider segment spacing</code> by multiplying it with 0.25. For example, if we have a relative position of 0.5, which indicates that the finger is exactly in the middle, multiplying the relative position by the slider spacing 0.25 would give us 0.125, which is in the middle between two slider values.<br><br> 
+
+<b>Computing Overall Slider Value:</b> Finally, you still have to add the scaled relative position, which will always be between 0.0 - 0.25, to the <code>overall slider position</code>. All you need to do is to add this value to the discrete slider value of the segment that is touched first. For instance, if you have a relative position of 0.18 for slider segment 3 and 4, which cover a range of 0.5 - 0.75, all you need to do is to add this value to 0.5 and you receive an overall slider value of 0.68.<br><br>
     
-<img src="images/lab2/slider_vis_continuous.png" width="400px"><br><br>
+<!-- <img src="images/lab2/slider_vis_continuous.png" width="400px"><br><br> -->
   
 
-<h3 id="6">(6) Write Slider Value to Serial Port</h3>
+<h3 id="7">(7) Write Slider Value to Serial Port</h3>
 
-Write the slider value to the Serial port so that you can read it out later in Processing. For the calculated slider value, format the output like we did before for the touch button so that:<br>
+Once you are ready, clean up what you write to the Serial Port. We only want to write the overall slider value to the Serial Port, not the individual slider segments, so we can later read the overall slider value into Processing. Assign the slider value the ID 3 since we already used ID 0, 1, and 2 for the touch buttons. The output should print continuously as long as the slider is touched.<br><br>
 
 <code>(sensor ID),(slider_value);</code><br><br>
     
 (sensor ID) is 3, and represents the ID of the slider (we already used up sensor IDs 0, 1, 2 for the touch buttons).<br>
-(slider_value) is ranging from 0.0 to 1.0 to indicate the overall slider position (music volume).<br><br>
+(slider_value) is ranging from 0.0 to 1.0 to indicate the overall slider position.<br><br>
 
-A sample output hould look like:<br>
+Here is a sample output:<br>
 <pre><code>3,0.78;
 3,0.86;
 3,0.97; 
 </code></pre> 
-The output should print continuously as long as the slider is touched. <br>
 
 <br>
 
-<h3 id="7">(7) Add Slider to Card</h3>
+<h3 id="8">(8) Add Slider to Music Card</h3>
 
-Let's add the slider to the music card to control the music volume.<br> Open the music card code again.<br><br>
+Before we use our physical slider to control the music volume, let's first implement a <code>digital slider</code> to test the functionality.<br><br>
 
-We already implemented a class 'Slider' for you.<br>
-You can make a new slider with:<br><br>
+<b>Add Slider to Code:</b> Open the music card code from lab3. We already implemented a class <code>Slider</code> for you. Add a new slider to the code in the <code>draw()</code> function with:<br>
+<pre>mySliders.add(new Slider(start_x, start_y, end_x, end_y));</pre>
 
-<pre><span style="red">mySliders.add(new Slider(start_x, start_y, end_x, end_y));</span></pre>
-
-Please add one slider to the code, just like how you added the button. <br>
-Add code to the draw() function to display the slider when it is not in "hide" mode.<br><br>
-
-Your result should look like this.<br>
-You should be able to control the slider by dragging your mouse (with left mouse button pressed): <br><br>
-
-Dragging the mouse on the slider from left to right:<br>
+You should be able to control the slider by dragging your mouse with left mouse button pressed as shown below: <br>
 <img src="images/lab4/lab2-volume-low_UI_new.png" width="350px">
 <img src="images/lab4/lab2-volume-middle_UI_new.png" width="350px">
 <!-- <img src="images/lab2-volume-high_UI.png" width="200px"> -->
 <br><br>
 
-<h4>Create Slider Events for the Music Volume Control</h4><br>
+<b>Create Slider Events to Control the Music Volume:</b> Next, we want to increase the music volume when the slider is dragged to the right and decrease the music volume when the slider is dragged to the left. To create events on <code>mouse drag,</code> we need to implement several <code>mouseDragged() events</code>. A part of this is already done further down in the code. Extend the code so that it changes the music volume based on the slider level. 
+You might find the following functions from the "Audio" and "Slider" classes useful:<br>
 
-To create events on mouse drag, we need to implement several mouseDragged() events.<br>
-We already did some parts of it for you in the code further down in the class.<br>
-Please go ahead and extend the code so that it changes the music volume based on the slider level. <br>
-You might find the following functions from the "Audio" and "Slider" classes useful: <br>
-<br><pre>
+<pre>
 music.changeVolume(double intensity);
-Slider.getIntensity();</pre><br><br>
+Slider.getIntensity();</pre><br>
 
-Once you finished your code, test if the music volume actually changes by first playing a song with the virtual touch button and then dragging the slider to adjust the music volume. If everything works, move on.<br><br>
+Once you finished your code, test if the music volume changes by first playing a song with the virtual touch button and then dragging the slider to the left and right to adjust the music volume.<br><br>
     
-<h4>Hide the Slider</h4><br>
+<b>Hide the Slider:</b> Similar to the previously added buttons, you can <code>hide the slider</code> by pressing the <code>'h' key</code> on your keyboard while your program runs. If you want to see them again, press <code>'s' for show</code>.<br><br>
 
-Similar to the previously added buttons, you can hide the Slider by pressing the 'h' key on your keyboard while your program runs.<br>
-If you want to see them again, press 's' (for show).<br><br>
-
-<h3 id="8">(8) Connect Physical Music Card to Processing</h3>
+<h3 id="9">(9) Connect Physical Music Card to Processing</h3>
 
 Now that we can control the slider digitally, we also want to adjust the volume of the music from the physical card.<br><br>
 Read in the Serial messages from your ESP32 that include the values for the finger position on the slider. Use these values to change the volume of the music and integrate it into the music card Processing Script.<br>
