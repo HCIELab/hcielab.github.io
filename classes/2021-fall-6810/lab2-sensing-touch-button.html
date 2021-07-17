@@ -136,20 +136,11 @@ Let's build the circuit and write the code for <code>one touch button</code>, an
 
 <h3 id="CAPACITIVELIBRARY">(4) Install Arduino Capacitive Sensing Library</h3>
 
-Next, we will write a program that receives the touch sensor signal from your first touch button and plots it on your computer. To process the touch sensor signal, we will use the Arduino <a href="https://playground.arduino.cc/Main/CapacitiveSensor/"><code>CapacitiveSensor library</code></a>.<br><br>
+Next, we will write a program that receives the touch sensor signal from your first touch button and plots it on your computer. You can see the sample code that can do this below. To process the touch sensor signal, we will use the Arduino <a href="https://playground.arduino.cc/Main/CapacitiveSensor/"><code>CapacitiveSensor library</code></a>. You need to install this library before you can run the code.<br><br>
 
-<b>Install Library via Arduino Library Manager:</b> To install the library, open Arduino and go to <code>Sketch -> Include Library -> Manage Libraries</code> and search for the <code>CapacitiveSensor</code> library and install it. <code>Close</code> the Arduino IDE and <code>reopen</code> it after install. <br><br>
+<b>Install Library via Arduino Library Manager:</b> To install the library, open Arduino and go to <code>Sketch -> Include Library -> Manage Libraries</code> and search for the <code>CapacitiveSensor</code> library and install it. <code>Close</code> the Arduino IDE and <code>reopen</code> it after install. <code>Copy the starter code</code> below. and see if you can compile and upload it to your microcontroller. If the compiling completes without error messages, then you are all set to move on. However, if the installed library does not work and returns an error message like <code>'XXX' does not name a type"</code> upon compiling, please try the alternative install described below the starter code.<br><br>
 
 <img src="images/lab2/capacitivesensorlibrary.png" width="700px"><br><br>
-
-<b>Alternative Install from github:</b> First, remove the previously installed library. You can delete it on Mac under 'Macintosh HD/Users/your-username/Documents/Arduino/libraries' and on windows this is under 'My Documents\Arduino\libraries\. Once the library is deleted, <a href="https://github.com/PaulStoffregen/CapacitiveSensor">go to the library's GitHub repository</a> and download it as a .zip file. Re-install the library via the .zip file. The <a href="https://www.arduino.cc/en/guide/libraries#toc4"> instructions to do so can be found here.</a> <code>Sketch -> Include Library -> Add .ZIP Library</code>. Don't forget to  <code>close</code> the Arduino IDE and <code>reopen</code> it after install. Then try to compile the starter code one more time and see if it successfully uploads to your microcontroller.<br><br>
-
-
-<h3 id="SAMPLECODE">(5) Run Sample Code to Test if Touch Sensing Circuit Works</h3>
-
-<b>Run Sample Code:</b> Copy this starter code <a href="#SAMPLECODE">here</a> and see if you can compile and upload it to your microcontroller. If the compiling completes without error messages, then you are all set to move on to the next section on sensing the touch signal. However, if the installed library does not work and returns an error message like <code>'XXX' does not name a type"</code> upon compiling, please try the alternative install below.<br>
-
-The sample code can read the signal from one touch button and write it to Arduino's serial monitor.<br> <br> 
 
 <pre>
 <code>/*******************************************************************************
@@ -186,6 +177,13 @@ void loop()
   delay(10);
 }</code></pre>
 <br>
+
+<b>Alternative Install from github:</b> First, remove the previously installed library. You can delete it on Mac under <code>Macintosh HD/Users/your-username/Documents/Arduino/libraries</code> and on windows this is under <code>My Documents\Arduino\libraries\</code>. Once the library is deleted, <a href="https://github.com/PaulStoffregen/CapacitiveSensor">go to the library's GitHub repository</a> and download it as a .zip file. Re-install the library via the .zip file. The <a href="https://www.arduino.cc/en/guide/libraries#toc4"> instructions to do so can be found here.</a> <code>Sketch -> Include Library -> Add .ZIP Library</code>. Don't forget to <code>close</code> the Arduino IDE and <code>reopen</code> it after install. Then try to compile the starter code one more time and see if it successfully uploads to your microcontroller.<br><br>
+
+
+<h3 id="SAMPLECODE">(5) Run Sample Code to Test if Touch Sensing Circuit Works</h3>
+
+Now that you uploaded the sample code to your microcontroller, let's use it to test if the touch sensing works.<br><br>
 
 <b>Use Serial Monitor to Observe Signal Changes During Touch:</b> If you wired up your touch button according to our pin assignment, the code will write the touch signal to the <code>serial monitor</code> of the Arduino IDE. You can open the serial monitor by clicking on the <code>squared icon</code> in the upper right corder of your Arduino IDE window (see image below). Once you open the serial monitor, you should see a bunch of numbers fly by. If you touch your touch sensor, the values should change significantly. If your numbers don't change, there may be something wrong with your circuit. Double check your circuit and then ask a TA for help.<br><br>
 
