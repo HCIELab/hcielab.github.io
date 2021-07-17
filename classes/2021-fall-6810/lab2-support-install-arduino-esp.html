@@ -75,36 +75,46 @@ Next install the ESP32 core.<br><br>
   <li>Under the <code>Additional Boards Manager URL field</code> paste in: <code>https://dl.espressif.com/dl/package_esp32_index.json</code> and then click <code>OK</code></li>
   <li>Now go to <code>Tools>Boards>Boards Manager</code></li>
   <li>In the window that pops up, search for <code>esp32</code>. One option should appear. Install it.</li>
-  <li>Now select <code>Tools>Boards>DOIT ESP32 DEVKIT V1</code> so your Arduino IDE knows it should use the ESP core for compiling.</li>
-  <li>You should be good to go now with software. We will test it in a little bit.</li>
+  <li>Close your Arduino IDE and reopen it.</li>
+  <li>Now check under <code>Tools>Board</code> if you can select the <code>DOIT ESP32 DEVKIT V1</code>. If you see it, you can move on.</li>
 </ul>
 
-<b>*Nix Users:</b> We strongly recommend installing the ESP core directly from the git repository. The Arduino Board Manager that Windows and Mac Users can use does a poor job when setting the appropriate permissions in the broad array of Linux environments. To install the ESP32 core from the git repo, <a href="https://github.com/espressif/arduino-esp32">go to its website here</a>. Scroll down until section <code>Installation Instructions</code> and choose the <code>Using Arduino IDE with the development repository</code> and <code>Instructions for Debian/Ubuntu Linux</code>. The current <a href="https://github.com/espressif/arduino-esp32/blob/master/docs/arduino-ide/debian_ubuntu.md">link to get there directly is here</a>. Pay close attention to what the output of copy-pasting that script says. If there is an error or some text about <code>unicode not existing</code> you need to change the word <code>python to python2.7</code> in that command string. Install everything using <code>Python2,</code> not <code>Python3!</code> <span style="color:red">and then after installing, do they still have to select the board under 'Tools'?</span><br><br>
+<b>*Nix Users:</b> We strongly recommend installing the ESP core directly from the git repository. The Arduino Board Manager that Windows and Mac Users can use does a poor job when setting the appropriate permissions in the broad array of Linux environments. To install the ESP32 core:<br>
+
+<ul>
+  <li>go to  <a href="https://github.com/espressif/arduino-esp32">the git repository website here</a></li>
+  <li>Scroll down until section <code>Installation Instructions</code> and choose the <code>Using Arduino IDE with the development repository</code> and <code>Instructions for Debian/Ubuntu Linux</code>. The current <a href="https://github.com/espressif/arduino-esp32/blob/master/docs/arduino-ide/debian_ubuntu.md">link to get there directly is here</a>.</li> 
+  <li>copy paste the script and run it on your terminal. Install everything using <code>Python2,</code> not <code>Python3!</code></li> 
+	<li><span style="color:red">I don't see a python word in the code</span> Pay close attention to what the output of the script says. If there is an error or some text about <code>unicode not existing</code> you need to change the word <code>python to python2.7</code> in that command string.</li> 
+	 <li>Close your Arduino IDE and reopen it.</li>
+  <li>Now check under <code>Tools>Board</code> if you can select the <code>DOIT ESP32 DEVKIT V1</code>. If you see it, you can move on.</li>
+</ul>
+
 
 <h3 id="3">(3) Install USB Cable Driver</h3>
 
 Finally, you still need to install the USB cable driver.<br><br>
 
-<b>Windows Users:</b> Download the <a href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers">USB cable driver from here.</a> <span style="color:red">There are 5 different windows drivers, which one should they use?</span> <code>Unzip</code> the folder, run <code>Installer_x64.exe</code> if 64 bit or <code>Installer_x86.exe</code> if 32 bit. If you get bugs, please talk to a member of the teaching team. <br><br>
+<b>Windows Users:</b> Download the <a href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers">USB cable driver from here.</a> <span style="color:red">There are 5 different windows drivers, which one should they use?</span> <code>Unzip</code> the folder, run <code>Installer_x64.exe</code> if 64 bit or <code>Installer_x86.exe</code> if 32 bit. If you get bugs, please let us know. <br><br>
 
 <b>MacOS Users:</b> Download the <a href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers"><code>CP210x VCP Mac OSX Driver</code> from here.</a> After installing, go to <code>System Preferences > Security</code> and click on the message about <code>enabling Silicon Labs Drivers</code> on your machine and confirm that you are ok with this. Also if you see a message that says <code>Some system software was blocked from loading</code> open it and confirm that you are ok loading the software.<br><br>
 
-<b>*Nix Users:</b> There are two versions of the USB cable driver for *Nix users: <a href="https://iesc.io/608/_static/S20/lab01a/Linux_3.x.x_4.x.x_VCP_Driver_Source.zip">Linux_3.x.x_4.x.x_VCP_Driver_Source.zip</a> and <a href="https://iesc.io/608/_static/S20/lab01a/Linux_2.6.x_VCP_Driver_Source.zip">Linux_2.6.x_VCP_Driver_Source.zip</a>. We recommend trying the version 3/4 first.<br><br>
+<b>*Nix Users:</b> There are two versions of the USB cable driver for *Nix users: <a href="https://iesc.io/608/_static/S20/lab01a/Linux_3.x.x_4.x.x_VCP_Driver_Source.zip"><code>Linux_3.x.x_4.x.x_VCP_Driver_Source.zip</code></a> and <a href="https://iesc.io/608/_static/S20/lab01a/Linux_2.6.x_VCP_Driver_Source.zip"><code>Linux_2.6.x_VCP_Driver_Source.zip</code></a>. We recommend trying the version 3/4 first.<br><br>
 
-<b>Testing if the USB driver works (all OS):</b> Before plugging in your ESP, look at the entries in the Arduino menu <code>Tools>port</code>. You should see one entry listed. Take note of what is there. Now plug in your ESP microcontroller and take another look at <code>Tools>port</code>. You should hopefully see one more entry. On <code>Windows</code> this will often be something like <code>COM3.</code> On <code>Mac</code> and <code>*Nix</code> it will be <code>USB_to_UART....</code> If this appeared, then you are 99% good to go.<br><br>
+<b>Testing if the USB driver works (all OS):</b> Let's check if the USB cable driver was installed correctly. Look at the entries in the Arduino menu <code>Tools>port</code> *before* plugging in your ESP with the USB cable. You should see either none or one entry listed. Take note of what is there. Now plug in your ESP microcontroller and take another look at <code>Tools>port</code>. You should hopefully see one more entry. On <code>Windows</code> this will often be something like <code>COM3.</code> On <code>Mac</code> and <code>*Nix</code> it will be <code>USB_to_UART....</code> If you see this, you can move on.<br><br>
 
 <h3 id="4">(4) Upload Test Program to ESP32</h3>
 
-Once you have the <code>ESP32 Board selected</code> under <code>XXXX</code> and Serial port selected under <code>Tools->port</code>, the last step is to check if you can upload and run a program on your microcontroller.<br><br>
+Once you have the <code>ESP32 Core selected</code> under <code>Tools->Board</code> and USB port selected under <code>Tools->Port</code>, the last step is to check if you can upload and run a program on your microcontroller.<br><br>
 
-<b>Open Blink Program:</b> Load the <code>Blink</code> example program from <code>File->Examples->01.Basics->Blink</code>. If you can't find it in the Arduino IDE, <a href="https://www.arduino.cc/en/tutorial/blink">you can download it here</a>. Hit the <code>compile button</code> and then the <code>upload button</code> to send the to your microcontroller. You should see the built-in LED on the ESP32 blink.<br><br>
+<b>Open Blink Program:</b> Load the <code>Blink</code> example program from <code>File->Examples->01.Basics->Blink</code>. If you can't find it in the Arduino IDE, <a href="https://www.arduino.cc/en/tutorial/blink">you can download it here</a>. Hit the <code>compile button</code> and then the <code>upload button</code> to send the program to your microcontroller. You should see the built-in LED on the ESP32 blink. Once you have this, you are ready to go back to Lab2 and continue.<br><br>
 
 <img src="images/esp-setup/esp-setup-Blink.png" width="650px"><br><br>
 
 <b>Timed Out Error:</b> If you are having trouble uploading code to the ESP32, even with the corrected port selected. And you are seeing some error message like following <code>Failed to Connect to ESP</code>, hold down the <code>BOOT/FLASH</code> button on your ESP32 board (the button on the bottom right) while re-uploading the program at the same time. If you are still having trouble, let the teaching team know.<br><br>
 
 <img src="images/esp-setup/timed-out-waiting-for-packet-header.png" width="650px"><br><br>
-<img src="images/esp-setup/boot-flash-button.png" width="300px"><br><br>
+<img src="images/esp-setup/boot-flash-button.png" width="200px"><br><br>
 
 <b>*Nix Users:</b> On your OS, it can happen that you don't have write permission on the USP port, i.e. you will not be able to upload code to your ESP32. This can be fixed temporarily after the ESP has been plugged in by typing into the command line: <code>sudo chmod 666</code> on the port your ESP32 shows up. On our Ubuntu box, it was either <code>/dev/ttyUSB1</code> or <code>/dev/ttyUSB0)</code>. This, however, is only a temporary fix, and will need to give yourself write permission to the USB port every time you plug in the device. A long term solution is to add yourself to the <code>dialout</code> group. Do this by running the following command <code>sudo usermod -a -G dialout YOUR_USERNAME_HERE</code> where you replace the username with your own. Once this is done, you will need to restart your computer for this change to take permanent affect.<br>
 
