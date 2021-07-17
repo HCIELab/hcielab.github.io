@@ -51,36 +51,40 @@
         <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2021)</a><br></h>
          <h2 class="headline">Install Arduino IDE and ESP Drivers</h2>
 
-We will use the ESP microcontroller. <br>
-For ease of deployment we'll use the Arduino environment and the add-on ESP32 core. <br>
-You need to install some software on your laptop.<br>
-Please follow the OS-appropriate instructions.<br>
+In class, we will use the ESP32 as the microcontroller and the Arduino IDE for programming the ESP. Below you find the install steps to set everything up on your computer.<br>
 
-<h3>Todos of Setting up the ESP</h3><br>
+<h3>Steps:</h3>
+<ol>
+	<li><a href="#1"> Install Arduino, ESP Core Board Manager, USB cable driver</a></li>
+	<li><a href="#2">Test Port and Blink LED</a></li>
+	<li><a href="#3">Take a short video to show it works.</a></li>
+	<li><a href="#4">Doesn't work? Please go to an OH before class.</a></li>
+</ol>
+
+<h3 id="1">(1) Install Arduino IDE</h3>
+
+First, install the Arduino IDE. Even if you've already got it, install it again to get the most up-to-date distribution. The Arduino IDE can be <a href="https://www.arduino.cc/en/Main/Software">found here</a>. Download the appropriate distribution for your laptop's operating system. For <code>Windows Users</code> it is important to <code>NOT</code> install the Windows App, and instead install only the regular Windows distribution.<br><br>
+
+<h3 id="2">(2) Install ESP Core Board Manager</h3>
+
+Next install the ESP32 core. Open the Arduino IDE and do the following:<br><br>
 
 <ul>
-  <li>(1) Install Arduino, ESP Core Board Manager, USB cable driver.</li>
-  <li>(2) Test Port and Blink LED.</li>
-  <li>(3) Take a short video to show it works.</li>
-  <li>(4) Doesn't work? Please go to an OH before class.</li>
+  <li>In <code>Windows,</code> go to <code>File>Preferences</code>. In <code>MacOS,</code> go to <code>Arduino>Preferences</code>.</li>
+  <li>Under the <code>Additional Boards Manager URL field</code> paste in: <code>https://dl.espressif.com/dl/package_esp32_index.json</code> and then click <code>OK</code></li>
+  <li>Now go to <code>Tools>Boards>Boards Manager</code></li>
+  <li>In the window that pops up, search for <code>esp32</code>. One option should appear. Install it.</li>
+  <li>Now select <code>Tools>Boards>DOIT ESP32 DEVKIT V1</code> so your Arduino IDE knows it should use the ESP core for compiling.</li>
+  <li>You should be good to go now with software. We will test it in a little bit.</li>
 </ul>
 
-<h3>(1) Install Arduino, ESP Core Board Manager, USB cable driver</h3><br>
+
+
+
+
+<h3>(1) Install Arduino, ESP Core Board Manager, USB cable driver</h3>
 
 <h4>Windows Users</h4><br>
-
-First install Arduino (even if you've already got it,</a> install it again to get the most up-to-date distribution). The Arduino IDE can be <a href="https://www.arduino.cc/en/Main/Software">found here</a>. Download the appropriate distribution for your laptop's operating system. <b>Note: Windows Users do NOT install the Windows App. Install only the regular Windows distribution!</b><br><br>
-
-Next install the ESP32 core. Open up Arduino and do the following:<br><br>
-
-<ul>
-  <li>Go to <b>File>Preferences</b></li>
-  <li>Under the <b>Additional Boards Manager URL field</b> paste in: <b>https://dl.espressif.com/dl/package_esp32_index.json</b> and then Click OK</li>
-  <li>Now go to <b>Tools>Boards>Boards Manager</b></li>
-  <li>In the window that pops up, search for <b>esp32</b>. One option should appear. Install it.</li>
-  <li>Now to prepare your Arduino environment to work with the ESP32, go to <b>Tools>Boards>DOIT ESP32 DEVKIT V1</b></li>
-  <li>You should be good to go now with software. We'll test it in a little bit.</li>
-</ul>
 
 <br>
 You will also need to install a cable driver for your laptop. Go to <a href="https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers">here and install.</a> Your operating system must be somewhat recent for this to be valid so if you get bugs, please talk to a member of the teaching team. In the zip file, there should be a README that will have somewhat clear instructions.<br><br>
@@ -96,19 +100,6 @@ Please keep reading under (2) Test Port and Blink LED.<br><br>
 
 <h4>Mac OSX Users</h4><br>
 
-First install Arduino (even if you've already got it, install it again to get the most up-to-date distribution). The Arduino IDE can  <a href="https://www.arduino.cc/en/Main/Software">be found here.</a> Download the appropriate distribution for your laptop's operating system.<br><br>
-
-Next install the ESP32 core. Open up Arduino and do the following:<br><br>
-
-<ul>
-  <li>Go to <b>Arduino>Preferences</b></li>
-  <li>Under the <b>Additional Boards Manager URL field</b> paste in: <b>https://dl.espressif.com/dl/package_esp32_index.json</b> and then Click OK</li>
-  <li>Now go to <b>Tools>Boards>Boards Manager</b></li>
-  <li>In the window that pops up, search for <b>esp32</b>. One option should appear. Install it.</li>
-  <li>Now to prepare your Arduino environment to work with the ESP32, go to <b>Tools>Boards>DOIT ESP32 DEVKIT V1</b></li>
-  <li>You should be good to go now with software. We'll test it in a little bit.</li>
-</ul><br>
-       
 You'll also need to install a cable driver for your laptop. Go to <a href="https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers">here and install.</a> Your operating system must be somewhat recent for this to be valid so if you get bugs, please talk to a staff member. Mac Users: After installing, go to System Preferences > Security and click on the message about enabling Silicon Labs Drivers on your machine!<br><br>
 
 Note: Mac users should check the Security&Privacy tab in System Preferences, even if it looks as though the Cable Driver was downloaded and the Mac never informed the user that they need to override the security preferences in order to download the software. go to the General tab within Security and Privacy and if there is an issue, it'll say something akin to "Some system software was blocked from loading."<br><br>
