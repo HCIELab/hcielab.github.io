@@ -126,16 +126,34 @@ Before we can determine <code>how much</code> a slider segment is touched, we ne
     
 <b>Add min and max threshold to your code:</b> Create two integer arrays Min and Max that contain the min and max values that you measured for each slider element. The size of both arrays should be 5 because we have 5 segments.<br><br>
 
+<h3 id="4">(4) Determine Which Slider Segment is Touched</h3>
 
-<h3 id="4">(4) Compute Relative Position of Finger</h3>
+For starters, let's determine which slider segments are being touched.<br>
+
+<b>Determine if Slider Segment is Touched:</b> Write a piece of code similar to lab2 that writes to the serial monitor if a slider segment is touched or not (i.e. if it <code>exceeds the minimum threshold</code>). Use the same formatting as in the previous lab, i.e. use <code>0,1,2,3,4 for the slider segment IDs</code> and <code>0 for not touched</code> and <code>1 for touched</code>.<br>
+
+<pre><code>(sensor ID),(is_touched);</code></pre>
     
+A sample output for touching the slider between the first two segments should look like:<br>
+<pre><code>0,1;
+1,1;
+2,0;
+3,0;
+4,0;
+</code></pre>
+
+<h3 id="4">(5) Only One Slider Segment is Touched</h3>
+
+<b>Differentiate Between Touching 1 or 2 Slider Segments:</b> Next, extend your code to differentiate between two different scenarios: (1) Only <code>one slider segment is touched</code> at a time, or (2) <code>two segments are touched</code> at the same time. For (2), we want to later interpolate between both slider segment values to determine the relative position of the finger, but let's start with the simple case of touching only one segment.<br><br>
+
+<b>Assigning Slider Values Based on Which Segment in Touched:</b> In case only one slider segment is touched, you can simply compute the <code>discrete position</code> on the whole slider. Since you have 5 slider segments and your overall slider ranges from 0-1, you can assign a value of 0 when only the first slider segment is touched, 0.25 when only the second slider segment is touched, and so on. Plot the values to the Serial Monitor and see if you can get the correct value when you touch slider segment 1, 2, 3, 4, 5.<br><br>
+
+
+<h3 id="4">(6) Two Slider Segments are Touched</h3>
     
-There are two things that can happen when you slide with your finger over the slider: (1) Only one segment is touched at a time, or (2) two segments are touched at the same time. For (2), we want to interpolate between both touch sensor values to determine the relative position of the finger between these two segments, which we look at in the next step.<br><br>
-    
-<b>Compute relative position of a finger:</b>There are two things that can happen when you slide with your finger over the slider: (1) Only one segment is touched at a time, or (2) two segments are touched at the same time. For (2), we want to interpolate between both touch sensor values to determine the relative position of the finger between these two segments, which we look at in the next step.<br><br>
-    
-Now, let's create a function that computes the relative position of a finger <b>between</b> two slider segments. The function should read in two sensor signals and the two sensorIDs of the touched segments and it sould return a float between 0..1 that represents the relative position of the finger between two segements (0:left segment, 1:right segment).<br>
-Compute the fraction of the received sensor signal compared to its corresponding max value: frac1 = sensor1/MAXsensor1 and frac2 = sensor2/MAXsensor2. These are the estimates of the relative finger position from each slider segment. Finally, compute an average between both values. Be aware that moving the finger to the right means that slider1 will drop in value and slider2 will increase in value. Thus, compute the relative averaged finger position as res = ((1-frac1)+frac2)/2. This is the return value of your function.
+Now let's look a the more complicated case where the finger is in-between two slider segments and two slider segments are being touched. In this case we want to interpolate between both slider segment values to determine the relative position of the finger between the two segments.<br><br>
+
+<b>Compute relative position of a finger between two slider segments:</b> Let's write a function that takes as input the signals from the two slider segments that are being touched and that returns a value between 0.0-1.0 that represents the relative position of the finger between the two segements. The best way to do this is to divide each slider segment signal by its max value: frac1 = sensor1/MAXsensor1 and frac2 = sensor2/MAXsensor2, which gives you the fraction that represents how much a slider segment was touched. Next, compute the average between both values. When computing the average, keep in mind that segment #1 will drop in value, which you need to reflect in your formula for the average: ((1-frac1)+frac2)/2. Plot this value to the serial monitor <br><br>
 
 <h3 id="5">(5) Compute Overall Slider Value</h3>
     
