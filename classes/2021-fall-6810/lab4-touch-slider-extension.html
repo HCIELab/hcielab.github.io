@@ -50,21 +50,21 @@
 </br></br></br></br>
         <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2021)</a><br></h>
         <h2 class="headline">Lab 4: Sensing Input from a Touch Slider</h2>
-      
-In this lab, you will extend your circuit, signal processing, and the Processing visualization to include the touch slider for control the volume of the music that is being played.<br><br>
+   
+You already built the circuit and wrote the code for the touch buttons on your music card. In this lab, you will build the circuit and write the code for the slider, which can then be used to control the volume of the music that is being played.<br><br>
 
 <img src="images/lab2/slider_teaser.png" width="750px"><br>
     
 <h3>Steps:</h3>
 <ol>
-  <li><a href="#1">Build the Slider Circuit</a></li>
+  <li><a href="#1">Build Slider Circuit</a></li>
   <li><a href="#2">Extend Microcontroller Code to Read Slider Segments</a></li>
   <li><a href="#3">Measure Min and Max Signal Thresholds</a></li>
-  <li><a href="#4">Computing the Relative Position of a Finger</a></li>
-  <li><a href="#5">Computing the Overall Slider Value</a></li>
+  <li><a href="#4">Compute Relative Position of Finger</a></li>
+  <li><a href="#5">Compute Overall Slider Value</a></li>
   <li><a href="#6">Write Slider Value to Serial Port</a></li>
-  <li><a href="#7">Add Slider onto the Card</a></li>
-  <li><a href="#8">Connect your Physical Music Card to Processing</a></li>
+  <li><a href="#7">Add Slider to Card</a></li>
+  <li><a href="#8">Connect Physical Music Card to Processing</a></li>
 </ol>
 
     
@@ -75,7 +75,7 @@ At the end of the lab, upload to your student google drive:
  <li>the updated Arduino code you wrote for Serial Communication of the slider touch values (.ino file format)</li>
   <li>the Processing code (.pde) you wrote for Serial communication that displays the slider bar</li>
   <li>the Processing code (.pde) of the music card application with the slider</li>
-  <li>a short video (.mov or .mp4, max. 1 minute) showing how you use the slider to adjust the volume</li>
+  <li>a short video (.mov or .mp4, max. 1 minute, 20MB or less) showing how you use the slider to adjust the volume</li>
 </ol><br>
 
  <div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
@@ -85,13 +85,13 @@ Please let us know if you had any trouble with the circuit or programming or if 
 
 <hr>
 
-<h3 id="1">(1) Build the Slider Circuit</h3>
+<h3 id="1">(1) Build Slider Circuit</h3>
 
-In the last lab, you built and implemented the hardware and software for the touch sensors on your music card. In this lab, you will implement the slider on the bottom of your music card. The first step is to connect each slider element as a regular touch sensor to your ESP32. Converting the received touch signals to a continuous slider signal will be done in software. Let's first build the touch circuits for the slider elements:<br><br>
+The first step is to build the circuit for the slider. Remember that the slider is just a bunch of touch buttons placed right next to each other. Thus, the circuit for each slider segment is the same as for a touch button.<br><br>
     
-<b>One Sender Pin, Different Receiver Pins:</b> Start by wiring up each slider segment exactly the way how you wired up the touch buttons. Remember they can all use the same sender pin but need a different receiver pin. Refer to <a href="lab2-sensing-touch-button.html" target="_blank">Lab 2</a> if you don't remember how this works.<br><br>
+<b>One Sender Pin, Different Receiver Pins:</b> When you wire up your slider segments, remember they can all use the <code>same sender pin</code> but need a <code>different receiver pin</code>. Refer to <a href="lab2-sensing-touch-button.html" target="_blank">Lab 2</a> if you don't remember how this works.<br><br>
 
-    <b>Use 'TOUCH' Pins:</b> Remember to use the pins with "TOUCHX" labels for better signal quality but do not use the one pin labeled as pin0 (TOUCH1) as receiver (you can still use it as sender). Below is the ESP pin out again for your reference.<span style="color:red">Faraz: Check if this is still correct with the new ESP32</span><br><br>
+    <b>Use 'TOUCH' Pins for Receiving:</b> Remember to use the pins with <code>TOUCHX</code> labels for better signal quality but do not use the one pin labeled as pin0 (TOUCH1) as receiver (you can still use it as sender). Below is the <code>ESP pin out</code> for your reference.<span style="color:red">Faraz: Check if this is still correct with the new ESP32</span><br><br>
     
 <img src="images/lab2/esp32.png" width="750px" /><br><br>
 
@@ -99,24 +99,32 @@ In the last lab, you built and implemented the hardware and software for the tou
 
 <b>Read Slider Segment Signal Values:</b> Once finished with the wiring, extend your Arduino code to also read each slider segment's raw touch signal.<br><br>
 
-<b>Plot each Signal Value to the Serial Plotter:</b> Next, serial print the received raw touch signals for each slider segment and look at them in the Serial plotter. To visualize only the slider touch signals in the serial plotter, you have to format the serial output in the same way as you did in lab 2. This is: "slider1","slider2","slider3","slider4","slider5""newline" <br><br>
+<b>Plot each Signal Value to the Serial Plotter:</b> Next, serial print the received raw touch signals for each slider segment and look at them in the Serial plotter. To visualize only the slider touch signals in the serial plotter, you have to format the serial output in the same way as you did in lab 2:<br><br>
+<pre><code>sliderValue1, sliderValue2, sliderValue3, sliderValue4, sliderValue5;</code></pre>
+Don't forget to <code>Serial.print()</code> the <code>new line character "\n"</code> at the end of the line.
 
-Below you can see the serial plotter output for individually touching each of the five slider segments.<br><br>
+<!-- <span style="color:red">slider1","slider2","slider3","slider4","slider5""newline" (really? where is the semicolin? do we really need the </span>  -->
+
+Below you can see the serial plotter output for individually touching each of the five slider segments one after another.<br><br>
 <img src="images/lab4/lab2-slider-segments-raw-value.png" width="400px" /><br><br>
 
 
 <h3 id="3">(3) Measure Min and Max Signal Thresholds</h3>
 
-For the touch buttons, we were merely interested if the button is touched or not. Thus, we converted the touch signal into a <i>binary value 0 or 1</i>. For the slider, we want to compute at which position the finger is between two slider elements. This will allow us to more smoothly adjust the music volume rather than jumping from one discrete volume level to the next. We can see by 'how much' a slider segment is touched by looking at the raw touch signals coming from the microcontroller. When looking at the Serial Plotter, you will notice that the raw value has a strong correlation with how much area of the slider segment is touched, i.e. the larger the touch area of you finger on the slider segment the higher the value is. <br><br>
+<b>Discrete vs. Continuous Touch Detection:</b> For the <code>touch buttons</code>, we were merely interested if the button is touched or not. Thus, we converted the touch signal into a <code>binary value 0 or 1</code>. For the <code>slider</code>, we want to compute at which position on the slider the finger is, i.e. we want a <code>continuous value</code>. This will allow us to more smoothly adjust the music volume rather than jumping from one discrete volume level to the next.<br><br> 
+
+<b>How can we detect where the finger is on the slider?</b> To determine where the finger is on the slider, we need to detect <code>how much of each slider segment is touched.</code> When looking at a slider segment signal in the Serial Plotter, you will notice that the <code>value of a slider segment has a strong correlation with how much area of the slider segment is touched</code>, i.e. the more area your finger covers on the slider segment the higher the value is. Below, we are plotting the signal from the middle slider segment. You can see that the signal is first low because the finger is at the beginning of the slider and not touching the middle segment. As the finger moves towards the middle segment the signal goes up as the overlap area with the finger increases and then goes down once the finger passes it and the overlap area with the finger decreases again.<br><br>
 
 <img src="images/lab2/2021_images/combined-gif.gif" width="750px"><br>
 <img src="images/lab2/2021_images/touchsignal_labeled.png" width="750px"><br><br>
 
-<b>Determine Min Value when Slider Segment is Not Touched:</b> First, we want to distinguish between noise (i.e. small signal readings when nothing is actually touched) and the minimal value when one segment is just barely touched. To find this minimum threshold when a slider segment is just touched a bit, open the Serial Plotter and slide with your finger over the segment you want to measure. At some point, you will see that the values will start increasing. Write down the value which is consistently above the noise level when the segment is just touched a bit. Repeat this procedure for each segment<br><br>
+Before we can determine <code>how much</code> a slider segment is touched, we need to do some preprocessing. You need to repeat the next steps for <code>each slider segment individually</code> since they all have different noise levels and touch signal values due to slight inconstencies in the printing process.<br><br>
 
-<b>Determine Max Value when Slider Segment is Fully Touched:</b> Next, determine the max value when the slider segment is fully touched with you finger, i.e. your finger overlaps with the entire slider segment. Write this value down for each segment.<br><br>
+<b>Remove Noise:</b> First, we want to distinguish between noise (i.e. small signal readings when nothing is actually touched) and the value when one segment is just barely touched. To find this <code>minimum threshold</code>, open the Serial Plotter and slide with your finger over the segment you want to measure. At some point, you will see that the values will start increasing. Write down the <code>minimum value</code> which is consistently above the noise level. <code>Repeat</code> this procedure for each segment and store the individual minimum values for each slider segment in your code.<br><br>
+
+<b>Determine Max Value when Slider Segment is Fully Touched:</b> Next, determine the <code>maximum value</code> when the slider segment is fully touched with you finger, i.e. your finger overlaps with the entire slider segment. <code>Repeat</code> the procedure for each slider segment and store the value for each slider segment in your code.<br><br>
     
-<h3 id="4">(4) Computing the Relative Position of a Finger</h3>
+<h3 id="4">(4) Compute Relative Position of Finger</h3>
     
 <b>Add min and max threshold to your code:</b> Create two integer arrays Min and Max that contain the min and max values that you measured for each slider element. The size of both arrays should be 5 because we have 5 segments.<br><br>
     
@@ -127,7 +135,7 @@ There are two things that can happen when you slide with your finger over the sl
 Now, let's create a function that computes the relative position of a finger <b>between</b> two slider segments. The function should read in two sensor signals and the two sensorIDs of the touched segments and it sould return a float between 0..1 that represents the relative position of the finger between two segements (0:left segment, 1:right segment).<br>
 Compute the fraction of the received sensor signal compared to its corresponding max value: frac1 = sensor1/MAXsensor1 and frac2 = sensor2/MAXsensor2. These are the estimates of the relative finger position from each slider segment. Finally, compute an average between both values. Be aware that moving the finger to the right means that slider1 will drop in value and slider2 will increase in value. Thus, compute the relative averaged finger position as res = ((1-frac1)+frac2)/2. This is the return value of your function.
 
-<h3 id="5">(5) Computing the Overall Slider Value</h3>
+<h3 id="5">(5) Compute Overall Slider Value</h3>
     
 The task here is to extend the code to compute the finger position on all 5 slider segments.<br><br>
     
@@ -162,7 +170,7 @@ The output should print continuously as long as the slider is touched. <br>
 
 <br>
 
-<h3 id="7">(7) Add Slider onto the Card</h3>
+<h3 id="7">(7) Add Slider to Card</h3>
 
 Let's add the slider to the music card to control the music volume.<br> Open the music card code again.<br><br>
 
@@ -200,7 +208,7 @@ Once you finished your code, test if the music volume actually changes by first 
 Similar to the previously added buttons, you can hide the Slider by pressing the 'h' key on your keyboard while your program runs.<br>
 If you want to see them again, press 's' (for show).<br><br>
 
-<h3 id="8">(8) Connect your Physical Music Card to Processing</h3>
+<h3 id="8">(8) Connect Physical Music Card to Processing</h3>
 
 Now that we can control the slider digitally, we also want to adjust the volume of the music from the physical card.<br><br>
 Read in the Serial messages from your ESP32 that include the values for the finger position on the slider. Use these values to change the volume of the music and integrate it into the music card Processing Script.<br>
@@ -218,7 +226,7 @@ At the end of the lab, upload to your student google drive:
  <li>the updated Arduino code you wrote for Serial Communication of the slider touch values (.ino file format)</li>
   <li>the Processing code (.pde) you wrote for Serial communication that displays the slider bar</li>
   <li>the Processing code (.pde) of the music card application with the slider</li>
-  <li>a short video (.mov or .mp4, max. 1 minute) showing how you use the slider to adjust the volume</li>
+  <li>a short video (.mov or .mp4, max. 1 minute, 20MB or less) showing how you use the slider to adjust the volume</li>
 </ol><br>
     
 
