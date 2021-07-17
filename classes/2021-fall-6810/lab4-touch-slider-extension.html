@@ -98,9 +98,9 @@ The first step is to build the circuit for the slider. Remember that the slider 
 
 <h3 id="2">(2) Extend Microcontroller Code to Read Slider Segments</h3>
 
-<b>Read Slider Segment Signal Values:</b> Once finished with the wiring, extend your Arduino code to also read each slider segment's raw touch signal.<br><br>
+<b>Read Slider Segment Signal Values:</b> Once finished with the wiring, <code>extend your Arduino code</code> to also read each slider segment's touch signal.<br><br>
 
-<b>Plot each Signal Value to the Serial Plotter:</b> Next, serial print the received raw touch signals for each slider segment and look at them in the Serial plotter. To visualize only the slider touch signals in the serial plotter, you have to format the serial output in the same way as you did in lab 2:<br><br>
+<b>Plot each Signal Value to the Serial Plotter:</b> Next, <code>serial print the received touch signals</code> for each slider segment and look at them in the Serial plotter. To visualize only the slider touch signals in the serial plotter, you have to format the serial output in the same way as you did in lab 2:<br><br>
 <pre><code>sliderValue1, sliderValue2, sliderValue3, sliderValue4, sliderValue5;</code></pre>
 Don't forget to <code>Serial.print()</code> the <code>new line character "\n"</code> at the end of the line.
 
@@ -121,17 +121,16 @@ Below you can see the serial plotter output for individually touching each of th
 
 Before we can determine <code>how much</code> a slider segment is touched, we need to do some preprocessing. You need to repeat the next steps for <code>each slider segment individually</code> since they all have different noise levels and touch signal values due to slight inconstencies in the printing process.<br><br>
 
-<b>Remove Noise:</b> First, we want to distinguish between noise (i.e. small signal readings when nothing is actually touched) and the value when one segment is just barely touched. To find this <code>minimum threshold</code>, open the Serial Plotter and slide with your finger over the segment you want to measure. At some point, you will see that the values will start increasing. Write down the <code>minimum value</code> which is consistently above the noise level. <code>Repeat</code> this procedure for each segment and write down the individual minimum values for each slider segment.<br><br>
+<b>Remove Noise:</b> First, we want to distinguish between noise (i.e. small signal readings when nothing is actually touched) and the value when one segment is just barely touched. To find this <code>minimum threshold</code>, open the Serial Plotter and slide with your finger over the slider. At some point, you will see that the values for the slider segment you want to measure are starting to increase. Write down the <code>minimum value</code> which is consistently above the noise level. <code>Repeat</code> this procedure for each slider segment and store the individual minimum values for each  segment in your code.<br><br>
 
-<b>Determine Max Value when Slider Segment is Fully Touched:</b> Next, determine the <code>maximum value</code> when the slider segment is fully touched with you finger, i.e. your finger overlaps with the entire slider segment. <code>Repeat</code> the procedure for each slider segment and write down the value for each slider segment.<br><br>
+<b>Determine Max Value when Slider Segment is Fully Touched:</b> Next, determine the <code>maximum value</code> when the slider segment is fully touched with you finger, i.e. your finger overlaps with the entire slider segment. <code>Repeat</code> the procedure for each slider segment and store the value for each segment in your code.<br><br>
     
-<b>Add min and max threshold to your code:</b> Create two integer arrays Min and Max that contain the min and max values that you measured for each slider element. The size of both arrays should be 5 because we have 5 segments.<br><br>
 
 <h3 id="4">(4) Determine Which Slider Segments are Touched</h3>
 
-For starters, let's determine which slider segments are being touched.<br><br>
+Now that you know the min signal value that indicates a touch, you are ready to determine which slider segments are being touched.<br><br>
 
-<b>Determine if Slider Segment is Touched:</b> Write a piece of code similar to lab2 that writes to the serial monitor if a slider segment is touched or not (i.e. if it <code>exceeds the minimum threshold</code>). Use the same formatting as in the previous lab, i.e. use <code>0,1,2,3,4 for the slider segment IDs</code> and <code>0 for not touched</code> and <code>1 for touched</code>.<br>
+<b>Determine if Slider Segment is Touched:</b> Write code to determine if a slider segment is touched or not, i.e. if it <code>exceeds the minimum threshold</code>). We recommend that for debugging, you write the result to the serial monitor in the same format as you did in lab2. You can use <code>0,1,2,3,4 for the slider segment IDs</code> and <code>0 for not touched</code> and <code>1 for touched</code>.<br>
 
 <pre><code>(sensor ID),(is_touched);</code></pre>
     
@@ -147,7 +146,7 @@ A sample output for touching the slider between the first two segments should lo
 
 <b>Differentiate Between Touching 1 or 2 Slider Segments:</b> Next, extend your code to differentiate between two different scenarios: (1) Only <code>one slider segment is touched</code> at a time, or (2) <code>two segments are touched</code> at the same time. For (2), we want to later interpolate between both slider segment values to determine the relative position of the finger, but let's start with the simple case of touching only one segment.<br><br>
 
-<b>Assigning Slider Values Based on Which Segment in Touched:</b> In case only one slider segment is touched, you can simply compute the <code>discrete position</code> on the whole slider. Since you have 5 slider segments and your overall slider ranges from 0-1, you can assign a value of 0 when only the first slider segment is touched, 0.25 when only the second slider segment is touched, and so on. Plot the values to the Serial Monitor and see if you can get the correct value when you touch each slider segment.<br><br>
+<b>Assigning Slider Values Based on Which Segment in Touched:</b> In case only one slider segment is touched, you can simply compute the <code>discrete position</code> on the whole slider. Since you have 5 slider segments and your overall slider ranges from 0-1, you can assign a value of 0 when only the first slider segment is touched, 0.25 when only the second slider segment is touched, and so on. Plot the values to the Serial Monitor and see if you can get the correct value when you touch each slider segment individually.<br><br>
 
 <img src="images/lab2/slider_vis_discrete.png" width="400px"><br><br>
 
