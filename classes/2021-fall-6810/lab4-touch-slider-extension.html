@@ -120,13 +120,15 @@ Below you can see the serial plotter output for individually touching each of th
 
 Before we can determine <code>how much</code> a slider segment is touched, we need to do some preprocessing. You need to repeat the next steps for <code>each slider segment individually</code> since they all have different noise levels and touch signal values due to slight inconstencies in the printing process.<br><br>
 
-<b>Remove Noise:</b> First, we want to distinguish between noise (i.e. small signal readings when nothing is actually touched) and the value when one segment is just barely touched. To find this <code>minimum threshold</code>, open the Serial Plotter and slide with your finger over the segment you want to measure. At some point, you will see that the values will start increasing. Write down the <code>minimum value</code> which is consistently above the noise level. <code>Repeat</code> this procedure for each segment and store the individual minimum values for each slider segment in your code.<br><br>
+<b>Remove Noise:</b> First, we want to distinguish between noise (i.e. small signal readings when nothing is actually touched) and the value when one segment is just barely touched. To find this <code>minimum threshold</code>, open the Serial Plotter and slide with your finger over the segment you want to measure. At some point, you will see that the values will start increasing. Write down the <code>minimum value</code> which is consistently above the noise level. <code>Repeat</code> this procedure for each segment and write down the individual minimum values for each slider segment.<br><br>
 
-<b>Determine Max Value when Slider Segment is Fully Touched:</b> Next, determine the <code>maximum value</code> when the slider segment is fully touched with you finger, i.e. your finger overlaps with the entire slider segment. <code>Repeat</code> the procedure for each slider segment and store the value for each slider segment in your code.<br><br>
-    
-<h3 id="4">(4) Compute Relative Position of Finger</h3>
+<b>Determine Max Value when Slider Segment is Fully Touched:</b> Next, determine the <code>maximum value</code> when the slider segment is fully touched with you finger, i.e. your finger overlaps with the entire slider segment. <code>Repeat</code> the procedure for each slider segment and write down the value for each slider segment.<br><br>
     
 <b>Add min and max threshold to your code:</b> Create two integer arrays Min and Max that contain the min and max values that you measured for each slider element. The size of both arrays should be 5 because we have 5 segments.<br><br>
+
+
+<h3 id="4">(4) Compute Relative Position of Finger</h3>
+    
     
 There are two things that can happen when you slide with your finger over the slider: (1) Only one segment is touched at a time, or (2) two segments are touched at the same time. For (2), we want to interpolate between both touch sensor values to determine the relative position of the finger between these two segments, which we look at in the next step.<br><br>
     
