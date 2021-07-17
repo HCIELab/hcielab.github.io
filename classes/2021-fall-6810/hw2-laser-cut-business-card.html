@@ -81,6 +81,36 @@ Please let us know if you had any trouble with the drawing or laser cutting or i
 
 <h3 id="INSTALLARDUINO">(1) Create Business Card Design</h3>
 
+<b>Create a New Drawing:</b> Open Illustrator and create a new drawing.<br><br>
+    
+<b>Set Units to mm:</b> If your drawing is set to 'pts' as a measurement unit, set it to 'mm'. In Illustrator, you can set the units by clicking on <code>Edit->Preferences->Units</code> and set all units to 'mm'.<br><br>
+
+<b>Dimensions of your Business Card:</b> Business cards are <code>85mm x 55mm</code>. Your card needs to adhere to this size. Create a rectangle that represents the bounds of your business card, i.e. later when the laser cutter cuts out the rectangle your card has the right size.<br><br>
+
+<b>Draw Shapes, Import Images, Write Text:</b> To draw shapes, you can use any of the regular drawing tools in Illustrator (e.g. rectangle, circle, pen drawing tool). You can also import images that will be engraved by the laser cutter (darker pixels in an image will be engraved deeper than brighter images, which creates a relief effect). Finally, you can also use the different text tools to write text, such as your name, onto your card.<br><br>
+
+<img src="images/laser-cut-business-card/laser-cut-illustrator-text.png" width="400px" /><br><br>
+
+<h3 id="INSTALLARDUINO">(2) Change Drawing Settings to Be Correct for Laser Cutting</h3>
+
+Most laser cutters require that you specify which parts of your drawing should be cut (<code>vector mode</code>) and which should be engraved (<code>raster mode</code>). You specify this by using specific line colors and line thicknesses.<br><br>
+
+<b>Line Color:</b> First, set document mode to <code>RGB</code> by going to the menu <code>File -> Document Color Mode -> RGB</code>. For each shape that you want to cut, make sure its <code>outline is 100% red (R: 255, G: 0, B:0)</code>. There should be <code>no infill color</code>. For text, you cannot assign an outline color directly, you first have to convert the text into a path. You can do this by selecting the text and going to <code>Type -> Create Outlines</code>. Once you have the outline of the text you can set its color to red.<br><br>
+
+<b>Line Thickness:</b> The stroke thickness should be 0.00001mm. You can set the stroke thickness in <code>Window -> Stroke -> Weight</code>. The moment you hit enter after you typed in the value it will snap to 0 but internally it will still be 0.00001 so you will be all set.<br><br>
+
+<img src="images/laser-cutting/illustrator-setting.jpg" width="483px" /><br><br>
+
+<b>Images:</b> Since images consist of pixels and not lines, they will automatically be <code>engraved</code> not cut. If you have a color image, you may want to convert it to <code>grayscale</code> first to see if it has a good <code>dynamic range</code> (i.e. it has both light gray pixels and dark gray pixels). If the dynamic range is low, i.e. all pixels have a similar gray value, you will not see much of a relief effect since all pixels will be engraved with a similar depth. <br><br>
+
+
+
+<h2 class="headline">(2) Export your Drawing as .svg or .pdf</h2>
+
+The laser cutter can take as input either an .svg file or a .pdf file.<br>
+So make sure that you export your file in one of those formats before you put it in your google drive.<br><br>
+
+
 Google for 'business card' for some inspiration.<br><br>
 
  Once you have your 2D design ready, please upload it to your student google drive folder as .svg or .pdf.
