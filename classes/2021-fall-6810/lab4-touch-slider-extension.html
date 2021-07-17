@@ -60,9 +60,9 @@ You already built the circuit and wrote the code for the touch buttons on your m
   <li><a href="#1">Build Slider Circuit</a></li>
   <li><a href="#2">Extend Microcontroller Code to Read Slider Segments</a></li>
   <li><a href="#3">Measure Min and Max Signal Thresholds</a></li>
-  <li><a href="#4">Determine Which Slider Segment is Touched</a></li>
-  <li><a href="#5">One Slider Segment is Touched</a></li>
-  <li><a href="#5">Two Slider Segments are Touched</a></li>
+  <li><a href="#4">Determine Which Slider Segments are Touched</a></li>
+  <li><a href="#5">Determine Slider Value When One Slider Segment is Touched</a></li>
+  <li><a href="#5">Determine Slider Value When Two Slider Segments are Touched</a></li>
   <li><a href="#7">Write Slider Value to Serial Port</a></li>
   <li><a href="#8">Add Slider to Card</a></li>
   <li><a href="#9">Connect Physical Music Card to Processing</a></li>
@@ -127,7 +127,7 @@ Before we can determine <code>how much</code> a slider segment is touched, we ne
     
 <b>Add min and max threshold to your code:</b> Create two integer arrays Min and Max that contain the min and max values that you measured for each slider element. The size of both arrays should be 5 because we have 5 segments.<br><br>
 
-<h3 id="4">(4) Determine Which Slider Segment is Touched</h3>
+<h3 id="4">(4) Determine Which Slider Segments are Touched</h3>
 
 For starters, let's determine which slider segments are being touched.<br><br>
 
@@ -143,7 +143,7 @@ A sample output for touching the slider between the first two segments should lo
 4,0;
 </code></pre>
 
-<h3 id="5">(5) One Slider Segment is Touched</h3>
+<h3 id="5">(5) Determine Slider Value When One Slider Segment is Touched</h3>
 
 <b>Differentiate Between Touching 1 or 2 Slider Segments:</b> Next, extend your code to differentiate between two different scenarios: (1) Only <code>one slider segment is touched</code> at a time, or (2) <code>two segments are touched</code> at the same time. For (2), we want to later interpolate between both slider segment values to determine the relative position of the finger, but let's start with the simple case of touching only one segment.<br><br>
 
@@ -152,7 +152,7 @@ A sample output for touching the slider between the first two segments should lo
 <img src="images/lab2/slider_vis_discrete.png" width="400px"><br><br>
 
 
-<h3 id="6">(6) Two Slider Segments are Touched</h3>
+<h3 id="6">(6) Determine Slider Value When Two Slider Segments are Touched</h3>
     
 Now let's look at the more complicated case where the finger is in-between two slider segments, i.e. two slider segments are being touched. In this case we want to <code>interpolate between both slider segment signals</code> to determine the relative position of the finger between the two segments.<br><br>
 
