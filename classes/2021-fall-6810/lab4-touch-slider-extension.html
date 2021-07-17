@@ -155,11 +155,11 @@ A sample output for touching the slider between the first two segments should lo
     
 Now let's look at the more complicated case where the finger is in-between two slider segments, i.e. two slider segments are being touched. In this case we want to <code>interpolate between both slider segment signals</code> to determine the relative position of the finger between the two segments.<br><br>
 
-<b>Determine How Much Each Segment is Touched:</b> Let's first determine how much each of the two segments are touched. The best way to do this is to <code>divide each slider segment signal by its max value</code>, which gives you the fraction that represents how much a slider segment was touched. Write the value to the Serial Monitor and see if the fraction increases as you touch more area of the slider segment.<br><br> 
+<b>Determine How Much Each Segment is Touched:</b> Let's first determine how much each of the two segments is being touched. The best way to do this is to <code>divide each slider segment signal by its max value</code>, which gives you the fraction that represents how much a slider segment was touched. You already recorded the max value in section (3). After computing the fraction, write the result to the Serial Monitor and see if the fraction increases as you touch more area of the slider segment.<br><br> 
 
-<b>Compute Relative Position of a Finger Between Two Slider Segments:</b> Now that you know how much each slider segment is touched, you can compute the relative position of the finger between two slider segments. This will be a value between 0.0-1.0 where smaller values represent that more of the left slider segment is touched, and larger values represent that more of the right slider segment is touched. To determine the relative position, you need to compute the <code>average between both values</code>. When computing the average, keep in mind that the <code>left segment will drop in value</code> as the finger moves to the right, which you need to reflect in your formula for the average: <code>((1-frac1)+frac2)/2</code>. Write this value to the serial monitor and see if it increases as your finger slides from the left to the right on the two segments.<br><br>
+<b>Compute Relative Position of a Finger Between Two Slider Segments:</b> Now that you know how much each slider segment is being touched, you can compute the relative position of the finger between the two slider segments. This will be a value between 0.0-1.0 where smaller values represent that more of the left slider segment is touched, and larger values represent that more of the right slider segment is touched. To determine the relative position, you need to compute the <code>average between both values</code>. When computing the average, keep in mind that the <code>left segment will drop in value</code> as the finger moves to the right, which you need to reflect in your formula for the average: <code>((1-frac1)+frac2)/2</code>. Write this value to the serial monitor and see if it increases as your finger slides from the left to the right on the two segments.<br><br>
    
-<b>Scaling the Relative Position to the Slider Spacing:</b> Remember that our slider spacing is in 0.25 increments, i.e. slider segment 1-2 cover a range of 0-0.25, slider segment 2-3 cover a range of 0.25 - 0.5 and so on. However, the relative position between two slider segments we just computed is a value from 0-1.0. We thus need to <code>scale down this value to our slider segment spacing</code> by multiplying it with 0.25. For example, if we have a relative position of 0.5, which indicates that the finger is exactly in the middle, multiplying the relative position by the slider spacing 0.25 would give us 0.125, which is in the middle between two slider values.<br><br> 
+<b>Scaling the Relative Position to the Slider Spacing:</b> Remember that our slider spacing is in 0.25 increments, i.e. slider segment 1-2 cover a range of 0-0.25, slider segment 2-3 cover a range of 0.25 - 0.5 and so on. However, the relative position between two slider segments we just computed is a value from 0-1.0. We thus need to <code>scale down this value to our slider segment spacing</code> by multiplying it with 0.25. For example, if we have a relative position of 0.5, which indicates that the finger is exactly in the middle, multiplying the relative position 0.5 by the slider spacing 0.25 gives us 0.125, which is in the middle between two slider segments.<br><br> 
 
 <b>Computing Overall Slider Value:</b> Finally, you still have to add the scaled relative position, which will always be between 0.0 - 0.25, to the <code>overall slider position</code>. All you need to do is to add this value to the discrete slider value of the segment that is touched first. For instance, if you have a relative position of 0.18 for slider segment 3 and 4, which cover a range of 0.5 - 0.75, all you need to do is to add this value to 0.5 and you receive an overall slider value of 0.68.<br><br>
     
@@ -170,12 +170,12 @@ Now let's look at the more complicated case where the finger is in-between two s
 
 Once you are ready, clean up what you write to the Serial Port. We only want to write the overall slider value to the Serial Port, not the individual slider segments, so we can later read the overall slider value into Processing. Assign the slider value the ID 3 since we already used ID 0, 1, and 2 for the touch buttons. The output should print continuously as long as the slider is touched.<br><br>
 
-<code>(sensor ID),(slider_value);</code><br><br>
+<code>(sensor ID),(slider_value);</code><br>
     
 (sensor ID) is 3, and represents the ID of the slider (we already used up sensor IDs 0, 1, 2 for the touch buttons).<br>
 (slider_value) is ranging from 0.0 to 1.0 to indicate the overall slider position.<br><br>
 
-Here is a sample output:<br>
+Here is a sample output showing that the finger is moving from the left to the right on the slider:<br>
 <pre><code>3,0.78;
 3,0.86;
 3,0.97; 
@@ -185,35 +185,35 @@ Here is a sample output:<br>
 
 <h3 id="8">(8) Add Slider to Music Card</h3>
 
-Before we use our physical slider to control the music volume, let's first implement a <code>digital slider</code> to test the functionality.<br><br>
+Before we use our physical slider to control the music volume, let's first implement a <code>digital slider</code> to test the music volume functionality.<br><br>
 
-<b>Add Slider to Code:</b> Open the music card code from lab3. We already implemented a class <code>Slider</code> for you. Add a new slider to the code in the <code>draw()</code> function with:<br>
+<b>Add Slider to Code:</b> Open the <code>Processing music card code</code> from lab3. We already implemented a class <code>Slider</code> for you. Add a new slider to the code in the <code>draw()</code> function with:<br>
 <pre>mySliders.add(new Slider(start_x, start_y, end_x, end_y));</pre>
 
-You should be able to control the slider by dragging your mouse with left mouse button pressed as shown below: <br>
+You should be able to control the slider by dragging your mouse with the <code>left mouse button pressed</code> as shown below: <br>
 <img src="images/lab4/lab2-volume-low_UI_new.png" width="350px">
 <img src="images/lab4/lab2-volume-middle_UI_new.png" width="350px">
 <!-- <img src="images/lab2-volume-high_UI.png" width="200px"> -->
 <br><br>
 
 <b>Create Slider Events to Control the Music Volume:</b> Next, we want to increase the music volume when the slider is dragged to the right and decrease the music volume when the slider is dragged to the left. To create events on <code>mouse drag,</code> we need to implement several <code>mouseDragged() events</code>. A part of this is already done further down in the code. Extend the code so that it changes the music volume based on the slider level. 
-You might find the following functions from the "Audio" and "Slider" classes useful:<br>
+You might find the following functions from the <code>Audio</code> and <code>Slider</code> classes useful:<br>
 
 <pre>
 music.changeVolume(double intensity);
 Slider.getIntensity();</pre><br>
 
-Once you finished your code, test if the music volume changes by first playing a song with the virtual touch button and then dragging the slider to the left and right to adjust the music volume.<br><br>
+Once you finished your code, test if the music volume changes by first playing a song with the digital note touch buttons and then dragging the slider to the left and right to adjust the music volume.<br><br>
     
-<b>Hide the Slider:</b> Similar to the previously added buttons, you can <code>hide the slider</code> by pressing the <code>'h' key</code> on your keyboard while your program runs. If you want to see them again, press <code>'s' for show</code>.<br><br>
+<b>Hide the Slider:</b> Similar to the previously added buttons, you can <code>hide the slider</code> by pressing the <code>'h' key</code> on your keyboard while your program runs. If you want to see the slider again, press <code>'s' for show</code>.<br><br>
 
 <h3 id="9">(9) Connect Physical Music Card to Processing</h3>
 
-Now that you can control the slider digitally, you area ready to connect your physical slider so you can also adjust the volume from your card.<br><br>
+Now that you can control the slider digitally, you area ready to connect your <code>physical slider</code> so you can also adjust the volume from your card.<br><br>
 
-<b>Extend Serial Read Code to Slider:</b> Extend your serial read code to also read in the serial messages for the overall slider value.<br><br>
+<b>Extend Serial Read Code to Slider:</b> Extend your <code>serial read</code> code to also read in the serial messages for the <code>overall slider value</code>.<br><br>
 
-<b>Use Physical Slider Value to Adjust Volume:</b> Once you read in the value from the physical slider, use it to change the volume of the music. Test if everything works by using your physical printed card to play/pause songs and the physical slider to adjust the music volume. If it works, congrats, you are done!<br><br>
+<b>Use Physical Slider Value to Adjust Volume:</b> Once you read in the value from the physical slider, use it to <code>change the volume of the music</code>. Test if everything works by using your physical printed card to play/pause songs and the physical slider to adjust the music volume. If it works, congrats, you are done!<br><br>
 
 <img src="images/lab4/lab2-volume-low_new.png" width="350px">
 <img src="images/lab4/lab2-volume-middle_new.png" width="350px">
