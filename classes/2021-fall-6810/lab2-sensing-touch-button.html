@@ -178,7 +178,7 @@ void loop()
 }</code></pre>
 <br>
 
-<b>Alternative Install from github:</b> First, remove the previously installed library. You can delete it on Mac under <code>Macintosh HD/Users/your-username/Documents/Arduino/libraries</code> and on windows this is under <code>My Documents\Arduino\libraries\</code>. Once the library is deleted, <a href="https://github.com/PaulStoffregen/CapacitiveSensor">go to the library's GitHub repository</a> and download it as a .zip file. Re-install the library via the .zip file. The <a href="https://www.arduino.cc/en/guide/libraries#toc4"> instructions to do so can be found here.</a> <code>Sketch -> Include Library -> Add .ZIP Library</code>. Don't forget to <code>close</code> the Arduino IDE and <code>reopen</code> it after install. Then try to compile the starter code one more time and see if it successfully uploads to your microcontroller.<br><br>
+<b>Alternative Install from github:</b> First, remove the previously installed library. You can delete it on Mac under <code>Macintosh HD/Users/your-username/Documents/Arduino/libraries</code> and on windows this is under <code>My Documents\Arduino\libraries\</code>. Once the library is deleted, <a href="https://github.com/PaulStoffregen/CapacitiveSensor">go to the library's GitHub repository</a> and download it as a .zip file. Re-install the library via the .zip file by going to <code>Sketch -> Include Library -> Add .ZIP Library</code>. Don't forget to <code>close</code> the Arduino IDE and <code>reopen</code> it after install. Then try to compile the starter code one more time and see if it successfully uploads to your microcontroller.<br><br>
 
 
 <h3 id="SAMPLECODE">(5) Run Sample Code to Test if Touch Sensing Circuit Works</h3>
@@ -196,8 +196,10 @@ Now that you uploaded the sample code to your microcontroller, let's use it to t
 <b>Extend Circuit:</b> Since you have three notes that serve as touch buttons, you need to extend your circuit to read those touch signals as well. When building the circuit for your other touch buttons, you can use the <code>same sender pin</code> for all three touch buttons. Only the <code>receiver pin has to vary</code>, i.e. you need one receiver pin for each touch signal you want to read. Also each touch sensor needs its <code>own 100k Ohm resistor</code>. The pin numbers are up to you. Remember to use a <code>TOUCH</code> pin for receiving.<br><br> 
 
 <b>Extend Code:</b> Next, extend your code to read all 3 of your touch sensors. Plot the results in the format:
-<pre><code>touchButtonValue1, touchButtonValue2, touchButtonValue3;</code></pre>
-You can achieve this formatting by using <code>Serial.print()</code> for each touch button value instead of <code>Serial.println()</code>. Don't forget to Serial.print() the new line character <code>"\n"</code> at the end of the line.<br><br>
+<pre><code>touchButtonValue1, touchButtonValue2, touchButtonValue3 \\end of line</code></pre>
+You can create a <code>string</code> from multiple values by concatenating them with a '+' (string1+string2..). Don't forget the ',' character between the touch button values.<br><br>
+
+<!-- You can achieve this formatting by using <code>Serial.print()</code> for each touch button value instead of <code>Serial.println()</code>. Don't forget to Serial.print() the new line character <code>"\n"</code> at the end of the line.<br><br> -->
 
 <b>Test If Touch Buttons Work:</b> You can plot the received values in a nice graph. To do this, open the Serial plotter by clicking on <code>Tools->Serial Plotter</code>. Because of the formatting we used (Serial.print() values separated by commas), we can see all three touch button variables plotted at the same time. Touch each touch button to see if the signal changes. If you see no changes, either your circuit or your code have a bug. Below you see how we touch the button 1 first, then button 2 and finally button 3. You can increase the number of times the signal is sampled by increasing the value of <code>samples_touch</code> in your code.<br><br>
 
