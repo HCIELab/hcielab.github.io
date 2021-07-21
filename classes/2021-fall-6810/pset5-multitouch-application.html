@@ -54,7 +54,7 @@
       <section class="col-md-8 pull-right main-content">
 </br></br></br></br>
         <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2021)</a><br></h>
-        <h2 class="headline">Pset 5: Gesture Detection</h2>
+        <h2 class="headline">Pset 5: Blob Detection & Gesture Recognizer</h2>
 
        <hr>
 
@@ -62,13 +62,13 @@ In this problem set, you will add blob detection to the grayscale image you gene
 
 <b>Steps:</b>
 <ol>
-	<li><a href="#BLOBDETECTION">Implement blob detection</a></li>
-	<li><a href="#COORDINATES">Extract the touch point coordinates from blob(s)</a></li>
-	<li><a href="#GESTURERECOGNIZER">Enable the multi-touch pad to recognize finger gesture using a gesture recognizer</a></li>
-	<li><a href="#FINGERGESTURES">Design your customized finger gestures</a></li>
+	<li><a href="#BLOBDETECTION">Implement Blob Detection</a></li>
+	<li><a href="#COORDINATES">Drawing Blobs into the Image</a></li>
+	<li><a href="#GESTURERECOGNIZER">Impelement Gesture Recognizer</a></li>
+	<li><a href="#FINGERGESTURES">Design Customized Finger Gestures</a></li>
 </ol><br>
 
-<h3 id="BLOBDETECTION">(1) Implement Blob Detection</h3>
+<h3 id="BLOBDETECTION">(1) Implement Blob Detection</h3><br>
 
 In pset4, you created a grayscale image in which brighter pixels correspond to higher signal values. While you can now determine with your eyes where the multi-touch pad was touched, your program should also be able to do this automatically and tell you at which (x,y) coordinate it sees a touch point. To do this, we need to write code that detects the white 'blobs' in the image. This is called 'blob detection'.<br><br> 
 
@@ -84,12 +84,12 @@ In pset4, you created a grayscale image in which brighter pixels correspond to h
 
 <b>Performing Blob Detection:</b> Next, you can use the BlobDetection instance's <code class="language-processing">computeBlobs()</code> function to detect the blobs.<br><br>
 
-<b>Retrieving Blob Number:</b> Use the BlobDetection instance's <code class="language-processing">getBlobNb()</code> function to retrieve the number of blobs (i.e. fingers) in the image. If you get '0' for your blob number no matter how much you press on the multi-touch pad, read below in 'improving your results' on how to debug this.<br><br>
+<b>Retrieving Blob Number:</b> Use the BlobDetection instance's <code class="language-processing">getBlobNb()</code> function to retrieve the number of blobs (i.e. fingers) in the image. If you get '0' for your blob number no matter how much you press on the multi-touch pad, read below in 'improving your results' in Section (2) on how to debug this.<br><br>
 
 
-<h3 id="COORDINATES">(2) Extract Touch Point Coordinates</h3>
+<h3 id="COORDINATES">(2) Drawing Blobs into the Image</h3><br>
 
-<b>Drawing Blob Centers and Contours Into the Image:</b> Next, we want to extract for each blob: (1) the center of the blob (i.e., center of the touch point), and (2) the contour of blob (i.e., the outline of the touch point) and then draw the touch point center, the touch point outline, and the touch point coordinates as (x,y) (<span style="color:red">what is the difference between touch center and touch coordinates?</span>) into our PImage. To retrieve the information from a specific blob, you can use the BlobDetection instance's <code class="language-processing">getBlob()</code> function, which returns a 'Blob' object and then use its instance functions to get its blob center and edges (refer to <a href="http://www.v3ga.net/processing/BlobDetection/index-page-documentation.html">the 'Blob' class in the documentation here</a>). Note that the contour is provided as a list of edges (i.e. lines).<br><br>
+<b>Drawing Blob Centers and Contours Into the Image:</b> Next, we want to extract for each blob: (1) the center of the blob (i.e., center of the touch point), and (2) the contour of blob (i.e., the outline of the touch point) and then draw the touch point center as a dot point, the touch point outline, and the touch point coordinates as (x,y) near the touch point center into our PImage. To retrieve the information from a specific blob, you can use the BlobDetection instance's <code class="language-processing">getBlob()</code> function, which returns a 'Blob' object and then use its instance functions to get its blob center and edges (refer to <a href="http://www.v3ga.net/processing/BlobDetection/index-page-documentation.html">the 'Blob' class in the documentation here</a>). Note that the contour is provided as a list of edges (i.e. lines).<br><br>
 
 Implement this in the <code class="language-processing">drawBlobsAndEdges()</code> function in the skeleton code:<br><br>
 
@@ -102,10 +102,13 @@ Implement this in the <code class="language-processing">drawBlobsAndEdges()</cod
 
 You can still use the pre-recorded multi-touch pad data from PSet 4 for testing the blob detection here, in case your multi-touch pad or other hardware does not work properly.<br><br>
 
-<h3 id="GESTURERECOGNIZER">(3) Gesture Recognizer</h3>
+<h3 id="GESTURERECOGNIZER">(3) Impelement Gesture Recognizer</h3><br>
+
 Once you have the blob detection working, you can move on to build the gesture recognizer. The goal is to be able to draw with your finger onto your multi-touch pad and have the multi-touch pad recognize what was drawn. For instance, if you swipe from left to right, your code should recognize that you made this gesture and if you draw an 'A' your code should know that an 'A' was drawn.<br><br>
 
-<b>$1 Unistroke Gesture Recognizer:</b> Luckily, you don't have to implement the gesture recognizer from scratch. Instead, you can use the $1 Unistroke Recognizer, which is available as a Processing library. The $1 Unistroke Gesture Recognizer is part of the so-called $1 Gesture Recognizer family, i.e. a set of different gesture recognizers with different capabilities, such as single stroke gesture recognition, multi-stroke gesture recognition etc. In this Pset, we are going to use the $1 Unistroke Recognizer since it is the only one that is available for Processing as a library.<br><br>
+<h4>$1 Unistroke Gesture Recognizer</h4><br>
+
+Luckily, you don't have to implement the gesture recognizer from scratch. Instead, you can use the $1 Unistroke Recognizer, which is available as a Processing library. The $1 Unistroke Gesture Recognizer is part of the so-called $1 Gesture Recognizer family, i.e. a set of different gesture recognizers with different capabilities, such as single stroke gesture recognition, multi-stroke gesture recognition etc. In this Pset, we are going to use the $1 Unistroke Recognizer since it is the only one that is available for Processing as a library.<br><br>
 
 <b>What Gestures can the $1 Unistroke Recognizer Detect?:</b> The 'unistroke' means that the gesture recognizer can only recognize gestures that are made by <i>one finger</i> in <i>one continous stroke</i>. For instance, consider the 2 gestures shown below designed for the letter "A". The left one is written in one continous stroke and thus can be recognized by the $1 Unistroke recognizer. The right one, however, is written in two separate strokes and thus cannot be recognized. Similarly, you can recognize a single finger swipe left/right gesture, but you cannot recognize a zoom gesture with two fingers since that would require combining two separate strokes into one gesture. The $1 family has also has a multi-stroke recognizer but as mentioned previously it is not available as a library for Processing.<br><br>
 
@@ -121,7 +124,7 @@ Once you have the blob detection working, you can move on to build the gesture r
 
 <a href="http://depts.washington.edu/acelab/proj/dollar/index.html"><img src="images/pset5/one-dollar-demo.png" width="500px"></a> <br><br>
 
-<h4>Implementing Gesture Recognition</h4> <br>
+<h4>Implementing Gesture Recognition in Processing</h4> <br>
 
 <b>Import $1 Unistroke Recognizer Library into Processing:</b> Now that you know a bit more about what the $1 Unistroke recognizer can and cannot do, you can move on to use the recognizer to detect gestures on your multi-touch pad. Start by importing the '$1 Unistroke Recognizer' library by going to 'Sketch -> Import Library' and finding it through the search bar. Next, import the $1 Unistroke Recognizer library into your Pset Processing code.<br>
 
@@ -132,7 +135,7 @@ Once you have the blob detection working, you can move on to build the gesture r
 
 <b>Turn on Console Plotting:</b> Finally, turn on console plotting for the gesture recognizer using the line below. As soon as the gesture recognizer detects a gesture it will immediately print it on the console and also provide how similar it is to the closest match from the recorded template gestures (e.g. 84% similar).<br>
 
-<pre><code class="language-processing">oneDollar.setVerbose(true); \\activates console plotting</code></pre> <br>
+<pre><code class="language-processing">oneDollar.setVerbose(true); // activates console plotting</code></pre> <br>
 
 <b>Creating a new finger gesture:</b> Next, you will create a new finger gesture. For starters, we will use a 'V' gesture, which is one of the most reliable ones that can be detected. Other reliable gestures are triangle, zigzag, checkmark, and anything that has some unique features. A circle, for instance, is one of the harder gestures to recognize due to its smooth outline that is easily susceptible to noise. To create a new finger gesture, you can use the following function:<br>
 <pre><code class="language-processing">oneDollar.learn(String gesture-name, int[] x-y-coordinates); // {x1, y1, x2, y2, x3, y3, x4, y4, ...} </code></pre> 
@@ -166,7 +169,13 @@ Note that you don't have to 'stop' tracking. The <code class="language-processin
 
 <h3 id="FINGERGESTURES">(4) Design Customized Finger Gestures</h3>
 
-<b>Create 3 Different Gestures:</b> Implement 3 different finger gestures that can be recognized by your multi-touch pad. For example, you can implement finger input for recognizing letters (A, C etc.), 2D shapes (triangle, circle etc.), and symbols (check mark etc.). Note that in good gesture design, the gesture should be related to what function is being called. For instance, you cannot draw a 'star' and associate it with a 'smile'. Instead, it would be better to draw a 'half circle', which more closely resembles a 'smile'. Similarly, gestures cannot be too abstract. For instance, you cannot have your finger draw one straight line on the multi-touch pad and the system recognizes it as 'fish'. Instead, there are better one-stroke gestures that could represent a fish outline. <br><br>
+Now that you have mastered the gesture recognizer, let's go ahead and implement 3 different finger gestures that can be recognized by your multi-touch pad!<br><br>
+
+For example, you can implement finger input for recognizing letters (A, C etc.), 2D shapes (triangle, circle etc.), and symbols (check mark etc.). Note that in good gesture design, the gesture should be related to what function is being called. For instance, you cannot draw a 'star' and associate it with a 'smile'. Instead, it would be better to draw a 'half circle', which more closely resembles a 'smile'. Similarly, gestures cannot be too abstract. For instance, you cannot have your finger draw one straight line on the multi-touch pad and the system recognizes it as 'fish'. Instead, there are better one-stroke gestures that could represent a fish outline. <br><br>
+
+To further display the gestures you customized, we ask you to draw out touch points (i.e. center of the blob detected) that's been recognized by your multi-touch pad. For this parts, you should still keep the drawing from blob detection in Section (2), and keep the center points (not the blob contour) on the UI for a while (e.g. 2 seconds) even after you lift your finger from multi-touch pad. So that we can see the input gesture patterns recorded from your multi-touch pad. You can implement this by storing the touch points in a separate array, always draw the array points when it's not empty, and clear the points in array whenever it exceeds the 2 seconds time (recall the <code class="language-processing">millis()</code> and <code class="language-processing">System.nanoTime()</code> functions from <a href="pset4-visualization.html#REDUCENOISE">PSet 4</a>). The image down below shows an example of the UI when the "Z" gesture is recognized. <br>
+
+<img src="images/pset5/UI-recognizer-Z-draw-points.png" width="350px"> <br><br>
 
 <h3>(3) Rotoscope</h3>
 
@@ -216,16 +225,17 @@ Gesture Recognizer
 
 We will give 20 pts in total:
 <ul>
-	<li>5 pts: you implemented the blob detection and drew the touch center, outline, and coordinate into the visualization. You showed that your touch pad can recognize 1, 2, and 3 fingers touching correctly.</li>
+	<li>5 pts: you implemented the blob detection correctly
+	<li>5 pts: you drew the touch center, outline, and coordinate into the visualization correctly, and showed that your touch pad can recognize 1, 2, and 3 fingers touching correctly.</li>
 	<li>5pts: you implemented 3 different gestures using the learn(), bind(), and track() functions from the $1 Unistroke Recognizer</li>
 	<li>5pts: you submitted a drawing showing all three gestures you implemented and show in the video that all three gestures are correctly recognized</li>
-	<li>5pts: the remaining 5pts will be given for creating presentation materials for your multi-touch pad. This will be part of the weekly Friday labs and you will work on this over the next weeks in small steps.
+	<!-- <li>5pts: the remaining 5pts will be given for creating presentation materials for your multi-touch pad. This will be part of the weekly Friday labs and you will work on this over the next weeks in small steps.
 		<ul>
 		<li><a href="visualization-rotoscope.html">drawing a rotoscope (1.5pts) (released)</a></li>
 		<li><a href="visualization-photos.html">taking some high-quality photos (1.5pts) (released)</a></li>
 		<li><a href="visualization-video.html">making a short 2-3 sequences video (2pts) (released)</a></li>
 	</ul>
-		</li>
+		</li> -->
 </ul>
 
 
