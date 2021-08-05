@@ -97,9 +97,9 @@ While building your circuit, you must adhere to the following rules:
 
 <b>AC vs. DC current:</b> EL displays require an alternating current between the two elecrodes to excite the phosphor and make it light up. Therefore, just connecting it to a DC power supply, like the 3.3V DC from your ESP32, won't do the trick. We therefore use an inverter to generate AC current from DC.<br><br>
 
-<b>Add Jumper Wires to Inverter Output:</b> Before you do anything, remove the battery from your battery holder to remove all power from the circuit. The inverter output is the black/black cable. Take two jumper wires and stick them into the white connector of the interverter output.<br><br>
+<b>Add Jumper Wires to Inverter Output:</b> Before you start, make sure the inverter is not connected to any power source. The inverter output is the black cable with the white connector piece on it. Take two jumper wires and stick them into the white connector of the interverter output. When you look carefully at the black wires, you will see that one is fully black while the other is black/gray. Use a black jumper wire for the black inverter cable, and a red jumper wire for the black/gray cable. As you might have already guessed, the black wire is the GND and the black/gray cable is the 50VAC signal.<br><br>
 
-<b>Crocodile Clamp to Display Bottom Layer (copper layer with copper tape flap):</b> Next, use a crocodile clamp to connect the first inverter output to the copper side of the display. One end of the crocodile clamp goes onto the jumper wire, the other goes onto the little copper flap. Be careful that you don't rip of the copper flap while working with the wires.<br><br>
+<b>Crocodile Clamp to Display Bottom Layer (copper layer with copper tape flap):</b> Next, use a crocodile clamp to connect the black jumper wire of the inverter output output to the copper side of the display. One end of the crocodile clamp goes onto the jumper wire, the other goes onto the little copper flap. Be careful that you don't rip of the copper flap while working with the wires.<br><br>
 
 <b>Crocodile Clamp to Display Top Layer (ITO with copper tape):</b> Next, use a second crocodile clamp to connect the other inverter output to the top layer of the display, i.e. the ITO. One end of the crocodile clamp goes on the jumper wire, the other goes onto the ITO sheet where there is  copper tape.<br><br>
 
@@ -107,13 +107,15 @@ While building your circuit, you must adhere to the following rules:
 <img src="images/lab6/wiring-interverter-output.png" width="750px"><br><br>
 
 
- <h3 id="inverterinput">(3) Connect Inverter Input to Battery</h3>
+ <h3 id="inverterinput">(3) Connect Inverter Input to the ESP32 power supply</h3>
 
-<b>Add Jumper Wires to Inverter Input:</b> The inverter input is the black/red cable. Take two jumper wires and stick them into the white connector of the interverter input.<br><br>
+<b>Add Crocodile Clamps to Inverter Input:</b> The inverter input is the black/red cable. Take two crocodile clamps and attach them to the red and black wires of the inverter's input.<br><br>
+    
+    <span style="color: red">Next, you will connect the inverter to your ESP32. Make sure that the ESP32 is not powered, i.e., not plugged into the USB port of your PC.</span><br><br>
 
-<b>Crocodile Clamp to + pol of Battery Holder:</b> Before you do this, make sure the battery is still removed and not in the holder. Use a crocodile clamp to connect the red wire to the + pol of your battery holder.<br><br>
-
-<b>Crocodile Clamp to - pol of Battery Holder:</b> Use another crocodile clamp to connect black to -.<br><br>
+<b>GND Jumper Wire to ESP32:</b> Take a black jumper wire and connect one side to the black crocodile clamp of the inverter input. Connect the other side of the jumper wire to a GND pin of your ESP32.<br><br>
+    
+<b>3.3V Jumper Wire to ESP32:</b> Take a red jumper wire and connect one side to the red crocodile clamp of the inverter input. Connect the other side of the jumper wire to the 3.3V pin of your ESP32.<br><br>
 
 <img src="images/lab3/batteryandinverter.jpg" width="350px"><br><br>
 
@@ -121,16 +123,16 @@ While building your circuit, you must adhere to the following rules:
 
 <b>Flip Display:</b> Once you are done wiring, turn the display around such that you see the top side. The copper should be on the bottom now and you can't see it anymore. <br><br>
 
-<b>Insert AA Battery (do not touch the circuit anymore):</b> Before you insert the battery, make sure you are not touching the circuit anymore at any place, do not touch the display. Then insert the AA battery into the battery holder. You should see a bright EL display in the shape of the coffee mug now. <br><br>
+<b>Power your ESP32 (do not touch the circuit anymore):</b> Before you power your ESP32, make sure you are not touching the circuit anymore at any place, do not touch the display. Then plug the USB cable into your ESP32. You should see a bright EL display in the shape of the coffee mug now. <br><br>
 
-<b>Debugging the Display:</b> If your display does not light up, remove the battery, then check if all wires are connected properly. Before you reinsert the battery, remember you should not touch the circuit or display.<br><br>
+<b>Debugging the Display:</b> If your display does not light up, unplug the USB cable, then check if all wires are connected properly. Before you connect the USB cable again, remember you should not touch the circuit or display.<br><br>
     
 <img src="images/lab6/displayconnected-cropped.jpg" width="450px"><br><br>
 
 
 <h3 id="isolatecircuits">(5) Build the Control Circuit</h3>
 
-You already know how to turn on/off your display by plugging and unplugging the battery. It would be nicer to do this via code and not by physically plugging/unplugging the battery. Thus, we will next build a control circuit that lets you do this.<br><br>
+You already know how to turn on/off your display by plugging and unplugging the ESP32 power supply. It would be nicer to do this via code and not by physically plugging/unplugging the power supply. Thus, we will next build a control circuit that lets you do this.<br><br>
     
 We want to connect our ESP to the display to be able to turn it on/off via code. But there is a problem. The ESP32 is rated only up to 12V so a higher voltage like the 50V AC we use for our display could potentially damage the microcontroller. Therefore, we have to isolate the ESP32 from the 50V AC power supply. For this purpose, we will use an optocoupler, which uses optical signaling rather than electrical signaling.<br><br>
     
