@@ -88,11 +88,23 @@ At the end of the lab, upload to your student google drive:
 
      You will make your own temperature sensor from scratch using conductive inkjet printing. But why can conductive traces be used to sense temperature?<br><br>
 
-     <b>Resistance Changes with Temperature:</b> Conductive wires can be used to sense temperature by making use of a material property that most conductive metals share: Their resistance changes with changes in temperature. For all pure metals, increasing their temperature leads to an increase of their electrical resistance. This phenomenon is a quantum-physical effect and can be (simplified) understood by picturing how electrons move in a conductor. Electrons move in a conductive material from one pol to the other. This conductor, however, is filled with atoms and molecules that bounce around all the time and electrons collide with them and may be deflected or scattered around in the material. Depending on their temperature these molecules bounce around more and scatter electrons stronger with a higher temperature. This leads to a higher resistance.<br><br>
+     <b>Resistance Changes with Temperature:</b> Conductive wires can be used to sense temperature by making use of a material property that most conductive materials share: Their resistance changes with changes in temperature. For all pure metals, increasing their temperature leads to an increase of their electrical resistance. This phenomenon is a quantum-physical effect and can be (simplified) understood by picturing how electrons move in a conductor. Electrons move in a conductive material from one pol to the other. This conductor, however, is filled with atoms and molecules that bounce around all the time and electrons collide with them and may be deflected or scattered around in the material. Depending on their temperature these molecules bounce around more and scatter electrons stronger with a higher temperature. This leads to a higher resistance.<br><br>
+     Below, you see the resistivity change of silver, copper, and gold under different temperatures. Note, that these functions are not linear overall, but can be approximated with a linear function for small temperature changes within 100C with only a small error.<br><br>
+    
+     <img src="images/lab7/Resistivity_Cu-Ag-Au.png" width="400px"><br><br>
         
-     <b>Temperature Coefficient of Resistance:</b> For small temperature changes, the resistance of a metal conductor varies linearily with temperature. We can describe the resistance at a certain temperature  with the following equation:<br><br>
+     <b>Formula for Computing Overall Resistance at a Certain Temperature:</b> For small temperature changes, the resistance of a metal conductor varies linearily with temperature. We can describe the resistance at a certain temperature  with the following equation:<br><br>
      \[ R_{temp} = R_{Ref}(1+\alpha (T - T_{Ref})) \]
-     <br><br>    
+     <br><br>
+     R_{temp} is the resistance at the current temperature T<br>
+     R_{Ref} is the resistance at a given reference temperature T_{Ref} (e.g., 20C)<br>
+     alpha is the temperature coefficient of the conductive material<br><br>
+    
+     This means, if we have a resistor and measure its resistance at room temperature (T_Ref) and at a much higher temperature (T = 80C, hot water), we can compute the temperature coefficient of this resistor. In this lab series, we will ink-jet print a silver trace on paper that we wrap around a coffee mug. This trace will have a certain resistance and we can determine its temperature coefficient by measuring it at room temperature and after we pour boiling water in the mug, increasing its temperature, and measure the resistance again. <br><br>
+    
+     In the next part of this lab, we will first generate a the silver trace that will serve us as the temperature sensor.
+
+     <!--
      <b>Formula for Computing Overall Resistance based on Thermal Resistivity:</b> The formula for determining the overall resistance of a wire based on thermal resistivity, length of a wire, and thickness of a wire (cross section) is shown in the picture below. As you can see, given a wire with a fixed length l and a fixed cross section A, the higher the thermal resistivity (i.e. the resistance introduced by changes in heat) the higher the overall resistance. (Note that we use wire thickness instead of cross section, we discard height since all wires have the same height)<br><br> 
 
      <b>Thermal Resistivity for Silver Used in Conductive Inkjet Printing:</b> For silver, the thermal resistivity p increases with increases in temperature. Thus, the higher the temperature, the higher the thermal resistivity and the higher the overall resistance of our wire. Thus, by reading the overall resistance of the wire with our microcontroller, we can determine the mug's temperature.<br><br> 
@@ -120,7 +132,17 @@ At the end of the lab, upload to your student google drive:
     <b>Experimentally Determining Thermal Resistivity (p):</b> To determine (p), we printed a wire of thickness <code>A = 0.3mm</code> and wire length <code>l = 1cm</code>. We measured the overall resistance <code>R</code> at room temperature <span style="color:red">23&#8451;</span> using a multimeter and found the overall resistance <code>R = 7.5 Ohm/cm</code>. <span style="color:red">So how does this tell us the thermal resistivity (p)? Since the wire thickness (A) is constant, you can remove it from the formula. This leaves us with R = p * l.</span> Since we used l = 1cm, we can conclude that R = p. Thus, <code>p = 7.5 Ohm/cm</code> at room temperature <span style="color:red">23&#8451;</span>. <br><br> 
 
      Note that this can also vary depending on the substrate, the 2D printer, and the silver ink mixture, so if you change any of these you would have to remeasure the resistance.<br><br> 
-
+-->
+    
+    <h3 id="wirelength">(5) Determine the Shape of a Temperature Sensor</h3>
+    The temperature sensor that we wrap around the coffee mug should ideally give us an temperature average over a larger area of the mug to make sure that we read reliable values even when the mug is only half full or a user touches one part of the mug with their above-room-temperature warm fingers. Thus, your temperature sensor should cover a sufficient surface area around the mug. <br><br>
+    Your task is to cover a 70mmx20mm large are on the mug with silver traces. The next question that arises is how to best shape a wire to cover the maximal area on your mug?<br><br>
+    
+    <b>Horse Shoe Pattern:</b> A classic method to create a long wire on a small area is to design it in a horse shoe pattern, which looks like this:<br><br>
+    
+    <img src="images/lab6/hsp.png" width="700px"><br><br>
+    
+    To make the temperature sensitive over a larger area, you have to distribute a silver wire over a larger area. One common strategy is to use a horse-shoe pattern
 
     <h3 id="wirelength">(5) Determine Wire Length (l) to Achieve 1kOhm Resistance</h3>
 
