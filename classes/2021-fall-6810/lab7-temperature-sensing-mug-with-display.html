@@ -23,6 +23,9 @@
 
 	<!-- Google Analytic -->
 	<script type="text/javascript" src="../../js/analytics.js"></script>
+    
+    <SCRIPT SRC='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></SCRIPT>
+<SCRIPT>MathJax.Hub.Config({ tex2jax: {inlineMath: [['',''], ['\\(','\\)']]}})</SCRIPT>
 
 	<style>
 	.etech-sch-col1 {width:60px; border: 1px solid black;padding:10px;}
@@ -83,10 +86,13 @@ At the end of the lab, upload to your student google drive:
     
      <h3 id="temperaturesensing">(1) Understand Temperature Sensing</h3>
 
-     You will make your own temperature from scratch using conductive inkjet printing. But why can conductive traces be used to sense temperature?<br><br>
+     You will make your own temperature sensor from scratch using conductive inkjet printing. But why can conductive traces be used to sense temperature?<br><br>
 
-     <b>Thermal Resistivity (Resistance Changes with Temperature):</b> Conductive wires can be used to sense temperature by making use of a material property that most conductive metals share: Their resistance changes with changes in temperature. This property is called <i>thermal resistivity p</i>.<br><br>
-
+     <b>Resistance Changes with Temperature:</b> Conductive wires can be used to sense temperature by making use of a material property that most conductive metals share: Their resistance changes with changes in temperature. For all pure metals, increasing their temperature leads to an increase of their electrical resistance. This phenomenon is a quantum-physical effect and can be (simplified) understood by picturing how electrons move in a conductor. Electrons move in a conductive material from one pol to the other. This conductor, however, is filled with atoms and molecules that bounce around all the time and electrons collide with them and may be deflected or scattered around in the material. Depending on their temperature these molecules bounce around more and scatter electrons stronger with a higher temperature. This leads to a higher resistance.<br><br>
+        
+     <b>Temperature Coefficient of Resistance:</b> For small temperature changes, the resistance of a metal conductor varies linearily with temperature. We can describe the resistance at a certain temperature  with the following equation:<br><br>
+     \[ R_{temp} = R_{Ref}(1+\alpha (T - T_{Ref})) \]
+     <br><br>    
      <b>Formula for Computing Overall Resistance based on Thermal Resistivity:</b> The formula for determining the overall resistance of a wire based on thermal resistivity, length of a wire, and thickness of a wire (cross section) is shown in the picture below. As you can see, given a wire with a fixed length l and a fixed cross section A, the higher the thermal resistivity (i.e. the resistance introduced by changes in heat) the higher the overall resistance. (Note that we use wire thickness instead of cross section, we discard height since all wires have the same height)<br><br> 
 
      <b>Thermal Resistivity for Silver Used in Conductive Inkjet Printing:</b> For silver, the thermal resistivity p increases with increases in temperature. Thus, the higher the temperature, the higher the thermal resistivity and the higher the overall resistance of our wire. Thus, by reading the overall resistance of the wire with our microcontroller, we can determine the mug's temperature.<br><br> 
