@@ -53,8 +53,8 @@
       
     In this lab, you will create the control circuit for your electrolumiscent display so that you can turn on/off the display and even dim it to a specific brightness using your ESP microcontroller.<br><br>
 
-<img src="images/lab6/display_animation.gif" width="380px"> 
-<img src="images//lab3/displayconnected.jpg" width="287px"><br>
+<img src="images/lab6/display_animation.gif" height="230px"> 
+<img src="images/lab6/display_on.JPG" height="230px"><br>
 
 <h3>Steps:</h3>
 <ol>
@@ -89,8 +89,8 @@ While building your circuit, you must adhere to the following rules:
 </ul> 
 <br>
 
-<span style="color:red">add images showing somebody unplugging, wiring, pluggin.</span><br>
-<img src="images/lab6/battery-holder.png" width="590px"><br><br>
+
+<img src="images/lab6/inverter_unp.png" width="590px"><br><br>
 
 
  <h3 id="inverteroutput">(2) Connect Inverter Output to EL Display</h3>
@@ -103,11 +103,10 @@ While building your circuit, you must adhere to the following rules:
 
 <b>Crocodile Clamp to Display Top Layer (ITO with copper tape):</b> Next, use a second crocodile clamp to connect the other inverter output to the top layer of the display, i.e. the ITO. One end of the crocodile clamp goes on the jumper wire, the other goes onto the ITO sheet where there is  copper tape.<br><br>
 
-<span style="color:red">can we replace the middle image? the display is not yet supposed to be on.</span><br>
-<img src="images/lab6/wiring-interverter-output.png" width="750px"><br><br>
+<img src="images/lab6/invtodisp.png" width="750px"><br><br>
 
-
- <h3 id="inverterinput">(3) Connect Inverter Input to the ESP32 power supply</h3>
+    
+<h3 id="inverterinput">(3) Connect Inverter Input to the ESP32 power supply</h3>
 
 <b>Add Crocodile Clamps to Inverter Input:</b> The inverter input is the black/red cable. Take two crocodile clamps and attach them to the red and black wires of the inverter's input.<br><br>
     
@@ -127,7 +126,7 @@ While building your circuit, you must adhere to the following rules:
 
 <b>Debugging the Display:</b> If your display does not light up, unplug the USB cable, then check if all wires are connected properly. Before you connect the USB cable again, remember you should not touch the circuit or display.<br><br>
     
-<img src="images/lab6/displayconnected-cropped.jpg" width="450px"><br><br>
+<img src="images/lab6/display_on.JPG" width="450px"><br><br>
 
 
 <h3 id="isolatecircuits">(5) Build the Control Circuit</h3>
@@ -229,8 +228,6 @@ The other signal is coming in the form of the PWM signal from our ESP (our choic
 
 <b>Dim the Display Repeatedly:</b> Write a piece of code that puts the ledcWrite(channel_number, duty_cycle) function in loop() to repeatedly increase brightness from 0% to 100% within 2 seconds and then reduces the brightness down again in another 2 seconds. The display should repeat this dimming cycle infinitely.<br><br>
 
-<span style="color:red">can we include a short video here showing this?</span><br>
-    <span style="color:red">Michael: Capturing a video introduces flicker</span><br><br>
 
 
 <h3>Deliverables</h3>
