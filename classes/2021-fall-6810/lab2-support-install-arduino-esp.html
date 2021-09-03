@@ -107,9 +107,28 @@ Finally, you still need to install the USB cable driver.<br><br>
 
 Once you have the <code>ESP32 Core selected</code> under <code>Tools->Board</code> and USB port selected under <code>Tools->Port</code>, the last step is to check if you can upload and run a program on your microcontroller.<br><br>
 
-<b>Open Blink Program:</b> Load the <code>Blink</code> example program from <code>File->Examples->01.Basics->Blink</code>. If you can't find it in the Arduino IDE, <a href="https://www.arduino.cc/en/tutorial/blink">you can download it here</a>. Hit the <code>compile button</code> and then the <code>upload button</code> to send the program to your microcontroller. You should see the built-in LED on the ESP32 blink. Once you have this, you are ready to go back to Lab2 and continue.<br><br>
+<pre>
+<code>
+// Arduino Test Code - Print "6.810 Engineering Interactive Electronics" on Serial Monitor <br>
+void setup() { <br>
+	Serial.begin(9600); <br>
+	}
+void loop() {  <br>
+	// Print 6.810 Engineering Interactive Electronics to see it on the Serial Monitor <br>
+	Serial.println("6.810 Engineering Interactive Electronics");
+}
+</code>
+</pre>
 
-<img src="images/esp-setup/esp-setup-Blink.png" width="650px"><br><br>
+<b>Print to the Serial Monitor:</b> Load the code given above into the Arduino Editor. Hit the <code>Upload</code> button, to send the program to your microcontroller. Now open the Serial Monitor on your Arduino Editor, by going to <code>Tools -> Serial Monitor</code>. <br> <br>
+
+<img src="images/esp-setup/serial-monitor.png" width="650px"><br><br>
+
+On opening the Serial Monitor, you should be able to see <code>6.810 Engineering Interactive Electronics</code> being printed repeatedly on the screen. This means that your program was successfully uploaded and run on the microcontroller. <br>
+
+<!-- <b>Open Blink Program:</b> Load the <code>Blink</code> example program from <code>File->Examples->01.Basics->Blink</code>. If you can't find it in the Arduino IDE, <a href="https://www.arduino.cc/en/tutorial/blink">you can download it here</a>. Hit the <code>compile button</code> and then the <code>upload button</code> to send the program to your microcontroller. You should see the built-in LED on the ESP32 blink. Once you have this, you are ready to go back to Lab2 and continue.<br><br> -->
+
+<!-- <img src="images/esp-setup/esp-setup-Blink.png" width="650px"><br><br> --> <br>
 
 <b>Timed Out Error:</b> If you are having trouble uploading code to the ESP32, even with the corrected port selected. And you are seeing some error message like following <code>Failed to Connect to ESP</code>, hold down the <code>BOOT/FLASH</code> button on your ESP32 board (the button on the bottom right) while re-uploading the program at the same time. If you are still having trouble, let the teaching team know.<br><br>
 
