@@ -58,6 +58,7 @@ In this lab, you will wire up your silver inkjet printed music card to a microco
 
 <h3>Steps:</h3>
 <ol>
+	<li><a href="#PICKUPHARDWARE">Pick-up Hardware Bag</a></li>
 	<li><a href="#INSTALLARDUINO">Install Arduino and ESP Microcontroller Drivers</a></li>
 	<li><a href="#TOUCHBUTTONBREADBOARD">Mount Microcontroller Onto Breadboard</a></li>
 	<li><a href="#SENSINGCIRCUIT">Build Capacitive Touch Sensing Circuit</a></li>
@@ -84,13 +85,42 @@ At the end of the lab, upload to your student google drive:
 Please let us know if you had any trouble with the circuit or programming or if anything was confusing in the write up. <br> <a href="https://docs.google.com/document/d/1FW77rIwX-VIYTRvdSUJEI5KdYUbpQM4zg1Utw_hHn1c/edit?usp=sharing">You can add your comments here.</a></div>
 
 
+
+<h3 id="start">Before you start</h3>
+
+<div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Join Slack Channels for 'Lab02' and your table number, e.g. 'Table5':</b> Similar to last lab, please join the lab's slack channel and the channel with the table number you are sitting at.<br>
+
+<img src="images/lab1/slack-setup1.png" width="400px">
+<img src="images/lab1/slack-setup2.png" width="150px">
+<img src="images/lab1/slack-setup3.png" width="120px">
+</div>
+
+<div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
+<b>EECS Safety Acknowledgement Form:</b> If you haven't done it yet, <a href="https://eecs-ug.scripts.mit.edu:444/safety/index.py/6.810
+" style="color:red;">read the EECS electrical safety form and then sign at the bottom.</a> You need to do it before you start wiring up electronics today.</div>
+
+
+<div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
+<b>EECS Safety Training on ATLAS:</b> If you haven't done it yet, do the ATLAS EECS safety training. You need to do it before you start wiring up electronics today. To find the training, <a href="atlas.mit.edu/" style="color:red;">go to ATLAS</a>, then click 'Home' and in the sidebar 'Full Menu'. In the search bar, type in 'Learning Center' and select it. On the new page, click on 'Course catalog' and search for 'EHS00509w'. Then select the 'Web-based' version. 
+
+<img src="images/lab1/safety-atlas-training.png" width="520px">
+</div>
+
+Let's get started with the lab.<br>
+
+
 <hr>
 
-<h3 id="INSTALLARDUINO">(1) Install Arduino IDE and ESP Microcontroller Drivers</h3>
+<h3 id="PICKUPHARDWARE">(1) Pick-up Hardware Bag</h3>
+
+
+
+<h3 id="INSTALLARDUINO">(2) Install Arduino IDE and ESP Microcontroller Drivers</h3>
 
 First, please <a href="lab2-support-install-arduino-esp.html">follow the instructions here to install the Arduino IDE, the ESP Core Board Manager, and the USB cable driver</a>. If you already have any of those installed but you installed them more than 3 months ago, we still recommend you reinstall everything to make sure you have the latest version. Once you have the Blink program working, you are ready to go!<br><br>
 
-<h3 id="TOUCHBUTTONBREADBOARD">(2) Mount Microcontroller Onto Breadboard</h3>
+<h3 id="TOUCHBUTTONBREADBOARD">(3) Mount Microcontroller Onto Breadboard</h3>
 
  <div style="color:black; border: black 1px solid; padding: 5px;margin-bottom:5px;">
 <b>Use only two breadboards for the labs:</b> In total, you have four breadboards. However, only two breadboards should be used for the labs and the other two should be reserved for the problem set circuit.</div>
@@ -112,7 +142,7 @@ The ESP32 microcontroller is too large to be mounted on a single breadboard whil
 <img src="images/lab2/breadboard-esp.jpg" height="250px"><br><br>
    
 
-<h3 id="SENSINGCIRCUIT">(3) Build Sensing Circuit on the Breadboard</h3>
+<h3 id="SENSINGCIRCUIT">(4) Build Sensing Circuit on the Breadboard</h3>
 
 <b>Capacitive Touch Sensing:</b> We will implement touch sensing based on the principle of capacitive touch sensing. The circuit for capacitive touch sensing requires a <code>sender pin</code>, which outputs a signal, and a <code>receiver pin</code>, which listens to the signal. The sender and receiver pin have the touch button connected between them. When a user touches the touch button, the signal that was injected by the sender pin will take longer to discharge due to a capacitive object (finger) nearby. The microcontroller can measure this time difference and, thus, detect touch.<br><br>
 
@@ -134,7 +164,7 @@ Let's build the circuit and write the code for <code>one touch button</code>, an
 
 <img src="images/lab2/lab1-crocodile-clamp-wire_new.jpg" width="357px" /><br><br>
 
-<h3 id="CAPACITIVELIBRARY">(4) Install Arduino Capacitive Sensing Library</h3>
+<h3 id="CAPACITIVELIBRARY">(5) Install Arduino Capacitive Sensing Library</h3>
 
 Next, we will write a program that receives the touch sensor signal from your first touch button and plots it on your computer. You can see the sample code that can do this below. To process the touch sensor signal, we will use the Arduino <a href="https://playground.arduino.cc/Main/CapacitiveSensor/"><code>CapacitiveSensor library</code></a>. You need to install this library before you can run the code.<br><br>
 
@@ -181,7 +211,7 @@ void loop()
 <b>Alternative Install from github:</b> First, remove the previously installed library. You can delete it on Mac under <code>Macintosh HD/Users/your-username/Documents/Arduino/libraries</code> and on windows this is under <code>My Documents\Arduino\libraries\</code>. Once the library is deleted, <a href="https://github.com/PaulStoffregen/CapacitiveSensor">go to the library's GitHub repository</a> and download it as a .zip file. Re-install the library via the .zip file by going to <code>Sketch -> Include Library -> Add .ZIP Library</code>. Don't forget to <code>close</code> the Arduino IDE and <code>reopen</code> it after install. Then try to compile the starter code one more time and see if it successfully uploads to your microcontroller.<br><br>
 
 
-<h3 id="SAMPLECODE">(5) Run Sample Code to Test if Touch Sensing Circuit Works</h3>
+<h3 id="SAMPLECODE">(6) Run Sample Code to Test if Touch Sensing Circuit Works</h3>
 
 Now that you uploaded the sample code to your microcontroller, let's use it to test if the touch sensing works.<br><br>
 
@@ -189,7 +219,7 @@ Now that you uploaded the sample code to your microcontroller, let's use it to t
 
 <img src="images/lab2/serial_monitor.png" width="600px"><br><br>
 
-<h3 id="EXTENDCIRCUITCODE">(6) Extend Circuit and Code to 3x Touch Sensors</h3>
+<h3 id="EXTENDCIRCUITCODE">(7) Extend Circuit and Code to 3x Touch Sensors</h3>
 
  <div style="color:black; border: black 1px solid; padding: 5px;margin-bottom:5px;">In this lab, we will only build the circuit and write the code for the <code>touch buttons</code>. We will take care of the <code>slider</code> later.</div>
 
@@ -205,7 +235,7 @@ You can create a <code>string</code> from multiple values by concatenating them 
 
 <img src="images/lab2/lab1-plotting-signals_new.png" width="480px"><br><br>
 
-<h3 id="THRESHOLD">(7) Threshold Touch Signals: Touched or not Touched?</h3>
+<h3 id="THRESHOLD">(8) Threshold Touch Signals: Touched or not Touched?</h3>
 
 Next, we want to convert the raw signal into touch events, i.e. <code>button touched</code> or <code>button not touched</code>. As you saw in the serial plotter, the values for each sensor can vary pretty wildly for the reasons mentioned in lecture. We will do more filtering of signals later in class, but for now we will make a rough estimate in which range our sensor signal falls for each touch button.<br><br>
 
@@ -213,7 +243,7 @@ Next, we want to convert the raw signal into touch events, i.e. <code>button tou
 
 <b>Adjust the Loop() speed to Plot Every 200ms:</b> Adjust the loop speed to output if a touch button was touched or not every <code>200ms</code>. Remember from 6.08 that using <code>delay()</code> is not a good way to do this and doing this in a <code>non-blocking</code> way is much better.<br><br>
 
-<h3 id="SERIALOUTPUT">(8) Format Serial Output</h3>
+<h3 id="SERIALOUTPUT">(9) Format Serial Output</h3>
 
 In the next lab, we will read the output from the Serial Monitor into a program called <code>Processing.</code> For this, we want to make sure our output is formatted well. Replace the old Serial.write() statements with the formatting below:<br><br>
 
