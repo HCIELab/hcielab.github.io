@@ -143,7 +143,7 @@ The ESP32 microcontroller is too large to be mounted on a single breadboard whil
 
 <h3 id="SENSINGCIRCUIT">(4) Build Sensing Circuit on the Breadboard</h3>
 
-<b>Capacitive Touch Sensing:</b> We will implement touch sensing based on the principle of capacitive touch sensing. The circuit for capacitive touch sensing requires a <code>sender pin</code>, which outputs a signal, and a <code>receiver pin</code>, which listens to the signal. The sender and receiver pin have the touch button connected between them. When a user touches the touch button, the signal that was injected by the sender pin will take longer to discharge due to a capacitive object (finger) nearby. The microcontroller can measure this time difference and, thus, detect touch.<br><br>
+<b>Capacitive Touch Sensing:</b> We will implement touch sensing based on the principle of capacitive touch sensing. The circuit for capacitive touch sensing requires a <code>sender pin</code>, which outputs a signal, and a <code>receiver pin</code>, which listens to the signal. The sender and receiver pin have the touch button connected between them. When a user touches the touch button, the signal that was injected through the sender pin will take longer to discharge due to a capacitive object (finger) nearby. The microcontroller can measure this time difference and thereby detect touch.<br><br>
 
 <b>Using Larger Resistors to Increase Sensitivity:</b> To delay the discharge from the user's finger and make the time difference measurable on the ESP32, you will add a <code>resistor</code> between the sender and the receiver pin. A higher resistance enables more sensitive sensing (a 10MOhm resistor enables sensing of a finger up to 10cm distance, while a 10kOhm resistor would not make such a large distance detectable). However, higher resistance comes at the cost of speed because the signal takes longer to discharge. Since we only want to sense touch and do not need to sense hovering of a finger, we will use a <code>100kOhm resistor</code> because it offers a good trade-off between sensitivity and sensing speed.<br><br>
 
@@ -153,13 +153,17 @@ Let's build the circuit and write the code for <code>one touch button</code>, an
 
 <b>Sender Pin:</b> For the sender pin, you can use any GPIO pin on the ESP. For this first touch button, we ask you to use <code>GPIO pin 25</code>.<br><br>
 
-<b>Receiver Pin:</b> For the receiver pin, it is best to use a pin that is labeled <code>TOUCH</code> (see ESP pin out below). These pins are optimized to serve as receivers for capacitive sensing and therefore return cleaner signals, so we will use them for our sensing application. <span style="color:blue">Do *not* use TOUCH0, it does not work on this particular model of ESP32</span>. For this first touch button, we ask you to use <code>GPIO pin 14</code>.<br><br>
+<b>Receiver Pin:</b> For the receiver pin, it is best to use a pin that is labeled <code>TOUCH</code> (see ESP pin out below). These pins are optimized to serve as receivers for capacitive sensing and therefore return cleaner signals, so we will use them for our sensing application. For this first touch button, we ask you to use <code>GPIO pin 14</code>. <span style="color:blue">*Never* use TOUCH0, it does not work on this particular model of ESP32</span>. <br><br>
 
-<b>Resistor:</b> We will use a <i>100k Ohm resistor</i>. Add the resistor to the circuit between your sender and receiver pin for your first touch button.<br><br>
+<b>Resistor:</b> We will use a <i>100k Ohm resistor</i>. Add the resistor to the circuit between your sender and receiver pin for your first touch button as shown in the schematic image above.<br><br>
  
 <img src="images/lab2/esp32.png" width="750px" /><br><br>
 
 <b>Connecting to the Inkjet Printed Touch Button:</b> Finally, connect your printed touch button to the circuit on the breadboard. For this, you will use a <code>crocodile clamp</code> and a <code>jumper wire</code>. One side of the crocodile clamp goes onto the connector pad of the touch button, the other side clips into the end of a jumper wire. The jumper wire can then be used to connect to the breadboard. Once you have your first touch button wired up, you are ready to write the code for sensing touch with it.<br><br>
+
+<div style="color:red; border: red 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Protecting the Silver Inkjet Printed Areas:</b> If you ever need to disconnect your inkjet printed card from the breadboard, we recommend that you unplug the jumper wire from the breadboard and leave the crocodile clamp connected to the card. The reason for this is that the silver areas on the card are pretty sensitive and repeatedly clamping and unclamping of the crocodile clamp may scrape off too much of the silver over time.</div>
+
 
 <img src="images/lab2/lab1-crocodile-clamp-wire_new.jpg" width="357px" /><br><br>
 
