@@ -175,9 +175,13 @@ Let's build the circuit and write the code for <code>one touch button</code>, an
 
 Next, we will write a program that receives the touch sensor signal from your first touch button and plots it on your computer. You can see the sample code that can do this below. To process the touch sensor signal, we will use the Arduino <a href="https://playground.arduino.cc/Main/CapacitiveSensor/"><code>CapacitiveSensor library</code></a>. You need to install this library before you can run the code.<br><br>
 
-<b>Install Library via Arduino Library Manager:</b> To install the library, open Arduino and go to <code>Sketch -> Include Library -> Manage Libraries</code> and search for the <code>CapacitiveSensor</code> library and install it. <code>Close</code> the Arduino IDE and <code>reopen</code> it after install. <code>Copy the starter code</code> below. and see if you can compile and upload it to your microcontroller. If the compiling completes without error messages, then you are all set to move on. However, if the installed library does not work and returns an error message like <code>'XXX' does not name a type"</code> upon compiling, please try the alternative install described below the starter code.<br><br>
+<!-- <b>I nstall Library via Arduino Library Manager:</b> To install the library, open Arduino and go to <code>Sketch -> Include Library -> Manage Libraries</code> and search for the <code>CapacitiveSensor</code> library and install it. <code>Close</code> the Arduino IDE and <code>reopen</code> it after install. <code>Copy the starter code</code> below. and see if you can compile and upload it to your microcontroller. If the compiling completes without error messages, then you are all set to move on. However, if the installed library does not work and returns an error message like <code>'XXX' does not name a type"</code> upon compiling, please try the alternative install described below the starter code.<br><br>
 
-<img src="images/lab2/capacitivesensorlibrary.png" width="700px"><br><br>
+<img src="images/lab2/capacitivesensorlibrary.png" width="700px"><br><br> -->
+
+<b>We will install this library from Github instead of Aruidno Library Manager, since the ESP32 configuration is not in their official releases yet.</b> <br><br>
+
+<b>Install from github:</b> First, if you accidentially installed the library already via Aruidno Library Manager, remove the previously installed library. You can delete it on Mac under <code>Macintosh HD/Users/your-username/Documents/Arduino/libraries</code> and on windows this is under <code>My Documents\Arduino\libraries\</code>. Once the library is deleted, <a href="https://github.com/PaulStoffregen/CapacitiveSensor">go to the library's GitHub repository</a> and download the <b>master branch</b> as a .zip file. Re-install the library via the .zip file by going to <code>Sketch -> Include Library -> Add .ZIP Library</code>. Don't forget to <code>close</code> the Arduino IDE and <code>reopen</code> it after install. Then try to compile the starter code one more time and see if it successfully uploads to your microcontroller.<br><br>
 
 <pre>
 <code>/*******************************************************************************
@@ -214,8 +218,6 @@ void loop()
   delay(10);
 }</code></pre>
 <br>
-
-<b>Alternative Install from github:</b> First, remove the previously installed library. You can delete it on Mac under <code>Macintosh HD/Users/your-username/Documents/Arduino/libraries</code> and on windows this is under <code>My Documents\Arduino\libraries\</code>. Once the library is deleted, <a href="https://github.com/PaulStoffregen/CapacitiveSensor">go to the library's GitHub repository</a> and download it as a .zip file. Re-install the library via the .zip file by going to <code>Sketch -> Include Library -> Add .ZIP Library</code>. Don't forget to <code>close</code> the Arduino IDE and <code>reopen</code> it after install. Then try to compile the starter code one more time and see if it successfully uploads to your microcontroller.<br><br>
 
 
 <h3 id="SAMPLECODE">(6) Run Sample Code to Test if Touch Sensing Circuit Works</h3>
