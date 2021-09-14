@@ -24,11 +24,12 @@ String val;
 
 //settings() runs before setup and lets you put a variable in size
 void settings(){
-  img = loadImage("card.png");//loads image
-  size(img.width, img.height);
+  //setting the size of the canvas to the size of the image
+  size(861,480);
 }
 
 void setup() {
+  img = loadImage("card.png");//loads image
 
   background(0);
   image(img, 0, 0);
