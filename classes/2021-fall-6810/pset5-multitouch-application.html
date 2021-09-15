@@ -176,35 +176,28 @@ In the previous section, we used the touch locations to recognize gestures. Next
 <img src="images/pset5/UI-3d-visualization-1-finger-1.png" width="354px">
 <img src="images/pset5/UI-3d-visualization-1-finger-2.png" width="350px"> <br><br>
 
-<b>To recognize touch pressure, you can look at the brightness of the touch point <span style="color:red">(and why would it be brighter if I pressed harder? because more finger area touches there leading to more cumulate capacitance?)</span><br>
+<!-- To recognize touch pressure, you can look at the brightness of the touch point <span style="color:red">(and why would it be brighter if I pressed harder? because more finger area touches there leading to more cumulate capacitance?)</span><br>
 
-
-For this part of the PSet, you are going to do the following three steps: <br>
+ -->
+<!-- For this part of the PSet, you are going to do the following three steps: <br>
 <ol>
 	<li>draw three axis for x, y, z on screen for the 3D visualization coordinate system</li>
 	<li>implement functionality to move the camera around the 3D visualization scene via keyboard input, i.e. the camera will be able to zoom in/out of the scene, rotate around the scene, and move up/down with respect to the scene when the corresponding keys are pressed</li>
 	<li>update the 3D visualization with the touch points and touch pressure based on interpolated PImage of your touch points from Pset3</span></li>
 </ol>
 <br>
+ -->
+<b>Skeleton Code:</b> If you look at your code, you will see that we already defined several variables and functions for you that are related to the 3D visualization (e.g., the axis and camerapos parameters and the <code>drawAxis(),</code> <code>cameraViewControl()</code> and <code>update3DImage()</code> functions).<br><br>
 
-<h4>Download Skeleton Code</h4> <br>
-Start by downloading <a href="software/pset4_3d_visualization_skeleton_v3.zip">the skeleton code for the PSet4 3D visualization from here</a>. <br><br>
+<span style="color:red">replace image</span><br>
+<img src="images/pset5/pset5-skeleton-code.png" width="650px"> <br><br>
 
-Once you opened the skeleton code, you will see that there are some new variables and functions that are related to the 3D visualization (e.g., the axis and camerapos parameters and the drawAxis(), cameraViewControl() and update3DImage() functions). The remaining functions (readSerial(), setBaseLine(), substractBaseLine(), setColors(), and interpolate()) are from pset3 and you only have to move your code over to fill them out.<br><br>
+<b>Drawing the XYZ axes for 3D Visualization:</b> Let's start by drawing the XYZ axes for 3D visualization in the <code>drawAxis()</code> function. Note that we are in 3D now, not 2D so you need 3 coordinates for defining the positions of your points/lines. The question that may arrise is which axis are x, y, and z. In Processing, it uses the convention as shown below.<br><br>
 
-<img src="images/pset5/pset5-skeleton-code.png" width="450px"> <br><br>
+<!-- , which is a 'left-handed' cartesian system. You can replicate this 'left-handed' system by doing the following: Take your left hand, point your index finger in the positive y direction (down) and your thumb in the positive x direction (to the right), the rest of your fingers will point towards the positive z-direction. If that matches the image below, you know your system is left h -->
 
-<h4>Drawing the XYZ axes for 3D Visualization</h4> <br>
 
-You will start by drawing the XYZ axes for 3D visualization in the <i>drawAxis()</i> function. <br>
-You can draw them as a standard Cartesian coordinate system. Note that we are in <b>3D now, not 2D</b> so you need 3 coordinates for defining the positions of your points/lines.<br><br>
-
-Cartesian 3D systems are often described as "left-handed" or "right-handed." <br>
-If you point your index finger in the positive y direction (down) and your thumb in the positive x direction (to the right), the rest of your fingers will point towards the positive z direction. <br>
-It's left-handed if you use your left hand and do the same. <br>
-In Processing, the system is left-handed, as follows: <br><br>
-
-<img src="images/pset5/processing-3d-system.png" width="450px"> <br><br>
+<img src="images/pset5/processing-3d-system.png" width="250px"> <br><br>
 
 The length of the X and Z axes should be the width and height of your interpolated PImage.<br>
 The length of the Y axis should be slightly higher than the maximum pixel value (brightness) of your interpolated PImage so you have some space at the top.<br>
@@ -294,7 +287,7 @@ Two fingers touching:<br>
 Note that all this noise is because we use the PImage that also contains brightness values outside the recognized 'finger blobs'. If you want a cleaner visualization, you can create a new PImage that has all pixels black except those pixels that belong to a blob. Note that this is not mandatory for this pset but if you'd like some clean output you can experiment with this.
 <br><br>
 
-<h3>Upload your Processing Code and Video of Gestures</h3>
+<h3>Deliverables</h3>
 
 For grading, please upload the following to your google drive student folder:<br>
 
