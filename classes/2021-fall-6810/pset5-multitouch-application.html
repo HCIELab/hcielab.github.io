@@ -142,38 +142,30 @@ Once you have the blob detection working, you can move on to build the gesture r
 
 <img src="images/pset5/add-gesture3.png" width="650px"> <br><br>
 
-<b>Connect Finger Gesture to a Callback Function:</b> Now that you have added your custom 'V' finger gesture to the gesture recognizer, you next have to define which function should be called when the gesture is being detected. Such a function is called a 'callback function' and it will be triggered every time the algorithm detects the corresponding finger gesture. You can bind the finger gesture to a callback function via the command below. Note that the call-back-function-name is only the same of the function without parenthesis and parameters.<br>
+<b>Connect Finger Gesture to a Callback Function:</b> Now that you have added your custom 'V' finger gesture to the gesture recognizer, you next have to define <code>which function should be called</code> when the gesture is being detected. Such a function is called a <code>callback function</code> and it will be triggered every time the algorithm detects the corresponding finger gesture. You can bind the finger gesture to a callback function via the command below. Note that the parameter <code>callback-function-name</code> is the name of the function without parenthesis and parameters.<br>
 
 <pre><code class="language-processing">oneDollar.bind(String gesture-name, String callback-function-name); </code></pre><br>
 
-<b>Implement the Callback Function:</b> Next, you need to implement the callback function. The callback function always has to be in the format as shown below, i.e. contain the same number of parameters and parameter types and return void. The function name and parameter names, however, are up to you. If upon recognizing the gesture, you just want to execute some action, you can simply add that code into the function body. If you want to build a location dependent gesture, you could also check where on the multi-touch pad the gesture started or ended etc.<br>
+<b>Implement the Callback Function:</b> Next, you need to implement the callback function. The callback function has to have the format shown below, i.e. contain the <code>same number of parameters and parameter types</code> and <code>return void</code>. The function name and parameter names, however, are up to you. If upon recognizing the gesture, you just want to execute some action, you can simply add that code into the function body. If you want to build a location dependent gesture, you can also check where on the multi-touch pad the gesture started or ended using the coordinates provided by the callback function.<br>
 
 <pre><code class="language-processing">void foo(String gesture-name, float percentOfSimilarity, int startX, int startY, int centroidX, int centroidY, int endX, int endY){
 	// do something when the gesture is detected
  }
 </code></pre> <br>
 
-<b>Tracking the finger gestures:</b> Now that you have defined how your gesture looks like and what function should be called when it is detected, you still have to tell your code when it should start looking for the gesture. We want to start tracking gestures when our code detects a 'finger blob'.
+<b>Tracking the finger gestures:</b> Now that you have defined how your gesture looks like and what function should be called when it is detected, you still have to tell your code when it should start looking for the gesture. We want to start tracking gestures when our code <code>detects a finger blob</code>.
 Therefore, you need to add the tracking function below in the blob detection method where it determines if a finger was successfully detected. The x/y coordinate in the function are the x/y coordinate of your touch point.<br>
 
 <pre><code class="language-processing">oneDollar.track(int x-coordinate, int y-coordinate);</code></pre>
 
-Note that you don't have to 'stop' tracking. The <code class="language-processing">track()</code> function will only be executed when Processing goes through its loop and detects a finger blob, i.e. knows a finger is present. If no finger has been present for a while, i.e. no new data is fed to the gesture recognizer, the recognizer will automatically determine that the gesture has ended and will provide its best guess at what gesture was executed. <br><br>
+Note that you don't have to 'stop' tracking. The <code>track()</code> function will only be executed when Processing goes through its loop and detects a finger blob, and if no finger has been present for a while, i.e. no new data is fed to the gesture recognizer, the recognizer will automatically determine that the gesture has ended and will provide its best guess at what gesture was executed. <br><br>
 
-<b>Visualize Gesture Detection Result:</b> Finally, once your gesture is detected, your callback function should visualize the detected gesture. You can do this by writing the name of the detected gesture into the Processing UI window as shown in the top left corner of the images below.<br>
-
-<img src="images/pset5/UI-recognizer-A2.png" width="350px">
-<img src="images/pset5/UI-recognizer-C2.png" width="350px"> <br><br>
-
-<h3 id="FINGERGESTURES">(4) Design Customized Finger Gestures</h3>
-
-Now that you have mastered the gesture recognizer, let's go ahead and implement 3 different finger gestures that can be recognized by your multi-touch pad!<br><br>
-
-For example, you can implement finger input for recognizing letters (A, C etc.), 2D shapes (triangle, circle etc.), and symbols (check mark etc.). Note that in good gesture design, the gesture should be related to what function is being called. For instance, you cannot draw a 'star' and associate it with a 'smile'. Instead, it would be better to draw a 'half circle', which more closely resembles a 'smile'. Similarly, gestures cannot be too abstract. For instance, you cannot have your finger draw one straight line on the multi-touch pad and the system recognizes it as 'fish'. Instead, there are better one-stroke gestures that could represent a fish outline. <br><br>
-
-To further display the gestures you customized, we ask you to draw out touch points (i.e. center of the blob detected) that's been recognized by your multi-touch pad. For this parts, you should still keep the drawing from blob detection in Section (2), and keep the center points (not the blob contour) on the UI for a while (e.g. 2 seconds) even after you lift your finger from multi-touch pad. So that we can see the input gesture patterns recorded from your multi-touch pad. You can implement this by storing the touch points in a separate array, always draw the array points when it's not empty, and clear the points in array whenever it exceeds the 2 seconds time (recall the <code class="language-processing">millis()</code> and <code class="language-processing">System.nanoTime()</code> functions from <a href="pset4-visualization.html#REDUCENOISE">PSet 4</a>). The image down below shows an example of the UI when the "Z" gesture is recognized. <br>
+<b>Visualize Gesture Detection Result:</b> Finally, once your gesture is detected, your callback function should visualize the detected gesture. For this, you should write the name of the detected gesture into the Processing UI window as shown in the top left corner of the images below and also draw the touch point centers into the window (discard the blob contour). The touch point centers should be visible in the window for a while even after you lift your finger from the multi-touch pad (e.g., show them for another 2 seconds before removing them from the window). You can implement this by storing the touch point centers in a separate array. Draw the array points when the array is not empty, and clear the points in the array whenever it exceeds the 2 seconds time after the gesture was recognized (use the <code>millis()</code> and <code>System.nanoTime()</code> functions from <a href="pset4-visualization.html#REDUCENOISE">PSet 4</a> for this). The image down below shows an example of the UI when the "Z" gesture is recognized.<br><br>
 
 <img src="images/pset5/UI-recognizer-Z-draw-points.png" width="350px"> <br><br>
+
+<b>Design Custom Finger Gestures: </b> Now that you have implemented the basic gesture recognition, let's go ahead and implement <code>3 different finger gestures</code> that can be recognized by your multi-touch pad. You can implement recognizing <code>letters</code> (A, C etc.), <code>2D shapes</code> (triangle, circle etc.), and <code>symbols</code> (check mark etc.). Note that in good gesture design, the gesture should be related to what function is being called. For instance, you cannot draw a 'star' and associate it with a 'smile'. Instead, it would be better to draw a 'half circle', which more closely resembles a 'smile'. Similarly, gestures cannot be too abstract. For instance, you cannot have your finger draw one straight line on the multi-touch pad and the system recognizes it as 'fish'. Instead, there are better one-stroke gestures that could represent a fish outline. Once you have three gestures working, record a short video as described at the end of this pset in 'deliverables'.<br><br>
+
 
 
 <h3>(2) Visualize Touch and Pressure in 3D</h3>
