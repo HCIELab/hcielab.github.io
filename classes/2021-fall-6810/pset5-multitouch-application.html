@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>6.810 Pset5 Blob Detection</title>
+	<title>6.810 Pset5 Blob Detection, Gestures, Pressure</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
@@ -72,23 +72,25 @@ In this problem set, you will add blob detection to the grayscale image you gene
 <b>Get a new multi-touch pad from a TA:</b><br>
 If you have the feeling your printed multi-touch pad is degrading, let us know and we can give you one that we fabricated to test if it's really the multi-touch pad or something in your circuit/code.</div>
 
-<h3 id="BLOBDETECTION">(1) Implement Blob Detection</h3><br>
+<h3 id="BLOBDETECTION">(1) Implement Blob Detection</h3>
 
-In pset4, you created a grayscale image in which brighter pixels correspond to higher signal values. While you can now determine with your eyes where the multi-touch pad was touched, your program should also be able to do this automatically and tell you at which (x,y) coordinate it sees a touch point. To do this, we need to write code that detects the white 'blobs' in the image. This is called 'blob detection'.<br><br> 
+In the last pset, you created a grayscale image in which brighter pixels correspond to higher signal values. While you can now determine with your eyes where the multi-touch pad was touched, your program should also be able to do this automatically and tell you at which (x,y) coordinate it sees a touch point. To do this, we need to write code that detects the white <code>blobs</code> in the image. This is called <code>blob detection</code>.<br><br> 
 
 <img src="images/pset4/UI-blob-touch-1.png" width="240px"> 
 <img src="images/pset4/UI-blob-touch-2.png" width="240px"> 
 <img src="images/pset4/UI-blob-touch-3.png" width="240px"> <br><br>
 
-<b>Library for Blob Detection:</b> Luckily, somebody else has already provided a library for blob detection and you can see the <a href="http://www.v3ga.net/processing/BlobDetection/index-page-documentation.html">BlobDetection Reference here</a> for details on the different functions. You already installed that library at the beginning of the last pset and we already imported it into the skeleton code using the following line:<br>
+<b>Library for Blob Detection:</b> Luckily, somebody else has already provided a <code>library for blob detection</code> and you can see the <a href="http://www.v3ga.net/processing/BlobDetection/index-page-documentation.html">BlobDetection Reference here</a> for details on the different functions. You already installed that library at the beginning of the last pset and we already imported it into the skeleton code using the following line:<br>
 
 <pre><code class="language-processing">import blobDetection.*;</code></pre><br>
 
-<b>Constructing BlobDetection Object:</b> First, construct a new object of the BlobDetection class the large interpolated grayscale PImage height and width. You can find the <a href="http://www.v3ga.net/processing/BlobDetection/index-page-documentation.html">BlobDetection Reference here</a>.<br><br>
+<b>Constructing BlobDetection Object:</b> First, construct a new object of the <code>BlobDetection class</code>, for the size parameters use the large interpolated grayscale <code>PImage height and width</code>. You can find the <a href="http://www.v3ga.net/processing/BlobDetection/index-page-documentation.html">BlobDetection Reference here</a>.<br><br>
 
 <b>Performing Blob Detection:</b> Next, you can use the BlobDetection instance's <code class="language-processing">computeBlobs()</code> function to detect the blobs.<br><br>
 
-<b>Retrieving Blob Number:</b> Use the BlobDetection instance's <code class="language-processing">getBlobNb()</code> function to retrieve the number of blobs (i.e. fingers) in the image. If you get '0' for your blob number no matter how much you press on the multi-touch pad, read below in 'improving your results' in Section (2) on how to debug this.<br><br>
+<b>Retrieving Blob Number:</b> Use the BlobDetection instance's <code class="language-processing">getBlobNb()</code> function to retrieve the number of blobs (i.e. fingers) in the image. If you get '0' for your blob number no matter how many fingers you have on the touch pad and how much you press, read below on how to debug this.<br><br>
+
+<b>Improving your Results by Changing the Threshold:</b> If your blob detection is not finding all the blobs in your image, consider the following: Before performing blob detection, the library automatically converts your image from a grayscale image (pixel values ranging from 0 - 255) into a black/white image (pixels are either 0 or 255). The reason the library does this is because blob detection groups pixels of similar color together to find 'blobs' and that is easier to do when pixels are either black or white and not something in between. The library automatically picks a <code>threshold</code> value, for instance, it may decide to convert all pixels with a value below '100' to black (i.e. '0') and all pixels above '100' to white (i.e. '255'). If you are not getting any blobs (i.e., groups of white pixels), it is likely that during thresholding all pixels were converted to black and no white pixels are left because the threshold value was set too high. To see if a lower threshold would leave you with more white pixels, you can use the <code class="language-processing">setThreshold()</code> function to determine which brightness levels from 0-255 should be taking into account when searching for blobs. Note that the threshold takes as input a <code>float value from 0-1</code> so you need to scale your 0-255 values accordingly. Once you set your custom threshold, check again if you now get the right blob number.<br><br>
 
 
 <h3 id="COORDINATES">(2) Drawing Blobs into the Image</h3><br>
@@ -101,12 +103,11 @@ Implement this in the <code class="language-processing">drawBlobsAndEdges()</cod
 
 <b>Testing your Blob Detection:</b> We recommend you test your blob detection with 1 finger, 2 fingers, and 3 fingers touching the multi-touch pad to see if it can reliably determine where the finger is touching. This will become important for the next part of this problem set in which we will build a gesture recognizer.<br><br>
 
-<b>Improving your Results with a Custom Threshold:</b> If your blob detection is not finding all the blobs in your image, consider the following: Before performing blob detection, the library automatically converts your image from a grayscale image into a black/white image. The reason the library does this is because blob detection groups pixels of similar color together to find 'blobs' and that is easier to do when pixels are either white or black and not something in between as would be the case for grayscale. The library automatically picks a 'threshold' value, for instance, it may decide to convert all pixels with a value below '100' to black (i.e. '0') and all pixels above to white (i.e. '255'). If you are not getting any blobs, it may mean that during thresholding all pixels were converted to black and no white pixels are left because the threshold value was set too high. To see if a lower threshold would leave you with more white pixels, you can use the <code class="language-processing">setThreshold()</code> function to determine which brightness levels from 0-255 should be taking into account when searching for blobs. Note that the threshold takes as input a float value from 0-1 so you need to scale your 0-255 values accordingly.<br><br>
 
 
 You can still use the pre-recorded multi-touch pad data from PSet 4 for testing the blob detection here, in case your multi-touch pad or other hardware does not work properly.<br><br>
 
-<h3 id="GESTURERECOGNIZER">(3) Impelement Gesture Recognizer</h3><br>
+<h3 id="GESTURERECOGNIZER">(3) Implement Gesture Recognizer</h3><br>
 
 Once you have the blob detection working, you can move on to build the gesture recognizer. The goal is to be able to draw with your finger onto your multi-touch pad and have the multi-touch pad recognize what was drawn. For instance, if you swipe from left to right, your code should recognize that you made this gesture and if you draw an 'A' your code should know that an 'A' was drawn.<br><br>
 
