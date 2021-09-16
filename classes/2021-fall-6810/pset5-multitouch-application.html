@@ -66,7 +66,7 @@ In this problem set, you will add blob detection to the grayscale image you gene
 	<li><a href="#COORDINATES">Drawing Blobs into the Image</a></li>
 	<li><a href="#LEARNGESTURERECOGNIZER">Learn about $1 Unistroke Gesture Recognizer</a></li>
 	<li><a href="#RECORDTOUCH">Initialize Gesture Recognizer and Record Touch Data</a></li>
-	<li><a href="#CALLBACK">Add Call-Back Functions to Gestures</a></li>
+	<li><a href="#CALLBACK">Connect Finger Gesture to Call-Back Function</a></li>
 	<li><a href="#TRACKGESTURES">Track and Visualize Gestures</a></li>
 	<li><a href="#3DVIEWPORT">3D Visualization: Draw 3D Viewport</a></li>
 	<li><a href="#CAMERAMOTION">Implement Camera Motion</a></li>
@@ -131,7 +131,9 @@ Once you have the blob detection working, you can move on to build the gesture r
 
 <h3 id="RECORDTOUCH">(4) Initialize Gesture Recognizer and Record Touch Data</h3>
 
-<b>Import $1 Unistroke Recognizer Library into Processing:</b> Now that you know a bit more about what the $1 Unistroke recognizer can and cannot do, you can move on to use the recognizer to detect gestures on your multi-touch pad. Start by <code>importing the '$1 Unistroke Recognizer' library</code> by going to <code>Sketch -> Import Library</code> and finding it through the search bar. Next, import the $1 Unistroke Recognizer library into your Pset Processing code.<br>
+Now that you know a bit more about what the $1 Unistroke recognizer can and cannot do, you can move on to use the recognizer to detect gestures on your multi-touch pad. <br><br>
+
+<b>Import $1 Unistroke Recognizer Library into Processing:</b> Start by <code>importing the '$1 Unistroke Recognizer' library</code> by going to <code>Sketch -> Import Library</code> and finding it through the search bar. Next, import the $1 Unistroke Recognizer library into your Pset Processing code.<br>
 
 <pre><code class="language-processing">import de.voidplus.dollar.*; </code></pre> <br>
 
@@ -149,9 +151,11 @@ Once you have the blob detection working, you can move on to build the gesture r
 
 <img src="images/pset5/add-gesture3.png" width="650px"> <br><br>
 
-<h3 id="CALLBACK">(5) Add Call-Back Functions to Gestures</h3>
+<h3 id="CALLBACK">(5) Connect Finger Gesture to Call-Back Function</h3>
 
-<b>Connect Finger Gesture to a Callback Function:</b> Now that you have added your custom 'V' finger gesture to the gesture recognizer, you next have to define <code>which function should be called</code> when the gesture is being detected. Such a function is called a <code>callback function</code> and it will be triggered every time the algorithm detects the corresponding finger gesture. You can bind the finger gesture to a callback function via the command below. Note that the parameter <code>callback-function-name</code> is the name of the function without parenthesis and parameters.<br>
+Now that you have added your custom 'V' finger gesture to the gesture recognizer, you next have to define <code>which function should be called</code> when the gesture is being detected. Such a function is called a <code>callback function</code> and it will be triggered every time the algorithm detects the corresponding finger gesture. <br><br>
+
+<b>Adding a Call-Back Function to your Gesture:</b> You can bind a finger gesture to a callback function via the command below. Note that the parameter <code>callback-function-name</code> is the name of the function without parenthesis and parameters.<br>
 
 <pre><code class="language-processing">oneDollar.bind(String gesture-name, String callback-function-name); </code></pre><br>
 
@@ -164,14 +168,15 @@ Once you have the blob detection working, you can move on to build the gesture r
 
 <h3 id="TRACKGESTURES">(6) Track and Visualize Gestures</h3>
 
-<b>Tracking the finger gestures:</b> Now that you have defined how your gesture looks like and what function should be called when it is detected, you still have to tell your code when it should start looking for the gesture. We want to start tracking gestures when our code <code>detects a finger blob</code>.
-Therefore, you need to add the tracking function below in the blob detection method where it determines if a finger was successfully detected. The x/y coordinate in the function are the x/y coordinate of your touch point.<br>
+Now that you have defined how your gesture looks like and what function should be called when it is detected, you still have to tell your code <code>when</code> it should start looking for the gesture. <br><br>
+
+<b>Start tracking when Finger Blob Detected:</b> We want to start tracking gestures when our code <code>detects a finger blob</code>. Therefore, you need to add the tracking function below in the blob detection method where it determines if a finger was successfully detected. The x/y coordinate in the function are the x/y coordinate of your touch point.<br>
 
 <pre><code class="language-processing">oneDollar.track(int x-coordinate, int y-coordinate);</code></pre>
 
 Note that you don't have to 'stop' tracking. The <code>track()</code> function will only be executed when Processing goes through its loop and detects a finger blob, and if no finger has been present for a while, i.e. no new data is fed to the gesture recognizer, the recognizer will automatically determine that the gesture has ended and will provide its best guess at what gesture was executed. <br><br>
 
-<b>Visualize Gesture Detection Result:</b> Finally, once your gesture is detected, your callback function should visualize the detected gesture. For this, you should write the name of the detected gesture into the Processing UI window as shown in the top left corner of the images below and also draw the touch point centers into the window (discard the blob contour). The touch point centers should be visible in the window for a while even after you lift your finger from the multi-touch pad (e.g., show them for another 2 seconds before removing them from the window). You can implement this by storing the touch point centers in a separate array. Draw the array points when the array is not empty, and clear the points in the array whenever it exceeds the 2 seconds time after the gesture was recognized (use the <code>millis()</code> and <code>System.nanoTime()</code> functions from <a href="pset4-visualization.html#REDUCENOISE">PSet 4</a> for this). The image down below shows an example of the UI when the "Z" gesture is recognized.<br><br>
+<b>Visualize Gesture Detection Result:</b> Finally, once your gesture is detected, your callback function should visualize the detected gesture. For this, you should write the name of the detected gesture into the Processing UI window as shown in the top left corner of the images below and also draw the touch point centers into the window (discard the blob contour). The touch point centers should be visible in the window for a while even after you lift your finger from the multi-touch pad (e.g., show them for another 2 seconds before removing them from the window). You can implement this by storing the touch point centers in a separate array. Draw the array points when the array is not empty, and clear the points in the array whenever it exceeds the 2 seconds time after the gesture was recognized (use the <code>millis()</code> and <code>System.nanoTime()</code> functions from <a href="pset4-visualization.html#REDUCENOISE">PSet4</a> for this). The image down below shows an example of the UI when the "Z" gesture is recognized.<br><br>
 
 <img src="images/pset5/UI-recognizer-Z-draw-points.png" width="350px"> <br><br>
 
@@ -222,7 +227,7 @@ Once you finish the <code>drawAxis()</code> function, you should have something 
 
 <h3 id="CAMERAMOTION">(8) Implement Camera Motion</h3>
 
-<b>Moving the Camera Around the 3D Visualization via Keyboard Input:</b> Without camera motion, it is kind of hard to see if you really succeeded in drawing your axis correctly or if it just 'looks' correct from the 2D perspective but in reality the lines are all over the place in 3D space. To facilitate debugging, we will implement camera control, i.e. you will be able to move around the camera by pressing keys on the keyboard to zoom in/out and move the camera around the scene.<br><br>
+Without camera motion, it is kind of hard to see if you really succeeded in drawing your axis correctly or if it just 'looks' correct from the 2D perspective but in reality the lines are all over the place in 3D space. To facilitate debugging, we will implement camera control, i.e. you will be able to move around the camera by pressing keys on the keyboard to zoom in/out and move the camera around the scene.<br><br>
 
 <b>Initialize Camera in Processing:</b> Processing provides a <code>Camera Class</code> for implementing camera movement. You can find the <a href="https://processing.org/reference/camera_.html">camera class documentation here</a>. To get started, <code>initialize a new camera</code> in Processing with the following method:<br><br>
 
@@ -251,13 +256,13 @@ When you initialize your camera, you may want to start by using the default para
 <img src="images/pset5/UI-3d-visualization-cameraViewControl-view-height-1.png" width="350px">
 <img src="images/pset5/UI-3d-visualization-cameraViewControl-view-height-2.png" width="350px"> <br><br>
 
-<b>Adjusting Frame Rate:</b> If you are experiencing some lagging in your application, you can also set the frame rate for the camera for better performance using the line below:<br><br>
+<b>Adjusting Frame Rate:</b> If you are experiencing some lagging in your application, you can also set the frame rate for the camera for better performance using the line below:<br>
 
-<pre>frameRate(30); </pre><br>
+<pre>frameRate(30);</pre><br>
 
 <h3 id="TOUCHPRESSURE">(9) Draw Touch Pressure into 3D Viewport</h3>
 
-<b>Draw the Touch Points and Touch Pressure into the 3D Visualization:</b> Next, you will draw the touch points and the <code>touch pressure</code> into the 3D visualization based on your interpolated PImage.<br><br>
+Next, you will draw the touch points and associated <code>touch pressure</code> into the 3D visualization based on your interpolated PImage.<br><br>
 
 <span style="color:red">can we update this section to work only with blobs to discard the noise?</span><br>
 
