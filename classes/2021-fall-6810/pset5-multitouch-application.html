@@ -64,8 +64,13 @@ In this problem set, you will add blob detection to the grayscale image you gene
 <ol>
 	<li><a href="#BLOBDETECTION">Implement Blob Detection</a></li>
 	<li><a href="#COORDINATES">Drawing Blobs into the Image</a></li>
-	<li><a href="#GESTURERECOGNIZER">Implement Gesture Recognizer</a></li>
-	<li><a href="#FINGERGESTURES">Design Customized Finger Gestures</a></li>
+	<li><a href="#LEARNGESTURERECOGNIZER">Learn about $1 Unistroke Gesture Recognizer</a></li>
+	<li><a href="#RECORDTOUCH">Initialize Gesture Recognizer and Record Touch Data</a></li>
+	<li><a href="#CALLBACK">Add Call-Back Functions to Gestures</a></li>
+	<li><a href="#TRACKGESTURES">Track and Visualize Gestures</a></li>
+	<li><a href="#3DVIEWPORT">3D Visualization: Draw 3D Viewport</a></li>
+	<li><a href="#CAMERAMOTION">Implement Camera Motion</a></li>
+	<li><a href="#TOUCHPRESSURE">Draw Touch Pressure into 3D Viewport</a></li>
 </ol><br>
 
  <div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
@@ -104,7 +109,7 @@ Implement this in the <code>drawBlobsAndEdges()</code> function in the skeleton 
 
 <b>Testing your Blob Detection:</b> We recommend you test your blob detection with 1 finger, 2 fingers, and 3 fingers touching the multi-touch pad to see if it can reliably determine where the finger is touching. This will become important for the next part of this problem set in which we will build a gesture recognizer. You may want to go back to section (1) and further refine your threshold until you find a setting that works reliably.<br><br>
 
-<h3 id="GESTURERECOGNIZER">(3) Implement Gesture Recognizer</h3>
+<h3 id="LEARNGESTURERECOGNIZER">(3) Learn about $1 Unistroke Gesture Recognizer</h3>
 
 Once you have the blob detection working, you can move on to build the gesture recognizer. The goal is to be able to draw with your finger onto your multi-touch pad and have the multi-touch pad recognize what was drawn. For instance, if you swipe from left to right, your code should recognize that you made this gesture and if you draw an 'A' your code should know that an 'A' was drawn.<br><br>
 
@@ -124,6 +129,8 @@ Once you have the blob detection working, you can move on to build the gesture r
 
 <a href="http://depts.washington.edu/acelab/proj/dollar/index.html"><img src="images/pset5/one-dollar-demo.png" width="500px"></a> <br><br>
 
+<h3 id="RECORDTOUCH">(4) Initialize Gesture Recognizer and Record Touch Data</h3>
+
 <b>Import $1 Unistroke Recognizer Library into Processing:</b> Now that you know a bit more about what the $1 Unistroke recognizer can and cannot do, you can move on to use the recognizer to detect gestures on your multi-touch pad. Start by <code>importing the '$1 Unistroke Recognizer' library</code> by going to <code>Sketch -> Import Library</code> and finding it through the search bar. Next, import the $1 Unistroke Recognizer library into your Pset Processing code.<br>
 
 <pre><code class="language-processing">import de.voidplus.dollar.*; </code></pre> <br>
@@ -142,6 +149,8 @@ Once you have the blob detection working, you can move on to build the gesture r
 
 <img src="images/pset5/add-gesture3.png" width="650px"> <br><br>
 
+<h3 id="CALLBACK">(5) Add Call-Back Functions to Gestures</h3>
+
 <b>Connect Finger Gesture to a Callback Function:</b> Now that you have added your custom 'V' finger gesture to the gesture recognizer, you next have to define <code>which function should be called</code> when the gesture is being detected. Such a function is called a <code>callback function</code> and it will be triggered every time the algorithm detects the corresponding finger gesture. You can bind the finger gesture to a callback function via the command below. Note that the parameter <code>callback-function-name</code> is the name of the function without parenthesis and parameters.<br>
 
 <pre><code class="language-processing">oneDollar.bind(String gesture-name, String callback-function-name); </code></pre><br>
@@ -152,6 +161,8 @@ Once you have the blob detection working, you can move on to build the gesture r
 	// do something when the gesture is detected
  }
 </code></pre> <br>
+
+<h3 id="TRACKGESTURES">(6) Track and Visualize Gestures</h3>
 
 <b>Tracking the finger gestures:</b> Now that you have defined how your gesture looks like and what function should be called when it is detected, you still have to tell your code when it should start looking for the gesture. We want to start tracking gestures when our code <code>detects a finger blob</code>.
 Therefore, you need to add the tracking function below in the blob detection method where it determines if a finger was successfully detected. The x/y coordinate in the function are the x/y coordinate of your touch point.<br>
@@ -167,8 +178,7 @@ Note that you don't have to 'stop' tracking. The <code>track()</code> function w
 <b>Design Custom Finger Gestures: </b> Now that you have implemented the basic gesture recognition, let's go ahead and implement <code>3 different finger gestures</code> that can be recognized by your multi-touch pad. You can implement recognizing <code>letters</code> (A, C etc.), <code>2D shapes</code> (triangle, circle etc.), and <code>symbols</code> (check mark etc.). Note that in good gesture design, the gesture should be related to what function is being called. For instance, you cannot draw a 'star' and associate it with a 'smile'. Instead, it would be better to draw a 'half circle', which more closely resembles a 'smile'. Similarly, gestures cannot be too abstract. For instance, you cannot have your finger draw one straight line on the multi-touch pad and the system recognizes it as 'fish'. Instead, there are better one-stroke gestures that could represent a fish outline. Once you have three gestures working, record a short video as described at the end of this pset in 'deliverables'.<br><br>
 
 
-
-<h3>(4) Visualize Touch and Pressure in 3D</h3>
+<h3 id="3DVIEWPORT">(7) 3D Visualization: Draw 3D Viewport</h3>
 
 In the previous section, we used the touch locations to recognize gestures. Next, we will also detect <code>touch pressure</code> and visualize it in the user interface. To visualize the touch pressure, you are going to use a <code>3D visualization,</code> in which the <code>height of the touch point represents how much pressure is applied</code>. Below you can see an example: on the left side only little pressure is applied and the touch bar is small, whereas on the right side a lot of pressure is applied and the bar is much higher.<br><br>
 
@@ -210,6 +220,8 @@ Once you finish the <code>drawAxis()</code> function, you should have something 
 
 <img src="images/pset5/UI-3d-visualization-drawAxis.png" width="400px"> <br><br>
 
+<h3 id="CAMERAMOTION">(8) Implement Camera Motion</h3>
+
 <b>Moving the Camera Around the 3D Visualization via Keyboard Input:</b> Without camera motion, it is kind of hard to see if you really succeeded in drawing your axis correctly or if it just 'looks' correct from the 2D perspective but in reality the lines are all over the place in 3D space. To facilitate debugging, we will implement camera control, i.e. you will be able to move around the camera by pressing keys on the keyboard to zoom in/out and move the camera around the scene.<br><br>
 
 <b>Initialize Camera in Processing:</b> Processing provides a <code>Camera Class</code> for implementing camera movement. You can find the <a href="https://processing.org/reference/camera_.html">camera class documentation here</a>. To get started, <code>initialize a new camera</code> in Processing with the following method:<br><br>
@@ -224,52 +236,36 @@ Once you finish the <code>drawAxis()</code> function, you should have something 
 
 When you initialize your camera, you may want to start by using the default parameter values we provide in the code, which should give you a reasonable start for a good viewport. If you see nothing in your view after initializing the camera, you may be facing the wrong way with you camera, e.g. the scene may be behind you, which causes you to only see a white screen with nothing on it.<br><br>
 
-<b>Zooming in/out:</b> Moving the camera position (eye position) closer or further away from the 3D visualization results in a zooming in/out effect (see images below).<br>
-Implement a zooming effect so that when you press the key "E" you zoom in and if you press the key "Q" you zoom out (i.e. change the distance between camera position and the 3D coordinate origin).<br><br>
+<b>Zooming in/out:</b> Moving the <code>camera position (eye position)</code> closer or further away from the 3D visualization results in a zooming in/out effect (see images below). Implement a zooming effect so that when you press the <code>key "E" you zoom in</code> and if you press the <code>key "Q" you zoom out</code>.<br><br>
 
 <img src="images/pset5/UI-3d-visualization-cameraViewControl-zoom-out.png" width="350px">
 <img src="images/pset5/UI-3d-visualization-cameraViewControl-zoom-in.png" width="350px"> <br><br>
 
-<b>Rotating in the X-Z Plane</b><br>
-To move the camera in the x-z plane around the 3D visualization, you need to keep it at the same distance from the 3D visualization at all times (see images below).<br>
-This is best accomplished by moving the camera on a circle around the scene.<br>
-Update the camera position (eye position) to accomplish this (you have to do some math here, check out how radians work again to help you with this).<br>
-If you press the key 'D' you should rotate right and if you press the key 'A' you should rotate left.<br>
-Note that you only have to update the camera's position.<br>
-Since you set the scene's center x/y/z to be the 3D visualization, the camera will automatically rotate while moving around the 3D visualization to always look at it.<br><br>
+<b>Rotating in the X-Z Plane:</b> To move the camera in the x-z plane around the 3D visualization, you need to keep it at the <code>same distance from the 3D visualization</code> at all times (see images below). This is best accomplished by <code>moving the camera on a circle</code> around the scene. Update the <code>camera position (eye position)</code> to accomplish this (you have to do some math here, check out how radians work again to help you with this). If you <code>press the key 'D' rotate right</code> and if you press the <code>key 'A' rotate left</code>. Note that you only have to update the camera's position. Since you set the scene's center x/y/z to be the location of your 3D visualization, the camera will automatically rotate while moving around the 3D visualization and always look at it.<br><br>
 
 <img src="images/pset5/UI-3d-visualization-cameraViewControl-rotate-1.png" width="350px">
 <img src="images/pset5/UI-3d-visualization-cameraViewControl-rotate-2.png" width="350px"> <br><br>
 
-
-<b>Changing the Camera's Y-Axis Height</b><br>
-To move the camera along the y-axis, you need to change the camera's eye position again, but this time only along the y-axis.<br>
-Pressing 'W' on the keyboard should move the camera up and pressing 'S' on the keyboard should move the camera down along the y-axis as shown in the image below.<br><br>
+<b>Changing the Camera's Y-Axis Height:</b> To move the camera along the y-axis, you need to change the <code>camera's eye position</code> again, but this time only along the y-axis. Pressing the <code>key 'W' should move the camera up</code> and pressing the <code>key 'S' should move the camera down</code> along the y-axis as shown in the image below.<br><br>
 
 <img src="images/pset5/UI-3d-visualization-cameraViewControl-view-height-1.png" width="350px">
 <img src="images/pset5/UI-3d-visualization-cameraViewControl-view-height-2.png" width="350px"> <br><br>
 
-Finally, if you are experiencing some lagging in your application, you can also set the frame rate for the camera for better performance using the line below:<br><br>
+<b>Adjusting Frame Rate:</b> If you are experiencing some lagging in your application, you can also set the frame rate for the camera for better performance using the line below:<br><br>
 
 <pre>frameRate(30); </pre><br>
 
+<h3 id="TOUCHPRESSURE">(9) Draw Touch Pressure into 3D Viewport</h3>
 
-<h4>Draw the Touch Points and Touch Pressure into the 3D Visualization</h4> <br>
+<b>Draw the Touch Points and Touch Pressure into the 3D Visualization:</b> Next, you will draw the touch points and the <code>touch pressure</code> into the 3D visualization based on your interpolated PImage.<br><br>
 
-Next, you will draw the touch points and the touch pressure into the 3D visualization based on your interpolated PImage from pset3.<br><br>
+<span style="color:red">can we update this section to work only with blobs to discard the noise?</span><br>
 
-<b>Drawing 3D Points in Processing</b><br>
-To implement the touch points, you will create a set of 3D points, where the X,Z coordinates are the row & column number of the pixel on the PImage, and the Y-coordinate is the interpolated value of the pixel. <br>
-As mentioned previously, the brighter pixels are in an area the more pressure was applied to this area.<br>
-As a result, the brighter a pixel, the higher the touch bar will be at this point.<br><br>
+<b>Drawing 3D Points in Processing:</b> To draw the touch points and their pressure, you will create a set of 3D points, where the <code>X,Z coordinates</code> are the <code>row & column number of the pixel on the PImage</code>, and the <code>Y-coordinate is the interpolated value</code> of the pixel. As mentioned previously, the brighter pixels are in an area the more pressure was applied to this area. As a result, the brighter a pixel, the higher the touch bar will be at this point.<br><br>
 
-<b>Mapping the Y-Height to a Color Gradient</b><br>
-You also need to color the touch bars with a color gradient that represents the "height" (i.e. y-axis coordinate) information.<br>
-We chose a color gradient of red when only touched with light pressure and yellow when touched with high pressure.<br>
-You can choose your own color gradient, just make sure that the colors are very different so you can actually see a difference.<br>
-To implement the y-height to color mapping, you may find it helpful to use the <a href="https://processing.org/reference/map_.html">map() function</a> again that you already used in pset3.<br>
-The resulting 3D visualization should look like something in the following.<br><br>
+<b>Mapping the Touch Pressure (Y Value) to a Color Gradient:</b> You also need to <code>color the touch bars</code> with a color gradient that represents the "height" (i.e. y-axis coordinate) information. We chose a <code>color gradient</code> of red when only touching with light pressure and yellow when touching with high pressure. You can choose your own color gradient, just make sure that the colors are very different so you can actually see a difference. To implement the y-height to color mapping, you may find it helpful to use the <a href="https://processing.org/reference/map_.html"><code>map() function</code></a> that you already used in the previous psets. The resulting 3D visualization should look like below.<br><br>
 
+<span style="color:red">can we update these images and remove noise</span><br>
 One finger touching: <br>
 <img src="images/pset5/UI-3d-visualization-1-finger-1.png" width="350px">
 <img src="images/pset5/UI-3d-visualization-1-finger-2.png" width="350px"> <br><br>
@@ -278,7 +274,7 @@ Two fingers touching:<br>
 <img src="images/pset5/UI-3d-visualization-2-finger-2.png" width="350px">
 <img src="images/pset5/UI-3d-visualization-2-finger-4.png" width="350px"> <br><br>
 
-Note that all this noise is because we use the PImage that also contains brightness values outside the recognized 'finger blobs'. If you want a cleaner visualization, you can create a new PImage that has all pixels black except those pixels that belong to a blob. Note that this is not mandatory for this pset but if you'd like some clean output you can experiment with this.
+<span style="color:red">Note that all this noise is because we use the PImage that also contains brightness values outside the recognized 'finger blobs'. If you want a cleaner visualization, you can create a new PImage that has all pixels black except those pixels that belong to a blob. Note that this is not mandatory for this pset but if you'd like some clean output you can experiment with this.</span>
 <br><br>
 
 <h3>Deliverables</h3>
