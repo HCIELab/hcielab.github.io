@@ -138,11 +138,12 @@ While building your circuit, you must adhere to the following rules:
 
 <h3 id="isolatecircuits">(5) Build the Control Circuit</h3>
 
-You already know how to turn on/off your display by plugging and unplugging the ESP32 power supply. It would be nicer to do this via code and not by physically plugging/unplugging the power supply. Thus, we will next build a control circuit that lets you do this.<br><br>
+You already know how to <code>turn on/off</code> your display by <code>plugging and unplugging</code> the ESP32 power supply. It would be nicer to <code>do this via code</code> and not by physically plugging/unplugging the power supply. Thus, we will next build a control circuit that lets you do this.<br><br>
     
-We want to connect our ESP to the display to be able to turn it on/off via code. But there is a problem. The ESP32 is rated only up to 12V so a higher voltage like the 50V AC we use for our display could potentially damage the microcontroller. Therefore, we have to isolate the ESP32 from the 50V AC power supply. For this purpose, we will use an optocoupler, which uses optical signaling rather than electrical signaling.<br><br>
+<b>Avoiding Damage to the Microcontroller:</b> We want to connect our ESP to the display to be able to turn it on/off via code. But there is a problem. The ESP32 is rated only up to <code>12V</code> so a higher voltage like the <code>50V AC</code> we use for our display could potentially <code>damage the microcontroller.</code> Therefore, we have to <code>isolate the ESP32 from the 50V AC power supply</code>. For this purpose, we will use an <code>optocoupler,</code> which uses <code>optical signaling</code> rather than electrical signaling.<br><br>
     
-<b>Tl;dr:</b> Below, you'll find the circuit that you should build to control an EL display with your ESP32. If you are interested how and why everything works, you will find more details below:<br><br>
+<b>Circuit Overview:</b> Below, you see the <code>circuit</code> that you need to build to control an EL display with your ESP32. We will provide more details about this in the next sections.<br><br>
+
 <img src="images/lab3/switch_circuit.png" width="650px"><br><br>
 
 <b>How does this circuit work?</b>
