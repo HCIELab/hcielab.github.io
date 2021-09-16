@@ -192,45 +192,39 @@ In the previous section, we used the touch locations to recognize gestures. Next
 <span style="color:red">replace image</span><br>
 <img src="images/pset5/pset5-skeleton-code.png" width="650px"> <br><br>
 
-<b>Drawing the XYZ axes for 3D Visualization:</b> Let's start by drawing the XYZ axes for 3D visualization in the <code>drawAxis()</code> function. Note that we are in 3D now, not 2D so you need 3 coordinates for defining the positions of your points/lines. The question that may arrise is which axis are x, y, and z. In Processing, it uses the convention as shown below.<br><br>
+<b>Drawing the XYZ axes for 3D Visualization:</b> Let's start by drawing the XYZ axes for 3D visualization in the <code>drawAxis()</code> function. Note that we are in 3D now, not 2D so you need 3 coordinates for defining the positions of your points/lines. <br><br>
+
+<i>Direction of Axis:</i> The question that arrises is <code>which axis is x, y, and z</code>, and which way is <code>positive</code> and <code>negative</code>. In Processing, it uses the convention as shown below. Note that because of this convention, you need to draw the Y axis and the sensing data on the y-axis in negative direction so it is pointing "up".<br><br>
 
 <!-- , which is a 'left-handed' cartesian system. You can replicate this 'left-handed' system by doing the following: Take your left hand, point your index finger in the positive y direction (down) and your thumb in the positive x direction (to the right), the rest of your fingers will point towards the positive z-direction. If that matches the image below, you know your system is left h -->
 
 
 <img src="images/pset5/processing-3d-system.png" width="250px"> <br><br>
 
-The length of the X and Z axes should be the width and height of your interpolated PImage.<br>
-The length of the Y axis should be slightly higher than the maximum pixel value (brightness) of your interpolated PImage so you have some space at the top.<br>
-Notice that you should draw the Y axis (and later sensing data on y axis) in negative direction so it is pointing "up".<br><br>
+<i>Length of Axis:</i> The length of the x and y axes should be the <code>width and height</code> of your interpolated PImage.
+The length of the Y axis should be slightly higher than the <code>maximum pixel value (brightness)</code> of your interpolated PImage so you have some space at the top. <br><br>
 
-In addition to generating the axis lines, you need to color the axis by drawing a colored dot at their end.<br>
-We will use red for the x-axis, green for the y-axis, and blue for the z-axis (since "RGB" corresponding to "XYZ").<br><br>
+<i>Color of the Axis:</i> In addition to generating the axis lines, you need to color the axis by drawing a colored dot at their end. We will use <code>red for the x-axis</code>, <code>green for the y-axis</code>, and <code>blue for the z-axis</code> (since "RGB" corresponding to "XYZ").<br><br>
 
-Once you finish the <i>drawAxis()</i> function, you should have something that looks like this (note that the height of your y-axis depends on the brightness values you get in your PImage and may not be shown to scale here):<br><br>
+Once you finish the <code>drawAxis()</code> function, you should have something that looks like this (note that the height of your y-axis depends on the brightness values you get in your PImage and may not be shown to scale here):<br><br>
 
 <img src="images/pset5/UI-3d-visualization-drawAxis.png" width="400px"> <br><br>
 
-<h4>Moving the Camera Around the 3D Visualization via Keyboard Input</h4> <br>
+<b>Moving the Camera Around the 3D Visualization via Keyboard Input:</b> Without camera motion, it is kind of hard to see if you really succeeded in drawing your axis correctly or if it just 'looks' correct from the 2D perspective but in reality the lines are all over the place in 3D space. To facilitate debugging, we will implement camera control, i.e. you will be able to move around the camera by pressing keys on the keyboard to zoom in/out and move the camera around the scene.<br><br>
 
-Without camera motion, it is kind of hard to see if you really succeeded in drawing your axis correctly or if it just 'looks' correct from the 2D perspective we have but in reality the lines are all over the place in 3D space.<br>
-To facilitate debugging of issues like this, we will implement camera control, i.e. you will be able to move around the camera by pressing keys on the keyboard to zoom in/out and move the camera around the scene.<br><br>
+<b>Initialize Camera in Processing:</b> Processing provides a <code>Camera Class</code> for implementing camera movement. You can find the <a href="https://processing.org/reference/camera_.html">camera class documentation here</a>. To get started, <code>initialize a new camera</code> in Processing with the following method:<br><br>
 
-<b>Initialize Camera in Processing</b><br>
+<pre>camera(float eyeX, float eyeY, float eyeZ, float centerX, float centerY, float centerZ, float upX, float upY, float upZ); </pre>
 
-Processing provides a Camera Class for implementing camera movement. You can find the <a href="https://processing.org/reference/camera_.html">camera class documentation here</a>.<br>
-To get started, initialize a new camera in Processing with the following method:<br><br>
+<i>eye x/y/z:</i> This is the <code>camera's 3D position</code> in space, i.e. where it would be physically located if it was a camera in real-life.<br><br>
 
-<pre>camera(float eyeX, float eyeY, float eyeZ, float centerX, float centerY, float centerZ, float upX, float upY, float upZ); </pre><br>
+<i>center x/y/z:</i> The <code>center of the scene</code> defines how the camera is angled. For instance, if the center of the scene is lower than the camera, then the camera will look down, resulting in a bird's eye view. Similarly, if the center of the scene is higher than the camera, then the camera will look up, resulting in a frog's eye view.</span><br><br>
 
-Let's look at what all these parameters are:<br>
-<i>eye x/y/z:</i> This is the camera's 3D position in space, i.e. where it would be physically located if it was a camera in real-life.<br>
-<i>center x/y/z:</i> The center of the scene defines how the camera is angled. For instance, if the center of the scene is lower than the camera, then the camera will look down, resulting in a bird's eye view. Similarly, if the center of the scene is higher than the camera, then the camera will look up, resulting in a frog's eye view.</span><br>
-<i>up x/y/z:</i> This defines which axis is facing upwards. You can use values from 0 to 1 to -1. If you use a -1, the camera will be flipped and face up-side-down. In our case, we want to keep it simple and use for x,y,z 0,1,0 since y is pointing upwards.<br><br>
+<i>up x/y/z:</i> This defines <code>which axis is facing upwards</code>. You can use values from 0 to 1 to -1. If you use a -1, the camera will be flipped and face up-side-down. In our case, we want to keep it simple and use for x,y,z 0,1,0 since y is pointing upwards.<br><br>
 
 When you initialize your camera, you may want to start by using the default parameter values we provide in the code, which should give you a reasonable start for a good viewport. If you see nothing in your view after initializing the camera, you may be facing the wrong way with you camera, e.g. the scene may be behind you, which causes you to only see a white screen with nothing on it.<br><br>
 
-<b>Zooming in/out</b><br>
-Moving the camera position (eye position) closer or further away from the 3D visualization results in a zooming in/out effect (see images below).<br>
+<b>Zooming in/out:</b> Moving the camera position (eye position) closer or further away from the 3D visualization results in a zooming in/out effect (see images below).<br>
 Implement a zooming effect so that when you press the key "E" you zoom in and if you press the key "Q" you zoom out (i.e. change the distance between camera position and the 3D coordinate origin).<br><br>
 
 <img src="images/pset5/UI-3d-visualization-cameraViewControl-zoom-out.png" width="350px">
