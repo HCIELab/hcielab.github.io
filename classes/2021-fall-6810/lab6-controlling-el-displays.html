@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>HCI Engineering Group</title>
+	<title>6.810 Lab6 Controlling EL Displays</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
@@ -77,6 +77,12 @@ At the end of the lab, upload to your student google drive:
   <li>a short video (.mov or .mp4, max. 1 minute) showing how you display dims and performs a full cycle from bright to dark and dark to bright again</li>
 </ol><br>
 
+ <div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Help us Improve Class Materials for Lab6:</b><br>
+Please let us know if you had any trouble with the programming or schematic or if anything was confusing in the write up. <br> <a href="https://docs.google.com/document/d/1Hv-YDyjNpE4yrwX1ggN0OQ-QT0JG2xWFF5IWD0zhIPo/edit?usp=sharing">You can add your comments here.</a></div>
+
+
+
  <h3 id="safety">(1) Safety Instructions</h3>
 
 In this tutorial, we will generate <code>50V AC</code> using an <code>inverter.</code> 50V AC is the maximum allowed voltage for class activities. You are not allowed to power the inverter with anything else than the 3.3V from your ESP32. Our 50V AC are low current and not dangerous, but you might feel a sensation at the tips of your fingers when touching the circuit. Therefore, <code>never plug the display in while you are working on the circuit</code> and you are touching the wires!<br><br>
@@ -95,22 +101,24 @@ While building your circuit, you must adhere to the following rules:
 
  <h3 id="inverteroutput">(2) Connect Inverter Output to EL Display</h3>
 
-<b>AC vs. DC current:</b> EL displays require an alternating current between the two elecrodes to excite the phosphor and make it light up. Therefore, just connecting it to a DC power supply, like the 3.3V DC from your ESP32, won't do the trick. We therefore use an inverter to generate AC current from DC.<br><br>
+<b>AC vs. DC current:</b> EL displays require an alternating current between the two elecrodes to excite the phosphor and make it light up. Therefore, just connecting it to a DC power supply, like the 3.3V DC from your ESP32, won't do the trick. We therefore use an <code>inverter to generate AC current</code> from DC.<br><br>
 
-<b>Add Jumper Wires to Inverter Output:</b> Before you start, make sure the inverter is not connected to any power source. The inverter output is the black cable with the white connector piece on it. Take two jumper wires and stick them into the white connector of the interverter output. When you look carefully at the black wires, you will see that one is fully black while the other is black/gray. Use a black jumper wire for the black inverter cable, and a red jumper wire for the black/gray cable. As you might have already guessed, the black wire is the GND and the black/gray cable is the 50VAC signal.<br><br>
+<b>Add Jumper Wires to Inverter Output:</b> Before you start, make sure the <code>inverter is not connected to any power source</code>. The inverter output is the black cable with the white connector piece on it. When you look carefully at the white connector, you will see that one of its wires is fully black while the other is black/gray. Use a <code>black jumper wire for the black inverter cable</code>, and a <code>red jumper wire for the black/gray cable</code>. As you might have already guessed, the black wire is the <code>GND</code> and the black/gray cable is the <code>50VAC signal</code>.<br><br>
 
-<b>Crocodile Clamp to Display Bottom Layer (copper layer with copper tape flap):</b> Next, use a crocodile clamp to connect the black jumper wire of the inverter output output to the copper side of the display. One end of the crocodile clamp goes onto the jumper wire, the other goes onto the little copper flap. Be careful that you don't rip of the copper flap while working with the wires.<br><br>
+<b>Crocodile Clamp to Display Bottom Layer (copper layer with copper tape flap):</b> Next, use a crocodile clamp to connect the <code>black jumper wire</code> of the inverter output to the copper side of the display, i.e. connect it to the little <code>copper flap</code>. Be careful that you don't rip of the copper flap while working with the wires.<br><br>
 
-<b>Crocodile Clamp to Display Top Layer (ITO with copper tape):</b> Next, use a second crocodile clamp to connect the other inverter output to the top layer of the display, i.e. the ITO. One end of the crocodile clamp goes on the jumper wire, the other goes onto the ITO sheet where there is  copper tape.<br><br>
+<b>Crocodile Clamp to Display Top Layer (ITO with copper tape):</b> Next, use a second crocodile clamp to connect the <code>red jumper wire</code> to the top layer of the display, i.e. the <code>ITO</code> where there is copper tape (see below).<br><br>
 
 <img src="images/lab6/invtodisp.png" width="750px"><br><br>
 
     
 <h3 id="inverterinput">(3) Connect Inverter Input to the ESP32 power supply</h3>
 
-<b>Add Crocodile Clamps to Inverter Input:</b> The inverter input is the black/red cable. Take two crocodile clamps and attach them to the red and black wires of the inverter's input.<br><br>
+<span style="color: red">Next, you will connect the inverter to your ESP32. Make sure that the ESP32 is not powered, i.e., not plugged into the USB port of your PC.</span><br><br>
+
+
+<b>Add Crocodile Clamps to Inverter Input:</b> The inverter input is the <code>black/red cable</code>.<br><br>
     
-    <span style="color: red">Next, you will connect the inverter to your ESP32. Make sure that the ESP32 is not powered, i.e., not plugged into the USB port of your PC.</span><br><br>
 
 <b>GND Jumper Wire to ESP32:</b> Take a black jumper wire and connect one side to the black crocodile clamp of the inverter input. Connect the other side of the jumper wire to a GND pin of your ESP32.<br><br>
     
