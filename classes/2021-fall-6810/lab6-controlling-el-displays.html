@@ -151,15 +151,15 @@ Triacs are similar to transistors (switches) but <code>block alternating current
     
 <b>Wiring the optocoupler to the ESP:</b> Note that the optocoupler has to be plugged in in a <code>specific orientation</code>. The little <code>dot</code> on its top indicates the <code>top left corner</code> of the component. Let's start wiring up the left side of the optocoupler first. As you can see in the circuit diagram above, we will wire up the <code>top left pin</code> on the optocoupler to a <code>GPIO pin</code> and the <code>middle left pin</code> to <code>GND</code>. If you send a <code>HIGH</code> signal from your GPIO pin, it will close the circuit and <code>turn on the optocouplers internal LED</code>, as you can see in the <code>optocoupler schematic</code> below (where it says 'Anode' and 'Cathode' these are your GPIO and GND pins and the little triangle is the LED).<br><br>
 
-<img src="images/lab6/oc.PNG" width="200px"><img src="images/lab3/optocoupler.png" width="350px"> <img src="images/lab6/opto_img.PNG" width="150px"><br><br>
+<img src="images/lab6/oc.PNG" width="200px"><img src="images/lab3/optocoupler.png" width="350px"> <img src="images/lab6/opto_img.PNG" width="150px"><br>
 
+Same circuit schematic one more time so you don't have to scroll:<br><br>
+<img src="images/lab3/switch_circuit.png" width="650px"><br><br>
 
 <b>Wiring up the optocoupler:</b> Next, let's wire up the right side of the optocoupler. Similar to other types of switches, the optocoupler has two pins that are <code>wired up to the two components</code> that should either be connected or disconnected via the switch. In our case, <span style="color:red">this would be the triac that controls the 50VAC and the EL display.</span> Next, we will connect the <code>'gate' pin of the optocoupler</code> to the <code>'gate' pin of the triac</code>. <span style="color:red">We use pin 4 of the main terminal to connect to the triac's gate. This main terminal also has to get some power to have a strong enough signal to open the triac. We will get this power from the main 50V AC circuit by connecting pin 6 of the optocoupler directly to the display. In addition, we have to put a resistor between the 50V AC and the optocoupler to limit the current that can flow through the optocoupler to the gate of the triac.</span> <br><br>
 
         
-    
 
-<b>Connect Optocoupler to ESP:</b> Use jumper wires to connect the optocoupler to a GPIO pin and GND on the ESP. <br><br>
 
 
 <b>Add Resistor to Optocoupler:</b> The optocoupler needs one 330ohm resistor to limit the current that reaches the optocoupler's LED and prevents it from blowing up. Add the resistor to your circuit.<br><br> 
