@@ -166,15 +166,15 @@ Same circuit schematic one more time so you don't have to scroll:<br><br>
 
 Now that you wired up our control circuit, you are ready to write the code for it. As an example, we will write a script that lets the display blink. This is very simple with the circuit you already built.<br><br>
 
-<b>Set Optocoupler Pin to HIGH/LOW to Blink:</b> Connect your ESP to your laptop and create a new Arduino program. Check to which pin you connected the optocoupler, declare the pin in your Arduino code and set it to HIGH and LOW alternating whenever one second has passed.<br><br>
+<b>Set Optocoupler GPIO Pin to HIGH/LOW to Blink:</b> Connect your ESP to your laptop and <code>create a new Arduino program</code>. Check to which <code>GPIO pin</code> you connected the optocoupler, declare the pin in your Arduino code and set it to <code>HIGH</code> or <code>LOW</code> alternating whenever one second has passed.<br><br>
 
 <img src="images/lab6/display_animation.gif" width="380px"><br><br>
 
 <h3 id="displaydimcode">(8) Write Program to Dim Display</h3>
 
-Finally, we want to not just turn the display on/off but also set the displays brightness (e.g. dimming it down).<br><br>
+Finally, we want to not just turn the display on/off but also set the <code>display brightness</code>, for instance, to dim the display. For this, we will use a technique called <code>Pulse-Width Modulation (PWM)</code>. We already covered this in 6.08 but since you probably took the class a while ago, we will provide a refresher. The general idea of PWM is that you <code>rapidly turn on/off the display</code>, so fast that the human eye can actually not see that you are switching the display. The longer the display is turned on in proportion to the display turned off, the brighter it will appear to the human eye. Thus, by <code>varying the proportion of display on/off</code>, you can create <code>different brightness levels</code>.<br><br>
 
-<b>Duty Cycle:</b> When you create a PWM signal it means that you turn on and off a signal for a certain duty cycle. The longer the signal is turned on in one duty cycle the brighter the light source will be (see Figure below). Similarly, the longer the signal is turned off in one duty cycle the darker the light source will be. Thus, a duty cycle of 25% means that the PWM signal is HIGH for 25% of the time of one cycle and LOW for the remaining 75% of the time. This results in a darker display (25% of max brightness) than a duty cycle of 75%.<br><br>
+<b>Duty Cycle:</b> When you create a PWM signal it means that you turn on and off a signal within a certain <code>duty cycle</code>. The longer the signal is turned on in the duty cycle the brighter the light source will be (see image below). Similarly, the longer the signal is turned off in the duty cycle the darker the light source will be. The <code>percentage in a duty cycle</code> specifies <code>how long the signal is turned on</code>. For instance, a <code>25% duty cycle</code> means that the <code>PWM signal is HIGH for 25% of the time</code> and <code>LOW for the remaining 75% of the time</code> of the duty cycle. This results in a darker display (25% of max brightness) than a duty cycle of 75%, where the signal would be on for 75% of the time.<br><br>
 
 <b>Frequency:</b> So how is the duty cycle related to the frequency? The duty cycle only tells you the percentage the signal is on/off within a cycle (e.g., 25%). It does not say how long a cycle is. For this, you need to define the frequency. A higher frequency results in a shorter overall cycle (not affecting the percentage the signal is on/off) than a lower frequency as you can see below.<br><br>
 
