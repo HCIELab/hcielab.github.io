@@ -204,24 +204,23 @@ Let's write some code for this.<br><br>
 
 <i>Frequency:</i> As mentioned previously, the frequency should be <code>'100' Hz</code>.<br><br>
 
-<i>Duty resolution:</i> The duty resolution is expressed in <code>bits</code> and determines <code>how many different duty cycles</code> we can choose from, i.e. <code>how many different brightness options</code> we will have when dimming the display. For instance, 3 bits gives you 8 different cycles to choose from (12.5%, 25%, 37.5%,... 100%).For our purposes '8' <span style="color:red">(Stefanie: do you mean 3?)</span> is a good choice because it gives us many different brightness levels to generate a smooth dimming.<br><br>
+<i>Duty resolution:</i> The duty resolution is expressed in <code>bits</code> and determines <code>how many different duty cycles</code> we can choose from, i.e. <code>how many different brightness options</code> we will have when dimming the display. For instance, 3 bits gives you 8 different cycles to choose from (12.5%, 25%, 37.5%,... 100%). For our purposes '8' bits (256 different values) is a good choice because it gives us many different brightness levels to generate a smooth dimming.<br><br>
 
-<b>Specify the Output Pin of the PWM Signal:</b> Now that you specified the signal with ledcSetup(), you need to specify on which GPIO pin number of the ESP the signal should appear.  <br>
+<b>Specify the Output Pin of the PWM Signal:</b> Now that you specified the signal, you need to specify <code>on which GPIO pin number of the ESP the signal should appear</code>.  <br>
 <pre>ledcAttachPin(GPIO_PIN, channel_number) </pre> 
 
 <i>GPIO Pin:</i> This is the pin that goes from the ESP to the display control circuit.<br><br> 
 
 <i>Channel Number:</i> The PWM channel number is the same as above.<br><br> 
 
-<b>Generate the PWM Signal on the Output Pin:</b> Finally, you need to generate the actual PWM signal, which you had previously defined with the ledcSetup() and ledcAttachPin() functions.<br>
+<b>Generate the PWM Signal on the Output Pin:</b> Finally, you need to <code>generate the actual PWM signal</code>, which you had previously defined with the ledcSetup() and ledcAttachPin() functions.<br>
 <pre>ledcWrite(channel_number, duty_cycle): </pre> 
 
 <i>Channel Number:</i> The PWM channel number is the same as above.<br><br> 
 
-<i>Duty Cycle:</i> The duty <b>cycle</b> is different from the duty <b>resolution</b>. In the duty cycle parameter, you tell the ledcWrite() function, which of the duty cycles from your duty resolution should be used. Since we chose 8 bits, which gives us 255 values ranging from 0.4%, 0.8%, 1.2% .... 100%, then our duty cycle parameter is the index of the duty cycle you want to use. You can input values between 0..255 for a 8-bit resolution..
+<i>Duty Cycle:</i> The duty <code>cycle</code> is different from the duty <code>resolution</code>. With the duty cycle parameter you tell the function <code>which of the duty cycles from your overall duty resolution</code> should be used. Since we chose 8 bits, which gives us 256 values ranging from 0.4%, 0.8%, 1.2% .... 100%, our duty cycle parameter is the <code>index of the duty cycle</code> you want to use. You can choose indices between 0..255 for the 8-bit resolution.
 
-<b>Dim the Display Repeatedly:</b> Write a piece of code that puts the ledcWrite(channel_number, duty_cycle) function in loop() to repeatedly increase brightness from 0% to 100% within 2 seconds and then reduces the brightness down again in another 2 seconds. The display should repeat this dimming cycle infinitely.<br><br>
-
+<b>Dim the Display Repeatedly:</b> Write a piece of code that puts the ledcWrite(channel_number, duty_cycle) function in <code>loop()</code> to repeatedly <code>increase brightness from 0% to 100%</code> within <code>2 seconds</code> and then <code>reduces the brightness</code> again in another <code>2 seconds</code>. The display should repeat this dimming cycle infinitely.<br><br>
 
 
 <h3>Deliverables</h3>
@@ -230,7 +229,7 @@ At the end of the lab, upload to your student google drive:
 <ol>
   <li>the Arduino code (.ino) for dimming your display</li>
   <li>2-3 photos (.jpg or .png) from different angles of your circuit</li>
-  <li>a short video (.mov or .mp4, max. 1 minute) showing how you display dims and performs a full cycle from bright to dark and dark to bright again</li>
+  <li>a short video (.mov or .mp4, max. 1 minute) showing how you display dims and performs a full cycle from bright to dark and dark to bright again. <span style="color: red">Note that when video recording with your phone the display may look like it flickers in the resulting video. The reason for this is that your phone captures frames at a higher frequency than your eyes, thus while your eyes can't see the duty cycle turning on/off the display, your phone can. This is ok and will not impact grading.</span></li>
 </ol><br>
 
 <hr>
