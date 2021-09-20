@@ -93,20 +93,20 @@ Please let us know if you had any trouble with the circuit drawing or if anythin
 
      You will make your own <code>temperature sensor</code> from scratch using <code>conductive inkjet printing</code>. But why can conductive traces be used to sense temperature?<br><br>
 
-     <b>Resistance Changes with Temperature:</b> Conductive traces can be used to sense temperature by making use of a material property that most conductive materials share: Their <code>resistance changes</code> with <code>changes in temperature</code>. This phenomenon is a quantum-physical effect and can be understood by picturing <code>how electrons move in a conductive material from one pol to the other</code>. The conductive material is filled with atoms and molecules that bounce around. Electrons trying to move through the conductive material may <code>collide with the atoms and molecules</code>, and as a result, the electrons may be deflected or scattered around in the material. With <code>higher temperatures</code>, the atoms and molecules <code>bounce around more and scatter electrons stronger</code>, which leads to a higher resistance.<br><br>
+     <b>Resistance Changes with Temperature:</b> Conductive traces can be used to sense temperature because their <code>resistance changes</code> with <code>changes in temperature</code>, a property other metals share as well. This phenomenon can be understood by picturing <code>how electrons move in a conductive material from one pol to the other</code>. The conductive material is filled with atoms and molecules that bounce around. Electrons trying to move through the conductive material may <code>collide with the atoms and molecules</code>, and as a result, the electrons may be deflected or scattered around in the material. With <code>higher temperatures</code>, the atoms and molecules <code>bounce around more and scatter electrons stronger</code>, which leads to a higher resistance.<br><br>
 
      Below, you see the <code>resistivity change</code> of silver, copper, and gold under different temperatures. Note, that these functions are not linear overall, but can be approximated with a <code>linear function</code> for temperature changes between <code>0C - 100C</code> with only a small error.<br><br>
     
      <img src="images/lab7/Resistivity_Cu-Ag-Au.png" width="400px"><br><br>
         
-     <b>Formula for Computing Overall Resistance at a Certain Temperature:</b> As mentioned above, for temperature changes between 0C - 100C, the resistance of a metal conductor varies linearly with temperature. We can describe the <code>resistance at a certain temperature</code> with the following equation:<br>
+     <b>Formula for Computing Overall Resistance at a Certain Temperature:</b> As mentioned above, for temperature changes between 0C - 100C, the resistance of our conductive traces varies linearly with temperature. We can describe the <code>resistance at a certain temperature</code> with the following equation:<br>
      \[ R_{temp} = R_{Ref}(1+\alpha (T - T_{Ref})) \]
 
      <i>R_{temp}:</i> is the resistance at the current temperature T<br>
-    <i>R_{Ref}:</i> is the resistance at a given reference temperature T_{Ref} (e.g., 20C)<br>
-     <i>alpha:</i> is the temperature coefficient of the conductive material<br><br>
+    <i>R_{Ref}:</i> is the resistance at a given reference temperature T_{Ref}<br>
+     <i>alpha:</i> is the temperature coefficient of the conductive material in our case the <code>silver ink</code><br><br>
     
-    <b>Determining alpha:</b> While we can measure the resistance of our conductive traces at various temperatures pretty easily, which allows us to determine the resistance <code>R_{Ref}</code> at <code>T_{Ref}</code>, and also <code>R_{temp}</code> at <code>T</code>, we cannot directly measure <code>alpha</code>. However, as you may have already guessed, as soon as we pick two temperatures (e.g., the conductive traces at room temperature, and when boiling water is poured into the mug) and measure their resistances, we can fill out the formula and calculate the <code>temperature coefficient alpha</code> of our conductive traces based on this. But before we can take these measurements, we first have to create our temperature sensor. Let's start with this.  <br><br>
+    <b>Determining alpha:</b> While the <code>temperature coefficient alpha</code> is known for metals, such as pure silver, our silver ink is a <span style="color: red">special mixture that has a different temperature coefficient.</span> Since we cannot measure <code>alpha</code> directly, we will instead measure the resistance of our conductive traces at two temperatures (e.g., the conductive traces at room temperature of 20C, and when boiling water is poured into the mug at 100C) and measure the resulting resistances. We can then fill out the formula and calculate the <code>temperature coefficient alpha</code> of our silver ink  traces. Before we can take those measurements, we first have to create our temperature sensor. Let's start with this.  <br><br>
 
     
     <h3 id="sensorshape">(2) Determine the Shape of a Temperature Sensor</h3>
