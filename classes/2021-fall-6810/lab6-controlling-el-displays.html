@@ -180,27 +180,31 @@ Finally, we want to not just turn the display on/off but also set the <code>disp
 
 <img src="images/lab6/pwm-explanation2.png" width="350px"> <img src="images/lab6/dutycycle_frquency.png" width="390px"><br><br>
 
-<b>Why can the frequency not be arbitrarily high?</b> We just said <code>higher frequency, i.e. faster switching on/off, is better</code>. The frequency, however, can not be infinitely high because of the specific setup we chose for our display circuit. We are dealing with two different signals. One signal is coming in the form of the <code>AC signal from our inverter (frequency: 800Hz)</code>. The other signal is coming in the form of the <code>PWM signal from our ESP (our choice of frequency)</code>. Having the inverter frequency given at 800Hz limits our choice for the frequency of the PWM signal from the ESP because of something called 'zero crossing circuit'.<br><br>
+<b>Why can the frequency not be arbitrarily high?</b> We just said <code>higher frequency, i.e. faster switching on/off, is better</code>. The frequency, however, can not be infinitely high because of the specific setup we chose for our display circuit. We are dealing with two different signals. One signal is coming in the form of the <code>AC signal from our inverter (frequency: 800Hz)</code>. The other signal is coming in the form of the <code>PWM signal from our ESP (our choice of frequency)</code>. Having the inverter frequency given at 800Hz limits our choice for the frequency of the PWM signal from the ESP because of something called <code>zero crossing circuit</code>.<br><br>
 
-<img src="images/lab6/inverter-pwm.png" width="350px"><br><br>
+<img src="images/lab6/inverter-pwm.png" width="350px"> <img src="images/lab6/zero-crossing-circuit-optocoupler.png" width="265px"><br><br>
 
 <b>What is a zero-crossing?</b> A zero-crossing is when the <code>AC signal crosses the x-axis</code>. When and how often that occurs <code>depends on the frequency of the signal</code>. When you check out <a href="https://www.mouser.com/datasheet/2/308/MOC3163M-D-1811983.pdf" target="_blank">the <code>optocoupler's datasheet</code>,</a> you will see that it contains a <code>zero-crossing circuit</code>. What this means is that the <code>optocoupler</code> that is connected to both the ESP on the left side and the inverter on the right side, will only switch the display on/off when the <code>ESP PWM signal tells the optocoupler to change the display state</code> AND <code>the inverter AC signal crosses zero</code>. Both conditions have to be met at the same time to make the optocoupler switch between an on and an off state.<br><br>
+
+
 
 <b>PWM Frequency higher than Inverter Frequency:</b> So what happens if your PWM frequency is higher than your inverter frequency? The middle image below shows this: Although the PWM frequency demands that the display be switched off/on, the optocoupler will do nothing since there is no zero-crossing of the inverter in that time frame. In the example below, the entire duty cycle is skipped. Therefore, if our PWM signal is faster than the inverter's AC frequency, the <code>optocoupler switch cannot react fast enough</code>. As a result, the optocoupler switch will react at some random point in time later, which <code>disrupts the chosen duty cycle</code> and makes it longer or shorter. Since the duty cycle is not consistent anymore, you will see the <code>display flicker</code> since it goes into random brightness states. <br><br>
 
 <b>PWM Frequency lower than Inverter Frequency:</b> Now let's look at the same scenario when the PWM frequency is lower than the inverter frequency. This will <code>work well</code> as you can see in the right image below. When the PWM frequency demands the display to be switched off/on, there is a zero-crossing where the <code>optocoupler can switch</code> more or less right away. Thus, we have to <code>select a PWM frequency that is significantly lower than the AC inverter frequency</code>. To be significantly below the inverter's AC frequency, we should set the <code>PWM signal to around 100Hz</code> to get a good result in our dimming.<br><br>
 
-<img src="images/lab6/zero-crossing-circuit-optocoupler.png" width="165px"><img src="images/lab6/inverter-pwm.png" width="275px"><img src="images/lab6/inverter-pwm-slow.png" width="310px"><br><br>
+<img src="images/lab6/inverter-pwm.png" width="375px"><img src="images/lab6/inverter-pwm-slow.png" width="370px"><br><br>
 
-<b>Set the PWM frequency:</b> You can set the PWM frequency using the ledcSetup command. <br>
+Let's write some code for this.<br><br>
+
+<b>Set the PWM frequency:</b> You can set the <code>PWM frequency</code> using the <code>ledcSetup()</code> function. <br>
   
-<pre>ledcSetup(<span style="color:red">int</span> ledChannel, <span style="color:red">int</span> freq, <span style="color:red">int</span> duty_resolution);</pre>
+<pre>ledcSetup(channel_number, frequency, duty_resolution);</pre>
 
-<i>Channel Number:</i> The ESP has 16 internal channels which can generate independent waveforms (note that these are NOT pin numbers on the ESP, but internal channels inside the ESP). The channel numbers range from 0-15. For our purposes, you can pick any channel you like.<br><br>
+<i>Channel Number:</i> The ESP has <code>16 internal channels</code> which can generate independent waveforms (note that these are <code>NOT</code> pin numbers on the ESP, but internal channels inside the ESP). The <code>channel numbers range from 0-15</code>. For our purposes, you can pick any channel you like.<br><br>
 
-<i>Frequency:</i> As mentioned previously, the frequency should be '100' Hz.<br><br>
+<i>Frequency:</i> As mentioned previously, the frequency should be <code>'100' Hz</code>.<br><br>
 
-<i>Duty resolution:</i> The duty resolution is expressed in bits and determines how many different duty cycles we can choose from, i.e. how many different brightness options we will have when dimming the display. For instance, 3 bits gives us 8 different cycles to choose from (12.5%, 25%, 37.5%,... 100%).For our purposes '8' is a good choice because it gives us many different brightness levels to generate a smooth dimming.<br><br>
+<i>Duty resolution:</i> The duty resolution is expressed in <code>bits</code> and determines <code>how many different duty cycles</code> we can choose from, i.e. <code>how many different brightness options</code> we will have when dimming the display. For instance, 3 bits gives you 8 different cycles to choose from (12.5%, 25%, 37.5%,... 100%).For our purposes '8' <span style="color:red">(Stefanie: do you mean 3?)</span> is a good choice because it gives us many different brightness levels to generate a smooth dimming.<br><br>
 
 <b>Specify the Output Pin of the PWM Signal:</b> Now that you specified the signal with ledcSetup(), you need to specify on which GPIO pin number of the ESP the signal should appear.  <br>
 <pre>ledcAttachPin(GPIO_PIN, channel_number) </pre> 
