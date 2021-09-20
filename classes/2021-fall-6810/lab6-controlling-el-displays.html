@@ -138,36 +138,34 @@ While building your circuit, you must adhere to the following rules:
 
 <h3 id="isolatecircuits">(5) Build the Control Circuit</h3>
 
-You already know how to <code>turn on/off</code> your display by <code>plugging and unplugging</code> the ESP32 power supply. It would be nicer to <code>do this via code</code> and not by physically plugging/unplugging the power supply. Thus, we will next build a control circuit that lets you do this.<br><br>
+You already know how to <code>turn on/off</code> your display by <code>plugging and unplugging</code> the ESP32 power supply. It would be nicer to <code>do this via code</code> and not by physically plugging/unplugging the power supply. Thus, we will next build a control circuit that lets you do this. Below you can see an overview of the <code>circuit,</code> we will break it down into individual steps below.<br><br>
     
-<b>Avoiding Damage to the Microcontroller:</b> We want to connect our ESP to the display to be able to turn it on/off via code. But there is a problem. The ESP32 is rated only up to <code>12V</code> so a higher voltage like the <code>50V AC</code> we use for our display could potentially <code>damage the microcontroller.</code> Therefore, we have to <code>isolate the ESP32 from the 50V AC power supply</code>. For this purpose, we will use an <code>optocoupler,</code> which uses <code>optical signaling</code> rather than electrical signaling.<br><br>
-    
-<b>Circuit Overview:</b> Below, you see the <code>circuit</code> that you need to build to control an EL display with your ESP32. We will break down the overall circuit into smaller sections below so you can better understand what's going on here.<br><br>
-
 <img src="images/lab3/switch_circuit.png" width="650px"><br><br>
 
 Let's first look at the right side of the circuit diagram:<br><br>
 
 <b>Turning On/Off the Display via a Switch (Triac):</b> To control the EL display, you have to put a <code>switch</code> in between the inverter's 50V power supply and the EL display. Circuits with <code>alternating current (AC)</code> often use a <code>triac</code> to open and close the circuit. 
-Triacs are similar to transistors but block alternating current (AC) instead of direct current (DC). By switching the triac on/off, we can thus block the AC current coming from our inverter. This allows us to turn the display on/off computationally. The triac's pins and how you add it to a circuit is similar to a transistor. It has <code>two connectors for VCC and GND</code> and a <code>Gate that triggers if current passes through or is blocked</code>. The "Gate" pin should be connected to a <code>GPIO pin</code> on your ESP32 so you can set it either to <code>HIGH (open gate)</code> or <code>LOW (close gate).</code> <br><br>
-    
-<img src="images/lab6/only_triac.png" width="400px"><br><br>
+Triacs are similar to transistors (switches) but <code>block alternating current (AC)</code> instead of direct current (DC). By switching the triac on/off, we can thus block the AC current coming from our inverter. This allows us to turn the display on/off computationally. The <code>triac's pins</code> and how you add it to a circuit is similar to a transistor (switch). It has <code>two connectors for VCC and GND</code> and <code>one 'gate' that triggers if current passes through or is blocked</code>. The 'Gate' pin should be connected to a <code>GPIO pin</code> on your ESP32 so you can set it either to <code>HIGH (open gate, display is on)</code> or <code>LOW (close gate, display is off).</code> <br><br>
 
-<b>Isolate ESP GPIO Pin Gate Control from Display Circuit (Optocoupler):</b> As you can see on the left side of the circuit, the gate is actually <code>not directly controlled by the ESP GPIO pin</code>. The reason for this is that the ESP is only rated for up to 12V while the inverter outputs up to 50V. Thus, having both on the same circuit could damage the ESP because the inverter output could flow directly into the micrcontroller. To isolate the ESP from the display while still allowing the ESP to signal to the triac if it should open or close the gate, we will use a component called <code>optocoupler</code>. 
-An optocoupler is in its function similar to a transistor or a triac and often used as a switch in a circuit. Similar to a transistor, it also has two pins (A1,A2) that are connected to the load that should be switched. In our case, this would be the triac that controls the 50VAC and the EL display. An optocoupler also has a third pin, the gate, that triggers the optocoupler to open or close the switch between the main lines A1 and A2. The main difference between a transistor and an optocoupler is how the gate can trigger the optocupler to open and close the main circuit. In contrast to a transistor, the gate is not connect through a physical contact to the rest of the circuit but fully isolated from the it. Instead of using a direct connection, the optocoupler can open and close a circuit through a light signal using a LED and a photodiode. When the gate is powered, the internal LED turns on. The photodiode can capture light energy and turn it into an electric signal again. This signal is then triggering the switch on the main circuit.<br><br>
+<b>Avoiding Damage to the Microcontroller:</b> Let's look a bit closer to what is happening on the left side of the ciruit. As you can see, the <code>'gate' pin of the triac</code> is not directly going to the ESP32. Instead it connects to a component called <code><a href="https://www.autodesk.com/products/eagle/blog/how-an-optocoupler-works/">optocoupler</a></code>. Why do we need the optocoupler? The ESP32 is rated for only up to <code>12V</code>. A higher voltage like the <code>50V AC</code> we use for our display could potentially <code>damage the microcontroller.</code> Therefore, we have to <code>isolate the ESP32 from the 50V AC power supply</code> that drives our display. For this purpose, we have the <code>optocoupler,</code> which uses <code>optical signaling</code> rather than electrical signaling. Inside the optocoupler there is a <code>small LED</code> on the left side and a <code>light sensor (photoresistor)</code> on the right side that allow sending signals from one side to the other. Since <code>communication is solely through light</code>, no current of the 50V AC power supply from the display can jump over to the ESP microcontroller. Thus optocouplers allow to isolate each part of the circuit while still enabling communication between the two. All we need to do is to later send a high signal to the optocoupler to turn its internal LED on whenever we want the display to be on.<br><br>
+    
+<b>Wiring up the optocoupler:</b> 
 
-<img src="images/lab6/oc.PNG" width="200px"><img src="images/lab3/optocoupler.png" width="350px"><br><br>
-    
- Since communication is solely through light, no current of the 50V power supply from the display can jump over to the ESP microcontroller. Thus optocouplers allow to isolate each part of the circuit while still enabling communication between the two. All we need to do is to later send a high signal to the optocoupler to turn its internal LED on whenever we want the display to be on, i.e. receiving energy.<br><br>
-    
+
+Similar to a transistor, it also has two pins (A1,A2) that are connected to the load that should be switched. In our case, this would be the triac that controls the 50VAC and the EL display. 
+
+An optocoupler also has a third pin, the gate, that triggers the optocoupler to open or close the switch between the main lines A1 and A2. 
+
+The main difference between a transistor and an optocoupler is how the gate can trigger the optocupler to open and close the main circuit. In contrast to a transistor, the gate is not connect through a physical contact to the rest of the circuit but fully isolated from the it. Instead of using a direct connection, the optocoupler can open and close a circuit through a light signal using a LED and a photodiode. When the gate is powered, the internal LED turns on. The photodiode can capture light energy and turn it into an electric signal again. This signal is then triggering the switch on the main circuit.<br><br>
+
+<img src="images/lab6/oc.PNG" width="200px"><img src="images/lab3/optocoupler.png" width="350px"> <img src="images/lab6/opto_img.PNG" width="150px"><br><br>
+        
 <b>Adding the optocoupler to the triac: </b>
 As stated above, you have to connect the optocoupler to the Gate of the triac. We use pin 4 of the main terminal to connect to the triac's gate. This main terminal also has to get some power to have a strong enough signal to open the triac. We will get this power from the main 50V AC circuit by connecting pin 6 of the optocoupler directly to the display. In addition, we have to put a resistor between the 50V AC and the optocoupler to limit the current that can flow through the optocoupler to the gate of the triac. <br><br>
     
-<img src="images/lab3/switch_circuit.png" width="650px"><br><br>
 
 <b>Connect Optocoupler to ESP:</b> Use jumper wires to connect the optocoupler to a GPIO pin and GND on the ESP. Note that the optocoupler has to be plugged in in a specific orientation. The little dot on its top indicates the top left corner of the component.<br><br>
 
-<img src="images/lab6/opto_img.PNG" width="150px"><br><br>
 
 <b>Add Resistor to Optocoupler:</b> The optocoupler needs one 330ohm resistor to limit the current that reaches the optocoupler's LED and prevents it from blowing up. Add the resistor to your circuit.<br><br> 
 
