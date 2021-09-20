@@ -86,7 +86,7 @@ At the end of the lab, upload to your student google drive:
     
 <div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
 <b>Help us Improve Class Materials for Lab7:</b><br>
-Please let us know if you had any trouble with the programming or the circuit drawing or if anything was confusing in the write up. <br> <a href="https://docs.google.com/document/d/1YKoNUb9T85Acbfh-jT0SfCVRACLxwdKZQCVremZpgJs/edit?usp=sharing">You can add your comments here.</a></div>
+Please let us know if you had any trouble with the circuit drawing or if anything was confusing in the write up. <br> <a href="https://docs.google.com/document/d/1YKoNUb9T85Acbfh-jT0SfCVRACLxwdKZQCVremZpgJs/edit?usp=sharing">You can add your comments here.</a></div>
 
     
      <h3 id="temperaturesensing">(1) Understand Temperature Sensing</h3>
@@ -99,46 +99,15 @@ Please let us know if you had any trouble with the programming or the circuit dr
     
      <img src="images/lab7/Resistivity_Cu-Ag-Au.png" width="400px"><br><br>
         
-     <b>Formula for Computing Overall Resistance at a Certain Temperature:</b> For small temperature changes, the resistance of a metal conductor varies linearily with temperature. We can describe the resistance at a certain temperature  with the following equation:<br><br>
+     <b>Formula for Computing Overall Resistance at a Certain Temperature:</b> As mentioned above, for temperature changes between 0C - 100C, the resistance of a metal conductor varies linearly with temperature. We can describe the <code>resistance at a certain temperature</code> with the following equation:<br>
      \[ R_{temp} = R_{Ref}(1+\alpha (T - T_{Ref})) \]
-     <br><br>
-     R_{temp} is the resistance at the current temperature T<br>
-     R_{Ref} is the resistance at a given reference temperature T_{Ref} (e.g., 20C)<br>
-     alpha is the temperature coefficient of the conductive material<br><br>
+
+     <i>R_{temp}:</i> is the resistance at the current temperature T<br>
+    <i>R_{Ref}:</i> is the resistance at a given reference temperature T_{Ref} (e.g., 20C)<br>
+     <i>alpha:</i> is the temperature coefficient of the conductive material<br><br>
     
-     This means, if we have a resistor and measure its resistance at room temperature (T_Ref) and at a much higher temperature (T = 80C, hot water), we can compute the temperature coefficient of this resistor. In this lab series, we will ink-jet print a silver trace on paper that we wrap around a coffee mug. This trace will have a certain resistance and we can determine its temperature coefficient by measuring it at room temperature and after we pour boiling water in the mug, increasing its temperature, and measure the resistance again. <br><br>
-    
-     In the next part of this lab, we will first generate a the silver trace that will serve us as the temperature sensor.
+    <b>Determining alpha:</b> While we can measure the resistance of our conductive traces at various temperatures pretty easily, which allows us to determine the resistance <code>R_{Ref}</code> at <code>T_{Ref}</code>, and also <code>R_{temp}</code> at <code>T</code>, we cannot directly measure <code>alpha</code>. However, as you may have already guessed, as soon as we pick two temperatures (e.g., the conductive traces at room temperature, and when boiling water is poured into the mug) and measure their resistances, we can fill out the formula and calculate the <code>temperature coefficient alpha</code> of our conductive traces based on this. But before we can take these measurements, we first have to create our temperature sensor. Let's start with this.  <br><br>
 
-     <!--
-     <b>Formula for Computing Overall Resistance based on Thermal Resistivity:</b> The formula for determining the overall resistance of a wire based on thermal resistivity, length of a wire, and thickness of a wire (cross section) is shown in the picture below. As you can see, given a wire with a fixed length l and a fixed cross section A, the higher the thermal resistivity (i.e. the resistance introduced by changes in heat) the higher the overall resistance. (Note that we use wire thickness instead of cross section, we discard height since all wires have the same height)<br><br> 
-
-     <b>Thermal Resistivity for Silver Used in Conductive Inkjet Printing:</b> For silver, the thermal resistivity p increases with increases in temperature. Thus, the higher the temperature, the higher the thermal resistivity and the higher the overall resistance of our wire. Thus, by reading the overall resistance of the wire with our microcontroller, we can determine the mug's temperature.<br><br> 
-
-    <img src="images/lab6/resistance.png" width="400px"><br><br>
-
-    <h3 id="overallresistance">(2) Choose Overall Resistance (R) for Temperature Sensor</h3>
-
-    As you can see in the formula above, the only part that is given is the thermal resistivity (p) for our material silver, which is determined by nature. However, we can freely choose the overall resistance (R), the wire length (l) and the thickness of the wire (A). Let's first determine what overall resistance (R) would be good to use.<br><br> 
-
-    <b>Effect of Overall Resistance (R) on Temperature Sensor Resolution:</b> The higher the overall resistance of the conductive wire, the more sensitive it will be to temperature changes. Consider the following example: If your wire has a small resistance (50Ohm) and the resistance changes a little bit (5%), the change will be very small (5% of 50Ohm = 2.5Ohm). This is difficult to measure since there is always noise in electronics. In contrast, if your wire has a large resistance (1kOhm), the change will be larger (5% of 1,000 Ohm = 50Ohm), which is easier to measure. Thus, a wire with a larger resistance allows you to measure smaller changes in temperature, and thus results in a temperature sensor with a higher sensing resolution. For our temperature sensor, we will use <code>R = 1kOhm</code> at room temperature since that gives us a pretty high sensitivity, but you could also go higher. <span style="color:red">Could we say something here about what ohm differences are realistic to measure? what does 'pretty high sensitvity' mean? 10 values? 100 values? 0.1C or 0.01C measurements?</span><br><br>
-
-    <span style="color:red">perhaps we can add a small todo for students here? i.e. you want to measure XX temperature resolution, what overall resistance should you use?</span><br><br>
-
-    <h3 id="wirethickness">(3) Determine Minimum Wire Thickness (A) for Temperature Sensor</h3>
-
-    Now that we know that our desired overall resistance R is 1kOhm, what values should we use for wire length (l) and the wire thickness (A). As you can see in the formula, the longer the wire (l) and the thinner (A) the wire, the higher the resistance will be. Since longer wires take up more space on our prototype, which we don't want, we should first try to minimize the thickness to increase the resistance.<br><br>
-
-    <b>Thickness of the Wire (A):</b> We ran a few experiments and found that the thinnest trace we can print is <span style="color:red">0.3mm wide</span>. Any thinner than this and the silver does not connect reliably anymore to form a trace. Thus, we will use <code>A = 0.3mm</code> for our temperature sensor.<br><br> 
-
-    <h3 id="thermalresistivity">(4) Determine Thermal Resistivity (p) for Inkjet Printed Silver</h3>
-
-    Next, we need to determine the thermal resistivity (p). Since we want to solve the formula for <code>R = 1kOhm</code> at room temperature, we will determine p at <span style="color:red">23&#8451; (what temperature did you use?).</span>. <span style="color:red">why is it enough to only do this for one p? we will never determine the other p right? they will be implicitly measured in the overall resistance R?</span><br><br> 
-
-    <b>Experimentally Determining Thermal Resistivity (p):</b> To determine (p), we printed a wire of thickness <code>A = 0.3mm</code> and wire length <code>l = 1cm</code>. We measured the overall resistance <code>R</code> at room temperature <span style="color:red">23&#8451;</span> using a multimeter and found the overall resistance <code>R = 7.5 Ohm/cm</code>. <span style="color:red">So how does this tell us the thermal resistivity (p)? Since the wire thickness (A) is constant, you can remove it from the formula. This leaves us with R = p * l.</span> Since we used l = 1cm, we can conclude that R = p. Thus, <code>p = 7.5 Ohm/cm</code> at room temperature <span style="color:red">23&#8451;</span>. <br><br> 
-
-     Note that this can also vary depending on the substrate, the 2D printer, and the silver ink mixture, so if you change any of these you would have to remeasure the resistance.<br><br> 
--->
     
     <h3 id="sensorshape">(2) Determine the Shape of a Temperature Sensor</h3>
     The temperature sensor that we wrap around the coffee mug should ideally give us an temperature average over a larger area of the mug to make sure that we read reliable values even when the mug is only half full or a user touches one part of the mug with their above-room-temperature warm fingers. Thus, your temperature sensor should cover a sufficient surface area around the mug. <br><br>
