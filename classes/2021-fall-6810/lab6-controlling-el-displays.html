@@ -78,7 +78,7 @@ At the end of the lab, upload to your student google drive:
 <ol>
   <li>the Arduino code (.ino) for dimming your display</li>
   <li>2-3 photos (.jpg or .png) from different angles of your circuit</li>
-  <li>a short video (.mov or .mp4, max. 1 minute) showing how you display dims and performs a full cycle from bright to dark and dark to bright again</li>
+  <li>a short video (.mov or .mp4, max. 1 minute) showing how you display dims and performs a full cycle from bright to dark and dark to bright again. Note that when video recording with your phone the display may look like it flickers in the resulting video. The reason for this is that your phone captures frames at a lower framerate than your eyes. Thus while your eyes can't see the duty cycles, your phone can. This is ok and will not impact grading.</li>
 </ol><br>
 
  <div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
@@ -161,9 +161,7 @@ Triacs are similar to transistors (switches) but <code>block alternating current
 Same circuit schematic one more time so you don't have to scroll:<br><br>
 <img src="images/lab3/switch_circuit.png" width="650px"><br><br>
 
-<b>Wiring up the optocoupler:</b> Next, let's wire up the right side of the optocoupler. Similar to other types of switches, the optocoupler has two pins that are <code>wired up to the two components</code> that should either be connected or disconnected via the switch. In our case, <span style="color:red">this would be the triac that controls the 50VAC and the EL display.</span> Next, we will connect the <code>'gate' pin of the optocoupler</code> to the <code>'gate' pin of the triac</code>. <span style="color:red">We use pin 4 of the main terminal to connect to the triac's gate. This main terminal also has to get some power to have a strong enough signal to open the triac. We will get this power from the main 50V AC circuit by connecting pin 6 of the optocoupler directly to the display. In addition, we have to put a resistor between the 50V AC and the optocoupler to limit the current that can flow through the optocoupler to the gate of the triac.</span> <br><br>
-
-<b>Why don't we use only the optocoupler and get rid of the triac?</b> <span style="color:red">As noted in the datasheet of the component, optocouplers are only intended to be used as a trigger device and should not drive the entire load of the circuit. Since the main purpose of an optocoupler is to protect a low-voltage device (like a microcontroller), the intention is to keep high voltages and currents far away from the optocoupler, too. An optocoupler can also break and let current through. This break voltage varies from optocoupler to optocoupler but should typically be a lot higher that the voltage of your main circuit.</span>
+<b>Limiting the Current Through the Optocoupler:</b> So let's recap briefly. Once the ESP GPIO pin sends a 'HIGH' signal, the LED on the left side of the optocoupler comes on, which closes the circuit on the right side for the optocoupler. As you can see, the right side of the optocoupler is wired to the EL display and inverter. Thus, if the LED of the optocoupler is off, the EL display and inverter are not connected (and thus the display would not come on), but if the LED of the optocoupler is turned on, the EL display and inverter are connected and the EL display would light up. This all sounds nice, but in practice we cannot do it like this. The reason for this is that the optocoupler should not be exposed to the 50V AC current from the inverter since it cannot handle such a high voltage. In fact, if the optocoupler gets exposed to such a high voltage, it often gets stuck and loses its ability to open and close the circuit. Therefore, we put two 330 ohm resistors before the two optocoupler pins, i.e. one before the display and one before the inverter, to limit the voltage that reaches the optocoupler to a very small amount. As a result, when the LED of the optocoupler signals that the circuit should be closed, the right side of the circuit indeed closes and current is running through, but the current is not enough to actually light up the display. Instead, the current is just enough to trigger the 'gate' pin of the triac, which then closes the full 50V AC circuit between the inverter and the display.
 
 <h3 id="displayblinkcode">(7) Write Program to Blink Display</h3>
 
@@ -221,7 +219,7 @@ Let's write some code for this.<br><br>
 
 <i>Channel Number:</i> The PWM channel number is the same as above.<br><br> 
 
-<i>Duty Cycle:</i> The duty <code>cycle</code> is different from the duty <code>resolution</code>. With the duty cycle parameter you tell the function <code>which of the duty cycles from your overall duty resolution</code> should be used. Since we chose 8 bits, which gives us 256 values ranging from 0.4%, 0.8%, 1.2% .... 100%, our duty cycle parameter is the <code>index of the duty cycle</code> you want to use. You can choose indices between 0..255 for the 8-bit resolution.
+<i>Duty Cycle:</i> The duty <code>cycle</code> is different from the duty <code>resolution</code>. With the duty cycle parameter you tell the function <code>which of the duty cycles from your overall duty resolution</code> should be used. Since we chose 8 bits, which gives us 256 values ranging from 0.4%, 0.8%, 1.2% .... 100%, our duty cycle parameter is the <code>index of the duty cycle</code> you want to use. You can choose indices between 0..255 for the 8-bit resolution.<br><br>
 
 <b>Dim the Display Repeatedly:</b> Write a piece of code that puts the ledcWrite(channel_number, duty_cycle) function in <code>loop()</code> to repeatedly <code>increase brightness from 0% to 100%</code> within <code>2 seconds</code> and then <code>reduces the brightness</code> again in another <code>2 seconds</code>. The display should repeat this dimming cycle infinitely.<br><br>
 
@@ -232,7 +230,7 @@ At the end of the lab, upload to your student google drive:
 <ol>
   <li>the Arduino code (.ino) for dimming your display</li>
   <li>2-3 photos (.jpg or .png) from different angles of your circuit</li>
-  <li>a short video (.mov or .mp4, max. 1 minute) showing how you display dims and performs a full cycle from bright to dark and dark to bright again. <span style="color: red">Note that when video recording with your phone the display may look like it flickers in the resulting video. The reason for this is that your phone captures frames at a higher frequency than your eyes, thus while your eyes can't see the duty cycle turning on/off the display, your phone can. This is ok and will not impact grading.</span></li>
+  <li>a short video (.mov or .mp4, max. 1 minute) showing how you display dims and performs a full cycle from bright to dark and dark to bright again. Note that when video recording with your phone the display may look like it flickers in the resulting video. The reason for this is that your phone captures frames at a lower framerate than your eyes. Thus while your eyes can't see the duty cycles, your phone can. This is ok and will not impact grading.</li>
 </ol><br>
 
 <hr>
