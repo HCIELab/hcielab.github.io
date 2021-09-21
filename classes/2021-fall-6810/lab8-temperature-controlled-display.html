@@ -146,13 +146,13 @@ Please let us know if you had any trouble with the assembly, circuit, or code or
     <b>Adjust Formula to Solve for R2:</b> Take a moment to <code>change the formula so that it solves for R2</code> and not Vout. You may want to use a piece of paper to do the math. <span style="color: red">should we give people some hints?</span><br><br>
 
     <b>Read Voltage Vout from Voltage Divider Circuit:</b> Create a new Arduino program and use 
-     <code>analogRead()</code> to read the voltage value <code>Vout</code> from the voltage divider. analogRead() returns the voltage value between 0V and 3.3V and maps it to an output range of 0 - 4095. What this means is that if you read a value of 2047 (4095/2), your voltage is around 1.65V (3.3V/2). Write the incoming values to the Serial plotter. Remember that you have to add a newline after each value in order to plot it.<br><br> 
+     <code>analogRead()</code> to read the voltage value <code>Vout</code> from the voltage divider. analogRead() returns the <code>voltage value between 0V and 3.3V</code> and maps it to an <code>output range of 0 - 4095</code>. What this means is that if you read a value of 2047 (4095/2), your voltage is around 1.65V (3.3V/2). Write the incoming values to the <code>Serial plotter</code>. Remember that you have <span style="color: red">to add a newline after each value in order to plot it</span>.<br><br> 
     
     Below, you see typical voltage readings for a temperature sensor. Note that the values of these readings depend on your individual temperature sensor and might be higher or lower on average.<br><br>
 
     <img src="images/lab8/voltage_readings.png" width="600px"><br><br>
 
-    <b>Write Code to Determine Resistance R2 of our Temperature Sensor:</b> Now, it's time to apply the voltage divider formula from above. Use it to compute the resistance of your temperature sensor R2 and plot the values on the Serial Plotter. <br><br>
+    <b>Write Code to Determine Resistance R2 of our Temperature Sensor:</b> Now, it's time to use the <code>voltage divider formula adjusted to solve for R2</code> from above. Use it to compute the resistance R2 of your temperature sensor and <code>plot the R2 values on the Serial Plotter</code>. <br><br>
     
     <b>Smoothing the Signal with a Box Filter:</b> You'll notice that the resistance values are fluctuating a lot in the image above between 2350 - 2680 although they should be steady. This is due to the limited measurement precision of the microcontroller and environmental electric noise that slightly changes the read in voltage values. To smooth out such noise, you can use a filter. For this lab, we will use a <code>box filter</code>, which when implemented can produce a more clean signal with lower fluctuations. In the next section, we will tell you how to implement the box filter.<br><br>
 
