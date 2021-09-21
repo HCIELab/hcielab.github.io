@@ -58,10 +58,8 @@ In this lab, we will first assemble the mug, i.e. solder on jumper wires to conn
 
 <h3>Steps:</h3>
 <ol>
-  <li><a href="#attacheldisplay">Attach Sprayed EL Display to the Circuit</a></li>
+  <li><a href="#solderjumperwires">Solder Jumper Wires onto Circuit</a></li>
   <li><a href="#attachcircuittomug">Attach Circuit to the Mug</a></li>
-  <li><a href="#solderonjumperwires">Solder on Jumper Wires for Breadboarding</a></li>
-  <li><a href="#tapeoncircuit">Cover Circuit with Tape to Protect from Moisture & Touch</a></li>
   <li><a href="#temperaturecircuit">Build Temperature Sensing Circuit</a></li>
   <li><a href="#determineresistance">Write Code to Determine Resistance of Temperature Sensor</a></li>
   <li><a href="#correlateresistance">Correlate Resistance with Temperature Change</a></li>
@@ -84,7 +82,7 @@ At the end of the lab, upload to your student google drive:
 Please let us know if you had any trouble with the assembly, circuit, or code or if anything was confusing in the write up. <br> <a href="https://docs.google.com/document/d/1Od_uKJ9tjEbh5aeFOBSeh32PHJ-vamBdU2ia4YEZk0Y/edit?usp=sharing">You can add your comments here.</a></div>
 
 
-    <h3 id="attacheldisplay">(1) Solder Jumper Wires to Mug Sensor</h3>
+    <h3 id="solderjumperwires">(1) Solder Jumper Wires onto Circuit</h3>
 
     Let's get started with <code>soldering jumper wires onto the connector pads</code>, which we can then use to connect to a breadboard and our microcontroller. <br><br>
     
@@ -110,18 +108,11 @@ Please let us know if you had any trouble with the assembly, circuit, or code or
     <img src="images/lab7/circuitToMug.png" width="300x">
     <img src="images/lab7/circuitOnMug.jpg" width="290px"><br><br>
     
-    <h3 id="tapeoncircuit">(3) Cover Circuit with Tape to Protect from Moisture & Touch</h3>
-
-    <span style="color:red">This is not needed anymore right?</span><br>
-    The last step you need to do is to protect the mug from moisture and touch. This is especially important since we want to fill hot and cold water into it and some water may spill over (try to avoid it). Also, we want to protect the circuit from constant touching, which may happen with a mug.
-    To protect the circuit, we will use clear tape to cover all the electronics.<br><br>
-
-    <b>Apply Transparent Tape Over Circuit:</b> Cut off a 19cm long stripe of our extra wide 3inch transparent tape. Carefully apply the tape onto the entire circuit. If you make a mistake here, do not pull back the tape, it will destroy the silver circuit. You need to just continue rolling the tape over the circuit even if it will not be perfect. Therefore, be extra careful.<br><br>
+    <b>Cover Circuit with Regular Tape:</b> Since the double sided tape is not strong enough to hold the circuit on the mug, we will also add a <code>layer of transparent tape</code> across the entire circuit. Cut off a <code>19cm long stripe</code> of our extra wide 3inch transparent tape. Carefully apply the tape onto the entire circuit.<br><br>
     
-    <span style="color:red">it would be really good to have better images here</span><br>
     <img src="images/lab7/tapeOnDisplay.jpg" width="400px"><br><br> 
 
-    <h3 id="temperaturecircuit">(5) Build Temperature Sensing Circuit</h3>
+    <h3 id="temperaturecircuit">(3) Build Temperature Sensing Circuit</h3>
     
     To <code>measure the temperature</code> of the liquid in the mug, we need to <code>measure the resistance</code> of the silver traces (horse shoe pattern of our temperature sensor) as explained in the last lab. So how can we <code>measure resistance on the microcontroller?</code><br><br>
 
@@ -133,7 +124,7 @@ Please let us know if you had any trouble with the assembly, circuit, or code or
 
     <b>Build the Voltage Divider Circuit:</b> <code>Build the voltage divider on a breadboard</code> and <code>connect your temperature sensor</code> to this circuit as R2.<br><br>
 
-   <h3 id="determineresistance">(6) Write Code to Determine Resistance of Temperature Sensor</h3>
+   <h3 id="determineresistance">(4) Write Code to Determine Resistance of Temperature Sensor</h3>
 
    Now that we have the voltage divider circuit wired up, the question remains how does measuring the voltage <code>Vout</code> help us determine the resistance of the temperature sensor?<br><br>
 
@@ -161,7 +152,7 @@ Please let us know if you had any trouble with the assembly, circuit, or code or
 
     <img src="images/lab7/filtered_large3.png" width="600px"><br><br>
 
-   <h3 id="correlateresistance">(7) Correlate Resistance with Temperature Change</h3>
+   <h3 id="correlateresistance">(5) Correlate Resistance with Temperature Change</h3>
 
    Now we can determine the resistance of our temperature sensor. But <code>how much does the resistance increase with changes in temperature?</code> For this, you will run an experiment.<br><br>
 
@@ -177,14 +168,14 @@ Please let us know if you had any trouble with the assembly, circuit, or code or
     
     <b>Write Code that Determines Hot/Not Hot:</b> Based on your selected threshold value, <code>write code</code> that sends a <code>Serial message (e.g., "HOT")</code> when the threshold is hit. Pour in some water into your mug and test if the threshold gets reached. If your temperature sensor can detect the hot water, you can continue with the next step.
 
-    <h3 id="addeldisplaycircuit">(8) Add EL Display Control Circuit to Mug</h3>
+    <h3 id="addeldisplaycircuit">(6) Add EL Display Control Circuit to Mug</h3>
     
     Next, we want to <code>connect our temperature readings to the display</code> so that we can blink it when the hot water is in the mug. Let's first connect the display circuit to the mug.<br><br>
 
     <b>Connect Display Circuit to Mug:</b> You already have the <code>display circuit</code> from the previous lab.
     All that's left to do is to <code>connect the display circuit to the corresponding wires on the mug that lead to the display</code>. Test the display once again to make sure that everything is still working fine by <code>letting it blink</code> with the same code that you used in the previous lab.<br><br>
     
-    <h3 id="blinkdisplaywhenhot">(9) Blink Display When High Temperature is Measured</h3>
+    <h3 id="blinkdisplaywhenhot">(7) Blink Display When High Temperature is Measured</h3>
 
     In this final step, you will use your <code>temperature readings to trigger the display</code>. The display should start <code>blinking at temperatures above >70C</code> to help users avoid getting burned and otherwise should be turned off.<br><br>
 
