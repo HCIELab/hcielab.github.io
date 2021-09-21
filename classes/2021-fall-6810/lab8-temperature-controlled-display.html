@@ -143,10 +143,10 @@ Please let us know if you had any trouble with the assembly, circuit, or code or
     
     We know <code>Vin</code> since you connected the 3.3V pin of your microntroller. We also know <code>Vout</code> since this is the voltage measurement from our microcontroller. We also know <code>R1</code>, which is our chosen resistor of 1kOhm. Thus, we have everything to solve the equation for R2 to determine the current resistance of the temperature sensor.<br><br> 
 
-    <b>Adjust Formula to Solve for R2:</b> Take a moment to <code>change the formula so that it solves for R2</code> and not Vout. You may want to use a piece of paper to do the math. <span style="color: red">should we give people some hints?</span><br><br>
+    <b>Adjust Formula to Solve for R2:</b> Take a moment to <code>change the formula so that it solves for R2</code> and not Vout. You may want to use a piece of paper to do the math.<br><br>
 
     <b>Read Voltage Vout from Voltage Divider Circuit:</b> Create a new Arduino program and use 
-     <code>analogRead()</code> to read the voltage value <code>Vout</code> from the voltage divider. analogRead() returns the <code>voltage value between 0V and 3.3V</code> and maps it to an <code>output range of 0 - 4095</code>. What this means is that if you read a value of 2047 (4095/2), your voltage is around 1.65V (3.3V/2). Write the incoming values to the <code>Serial plotter</code>. Remember that you have <span style="color: red">to add a newline after each value in order to plot it</span>.<br><br> 
+     <code>analogRead()</code> to read the voltage value <code>Vout</code> from the voltage divider. analogRead() returns the <code>voltage value between 0V and 3.3V</code> and maps it to an <code>output range of 0 - 4095</code>. What this means is that if you read a value of 2047 (4095/2), your voltage is around 1.65V (3.3V/2). Write the incoming values to the <code>Serial plotter</code>. Remember that you have to add a newline after each value in order to plot it (i.e. use Serial.println()).<br><br> 
     
     Below, you see typical voltage readings for a temperature sensor. Note that the values of these readings depend on your individual temperature sensor and might be higher or lower on average.<br><br>
 
@@ -167,7 +167,7 @@ Please let us know if you had any trouble with the assembly, circuit, or code or
 
    <b>Determine Resistance at Room Temperature:</b> First, note down the <code>mean resistance at room temperature.</code><br><br>
 
-   <b>Determine Resistance at around 80&#8451;:</b> Next, use a water kettle and <code>boil water to 100C</code>. Pour it into the mug while you continue to plot the resistance values with the Serial Plotter. You should notice that the values start increasing while the mug is heating up. Once you reached a <code>stable value, write it down</code>. The increase in resistance over room temperature should be around <span style="color:red">4%.</span> <span style="color: red">so below it says 80C, that means the water in the mug is 80C after you poured it right?</span><br><br> <span style="color:red">alpha is the linear gradient. for continuous temperature sensing.</span>
+   <b>Determine Resistance at around 80&#8451;:</b> Next, use a water kettle and <code>boil water to 100C</code>. Pour it into the mug while you continue to plot the resistance values with the Serial Plotter. You should notice that the values start increasing while the mug is heating up. Once you reached a <code>stable value, write it down</code>. The increase in resistance over room temperature should be around 4%. <span style="color: red">so below it says 80C, that means the water in the mug is 80C after you poured it right?</span><br><br> <span style="color:red">alpha is the linear gradient. for continuous temperature sensing.</span>
     
    <img src="images/lab8/resistance_increase.png" width="500px"><br><br>
 
