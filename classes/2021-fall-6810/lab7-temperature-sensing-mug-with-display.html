@@ -109,52 +109,37 @@ Please let us know if you had any trouble with the circuit drawing or if anythin
     <b>Determining alpha:</b> While the <code>temperature coefficient alpha</code> is known for metals, such as pure silver, our silver ink is a <span style="color: red">special mixture that has a different temperature coefficient.</span> Since we cannot measure <code>alpha</code> directly, we will instead measure the resistance of our conductive traces at two temperatures (e.g., the conductive traces at room temperature of 20C, and when boiling water is poured into the mug at 100C) and measure the resulting resistances. We can then fill out the formula and calculate the <code>temperature coefficient alpha</code> of our silver ink  traces. Before we can take those measurements, we first have to create our temperature sensor. Let's start with this.  <br><br>
 
     
-    <h3 id="sensorshape">(2) Determine the Shape of a Temperature Sensor</h3>
-    The temperature sensor that we wrap around the coffee mug should <code>measure temperature over a larger area</code> of the mug to make sure that we get a good reading even when the mug is only half full or a user touches one part of the mug with their above-room-temperature warm fingers. Thus, your temperature sensor should cover a sufficient surface area around the mug. <br><br>
-    Your task is to cover a 70mmx20mm large area on the mug with silver traces. The next question that arises is how to best shape a wire to cover the maximal area on your mug?<br><br>
+    <h3 id="sensorshape">(2) Understand the Shape of a Temperature Sensor</h3>
     
-    <b>Horse Shoe Pattern:</b> A classic method to create a long wire on a small area is to design it in a horse shoe pattern, which looks like this:<br><br>
+    Above we discussed how conductive traces can be used to sense temperature by measuring their resistance.  The next question that arises is <code>what area</code> should the trace cover, <code>how long</code> should the trace be, and <code>what shape</code> should it have? <br><br>
+
+    <b>Area of the Temperature Sensor:</b> The temperature sensor that we wrap around the coffee mug should <code>measure temperature over a large area</code> of the mug to make sure that we get a good reading even when the mug is only half full. This also helps us to reduce the effect that a user's warm fingers have on an empty mug since those would only locally heat up the mug but do not generate enough heat over a larger area to change the temperature reading significantly. We will cover a <code>70mm x 20mm</code> large area on the mug with silver traces (see image below).<br><br>
+    
+    <b>Shape of the Temperature Sensor (Horse Shoe Pattern):</b> A classic method to create a long wire on a small area is to design it in a <code>horse shoe pattern</code>, which looks like the image below.<br><br>
     
     <img src="images/lab7/hsp2.png" width="700px"><br><br> 
     
     In the next step, you will write a program to automatically generate a temperature sensor for a given size.
-<!--
-    <h3 id="wirelength">(5) Determine Wire Length (l) to Achieve 1kOhm Resistance</h3>
 
-    Finally, we can determine the wire length (l) based on all the other values.<br><br>
-
-    <b>Wire length (l) for 1kOhm:</b> Using the formula below, how long does your wire have to be to achieve a 1kOhm resistance? You will need to know your wire length when you design the inkjet printed wire in the next step.<br><br> 
-    
-    <pre>Overall Resistance (R) = wire length (l) * thermal resisvity (p(20C)) = l * 7.5 Ohm/cm</pre><br>
--->
     <h3 id="processingscript">(3) Generate Temperature Sensor Using Processing Script</h3>
     
-    Since drawing a horse shoe pattern manually is quite the pain, let's leverage our computational design capabilities in Processing.<br><br>   
-    
-    <b>Write Processing Script to Generate Line Layout:</b> Write a Processing Script that generates a temperature sensor layout of variable width and height. Reuse your code from pset1 to write this script. <br><br>
-    
-    <b>Declare variables for 4 required parameters to your Processing script:</b> There are 4 parameters necessary to generate this horse shoe pattern: Sensor width, Sensor height, Trace thickness, and distance between traces. Your Script should be able to generate a sensor layout for different values of these 4 parameters.<br><br>  
+    Since drawing a horse shoe pattern manually is quite the pain, let's leverage our <code>computational design capabilities in Processing</code>. Write a Processing Script that <code>generates a temperature sensor layout</code> of <code>variable width and height</code>. You may want to reuse some code from pset1 for this script.<br><br>   
+        
+    <b>Create User Input Fields:</b> There are 4 parameters necessary to generate this horse shoe pattern: <code>sensor width,</code> <code>sensor height</code>, <code>trace thickness</code>, and <code>distance between traces</code>. Your user interface should allow the user to change these values using UI elements and then generate a matching sensor layout.<br><br>  
 
-     <b>Generate Horse Shoe Pattern:</b> Generate a set of horizontal lines of the given thickness and connect them with vertical lines on alternating sides. Make sure that the traces start and end on the same side.<br><br>
-    
-    <b>Default values: </b>The default values in your program to generate your temperature sensor should be:
+    <b>Default values for UI: </b>The default values in your program to generate your temperature sensor should be:
     <ol>
-        <li>Wire thickness = 0.3mm</li>
-        <li>Spacing between silvertraces = 0.5mm</li>
-        <li>Width of temperature sensor = 70mm</li>
-        <li>Width of temperature sensor = 20mm</li>
+        <li><code>Width of temperature sensor</code> = 70mm</li>
+        <li><code>Height of temperature sensor</code> = 20mm</li>
+        <li><code>Wire thickness</code> = 0.3mm</li>
+        <li><code>Vertical Spacing between silver traces</code> = 0.5mm</li>
     </ol>
 
-     <i>Export Temperature Sensor as PDF:</i> Output a .pdf that contains the temperature sensor ready for inkjet printing. The pdf should be letter sized.<br><br>
+     <b>Generate Horse Shoe Pattern:</b> Given the UI parameters, generate a set of <code>horizontal lines</code> of the given thickness and connect them with <code>vertical lines</code> on alternating sides. Make sure that the <code>traces start and end on the same side</code>.<br><br>
 
-     <b>Check Temperature Sensor in Illustrator:</b> Open your temperature sensor pdf in Adobe Illustrator and measure to confirm that:
+     <b>Export Temperature Sensor as PDF:</b> Output a <code>.pdf</code> that contains the temperature sensor ready for inkjet printing. <span style="color:red">The pdf should be</span> <code>letter sized.</code><br><br>
 
-    <ol>
-        <li>Wire thickness = 0.3mm</li>
-        <li>Spacing between silvertraces = 0.5mm</li>
-        <li>Width of temperature sensor = 70mm</li>
-        <li>Width of temperature sensor = 20mm</li>
-    </ol>
+     <b>Check Temperature Sensor in Illustrator:</b> Open your temperature sensor pdf in Adobe Illustrator and measure to confirm that the default values are set correctly, i.e. width of temperature sensor = 70mm, height of temperature sensor = 20mm, wire thickness = 0.3mm, and vertical spacing between silver traces = 0.5mm. 
   
     <h3 id="overallcircuit">(4) Integrate Temperature Sensor and EL Display Circuit</h3>
 
