@@ -53,6 +53,10 @@
       
     In this lab, you will create the control circuit for your electrolumiscent display so that you can turn on/off the display and even dim it to a specific brightness using your ESP microcontroller.<br><br>
 
+ <div style="color:red; border: red 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Don't forget to bring your EL display:</b><br> Please don't forget to bring your EL display for this and the next labs in this series.</div>
+
+
 <img src="images/lab6/display_animation.gif" height="230px"> 
 <img src="images/lab6/display_on.JPG" height="230px"><br>
 
@@ -74,13 +78,12 @@ At the end of the lab, upload to your student google drive:
 <ol>
   <li>the Arduino code (.ino) for dimming your display</li>
   <li>2-3 photos (.jpg or .png) from different angles of your circuit</li>
-  <li>a short video (.mov or .mp4, max. 1 minute) showing how you display dims and performs a full cycle from bright to dark and dark to bright again</li>
+  <li>a short video (.mov or .mp4, max. 1 minute) showing how you display dims and performs a full cycle from bright to dark and dark to bright again. Note that when video recording with your phone the display may look like it flickers in the resulting video. The reason for this is that your phone captures frames at a lower framerate than your eyes. Thus while your eyes can't see the duty cycles, your phone can. This is ok and will not impact grading.</li>
 </ol><br>
 
  <div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
 <b>Help us Improve Class Materials for Lab6:</b><br>
 Please let us know if you had any trouble with the programming or schematic or if anything was confusing in the write up. <br> <a href="https://docs.google.com/document/d/1Hv-YDyjNpE4yrwX1ggN0OQ-QT0JG2xWFF5IWD0zhIPo/edit?usp=sharing">You can add your comments here.</a></div>
-
 
 
  <h3 id="safety">(1) Safety Instructions</h3>
@@ -138,101 +141,87 @@ While building your circuit, you must adhere to the following rules:
 
 <h3 id="isolatecircuits">(5) Build the Control Circuit</h3>
 
-You already know how to <code>turn on/off</code> your display by <code>plugging and unplugging</code> the ESP32 power supply. It would be nicer to <code>do this via code</code> and not by physically plugging/unplugging the power supply. Thus, we will next build a control circuit that lets you do this.<br><br>
+You already know how to <code>turn on/off</code> your display by <code>plugging and unplugging</code> the ESP32 power supply. It would be nicer to <code>do this via code</code> and not by physically plugging/unplugging the power supply. Thus, we will next build a control circuit that lets you do this. Below you can see an overview of the <code>circuit,</code> we will break it down into individual steps below.<br><br>
     
-<b>Avoiding Damage to the Microcontroller:</b> We want to connect our ESP to the display to be able to turn it on/off via code. But there is a problem. The ESP32 is rated only up to <code>12V</code> so a higher voltage like the <code>50V AC</code> we use for our display could potentially <code>damage the microcontroller.</code> Therefore, we have to <code>isolate the ESP32 from the 50V AC power supply</code>. For this purpose, we will use an <code>optocoupler,</code> which uses <code>optical signaling</code> rather than electrical signaling.<br><br>
-    
-<b>Circuit Overview:</b> Below, you see the <code>circuit</code> that you need to build to control an EL display with your ESP32. We will break down the overall circuit into smaller sections below so you can better understand what's going on here.<br><br>
-
 <img src="images/lab3/switch_circuit.png" width="650px"><br><br>
 
 Let's first look at the right side of the circuit diagram:<br><br>
 
 <b>Turning On/Off the Display via a Switch (Triac):</b> To control the EL display, you have to put a <code>switch</code> in between the inverter's 50V power supply and the EL display. Circuits with <code>alternating current (AC)</code> often use a <code>triac</code> to open and close the circuit. 
-Triacs are similar to transistors but block alternating current (AC) instead of direct current (DC). By switching the triac on/off, we can thus block the AC current coming from our inverter. This allows us to turn the display on/off computationally. The triac's pins and how you add it to a circuit is similar to a transistor. It has <code>two connectors for VCC and GND</code> and a <code>Gate that triggers if current passes through or is blocked</code>. The "Gate" pin should be connected to a <code>GPIO pin</code> on your ESP32 so you can set it either to <code>HIGH (open gate)</code> or <code>LOW (close gate).</code> <br><br>
-    
-<img src="images/lab6/only_triac.png" width="400px"><br><br>
+Triacs are similar to transistors (switches) but <code>block alternating current (AC)</code> instead of direct current (DC). By switching the triac on/off, we can thus block the AC current coming from our inverter. This allows us to turn the display on/off computationally. The <code>triac's pins</code> and how you add it to a circuit is similar to a transistor (switch). It has <code>two connectors for VCC and GND</code> and <code>one 'gate' that triggers if current passes through or is blocked</code>. The 'Gate' pin should be connected to a <code>GPIO pin</code> on your ESP32 so you can set it either to <code>HIGH (open gate, display is on)</code> or <code>LOW (close gate, display is off).</code> <br><br>
 
-<b>Isolate ESP GPIO Pin Gate Control from Display Circuit (Optocoupler):</b> As you can see on the left side of the circuit, the gate is actually <code>not directly controlled by the ESP GPIO pin</code>. The reason for this is that the ESP is only rated for up to 12V while the inverter outputs up to 50V. Thus, having both on the same circuit could damage the ESP because the inverter output could flow directly into the micrcontroller. To isolate the ESP from the display while still allowing the ESP to signal to the triac if it should open or close the gate, we will use a component called <code>optocoupler</code>. 
-An optocoupler is in its function similar to a transistor or a triac and often used as a switch in a circuit. Similar to a transistor, it also has two pins (A1,A2) that are connected to the load that should be switched. In our case, this would be the triac that controls the 50VAC and the EL display. An optocoupler also has a third pin, the gate, that triggers the optocoupler to open or close the switch between the main lines A1 and A2. The main difference between a transistor and an optocoupler is how the gate can trigger the optocupler to open and close the main circuit. In contrast to a transistor, the gate is not connect through a physical contact to the rest of the circuit but fully isolated from the it. Instead of using a direct connection, the optocoupler can open and close a circuit through a light signal using a LED and a photodiode. When the gate is powered, the internal LED turns on. The photodiode can capture light energy and turn it into an electric signal again. This signal is then triggering the switch on the main circuit.<br><br>
+<b>Avoiding Damage to the Microcontroller:</b> Let's look a bit closer to what is happening on the left side of the ciruit. As you can see, the <code>'gate' pin of the triac</code> is not directly going to the ESP32. Instead it connects to a component called <code><a href="https://www.autodesk.com/products/eagle/blog/how-an-optocoupler-works/">optocoupler</a></code>. Why do we need the optocoupler? The ESP32 is rated for only up to <code>12V</code>. A higher voltage like the <code>50V AC</code> we use for our display could potentially <code>damage the microcontroller.</code> Therefore, we have to <code>isolate the ESP32 from the 50V AC power supply</code> that drives our display. For this purpose, we have the <code>optocoupler,</code> which uses <code>optical signaling</code> rather than electrical signaling. Inside the optocoupler there is a <code>small LED</code> on the left side and a <code>light sensor (photoresistor)</code> on the right side that allow sending signals from one side to the other. Since <code>communication is solely through light</code>, no current of the 50V AC power supply from the display can jump over to the ESP microcontroller. Thus optocouplers allow to isolate each part of the circuit while still enabling communication between the two. All we need to do is to later send a high signal to the optocoupler to turn its internal LED on whenever we want the display to be on.<br><br>
+    
+<b>Wiring the optocoupler to the ESP:</b> Note that the optocoupler has to be plugged in in a <code>specific orientation</code>. The little <code>dot</code> on its top indicates the <code>top left corner</code> of the component. Let's start wiring up the left side of the optocoupler first. As you can see in the circuit diagram above, we will wire up the <code>top left pin</code> on the optocoupler to a <code>GPIO pin</code> and the <code>middle left pin</code> to <code>GND</code>. If you send a <code>HIGH</code> signal from your GPIO pin, it will close the circuit and <code>turn on the optocouplers internal LED</code>, as you can see in the <code>optocoupler schematic</code> below (where it says 'Anode' and 'Cathode' these are your GPIO and GND pins and the little triangle is the LED).<br><br>
 
-<img src="images/lab6/oc.PNG" width="200px"><img src="images/lab3/optocoupler.png" width="350px"><br><br>
-    
- Since communication is solely through light, no current of the 50V power supply from the display can jump over to the ESP microcontroller. Thus optocouplers allow to isolate each part of the circuit while still enabling communication between the two. All we need to do is to later send a high signal to the optocoupler to turn its internal LED on whenever we want the display to be on, i.e. receiving energy.<br><br>
-    
-<b>Adding the optocoupler to the triac: </b>
-As stated above, you have to connect the optocoupler to the Gate of the triac. We use pin 4 of the main terminal to connect to the triac's gate. This main terminal also has to get some power to have a strong enough signal to open the triac. We will get this power from the main 50V AC circuit by connecting pin 6 of the optocoupler directly to the display. In addition, we have to put a resistor between the 50V AC and the optocoupler to limit the current that can flow through the optocoupler to the gate of the triac. <br><br>
-    
+<b>Add Resistor between ESP and Optocoupler:</b> Similar to regular LEDs, the optocoupler needs a resistor to limit the current that reaches the <code>optocoupler's LED</code> and prevents it from blowing up. We will use a <code>330ohm resistor</code> (see circuit diagram).<br><br> 
+
+<img src="images/lab6/oc.PNG" width="200px"><img src="images/lab3/optocoupler.png" width="350px"> <img src="images/lab6/opto_img.PNG" width="150px"><br>
+
+Same circuit schematic one more time so you don't have to scroll:<br><br>
 <img src="images/lab3/switch_circuit.png" width="650px"><br><br>
 
-<b>Connect Optocoupler to ESP:</b> Use jumper wires to connect the optocoupler to a GPIO pin and GND on the ESP. Note that the optocoupler has to be plugged in in a specific orientation. The little dot on its top indicates the top left corner of the component.<br><br>
-
-<img src="images/lab6/opto_img.PNG" width="150px"><br><br>
-
-<b>Add Resistor to Optocoupler:</b> The optocoupler needs one 330ohm resistor to limit the current that reaches the optocoupler's LED and prevents it from blowing up. Add the resistor to your circuit.<br><br> 
-
-    
-<b>Why don't we use only the optocoupler and get rid of the triac?</b> As noted in the datasheet of the component, optocouplers are only intended to be used as a trigger device and should not drive the entire load of the circuit. Since the main purpose of an optocoupler is to protect a low-voltage device (like a microcontroller), the intention is to keep high voltages and currents far away from the optocoupler, too. An optocoupler can also break and let current through. This break voltage varies from optocoupler to optocoupler but should typically be a lot higher that the voltage of your main circuit.
+<b>Limiting the Current Through the Optocoupler:</b> So let's recap briefly. Once the ESP GPIO pin sends a 'HIGH' signal, the LED on the left side of the optocoupler comes on, which closes the circuit on the right side for the optocoupler. As you can see, the right side of the optocoupler is wired to the EL display and inverter. Thus, if the LED of the optocoupler is off, the EL display and inverter are not connected (and thus the display would not come on), but if the LED of the optocoupler is turned on, the EL display and inverter are connected and the EL display would light up. This all sounds nice, but in practice we cannot do it like this. The reason for this is that the optocoupler should not be exposed to the 50V AC current since it is our isolating component. Therefore, we put a 330 ohm resistors to limit the current that reaches the optocoupler to a very small amount. As a result, when the LED of the optocoupler signals that the circuit should be closed, the right side of the circuit indeed closes and current is running through, but the current is not enough to actually light up the display. Instead, the current is just enough to trigger the 'gate' pin of the triac, which then closes the full 50V AC circuit between the inverter and the display.
 
 <h3 id="displayblinkcode">(7) Write Program to Blink Display</h3>
 
 Now that you wired up our control circuit, you are ready to write the code for it. As an example, we will write a script that lets the display blink. This is very simple with the circuit you already built.<br><br>
 
-<b>Set Optocoupler Pin to HIGH/LOW to Blink:</b> Connect your ESP to your laptop and create a new Arduino program. Check to which pin you connected the optocoupler, declare the pin in your Arduino code and set it to HIGH and LOW alternating whenever one second has passed.<br><br>
+<b>Set Optocoupler GPIO Pin to HIGH/LOW to Blink:</b> Connect your ESP to your laptop and <code>create a new Arduino program</code>. Check to which <code>GPIO pin</code> you connected the optocoupler, declare the pin in your Arduino code and set it to <code>HIGH</code> or <code>LOW</code> alternating whenever one second has passed.<br><br>
 
 <img src="images/lab6/display_animation.gif" width="380px"><br><br>
 
 <h3 id="displaydimcode">(8) Write Program to Dim Display</h3>
 
-Finally, we want to not just turn the display on/off but also set the displays brightness (e.g. dimming it down).<br><br>
+Finally, we want to not just turn the display on/off but also set the <code>display brightness</code>, for instance, to dim the display. For this, we will use a technique called <code>Pulse-Width Modulation (PWM)</code>. We already covered this in 6.08 but since you probably took the class a while ago, we will provide a refresher. The general idea of PWM is that you <code>rapidly turn on/off the display</code>, so fast that the human eye can actually not see that you are switching the display. The longer the display is turned on in proportion to the display turned off, the brighter it will appear to the human eye. Thus, by <code>varying the proportion of display on/off</code>, you can create <code>different brightness levels</code>.<br><br>
 
-<b>Duty Cycle:</b> When you create a PWM signal it means that you turn on and off a signal for a certain duty cycle. The longer the signal is turned on in one duty cycle the brighter the light source will be (see Figure below). Similarly, the longer the signal is turned off in one duty cycle the darker the light source will be. Thus, a duty cycle of 25% means that the PWM signal is HIGH for 25% of the time of one cycle and LOW for the remaining 75% of the time. This results in a darker display (25% of max brightness) than a duty cycle of 75%.<br><br>
+<b>Duty Cycle:</b> When you create a PWM signal it means that you turn on and off a signal within a certain <code>duty cycle</code>. The longer the signal is turned on in the duty cycle the brighter the light source will be (see image below). Similarly, the longer the signal is turned off in the duty cycle the darker the light source will be. The <code>percentage in a duty cycle</code> specifies <code>how long the signal is turned on</code>. For instance, a <code>25% duty cycle</code> means that the <code>PWM signal is HIGH for 25% of the time</code> and <code>LOW for the remaining 75% of the time</code> of the duty cycle. This results in a darker display (25% of max brightness) than a duty cycle of 75%, where the signal would be on for 75% of the time.<br><br>
 
-<b>Frequency:</b> So how is the duty cycle related to the frequency? The duty cycle only tells you the percentage the signal is on/off within a cycle (e.g., 25%). It does not say how long a cycle is. For this, you need to define the frequency. A higher frequency results in a shorter overall cycle (not affecting the percentage the signal is on/off) than a lower frequency as you can see below.<br><br>
+<b>Frequency:</b> The duty cycle only tells you the percentage the signal is on/off within a cycle (e.g., 25%). It does not say <code>how long a cycle is</code>. For this, you need to define the <code>frequency</code>. A higher frequency results in a <code>shorter overall cycle (i.e. faster switching)</code> than a <code>lower frequency (slower switching).</code> If the frequency is very high, the turning on and off of the signal (i.e. the display) happens very fast. If it is fast enough, <code>humans do not notice that the display is turned on and off</code> because of <code>limitations of visual perception</code>. This is great because we can use the on/off mechanism to create different brightness level without the user noticing that we are effectively just turning the display on/off at a very fast rate. The <code>frequency should thus be high enough that switching is not visible to the human eye</code>. Note that changes in the frequency do not affect display brightness, which is defined by the duty cycle. <br><br>
 
 <img src="images/lab6/pwm-explanation2.png" width="350px"> <img src="images/lab6/dutycycle_frquency.png" width="390px"><br><br>
 
-<b>High Frequencies and the Human Eye:</b> If the frequency is very high and thus the duty cycle is compressed into a short time window, the turning on and off of the signal (i.e. the display) happens very fast. If it is fast enough, humans do not notice that the display is turned on and off because of limitations of visual perception, which is great because we can use the on/off mechanism to create different brightness level without the user noticing that we are effectively just turning the display on/off at a very fast rate. The frequency should thus be high enough that the duty cycles are not visible to the human eye.<br><br>
+<b>Why can the frequency not be arbitrarily high?</b> We just said <code>higher frequency, i.e. faster switching on/off, is better</code>. The frequency, however, can not be infinitely high because of the specific setup we chose for our display circuit. We are dealing with two different signals. One signal is coming in the form of the <code>AC signal from our inverter (frequency: 800Hz)</code>. The other signal is coming in the form of the <code>PWM signal from our ESP (our choice of frequency)</code>. Having the inverter frequency given at 800Hz limits our choice for the frequency of the PWM signal from the ESP because of something called <code>zero crossing circuit</code>.<br><br>
 
-<b>Why can the frequency not be arbitrarily high?</b> We just said higher frequency, i.e. faster switching on/off, is better. The frequency, however, can not be infinitely high because of the specific setup we chose for our display circuit. We are dealing with two different signals. One signal is coming in the form of the AC signal from our inverter (frequency: 800Hz).
-The other signal is coming in the form of the PWM signal from our ESP (our choice of frequency). Having the inverter frequency given at 800Hz limits our choice for the frequency of the PWM signal from the ESP because of something called 'zero crossing circuit'.<br><br>
+<img src="images/lab6/inverter-pwm.png" width="350px"> <img src="images/lab6/zero-crossing-circuit-optocoupler.png" width="265px"><br><br>
 
-<img src="images/lab6/inverter-pwm.png" width="350px"><br><br>
+<b>What is a zero-crossing?</b> A zero-crossing is when the <code>AC signal crosses the x-axis</code>. When and how often that occurs <code>depends on the frequency of the signal</code>. When you check out <a href="https://www.mouser.com/datasheet/2/308/MOC3163M-D-1811983.pdf" target="_blank">the <code>optocoupler's datasheet</code>,</a> you will see that it contains a <code>zero-crossing circuit</code>. What this means is that the <code>optocoupler</code> that is connected to both the ESP on the left side and the inverter on the right side, will only switch the display on/off when the <code>ESP PWM signal tells the optocoupler to change the display state</code> AND <code>the inverter AC signal crosses zero</code>. Both conditions have to be met at the same time to make the optocoupler switch between an on and an off state.<br><br>
 
-<b>What is a zero-crossing?</b> A zero-crossing is when the AC signal crosses the x-axis. When and how often that occurs depends on the frequency of the signal. When you check out <a href="https://www.mouser.com/datasheet/2/308/MOC3163M-D-1811983.pdf" target="_blank">the optocoupler's datasheet,</a> you will see that it contains a "zero-crossing circuit". What this means is that the optocoupler will only switch the display on/off when the AC signal of the inverter crosses zero AND the PWM signal tells the optocoupler to change the display state. Both conditions have to be met at the same time to make the optocoupler switch between an on and an off state.<br><br>
 
-<b>PWM Frequency higher than Inverter Frequency:</b> So what happens if your PWM frequency is higher than your inverter frequency? The middle image below shows this: Although the PWM frequency demands that the display be switched off/on, the optocoupler will do nothing since there is no zero-crossing of the inverter in that time frame. Thus, if our PWM signal is faster than the inverter's AC frequency, the optocoupler switch cannot react fast enough. As a result, the optocoupler switch will react at some random point in time later, which disrupts the chosen duty cycle and makes it longer or shorter. Since the duty cycle is not consistent anymore, you will see the display flicker since it goes into random brightness states. <br><br>
 
-<b>PWM Frequency lower than Inverter Frequency:</b> Now let's look at the same scenario when the PWM frequency is lower than the inverter frequency. This will work well as you can see in the right image below. When the PWM frequency demands the display to be switched off/on, there are several zero-crossings where the optocoupler can take action right away. Thus, we have to select a PWM frequency that is significantly lower than the AC power supply frequency. To be significantly below the inverter's AC frequency, we should set the PWM signal to around 100Hz to get a good result in our dimming.<br><br>
+<b>PWM Frequency higher than Inverter Frequency:</b> So what happens if your PWM frequency is higher than your inverter frequency? The middle image below shows this: Although the PWM frequency demands that the display be switched off/on, the optocoupler will do nothing since there is no zero-crossing of the inverter in that time frame. In the example below, the entire duty cycle is skipped. Therefore, if our PWM signal is faster than the inverter's AC frequency, the <code>optocoupler switch cannot react fast enough</code>. As a result, the optocoupler switch will react at some random point in time later, which <code>disrupts the chosen duty cycle</code> and makes it longer or shorter. Since the duty cycle is not consistent anymore, you will see the <code>display flicker</code> since it goes into random brightness states. <br><br>
 
-<img src="images/lab6/zero-crossing-circuit-optocoupler.png" width="165px"><img src="images/lab6/inverter-pwm.png" width="275px"><img src="images/lab6/inverter-pwm-slow.png" width="310px"><br><br>
+<b>PWM Frequency lower than Inverter Frequency:</b> Now let's look at the same scenario when the PWM frequency is lower than the inverter frequency. This will <code>work well</code> as you can see in the right image below. When the PWM frequency demands the display to be switched off/on, there is a zero-crossing where the <code>optocoupler can switch</code> more or less right away. Thus, we have to <code>select a PWM frequency that is significantly lower than the AC inverter frequency</code>. To be significantly below the inverter's AC frequency, we should set the <code>PWM signal to around 100Hz</code> to get a good result in our dimming.<br><br>
 
-<b>Set the PWM frequency:</b> You can set the PWM frequency using the ledcSetup command. <br>
+<img src="images/lab6/inverter-pwm.png" width="375px"><img src="images/lab6/inverter-pwm-slow.png" width="370px"><br><br>
+
+Let's write some code for this.<br><br>
+
+<b>Set the PWM frequency:</b> You can set the <code>PWM frequency</code> using the <code>ledcSetup()</code> function. <br>
   
-<pre>ledcSetup(<span style="color:red">int</span> ledChannel, <span style="color:red">int</span> freq, <span style="color:red">int</span> duty_resolution);</pre>
+<pre>ledcSetup(channel_number, frequency, duty_resolution);</pre>
 
-<i>Channel Number:</i> The ESP has 16 internal channels which can generate independent waveforms (note that these are NOT pin numbers on the ESP, but internal channels inside the ESP). The channel numbers range from 0-15. For our purposes, you can pick any channel you like.<br><br>
+<i>Channel Number:</i> The ESP has <code>16 internal channels</code> which can generate independent waveforms (note that these are <code>NOT</code> pin numbers on the ESP, but internal channels inside the ESP). The <code>channel numbers range from 0-15</code>. For our purposes, you can pick any channel you like.<br><br>
 
-<i>Frequency:</i> As mentioned previously, the frequency should be '100' Hz.<br><br>
+<i>Frequency:</i> As mentioned previously, the frequency should be <code>'100' Hz</code>.<br><br>
 
-<i>Duty resolution:</i> The duty resolution is expressed in bits and determines how many different duty cycles we can choose from, i.e. how many different brightness options we will have when dimming the display. For instance, 3 bits gives us 8 different cycles to choose from (12.5%, 25%, 37.5%,... 100%).For our purposes '8' is a good choice because it gives us many different brightness levels to generate a smooth dimming.<br><br>
+<i>Duty resolution:</i> The duty resolution is expressed in <code>bits</code> and determines <code>how many different duty cycles</code> we can choose from, i.e. <code>how many different brightness options</code> we will have when dimming the display. For instance, 3 bits gives you 8 different cycles to choose from (12.5%, 25%, 37.5%,... 100%). For our purposes '8' bits (256 different values) is a good choice because it gives us many different brightness levels to generate a smooth dimming.<br><br>
 
-<b>Specify the Output Pin of the PWM Signal:</b> Now that you specified the signal with ledcSetup(), you need to specify on which GPIO pin number of the ESP the signal should appear.  <br>
+<b>Specify the Output Pin of the PWM Signal:</b> Now that you specified the signal, you need to specify <code>on which GPIO pin number of the ESP the signal should appear</code>.  <br>
 <pre>ledcAttachPin(GPIO_PIN, channel_number) </pre> 
 
 <i>GPIO Pin:</i> This is the pin that goes from the ESP to the display control circuit.<br><br> 
 
 <i>Channel Number:</i> The PWM channel number is the same as above.<br><br> 
 
-<b>Generate the PWM Signal on the Output Pin:</b> Finally, you need to generate the actual PWM signal, which you had previously defined with the ledcSetup() and ledcAttachPin() functions.<br>
+<b>Generate the PWM Signal on the Output Pin:</b> Finally, you need to <code>generate the actual PWM signal</code>, which you had previously defined with the ledcSetup() and ledcAttachPin() functions.<br>
 <pre>ledcWrite(channel_number, duty_cycle): </pre> 
 
 <i>Channel Number:</i> The PWM channel number is the same as above.<br><br> 
 
-<i>Duty Cycle:</i> The duty <b>cycle</b> is different from the duty <b>resolution</b>. In the duty cycle parameter, you tell the ledcWrite() function, which of the duty cycles from your duty resolution should be used. Since we chose 8 bits, which gives us 255 values ranging from 0.4%, 0.8%, 1.2% .... 100%, then our duty cycle parameter is the index of the duty cycle you want to use. You can input values between 0..255 for a 8-bit resolution..
+<i>Duty Cycle:</i> The duty <code>cycle</code> is different from the duty <code>resolution</code>. With the duty cycle parameter you tell the function <code>which of the duty cycles from your overall duty resolution</code> should be used. Since we chose 8 bits, which gives us 256 values ranging from 0.4%, 0.8%, 1.2% .... 100%, our duty cycle parameter is the <code>index of the duty cycle</code> you want to use. You can choose indices between 0..255 for the 8-bit resolution.<br><br>
 
-<b>Dim the Display Repeatedly:</b> Write a piece of code that puts the ledcWrite(channel_number, duty_cycle) function in loop() to repeatedly increase brightness from 0% to 100% within 2 seconds and then reduces the brightness down again in another 2 seconds. The display should repeat this dimming cycle infinitely.<br><br>
-
+<b>Dim the Display Repeatedly:</b> Write a piece of code that puts the ledcWrite(channel_number, duty_cycle) function in <code>loop()</code> to repeatedly <code>increase brightness from 0% to 100%</code> within <code>2 seconds</code> and then <code>reduces the brightness</code> again in another <code>2 seconds</code>. The display should repeat this dimming cycle infinitely.<br><br>
 
 
 <h3>Deliverables</h3>
@@ -241,7 +230,7 @@ At the end of the lab, upload to your student google drive:
 <ol>
   <li>the Arduino code (.ino) for dimming your display</li>
   <li>2-3 photos (.jpg or .png) from different angles of your circuit</li>
-  <li>a short video (.mov or .mp4, max. 1 minute) showing how you display dims and performs a full cycle from bright to dark and dark to bright again</li>
+  <li>a short video (.mov or .mp4, max. 1 minute) showing how you display dims and performs a full cycle from bright to dark and dark to bright again. Note that when video recording with your phone the display may look like it flickers in the resulting video. The reason for this is that your phone captures frames at a lower framerate than your eyes. Thus while your eyes can't see the duty cycles, your phone can. This is ok and will not impact grading.</li>
 </ol><br>
 
 <hr>

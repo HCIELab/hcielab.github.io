@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>HCI Engineering Group</title>
+	<title>6.810 Lab8 Mug Assembly</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
@@ -58,10 +58,8 @@ In this lab, we will first assemble the mug, i.e. solder on jumper wires to conn
 
 <h3>Steps:</h3>
 <ol>
-  <li><a href="#attacheldisplay">Attach Sprayed EL Display to the Circuit</a></li>
+  <li><a href="#solderjumperwires">Solder Jumper Wires onto Circuit</a></li>
   <li><a href="#attachcircuittomug">Attach Circuit to the Mug</a></li>
-  <li><a href="#solderonjumperwires">Solder on Jumper Wires for Breadboarding</a></li>
-  <li><a href="#tapeoncircuit">Cover Circuit with Tape to Protect from Moisture & Touch</a></li>
   <li><a href="#temperaturecircuit">Build Temperature Sensing Circuit</a></li>
   <li><a href="#determineresistance">Write Code to Determine Resistance of Temperature Sensor</a></li>
   <li><a href="#correlateresistance">Correlate Resistance with Temperature Change</a></li>
@@ -79,12 +77,16 @@ At the end of the lab, upload to your student google drive:
         <li>a short video (.mov or .mp4, max. 1 minute) showing how your display turned off at room temperature and starts blinking after pouring in boiling hot water in it.</li>
     </ol>
     
-    
-    <h3 id="attacheldisplay">(1) Solder Jumper Wires to Mug Sensor</h3>
+    <div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Help us Improve Class Materials for Lab8:</b><br>
+Please let us know if you had any trouble with the assembly, circuit, or code or if anything was confusing in the write up. <br> <a href="https://docs.google.com/document/d/1Od_uKJ9tjEbh5aeFOBSeh32PHJ-vamBdU2ia4YEZk0Y/edit?usp=sharing">You can add your comments here.</a></div>
 
-    Let's get started with soldering jumper wires to the connector pads, which we can then use to connect to a breadboard and our microcontroller. <br><br>
+
+    <h3 id="solderjumperwires">(1) Solder Jumper Wires onto Circuit</h3>
+
+    Let's get started with <code>soldering jumper wires onto the connector pads</code>, which we can then use to connect to a breadboard and our microcontroller. <br><br>
     
-    <b>Solder Jumper Wire onto Copper Tape Strips:</b> Take a soldering iron and apply a drop of solder on one of the copper strips. Next, take a short jumper wire, hold it over the solder drop, and press it down with the solder iron to melt it into the solder until it is well connected. Repeat this for all 4 jumper wires.<br><br>
+    <b>Solder Jumper Wire onto Copper Tape Strips:</b> Take a soldering iron and <code>apply a drop of solder</code> on one of the copper strips. Next, take a <code>short jumper wire</code>, hold it over the solder drop, and press it down with the solder iron to <code>melt it into the solder</code> until it is well connected (see images below). Repeat this for all 4 jumper wires.<br><br>
     
     <img src="images/lab8/jumperonsensor.jpg" width="700x"><br><br>
     
@@ -95,42 +97,34 @@ At the end of the lab, upload to your student google drive:
     -->
 
     <h3 id="attachcircuittomug">(2) Attach Circuit to the Mug</h3>
-
-    Now that your EL display and temperature sensor are assembled together, you are ready to attach the entire circuit to the mug.<br><br>
    
-    <b>Attach Double Sided Tape to Mug:</b> We will use double sided tape to attach the entire circuit to the mug. Cut off a tape strip the length of your circuit design (17cm) and attach it across the surface of the mug. Next, remove the protective foil from the tape to expose the other adhesive side.<br><br>
+    <b>Attach Double Sided Tape to Mug:</b> We will use <code>double sided tape</code> to attach the entire circuit to the mug. Cut off a tape strip the <code>length of your circuit design (17cm)</code> and attach it across the surface of the mug. Next, <code>remove the protective foil</code> from the tape to expose the outside facing adhesive side.<br><br>
 
     <img src="images/lab7/attachingTape.png" width="260x">
     <img src="images/lab7/mugWithTape.jpg" width="235px"><br><br>
 
-    <b>Attach Circuit onto Double Sided Tape:</b> Next, take your printed circuit and glue it onto your mug.<br><br>
+    <b>Attach Circuit onto Double Sided Tape:</b> Next, take your <code>printed circuit</code> and <code>attach it</code> onto the tape on the mug.<br><br>
     
     <img src="images/lab7/circuitToMug.png" width="300x">
     <img src="images/lab7/circuitOnMug.jpg" width="290px"><br><br>
     
-    <h3 id="tapeoncircuit">(3) Cover Circuit with Tape to Protect from Moisture & Touch</h3>
-
-    The last step you need to do is to protect the mug from moisture and touch. This is especially important since we want to fill hot and cold water into it and some water may spill over (try to avoid it). Also, we want to protect the circuit from constant touching, which may happen with a mug.
-    To protect the circuit, we will use clear tape to cover all the electronics.<br><br>
-
-    <b>Apply Transparent Tape Over Circuit:</b> Cut off a 19cm long stripe of our extra wide 3inch transparent tape. Carefully apply the tape onto the entire circuit. If you make a mistake here, do not pull back the tape, it will destroy the silver circuit. You need to just continue rolling the tape over the circuit even if it will not be perfect. Therefore, be extra careful.<br><br>
+    <b>Cover Circuit with Regular Tape:</b> Since the double sided tape is not strong enough to hold the circuit on the mug, we will also add a <code>layer of transparent tape</code> across the entire circuit. Cut off a <code>19cm long stripe</code> of our extra wide 3inch transparent tape. Carefully apply the tape onto the entire circuit.<br><br>
     
-    <span style="color:red">it would be really good to have better images here</span><br>
     <img src="images/lab7/tapeOnDisplay.jpg" width="400px"><br><br> 
 
-    <h3 id="temperaturecircuit">(5) Build Temperature Sensing Circuit</h3>
+    <h3 id="temperaturecircuit">(3) Build Temperature Sensing Circuit</h3>
     
-    To measure the temperature of the liquid in the mug, we need to measure the changes in resistance of the silver trace that makes up our temperature sensor as explained in the last lab. So how can we measure resistance on the microcontroller?<br><br>
+    To <code>measure the temperature</code> of the liquid in the mug, we need to <code>measure the resistance</code> of the silver traces (horse shoe pattern of our temperature sensor) as explained in the last lab. So how can we <code>measure resistance on the microcontroller?</code><br><br>
 
-    <b>Measuring Resistance with a Voltage Divider Circuit:</b> Unfortunately, we cannot directly measure resistance with the microcontroller. The microcontroller can only measure <code>voltage</code> but not resistance. However, there is a way to use changes in voltage to determine resistance. A circuit that allows us to do this is called a <code>voltage divider</code>. <br><br>
+    <b>Measuring Resistance with a Voltage Divider Circuit:</b> Unfortunately, we cannot directly measure resistance with the microcontroller. The microcontroller can only measure <code>voltage</code> but not resistance. However, there is a way to use changes in voltage to determine resistance. A circuit that allows us to do this is called a <code>voltage divider</code>. You had already learned about this in 6.08, but we will provide you with a refresher below.<br><br>
 
-    <b>Voltage Divider Circuit:</b> The schematic of a voltage divider is shown below. It consists of one <code>known resistor (R1)</code> and one <code>unknown resistor (R2)</code> that we want to measure. In our case, the unknown resistor R2 is our temperature sensor. For the known resistor R1, we can simply pick one but it's a good idea to pick something that matches your other resistor R2, i.e. we will use 1kOhm. <code>Vin</code> is the 3.3V supply voltage from the ESP32. <code>Vout</code> is a voltage than will change when the resistance of our temperature sensor (R2) changes.<br><br>
+    <b>Voltage Divider Circuit:</b> The schematic of a voltage divider is shown below. It consists of one <code>known resistor (R1)</code> and one <code>unknown resistor (R2)</code> that we want to measure. In our case, the <code>unknown resistor R2 is our temperature sensor</code>. For the known resistor R1, we can simply pick one but it's a good idea to pick something that matches roughly the other resistor R2. Based on some preliminary experiments, we as the teaching team know that a trace of the length of your temperature sensor has roughly between 500ohm to 1kOhm. Therefore, we will use for the <code>known R1 resistor 1kOhm</code>. <code>Vin</code> is the 3.3V supply voltage from the ESP32. <code>Vout</code> is a voltage that will change when the resistance of our temperature sensor (R2) changes.<br><br>
 
      <img src="images/lab8/voltage_divider2.png" width="400px"><br><br>
 
-    <b>Build the Voltage Divider Circuit:</b> Build the voltage divider on a breadboard and connect your temperature sensor on the mug to this circuit.<br><br>
+    <b>Build the Voltage Divider Circuit:</b> <code>Build the voltage divider on a breadboard</code> and <code>connect your temperature sensor</code> to this circuit as R2.<br><br>
 
-   <h3 id="determineresistance">(6) Write Code to Determine Resistance of Temperature Sensor</h3>
+   <h3 id="determineresistance">(4) Write Code to Determine Resistance of Temperature Sensor</h3>
 
    Now that we have the voltage divider circuit wired up, the question remains how does measuring the voltage <code>Vout</code> help us determine the resistance of the temperature sensor?<br><br>
 
@@ -140,50 +134,52 @@ At the end of the lab, upload to your student google drive:
     
     We know <code>Vin</code> since you connected the 3.3V pin of your microntroller. We also know <code>Vout</code> since this is the voltage measurement from our microcontroller. We also know <code>R1</code>, which is our chosen resistor of 1kOhm. Thus, we have everything to solve the equation for R2 to determine the current resistance of the temperature sensor.<br><br> 
 
+    <b>Adjust Formula to Solve for R2:</b> Take a moment to <code>change the formula so that it solves for R2</code> and not Vout. You may want to use a piece of paper to do the math.<br><br>
+
     <b>Read Voltage Vout from Voltage Divider Circuit:</b> Create a new Arduino program and use 
-     <code>analogRead()</code> to read the voltage value <code>Vout</code> from the voltage divider. analogRead() returns the voltage value between 0V and 3.3V and maps it to an output range of 0 - 4095. What this means is that if you read a value of 2047 (4095/2), your voltage is around 1.65V (3.3V/2). Write the incoming values to the Serial plotter. Remember that you have to add a newline after each value in order to plot it.<br><br> 
+     <code>analogRead()</code> to read the voltage value <code>Vout</code> from the voltage divider. analogRead() returns the <code>voltage value between 0V and 3.3V</code> and maps it to an <code>output range of 0 - 4095</code>. What this means is that if you read a value of 2047 (4095/2), your voltage is around 1.65V (3.3V/2). Write the incoming values to the <code>Serial plotter</code>. Remember that you have to add a newline after each value in order to plot it (i.e. use Serial.println()).<br><br> 
     
     Below, you see typical voltage readings for a temperature sensor. Note that the values of these readings depend on your individual temperature sensor and might be higher or lower on average.<br><br>
 
     <img src="images/lab8/voltage_readings.png" width="600px"><br><br>
 
-    <b>Write Code to Determine Resistance R2 of our Temperature Sensor:</b> Now, it's time to apply the voltage divider formula from above. Use it to compute the resistance of your temperature sensor R2 and plot the values on the Serial Plotter. <br><br>
+    <b>Write Code to Determine Resistance R2 of our Temperature Sensor:</b> Now, it's time to use the <code>voltage divider formula adjusted to solve for R2</code> from above. Use it to compute the resistance R2 of your temperature sensor and <code>plot the R2 values on the Serial Plotter</code>. <br><br>
     
-    <b>Smoothing the Signal with a Box Filter:</b> You'll notice that the resistance values are fluctuating a lot in the image above between 2350 - 2680 although they should be steady. This is due to the limited measurement precision of the microcontroller and environmental electric noise that slightly changes the read in voltage values. To smooth out such noise, you can use a filter. For this lab, we will use a <code>box filter</code>, which when implemented can produce a more clean signal with lower fluctuations. In the next section, we will tell you how to implement the box filter.<br><br>
+    <b>Smoothing the Signal with a Running Average Filter:</b> You'll notice that the resistance values are <code>fluctuating a lot</code>. For instance, in the image above the values of our temperature sensor fluctuate between 2350 - 2680 although they should be steady since the temperature is not changing. This is due to the <code>limited measurement precision of the microcontroller</code> and <code>environmental electric noise</code> that slightly changes the read in voltage values. To smooth out such noise, you can use a <code>filter</code>. For this lab, we will use a <code>running average filter</code>. In the next section, we will tell you how to implement the running average filter.<br><br>
 
-    <b>Write Code for the Box Filter:</b> A <code>box filter</code> works by saving an array of sensor values (the box) of a specific width (e.g., 300 values) and then computing the mean of this box. As new sensing values get read in through analogRead(), the box moves forward by one value, i.e. the oldest element in the array gets replaced by the new value and you need to recompute the mean. Implement a box filter with 300 values that smoothens out the values from analogRead(). Once you have completed the filter, your results should look like the image below. You see that the filter first collects 300 values and the mean is increasing with every new value. When the box is full, we can have a stable resistance value.<br><br>
+    <b>Write Code for the Running Average Filter:</b> A <code>running average filter</code> works by saving an <code>array of sensor values</code> of a specific <code>size (e.g., 300 values)</code> and then <code>computing the mean of all the values</code>. When a new sensing value gets read in through analogRead(), the oldest element in the array gets replaced by the new value and you need to recompute the mean. <code>Implement a running average filter with 300 values</code> that smooths out the values from analogRead(). Once you have completed the filter, your results should look like the image below. You see that the filter first collects 300 values and the mean is increasing with every new value. When the array is full, there is a stable resistance value.
     The resistance in the figure below stabilizes at around 940Ohm. Your sensor might have a different resistance and will stabilize at a different value. The main point is, that is stabilizes.<br><br>
 
     <img src="images/lab7/filtered_large3.png" width="600px"><br><br>
 
-   <h3 id="correlateresistance">(7) Correlate Resistance with Temperature Change</h3>
+   <h3 id="correlateresistance">(5) Correlate Resistance with Temperature Change</h3>
 
-   Now we can determine the resistance of our temperature sensor, but how much does the resistance increase with changes in temperature? For this, you will run an experiment.<br><br>
+   Now we can determine the resistance of our temperature sensor. But <code>how much does the resistance increase with changes in temperature?</code> For this, you will run an experiment.<br><br>
 
-   <b>Determine Resistance at Room Temperature:</b> First, note down the mean resistance at room temperature.<br><br>
+   <b>Determine Resistance at Room Temperature:</b> First, note down the <code>mean resistance at room temperature.</code><br><br>
 
-   <b>Determine Resistance at around 80&#8451;:</b> Next, use a water kettle and boil water to 100&#8451;C. Pour it into the mug while you continue to plot the resistance values with the serial plotter. You should notice that the values start increasing while the mug is heating up. Once you reached a stable value, write it down. The increase in resistance over room temperature should be around <span style="color:red">4%.</span><br><br>
+   <b>Determine Resistance at around 80C:</b> Next, use a water kettle and <code>boil water to 100C</code>. Pour it into the mug while you continue to plot the resistance values with the Serial Plotter (note that when you pour the water into the mug, it's temperature will be closer to 80C). You should notice that the values start increasing while the mug is heating up. Once you reached a <code>stable value, write it down</code>. The increase in resistance over room temperature should be around 4%.<br><br>
     
    <img src="images/lab8/resistance_increase.png" width="500px"><br><br>
 
-   <b>Determine Temperature Threshold and to Code:</b> The goal of this lab is to let your display blink when the mug gets hot. Thus, the first step is to determine a temperature/resistance threshold that will be hit when you pour in hot water. Select a value that is a bit lower than the maximum resistance value that you measured in the previous step. This is necessary because there is still some noise that we have to deal with but we still want to make sure that the threshold will be hit every time.<br><br>
+   <b>Determine Temperature Threshold for Hot Liquids:</b> The goal of this lab is to let your <code>display blink when the mug gets very hot</code>. Thus, the first step is to determine a <code>resistance threshold</code> that will be hit when you <code>pour in hot water</code>. Select a value that is a bit <code>lower than the maximum resistance value</code> that you measured in the previous step. This is necessary because there is still some noise and we want to make sure that the threshold will be hit every time.<br><br>
     
    <img src="images/lab8/resistance_increase_threshold.png" width="500px"><br><br>
     
-    To finish this step, write some code that sends a Serial message (e.g., "HOT") when the threshold is hit. Pour in some water into your mug and test if the threshold gets reached. If your temperature sensor can detect the hot water, you can go on to the next step.
+    <b>Write Code that Determines Hot/Not Hot:</b> Based on your selected threshold value, <code>write code</code> that sends a <code>Serial message (e.g., "HOT")</code> when the threshold is hit. Pour in some water into your mug and test if the threshold gets reached. If your temperature sensor can detect the hot water, you can continue with the next step.
 
-    <h3 id="addeldisplaycircuit">(8) Add EL Display Control Circuit to Mug</h3>
+    <h3 id="addeldisplaycircuit">(6) Add EL Display Control Circuit to Mug</h3>
     
-    Next, we want to connect our temperature readings to the display so that we can blink it when the hot water is in the mug.<br><br>
+    Next, we want to <code>connect our temperature readings to the display</code> so that we can blink it when the hot water is in the mug. Let's first connect the display circuit to the mug.<br><br>
 
-    <b>Connect Display Circuit to Mug:</b> You already have the display circuit from the previous lab.
-    All that's left to do is to connect this circuit to the corresponding wires on the mug that lead to the display. Test the display once again to make sure that everything is still working fine by letting it blink with the same code that you used in the previous lab.<br><br>
+    <b>Connect Display Circuit to Mug:</b> You already have the <code>display circuit</code> from the previous lab.
+    All that's left to do is to <code>connect the display circuit to the corresponding wires on the mug that lead to the display</code>. Test the display once again to make sure that everything is still working fine by <code>letting it blink</code> with the same code that you used in the previous lab.<br><br>
     
-    <h3 id="blinkdisplaywhenhot">(9) Blink Display When High Temperature is Measured</h3>
+    <h3 id="blinkdisplaywhenhot">(7) Blink Display When High Temperature is Measured</h3>
 
-    In this final step, you will use your temperature readings to trigger the display. The display should start blinking at temperatures above >70C to help users avoid getting burned and otherwise should be turned off.<br><br>
+    In this final step, you will use your <code>temperature readings to trigger the display</code>. The display should start <code>blinking at temperatures above >70C</code> to help users avoid getting burned and otherwise should be turned off.<br><br>
 
-    <b>Integrate Display Code with Temperature Sensing Code:</b> You already wrote code for turning the display on/off (with integrated fading) in one of the last labs. Integrate the code with your temperature sensing code. Now do a final test by pouring in hot water into your mug and see if the display starts blinking.<br><br>
+    <b>Integrate Display Code with Temperature Sensing Code:</b> You already wrote code for turning the display on/off (with integrated fading) in one of the last labs. <code>Integrate the display code with your temperature sensing code.</code> Now do a final test by pouring in hot water into your mug and see if the display starts blinking.<br><br>
     
     Your final design should look like this:<br><br>
 

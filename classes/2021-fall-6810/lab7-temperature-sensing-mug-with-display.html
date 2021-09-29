@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>HCI Engineering Group</title>
+	<title>6.810 Lab7 Temperature Sensor</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
@@ -55,22 +55,24 @@
         <h2 class="headline">Lab 7: Inkjet Printed Temperature Sensor</h2>
 
 In this lab, we will first create the digital design of an ink-jet printed temperature sensor to sense the heat of the mug when a hot drink is poured in. We will then create the overall circuit design for the mug, which contains the temperature sensor and connector pads for the EL display. Finally, we will print out the circuit design on the inkjet printer. In the next lab, we will then assemble everything into the final mug and write the temperature sensing code.<br><br>   
-
-<span style="color:red">don't forget to bring your EL display</span> <br><br>       
           
+ <div style="color:red; border: red 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Don't forget to bring your EL display:</b><br> Please don't forget to bring your EL display for this and the next labs in this series.</div>
+
+
  <img src="images/lab6/mugCircuit.PNG" width="550px"><img src="images/labseries-mug/circuitOnMug.jpg" width="194px" /><br>
 
 
 <h3>Steps:</h3>
 <ol>
   <li><a href="#temperaturesensing">Understand Temperature Sensing</a></li>
-  <li><a href="#sensorshape">Determine the Shape of a Temperature Sensor</a></li>
+  <li><a href="#sensorshape">Understand the Shape of a Temperature Sensor</a></li>
   <li><a href="processingscript">Generate Temperature Sensor Using Processing Script</a></li>
   <li><a href="#overallcircuit"> Integrate Temperature Sensor and EL Display Circuit</a></li>
   <li><a href="#inkjetprintcircuit">Inkjet Print Circuit</a></li>
-  <li><a href="#copperpad">Connect Your Display to the Printed Circuit</a></li>
+  <li><a href="#copperpad">Attach Copper Tape to the Connector Pads</a></li>
   <li><a href="#displaycircuit">Attach Display to Printed Circuit</a></li>
-  <li><a href="#laminate">Laminate your mug interface</a></li>
+  <li><a href="#laminate">Laminate Printed Circuit</a></li>
 </ol>
 
 <h3>Deliverables</h3>
@@ -82,208 +84,152 @@ At the end of the lab, upload to your student google drive:
         <li>1 photo (.jpg or .png) of your inkjet printed temperature sensor</li>
     </ol>
     
+<div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Help us Improve Class Materials for Lab7:</b><br>
+Please let us know if you had any trouble with the circuit drawing or if anything was confusing in the write up. <br> <a href="https://docs.google.com/document/d/1YKoNUb9T85Acbfh-jT0SfCVRACLxwdKZQCVremZpgJs/edit?usp=sharing">You can add your comments here.</a></div>
+
     
      <h3 id="temperaturesensing">(1) Understand Temperature Sensing</h3>
 
-     You will make your own temperature sensor from scratch using conductive inkjet printing. But why can conductive traces be used to sense temperature?<br><br>
+     You will make your own <code>temperature sensor</code> from scratch using <code>conductive inkjet printing</code>. But why can conductive traces be used to sense temperature?<br><br>
 
-     <b>Resistance Changes with Temperature:</b> Conductive wires can be used to sense temperature by making use of a material property that most conductive materials share: Their resistance changes with changes in temperature. For all pure metals, increasing their temperature leads to an increase of their electrical resistance. This phenomenon is a quantum-physical effect and can be (simplified) understood by picturing how electrons move in a conductor. Electrons move in a conductive material from one pol to the other. This conductor, however, is filled with atoms and molecules that bounce around all the time and electrons collide with them and may be deflected or scattered around in the material. Depending on their temperature these molecules bounce around more and scatter electrons stronger with a higher temperature. This leads to a higher resistance.<br><br>
-     Below, you see the resistivity change of silver, copper, and gold under different temperatures. Note, that these functions are not linear overall, but can be approximated with a linear function for small temperature changes within 100C with only a small error.<br><br>
+     <b>Resistance Changes with Temperature:</b> Conductive traces can be used to sense temperature because their <code>resistance changes</code> with <code>changes in temperature</code>, a property other metals share as well. This phenomenon can be understood by picturing <code>how electrons move in a conductive material from one pol to the other</code>. The conductive material is filled with atoms and molecules that bounce around. Electrons trying to move through the conductive material may <code>collide with the atoms and molecules</code>, and as a result, the electrons may be deflected or scattered around in the material. With <code>higher temperatures</code>, the atoms and molecules <code>bounce around more and scatter electrons stronger</code>, which leads to a higher resistance.<br><br>
+
+     Below, you see the <code>resistivity change</code> of silver, copper, and gold under different temperatures. Note, that these functions are not linear overall, but can be approximated with a <code>linear function</code> for temperature changes between <code>0C - 100C</code> with only a small error.<br><br>
     
      <img src="images/lab7/Resistivity_Cu-Ag-Au.png" width="400px"><br><br>
         
-     <b>Formula for Computing Overall Resistance at a Certain Temperature:</b> For small temperature changes, the resistance of a metal conductor varies linearily with temperature. We can describe the resistance at a certain temperature  with the following equation:<br><br>
+     <b>Formula for Computing Overall Resistance at a Certain Temperature:</b> As mentioned above, for temperature changes between 0C - 100C, the resistance of our conductive traces varies linearly with temperature. We can describe the <code>resistance at a certain temperature</code> with the following equation:<br>
      \[ R_{temp} = R_{Ref}(1+\alpha (T - T_{Ref})) \]
-     <br><br>
-     R_{temp} is the resistance at the current temperature T<br>
-     R_{Ref} is the resistance at a given reference temperature T_{Ref} (e.g., 20C)<br>
-     alpha is the temperature coefficient of the conductive material<br><br>
+
+     <i>R_{temp}:</i> is the resistance at the current temperature T<br>
+    <i>R_{Ref}:</i> is the resistance at a given reference temperature T_{Ref}<br>
+     <i>alpha:</i> is the temperature coefficient of the conductive material in our case the <code>silver ink</code><br><br>
     
-     This means, if we have a resistor and measure its resistance at room temperature (T_Ref) and at a much higher temperature (T = 80C, hot water), we can compute the temperature coefficient of this resistor. In this lab series, we will ink-jet print a silver trace on paper that we wrap around a coffee mug. This trace will have a certain resistance and we can determine its temperature coefficient by measuring it at room temperature and after we pour boiling water in the mug, increasing its temperature, and measure the resistance again. <br><br>
+    <b>Determining alpha:</b> While the <code>temperature coefficient alpha</code> is known for metals, such as pure silver, our silver ink is a special mixture of silver for inkjet printing that has a different temperature coefficient. Since we cannot measure <code>alpha</code> directly, we will instead measure the resistance of our conductive traces at two temperatures (e.g., the conductive traces at room temperature of 20C, and when boiling water is poured into the mug at 100C) and measure the resulting resistances. We can then fill out the formula and calculate the <code>temperature coefficient alpha</code> of our silver ink  traces. Before we can take those measurements, we first have to create our temperature sensor. Let's start with this.  <br><br>
+
     
-     In the next part of this lab, we will first generate a the silver trace that will serve us as the temperature sensor.
-
-     <!--
-     <b>Formula for Computing Overall Resistance based on Thermal Resistivity:</b> The formula for determining the overall resistance of a wire based on thermal resistivity, length of a wire, and thickness of a wire (cross section) is shown in the picture below. As you can see, given a wire with a fixed length l and a fixed cross section A, the higher the thermal resistivity (i.e. the resistance introduced by changes in heat) the higher the overall resistance. (Note that we use wire thickness instead of cross section, we discard height since all wires have the same height)<br><br> 
-
-     <b>Thermal Resistivity for Silver Used in Conductive Inkjet Printing:</b> For silver, the thermal resistivity p increases with increases in temperature. Thus, the higher the temperature, the higher the thermal resistivity and the higher the overall resistance of our wire. Thus, by reading the overall resistance of the wire with our microcontroller, we can determine the mug's temperature.<br><br> 
-
-    <img src="images/lab6/resistance.png" width="400px"><br><br>
-
-    <h3 id="overallresistance">(2) Choose Overall Resistance (R) for Temperature Sensor</h3>
-
-    As you can see in the formula above, the only part that is given is the thermal resistivity (p) for our material silver, which is determined by nature. However, we can freely choose the overall resistance (R), the wire length (l) and the thickness of the wire (A). Let's first determine what overall resistance (R) would be good to use.<br><br> 
-
-    <b>Effect of Overall Resistance (R) on Temperature Sensor Resolution:</b> The higher the overall resistance of the conductive wire, the more sensitive it will be to temperature changes. Consider the following example: If your wire has a small resistance (50Ohm) and the resistance changes a little bit (5%), the change will be very small (5% of 50Ohm = 2.5Ohm). This is difficult to measure since there is always noise in electronics. In contrast, if your wire has a large resistance (1kOhm), the change will be larger (5% of 1,000 Ohm = 50Ohm), which is easier to measure. Thus, a wire with a larger resistance allows you to measure smaller changes in temperature, and thus results in a temperature sensor with a higher sensing resolution. For our temperature sensor, we will use <code>R = 1kOhm</code> at room temperature since that gives us a pretty high sensitivity, but you could also go higher. <span style="color:red">Could we say something here about what ohm differences are realistic to measure? what does 'pretty high sensitvity' mean? 10 values? 100 values? 0.1C or 0.01C measurements?</span><br><br>
-
-    <span style="color:red">perhaps we can add a small todo for students here? i.e. you want to measure XX temperature resolution, what overall resistance should you use?</span><br><br>
-
-    <h3 id="wirethickness">(3) Determine Minimum Wire Thickness (A) for Temperature Sensor</h3>
-
-    Now that we know that our desired overall resistance R is 1kOhm, what values should we use for wire length (l) and the wire thickness (A). As you can see in the formula, the longer the wire (l) and the thinner (A) the wire, the higher the resistance will be. Since longer wires take up more space on our prototype, which we don't want, we should first try to minimize the thickness to increase the resistance.<br><br>
-
-    <b>Thickness of the Wire (A):</b> We ran a few experiments and found that the thinnest trace we can print is <span style="color:red">0.3mm wide</span>. Any thinner than this and the silver does not connect reliably anymore to form a trace. Thus, we will use <code>A = 0.3mm</code> for our temperature sensor.<br><br> 
-
-    <h3 id="thermalresistivity">(4) Determine Thermal Resistivity (p) for Inkjet Printed Silver</h3>
-
-    Next, we need to determine the thermal resistivity (p). Since we want to solve the formula for <code>R = 1kOhm</code> at room temperature, we will determine p at <span style="color:red">23&#8451; (what temperature did you use?).</span>. <span style="color:red">why is it enough to only do this for one p? we will never determine the other p right? they will be implicitly measured in the overall resistance R?</span><br><br> 
-
-    <b>Experimentally Determining Thermal Resistivity (p):</b> To determine (p), we printed a wire of thickness <code>A = 0.3mm</code> and wire length <code>l = 1cm</code>. We measured the overall resistance <code>R</code> at room temperature <span style="color:red">23&#8451;</span> using a multimeter and found the overall resistance <code>R = 7.5 Ohm/cm</code>. <span style="color:red">So how does this tell us the thermal resistivity (p)? Since the wire thickness (A) is constant, you can remove it from the formula. This leaves us with R = p * l.</span> Since we used l = 1cm, we can conclude that R = p. Thus, <code>p = 7.5 Ohm/cm</code> at room temperature <span style="color:red">23&#8451;</span>. <br><br> 
-
-     Note that this can also vary depending on the substrate, the 2D printer, and the silver ink mixture, so if you change any of these you would have to remeasure the resistance.<br><br> 
--->
+    <h3 id="sensorshape">(2) Understand the Shape of a Temperature Sensor</h3>
     
-    <h3 id="sensorshape">(2) Determine the Shape of a Temperature Sensor</h3>
-    The temperature sensor that we wrap around the coffee mug should ideally give us an temperature average over a larger area of the mug to make sure that we read reliable values even when the mug is only half full or a user touches one part of the mug with their above-room-temperature warm fingers. Thus, your temperature sensor should cover a sufficient surface area around the mug. <br><br>
-    Your task is to cover a 70mmx20mm large area on the mug with silver traces. The next question that arises is how to best shape a wire to cover the maximal area on your mug?<br><br>
+    Above we discussed how conductive traces can be used to sense temperature by measuring their resistance.  The next question that arises is <code>what area</code> should the trace cover and <code>what shape</code> should it have? <br><br>
+
+    <b>Area of the Temperature Sensor:</b> The temperature sensor that we wrap around the coffee mug should <code>measure temperature over a large area</code> of the mug to make sure that we get a good reading even when the mug is only half full. This also helps us to reduce the effect that a user's warm fingers have on an empty mug since those would only locally heat up the mug but do not generate enough heat over a larger area to change the temperature reading significantly. We will cover a <code>70mm x 20mm</code> large area on the mug with silver traces (see image below, no need to draw something yet, we will do this in the next section).<br><br>
     
-    <b>Horse Shoe Pattern:</b> A classic method to create a long wire on a small area is to design it in a horse shoe pattern, which looks like this:<br><br>
+    <b>Shape of the Temperature Sensor (Horse Shoe Pattern):</b> A classic method to create a long wire on a small area is to design it in a <code>horse shoe pattern</code>, which looks like the image below.<br><br>
     
     <img src="images/lab7/hsp2.png" width="700px"><br><br> 
     
     In the next step, you will write a program to automatically generate a temperature sensor for a given size.
-<!--
-    <h3 id="wirelength">(5) Determine Wire Length (l) to Achieve 1kOhm Resistance</h3>
 
-    Finally, we can determine the wire length (l) based on all the other values.<br><br>
-
-    <b>Wire length (l) for 1kOhm:</b> Using the formula below, how long does your wire have to be to achieve a 1kOhm resistance? You will need to know your wire length when you design the inkjet printed wire in the next step.<br><br> 
-    
-    <pre>Overall Resistance (R) = wire length (l) * thermal resisvity (p(20C)) = l * 7.5 Ohm/cm</pre><br>
--->
     <h3 id="processingscript">(3) Generate Temperature Sensor Using Processing Script</h3>
     
-    Since drawing a horse shoe pattern manually is quite the pain, let's leverage our computational design capabilities in Processing.<br><br>   
-    
-    <b>Write Processing Script to Generate Line Layout:</b> Write a Processing Script that generates a temperature sensor layout of variable width and height. Reuse your code from pset1 to write this script. <br><br>
-    
-    <b>Declare variables for 4 required parameters to your Processing script:</b> There are 4 parameters necessary to generate this horse shoe pattern: Sensor width, Sensor height, Trace thickness, and distance between traces. Your Script should be able to generate a sensor layout for different values of these 4 parameters.<br><br>  
+    Since drawing a horse shoe pattern manually is quite the pain, let's leverage our <code>computational design capabilities in Processing</code>. Write a Processing Script that <code>generates a temperature sensor layout</code> of <code>variable width and height</code>. You may want to reuse some code from pset1 for this script.<br><br>   
+        
+    <b>Create User Input Fields:</b> There are 4 parameters necessary to generate this horse shoe pattern: <code>sensor width,</code> <code>sensor height</code>, <code>trace thickness</code>, and <code>distance between traces</code>. Your user interface should allow the user to change these values using UI elements and then generate a matching sensor layout.<br><br>  
 
-     <b>Generate Horse Shoe Pattern:</b> Generate a set of horizontal lines of the given thickness and connect them with vertical lines on alternating sides. Make sure that the traces start and end on the same side.<br><br>
-    
-    <b>Default values: </b>The default values in your program to generate your temperature sensor should be:
+    <b>Default values for UI: </b>The default values in your program to generate your temperature sensor should be:
     <ol>
-        <li>Wire thickness = 0.3mm</li>
-        <li>Spacing between silvertraces = 0.5mm</li>
-        <li>Width of temperature sensor = 70mm</li>
-        <li>Width of temperature sensor = 20mm</li>
+        <li><code>Width of temperature sensor</code> = 70mm</li>
+        <li><code>Height of temperature sensor</code> = 20mm</li>
+        <li><code>Wire thickness</code> = 0.3mm</li>
+        <li><code>Vertical Spacing between silver traces</code> = 0.5mm</li>
     </ol>
 
-     <i>Export Temperature Sensor as PDF:</i> Output a .pdf that contains the temperature sensor ready for inkjet printing. The pdf should be letter sized.<br><br>
+     <b>Generate Horse Shoe Pattern:</b> Given the UI parameters, generate a set of <code>horizontal lines</code> of the given thickness and connect them with <code>vertical lines</code> on alternating sides. Make sure that the <code>traces start and end on the same side</code>.<br><br>
 
-     <b>Check Temperature Sensor in Illustrator:</b> Open your temperature sensor pdf in Adobe Illustrator and measure to confirm that:
+     <b>Export Temperature Sensor as PDF:</b> Output a <code>.pdf</code> that contains the temperature sensor ready for inkjet printing.<br><br>
 
-    <ol>
-        <li>Wire thickness = 0.3mm</li>
-        <li>Spacing between silvertraces = 0.5mm</li>
-        <li>Width of temperature sensor = 70mm</li>
-        <li>Width of temperature sensor = 20mm</li>
-    </ol>
+     <b>Check Temperature Sensor in Illustrator:</b> Open your temperature sensor pdf in <code>Adobe Illustrator</code> and <code>measure to confirm</code> that the default values are set correctly, i.e. width of temperature sensor = 70mm, height of temperature sensor = 20mm, wire thickness = 0.3mm, and vertical spacing between silver traces = 0.5mm. 
   
     <h3 id="overallcircuit">(4) Integrate Temperature Sensor and EL Display Circuit</h3>
 
-    Now that you have the temperature sensor, it's time to extend the circuit to also include the EL display, whose brightness we want to control based on temperature changes. Below, you see an image of the mug for reference and the overall circuit layout that fits onto the mug, which has all the elements you need for the circuit. <br><br>
+    Now that you have the temperature sensor, it's time to extend the circuit to also include the <code>EL display,</code> whose <code>brightness we want to control based on temperature changes</code>.<br><br> 
 
-    <br>
+    <b>Download Overall Circuit File:</b> Below, you see an image of the mug for reference and the <code>overall circuit layout</code> that fits onto the mug, which has all the elements you need for the circuit. <a href="images/lab7/Mug_Template.pdf"><code>Download the overall circuit file</code> from here.</a> It contains a rectangle that shows you how much space you have on the mug (width: 170mm, height: 50mm).<br><br> 
+
     <img src="images/lab7/mug-circuits-schematic.png" width="750px"><br><br>
 
-    <b>Download Overall Circuit File:</b> <a href="images/lab7/Mug_Template.pdf">Download the overall circuit file from here.</a> It contains a rectangle that shows you how much space you have on the mug (width: 170mm, height: 50mm).<br><br> 
+    <b>Add Temperature Sensor to Circuit:</b> Open your <code>temperature sensor .pdf</code> in Adobe Illustrator. <code>Copy the temperature sensor</code> into your overall circuit file. The imported temperature sensor should be <code>placed near the mug's handle</code> as shown above.<br><br>
 
-    <b>Add Temperature Sensor to Circuit:</b> Open your temperature sensor pdf in Adobe Illustrator. Copy the temperature sensor into your overall circuit file. The imported temperature sensor should be placed near the mug's handle as shown above.<br><br>
+    <b>Add two Connector Pads to Temperature Sensor:</b> Draw <code>two connector pads</code> (each size: <code>30mm x 5mm)</code> and connect them with <code>two wires</code> (thickness: <code>1mm)</code> to the temperature sensor start and end of the horse shoe pattern. We will later connect our microcontroller to those connector pads.<br><br>
 
-    <b>Add two Connector Pads to Temperature Sensor:</b> Draw two connector pads (each size: 30mm x 5cm) and connect them with two wires (thickness: 1mm) to the temperature sensor start and end of the horse shoe pattern. We will later connect our microcontroller to those connector pads.<br><br>
+    <b>Draw a placeholder for your EL display:</b> <code>Measure the size of your EL display</code> and <code>draw a placeholder rectangle</code> in your overall circuit design as shown in the image above. There should be <code>at least a 10mm gap</code> between the temperature sensor and the edge of your EL display to ensure they do not touch each other.<br><br> 
 
-    <b>Draw a placeholder for your EL display:</b> Measure the size of your EL display and draw a placeholder rectangle in your overall circuit design. The sprayed EL display should be placed on the opposite side of the handle as shown in the image above. There should be a 10mm gap between the temperature sensor and the edge of your EL display to ensure they do not touch each other.<br><br> 
+    <b>Draw a placeholder for copper flaps:</b> Also draw <code>two placeholders for the copper connectors on your EL display</code>. One connector is the <code>copper flap</code> that we attached to the copper sprayed area, the other connector is the <code>copper tape</code> at the bottom of the display. Draw their position accurately into your circuit drawing. <br><br> 
 
-    <b>Draw a placeholder for copper flaps:</b> Also draw two placeholders for the copper connectors on your EL display. One connector is the copper flap that we attached to the copper sprayed area, the other connector is the copper tape at the bottom of the display. Draw their position accurately into your circuit drawing.<br><br> 
+    <b>Draw two Connector Pads to EL Display:</b> Next, draw an additional two connector pads (each size: <code>30mm x 5mm</code>) and connect them with <code>two wires</code> (thickness: <code>2mm</code>) to the EL display copper flap and copper stripe. There should be at <code>least a distance of 3cm</code> between the wires at the location where they connect to the EL display to avoid short circuits. The <code>position of the wires is essential</code>, if they are placed too high or too low they will not make a connection to your EL display since they will not touch the copper flap and copper tape.<br><br>
 
-    <b>Draw two Connector Pads to EL Display:</b> Next, draw an additional two connector pads (each size: 30mm x 5mm) and connect them with two wires (thickness: 2mm) to the EL display copper flap/stripe. There should be at least a distance of 3cm between the wires at the location where they connect to the EL display to avoid short circuits. The position of the wire is essential, if it is placed too high or too low it will not make a connection to your EL display.<br><br>
-
-    Once you are done, double check one more time:
+    <b>Check your Drawing Before Printing:</b>  Once you are done, double check one more time:
     <ol>
-        <li>The spacing between your display-connected traces matches the distance between the two pieces of copper on YOUR display.</li>
-        <li>The height of your circuit (i.e., the bounding rectangle) is within the maximum heihgt and width (170mm x 50mm)</li>
-        <li>The temperature sensor does not overlap with the display, there is a gap of at least 1cm between them.</li>
-        <li>The temperature sensor is 70mm x 20mm </li>
-        <li>The trace width to your display is 2mm </li>
-        <li>The connector pads are 30mm x 5mm </li>
-</ol><br>
-
+        <li><code>Wires to Display:</code> The spacing between your display wires matches the distance between the copper flap and copper tape on <code>YOUR display.</code></li>
+        <li><code>Height of your circuit:</code> The bounding rectangle of your entire circuit is within the maximum heihgt and width of 170mm x 50mm.</li>
+        <li><code>No Overlap of Temperature Sensor and Display:</code> The temperature sensor does not overlap with the display, there is a gap of at least 1cm between them.</li>
+        <li><code>Trace Width Display:</code> The trace width to your display is 2mm.</li>
+        <li><code>Size of Connector Pads:</code> The connector pads are 30mm x 5mm.</li>
+</ol>
 
     <h3 id="inkjetprintcircuit">(5) Inkjet Print Circuit</h3>
 
-    Once you are done with your circuit design, please put it in <span style="color:red">your google drive</span> and <span style="color:red">let us know on slack</span> that you are ready for inkjet printing.<br><br>
+    Once you are done with your circuit design, please put it in your <code>google drive</code> and <code>let us know on slack</code> that you are ready for inkjet printing.<br><br>
 
-    <b>Inkjet Print Circuit:</b> Once we confirmed that everything looks good, go ahead and inkjet print your circuit on white inkjet paper sheets.<br><br>
+    <b>Inkjet Print Circuit:</b> Once we confirmed that everything looks good, go ahead and <code>inkjet print your circuit</code> on white inkjet paper sheets.<br><br>
 
-    <b>Check Resistance of your Temperature Sensor:</b> Once your print is done, check if the temperature sensor is printed properly. Use a multimeter and hold its two electrodes on the two corresponding connector pads, you should read a value of around a few 100 Ohms to 1 kOhm.<br><br>
-    
-    The next steps of this lab will be to attach your display to the printed circuit, add some copper tape to the connector pads and laminate everything so it is safe and protected until you continue assembling your mug next week.
-    
-    The final circuit should lok like this:<br><br>
-    <img src="images/lab7/laminated_circuit.jpg" width="500px"><br><br>
-    
+    <b>Check Resistance of your Temperature Sensor:</b> Once your print is done, check if the temperature sensor is printed properly. Use a <code>multimeter</code> and hold its two electrodes on the two corresponding connector pads, you should read a value of around a <code>few 100 Ohms to 1 kOhm</code>.<br><br>
     
     <h3 id="copperpad">(6) Attach Copper Tape to the Connector Pads </h3>
-    In the next lab, you will solder jumper wires to the connector pads of your printed circuit. However, soldering directly on paper is not a good idea. The paper will burn and destroy the printed silver at the same time.<br><br>
-    Thus, we will glue a piece of copper tape over the connector pads. This allows us to solder wires to our printed circuit.<br><br>
-    <b>Cut 4 copper tape pieces:</b> The copper tape should fit to the size of the printed connector pads, which are 30mm long. Cut 4 pieces that are 30mm long.<br><br>
+
+    In one of the later steps, we will <code>solder jumper wires</code> to the <code>connector pads</code> of your printed circuit. However, soldering directly on paper is not a good idea. The <code>paper will burn</code> and destroy the printed silver at the same time. To address this issue, we will glue a piece of <code>copper tape</code> over the connector pads. This allows us to solder wires to our printed circuit.<br><br>
+
+    <b>Cut 4 copper tape pieces:</b> The copper tape should <code>fit the size of the printed connector pads</code>, which are <code>30mm long</code>. Cut 4 pieces that are 30mm long.<br><br>
     
-    <span style="color: red"><b>Important: Get yourself a pair of glooves before you start working on the printed circuit. The silver traces might not be fully dry yet and you could rub off some silver when applying the copper tape on the connector pads</b></span><br><br>
+    <span style="color: red"><b>Important: Get yourself a pair of glooves before you start working on the printed circuit. The silver traces might not be fully dry yet and you could rub off some silver when applying the copper tape on the connector pads.</b></span><br><br>
     
-    <b>Glue copper tape on connector pads:</b> You can see how your circuit should look like after glue the copper tpe on the pads below:<br><br>
+    <b>Glue copper tape on connector pads:</b> Check the image below for how your circuit should look like after you <code>applied the copper tape to the connector pads</code>.<br><br>
     <img src="images/lab7/glue_copper_pad.jpg" height="250px">
     <img src="images/lab7/copper_pads.jpg" height="250px"><br><br>
-    
 
     <h3 id="displaycircuit">(7) Attach Display to Printed Circuit </h3>
-    Now, it's time to attach your sprayed display to the printed circuit.<br><br>
+    Now, it's time to <code>attach your sprayed display</code> to the printed circuit.<br><br>
     
-    <b>Attach Copper Tape to Circuit for EL Display Connections:</b> Take a roll of copper tape and cut of two 6cm long pieces. Glue one half of each copper stripe on the two wires that lead to your display and bend the other half around such that the adhesive side faces upwards. Make sure that the two copper stripes don't connect to each other and have a save distance of at least 1cm.<br><br>
+    <b>Attach Copper Tape to Circuit for EL Display Connections:</b> Take a roll of <code>copper tape</code> and <code>cut of two 6cm long pieces</code>. Take one of the copper strips and <code>attach half</code> of it onto one of the wires that leads to the display, <code>bend it over</code> so that the <code>adhesive side faces upwards</code> (see images below). Repeat this with the other copper strip on the second wire. Make sure that the two copper stripes don't connect to each other and have a <code>save distance of at least 1cm</code>.<br><br>
     
     <img src="images/lab7/copperOpen.png" width="370px">
     <img src="images/lab7/copperClosed.jpg" width="310px"><br><br>
 
-    <b>Attach your Display to Copper Tape:</b> Next, stick your display onto the sticky area of the bend-over copper stripes. Make sure that one copper strip connects only to the ITO and the other copper strip only connects to the sprayed copper layer.<br><br>
+    <b>Attach your Display to Copper Tape:</b> Next, <code>attach your display</code> onto the adhesive side of the bend-over copper stripes. Make sure that one copper strip connects only to the copper tape on the display and the other copper strip only connects to the copper flap on the sprayed copper layer.<br><br>
     
     <img src="images/lab7/display_sidebyside.jpg" width="700px"><br>
     <img src="images/lab7/display_on_circuit.jpg" width="700px"><br><br>
     
-     <b>Test Display Connection:</b> Let's test if the connection between the display and the printed wires is working. Take your battery and inverter circuit and connect it to the two connector pads on the left hand side of the circuit. If you don't remember how to do this, look back at lab 6. Remember: do not touch the display or any part of the circuit while the battery is in use and the inverter is on. You should see that the display lights up.<br><br>
-
-    <span style="color: red">replace image</span><br>
+     <b>Test Display Connection:</b> Let's test if the connection between the display and the printed wires is working. Take your <code>inverter circuit</code> and connect it to the <code>two connector pads</code> that lead to the display, then check if the <code>display turns on/off</code>. If you don't remember how to control your inverter circuit, look back at lab 6. Remember: <code>do not touch the display</code> or any part of the circuit while the inverter is plugged in. If your display lights up, you can continue.<br><br>
     
     <img src="images/lab7/displayTesting.png" width="400px"><br><br>
     
-    <b>Tape Down Edges of Display with Transparent Tape:</b> Once, you verified that everything works, you can tape the display on its edges onto the circuit sheet using some transparent scotch tape.  
-    Apply a stripe of tape on the left and the right edge of your display.<br><br>
+    <b>Tape Down Edges of Display with Transparent Tape:</b> Once, you verified that everything works, you can <code>tape the display on its edges</code> onto the circuit sheet using <code>transparent scotch tape</code>.  
+    Apply a stripe of tape on the <code>left and the right edge</code> of your display.<br><br>
 
     <img src="images/lab7/scotchOnOneSide.png" width="350px">
     <img src="images/lab7/scotchOnBothSides.jpg" width="340px"><br><br>
     
-    <h3 id="laminate">(8) Laminate your mug interface </h3>
+    <h3 id="laminate">(8) Laminate Printed Circuit</h3>
     
-    You can imagine that a mug often gets in contact with liquids that could damage your printed circuit. Because of that, we will again laminate everything, similar to what you did with the music card, to protect it from any moisture, coffee, or water. <br><br> 
+    A mug often gets in contact with <code>liquids</code> that could <code>damage the printed circuit</code>. Because of that, we will <code>laminate</code> the circuit similar to how you did it for the music card to <code>protect it from moisture</code>, such as coffee or water. <br><br> 
     
-    Before you can laminate it, you have to cut out the mug sensor. The overall size should be close to 170mm x 50mm. Make sure that you cut around the display and that you don't cut off anything of the connector pads.<br><br>
+    <b>Cut out the circuit:</b> Before you can laminate it, you have to <code>cut out the circuit</code>. The <code>overall size</code> should be close to <code>170mm x 50mm</code>. Make sure that you cut around the display and that you don't cut off part of the connector pads.<br><br>
     
     <img src="images/lab7/cutting.jpg" width="700px"><br><br>
     
-    <b>Place your Mug Sensor between two Lamination Sheets:</b> The lamination sheets are two sheets glued together on one side. Take one of the sheets and seperate the two layers. Once this is done, place your mug sensor between the two sheets and push it up to the one side that is glued together. Make sure that the connector pads stick out of the lamination sheets by 1cm. We will later solder in these pads. Thus, they should e still exposed and not laminated.<br><br>
+    <b>Place your Circuit between two Lamination Sheets:</b> Take a lamination sheet, insert your circuit between the two layers, and push it up to the side that is glued together. Make sure that the <code>connector pads stick out of the lamination sheets by 1cm</code> (see image below). We will later <code>solder onto these pads</code>. Thus, they should still be exposed after lamination.<br><br>
     <img src="images/lab7/laminate.jpg" width="700px"><br><br>
     
-    <b>Cut Lamination Sheet to Fit Mug Sensor:</b> When you cut the lamination sheet around the mug sensor, make sure that you <span style="color: red">leave a frame of about 1cm width around the mug sensor</span>. When laminating everything, this frame will glue together and encapsulate your mug sensor.<br><br>
+    <b>Cut Lamination Sheet to Fit Mug Sensor:</b> When you cut the lamination sheet around the circuit, make sure that you <code>leave a frame of about 1cm width around the mug sensor</code>. When laminating everything, this frame will glue together and encapsulate your mug sensor. <br><br>
+
     <img src="images/lab7/cutlami.jpg" width="700px"><br><br>
     
-    <b>Put your Mug Sensor in the Laminator:</b> Finally, insert the mug sensor into the laminator from the front with the glued together side first. At some point, you will feel, that the laminator pulls it in. Now you just have to wait until the mug sensor comes out on the backside. Congrats, you finished the lab :)
-    
+    <b>Put your Mug Sensor in the Laminator:</b> Finally, <code>insert the circuit into the laminator</code>  with the <code>glued together side first</code>. <br><br>
+
     <img src="images/lab7/laminator.jpg" width="700px"><br><br>
     
-    
-    <br><br>
-    
-    
-
 <h3>Deliverables</h3>
 
 At the end of the lab, upload to your student google drive:
@@ -295,8 +241,7 @@ At the end of the lab, upload to your student google drive:
     
     
 <br />
-        <br />
-        <br />
+
 <hr>
 
         <br />
