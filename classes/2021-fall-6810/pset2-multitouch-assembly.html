@@ -269,7 +269,7 @@ As you can see in the schematic, the circuit for receiving is very similar to wh
 
 <b>Connecting the ADC component to the ESP:</b> Sending data from the ADC component to the ESP is a little more complicated. The MCP3008 chip communicates with the ESP via a Serial Peripheral Interface (SPI). We use basic SPI between one master (ESP) and one slave (MCP3008 chip). SPI communication is setup via 4 types of pins, i.e. MOSI is the line for the master to send data to the slave, MISO is the line for the slave to send data to the master, SCK is the line for the clock signal that determines how fast bits of data can be sent, and NSS/CS is a line for the master to select which slave to send data to. The ADC chip uses different names on its pinout for these pins, i.e. <code>MOSI (DIn), MISO (DOut), SCK (CLK), and NSS/CS (CS/SHDN)</code> as shown above in the MPC chip pinout. The ESP uses the regular names as shown on the ESP pinout below. Wire up these four SPI pins (not VSPI) between the ADC chip and the ESP. <br><br>
 
-<img src="images/pset3/esp32-pinout_old.png" width="800px" style="cursor:pointer;"><br><br>
+<img src="images/pset2/esp32-pinout_updated_ss.png" width="800px" style="cursor:pointer;"><br><br>
 <!-- <b>**** Important Notes **** <br>
 	1) GPIO 34-39 are INPUT only <br> 
 	2) do not use GPIO 0 as INPUT <br>
