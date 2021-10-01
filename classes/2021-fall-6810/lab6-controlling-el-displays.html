@@ -143,7 +143,7 @@ While building your circuit, you must adhere to the following rules:
 
 You already know how to <code>turn on/off</code> your display by <code>plugging and unplugging</code> the ESP32 power supply. It would be nicer to <code>do this via code</code> and not by physically plugging/unplugging the power supply. Thus, we will next build a control circuit that lets you do this. Below you can see an overview of the <code>circuit,</code> we will break it down into individual steps below.<br><br>
     
-<img src="images/lab3/switch_circuit.png" width="650px"><br><br>
+<img src="images/lab3/switch_circuit_new.png" width="650px"><br><br>
 
 Let's first look at the right side of the circuit diagram:<br><br>
 
@@ -159,7 +159,7 @@ Triacs are similar to transistors (switches) but <code>block alternating current
 <img src="images/lab6/oc.PNG" width="200px"><img src="images/lab3/optocoupler.png" width="350px"> <img src="images/lab6/opto_img.PNG" width="150px"><br>
 
 Same circuit schematic one more time so you don't have to scroll:<br><br>
-<img src="images/lab3/switch_circuit.png" width="650px"><br><br>
+<img src="images/lab3/switch_circuit_new.png" width="650px"><br><br>
 
 <b>Limiting the Current Through the Optocoupler:</b> So let's recap briefly. Once the ESP GPIO pin sends a 'HIGH' signal, the LED on the left side of the optocoupler comes on, which closes the circuit on the right side for the optocoupler. As you can see, the right side of the optocoupler is wired to the EL display and inverter. Thus, if the LED of the optocoupler is off, the EL display and inverter are not connected (and thus the display would not come on), but if the LED of the optocoupler is turned on, the EL display and inverter are connected and the EL display would light up. This all sounds nice, but in practice we cannot do it like this. The reason for this is that the optocoupler should not be exposed to the 50V AC current since it is our isolating component. Therefore, we put a 330 ohm resistors to limit the current that reaches the optocoupler to a very small amount. As a result, when the LED of the optocoupler signals that the circuit should be closed, the right side of the circuit indeed closes and current is running through, but the current is not enough to actually light up the display. Instead, the current is just enough to trigger the 'gate' pin of the triac, which then closes the full 50V AC circuit between the inverter and the display.
 
