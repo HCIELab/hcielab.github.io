@@ -86,9 +86,9 @@ Please let us know if you had any trouble with slicing or 3D printing or if anyt
       
  <h3 id="minibreadboard">(1) Attach Microcontroller to Mini-Breadboard</h3>
     
-Now that the lamp shade is fully assembled, you can build the circuit for the touch buttons and the LEDs. Since the lamp base is too small for regular breadboards, we supply you with a mini-breadboard. <br><br>
+Now that the lamp shade is fully assembled, you can <code>build the circuit</code> for the touch buttons and the LEDs. Since the lamp base is too small for regular breadboards, we supply you with a <code>mini-breadboard</code>. <br><br>
     
-<b>Tape ESP to Mini-Breadboard:</b> Remove the backing from the mini-breadboard, which will expose a layer of double-sided tape. Next, place your microcontroller onto the layer of double sided tape, the pins of the microcontroller should be facing away from the double sided tape (don't worry, the microcontroller is easy to pull off later if you need to remove it to work on your pset or project).<br><br>
+<b>Tape ESP to Mini-Breadboard:</b> <code>Remove the backing from the mini-breadboard</code>, which will expose a layer of <code>double-sided tape</code>. Next, <code>place your microcontroller</code> onto the layer of double sided tape, the pins of the microcontroller should be facing away from the double sided tape (don't worry, the microcontroller is easy to pull off later if you need to remove it to work on your pset or project).<br><br>
 
     <img src="images/lab9/minib_1.png" width="380px">
     <img src="images/lab9/minib_2.png" width="330px"><br><br>
@@ -96,19 +96,19 @@ Now that the lamp shade is fully assembled, you can build the circuit for the to
           
  <h3 id="ledcircuit">(2) Build LED Control Circuit</h3>
 
-Next, we will add the LEDs to our mini-breadboard. If you look at your LED strip, you can see that there are 3 pins labeled <code>GND, 5V, and DIN</code>. <br><br>
+Next, we will connect the LEDs to our mini-breadboard. If you look at your LED strip, you can see that there are 3 pins labeled <code>GND</code>, <code>5V</code>, and <code>DIN</code>. <br><br>
    
-<b>Connect LED GND to GND pin on ESP:</b> Connect the LED GND wire to the GND pin on the microcontroller. Always connect the GND first to protect the LEDs from voltage spikes, which may blow them up!<br><br>
+<b>Connect LED GND to GND pin on ESP:</b> Connect the <code>LED GND wire</code> to the <code>GND pin on the microcontroller</code>. Always connect the GND first to protect the LEDs from <code>voltage spikes</code>, which may blow them up.<br><br>
 
-<b>Connect LED 5V to VIN pin on ESP:</b> The LEDs need 5V, not 3.3V as we have used so far in other labs. The ESP32 can supply 5V at the <code>VIN</code> pin. Usually, this pin is used to connect to an external power supply (e.g. external battery pack). However, if you connect your ESP with a USB cable to your computer, the pin will use the 5V power supply from the USB cable to drive the pin.<br><br>
+<b>Connect LED 5V to VIN pin on ESP:</b> The LEDs need <code>5V</code>, not 3.3V, which is what we used so far in other labs. The ESP32 can supply 5V at the <code>VIN</code> pin, connect this pin to your LED 5V. Usually, the VIN pin is used to connect to an external power supply (e.g. external battery pack). However, if you connect your ESP with a USB cable to your computer, the pin will use the 5V power supply from the USB cable to drive the pin.<br><br>
 
-<b>DIN (Data-In):</b> This channel is used to encode which LED should turn on with which color. Connect <code>DIN</code> to a GPIO pin of your ESP32.
+<b>DIN (Data-In):</b> This channel is used to encode <code>which LED should turn on with which color</code>. Connect <code>DIN</code> to a <code>GPIO pin of your ESP32</code>.
 
 <h3 id="touchcircuit">(3) Build Touch Control Circuit</h3>
 
 Now that the LEDs are wired up, we also need to build the touch control circuit.<br><br>
 
-<b>Wire Up Conductive Yarn Touch Buttons to Microcontroller:</b> Wire up each of the four touch buttons to the ESP. If you don't remember how the circuit for touch buttons looks like, <a href="lab2-sensing-touch-button.html">you can look back at Lab 2.</a> Use a 100kOhm resistor between the sender pin and the 4 receiver pins (reuse your resistors from the music card). Your final circuit should look similar to this:<br><br>
+<b>Wire Up Conductive Yarn Touch Buttons to Microcontroller:</b> Wire up each of the four touch buttons to the ESP. If you don't remember how the <code>circuit for touch buttons</code> looks like, <a href="lab2-sensing-touch-button.html">you can look back at Lab 2.</a> Use a <code>100kOhm resistor</code> between the sender pin and the 4 receiver pins (reuse your resistors from the music card). Your final circuit should look similar to this:<br><br>
     
     <img src="images/lab10/circuit_1.jpg" width="350px">
     <img src="images/lab10/circuit_2.jpg" width="350px"><br><br>
