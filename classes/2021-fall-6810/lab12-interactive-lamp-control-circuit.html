@@ -130,23 +130,23 @@ Next, you will place the circut inside your lamp base by following the steps bel
 
 Let's start programming our lamp by writing the code that can sense touch from all the four touch buttons. <br><br>
   
-<b>Reuse Code from Lab 2:</b> For touch sensing, you can reuse the code from lab 2. Print your touch signals to the Serial Monitor/Plotter to see if it works. Make sure that you get a clear signal from all 4 touch buttons. Select a suitable threshold for each touch button to detect touch reliably.<br><br>
+<b>Reuse Code from Lab 2:</b> For touch sensing, you can <code>reuse the code from lab 2</code>. Print your touch signals to the <code>Serial Monitor/Plotter</code> to see if it works. Make sure that you get a clear signal from all 4 touch buttons. Select a suitable <code>threshold for each touch button</code> to detect touch reliably.<br><br>
     
  <h3 id="ledcolorcode">(6) Control LED Colors</h3>
 
 Next, let's write some code that can change the color of the LEDs.<br><br>
 
-<b>Individually Addressable LEDs on an LED strip via a Single Pin:</b> The LEDs on the strip are called NEOPIXELS (WS2812B). Each LED represents a 'pixel' that can be addressed individually and can thus change color and brightness independent of the other LEDs on the strip. The DIN (Data-In) pin on the strip transmits a specific protocol to address each LED individually. This is why the LEDs do not turn on immediately when you connect them to the power supply. Instead we first have to provide data through the DIN pin to say which LEDs we want to turn on on the strip and what color and brightness they should have.<br><br>
+<b>Individually Addressable LEDs on an LED strip via a Single Pin:</b> The LEDs on the strip are called <code>NEOPIXELS (WS2812B)</code>. Each LED represents a 'pixel' that can be addressed individually and can thus change color and brightness independent of the other LEDs on the strip. The <code>DIN (Data-In) pin</code> on the strip transmits a specific <code>protocol to address each LED individually</code>. This is why the LEDs do not turn on immediately when you connect them to the power supply. Instead we first have to provide data through the DIN pin to say which LEDs we want to turn on on the strip and what color and brightness they should have.<br><br>
     
-<b>Install FastLED library:</b> To control the LEDs, you can use a library that handles the signal encoding for you. This library is called <code>FastLED</code>. You can download it directly from the Arduino IDE by clicking on <code>Sketch->Inlcude Libraries->Manage Libraries.</code> Search for FastLED and install it. If you are interested to see what is available in the <a href="http://fastled.io/docs/3.1/annotated.html">FastLED library, you can look at the documentation here.</a> <br><br>
+<b>Install FastLED library:</b> To control the LEDs, you can use a <code>library</code> that handles the signal encoding for you. This library is called <code>FastLED</code>. You can download it directly from the Arduino IDE by clicking on <code>Sketch->Inlcude Libraries->Manage Libraries.</code> Search for 'FastLED' and install it. If you are interested to see what is available in the <a href="http://fastled.io/docs/3.1/annotated.html">FastLED library, you can look at the <code>documentation</code> here.</a> <br><br>
     
     <img src="images/lab10/fastled.png" width="700px"><br><br>
 
-<b>Include Library in your Code:</b> Before you can use the library in your code, you have to include it at the top of the file:<br><br>
+<b>Include Library in your Code:</b> Before you can use the library in your code, you have to <code>include</code> it at the top of the file:<br><br>
 
     <pre><code>#include &lt;FastLED.h&gt;</code></pre>
 
-<b>Declaring an LED:</b> To declare an LED, you can use the CRGB datatype.<br>
+<b>Declaring an LED:</b> To declare an LED, you can use the <code>CRGB datatype</code>.<br>
 
 <pre>
 <code>CRGB led1;
@@ -159,25 +159,25 @@ However, rather than declaring 4 LED variables individually to address each LED,
 CRGB leds[NUM_LEDS];
 </code></pre>
   
-<b>Add LEDs to Library's Internal Datastructure:</b> The library also requires to add each LED to its internal data structures. You can do this in the <code>setup()</code> function with the following line:<br>
+<b>Add LEDs to Library's Internal Datastructure:</b> The library also requires to add each LED to its <code>internal data structures</code>. You can do this in the <code>setup()</code> function with the following line:<br>
 
 <pre><code>FastLED.addLeds&lt;NEOPIXEL,LED_PIN&gt;(leds,NUM_LEDS)
 </code></pre>
 
 The function requires the following parameters:<br><br>
 
-<i>NEOPIXEL:</i> The FastLED library is a generic library for all sorts of LED types. So we need to tell it which LED type we have so it knows which protocol to use to send the data to the LEDs. <code>NEOPIXEL</code> is a constant defined in the <a href="http://fastled.io/docs/3.1/annotated.html">documentation of the FastLED library</a> and we can simply use it as an argument here. <br><br>
+<i>NEOPIXEL:</i> The FastLED library is a generic library for all sorts of LED types. So we need to tell it which <code>LED type</code> we have so it knows which protocol to use to send the data to the LEDs. <code>NEOPIXEL</code> is a constant defined in the <a href="http://fastled.io/docs/3.1/annotated.html">documentation of the FastLED library</a> and we can simply use it as an argument here. <br><br>
 
 <i>LED_PIN:</i> this is the GPIO pin to the DIN pin. This variable has to be a constant so you should declare it with <code>#define</code>.<br><br>
 
-<i>leds, NUM_LEDS:</i> We already declared these above so you just insert them here.<br><br>
+<i>leds, NUM_LEDS:</i> We already declared both of these above so you just insert them here.<br><br>
     
 <b>Define Color for an LED:</b> You can assign a color to an LED by writing:<br>
 
 <pre><code>leds[0] = CRGB::White;
 </code></pre>
    
-<b>Send Color to the LED:</b> The color is not getting sent to the LED when you assign it. Instead, you have to make the sending explicit by executing the command:<br>
+<b>Send Color to the LED:</b> The color is not getting sent to the LED when you assign it. Instead, you have to <code>make the sending explicit</code> by executing the command:<br>
 
 <pre><code>FastLED.show();
 </code></pre>
@@ -186,19 +186,19 @@ Send a few different colors to different LEDs to see if your code works.<br><br>
     
  <h3 id="touchledcode">(7) Change LED Colors Upon Touch</h3>
 
-The last thing that is missing is a piece of code that can change the LED color upon touch. We also want to be able to turn the lamp on/off.<br><br>
+One thing that is still missing is a piece of code that can change the LED color upon touch.<br><br>
 
 <b>Connect Touch Button Code to Different Color Schemes:</b> Connect your touch button code so that when one of the 3 touch buttons is touched, the lamp will light up in a different color scheme of your choice (e.g. red, green, blue or whatever color scheme you like).<br><br>
 
  <h3 id="lamponoffcode">(8) Turn Lamp On/off Upon Touch</h3>
 
-Finally, we also want to add functionality for the fourth touch button to turn the lamp on/off.<br><br>
+Finally, we also want to add functionality for the fourth touch button to <code>turn the lamp on/off</code>.<br><br>
 
-<b>Turn Lamp On:</b> When the on/off button is touched and the lamp is off, the lamp should turn on. You can either set it by default to a white color or if you want to be fancy you could load the last used color scheme. <span style="color:red">How do I turn the LEDs off? do I set color to black?</span><br><br>
+<b>Turn Lamp On:</b> When the on/off button is touched and the lamp is off, the lamp should turn on. You can either set it by default to a white color or if you want to be fancy you could load the last used color scheme. <span style="color:red">To turn the LED off, you set its color to black</span><br><br>
 
 <b>Turn Lamp Off:</b> When the on/off button is touched and the lamp is on, the lamp should turn off.<br><br>
 
-<b>Put Lamp Shade on Base:</b> Once everything works, put the lamp shade on the base and your lamp is ready. <span style="color:red">In the future, you could also connect a battery pack to your lamp so you would be able to disconnect your laptop. (could we provide that?)</span><br><br>
+<b>Put Lamp Shade on Base:</b> Once everything works, put the lamp shade on the base and your lamp is ready. In the future, you could also connect a battery pack to your lamp so you would be able to disconnect your laptop.<br><br>
     
     <img src="images/lab10/circuit_done.jpg" width="430x">
     <img src="images/lab10/lamp.jpg" width="240px"><br><br>
