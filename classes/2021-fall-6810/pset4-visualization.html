@@ -158,13 +158,14 @@ All of these factors together result in different noise levels at each point in 
 
 <h3 id="GRAYSCALEIMAGE">(4) Convert Received Signals into Grayscale Values</h3>
 
-Now that we have "clean" sensing values, our next step is to find out <code>where</code> the multi-touch pad was touched. For this part, you will be mainly working on the <code>setColor()</code> function.<br><br>
+Now that we have "clean" sensing values, our next step is to find out <code>where</code> the multi-touch pad was touched. While there are multiple different ways to find our where the multi-touch pad was touched, we will use an approach based on <code>image-processing</code>. First, we will convert our <code>9x8 analog sensor signals</code> into <code>grayscale values</code> and then draw the grayscale values into a <code>9x8 pixel image</code>. <code>Brighter pixels</code> will correspond to <code>higher sensor signals</code> (i.e. touch points) while <code>darker pixels</code> will correspond to <code>lower sensor signals</code> (i.e., areas that were not touched). Since image processing on such a small 9x8 pixel image is too difficult, we will then increase the size of the image to <code>500x500px using bicubic interpolation</code> to fill in for the missing pixel values. Later in pset5, we can then use <code>blob detection</code> to extract the white blobs in the image (i.e. the touch points) and get the <code>touch coordinates from the blobs</code>.<br><br>
+
+<img src="images/pset4/UI-blob-touch-3.png" width="300px"><br><br>
+
+For this part, you will be mainly working on the <code>setColor()</code> function.<br><br>
 
 <img src="images/pset4/setColors-skeleton-code.png" width="730px"> <br><br>
 
-<b>Using Image Processing for Detecting Touch Points:</b> While there are multiple different ways to find our where the multi-touch pad was touched, we will use an approach based on image-processing. First, we will convert our 9x8 analog sensor signals into grayscale values and then draw the grayscale values into a 9x8 pixel image. Brighter pixels will correspond to higher sensor signals (i.e. touch points) while darker pixels will correspond to areas that were not touched. Since image processing on such a small 9x8 pixel image is too difficult, we will then increase the size of the image to 500x500px using bicubic interpolation to fill in for the missing pixel values. Later in pset5, we can then use 'blob' detection to extract the white blobs in the image (i.e. the touch points) and get the touch coordinates from the blobs. Let's get started with the first step.<br><br>
-
-<img src="images/pset4/UI-blob-touch-3.png" width="300px"><br><br>
 
 <b>Creating the 9x8 Pixel Image:</b> Construct an image (PImage) the same size as the 2D array that contains the sensing data. This PImage will be tiny (9x8 pixel) and you will likely have to search a bit for it on screen in case you decide to display it for debugging purposes.<br><br>
 
