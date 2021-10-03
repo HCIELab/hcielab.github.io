@@ -96,11 +96,15 @@ If you have the feeling your printed multi-touch pad is degrading, let us know a
 <img src="images/pset4/processing-library-opencv.png" width="370px">
 <img src="images/pset4/processing-library-blob-detection.png" width="370px"> <br><br>
 
-<h3 id="READPROCESSING">(2) Read Multi-Touch Sensing Data into Processing</h3>
+<h3 id="READPROCESSING">(2) Read Prerecorded Multi-Touch Sensing Data into Processing</h3>
 
-<b>Use Pre-recorded Data:</b> While you are welcome to write the code for the next sections based on 'live data' from your multi-touch pad, it may be easier to start with clean pre-recorded data since this allows you to exclude potential hardware failures. You can <a href="software/pset-sudo-touch-data.txt" style="color:blue">download prerecorded data in the form of a text file from here</a>. The prerecorded data contains data for no touch, touch with one finger, and touch with two fingers in the same format as you wrote it to the Serial Port with your Arduino Code. <span style="color:red">We should provide them with the code to do this: You can read through the text file and write them into Serial port line by line (via Arudino IDE, Python etc.) and it will simulate non-touch, one-finger touch and two-finger touch states.</span><br><br>
+To make it easier for you to write the code for pset4, we provide you with <code>prerecorded multi-touch data</code>. This allows you to implement all steps based on the touch data we provide, before testing your code with your own multi-touch pad in the last step of this pset. To implement pset4, all you need to do is to <code>plugin your ESP</code> (you <code>do not need to plug in your entire multi-touch pad</code> until the very last step).<br><br>
 
-<b>Read Data from Serial Port Into Processing:</b> Remember from the last pset that the touch data is written onto the serial port one line at a time in the format seen below. <br><br>
+<b>Download Prerecorded Data:</b> You can download the <code>prerecorded data</code> in the form of a <code>text file</code> <a href="software/pset-sudo-touch-data.txt" style="color:blue">from here</a>. The prerecorded data contains data for <code>no touch</code>, <code>touch with one finger</code>, and <code>touch with two fingers</code> in the same format as you wrote it to the Serial Port with your Arduino Code in the last pset. <br><br>
+
+<b>Download Arduino Program that Reads Prerecorded Data from text file and writes it to the Serial Port:</b> Next, download the <code>Arduino program</code> <a href="software/XXXX.ino" style="color:blue">from here</a> that will write the prerecorded data to the Serial Port. Compile it and upload it to your ESP microcontroller. <span style="color:red">We should provide them with the code to do this: You can read through the text file and write them into Serial port line by line (via Arudino IDE, Python etc.) and it will simulate non-touch, one-finger touch and two-finger touch states.</span><br><br>
+
+<b>Read Data from Serial Port Into Processing:</b> Remember from the last pset that the <code>touch data is written</code> onto the serial port one line at a time in the <code>format seen below</code>. <br><br>
 
 <pre>
 0,50,83,58,79,108,75,82,54   //columm0, row0val, row1val, row2val
@@ -115,10 +119,10 @@ If you have the feeling your printed multi-touch pad is degrading, let us know a
 ...
 </pre> <br>
 
-You now need to read this data from the serial port into Processing. We have already shown you how to read data from the serial port into Processing in Lab 3 & 4 and you can check your prior code from back then to see how to do it. Put your code for reading the data into the <code class="language-processing">readSerial()</code> function: <br>
+You now need to read this data from the <code>Serial Port</code> into <code>Processing</code>. We have already shown you how to read data from the Serial Port into Processing in Lab 3 & 4 and you can check your prior code from back then to see how to do it. Put your code for reading the data into the <code>readSerial()</code> function: <br>
 <img src="images/pset4/readSerial-skeleton-code.png" width="700px"> <br>
 
-<b>Save Data for One Complete Scanning Pass into a 2D Array:</b> The data for a single pass on all columns and rows should be saved into a 2D array. When considering the size of your 2D array, remember that we build a 9x8 multi-touch pad. Printing the 2D array to the Processing command line should look something like the print out below. Every time a new pass over all columns/rows starts, you need to override your array values. Instead of overriding the whole array at once, update the array row by row whenever there is new data coming from the serial port, i.e. update the row values based on the "column number" at the beginning of the data. <br><br>
+<b>Save Data for One Complete Scanning Pass into a 2D Array:</b> The data for a <code>single pass on all columns and rows</code> should be saved into a <code>2D array</code>. When considering the size of your 2D array, remember that we build a <code>9x8 multi-touch pad</code>. Printing the 2D array to the Processing command line should look something like the print out below. Every time a new pass over all columns/rows starts, you need to override your array values. Instead of overriding the whole array at once, <code>update the array row by row</code> whenever there is new data coming from the serial port, i.e. update the row values based on the column number at the beginning of the data. <br><br>
 
 <img src="images/pset4/serial-read-array-one-pass.png" width="750px"> <br><br>
 
