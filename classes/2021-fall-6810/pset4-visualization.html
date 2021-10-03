@@ -122,8 +122,6 @@ You now need to read this data from the serial port into Processing. We have alr
 
 <img src="images/pset4/serial-read-array-one-pass.png" width="750px"> <br><br>
 
-<b>Use Your Own Multi-touch Pad Data & Clean up Values:</b> Once this is working, try using your own live data. You will notice that this data will be a lot more messy, i.e. sometimes a dataline will be completely missing, and othertimes there may be unrecognized characters. Make sure your <code class="language-processing">readSerial()</code> function properly handles these unexpected characters and formats, and stores only the valid data. <span style="color:red">You can look at the stringXX class for how to clean up the data.</span> This messy data was also the reason why we update the array line by line not as a whole since we don't want that a single missing/contaminated data line holds up the entire 2D array update. <br><br>
-
 
 <h3 id="REDUCENOISE">(3) Clean Received Signal by Reducing Noise</h3>
 
@@ -215,6 +213,14 @@ Implement this part in the <code class="language-processing">interpolate()</code
 <img src="images/pset4/UI-no-blob-touch-2.png" width="300px"> <br><br>
 
 <b>Improving your Results:</b> If your results don't look as good as above, try changing how you map your sensors signals to the grayscale values of 0 - 255. Remember, when you mapped your sensor signals to the 0 - 255 range, we had recommended that you use the middle-to-low sensor reading when not touching to map to 0 (black), and the middle-to-high sensor reading when touching to 255 (white). Let's assume for a moment your middle-to-high sensor reading when touching was 1500 and you mapped it to 255 (white). As a result, any sensor reading above 1500 is now leading to white pixels, whereas anything below will lead to darker pixels. If you find that you only see dark areas in your image and nothing is white (or not "white" enough) when touched, then perhaps the 1500 threshold is too high. Consider using a lower value to increase what signal values are being treated as 'touched' white pixels. Similarly, if you see too much noise in your image, i.e. everything is white (or multiple areas get "too white" when only touching with one finger), perhaps your non-touch sensor reading value is too low and you should set it to something higher, so that more signal values are treated as black non-touch pixels. Note that you may have to slightly adjust these values when you change the setup in which you use your multi-touch pad. For instance, if place your multi-touch pad on a different surface (glass vs. wooden table) or if anything else in your environment undergoes a significant change (e.g. increase in humidity), the sensor values and the noise level may change. We therefore recommend you find yourself a place where you do the calibration once and then try to not change it too much.<br><br>
+
+
+<h3 id="BICUBIC">(6) Use Your Own Multi-touch Pad Data</h3>
+
+
+<b>Use Your Own Multi-touch Pad Data & Clean up Values:</b> Once this is working, try using your own live data. You will notice that this data will be a lot more messy, i.e. sometimes a dataline will be completely missing, and othertimes there may be unrecognized characters. Make sure your <code class="language-processing">readSerial()</code> function properly handles these unexpected characters and formats, and stores only the valid data. <span style="color:red">You can look at the stringXX class for how to clean up the data.</span> This messy data was also the reason why we update the array line by line not as a whole since we don't want that a single missing/contaminated data line holds up the entire 2D array update. <br><br>
+
+
 
 
 <h3>Deliverables</h3>
