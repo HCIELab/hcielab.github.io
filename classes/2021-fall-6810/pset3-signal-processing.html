@@ -56,7 +56,7 @@
         <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2021)</a><br></h>
         <h2 class="headline">Pset3: Sensing Multi-Touch Input</h2>
 
-In this problem set, you will write Arduino code to sense the touch signals from your multi-touch pad. At the end of this problem set, you will be able to recognize when a user is touching.<br><br>
+In this problem set, you will write Arduino code to sense the touch signals from your multi-touch pad. At the end of this problem set, you will be able to recognize when a user is touching. This will look similar to the precompiled binary program that we gave you for the last pset, but this time it will be your own code.<br><br>
 
 <b>Steps:</b>
 <ol>
@@ -101,7 +101,7 @@ Let's start by writing the code that generates the PWM signal at the sender pin.
 
 <i>Channel Number:</i> The LEDC peripheral has 16 channels which can generate independent waveforms (note that these are NOT pin numbers on the ESP, but internal channels inside the ESP). The channel numbers range from 0-15. For our purposes, you can pick any channel number you like as the parameter.<br><br>
 
-<i>Duty Resolution:</i> Let's recap briefly from the EL display lab. The <code>duty cycle</code> is defined as the percentage of the period for which the signal is "high" (see image above on the right). For example, a signal that has a 50% duty cycle is high for one half of the period and low for the other half, whereas a 25% duty cycle is high for only the first quarter and then low for the remaining three quarters. In the EL display lab, this has resulted in different brightnesses, i.e. 50% duty cycle is brighter than 25% duty cycle. For the display lab, we wanted to have 8 different brightnesses for dimming and had thus chosen a <code>duty resolution</code> of 3 bits, which can generate up to 8 different PWM duty cycles (in addition to a 0% PWM duty cycle which is not counted in the 3 bits since it's the default). Let's apply this to our multi-touch pad. For the multi-touch pad, we need a duty cycle of 25%. We spare you the details of why exactly we need this duty cycle. What is the smallest duty resolution that can create a 25% duty cycle? <a href="https://forms.gle/cjM1baraYAj9GUof6" style="color:blue">Submit your answer here (question 1)</a> and then use it as the parameter in the function.<br><br>
+<i>Duty Resolution:</i> Let's recap briefly from the EL display lab. The <code>duty cycle</code> is defined as the percentage of the period for which the signal is "high" (see image above on the right). For example, a signal that has a 50% duty cycle is high for one half of the period and low for the other half, whereas a 25% duty cycle is high for only the first quarter and then low for the remaining three quarters. In the EL display lab, this has resulted in different brightnesses, i.e. 50% duty cycle is brighter than 25% duty cycle. For the display lab, we wanted to have 256 different brightnesses for dimming and had thus chosen a <code>duty resolution</code> of 8 bits, which can generate up to 256 different PWM duty cycles (in addition to a 0% PWM duty cycle which is not counted in the 3 bits since it's the default). Let's apply this to our multi-touch pad. For the multi-touch pad, we need a duty cycle of 25%. We spare you the details of why exactly we need this duty cycle. What is the smallest duty resolution that can create a 25% duty cycle? <a href="https://forms.gle/cjM1baraYAj9GUof6" style="color:blue">Submit your answer here (question 1)</a> and then use it as the parameter in the function.<br><br>
 
 <i>Frequency:</i> For multi-touch sensing, we need a frequency of 4MHz. We will spare you the details why we need exactly this frequency. Unfortunately, the available PWM frequencies are directly affected by the duty resolution. The higher the duty resolution (i.e. the more bit), the lower the available PWM frequencies. So how do we know if we can support 4MHz with our chosen duty resolution? Luckily, some people created this formula for you to check:
 
@@ -193,17 +193,17 @@ Now that you have code for injecting and reading signals, you are ready to write
 
 <b>Averaging Read Signals: </b> When reading the signal from a specific row, sample multiple times (e.g., execute read() 20 times and average the readings together) to get a more accurate and smooth signal. You should do the multiple sampling and averaging before you move on to the next row.<br><br>
 
-<b>Print Data to Serial Monitor:</b> Serial print the data in the format: columm0, row0val, row1val, row2val... Please follow the specific format since we will use it later to read the data into Processing. A sample serial output would look like this: <br>
+<b>Print Data to Serial Monitor:</b> Serial print the data in the format: columm0, row0val, row1val, row2val...; Please follow the specific format since we will use it later to read the data into Processing. A sample serial output would look like this: <br>
 <pre>
-0,50,83,58,79,108,75,82,54   //columm0, row0val, row1val, row2val
-1,55,92,120,84,63,61,88,53   //columm1, row0val, row1val, row2val
-2,61,64,73,66,92,78,67,57
-3,65,117,116,84,48,81,91,71
-4,65,128,116,54,76,81,88,59
-5,61,86,66,54,114,78,64,64
-6,59,86,120,83,85,75,93,63
-7,56,86,116,70,72,83,80,64
-8,23,82,74,68,98,64,62,52
+0,50,83,58,79,108,75,82,54;   //columm0, row0val, row1val, row2val
+1,55,92,120,84,63,61,88,53;   //columm1, row0val, row1val, row2val
+2,61,64,73,66,92,78,67,57;
+3,65,117,116,84,48,81,91,71;
+4,65,128,116,54,76,81,88,59;
+5,61,86,66,54,114,78,64,64;
+6,59,86,120,83,85,75,93,63;
+7,56,86,116,70,72,83,80,64;
+8,23,82,74,68,98,64,62,52;
 ...
 </pre> <br>
 

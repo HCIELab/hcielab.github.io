@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>6.810 Lab10: Slicing and 3D printing</title>
+	<title>6.810 Lab10 Slicing and 3D printing</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
@@ -60,11 +60,11 @@ In this lab, you will slice the 3D models of your lamp base and lamp shade and t
 
 <h3>Steps:</h3>
 <ol>
-        <li><a href="#XXX">Install Slicing Software</a></li>
-        <li><a href="#XXX">Slice the Lamp 3D Models</a></li>
-        <li><a href="#XXX">Check Printing Time & Sliced Geometry Before Printing</a></li>
-        <li><a href="#XXX">Read 3D Printer Tutorials</a></li>
-        <li><a href="#XXX">3D Print the Lamp</a></li>
+        <li><a href="#INSTALLSLICINGSOFTWARE">Install Slicing Software</a></li>
+        <li><a href="#SLICING">Slice the Lamp 3D Models</a></li>
+        <li><a href="#CHECKPRINTINGTIME">Check Printing Time & Sliced Geometry Before Printing</a></li>
+        <li><a href="#PRINTERTUTORIALS">Read 3D Printer Tutorials</a></li>
+        <li><a href="#3DPRINT">3D Print the Lamp</a></li>
     </ol>
 
 
@@ -82,53 +82,64 @@ At the end of the lab, upload to your student google drive:
     </ol><br>
 
 
-<h3 id="XXX">(1) Install Slicing Software</h3>
+<h3 id="INSTALLSLICINGSOFTWARE">(1) Install Slicing Software</h3>
 
-Slicing is the process of converting a 3D model first into 3D printable layers, and then each layer is further converted into an extrusion path the print head can follow to lay down filament (thereby creating the layer). The output of slicing is a .gcode file that includes all the instructions for the 3D printer to print the model.<br><br>
+Slicing is the process of converting a 3D model first into <code>3D printable layers,</code> and then each layer is further converted into an <code>extrusion path the print head can follow</code> to lay down filament (thereby creating the layer). The output of slicing is a <code>.gcode file</code> that includes all the instructions for the 3D printer to print the model.<br><br>
 
-<span style="color:red">To slice a model, we need slicing software. You can install the slicing software for the Prusa 3D printers from <a href="https://www.prusa3d.com/prusaslicer/">here</a>. During installation, it will ask you which printer types to install. Make sure that you have the 'Prusa i3 MK3' installed (both for the 0.4mm and 0.6mm nozzles). Leave everything else to the default settings.</span><br><br>
+<b>Install Slicing Software:</b> You can <code>install the slicing software</code> for the <code>Prusa 3D printers</code> <a href="https://www.prusa3d.com/prusaslicer/">from here</a>. During installation, it will ask you which <code>printer types</code> to install. Make sure that you have the <code>'Prusa i3 MK3'</code> installed (both for the <code>0.4mm</code> and <code>0.6mm</code> nozzles). Leave everything else to the default settings.</span><br><br>
 
-<h3 id="XXX">(2) Slice the Lamp 3D Models</h3>
+<h3 id="SLICING">(2) Slice the Lamp 3D Models</h3>
     
-Load the .stl files of your lamp shade and lamp base that you exported from Blender into the PrusaSlicer. For our printing purposes, we want to set the following print parameters: layer height: 0.2mm, printer model: <span style="color:red">Prusa i3 MK3</span>, material: generic PLA. <br><br>
-    
+Similar to the last lab, we have a video tutorial below on how to do the slicing. The video quality might be better if you click on the youtube icon in the lower left corner, which opens a new tab and you can <code>set the quality to 1080p</code>.<br><br>
+
+<b>Load Models into Slicer:</b> Load the .stl files of your lamp shade and lamp base that you exported from Blender both together into the PrusaSlicer. <br><br>
+
+<b>Print Parameters:</b> For our printing purposes, we want to set the following print parameters: <code>layer height: 0.2mm,  material: generic PLA, printer model: Prusa i3 MK3</code>. <br><br>
+   
+<b>Slice the Model:</b> Next, click on <code>'slice now'</code> to start the slicing process.<br><br>
+
+<b>Export G-code:</b> Finally, click on <code>'export G-code'</code> to save the gcode file for 3D printing.<br><br>
+
+
     <iframe width="560" height="315" src="https://www.youtube.com/embed/L1S3oX7kgr4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
 
-<h3 id="XXX">(3) Check Printing Time & Sliced Geometry Before Printing</h3>
+<h3 id="CHECKPRINTINGTIME">(3) Check Printing Time & Sliced Geometry Before Printing</h3>
 
-Since 3D printing is a time consuming process (i.e. our models will print around 5.30h), please double check that your model is correct by following the steps below:<br><br>
+Since 3D printing is a time consuming process (i.e. our lamp base and lamp shade 3D models will print around 5.30h), please double check that your model and slicing settings are correct by following the steps below:<br><br>
 
-<b>Check Printing Time:</b> As you can see in the video, our models print around 5.30h. Your printing time may vary by +/- 30 minutes since your 3D model will not be exactly the same as ours. If your printing time is significantly different, please let us know and we can check if there is a size/scaling issue.</span><br><br> 
+<b>Check Printing Time:</b> As you can see in the video, our <code>lamp base and lamp shade models together print around 5.30h</code>. Your printing time may vary by +/- 30 minutes since your 3D model will not be exactly the same as ours. If your printing time is significantly different, please let us know and we can check if there is a <code>size/scaling issue</code>.</span><br><br> 
 
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/L1S3oX7kgr4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
+<b>Check if Geometry is still accurate:</b> In addition, please <code>check in the slicer if the 3D model geometry is still accurate after slicing</code>. Since slicing converts geometry into 3D printing layers, rounding issues can occur. Especially, <code>check if the recess inside the base</code> is still visible after you sliced. If the <code>recess is too thin</code>, the slicer may round it and it will disappear during 3D printing. If you don't see it in the slicer, it will not be there after printing.<br><br> 
 
-<b>Check if Geometry is still accurate:</b> In addition, please check in the slicer if the geometry is still accurate. <span style="color:red">Especially, check if the recess inside the base is still visible after you sliced. If the recess is too thin, the slicer may round it and it will disappear during 3D printing.</span> If you don't see it in the slicer, it will not be there after printing.<br><br> 
+<h3 id="PRINTERTUTORIALS">(4) Read 3D Printer Tutorials</h3>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/L1S3oX7kgr4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
+We will <code>3D print at the IDC on the 3rd floor</code> where we laser cut the stencils for spraying. The IDC has a rack of 9 x 3D printers, so a good number of you can print simultaneously. You can also use any other 3D printer on campus, but we can't guarantee that your print will work because we only tested it on the IDC 3D printers.<br><br>
 
-<h3 id="XXX">(4) Read 3D Printer Tutorials</h3>
+<b>How to get to the IDC (N52-337):</b> If you don't remember <code>how to get to the IDC</code>, you <a href="https://hcie.csail.mit.edu/classes/2021-fall-6810/lab5-how-to-get-to-IDC.html">can find a description here.</a><br><br>
 
-Now that you have the .gcode file for the lamp parts, you are ready for 3D printing. Before you go to the 3D printer, please look at the 3D printing tutorials below that explain how to use the 3D printer (click on the images).<br><br>
+<b>Read 3D Printing Tutorials:</b> Before you go to the 3D printer, please look at the <code>3D printing tutorials</code> below that explain <code>how to use the 3D printer</code> (click on the images).<br><br>
 
+The tutorial here first describes the slicing process again, and then <code>Step 19 'Operating the Prusa'</code> onwards shows the 3D printing process:<br>
 <a href="https://idc.dozuki.com/Guide/3D+Printing+with+the+Prusa+MK3+and+Slic3r+software/4?lang=en
-"><img src="images/lab8/idc-3dprinter-tutorial.png" width="600px" /></a><br>
+"><img src="images/lab8/idc-3dprinter-tutorial.png" width="600px" /></a><br><br>
 
+This tutorial shows how to <code>change the filament</code> in the 3D printer. This will not be necessary for this lab but may come in handy some other time.<br>
 <a href="https://idc.dozuki.com/Guide/How+to+unload+and+reload+filament+from+the+Prusa+MK3+dry+box/6?lang=en
 "><img src="images/lab8/idc-filament-tutorial.png" width="600px" /></a>.<br><br>
 
-<h3 id="XXX">(5) 3D Print the Lamp</h3>
+<h3 id="3DPRINT">(5) 3D Print the Lamp</h3>
 
-When you come in for 3D printing, please look for the shop manager. They will help you with your first print job. For us, the 3D Printing of the two parts looked like this <span style="color:red">(note that we printed with 'brim' on, you should print with 'brim' off, which is the default):</span><br><br>
+When you come in for 3D printing, please look for the <code>workshop manager.</code> They will help you with your first print job. For us, the 3D Printing of the two parts looked like this (note that we printed with 'brim' on, you should print with <code>'brim' off,</code> which is the default):<br><br>
 
  <img src="images/lab8/3dprint-starting-printing.jpg" width="300px">
  <img src="images/lab8/3dprint-finished.jpg" width="300px"><br><br>
 
-After printing, remove the 3D Printed objects from print bed:<br><br>
+After printing, <code>remove the 3D Printed objects from print bed</code>:<br><br>
 
  <img src="images/lab8/3d-print-off-platform.jpg" width="300px">
  <img src="images/lab8/3d-print-removed.jpg" width="300px"><br><br>
 
-Please check if the two parts of your lamp successfully assemble.<br><br> 
+Please check if the <code>two parts of your lamp successfully assemble</code>.<br><br> 
 
 
 <h3>Deliverables</h3>
