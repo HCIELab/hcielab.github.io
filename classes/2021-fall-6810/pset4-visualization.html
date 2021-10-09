@@ -168,7 +168,7 @@ For this part, you will be mainly working on the <code>setColor()</code> functio
 <img src="images/pset4/setColors-skeleton-code.png" width="730px"> <br><br>
 
 
-<b>Creating the 9x8 Pixel Image:</b> Construct an image <code>PImage</code> the same size as the 2D array that contains the sensing data. This PImage will be tiny <code>9x8 pixel</code> and you will likely have to search a bit for it on screen in case you decide to display it for debugging purposes.<br><br>
+<b>Creating the 9x8 Pixel Image:</b> Construct an image <code>PImage</code> the same size as the 2D array that contains the sensing data. This PImage will be a tiny <code>9x8 pixel</code> image and you will likely have to search a bit for it on screen in case you decide to display it for debugging purposes.<br><br>
 
 <b>Converting the Sensor Signals into Grayscale Values:</b> Before we can draw our analog sensor signals into the PImage as <code>grayscale values</code>, we have to make sure they have the correct range, i.e. are between <code>0-255</code>. You therefore have to scale your sensor signals accordingly. To scale your sensor values to a range of 0 - 255, you can use the <code>map()</code> function in Processing. As you can see in <a href="https://processing.org/reference/map_.html">the documentation of the map() function,</a> apart from the incoming value to be converted, we also have to set four "scaling" values:<br><br>
 
@@ -176,9 +176,9 @@ For this part, you will be mainly working on the <code>setColor()</code> functio
 
 <i>start2/stop2 (target range):</i> The last two parameters are our <code>target range</code> and are pretty straight forward since we already discussed we want to scale to 0 - 255.<br><br>
 
-<i>start1/stop1 (source):</i> For the source parameters, you can think of these 2 parameters as <code>min-input-range</code> and <code>max-input-range</code> of your incoming sensing data. To find a good value for the <code>min-input-range</code>, you can print out the no-touch baseline values from Section #2 (i.e. sensing values after the noise substruction), and pick a <code>middle to low</code> value from the different values in the array. To find a good value for the <code>max-input-range</code>, look at the printed values when a touch occurs, and pick a <code>middle to high</code> value. Don't worry about the exact number for now, you may have to adjust them later after we scaled up the image to achieve a more "clean" visualization.<br><br>
+<i>start1/stop1 (source):</i> For the source parameters, you can think of these 2 parameters as <code>min-input-range</code> and <code>max-input-range</code> of your incoming sensing data. To find a good value for the <code>min-input-range</code>, you can print out the no-touch baseline values from Section #2 (i.e. sensing values after the noise substruction), and pick a <code>middle to low</code> value from the different values in the array. To find a good value for the <code>max-input-range</code>, look at the printed values when a touch occurs, and pick a <code>middle to high</code> value. Don't worry about the exact number for now, you may have to adjust them later after we scaled up the image to achieve a cleaner visualization.<br><br>
 
-<b>Drawing the Grayscale Values into the 9x8 Pixel Image:</b> After you scaled your sensor values, use them to <code>set the pixel color of each pixel</code> in the 9x8 pixel PImage. If you set a PImage's pixels to a single color value from 0 (black) - 255 (white), it will automatically be treated as grayscale.<br><br>
+<b>Drawing the Grayscale Values into the 9x8 Pixel Image:</b> After you scaled your sensor values, use them to <code>set the pixel color of each pixel</code> in the 9x8 pixel PImage. If you set a PImage's pixels to a <code>single color value from 0 (black) - 255 (white)</code>, it will automatically be treated as <code>grayscale</code>.<br><br>
 
 <h3 id="BICUBIC">(5) Scale Up Image Using Bicubic Interpolation</h3>
 
