@@ -971,6 +971,30 @@
 		<i>Image Reconstruction Algorithm:</i> EIT-kit solves the inverse problem of inferring the internal conductivity σ over a domain Ω from voltage responses φ to current sources I , with σ0 initialized to be of constant conductance 0.5. This is mathematically formalized by the continuum Ohm’s law J = σ ∇φ , where J is the current density, and the continuum Ampere’s law ∇ · J = I . Combining these equations under the assumption of no interior current sources gives us the continuum Kirchoff’s law:
 		<br>
 		<br>
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;∇ · σ ∇φ = 0. &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(1)
+		<br>
+		<br>
+		Boundary current sources are encoded by j = −J · nˆ, where nˆ is the surface normal of Ω. For a fixed σ, and boundary conditions j, one can solve the linear PDE (1) for voltages φ over Ω. These fields are discretized as piece-wise linear voltages and piece-wise constant conductances on a triangle mesh. Differential operators ∇ and ∇· are computed with the standard FEM. This solves the ‘forward’ problem of determining φ from known σ, j. For convenience of notation let f (Ω, σ ) be the restriction of voltages φ to the boundary ∂Ω.
+		<br>
+		<br>
+		In the ‘inverse’ problem, one experimentally chooses current sources j, and measures the boundary voltages φ ̃. The σ can then be inferred by solving the nonlinear optimization:
+		<br>
+		<br>
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;σ∗ =argmin ∥f(Ω,σ)−φ ̃∥2 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(2)
+		<br>
+		<br>
+		This problem suffers from being instable to noisy perturbations in φ ̃. To achieve a faster and more stable solution, this problem is frequently regularized with terms such as smoothness of σ: λ ∫ ∥∇σ ∥p [18], or with assumptions that σ does not change Ω2 quickly in time. Let σk−1 be the solution to (2) for the previous timestep. One can add a simple regularization term λ∥σ − σk−1∥2 to the computation σ for the current timestep.
+		<br>
+		<br>
+		A fast way to solve for σ k is to compute:
+		<br>
+		<br>
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;σk =σk−1+(JTJ+λI)−1JT(f(Ω,σk−1)−φ ̃),&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(3) 
+		<br>
+		<br>
+		where J = ∂f . This corresponds to taking one Gauss-Newton iteration, or to solve (2) linearized about σ = σk−1. Since this approach is designed from linearizing about the previous iteration’s solution, the quality of (3) depends on σ changing slowly between timesteps.
+		<br>
+		<br>
 		<i>Interactive Speeds:</i> A key focus of our method is to achieve interactive speeds. Our image reconstruction σ is therefore computed via the EIT problem (2) with the assumption that σ changes slowly over time. This assumption can be broken when a new object is introduced to the measuring domain between iterations. However, the quality of the reconstruction will quickly improve with additional iterations. In this setting our reconstruction is a visualization of Newton iterations. For future work, we plan to explore integrating regularizers to address this challenge.
 		<br>
 		<br>
