@@ -260,23 +260,23 @@ The blob detection code should be implemented in the <code>drawBlobsAndEdges()</
 
 <h3 id="TOUCHPADHARDWARE">(7) Use Your Own Multi-touch Pad Data</h3>
 
-So far, we have only used prerecorded multi-touch data. In this last section, you will use your own multi-touch pad and replicate what you did so far with the prerecorded data.<br><br>
+So far, you have only used prerecorded multi-touch data. In this last section, you will use your own multi-touch pad and replicate what you did so far with the prerecorded data.<br><br>
 
-<b>Plug-In Your Multi-Touch Pad:</b> Connect your multi-touch pad.<br><br>
+<b>Plug-In Your Multi-Touch Pad:</b> First, <code>connect your multi-touch pad</code> to your computer.<br><br>
 
-<b>Writing your Own Multi-Touch Data to the Serial Port:</b> Replace our Arduino .ino program with your own code from pset3 that writes the live multi-touch data to the Serial Port. You may want to check the Serial Plotter similar to pset3 to see if the touch signals are being received correctly before moving on.<br><br>
+<b>Writing your Own Multi-Touch Data to the Serial Port:</b> <code>Replace our Arduino .ino program</code> with your own code from pset3 that writes the <code>live multi-touch data</code> to the Serial Port. To make sure your <code>circuit from pset3 is still working correctly</code>, you may want to look at the Serial Plotter to see if the <code>touch signals are being received</code> (see final check in pset3) before moving on.<br><br>
 
-<b>Read your Own Multi-Touch Data from the Serial Port into Processing:</b> Now check in Processing if you can receive your live data there. You may have to do more cleaning on the incoming string data since live data tends to be a bit more noisy.<br><br>
+<b>Read your Own Multi-Touch Data from the Serial Port into Processing:</b> Now check in Processing if you can receive your live data there. You may have to do <code>more cleaning on the incoming string data</code> since <code>live data tends to be a bit more noisy</code>.<br><br>
 
-<b>Recording Noise Baseline Signal:</b> Similar to the pre-recorded data, you need to record your noise baseline first. Thus, once you start your Processing program, do not touch your multi-touch pad for 2 seconds. This will use your existing code to record the noise baseline. You don't have to change your code for this.<br><br>
+<b>Recording Noise Baseline Signal:</b> Similar to the pre-recorded data, you need to <code>record your noise baseline for your live data</code> first. Thus, once you start your Processing program, do not touch your multi-touch pad for 2 seconds. This will use your existing code to record the noise baseline. You don't have to change your code for this.<br><br>
 
 <b>Subtract Noise Baseline from Live Touch Data:</b> Your existing code should already be able to automatically subtract the noise baseline from any touch signal coming in after 2 seconds from the multi-touch pad. You don't have to change your code for this.<br><br>
 
-<b>Converting Sensor Signals into Grayscales:</b> Remember that we used the <code>map()</code> function to convert the sensor signals into grayscale values. The <code>map()</code> function required you to define the <code>start1/stop1 (source):</code> parameters (i.e., min-input-range, and max-input-range). You need to adjust these values now that you have live touch data. Check the section (4) again on how to find the best values.<br><br>
+<b>Converting Sensor Signals into Grayscales:</b> Remember that we used the <code>map()</code> function to convert the sensor signals into grayscale values. The <code>map()</code> function required you to define the <code>start1/stop1 (source):</code> parameters (i.e., min-input-range, and max-input-range). You need to adjust these values now that you have live touch data. Check section (4) again for tips on how to find the best values.<br><br>
 
-<b>Adjusting Blob Detection with Custom Threshold:</b> Finally, you may have to adjust your blob detection threshold since your map() function is now converting the signal values into grayscale differently. Refer to section (6) for how to choose a good threshold.<br><br>
+<b>Adjusting Blob Detection with Custom Threshold:</b> Finally, you may have to <code>adjust your blob detection threshold</code> since your map() function is now using an updated mapping of sensor values. Refer to section (6) for how to choose a good threshold.<br><br>
 
-<b>Testing your Blob Detection with Live Data:</b> We recommend you test your blob detection with 1 finger, 2 fingers, and 3 fingers touching the multi-touch pad to see if it can reliably determine where the finger is touching. This will become important for the next part of this problem set in which we will build a gesture recognizer. You may want to go back to section (1) and further refine your threshold until you find a setting that works reliably.<br><br>
+<b>Testing your Blob Detection with Live Data:</b> Test your blob detection with <code>1 finger</code> and <code>2 fingers</code> touching the multi-touch pad to see if it can reliably determine where the fingers are touching.<br><br>
 
 <h3>Deliverables</h3>
 
@@ -284,7 +284,8 @@ For grading, please upload the following to your google drive student folder:<br
 
 <ul>
 	<li>the .pde file of your Processing program</li>
-	<li>a short video either taken with your phone or a screencast (.mov or .mp4, no more than 20MB) showing your Processing UI detecting the touch blobs for the prerecorded data of one, two, and three fingers
+	<li>blob detection video using <code>pre-recorded data:</code> a short video capture with either your phone or a screencast showing the Processing UI detecting the 1 finger and 2 fingers touch blobs from the prerecorded data (.mov or .mp4, no more than 20MB) </li>
+	<li>blob detection video using <code>live-data:</code> a short video captured with your phone showing your multi-touch pad hardware and your Processing UI detecting touch blobs when you touch the multi-touch pad with 1 finger and with 2 fingers (.mov or .mp4, no more than 20MB) </li>
 </ul>
 
 <h3>Grading</h3>
