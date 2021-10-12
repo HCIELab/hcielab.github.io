@@ -45,7 +45,7 @@
 	<!-- to be filled by javascript, see header.html -->
 </header>
 
-<script src="../../js/prism.js"></script> 
+<script src="../../js/prism.js"></script>
 
 <section class="main_container">
 	<div class="container">
@@ -117,7 +117,7 @@ If we need at least 4MHz for the frequency, what are the possible duty resolutio
 	</code>
 </pre><br>
 
-<b>Generating the PWM Signal on the Output Pin:</b> Finally, you need to tell the ESP which duty cycle you want to use for your PWM signal and generate the actual signal using the ledcWrite() function:<br> 
+<b>Generating the PWM Signal on the Output Pin:</b> Finally, you need to tell the ESP which duty cycle you want to use for your PWM signal and generate the actual signal using the ledcWrite() function:<br>
 
 <pre>
 	<code class="language-c">
@@ -125,7 +125,7 @@ If we need at least 4MHz for the frequency, what are the possible duty resolutio
 	</code>
 </pre>
 
-<i>Duty Cycle:</i> In the duty cycle parameter, you tell the ledcWrite() function, which of the duty cycles from your duty resolution should be used. Continuing the example from above, let's assume you chose 4 bits, which gives you 16 values ranging from 6.25%, 12.5%, 18.75%, 25%, 31.25% .... 100%, then your duty cycle parameter is the index of the duty cycle you want to use. For instance, using 2 would give you 18.75% for the duty cycle. Based on the duty resolution you chose for question number 1, choose the correct duty cycle parameter. <a href="https://forms.gle/cjM1baraYAj9GUof6" style="color:blue">Submit your answer (question 3) in the Google Form here and then use it as the parameter in the function.</a><br><br>
+<i>Duty Cycle:</i> In the duty cycle parameter, you tell the ledcWrite() function, which of the duty cycles from your duty resolution should be used. Continuing the example from above, let's assume you chose 4 bits, which gives you 16 values ranging from 0%, 6.25%, 12.5%, 18.75%, 25%, 31.25% .... 100%, then your duty cycle parameter is the index of the duty cycle you want to use. For instance, using 2 would give you 12.5% for the duty cycle. Based on the duty resolution you chose for question number 1, choose the correct duty cycle parameter. <a href="https://forms.gle/cjM1baraYAj9GUof6" style="color:blue">Submit your answer (question 3) in the Google Form here and then use it as the parameter in the function.</a><br><br>
 
 Once you submitted all your answers with the google form, feel free to reach out on slack to have your answers confirmed. Even if your PWM is wrong, you can still work on section #2 and #3 and everything should be fine. Only section #4 may give you a weird signal if something is wrong with your PWM.<br><br>
 
@@ -134,7 +134,7 @@ Once you submitted all your answers with the google form, feel free to reach out
 
 Now that you are generating the PWM signal at the ESP GPIO sender pin that is connected to the multiplexer SIG pin, you are ready to write a function that will tell the multiplexer to which pin (i.e. electrode column) it should forward the signal to. Note that even if you did not get the PWM signal in section #1 working, you can still work on this section here (instead of the PWM signal just use digitalWrite(HIGH) for the multiplexer's SIG pin).<br><br>
 
-<img src="images/pset2/multiplexer.png" width="350px"><br><br>  
+<img src="images/pset2/multiplexer.png" width="350px"><br><br>
 
 <b>How to redirect the signal to a desired channel?:</b> The multiplexer receives the PWM signal on the <code>input pin (SIG).</code> It then needs to determine to which of the <code>output pins (C0-C15)</code> the signal should be forwarded to. To do this, it uses the <code>address pins S0 - S3</code> to create the address that determines which output pin (electrode column) the signal should be send to. Why four pins? The multiplexer expects a binary signal. For instance, sending 0,0,0,0 to S0-S3 results in the output pin C0. In contrast, sending 0,1,1,0 sends the signal to C6. Notice that you don't have to store everything in binary as long as you are comfortable with bit operations in C, for example <code class="language-c">int number & 1</code> (or <code class="language-c">int number & 0001</code>) will return the least significant bit of the <code class="language-c">number</code>, and <code class="language-c">int number & 2</code> (or <code class="language-c">int number & 0010</code>) will return the second to least significant bit of the <code class="language-c">number</code>. All solutions are welcome here as long as it works. Let's implement this in the next section.<br><br>
 
@@ -153,7 +153,7 @@ Now that you are generating the PWM signal at the ESP GPIO sender pin that is co
 
 Now that you can foward the PWM signal to specific electrode columns, you are ready to write the code for reading the signals from the electrode rows. Note that even if you did not finish section #2, you can still work on section #3 here.<br><br>
 
-Remember from pset2 that we had wired up an additional ADC converter (MCP3008 chip) to get cleaner signals from our multi-touch pad, i.e. the MCP3008 chip converts our analog touch signals better than the ESP GPIO pins would be able to do. We had also discussed that the MCP3008 chip <a href="pset2-multitouch-assembly.html#RECEIVING">communicates with the ESP via the Serial Peripheral Interface (SPI)</a>. To write code that reads the signals via SPI, you will have to do the following steps. <br><br> 
+Remember from pset2 that we had wired up an additional ADC converter (MCP3008 chip) to get cleaner signals from our multi-touch pad, i.e. the MCP3008 chip converts our analog touch signals better than the ESP GPIO pins would be able to do. We had also discussed that the MCP3008 chip <a href="pset2-multitouch-assembly.html#RECEIVING">communicates with the ESP via the Serial Peripheral Interface (SPI)</a>. To write code that reads the signals via SPI, you will have to do the following steps. <br><br>
 
 <b>Install MCP3008 Library</b>: Download and install the MCP3008 library by opening the Arduino IDE and going to <code>Sketch -> Include Library -> Manage Libraries</code> and search for the <code>MCP3008</code> library. Restart your Arduino IDE after you installed the library.<br><br>
 
@@ -163,7 +163,7 @@ Remember from pset2 that we had wired up an additional ADC converter (MCP3008 ch
 
 <img src="images/pset3/mpc-library-examples.png" width="400px"> <br><br>
 
-<b>Include Library</b>: As you can see in the simpletest example, you need to first include the library on top in the skeleton code.<br><br> 
+<b>Include Library</b>: As you can see in the simpletest example, you need to first include the library on top in the skeleton code.<br><br>
 
 <b>Instantiate Library</b>: After this, you need to declare an object of the library.<br><br>
 
@@ -218,9 +218,9 @@ If you do not see the above signals on your Serial Plotter, you can check the fo
 
 <b>Testing the Generated PWM signal:</b> If you want to test if you are generating the correct PWM signal, we will have an oscilloscope ready in lab and at the OH. If you know how to use an oscilloscope, you can also use it yourself outside the OH. <br><br>
 
-<img src="images/pset3/oscilloscope.jpg" width="450px"><br><br>  
+<img src="images/pset3/oscilloscope.jpg" width="450px"><br><br>
 
-<b>Tuning the Multiplexer Delay Function:</b> In the skeleton code the function <code>selectChannelOut(int channel)</code> has a delay() function. You may need to adjust the delay slightly depending on the amount of capacitive coupling your specific circuit layout has. 
+<b>Tuning the Multiplexer Delay Function:</b> In the skeleton code the function <code>selectChannelOut(int channel)</code> has a delay() function. You may need to adjust the delay slightly depending on the amount of capacitive coupling your specific circuit layout has.
 
 Capacitive coupling slows down the signal writing process to pins and can cause the multiplexer to fall behind with assigning the correct output channels C0-C8 based on the pin values from the address pins S0-S3, thus writing into the wrong output channel, which leads to weird behavior. Adding a larger delay allows the multiplexer to receive stable select pin values for S0-S3 and to assign the correct output channel from C0-C8. Usually a delay of 2 - 5 milliseconds is sufficient. <br>
 
@@ -228,11 +228,11 @@ Capacitive coupling slows down the signal writing process to pins and can cause 
 	<code class="language-c">
 		//----- TODO: Set Select Pin Values -----
 		void selectChannelOut(int channel) {
-		    
+
 		    // leave this delay at the end of the function,
 		    // this is for mux to stabilize after each select pin values assignment
-		    // you can adjust the delay value 
-		    delay(2);  
+		    // you can adjust the delay value
+		    delay(2);
 		}
 	</code>
 </pre>
