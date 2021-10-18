@@ -191,7 +191,7 @@ Once you finish the <code>drawAxis()</code> function, you should have something 
 
 <h3 id="CAMERAMOTION">(6) Implement Camera Motion</h3>
 
-Without camera motion, it is kind of hard to see if you really succeeded in drawing your axis correctly or if it just 'looks' correct from the 2D perspective but in reality the lines are all over the place in 3D space. To facilitate debugging, we will implement camera control, i.e. you will be able to move around the camera by pressing keys on the keyboard to zoom in/out and move the camera around the scene.<br><br>
+Without camera motion, it is kind of hard to see if you really succeeded in drawing your axis correctly or if it just 'looks' correct from the 2D perspective but in reality the lines are all over the place in 3D space. To facilitate debugging, we will implement <code>camera control,</code> i.e. you will be able to <code>move around the camera by pressing keys</code> on the keyboard to <code>zoom in/out</code> and <code>move the camera</code> around the scene.<br><br>
 
 <b>Initialize Camera in Processing:</b> Processing provides a <code>Camera Class</code> for implementing camera movement. You can find the <a href="https://processing.org/reference/camera_.html">camera class documentation here</a>. To get started, <code>initialize a new camera</code> in Processing with the following method:<br><br>
 
@@ -199,16 +199,20 @@ Without camera motion, it is kind of hard to see if you really succeeded in draw
 
 <i>eye x/y/z:</i> This is the <code>camera's 3D position</code> in space, i.e. where it would be physically located if it was a camera in real-life.<br><br>
 
-<i>center x/y/z:</i> The <code>center of the scene</code> defines how the camera is angled. For instance, if the center of the scene is lower than the camera, then the camera will look down, resulting in a bird's eye view. Similarly, if the center of the scene is higher than the camera, then the camera will look up, resulting in a frog's eye view.</span><br><br>
+<i>center x/y/z:</i> The <code>center of the scene</code> defines how the camera is angled. For instance, if the center of the scene is lower than the camera position ('eye'), then the camera will look down, resulting in a bird's eye view. Similarly, if the center of the scene is higher than the camera, then the camera will look up, resulting in a frog's eye view.</span><br><br>
 
-<i>up x/y/z:</i> This defines <code>which axis is facing upwards</code>. You can use values from 0 to 1 to -1. If you use a -1, the camera will be flipped and face up-side-down. In our case, we want to keep it simple and use for x,y,z 0,1,0 since y is pointing upwards.<br><br>
+<i>upX/Y/Z:</i> This defines <code>which axis is facing upwards</code>. You can use values -1, 0, and 1. If you use -1, the camera will be flipped and face up-side-down. In our case, we want to keep it simple and use for x,y,z 0,1,0 since y is pointing upwards.<br><br>
 
-When you initialize your camera, you may want to start by using the default parameter values we provide in the code, which should give you a reasonable start for a good viewport. If you see nothing in your view after initializing the camera, you may be facing the wrong way with you camera, e.g. the scene may be behind you, which causes you to only see a white screen with nothing on it.<br><br>
+When you initialize your camera, you may want to start by using the default parameter values we provide in the code, which should give you a reasonable start for a <code>good viewport</code>. If you <code>see nothing</code> in your view after initializing the camera, you may be <code>facing the wrong way with you camera</code>, e.g. the scene may be behind you, which causes you to only see a white screen with nothing on it.<br><br>
 
-<b>Zooming in/out:</b> Moving the <code>camera position (eye position)</code> closer or further away from the 3D visualization results in a zooming in/out effect (see images below). Implement a zooming effect so that when you press the <code>key "E" you zoom in</code> and if you press the <code>key "Q" you zoom out</code>.<br><br>
+<b>Zooming in/out:</b> Moving the <code>camera (eye position)</code> closer or further away from the 3D visualization results in a zooming in/out effect (see images below). Implement a zooming effect so that when you press the <code>key "E" you zoom in</code> and if you press the <code>key "Q" you zoom out</code>.<br><br>
 
 <img src="images/pset5/UI-3d-visualization-cameraViewControl-zoom-out.png" width="350px">
 <img src="images/pset5/UI-3d-visualization-cameraViewControl-zoom-in.png" width="350px"> <br><br>
+
+<b>Adjusting Frame Rate:</b> If you are experiencing some lagging in your application, you can also set the frame rate for the camera for better performance using the line below:<br>
+
+<pre>frameRate(30);</pre><br>
 
 <b>Rotating in the X-Z Plane:</b> To move the camera in the x-z plane around the 3D visualization, you need to keep it at the <code>same distance from the 3D visualization</code> at all times (see images below). This is best accomplished by <code>moving the camera on a circle</code> around the scene. Update the <code>camera position (eye position)</code> to accomplish this (you have to do some math here, check out how radians work again to help you with this). If you <code>press the key 'D' rotate right</code> and if you press the <code>key 'A' rotate left</code>. Note that you only have to update the camera's position. Since you set the scene's center x/y/z to be the location of your 3D visualization, the camera will automatically rotate while moving around the 3D visualization and always look at it.<br><br>
 
@@ -220,9 +224,7 @@ When you initialize your camera, you may want to start by using the default para
 <img src="images/pset5/UI-3d-visualization-cameraViewControl-view-height-1.png" width="350px">
 <img src="images/pset5/UI-3d-visualization-cameraViewControl-view-height-2.png" width="350px"> <br><br>
 
-<b>Adjusting Frame Rate:</b> If you are experiencing some lagging in your application, you can also set the frame rate for the camera for better performance using the line below:<br>
 
-<pre>frameRate(30);</pre><br>
 
 <h3 id="TOUCHPRESSURE">(7) Draw Touch Pressure into 3D Viewport</h3>
 
