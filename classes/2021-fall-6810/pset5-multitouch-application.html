@@ -65,6 +65,7 @@ In this problem set, you will implement a gesture recognizer that can detect dif
 	<li><a href="#LEARNGESTURERECOGNIZER">Learn about $1 Unistroke Gesture Recognizer</a></li>
 	<li><a href="#RECORDTOUCH">Train Gesture and Connect to Call-Back Function</a></li>
 	<li><a href="#TRACKGESTURES">Track and Visualize Gestures</a></li>
+	<li><a href="#GESTUREONMULTITOUCH">Implement Finger Gestures on Multi-Touch Pad</a></li>
 	<li><a href="#3DVIEWPORT">3D Visualization: Draw 3D Viewport</a></li>
 	<li><a href="#CAMERAMOTION">Implement Camera Motion</a></li>
 	<li><a href="#TOUCHPRESSURE">Draw Touch Pressure into 3D Viewport</a></li>
@@ -144,7 +145,7 @@ Note that you don't have to 'stop' tracking. The <code>track()</code> function w
 
 <b>Add Two More Gestures:</b> Next, let's record two more gestures of your choice. Reliable gestures are gestures that have some unique features, such as triangle, zigzag, and checkmark, but you can choose whatever you like. Harder to recognize gestures have smooth outlines which are easily susceptible to noise, e.g. a circle is one of the harder gestures to recognize. Repeat all steps above, i.e. record training data for your gestures, input the training data to the gesture recognizer, connect a callback function, and implement the callback function so that it draws the gesture on the screen.<br><br> 
 
-<h3 id="TRACKGESTURES">(4) Implement Finger Gestures on Multi-Touch Pad</h3>
+<h3 id="GESTUREONMULTITOUCH">(4) Implement Finger Gestures on Multi-Touch Pad</h3>
 
 Now that you implemented your gestures via mouse dragging, the final step is to also make this gesture recognition work on your multi-touch pad.<br><br> 
 
@@ -152,9 +153,9 @@ Now that you implemented your gestures via mouse dragging, the final step is to 
 
 <b>Start tracking when Finger Blob Detected:</b> So far, you started tracking with the <code>oneDollar.track()</code> function when the mouseDragged() event occured. Now you need to change this to start tracking gestures when your code <code>detects a finger blob</code>. Therefore, you need to add the tracking function below in the blob detection method where it determines if a finger was successfully detected. The x/y coordinate in the function are the <code>x/y coordinate of your touch point</code>. Similar to before, you don't have to 'stop' tracking. The <code>track()</code> function will only be executed when Processing goes through its loop and detects a finger blob. Once it saw a finger blob it will keep looking for follow-up blobs for a while, and if no finger has been present for some time, i.e. no new data is fed to the gesture recognizer, the recognizer will automatically determine that the gesture has ended and will provide its best guess at what gesture was executed. <br><br>
 
-<b>Visualize Gesture Detection Result:</b> Finally, you need to change your visualization to <code>draw the touch center points</code> into the window instead of mouse coordinates (discard the blob contour).<br><br>
+<b>Visualize Gesture Detection Result:</b> In this last step, you need to change your visualization to <code>draw the touch center points</code> into the window instead of mouse coordinates (discard the blob contour).<br><br>
 
-Once you have this, you are ready to record the video for the deliverable (see end of pset for what should be shown in the video).<br><br>
+<b>Test your Gestures on the Multi-Touch Pad:</b> Now that you have the code ready, <code>draw each of your finger gestures on your multi-touch pad</code> and see if they are being recognized. If you don't get good results, first make sure that your <code>blob detection</code> is still detecting the finger on the multi-touch pad. If you changed your setup since last time, you may have to rerecord the <code>noise baseline</code>, adjust the signal-to-grayscale mapping, and the <code>blob detection threshold</code> (see pset4) to make sure your finger blobs are detected. Without properly detected finger blobs, the gesture recognizer will not have reliable input data and thus will have trouble recognizing the gestures. Once you are able to <code>execute your three gestures and have them recognized</code>, you are ready to record the video for the deliverable.<br><br>
 
 <h3 id="3DVIEWPORT">(5) 3D Visualization: Draw 3D Viewport</h3>
 
