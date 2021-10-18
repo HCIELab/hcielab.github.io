@@ -155,7 +155,7 @@ Now that you implemented your gestures via mouse dragging, the final step is to 
 
 <b>Visualize Gesture Detection Result:</b> In this last step, you need to change your visualization to <code>draw the touch center points</code> into the window instead of mouse coordinates (discard the blob contour).<br><br>
 
-<b>Test your Gestures on the Multi-Touch Pad:</b> Now that you have the code ready, <code>draw each of your finger gestures on your multi-touch pad</code> and see if they are being recognized. If you don't get good results, first make sure that your <code>blob detection</code> is still detecting the finger on the multi-touch pad. If you changed your setup since last time, you may have to rerecord the <code>noise baseline</code>, adjust the signal-to-grayscale mapping, and the <code>blob detection threshold</code> (see pset4) to make sure your finger blobs are detected. Without properly detected finger blobs, the gesture recognizer will not have reliable input data and thus will have trouble recognizing the gestures. Once you are able to <code>execute your three gestures and have them recognized</code>, you are ready to record the video for the deliverable.<br><br>
+<b>Test your Gestures on the Multi-Touch Pad:</b> Now that you have the code ready, <code>draw each of your finger gestures on your multi-touch pad</code> and see if they are being recognized. If you don't get good results, first make sure that your <code>blob detection</code> is still detecting the finger on the multi-touch pad. If you changed your setup since last time, you may have to adjust the <code>signal-to-grayscale mapping</code> and the <code>blob detection threshold</code> (see pset4) to make sure your finger blobs are detected. Without properly detected finger blobs, the gesture recognizer will not have reliable input data and thus will have trouble recognizing the gestures. Once you are able to <code>execute your three gestures and have them recognized</code>, you are ready to record the video for the deliverable.<br><br>
 
 <h3 id="3DVIEWPORT">(5) 3D Visualization: Draw 3D Viewport</h3>
 
@@ -224,19 +224,16 @@ When you initialize your camera, you may want to start by using the default para
 <img src="images/pset5/UI-3d-visualization-cameraViewControl-view-height-1.png" width="350px">
 <img src="images/pset5/UI-3d-visualization-cameraViewControl-view-height-2.png" width="350px"> <br><br>
 
-
-
 <h3 id="TOUCHPRESSURE">(7) Draw Touch Pressure into 3D Viewport</h3>
 
 Next, you will draw the touch points and associated <code>touch pressure</code> into the 3D visualization based on your interpolated PImage.<br><br>
 
-<span style="color:red">can we update this section to work only with blobs to discard the noise?</span><br>
-
 <b>Drawing 3D Points in Processing:</b> To draw the touch points and their pressure, you will create a set of 3D points, where the <code>X,Z coordinates</code> are the <code>row & column number of the pixel on the PImage</code>, and the <code>Y-coordinate is the interpolated value</code> of the pixel. As mentioned previously, the brighter pixels are in an area the more pressure was applied to this area. As a result, the brighter a pixel, the higher the touch bar will be at this point.<br><br>
 
-<b>Mapping the Touch Pressure (Y Value) to a Color Gradient:</b> You also need to <code>color the touch bars</code> with a color gradient that represents the "height" (i.e. y-axis coordinate) information. We chose a <code>color gradient</code> of red when only touching with light pressure and yellow when touching with high pressure. You can choose your own color gradient, just make sure that the colors are very different so you can actually see a difference. To implement the y-height to color mapping, you may find it helpful to use the <a href="https://processing.org/reference/map_.html"><code>map() function</code></a> that you already used in the previous psets. The resulting 3D visualization should look like below.<br><br>
+<b>Mapping the Touch Pressure (Y Value) to a Color Gradient:</b> You also need to <code>color the touch bars</code> with a color gradient that represents the "height" (i.e. y-axis coordinate) information. We chose a <code>color gradient</code> of red when only touching with light pressure and yellow when touching with high pressure. You can choose your own color gradient, just make sure that the colors are very different so you can actually see a difference. To implement the <code>y-value to color mapping</code>, you may find it helpful to use the <a href="https://processing.org/reference/map_.html"><code>map() function</code></a> that you already used in the previous psets. The resulting 3D visualization should look like below.<br><br>
 
-<span style="color:red">can we update these images and remove noise</span><br>
+<b>Adjust Signal-to-Grayscale Mapping:</b> If your visualization does not look a nice as below, you may have to adjust your <code>signal-to-grayscale mapping</code> values from pset4 since you are using our pre-recorded data instead if your own multi-touch data. If the mapping is not setup correctly, you may get either only very low values or only very high values rather than a proper touch point with a high value in the middle and then lower values on the edges. Note that the images below are exemplary, they are not actually what is contained in your touch data.<br><br>
+
 One finger touching: <br>
 <img src="images/pset5/UI-3d-visualization-1-finger-1.png" width="350px">
 <img src="images/pset5/UI-3d-visualization-1-finger-2.png" width="350px"> <br><br>
@@ -244,10 +241,6 @@ One finger touching: <br>
 Two fingers touching:<br>
 <img src="images/pset5/UI-3d-visualization-2-finger-2.png" width="350px">
 <img src="images/pset5/UI-3d-visualization-2-finger-4.png" width="350px"> <br><br>
-
-<span style="color:red">Note that all this noise is because we use the PImage that also contains brightness values outside the recognized 'finger blobs'. If you want a cleaner visualization, you can create a new PImage that has all pixels black except those pixels that belong to a blob. Note that this is not mandatory for this pset but if you'd like some clean output you can experiment with this.</span>
-<br><br>
-
 
 <h3 id="BICUBIC">(8) Use Your Own Multi-touch Pad Data</h3>
 
