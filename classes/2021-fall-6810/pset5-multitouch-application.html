@@ -135,18 +135,17 @@ Now that you have defined how your gesture looks like and what function should b
 
 <b>Start tracking when Finger Blob Detected:</b> We want to start tracking gestures when our code <code>detects a finger blob</code>. Therefore, you need to add the tracking function below in the blob detection method where it determines if a finger was successfully detected. The x/y coordinate in the function are the x/y coordinate of your touch point.<br>
 
-<pre><code>oneDollar.track(int x-coordinate, int y-coordinate);</code></pre>
+<pre><code class="language-processing">oneDollar.track(int x-coordinate, int y-coordinate);</code></pre>
 
-Note that you don't have to 'stop' tracking. The <code>track()</code> function will only be executed when Processing goes through its loop and detects a finger blob, and if no finger has been present for a while, i.e. no new data is fed to the gesture recognizer, the recognizer will automatically determine that the gesture has ended and will provide its best guess at what gesture was executed. <br><br>
-
-<b>Load Pre-Recorded Gesture Data:</b> <span style="color:red">Next, let's load some pre-recorded gesture data that was actually recorded on a multi-touch pad. We will use prerecorded data from a text file again to make this easier for you.</span> Open the Arduino program that can stream prerecorded data and replace the file path with 'gesture.txt' that you can download <a href="software/XXXX.txt" style="color:blue">from here</a>. The data contains <span style="color:red">two V gestures (first 5 seconds), followed by two XX gestures (second 5 seconds), followed by two YY gestures (third 5 seconds).</span> <br><br>
+Note that you don't have to 'stop' tracking. The <code>track()</code> function will only be executed when Processing goes through its loop and detects a finger blob. Once it saw a finger blob it will keep looking for follow-up blobs for a while, and if no finger has been present for some time, i.e. no new data is fed to the gesture recognizer, the recognizer will automatically determine that the gesture has ended and will provide its best guess at what gesture was executed. <br><br>
 
 <b>Visualize Gesture Detection Result:</b> Finally, once your gesture is detected, your callback function should visualize the detected gesture. For this, you should <code>write the name of the detected gesture into the Processing UI window</code> as shown in the top left corner of the images below and also <code>draw the touch point centers into the window</code> (discard the blob contour). The touch point centers should be visible in the window for a while even after you lift your finger from the multi-touch pad (e.g., show them for another 2 seconds before removing them from the window). You can implement this by <code>storing the touch point centers</code> in a separate array. Draw the array points when the array is not empty, and clear the points in the array whenever it exceeds the 2 seconds time after the gesture was recognized (use the <code>millis()</code> and <code>System.nanoTime()</code> functions from <a href="pset4-visualization.html#REDUCENOISE">PSet4</a> for this). The image down below shows an example of the UI when the "Z" gesture is recognized.<br><br>
 
+<img src="images/pset5/UI-recognizer-Z-draw-points.png" width="350px"> <br><br>
+
 Other reliable gestures are triangle, zigzag, checkmark, and anything that has some unique features. A circle, for instance, is one of the harder gestures to recognize due to its smooth outline that is easily susceptible to noise.
 
-
-<img src="images/pset5/UI-recognizer-Z-draw-points.png" width="350px"> <br><br>
+<b>Load Pre-Recorded Gesture Data:</b> <span style="color:red">Next, let's load some pre-recorded gesture data that was actually recorded on a multi-touch pad. We will use prerecorded data from a text file again to make this easier for you.</span> Open the Arduino program that can stream prerecorded data and replace the file path with 'gesture.txt' that you can download <a href="software/XXXX.txt" style="color:blue">from here</a>. The data contains <span style="color:red">two V gestures (first 5 seconds), followed by two XX gestures (second 5 seconds), followed by two YY gestures (third 5 seconds).</span> <br><br>
 
 <h3 id="3DVIEWPORT">(4) 3D Visualization: Draw 3D Viewport</h3>
 
