@@ -126,12 +126,25 @@ Now that you know a bit more about what the $1 Unistroke recognizer can and cann
 
 <pre><code class="language-processing">void foo(String gesture-name, float percentOfSimilarity, int startX, int startY, int centroidX, int centroidY, int endX, int endY){
 	// do something when the gesture is detected
- }
-</code></pre> 
+ }</code></pre> 
 
 <h3 id="TRACKGESTURES">(3) Track and Visualize Gestures</h3>
 
 Now that you have defined how your gesture looks like and what function should be called when it is detected, you still have to tell your code <code>when</code> it should start looking for the gesture. <br><br>
+
+<b>Start tracking when Mouse Dragging Detected:</b> Since we are still using the mouse for testing, you can start tracking whenever your code detects that the mouseDragged() event started.<br>
+
+<pre><code class="language-processing">oneDollar.track(int x-coordinate, int y-coordinate);</code></pre>
+
+Note that you don't have to 'stop' tracking. The <code>track()</code> function will only be executed when Processing detects a mouseDragged() event. Once it received a mouse coordinate, it will keep looking for follow-up mouse coordinates for a while, and if no more mouse coordinates have been present for some time, i.e. no new data is fed to the gesture recognizer, the recognizer will automatically determine that the gesture has ended and will provide its best guess at what gesture was executed. <br><br>
+
+<b>Visualize Gesture Detection Result:</b> Finally, once your gesture is detected, your callback function should visualize the detected gesture. <code>Write the name of the detected gesture into the Processing UI window</code> as shown in the top left corner of the images below and also <code>draw the mouse coordinates into the window</code>. The mouse coordinates should be visible in the window for a while (e.g., show them for another 2 seconds before removing them from the window). You can implement this by <code>storing the mouse coordinates</code> in a separate array. Draw the array points when the array is not empty, and clear the points in the array whenever 2 seconds have passed after the gesture was recognized (use the <code>millis()</code> and <code>System.nanoTime()</code> functions for this). The image down below shows an example of the UI when the "Z" gesture is recognized.<br><br>
+
+<img src="images/pset5/UI-recognizer-Z-draw-points.png" width="350px"> <br><br>
+
+<b>Add Two More Gestures:</b> Next, let's record two more gestures of your choice. Reliable gestures are gestures that have some unique features, such as triangle, zigzag, and checkmark, but you can choose whatever you like. Harder to recognize gestures have smooth outlines which are easily susceptible to noise, e.g. a circle is one of the harder gestures to recognize. Repeat all steps above, i.e. record training data for your gestures, input the training data to the gesture recognizer, connect a callback function, and implement the callback function so that it draws the gesture on the screen.<br><br> 
+
+<h3 id="TRACKGESTURES">(4) Use Gesture Detection on your Multi-Touch Pad</h3>
 
 <b>Start tracking when Finger Blob Detected:</b> We want to start tracking gestures when our code <code>detects a finger blob</code>. Therefore, you need to add the tracking function below in the blob detection method where it determines if a finger was successfully detected. The x/y coordinate in the function are the x/y coordinate of your touch point.<br>
 
@@ -141,16 +154,8 @@ Note that you don't have to 'stop' tracking. The <code>track()</code> function w
 
 <b>Visualize Gesture Detection Result:</b> Finally, once your gesture is detected, your callback function should visualize the detected gesture. <code>Write the name of the detected gesture into the Processing UI window</code> as shown in the top left corner of the images below and also <code>draw the touch point centers into the window</code> (discard the blob contour). The touch point centers should be visible in the window for a while even after you lift your finger from the multi-touch pad (e.g., show them for another 2 seconds before removing them from the window). You can implement this by <code>storing the touch point centers</code> in a separate array. Draw the array points when the array is not empty, and clear the points in the array whenever it exceeds the 2 seconds time after the gesture was recognized (use the <code>millis()</code> and <code>System.nanoTime()</code> functions for this). The image down below shows an example of the UI when the "Z" gesture is recognized.<br><br>
 
-<img src="images/pset5/UI-recognizer-Z-draw-points.png" width="350px"> <br><br>
 
-<b>Add Two More Gestures:</b> Next, let's record two more gestures of your choice. Reliable gestures are gestures that have some unique features, such as triangle, zigzag, and checkmark, but you can choose whatever you like. Harder to recognize gestures have smooth outlines which are easily susceptible to noise, e.g. a circle is one of the harder gestures to recognize. Repeat all steps above, i.e. record training data for your gestures, input the training data to the gesture recognizer, connect a callback function, and implement the callback function so that it draws the gesture on the screen.<br><br> 
-
-<h3 id="TRACKGESTURES">(4) Use Gesture Detection on your Multi-Touch Pad</h3>
-
-
-
-
-<h3 id="3DVIEWPORT">(4) 3D Visualization: Draw 3D Viewport</h3>
+<h3 id="3DVIEWPORT">(5) 3D Visualization: Draw 3D Viewport</h3>
 
 In the previous section, we used the touch locations to recognize gestures. Next, we will also detect <code>touch pressure</code> and visualize it in the user interface. To visualize the touch pressure, you are going to use a <code>3D visualization,</code> in which the <code>height of the touch point represents how much pressure is applied</code>. Below you can see an example: on the left side only little pressure is applied and the touch bar is small, whereas on the right side a lot of pressure is applied and the bar is much higher.<br><br>
 
@@ -183,7 +188,7 @@ Once you finish the <code>drawAxis()</code> function, you should have something 
 
 <img src="images/pset5/UI-3d-visualization-drawAxis.png" width="400px"> <br><br>
 
-<h3 id="CAMERAMOTION">(5) Implement Camera Motion</h3>
+<h3 id="CAMERAMOTION">(6) Implement Camera Motion</h3>
 
 Without camera motion, it is kind of hard to see if you really succeeded in drawing your axis correctly or if it just 'looks' correct from the 2D perspective but in reality the lines are all over the place in 3D space. To facilitate debugging, we will implement camera control, i.e. you will be able to move around the camera by pressing keys on the keyboard to zoom in/out and move the camera around the scene.<br><br>
 
@@ -218,7 +223,7 @@ When you initialize your camera, you may want to start by using the default para
 
 <pre>frameRate(30);</pre><br>
 
-<h3 id="TOUCHPRESSURE">(6) Draw Touch Pressure into 3D Viewport</h3>
+<h3 id="TOUCHPRESSURE">(7) Draw Touch Pressure into 3D Viewport</h3>
 
 Next, you will draw the touch points and associated <code>touch pressure</code> into the 3D visualization based on your interpolated PImage.<br><br>
 
@@ -241,7 +246,7 @@ Two fingers touching:<br>
 <br><br>
 
 
-<h3 id="BICUBIC">(7) Use Your Own Multi-touch Pad Data</h3>
+<h3 id="BICUBIC">(8) Use Your Own Multi-touch Pad Data</h3>
 
 So far, we have only used prerecorded multi-touch data. In this last section, you will use your own multi-touch pad and replicate what you did so far with the prerecorded data.<br><br>
 
