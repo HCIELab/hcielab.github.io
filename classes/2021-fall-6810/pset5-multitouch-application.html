@@ -110,12 +110,11 @@ Now that you know a bit more about what the $1 Unistroke recognizer can and cann
 
 <pre><code class="language-processing">oneDollar.setVerbose(true); // activates console plotting</code></pre> <br>
 
-<b>Load Pre-Recorded Gesture Training Data:</b> Before we can detect a gesture, we have to provide the gesture recognizer with <code>training data</code>. <span style="color:red">We will provide you with prerecorded training data for three different finger gestures: a 'V', a 'XX', and a 'YY'. This prerecorded training data is contained in your Processing program in array gestureVtraining[].  Below you see the array that contains the gesture coordinates for our 'V' gesture.<br><br></span>
+<b>Record Training Data (x/y coordinates) for New Finger Gesture:</b> Before we can train the gesture recognizer to recognize a new gesture, we first have to <code>capture training data,</code> i.e. <code>a series of x-y coordinates that represent the finger gesture</code>. For starters, we will collect training data for a <code>'V' gesture</code>, which is one of the most reliable ones that can be detected. While you could obtain the x-y-coordinates for your gesture template by tracking finger input from your multi-touch pad, we recommend that for starters you draw the gesture with the mouse on screen and record the x-y coordinates from the <code>mouseDragged()</code> event. Below you see a recording of all the coordinates for our 'V' gesture.<br><br>
  
 <img src="images/pset5/add-gesture3.png" width="650px"> <br><br>
 
-
-<b>Train New Gesture Based on Training Data:</b> Next, use the pre-recorded training data to and feed it into the <code>learn()</code> function to add the new gesture. <br><br>
+<b>Train New Gesture Based on Training Data:</b> Next, use the pre-recorded training data to and feed it into the <code>learn()</code> function to add the new gesture. You can see the input format for the array below.<br><br>
 
 <pre><code class="language-processing">oneDollar.learn(String gesture-name, int[] x-y-coordinates); // {x1, y1, x2, y2, x3, y3, x4, y4, ...} </code></pre> <br>
 
@@ -143,6 +142,9 @@ Note that you don't have to 'stop' tracking. The <code>track()</code> function w
 <b>Load Pre-Recorded Gesture Data:</b> <span style="color:red">Next, let's load some pre-recorded gesture data that was actually recorded on a multi-touch pad. We will use prerecorded data from a text file again to make this easier for you.</span> Open the Arduino program that can stream prerecorded data and replace the file path with 'gesture.txt' that you can download <a href="software/XXXX.txt" style="color:blue">from here</a>. The data contains <span style="color:red">two V gestures (first 5 seconds), followed by two XX gestures (second 5 seconds), followed by two YY gestures (third 5 seconds).</span> <br><br>
 
 <b>Visualize Gesture Detection Result:</b> Finally, once your gesture is detected, your callback function should visualize the detected gesture. For this, you should <code>write the name of the detected gesture into the Processing UI window</code> as shown in the top left corner of the images below and also <code>draw the touch point centers into the window</code> (discard the blob contour). The touch point centers should be visible in the window for a while even after you lift your finger from the multi-touch pad (e.g., show them for another 2 seconds before removing them from the window). You can implement this by <code>storing the touch point centers</code> in a separate array. Draw the array points when the array is not empty, and clear the points in the array whenever it exceeds the 2 seconds time after the gesture was recognized (use the <code>millis()</code> and <code>System.nanoTime()</code> functions from <a href="pset4-visualization.html#REDUCENOISE">PSet4</a> for this). The image down below shows an example of the UI when the "Z" gesture is recognized.<br><br>
+
+Other reliable gestures are triangle, zigzag, checkmark, and anything that has some unique features. A circle, for instance, is one of the harder gestures to recognize due to its smooth outline that is easily susceptible to noise.
+
 
 <img src="images/pset5/UI-recognizer-Z-draw-points.png" width="350px"> <br><br>
 
