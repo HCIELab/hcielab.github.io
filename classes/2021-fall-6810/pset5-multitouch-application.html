@@ -110,11 +110,11 @@ Now that you know a bit more about what the $1 Unistroke recognizer can and cann
 
 <pre><code class="language-processing">oneDollar.setVerbose(true); // activates console plotting</code></pre> <br>
 
-<b>Record Training Data (x/y coordinates) for New Finger Gesture:</b> Before we can train the gesture recognizer to recognize a new gesture, we first have to <code>capture training data,</code> i.e. <code>a series of x-y coordinates that represent the finger gesture</code>. For starters, we will collect training data for a <code>'V' gesture</code>, which is one of the most reliable ones that can be detected. While you could obtain the x-y-coordinates for your gesture template by tracking finger input from your multi-touch pad, we recommend that for starters you draw the gesture with the mouse on screen and record the x-y coordinates from the <code>mouseDragged()</code> event. Below you see a recording of all the coordinates for our 'V' gesture.<br><br>
+<b>Record Training Data (x/y coordinates) for New Finger Gesture:</b> Before we can train the gesture recognizer to recognize a new gesture, we first have to <code>capture training data,</code> i.e. <code>a series of x-y coordinates that represent the finger gesture</code>. For starters, we will collect training data for a <code>'V' gesture</code>, which is one of the most reliable ones that can be detected. While you could obtain the x-y-coordinates for your gesture template by tracking finger input from your multi-touch pad, we recommend that for starters you <code>draw the gesture with the mouse</code> on screen and record the x-y coordinates from the <code>mouseDragged()</code> event. Below you see a recording of all the coordinates for our 'V' gesture.<br><br>
  
 <img src="images/pset5/add-gesture3.png" width="650px"> <br><br>
 
-<b>Train New Gesture Based on Training Data:</b> Next, use the pre-recorded training data to and feed it into the <code>learn()</code> function to add the new gesture. You can see the input format for the array below.<br><br>
+<b>Train New Gesture Based on Training Data:</b> Next, use the pre-recorded training data to feed it into the <code>learn()</code> function to add the new gesture. You can see the input format for the array below.<br>
 
 <pre><code class="language-processing">oneDollar.learn(String gesture-name, int[] x-y-coordinates); // {x1, y1, x2, y2, x3, y3, x4, y4, ...} </code></pre> <br>
 
