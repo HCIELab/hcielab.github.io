@@ -69,6 +69,7 @@ In this problem set, you will implement a gesture recognizer that can detect dif
 	<li><a href="#3DVIEWPORT">3D Visualization: Draw 3D Viewport</a></li>
 	<li><a href="#CAMERAMOTION">Implement Camera Motion</a></li>
 	<li><a href="#TOUCHPRESSURE">Draw Touch Pressure into 3D Viewport</a></li>
+	<li><a href="#PRESSUREMULTITOUCH">Visualize Multi-Touch Pad Pressure</a></li>
 </ol><br>
 
  <div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
@@ -242,21 +243,14 @@ Two fingers touching:<br>
 <img src="images/pset5/UI-3d-visualization-2-finger-2.png" width="350px">
 <img src="images/pset5/UI-3d-visualization-2-finger-4.png" width="350px"> <br><br>
 
-<h3 id="BICUBIC">(8) Use Your Own Multi-touch Pad Data</h3>
+<h3 id="PRESSUREMULTITOUCH">(8) Visualize Multi-Touch Pad Pressure</h3>
 
-So far, we have only used prerecorded multi-touch data. In this last section, you will use your own multi-touch pad and replicate what you did so far with the prerecorded data.<br><br>
+So far, you have only used prerecorded multi-touch data to visualize touch pressure. In this last step, you will use your own multi-touch pad and visualize touch pressure for your live touch data.<br><br>
 
-<b>Testing your Detection of Touch Pressure:</b> Finally, adjust the 3D visualization to also show the live touch pressure.<br><br>
+<b>Connect Multi-Touch Pad and Adjust Signal-to-Grayscale Mapping:</b> To detect touch pressure directly from your multi-touch pad, you don't have to write any additional code. All you need to do is to plug in your multi-touch pad, replace the Arduino code with your own code from pset3, and then adjust the <code>signal-to-grayscale mapping</code> values from pset4 to ensure you get grayscale values as input for your touch pressure visualization that accurately represent the touch point. <br><br>
 
-<b>Gesture Recognition on Live Data:</b> We will not do the gesture recognition on live data since that would be too much work to change. However, if you want to give it a try, feel free to do so.<br><br>
+<b>Test with Different Pressures (1 finger, 2 fingers):</b> Finally, test your setup by applying different pressure levels to your multi-touch pad with one finger and then with two fingers. Once you see this work you are ready to record the video for the deliverable.<br><br>
 
-
-<!-- For starters, we will use a 'V' gesture, which is one of the most reliable ones that can be detected. Other reliable gestures are triangle, zigzag, checkmark, and anything that has some unique features. A circle, for instance, is one of the harder gestures to recognize due to its smooth outline that is easily susceptible to noise. To create a new finger gesture, you can use the following function:<br>
-
-<i>Recording training data for x/y coordinates for New Finger Gesture:</i> While you could obtain the <code>x-y-coordinates for your gesture template</code> by tracking finger input from your multi-touch pad, we recommend not doing this and instead recommend that you <code>draw the gesture with the mouse</code> on screen and record the x-y coordinates from the <code>mouseDragged()</code> event. The reason for this is that the drawing with the mouse will give you very clear tracking points for creating your template gesture. Later on, when you draw the gesture with your multi-touch pad during actual use, having the clean data from the mouse dragging on screen will make the gesture recognition more fault resistant. In contrast, if you record your template gesture on the multi-touch pad, you will already have some noise in the data and it will be harder to match a gesture when there is additional noise during actual use later on. Below you see a recording of all the coordinates for our 'V' gesture that we then feed into the <code>learn()</code> function to add our new gesture.<br><br>
-
-<b>Design Custom Finger Gestures: </b> Now that you have implemented the basic gesture recognition, let's go ahead and implement <code>3 different finger gestures</code> that can be recognized by your multi-touch pad. You can implement recognizing <code>letters</code> (A, C etc.), <code>2D shapes</code> (triangle, circle etc.), and <code>symbols</code> (check mark etc.). Note that in good gesture design, the gesture should be related to what function is being called. For instance, you cannot draw a 'star' and associate it with a 'smile'. Instead, it would be better to draw a 'half circle', which more closely resembles a 'smile'. Similarly, gestures cannot be too abstract. For instance, you cannot have your finger draw one straight line on the multi-touch pad and the system recognizes it as 'fish'. Instead, there are better one-stroke gestures that could represent a fish outline. Once you have three gestures working, record a short video as described at the end of this pset in 'deliverables'.<br><br>
- -->
 
 <h3>Deliverables</h3>
 
