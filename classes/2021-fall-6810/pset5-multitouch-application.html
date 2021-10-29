@@ -133,6 +133,9 @@ Now that you know a bit more about what the $1 Unistroke recognizer can and cann
 	// do something when the gesture is detected
  }</code></pre><br>
 
+<div style="color:red; border: red 1px solid; padding: 20px;margin-bottom:20px;">
+Useful note: While we have little control of when oneDollar will trigger its callback for a recognized gesture, we can choose when to display it; we can flag that a gesture was recognized then check the flag later. The <a href="https://gitlab.com/yogeshc/onedollar-unistroke-recognizer/blob/c20b7cc596277887f5e5605bd9cad95739afa4a8/src/de/voidplus/dollar/OneDollar.java" style="color:red"> oneDollar class</a> also has a number of useful methods to help with creating a reliable system. For instance, <code>setMinSimilarity</code> allows you to set the minimum similarity threshold a candidate pattern must meet to trigger the callback. This will prevent oneDollar from randomly guessing. We found that a reliability of 90% works nicely when using the mouse, but a lower value may be preferred when using the multitouch pad. Other methods like <code>setMaxTime</code>, <code>setMinLength</code>, and <code>setRotationAngle</code> are useful but not necessary for our current application.</a></div>
+	
 <h3 id="TRACKGESTURES">(3) Track and Visualize Gestures</h3>
 
 Now that you have defined how your gesture looks like and what function should be called when it is detected, you still have to tell your code <code>when</code> it should start looking for the gesture. <br><br>
