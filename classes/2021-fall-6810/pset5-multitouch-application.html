@@ -182,7 +182,10 @@ So far, you have only used prerecorded multi-touch data to visualize touch press
 
 <h3 id="LEARNGESTURERECOGNIZER">(5) Learn about $1 Unistroke Gesture Recognizer</h3>
 
-Now that you can recognize where the user is touching, we can also implement <code>gesture recognition</code>. A gesture is a <code>series of touch points</code> that <code>execute a specific function</code>. For instance, if the gesture is swiping from left to right, your code should recognize that the user made this gesture and if the gesture is a drawn 'A' your code should know that an 'A' was drawn.<br><br>
+You can already recognize where the user is touching, which now allows you to implement <code>gesture recognition</code>. A gesture is a <code>series of touch points</code> that <code>execute a specific function</code>. For instance, if the gesture is swiping from left to right, your code should recognize that the user made this gesture and if the gesture is a drawn 'A' your code should know that an 'A' was drawn.<br><br>
+
+ <div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Work with the Mouse First:</b><br> You will implement the gesture recognition first with the mouse. Only in the last step, you will also try to make it work with your multi-touch pad. For this last step, you will need a working blob detection.</div>
 
 <b>$1 Unistroke Gesture Recognizer:</b> Luckily, you don't have to implement the gesture recognizer from scratch. Instead, you can use the <code>$1 Unistroke Recognizer</code>, which is available as a <code>Processing library.</code> The $1 Unistroke Gesture Recognizer is part of the so-called <code>$1 Gesture Recognizer family,</code> i.e. a set of different gesture recognizers with different capabilities, such as single stroke gesture recognition, multi-stroke gesture recognition etc. In this pset, we are going to use the $1 Unistroke Recognizer since it is the only one that is available for Processing as a library.<br><br>
 
@@ -233,8 +236,8 @@ Now that you know a bit more about what the $1 Unistroke recognizer can and cann
 	// do something when the gesture is detected
  }</code></pre><br>
 
-<div style="color:red; border: red 1px solid; padding: 20px;margin-bottom:20px;">
-Useful note: While we have little control of when oneDollar will trigger its callback for a recognized gesture, we can choose when to display it; we can flag that a gesture was recognized then check the flag later. The <a href="https://gitlab.com/yogeshc/onedollar-unistroke-recognizer/blob/c20b7cc596277887f5e5605bd9cad95739afa4a8/src/de/voidplus/dollar/OneDollar.java" style="color:red"> oneDollar class</a> also has a number of useful methods to help with creating a reliable system. For instance, <code>setMinSimilarity</code> allows you to set the minimum similarity threshold a candidate pattern must meet to trigger the callback. This will prevent oneDollar from randomly guessing. We found that a reliability of 90% works nicely when using the mouse, but a lower value may be preferred when using the multitouch pad. Other methods like <code>setMaxTime</code>, <code>setMinLength</code>, and <code>setRotationAngle</code> are useful but not necessary for our current application.</a></div>
+<div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Useful note:</b> While we have little control of when oneDollar will trigger its callback for a recognized gesture, we can choose when to display it; we can flag that a gesture was recognized then check the flag later. The <a href="https://gitlab.com/yogeshc/onedollar-unistroke-recognizer/blob/c20b7cc596277887f5e5605bd9cad95739afa4a8/src/de/voidplus/dollar/OneDollar.java" style="color:blue"> oneDollar class</a> also has a number of useful methods to help with creating a reliable system. For instance, <code>setMinSimilarity</code> allows you to set the minimum similarity threshold a candidate pattern must meet to trigger the callback. This will prevent oneDollar from randomly guessing. We found that a reliability of 90% works nicely when using the mouse, but a lower value may be preferred when using the multitouch pad. Other methods like <code>setMaxTime</code>, <code>setMinLength</code>, and <code>setRotationAngle</code> are useful but not necessary for our current application.</a></div>
 	
 <h3 id="TRACKGESTURES">(7) Track and Visualize Gestures</h3>
 
@@ -269,6 +272,14 @@ Now that you implemented your gestures via mouse dragging, the final step is to 
 
 For grading, please upload the following to your google drive student folder:<br><br>
 
+<b>Touch Pressure</b>
+		<ul>
+			<li>the .pde file of your Processing program</li>
+			<li>a short video captured with either your phone or a screencast showing the pre-recorded touch data pressure visualized in the Processing UI (.mov or .mp4, no more than 20MB)</li>
+			<li>a short video showing the touch pressure visualization with live data from your multi-touch pad for 1 finger and 2 fingers touching (take the video so that the multi-touch pad and Processing Window are seen at the same time) (.mov or .mp4, no more than 20MB) </li>
+		</ul><br>
+
+
 <b>Gesture Recognizer</b>
 		<ul>
 			<li>a drawing on paper that shows your 3 custom finger gestures so we know which gestures you implemented, use the same notation as in the pset to indicate the start point for executing the gesture</li>
@@ -277,21 +288,23 @@ For grading, please upload the following to your google drive student folder:<br
 			<li>a short video showing the multi-touch pad gesture recognition, i.e. your Processing UI successfully recognizing the 3 different finger gestures (take the video so that the multi-touch pad and Processing Window are seen at the same time) (.mov or .mp4, no more than 20MB) </li>
 		</ul><br>
 
-<b>Touch Pressure</b>
-		<ul>
-			<li>the .pde file of your Processing program</li>
-			<li>a short video captured with either your phone or a screencast showing the pre-recorded touch data pressure visualized in the Processing UI (.mov or .mp4, no more than 20MB)</li>
-			<li>a short video showing the touch pressure visualization with live data from your multi-touch pad for 1 finger and 2 fingers touching (take the video so that the multi-touch pad and Processing Window are seen at the same time) (.mov or .mp4, no more than 20MB) </li>
-		</ul><br>
 
 <h3>Grading</h3>
 
-We will give 20 pts in total:
+We will give 20 pts in total:<br><br>
+
+<b>Touch Pressure (10pts)</b>
 <ul>
-	<li>5pts: you implemented gesture recognition with the mouse, i.e. you recorded mouse training data, trained the gesture recognizer, connected the callback function, and implemented the gesture visualization for three different gestures.</li>
-	<li>5pts: you implemented gesture recognition also for the multi-touch pad, i.e. you changed your code to use finger blobs instead of mouse data and showed that you can recognize the gestures when they are drawn with the finger on your multi-touch pad.</li>
-	<li>5pts: you implemented the 3D viewport and camera motion, i.e. the axis are all drawn correctly and color coded, the user can zoom in/out, rotate around the scene, and change the camera's position to look from the scene from above or below.</li>
-	<li>5pts: you drew the touch points and their pressure values into the 3D viewport, assigned a color gradient depending on the pressure value, and also showed that it works with live data from your multi-touch pad when one or two fingers are touching.</li>
+	<li>5pts: (prerecorded data) you implemented the 3D viewport and camera motion, i.e. the axis are all drawn correctly and color coded, the user can zoom in/out, rotate around the scene, and change the camera's position to look from the scene from above or below.</li>
+	<li>3pts: (prerecorded data) you drew the touch points and their pressure values into the 3D viewport and assigned a color gradient depending on the pressure value</li>
+	<li>2pts: (live data) you showed that it works with live data from your multi-touch pad when one or two fingers are touching</li>
+</ul><br>
+
+<b>Gesture Recognizer (10pts)</b>
+<ul>
+	<li>5pts: (prerecorded data) you implemented gesture recognition with the mouse, i.e. you recorded mouse training data, trained the gesture recognizer, connected the callback function</li>
+	<li>3pts: (prerecorded data)  you implemented the gesture visualization for three different gestures with the mouse</li>
+	<li>2pts: (live data) you implemented gesture recognition also for the multi-touch pad, i.e. you changed your code to use finger blobs instead of mouse data and showed that you can recognize the gestures when they are drawn with the finger on your multi-touch pad.</li>
 </ul>
 
         <br />
