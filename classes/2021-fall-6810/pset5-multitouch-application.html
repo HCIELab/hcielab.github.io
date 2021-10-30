@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>6.810 Pset5 Gesture Recognizer and Touch Pressure Visualizer</title>
+	<title>6.810 Pset5 Touch Pressure and Gesture Recognition</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
@@ -54,22 +54,22 @@
       <section class="col-md-8 pull-right main-content">
 </br></br></br></br>
         <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2021)</a><br></h>
-        <h2 class="headline">Pset 5: Gesture Recognizer & Touch Pressure Visualizer</h2>
+        <h2 class="headline">Pset 5: Touch Pressure and Gesture Recognition</h2>
 
        <hr>
 
-In this problem set, you will implement a gesture recognizer that can detect different finger gestures on your multi-touch pad and then execute the corresponding functionality. After this, you will visualize how hard the user is pressing with each finger on the multi-touch pad by visualizing touch pressure in 3D.<br><br>
+In this problem set, you will visualize how hard the user is pressing with each finger on the multi-touch pad by visualizing touch pressure in 3D. After this, you will implement a gesture recognizer that can detect different finger gestures on your multi-touch pad and then execute the corresponding functionality.<br><br>
 
 <b>Steps:</b>
 <ol>
+	<li><a href="#3DVIEWPORT">Draw 3D Viewport for Touch Pressure Visualization</a></li>
+	<li><a href="#CAMERAMOTION">Implement Camera Motion</a></li>
+	<li><a href="#TOUCHPRESSURE">Draw Touch Pressure into 3D Viewport</a></li>
+	<li><a href="#PRESSUREMULTITOUCH">Visualize Multi-Touch Pad Pressure</a></li>	
 	<li><a href="#LEARNGESTURERECOGNIZER">Learn about $1 Unistroke Gesture Recognizer</a></li>
 	<li><a href="#RECORDTOUCH">Train Gesture and Connect to Call-Back Function</a></li>
 	<li><a href="#TRACKGESTURES">Track and Visualize Gestures</a></li>
 	<li><a href="#GESTUREONMULTITOUCH">Implement Finger Gestures on Multi-Touch Pad</a></li>
-	<li><a href="#3DVIEWPORT">3D Visualization: Draw 3D Viewport</a></li>
-	<li><a href="#CAMERAMOTION">Implement Camera Motion</a></li>
-	<li><a href="#TOUCHPRESSURE">Draw Touch Pressure into 3D Viewport</a></li>
-	<li><a href="#PRESSUREMULTITOUCH">Visualize Multi-Touch Pad Pressure</a></li>
 </ol><br>
 
  <div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
@@ -80,7 +80,103 @@ If your printed multi-touch pad is degrading, let us know and we can give you on
 <b>Help us Improve Class Materials for PSet5:</b><br>
 Please let us know if anything was confusing in the write up. <br><a href="https://docs.google.com/document/d/1X8hUYBl07wUBgwfjUh1VlncsNg9bre9a-JmsrtVwKzk/edit?usp=sharing">You can add your comments here.</a></div>
 
-<h3 id="LEARNGESTURERECOGNIZER">(1) Learn about $1 Unistroke Gesture Recognizer</h3>
+
+
+<h3 id="3DVIEWPORT">(1) Draw 3D Viewport for Touch Pressure Visualization</h3>
+
+In the previous section, we used the touch locations to recognize gestures. Next, we will also detect <code>touch pressure</code> and visualize it in the user interface. To visualize the touch pressure, you are going to use a <code>3D visualization,</code> in which the <code>height of the touch point represents how much pressure is applied</code>. Below you can see an example: on the left side only little pressure is applied and the touch bar is small, whereas on the right side a lot of pressure is applied and the bar is much higher.<br><br>
+
+
+<img src="images/pset5/UI-3d-visualization-1-finger-1.png" width="354px">
+<img src="images/pset5/UI-3d-visualization-1-finger-2.png" width="350px"> <br><br>
+
+<b>Download Arduino Program that Writes Prerecorded Data to the Serial Port:</b> Similar to pset4, you will first work on pre-recorded multi-touch data. This allows you to implement all steps based on the touch data we provide before testing your code with your own multi-touch pad in the last step. For now, all you need to do is to <code>plug in your ESP</code> (you <code>do not need to plug in the rest of the circuit / multi-touch pad</code> until the very last step). Download the <code>Arduino program (.ino)</code> <a href="software/writing_simulation_data.zip" style="color:blue">from here</a> that will write the prerecorded touch data to the Serial Port (this is the same program as in pset4). Compile it and upload it to your ESP microcontroller. The prerecorded data (same as in pset4) contains data for <code>no touch</code>, <code>touch with one finger</code>, and <code>touch with two fingers</code>.<br><br>
+
+<b>Download Skeleton Code for Visualization:</b> You can download the skeleton code for this part of the pset <a href="software/pset5_3d_visualization_skeleton.zip" style="color:blue">from here</a>. If you look at the code, you will see that we already defined several variables and functions for you that are related to the 3D visualization (e.g., the axis and camerapos parameters and the <code>drawAxis(),</code> <code>cameraViewControl()</code> and <code>update3DImage()</code> functions). In addition, you will see a few familiar functions from the previous PSet (PSet4 & PSet5 Section (1) - (4)), including <code>readSerial()</code>, <code>setBaseLine()</code>, <code>substractBaseLine()</code>, <code>interpolate()</code>, and <code>setColors()</code> functions, which you can directly copy from your previous code. <br><br>
+
+<img src="images/pset5/pset5-skeleton-code.png" width="650px"> <br><br>
+
+<b>Drawing the XYZ axes for 3D Visualization:</b> Let's start by drawing the XYZ axes for 3D visualization in the <code>drawAxis()</code> function. Note that we are in 3D now not 2D so you need 3 coordinates for defining the positions of your points/lines. <br><br>
+
+<i>Direction of Axis:</i> The question that arrises is <code>which axis is x, y, and z</code> and which way is <code>positive</code> and <code>negative</code>. In Processing, it uses the convention as shown below. Note that because of this convention, you need to draw the Y axis and the <code>touch data on the y-axis in negative direction</code> so it is pointing "up".<br><br>
+
+<!-- , which is a 'left-handed' cartesian system. You can replicate this 'left-handed' system by doing the following: Take your left hand, point your index finger in the positive y direction (down) and your thumb in the positive x direction (to the right), the rest of your fingers will point towards the positive z-direction. If that matches the image below, you know your system is left h -->
+
+
+<img src="images/pset5/processing-3d-system.png" width="250px"> <br><br>
+
+<i>Length of Axis:</i> The length of the x and y axes should be the <code>width and height</code> of your interpolated PImage.
+The length of the Y axis should be slightly higher than the <code>maximum pixel value (brightness)</code> of your interpolated PImage so you have some space at the top. <br><br>
+
+<b>Color of the Axis:</b> In addition to generating the axis lines, color the axis by drawing a colored dot at their end. We will use <code>red for the x-axis</code>, <code>green for the y-axis</code>, and <code>blue for the z-axis</code> (here "RGB" corresponds to "XYZ").<br><br>
+
+Once you finish the <code>drawAxis()</code> function, you should have something that looks like this (note that the height of your y-axis depends on the brightness values you get in your PImage and may not be shown to scale here):<br><br>
+
+<img src="images/pset5/UI-3d-visualization-drawAxis.png" width="400px"> <br><br>
+
+<h3 id="CAMERAMOTION">(2) Implement Camera Motion</h3>
+
+Without camera motion, it is kind of hard to see if you really succeeded in drawing your axis correctly or if it just 'looks' correct from the 2D perspective but in reality the lines are all over the place in 3D space. To facilitate debugging, we will implement <code>camera control,</code> i.e. you will be able to <code>move around the camera by pressing keys</code> on the keyboard to <code>zoom in/out</code> and <code>move the camera</code> around the scene.<br><br>
+
+<b>Initialize Camera in Processing:</b> Processing provides a <code>Camera Class</code> for implementing camera movement. You can find the <a href="https://processing.org/reference/camera_.html">camera class documentation here</a>. To get started, <code>initialize a new camera</code> in Processing with the following method:<br><br>
+
+<pre>camera(float eyeX, float eyeY, float eyeZ, float centerX, float centerY, float centerZ, float upX, float upY, float upZ); </pre>
+
+<i>eye x/y/z:</i> This is the <code>camera's 3D position</code> in space, i.e. where it would be physically located if it was a camera in real-life.<br><br>
+
+<i>center x/y/z:</i> The <code>center of the scene</code> defines how the camera is angled. For instance, if the center of the scene is lower than the camera position ('eye'), then the camera will look down, resulting in a bird's eye view. Similarly, if the center of the scene is higher than the camera, then the camera will look up, resulting in a frog's eye view.</span><br><br>
+
+<i>upX/Y/Z:</i> This defines <code>which axis is facing upwards</code>. You can use values -1, 0, and 1. If you use -1, the camera will be flipped and face up-side-down. In our case, we want to keep it simple and use for x,y,z 0,1,0 since y is pointing upwards.<br><br>
+
+When you initialize your camera, you may want to start by using the default parameter values we provide in the code, which should give you a reasonable start for a <code>good viewport</code>. If you <code>see nothing</code> in your view after initializing the camera, you may be <code>facing the wrong way with you camera</code>, e.g. the scene may be behind you, which causes you to only see a white screen with nothing on it.<br><br>
+
+<b>Zooming in/out:</b> Moving the <code>camera (eye position)</code> closer or further away from the 3D visualization results in a zooming in/out effect (see images below). Implement a zooming effect so that when you press the <code>key "E" you zoom in</code> and if you press the <code>key "Q" you zoom out</code>.<br><br>
+
+<img src="images/pset5/UI-3d-visualization-cameraViewControl-zoom-out.png" width="350px">
+<img src="images/pset5/UI-3d-visualization-cameraViewControl-zoom-in.png" width="350px"> <br><br>
+
+<b>Adjusting Frame Rate:</b> If you are experiencing some lagging in your application, you can also set the frame rate for the camera for better performance using the line below:<br>
+
+<pre>frameRate(30);</pre><br>
+
+<b>Rotating in the X-Z Plane:</b> To move the camera in the x-z plane around the 3D visualization, you need to keep it at the <code>same distance from the 3D visualization</code> at all times (see images below). This is best accomplished by <code>moving the camera on a circle</code> around the scene. Update the <code>camera position (eye position)</code> to accomplish this (you have to do some math here, check out how radians work again to help you with this). If you <code>press the key 'D' rotate right</code> and if you press the <code>key 'A' rotate left</code>. Note that you only have to update the camera's position. Since you set the scene's center x/y/z to be the location of your 3D visualization, the camera will automatically rotate while moving around the 3D visualization and always look at it.<br><br>
+
+<img src="images/pset5/UI-3d-visualization-cameraViewControl-rotate-1.png" width="350px">
+<img src="images/pset5/UI-3d-visualization-cameraViewControl-rotate-2.png" width="350px"> <br><br>
+
+<b>Changing the Camera's Y-Axis Height:</b> To move the camera along the y-axis, you need to change the <code>camera's eye position</code> again, but this time only along the y-axis. Pressing the <code>key 'W' should move the camera up</code> and pressing the <code>key 'S' should move the camera down</code> along the y-axis as shown in the image below.<br><br>
+
+<img src="images/pset5/UI-3d-visualization-cameraViewControl-view-height-1.png" width="350px">
+<img src="images/pset5/UI-3d-visualization-cameraViewControl-view-height-2.png" width="350px"> <br><br>
+
+<h3 id="TOUCHPRESSURE">(3) Draw Touch Pressure into 3D Viewport</h3>
+
+Next, you will draw the touch points and associated <code>touch pressure</code> into the 3D visualization based on your interpolated PImage.<br><br>
+
+<b>Drawing 3D Points in Processing:</b> To draw the touch points and their pressure, you will create a set of 3D points, where the <code>X,Z coordinates</code> are the <code>row & column number of the pixel on the PImage</code>, and the <code>Y-coordinate is the interpolated value</code> of the pixel. As mentioned previously, the brighter pixels are in an area the more pressure was applied to this area. As a result, the brighter a pixel, the higher the touch bar will be at this point.<br><br>
+
+<b>Mapping the Touch Pressure (Y Value) to a Color Gradient:</b> You also need to <code>color the touch bars</code> with a color gradient that represents the "height" (i.e. y-axis coordinate) information. We chose a <code>color gradient</code> of red when only touching with light pressure and yellow when touching with high pressure. You can choose your own color gradient, just make sure that the colors are very different so you can actually see a difference. To implement the <code>y-value to color mapping</code>, you may find it helpful to use the <a href="https://processing.org/reference/map_.html"><code>map() function</code></a> that you already used in the previous psets. The resulting 3D visualization should look like below.<br><br>
+
+<b>Adjust Signal-to-Grayscale Mapping:</b> If your visualization does not look a nice as below, you may have to adjust your <code>signal-to-grayscale mapping</code> values from pset4 since you are using our pre-recorded data instead if your own multi-touch data. If the mapping is not setup correctly, you may get either only very low values or only very high values rather than a proper touch point with a high value in the middle and then lower values on the edges. Note that the images below are exemplary, they are not actually what is contained in your touch data.<br><br>
+
+One finger touching: <br>
+<img src="images/pset5/UI-3d-visualization-1-finger-1.png" width="350px">
+<img src="images/pset5/UI-3d-visualization-1-finger-2.png" width="350px"> <br><br>
+
+Two fingers touching:<br>
+<img src="images/pset5/UI-3d-visualization-2-finger-2.png" width="350px">
+<img src="images/pset5/UI-3d-visualization-2-finger-4.png" width="350px"> <br><br>
+
+<h3 id="PRESSUREMULTITOUCH">(4) Visualize Multi-Touch Pad Pressure</h3>
+
+So far, you have only used prerecorded multi-touch data to visualize touch pressure. In this last step, you will use your own multi-touch pad and visualize touch pressure for your live touch data.<br><br>
+
+<b>Connect Multi-Touch Pad and Adjust Signal-to-Grayscale Mapping:</b> To detect touch pressure directly from your multi-touch pad, you don't have to write any additional code. All you need to do is to plug in your multi-touch pad, replace the Arduino code with your own code from pset3, and then adjust the <code>signal-to-grayscale mapping</code> values from pset4 to ensure you get grayscale values as input for your touch pressure visualization that accurately represent the touch point. <br><br>
+
+<b>Test with Different Pressures (1 finger, 2 fingers):</b> Finally, test your setup by applying different pressure levels to your multi-touch pad with one finger and then with two fingers. Once you see this work you are ready to record the video for the deliverable.<br><br>
+
+
+<h3 id="LEARNGESTURERECOGNIZER">(5) Learn about $1 Unistroke Gesture Recognizer</h3>
 
 Now that you can recognize where the user is touching, we can also implement <code>gesture recognition</code>. A gesture is a <code>series of touch points</code> that <code>execute a specific function</code>. For instance, if the gesture is swiping from left to right, your code should recognize that the user made this gesture and if the gesture is a drawn 'A' your code should know that an 'A' was drawn.<br><br>
 
@@ -100,7 +196,7 @@ Now that you can recognize where the user is touching, we can also implement <co
 
 <a href="http://depts.washington.edu/acelab/proj/dollar/index.html"><img src="images/pset5/one-dollar-demo.png" width="500px"></a> <br><br>
 
-<h3 id="RECORDTOUCH">(2) Train Gesture and Connect to Call-Back Function</h3>
+<h3 id="RECORDTOUCH">(6) Train Gesture and Connect to Call-Back Function</h3>
 
 Now that you know a bit more about what the $1 Unistroke recognizer can and cannot do, you can move on to use the recognizer to detect gestures. <br><br>
 
@@ -136,7 +232,7 @@ Now that you know a bit more about what the $1 Unistroke recognizer can and cann
 <div style="color:red; border: red 1px solid; padding: 20px;margin-bottom:20px;">
 Useful note: While we have little control of when oneDollar will trigger its callback for a recognized gesture, we can choose when to display it; we can flag that a gesture was recognized then check the flag later. The <a href="https://gitlab.com/yogeshc/onedollar-unistroke-recognizer/blob/c20b7cc596277887f5e5605bd9cad95739afa4a8/src/de/voidplus/dollar/OneDollar.java" style="color:red"> oneDollar class</a> also has a number of useful methods to help with creating a reliable system. For instance, <code>setMinSimilarity</code> allows you to set the minimum similarity threshold a candidate pattern must meet to trigger the callback. This will prevent oneDollar from randomly guessing. We found that a reliability of 90% works nicely when using the mouse, but a lower value may be preferred when using the multitouch pad. Other methods like <code>setMaxTime</code>, <code>setMinLength</code>, and <code>setRotationAngle</code> are useful but not necessary for our current application.</a></div>
 	
-<h3 id="TRACKGESTURES">(3) Track and Visualize Gestures</h3>
+<h3 id="TRACKGESTURES">(7) Track and Visualize Gestures</h3>
 
 Now that you have defined how your gesture looks like and what function should be called when it is detected, you still have to tell your code <code>when</code> it should start looking for the gesture. <br><br>
 
@@ -152,7 +248,7 @@ Note that you don't have to 'stop' tracking. The <code>track()</code> function w
 
 <b>Add Two More Gestures:</b> Next, let's record two more gestures of your choice. Reliable gestures are gestures that have some unique features, such as triangle, zigzag, and checkmark, but you can choose whatever you like. Harder to recognize gestures have smooth outlines which are easily susceptible to noise, e.g. a circle is one of the harder gestures to recognize. Repeat all steps above, i.e. record training data for your gestures, input the training data to the gesture recognizer, connect a callback function, and implement the callback function so that it draws the gesture on the screen.<br><br> 
 
-<h3 id="GESTUREONMULTITOUCH">(4) Implement Finger Gestures on Multi-Touch Pad</h3>
+<h3 id="GESTUREONMULTITOUCH">(8) Implement Finger Gestures on Multi-Touch Pad</h3>
 
 Now that you implemented your gestures via mouse dragging, the final step is to also make this gesture recognition work on your multi-touch pad.<br><br> 
 
@@ -163,99 +259,6 @@ Now that you implemented your gestures via mouse dragging, the final step is to 
 <b>Visualize Gesture Detection Result:</b> In this last step, you need to change your visualization to <code>draw the touch center points</code> into the window instead of mouse coordinates (discard the blob contour).<br><br>
 
 <b>Test your Gestures on the Multi-Touch Pad:</b> Now that you have the code ready, <code>draw each of your finger gestures on your multi-touch pad</code> and see if they are being recognized. If you don't get good results, first make sure that your <code>blob detection</code> is still detecting the finger on the multi-touch pad. If you changed your setup since last time, you may have to adjust the <code>signal-to-grayscale mapping</code> and the <code>blob detection threshold</code> (see pset4) to make sure your finger blobs are detected. Without properly detected finger blobs, the gesture recognizer will not have reliable input data and thus will have trouble recognizing the gestures. Once you are able to <code>execute your three gestures and have them recognized</code>, you are ready to record the video for the deliverable.<br><br>
-
-<h3 id="3DVIEWPORT">(5) 3D Visualization: Draw 3D Viewport</h3>
-
-In the previous section, we used the touch locations to recognize gestures. Next, we will also detect <code>touch pressure</code> and visualize it in the user interface. To visualize the touch pressure, you are going to use a <code>3D visualization,</code> in which the <code>height of the touch point represents how much pressure is applied</code>. Below you can see an example: on the left side only little pressure is applied and the touch bar is small, whereas on the right side a lot of pressure is applied and the bar is much higher.<br><br>
-
-
-<img src="images/pset5/UI-3d-visualization-1-finger-1.png" width="354px">
-<img src="images/pset5/UI-3d-visualization-1-finger-2.png" width="350px"> <br><br>
-
-<b>Download Arduino Program that Writes Prerecorded Data to the Serial Port:</b> Similar to pset4, you will first work on pre-recorded multi-touch data. This allows you to implement all steps based on the touch data we provide before testing your code with your own multi-touch pad in the last step. For now, all you need to do is to <code>plug in your ESP</code> (you <code>do not need to plug in the rest of the circuit / multi-touch pad</code> until the very last step). Download the <code>Arduino program (.ino)</code> <a href="software/writing_simulation_data.zip" style="color:blue">from here</a> that will write the prerecorded touch data to the Serial Port (this is the same program as in pset4). Compile it and upload it to your ESP microcontroller. The prerecorded data (same as in pset4) contains data for <code>no touch</code>, <code>touch with one finger</code>, and <code>touch with two fingers</code>.<br><br>
-
-<b>Download Skeleton Code for Visualization:</b> You can download the skeleton code for this part of the pset <a href="software/pset5_3d_visualization_skeleton.zip" style="color:blue">from here</a>. If you look at the code, you will see that we already defined several variables and functions for you that are related to the 3D visualization (e.g., the axis and camerapos parameters and the <code>drawAxis(),</code> <code>cameraViewControl()</code> and <code>update3DImage()</code> functions). In addition, you will see a few familiar functions from the previous PSet (PSet4 & PSet5 Section (1) - (4)), including <code>readSerial()</code>, <code>setBaseLine()</code>, <code>substractBaseLine()</code>, <code>interpolate()</code>, and <code>setColors()</code> functions, which you can directly copy from your previous code. <br><br>
-
-<img src="images/pset5/pset5-skeleton-code.png" width="650px"> <br><br>
-
-<b>Drawing the XYZ axes for 3D Visualization:</b> Let's start by drawing the XYZ axes for 3D visualization in the <code>drawAxis()</code> function. Note that we are in 3D now not 2D so you need 3 coordinates for defining the positions of your points/lines. <br><br>
-
-<i>Direction of Axis:</i> The question that arrises is <code>which axis is x, y, and z</code> and which way is <code>positive</code> and <code>negative</code>. In Processing, it uses the convention as shown below. Note that because of this convention, you need to draw the Y axis and the <code>touch data on the y-axis in negative direction</code> so it is pointing "up".<br><br>
-
-<!-- , which is a 'left-handed' cartesian system. You can replicate this 'left-handed' system by doing the following: Take your left hand, point your index finger in the positive y direction (down) and your thumb in the positive x direction (to the right), the rest of your fingers will point towards the positive z-direction. If that matches the image below, you know your system is left h -->
-
-
-<img src="images/pset5/processing-3d-system.png" width="250px"> <br><br>
-
-<i>Length of Axis:</i> The length of the x and y axes should be the <code>width and height</code> of your interpolated PImage.
-The length of the Y axis should be slightly higher than the <code>maximum pixel value (brightness)</code> of your interpolated PImage so you have some space at the top. <br><br>
-
-<b>Color of the Axis:</b> In addition to generating the axis lines, color the axis by drawing a colored dot at their end. We will use <code>red for the x-axis</code>, <code>green for the y-axis</code>, and <code>blue for the z-axis</code> (here "RGB" corresponds to "XYZ").<br><br>
-
-Once you finish the <code>drawAxis()</code> function, you should have something that looks like this (note that the height of your y-axis depends on the brightness values you get in your PImage and may not be shown to scale here):<br><br>
-
-<img src="images/pset5/UI-3d-visualization-drawAxis.png" width="400px"> <br><br>
-
-<h3 id="CAMERAMOTION">(6) Implement Camera Motion</h3>
-
-Without camera motion, it is kind of hard to see if you really succeeded in drawing your axis correctly or if it just 'looks' correct from the 2D perspective but in reality the lines are all over the place in 3D space. To facilitate debugging, we will implement <code>camera control,</code> i.e. you will be able to <code>move around the camera by pressing keys</code> on the keyboard to <code>zoom in/out</code> and <code>move the camera</code> around the scene.<br><br>
-
-<b>Initialize Camera in Processing:</b> Processing provides a <code>Camera Class</code> for implementing camera movement. You can find the <a href="https://processing.org/reference/camera_.html">camera class documentation here</a>. To get started, <code>initialize a new camera</code> in Processing with the following method:<br><br>
-
-<pre>camera(float eyeX, float eyeY, float eyeZ, float centerX, float centerY, float centerZ, float upX, float upY, float upZ); </pre>
-
-<i>eye x/y/z:</i> This is the <code>camera's 3D position</code> in space, i.e. where it would be physically located if it was a camera in real-life.<br><br>
-
-<i>center x/y/z:</i> The <code>center of the scene</code> defines how the camera is angled. For instance, if the center of the scene is lower than the camera position ('eye'), then the camera will look down, resulting in a bird's eye view. Similarly, if the center of the scene is higher than the camera, then the camera will look up, resulting in a frog's eye view.</span><br><br>
-
-<i>upX/Y/Z:</i> This defines <code>which axis is facing upwards</code>. You can use values -1, 0, and 1. If you use -1, the camera will be flipped and face up-side-down. In our case, we want to keep it simple and use for x,y,z 0,1,0 since y is pointing upwards.<br><br>
-
-When you initialize your camera, you may want to start by using the default parameter values we provide in the code, which should give you a reasonable start for a <code>good viewport</code>. If you <code>see nothing</code> in your view after initializing the camera, you may be <code>facing the wrong way with you camera</code>, e.g. the scene may be behind you, which causes you to only see a white screen with nothing on it.<br><br>
-
-<b>Zooming in/out:</b> Moving the <code>camera (eye position)</code> closer or further away from the 3D visualization results in a zooming in/out effect (see images below). Implement a zooming effect so that when you press the <code>key "E" you zoom in</code> and if you press the <code>key "Q" you zoom out</code>.<br><br>
-
-<img src="images/pset5/UI-3d-visualization-cameraViewControl-zoom-out.png" width="350px">
-<img src="images/pset5/UI-3d-visualization-cameraViewControl-zoom-in.png" width="350px"> <br><br>
-
-<b>Adjusting Frame Rate:</b> If you are experiencing some lagging in your application, you can also set the frame rate for the camera for better performance using the line below:<br>
-
-<pre>frameRate(30);</pre><br>
-
-<b>Rotating in the X-Z Plane:</b> To move the camera in the x-z plane around the 3D visualization, you need to keep it at the <code>same distance from the 3D visualization</code> at all times (see images below). This is best accomplished by <code>moving the camera on a circle</code> around the scene. Update the <code>camera position (eye position)</code> to accomplish this (you have to do some math here, check out how radians work again to help you with this). If you <code>press the key 'D' rotate right</code> and if you press the <code>key 'A' rotate left</code>. Note that you only have to update the camera's position. Since you set the scene's center x/y/z to be the location of your 3D visualization, the camera will automatically rotate while moving around the 3D visualization and always look at it.<br><br>
-
-<img src="images/pset5/UI-3d-visualization-cameraViewControl-rotate-1.png" width="350px">
-<img src="images/pset5/UI-3d-visualization-cameraViewControl-rotate-2.png" width="350px"> <br><br>
-
-<b>Changing the Camera's Y-Axis Height:</b> To move the camera along the y-axis, you need to change the <code>camera's eye position</code> again, but this time only along the y-axis. Pressing the <code>key 'W' should move the camera up</code> and pressing the <code>key 'S' should move the camera down</code> along the y-axis as shown in the image below.<br><br>
-
-<img src="images/pset5/UI-3d-visualization-cameraViewControl-view-height-1.png" width="350px">
-<img src="images/pset5/UI-3d-visualization-cameraViewControl-view-height-2.png" width="350px"> <br><br>
-
-<h3 id="TOUCHPRESSURE">(7) Draw Touch Pressure into 3D Viewport</h3>
-
-Next, you will draw the touch points and associated <code>touch pressure</code> into the 3D visualization based on your interpolated PImage.<br><br>
-
-<b>Drawing 3D Points in Processing:</b> To draw the touch points and their pressure, you will create a set of 3D points, where the <code>X,Z coordinates</code> are the <code>row & column number of the pixel on the PImage</code>, and the <code>Y-coordinate is the interpolated value</code> of the pixel. As mentioned previously, the brighter pixels are in an area the more pressure was applied to this area. As a result, the brighter a pixel, the higher the touch bar will be at this point.<br><br>
-
-<b>Mapping the Touch Pressure (Y Value) to a Color Gradient:</b> You also need to <code>color the touch bars</code> with a color gradient that represents the "height" (i.e. y-axis coordinate) information. We chose a <code>color gradient</code> of red when only touching with light pressure and yellow when touching with high pressure. You can choose your own color gradient, just make sure that the colors are very different so you can actually see a difference. To implement the <code>y-value to color mapping</code>, you may find it helpful to use the <a href="https://processing.org/reference/map_.html"><code>map() function</code></a> that you already used in the previous psets. The resulting 3D visualization should look like below.<br><br>
-
-<b>Adjust Signal-to-Grayscale Mapping:</b> If your visualization does not look a nice as below, you may have to adjust your <code>signal-to-grayscale mapping</code> values from pset4 since you are using our pre-recorded data instead if your own multi-touch data. If the mapping is not setup correctly, you may get either only very low values or only very high values rather than a proper touch point with a high value in the middle and then lower values on the edges. Note that the images below are exemplary, they are not actually what is contained in your touch data.<br><br>
-
-One finger touching: <br>
-<img src="images/pset5/UI-3d-visualization-1-finger-1.png" width="350px">
-<img src="images/pset5/UI-3d-visualization-1-finger-2.png" width="350px"> <br><br>
-
-Two fingers touching:<br>
-<img src="images/pset5/UI-3d-visualization-2-finger-2.png" width="350px">
-<img src="images/pset5/UI-3d-visualization-2-finger-4.png" width="350px"> <br><br>
-
-<h3 id="PRESSUREMULTITOUCH">(8) Visualize Multi-Touch Pad Pressure</h3>
-
-So far, you have only used prerecorded multi-touch data to visualize touch pressure. In this last step, you will use your own multi-touch pad and visualize touch pressure for your live touch data.<br><br>
-
-<b>Connect Multi-Touch Pad and Adjust Signal-to-Grayscale Mapping:</b> To detect touch pressure directly from your multi-touch pad, you don't have to write any additional code. All you need to do is to plug in your multi-touch pad, replace the Arduino code with your own code from pset3, and then adjust the <code>signal-to-grayscale mapping</code> values from pset4 to ensure you get grayscale values as input for your touch pressure visualization that accurately represent the touch point. <br><br>
-
-<b>Test with Different Pressures (1 finger, 2 fingers):</b> Finally, test your setup by applying different pressure levels to your multi-touch pad with one finger and then with two fingers. Once you see this work you are ready to record the video for the deliverable.<br><br>
 
 
 <h3>Deliverables</h3>
