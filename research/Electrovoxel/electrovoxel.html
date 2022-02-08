@@ -350,7 +350,7 @@
 		ElectroVoxel: Electromagnetically Actuated Pivoting for Scalable Modular Self-Reconfigurable Robots
 		</h3>
 		</br>
-		<img src="images/TF-cube.png" alt="fig 1" width="455" style="padding-bottom:0px; margin-bottom:10px; display: block; margin-left: auto; margin-right: auto;"/>
+		<img src="images/TF-cube.PNG" alt="fig 1" width="455" style="padding-bottom:0px; margin-bottom:10px; display: block; margin-left: auto; margin-right: auto;"/>
 		</br>
 		<div style="text-align: center;">
 		<b>
@@ -420,7 +420,7 @@ additional pairs of electromagnets to keep the non-traveling cubes attached to o
 Manually planning pivoting maneuvers and their associated electromagnet assignments becomes intractable for more than a few cubes. To let users visualize and plan reconfiguration maneuvers, we developed a simulation (Fig. 3) that computes all electromagnet assignments based on desired reconfiguration maneuvers specified by the user. The simulation is browser-based and built using React, TypeScript, and Three.JS. It consists of three parts: (A) different ways to interact with the cubes (via buttons, direct manipulation, or code), (B) a viewport that simulates the cubes and affords their direct manipulation, and (C) a settings panel to toggle simulation features (e.g., different render modes for the cubes). 
 </br>
 </br>
-		<img src="images/ui-labeled-2.png" alt="fig 1" width="455" style="padding-bottom:0px; margin-bottom:10px; display: block; margin-left: auto; margin-right: auto;"/>
+		<img src="images/UI-labeled-2.png" alt="fig 1" width="455" style="padding-bottom:0px; margin-bottom:10px; display: block; margin-left: auto; margin-right: auto;"/>
 </br>
 <div style="text-align: center;">
 		<b>
@@ -468,9 +468,9 @@ The idealized case of Ampere's law gives that an electromagnet’s force is prop
 The dipole approximation commonly used to find electromagnets’ magnetic field strengths is invalid over short separation distances, such as when neighboring cubes are in contact. As such, we use Ampere's force law (1), which expresses the force F1,2 exerted on coil 1 due to coil 2 as a double line integral over each coil’s geometry where infinitesmal wire elements dl1 and dl2 in wires 1 and 2 are energized with currents I1 and I2, respectively, r12 is a unit vector from each element on wire 1 to those on wire 2 separated by distance r, and μ(I) is the permeability of the electromagnet core as a function of current.
 </br>
 </br>
-		<img src="images/insert-eq1.png" alt="fig 1" width="355" style="padding-bottom:0px; margin-bottom:10px; display: block; margin-left: auto; margin-right: auto;"/>
+		<img src="images/insert-eq1.PNG" alt="fig 1" width="355" style="padding-bottom:0px; margin-bottom:10px; display: block; margin-left: auto; margin-right: auto;"/>
 Equation (1) has no known analytical solution and is discretized to give (2), where D1 and D2 represent the number of discretized elements in wires 1 and 2.
-		<img src="images/insert-eq2.png" alt="fig 1" width="355" style="padding-bottom:0px; margin-bottom:10px; display: block; margin-left: auto; margin-right: auto;"/>
+		<img src="images/insert-eq2.PNG" alt="fig 1" width="355" style="padding-bottom:0px; margin-bottom:10px; display: block; margin-left: auto; margin-right: auto;"/>
 We parameterize (2) in terms of radius, length, turns, and pitch, and solve this numerically for our electromagnet parameters, using 8000 elements (D1,D2 = 8000) per coil to compute F1,2 from the sum of 64,000,000 force vectors over separation distances of 0.5mm to 20mm in 0.5mm increments (85 minutes/increment on a Razer Blade Intel(R) Core(TM) i7-8750H). Fig. 4 illustrates this computation for single-turn electromagnet coils with 10 elements each (100 force vectors).
 </br>
 </br>
@@ -506,7 +506,7 @@ We use an NRF-equipped Arduino Nano as a centralized controller to transmit comm
 <b>Mechanical Design</b>
 </br>
 </br>
-		<img src="images/ryo-cube-v4.png" alt="fig 1" width="500" style="padding-bottom:0px; margin-bottom:10px; display: block; margin-left: auto; margin-right: auto;"/>
+		<img src="images/ryo-cube-v4.PNG" alt="fig 1" width="500" style="padding-bottom:0px; margin-bottom:10px; display: block; margin-left: auto; margin-right: auto;"/>
 </br>
 <div style="text-align: center;">
 		<b>
@@ -524,7 +524,7 @@ Each module (Figures 1 and 6) is a 60mm side length cube and can be described as
 		</b> 
 	</div>
 		</br>		
-		<img src="images/insert-table.png" alt="fig 1" width="455" style="padding-bottom:0px; margin-bottom:10px; display: block; margin-left: auto; margin-right: auto;"/>
+		<img src="images/insert-table.PNG" alt="fig 1" width="455" style="padding-bottom:0px; margin-bottom:10px; display: block; margin-left: auto; margin-right: auto;"/>
 </br>
 </br>
 Two Molex cables connect the upper and lower PCBs, and four cables of 6 wires each (2 leads/electromagnet) harness triads of three electromagnets to the PCBs. These four triads consolidate all electromagnet wirings to two pairs of diametrically opposed corners to simplify wire routing; each triad connects three orthogonally positioned electromagnets to the PCBs in order of axis to ensure symmetry between all cubes such that they respond identically for a given command. Each cube took 80 minutes to assemble, discounting time to reflow-solder PCBs and manually wind electromagnets.
@@ -579,7 +579,7 @@ in kneeling position on the aircraft floor, inserting hands through arm holes, a
 The pivoting maneuver was executed successfully each of the three times in 1.13 seconds, while electromagnets for launch, travel and catch phases performed correctly in all tests. However, small oscillations orthogonal to the axis of rotation were observed which led to the hinge disengaging early once completing the maneuver. This result was unique to microgravity experiments and unobserved on air tables as these kinematically constrain cubes in the ground plane, and arose due to imperfect alignments including protrusions of up to 0.6mm in our manually wound coils. 
 </br>
 </br>
-		<img src="images/insert-2d-3d.png" alt="fig 1" width="555" style="padding-bottom:0px; margin-bottom:10px; display: block; margin-left: auto; margin-right: auto;"/>
+		<img src="images/insert-2d-3d.PNG" alt="fig 1" width="555" style="padding-bottom:0px; margin-bottom:10px; display: block; margin-left: auto; margin-right: auto;"/>
 <div style="text-align: center;">
 		<b >
 		Fig. 8: Two elements undergoing a pivoting maneuver (left) on an air table, a low friction surface used to simulate microgravity environments for 2D maneuvers, and (right) in microgravity
