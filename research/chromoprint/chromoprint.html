@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>FoldTronics: Creating 3D Objects with Integrated Electronics Using Foldable Honeycomb Structures</title>
+	<title>ChromoPrint: A Multi-Color 3D Printer Based on a Reprogrammable Photochromic Resin</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
@@ -45,7 +45,7 @@
 		</br>
 		 Isabel P. S. Qamar, Sabina W. Chen, Dimitri Tskhovrebadze, Paolo Boni, Faraz Faruqi, Michael Wessely, Stefanie Mueller. 
 		</br>
-		 ChromoPrint: A Multi-Color 3D Printer Based on a Reprogrammable Photochromic Resin.
+		 ChromoPrint: A Multi-Color 3D Printer Based on a Reprogrammable Photochromic Resin
 		</br>
 		In Proceedings of
 		<a href="https://chi2022.acm.org/" target="_blank">CHI &#8217;22</a>, Late Breaking Work.<br>
@@ -69,300 +69,220 @@
 
 	<!-- Project information -->
 	<div class="col-md-8" style="text-align: left;">
-		<br>
 		<h3 class="headline">
 		ChromoPrint: A Multi-Color 3D Printer Based on a Reprogrammable Photochromic Resin. 
 		</h3>
-		<p><br>
-		<img src="images/fig1-overview.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"/>
+		<p>
+		<img src="images/printer.png" alt="Left image shows the resin 3D printer used for printing multi-color objects with the front case removed. Visible are the UV projector for curing on the far left-hand side, the rotating mirror in the centre which is directly under the build chamber that contains the build plate and photochromic resin, and the RGB projector for coloring on the far right of the printer. The right image shows a multi-color 3D printing with red, blue and yellow colors visible." 
+    
+    width="720" style="padding-bottom:0px; margin-bottom:10px"/>
 		<br>
 		<b>
-		Figure 1: FoldTronics creates 3D objects with integrated electronics. Our design software allows users to: (a) Convert a 3D model into a honeycomb structure &amp; place electronic components into it. (b) Export the 2D layers (honeycomb pattern, wiring, insulation). (c) Fabricate the layers on a cutting plotter using sheets of plastic, copper, and regular tape. (d) After soldering and folding, the object is ready to be used: (e, f) This smart watch has a 2D display when collapsed and a 3D volumetric display (3 layers, 6 LEDs each) when expanded – the LEDs and wiring are integrated inside the object.
-		</b>
-		<br>
-		<br>
-	  We present FoldTronics, a 2D-cutting based fabrication technique to integrate electronics into 3D folded objects. The key idea is to cut and perforate a 2D sheet to make it foldable into a honeycomb structure using a cutting plotter; before folding the sheet into a 3D structure, users place the electronic components and circuitry onto the sheet.</p>
-		<p>The fabrication process only takes a few minutes enabling users to rapidly prototype functional interactive devices. The resulting objects are lightweight and rigid, thus allowing for weight-sensitive and force-sensitive applications. Finally, due to the nature of the honeycomb structure, the objects can be folded flat along one axis and thus can be efficiently transported in this compact form factor.</p>
-		<p>We describe the structure of the foldable sheet, and present a design tool that enables users to quickly prototype the desired objects. We showcase a range of examples made with our design tool, including objects with integrated sensors and display elements. </br>
-		  <br>
-		  <br>
-		  <span class="medium-headline">
-	      Introduction
-	      </span>
-		  <br>
-		  <br>
-	    </p>
-	  <div title="Page 2">
-		  <div>
-		    <div>
-		      <p>While many of today&rsquo;s fabrication processes allow users to fabricate passive 3D objects, fabricating 3D objects with integrated electronics that allow for interactive applications remains challenging [2]. For instance, while it is now possible to 3D print the wires of a circuit using silver ink (e.g., Voxel8), there is only little progress in fabricating the actual electronic components themselves (see Lewis et al. for a first approach to 3D print an LED [19]). </p>
-		      <p>Since 3D printing is not yet at a level to make fully functional objects, researchers are looking into alternative fabrication methods. For instance, ObjectSkin [12] dips the object into a water bath with a film that contains circuitry; ActMold [40] places electronic circuitry onto a plastic sheet prior to draw-forming a 3D structure from it, and Foldio [27] prints circuitry onto a 2D sheet that the user can cut and fold. However, those methods only apply electronics to the surface of an object. </p>
-		      <p>Recently, PEP [26] showed how to integrate electronics into the inside of 3D objects by cutting and stacking paper sheets that were previously enhanced with electronic components. However, since PEP fabricates objects by stacking paper sheets, the approach is limited to thin-film electronics, such as flat coils and RFID tags, that do not interfere with the stacking process. In addition, the resulting objects are solid inside, making it difficult to apply the approach to lightweight and portable applications. </p>
-		      <p>In this paper, we take a different approach: Inspired by existing methods that fold passive 2D sheets into honeycomb structures [32] to create rigid and lightweight objects, we propose a new fabrication technique that combines honeycomb structures with integrated electronics (Figure 1). Our method goes beyond existing origami-electronics applications (e.g., origami robot [9] &amp; antenna [42]) by providing a fabrication pipeline supported by a design tool that facilitates the creation of interactive objects. Users only have to use a regular cutting plotter to cut the 2D sheets into a specific pattern, add the electronic components, and then fold the structure into its final 3D shape. </p>
-	        </div>
-	      </div>
-	  </div>
-      <p><br>
+		Figure 1: (a) ChromoPrint multi-color resin 3D printer, (b) multi-color 3D print with a reprogrammable photochromic resin.  </b></p>
 		
+    <p>
+    In this paper, we present ChromoPrint, a method which leverages photochromic dyes to convert resin-based 3D printing - a process that traditionally prints objects from a single material and therefore only a single color - into a multi-color 3D printing process. Rather than using a standard single-color resin, our resin contains a mixture of photochromic dyes that can transition into different colors when exposed to specific wavelengths of light. We modify an existing resin printer to incorporate an RGB projection system which can control each of the photochromic dyes in the resin during printing. By saturating the dyes with a UV light prior to mixing into the resin, and then projecting combinations of RGB light onto each layer after it has been UV cured, we can color objects directly during the printing process. We discuss the formulation of the photochromic resin, the modifications to the printer, the user interface that allows a user to apply color to a 3D model, and the software pipeline that outputs the build instructions to the 3D printer, including the exposure times for curing with UV light and for coloring with the RGB projector. </p>
+		  <br>
 
-		<span class="medium-headline">
-		Basics of Interactive Honeycomb Structures
-		</span>
-		<br>
-		<br>
-		For our method, we employ a standard kirigami honeycomb cutting and folding method [32]. We will briefly describe how this works and how we extend it to integrate electronics.
-		<br>
-		<br>
-		<b>Basic Folding Principle</b
-        ><br>
-	  Figure 2 illustrates how we can fold honeycomb cells by cutting and folding paper.</p>
-      <p><img src="images/fig2-folding-principle4.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
-        
-        <strong>Figure 2: Folding honeycomb structures: (a) half a column of cells, (b) column of cells, (c) multiple columns.<br>
-        </strong>
-        
+		  <span class="medium-headline">
+	      INTRODUCTION
+	      </span>
+	    </p>
+	  <div>
+      <p>
+        Resin printing processes, such as stereolithography (SLA) and digital light processing (DLP), are some of the most commonly used technologies for 3D printing objects. These printing methods utilize a UV light source to cure a liquid photopolymer in a layer-wise manner until the entire object has been built. Compared to most other 3D printing methods, resin-based processes are able to produce parts with finer details, a higher dimensional accuracy and improved surface finish, making them a popular tool for rapid prototyping. Furthermore, these processes have significant material versatility since they are compatible with a wide range of photopolymers, the properties of which can be tailored to the specific functionality required (e.g. rigid, flexible, tough, or the resin can be filled with secondary materials such as glass or ceramic), enabling a wide range of optical, mechanical, and thermal characteristics. Although this highlights the capability of resin 3D printing processes to create objects with a wide range of mechanical and physical properties, to date, there has been limited success in developing these technologies to print objects in more than one material and consequently, more than one color. This limitation is primarily due to the inability of these printers to hold more than one resin in the tank at a time.
+        </p>
+
+      <p>
+        To address this limitation, one approach to multi-color resin 3D printing that has recently been developed involved modifying a 3D printer to incorporate multiple resin tanks and to switch between tanks during printing). The colors that can be printed, however, are limited to the number of tanks mounted. Inspired by recent work on color-changing materials (e.g. <a href="https://hcie.csail.mit.edu/research/photochromeleon/photochromeleon.html">Photo-Chromeleon</a>, <a href = "https://hcie.csail.mit.edu/research/chromoupdate/chromoupdate.html">ChromoUpdate</a>), which have shown that a single material can be created that can transition into many different colors, we propose a solution that modifies a resin used for 3D printing through the addition of photochromic dyes. Our work `ChromoPrint' focuses on photochromic materials as opposed to other color-changing technologies since the color change in these materials is induced by light, which is also the process on which resin 3D printing is based. While <a href="https://hcie.csail.mit.edu/research/photochromeleon/photochromeleon.html">Photo-Chromeleon</a> utilises photochromic-ink-based coloring techniques to color the exterior of a 3D-printed object after it has been fabricated, ChromoPrint removes the need for human intervention during the whole fabrication process by allowing objects to be printed and colored through their entire thickness at the same time.
       </p>
-      <p><em><br>
-      Creating half a cell column:</em> Each column of honeycomb cells consists of mountains and valleys. Mountains are lines that are bent in one direction, valleys are lines that are bent in the opposing direction. This causes the strip to fold into its characteristic shape. Figure 2a shows the strip pattern to create half a cell column from mountains and valleys.</p>
-        <p><em>Creating a full cell column:</em> To create both sides of a honeycomb cell column, we duplicate the previously described pattern (Figure 2b). The center line connecting the two half-columns needs to be designed as follows: A slit is placed along all center line segments that do not connect to two valleys (they will form the hollow cell), all line segments connecting two valleys use a mountain line (they form glue surfaces that will hold the structure together after folding, see Figure 2b).  </p>
-        <p><em>Creating multiple cell columns:</em> Finally, to create a second cell column, we can use the cutting pattern shown in Figure Figure 2c. Again, we duplicate the pattern from the previous image and place it right next to the existing structure. In addition, where the two cell columns meet, we now place slits whenever the center line segments do not connect to two mountains (to form the hollow cells between the two columns, see the hollow cell in Figure 2c). All line segments that do connect to two mountains now use a valley line (they form the glue surfaces that hold the two columns together). To create more than two columns, we can repeat this pattern as many times as required.
-          
-          
-          <em>Cell Size:</em> The size of the cell determines the resolution of the honeycomb structure (Figure 3). This is not only important to represent the original shape of the 3D object as accurately as possible, but also for the placement and wiring of electronic components: Since the electronic components are placed inside the cells (Figure 3b), the cells need to have at least the same size as the components. Similarly, since the wires are placed alongside the walls of the cells, the larger the cell, the more wires can be routed to an electronic component. Thus, there is a trade-off between honeycomb resolution and size of electronic components. Smaller electronic components work better since they allow for a higher resolution. Each cell can also house multiple electronic components as long as they fit inside the cell.        </p>
-        <p><br>
-          <img src="images/fig3-thickness-length-width.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px">
-          
-          <br>
-        Figure 3: (a) The cell size (length, width, height) determines (b) the size of the electronic components and numbers of wires that can be placed.        </p>
-        <p><strong>Placing Electronic Components
-        </strong></p>
-        <p>When folding the honeycomb, some cells are formed from the top side of the sheet while others are formed from the bottom side of the sheet. Since we only support one-sided circuit boards, we can only place electronic components into those cells made from the top of the sheet (Figure 4).        </p>
-        <p>In addition, electronic components can only be placed onto surfaces that are not being glued together. On the top side of the sheet, the mountain surfaces become glued and thus cannot be used for placing electronic components (see crossed out side faces in Figure 4b). <br>
-          
-          In our design tool, we highlight which cells can be used for placing electronic components. For instance, users receive a warning when placing a component as shown in Figure 4b since the component is housed in an invalid cell made from the bottom of the sheet and the wiring is on a mountain surface that would be glued when folded.        </p>
-        <p><br>
-          <img src="images/fig4-top-and-bottom-of-sheet.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-          <strong>Figure 4: (a) Electronic components can only be placed on the surfaces that are not being glued, and (b) only into cells that are formed from the top of the sheet.
-          </strong>        </p>
-        <p><strong>Circuit Layout on Honeycomb Foldable Structures</strong>        </p>
-        <p>Finally, the wires to connect the electronic components can be placed onto any surface that is also suitable for an electronic component (i.e., it is neither on the back of the sheet nor being glued together). We prevent short circuiting of wires as a result of folding by adding an insulating sheet in a later step of the pipeline (see section "fabrication process").
-          
-          
-          <em>Cross-Cell Circuit Connector:</em> As mentioned previously, the cell size determines how many wires can be routed to a cell. For example, as shown in Figure 5a, when the width of a cell is 7mm and the width of the wire is 1mm,only 4wires can reach a cell since we also need to leave a 1mm gap between each wire. To allow for more wires, we created the wiring method shown in Figure 5b: This wiring method leverages the fact that after folding, the mountains will be connected since they are being glued together. When the mountains become glued, seemingly unconnected wires become connected and the circuit is closed. Figure 5 shows the results: rather than (a) just 4 wires, our new method (b) allows for 8 wires. However, while regular wiring can be placed on any surface, our cross-cell circuit connector only works on mountains since other surfaces do not become glued together.        </p>
-        <p><br>
-        <img src="images/Fig5-wiring.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-          <strong>Figure 5: (a) Traditional wiring method. (b) Our new wiring allows for more wires due to folding.</strong>
-          
-          <br><br>
-          
-          
-          
-          
-          <span class="medium-headline">
-          FoldTronics Pipeline<br>
-          </span>
-          
-          Next, we describe how users can create interactive objects with integrated electronics using the FoldTronics design software and fabrication pipeline. We will illustrate all steps at the example of making a simple LED circuit with one cross-cell circuit connector and a battery. We chose this simple example for the step-by-step illustration and will demonstrate more complex use cases in section "Scenarios."        </p>
-        <p><br>
-        <img src="images/fig12-folding.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-        <strong>Figure 6: (a, b) Walk-through example: functional LED circuit with one cross-cell circuit connector and a battery.</strong></p>
-        <p>
-          
-          
-          
-          
-        Creating interactive foldable 3D objects, such as the functional LED circuit with battery, requires three steps:</p>
-        <p><em>(1) Device Design:</em> Users start by 3D modeling their device, then convert the 3D model into a foldable honeycomb structure using our conversion software, and place the electronics onto the cells facilitated by our software’s guidance tools.<br>
-          <em>(2) Export for Fabrication:</em> Next, users export their design for fabrication on a regular cutting plotter. All layers are exported "fabrication-ready" except for the wiring layer, which requires users to open it in the electronics design software EAGLE to use its auto-wiring function.<br>
-          <em>(3) Fabrication &amp; Assembly:</em> Finally, users use the cutting plotter to fabricate the different layers, then solder on the electronics and fold the shape into its 3D structure.
-          
-          
-          
-          
-          The software for our design tool can be found on <a href="https://github.com/eratoimf/foldtronics">GitHub</a>. A full list of materials and a step-by-step description of the process can also be found in our FoldTronics <a href="https://www.instructables.com/id/FoldTronics-Creating-3D-Objects-With-Integrated-El/">Instructables</a> tutorial.        </p>
-        <p><strong>#1 Device Design using FoldTronics User Interface</strong>        </p>
-        <p>To create the LED circuit, we start by creating a 3D model in the 3D editor Rhino3D for which we implemented our FoldTronics plugin (Figure 7a). After creating the basic shape of the 3D model, we convert it into a honeycomb structure by pressing the "convert" button. As soon as the algorithm split the model into the honeycomb cells, the result is displayed in the 3D view (Figure 7b).          </p>
-        <p><img src="images/fig13-converting.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-        <strong>Figure 7: (a) Converting the 3D model into (b, c) honeycombs with different resolutions.</strong></p>
-        <p>We can now vary the resolution of the honeycomb using the provided slider to find the best trade-off between higher resolution and having enough space in the cells to house the LED, the battery, and the cross-cell circuit connector. Figure 7b/c show different resolutions (5mm vs. 4mm for the width of the cells) for this purpose. The resolution slider changes both the number of columns and the number of cells simultaneously because changing the resolution for columns and rows separately would cause the final shape to differ from the original shape.<br>
-        To add the LED, battery, and cross-cell circuit connector, we select them from the list of components from the menu and add them by clicking the respective button (Figure 8a). This automatically creates a 3D model of a box representing the size of the selected electronic component (Figure 8b). We can now drag the LED and other electronic components to a location in the 3D volume. In case we accidentally place a component onto a fold or a non-valid cell, it is automatically relocated to the next valid cell (Figure 8b).          </p>
-        <p><img src="images/fig14-components.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-        <strong>Figure 8: (a) Adding electronic components from the menu, (b) relocating components to valid cells, (c) color-coding components that are too large.</strong></p>
-        <p>If the width of the electronic component, such as the LED, is too large (i.e., larger than the width of the cell), the color of the electronic component changes to black and a warning is displayed on the menu (Figure 8c).</p>
-        <p>We are done with placing the components. Before exporting, we use the "Collapsing Simulation" slider to preview how the design will look when compressed and expanded again.  </p>
-        <p><strong>#2 Export for Fabrication</strong></p>
-        <p>Once we are done with placing the electronic components, we hit the "export" button to generate the layers for fabrication. As can be seen in Figure 9, on export, our 3D editor plugin creates all layers of the fabrication stack as 2D drawing files (.DXF file format) except the layer that contains the wiring, which we will create now as a seperate step in the process.<br>
-          
-          <br><img src="images/fig15-dxf.png" alt="mosculpt-runner" width="500" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-        <strong>Figure 9: Individual layers generated using Grasshopper and EAGLE to create a honeycomb structure with integrated electronics.</strong></p>
-        <p>To generate the missing wiring layer, users open the 2D file of the honeycomb structure in the electronic design software EAGLE and execute our custom EAGLE ULP plugin. As can be seen in Figure 10, the plugin (a) generates a circuit board the size of the honeycomb pattern and then converts each colored square back into an electronic component (i.e. the LED, battery, and cross-cell circuit connector). (b) With the electronic components already on the sheet, users can now build the schematic. (c) Finally, users can use EAGLE’s auto-wiring function to create the full circuitry on the sheet, and then export the design as .DXF file, which provides the last missing layer for fabrication.
-          
-          
-          <br>
-          
-          <br><img src="images/fig16-eagle.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-          <strong>Figure 10: (a) Generated circuit board + colored squares converted to electronic components in EAGLE, (b) the user creates the logical connections, then (c) uses EAGLE’s auto-wiring to create the circuit.</strong>
-          
-          
-          
-          <strong>#3 Fabrication &amp; Assembly</strong>        </p>
-        <p>To fabricate the layers, we only have to cut the 2D drawing of each layer (.DXF file format) in the right order using the cutting plotter. We use the FoldTronics settings sheet to set the cutting blade width, speed, and force for each layer.</p>
-        <p><em>Cutting / Perforating the Base Sheet:</em> We first insert the base sheet (PET plastic) into the cutter and cut and perforate it to create the mountain, valley, and slit lines as well as the markers for the electronic components (Figure 11). The FoldTronics process only perforates the sheet from the top and differentiates between mountain and valley lines using separate visual notations (dotted lines for mountains vs. dashed lines for valleys) since they require folding into opposing directions later on (Figure 9a). Alternatively, the FoldTronics process can also perforate the sheet from both sides, i.e. perforate the mountains from the top and valleys from the bottom, however, this requires reinserting the sheet into the cutting plotter.</p>
-        <p>While all the slits are cut through, the outline of the honeycomb is only perforated to keep it connected to the main sheet, which allows us to further process the sheet with the cutting plotter in the next steps. Finally, the areas where electronic components will be soldered on are also perforated to make it easier to find out which component goes where.</p>
-        <p>For the objects used in this paper, we use PET plastic sheets, thickness 0.1mm and cut the sheets with a cutting plotter (model: Silhouette Portrait, settings cutting: blade 0.2mm, speed 2cm/s, force 10, settings perforating: blade 0.2mm, speed 2cm/s, force 5). </p>
-        <p><img src="images/fig7-cutting-and-perforating.jpg" alt="mosculpt-runner" width="500" style="padding-bottom:0px; margin-bottom:10px"><br>
-        <strong>Figure 11: (a) Inserting the sheet into the plotter, (b) the cut &amp; perforated honeycomb still connected to the sheet.</strong></p>
-        <p><em>Placing the Wiring with Copper Tape: </em>Next, we place a layer of one-sided copper tape (thickness: 0.07mm) across the entire sheet (Figure 12a). We put the sheet back into the cutting plotter with the copper side up, then execute the file to cut out the shape of the wires (Figure 9b) which is configured to make sure to not cut into the base sheet (cutting settings: blade 0.2mm, speed 2cm/s, force 13). Afterwards, we peel off the copper tape that is not part of the wiring (Figure 12b).        </p>
-        <p><br>
-        <img src="images/fig8-cutting-wiring.png" alt="mosculpt-runner" width="500" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-        <strong>Figure 12: (a) Placing the copper sheet, (b) after cutting, we can peel the rest of the wires off.</strong></p>
-        <p><em>Insulating Sheet:</em> In order to prevent any short circuiting from wires touching after folding the base sheet, we next add an insulating layer (Figure 13a). For this, we place a layer of regular non-conductive tape across the entire sheet (thickness: 0.08mm). We put the sheet back into the cutting plotter, which removes the insulating tape only in those areas that have wire ends that either will be connected to electronic components or that use our novel cross cell circuit connector (Figure 13b) according to the drawing shown in Figure 9c. We use the cutting settings: blade 0.1mm, speed 2cm/s, force 4.        </p>
-        <p><br>
-        <img src="images/fig9-cutting-insulating.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-          <strong>Figure 13: (a) Applying the insulating layer and cutting out areas for (b) electronic components, and the cross-cell circuit connector.</strong>          </p>
-      <p>Glue mountains/valleys to hold after folding: In the next step, we apply a layer of regular double-sided tape to the sheet on both its bottom and its top (Figure 9d/e). The double-sided tape is used to connect the valleys and mountains that hold the honeycomb structure together after folding as was illustrated in Figure 2b/c (mountains get glued from the top of the sheets while valleys get glued from the bottom). After inserting the sheet into the cutting plotter, the double-sided tape is cut out in all areas that are not supposed to be taped together (cutting settings: blade 0.2mm, speed 2cm/s, force 6). In addition, for taped valleys/mountains that also carry a cross-cell circuit connector, the cutting plotter cuts out the areas needed for the electronic connections. After cutting both sides, we peel off the remaining double sided tape (Figure 14). </p>
-        <p><br>
-        <img src="images/fig10-double-sided.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-          
-        <strong>Figure 14: Applying regular double-sided tape on both sides for gluing mountains/valleys.</strong></p>
-        <p>
-          
-          <em>Soldering:</em> In a final step before soldering, we now cut off the honeycomb pattern to disconnect it from the sheet. Next we solder the electronic components (LED, battery) onto the wires using a soldering iron. If the components are small and hard to solder, we can also use solder paste as an alternative. Since soldering the cross-cell circuit connector is difficult, we use double-sided conductive tape to create the connection.        </p>
-        <p><br>
-        <img src="images/fig11-soldering.png" alt="mosculpt-runner" width="500" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-          <strong>Figure 15: (a) Soldering electronic components. (b) Applying double-sided conductive tape for cross-cell circuit connector.</strong>        </p>
-        <p><em>Folding:</em> We now fold the honeycomb together (Figure 16). The total time for making this example, including all fabrication steps and folding was 18 minutes for us.        </p>
-        <p><br>
-        <img src="images/fig12-folding-2.png" alt="mosculpt-runner" width="500" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-          <strong>
-        Figure 16: (a, b) Folding the honeycomb. (c) Assembled functional LED circuit.</strong></p>
-        <p>The fabrication took 2 minutes for cutting the plastic sheet, 3 minutes for cutting the copper foil, 1 minute for cutting the insulating sheet, and 2 minutes total to cut the double-sided tape on each side. After fabricating all layers, it took us 10 minutes to assemble the structure. For less experienced users, the process will take longer. While assembly time is a limitation of our process since it scales linearly with the number of cells, our work enables functionality which cannot be achieved in other ways.</p>
-        <p><br>
-          
-          <span class="medium-headline">
-          Scenarios
-          </span>
-          <br>
-        </p>
-      <p>Next, we illustrate several scenarios that benefit from having integrated electronics in foldable honeycomb structures.</p>
-        <p><strong>#1 Tube Case with Liquid Levels (Integrated Sensing)</strong>        </p>
-        <p>Figure 17 shows a portable test tube case that can detect if tubes are inserted or removed, the type of liquid they contain, and the current liquid level. After measuring, the portable test-tube case displays the tube’s content quantity and color in real time on the user’s phone.<br>
-          To allow for sensing inside the 3D structure, we placed three IR reflectance sensors per cell onto the 2D base sheet prior to folding the structure into its three-dimensional shape. Once folded, the sensors can detect a test tube inserted into one of the honeycomb cells.<br>
-          Since we use a honeycomb structure, the test-tube case is portable, i.e. when users walk to the test site, they can easily store it in their pocket and expand it on site (thickness when collapsed 5mm vs. 45mm when expanded (9x)). In addition, since the honeycomb structure is hollow, the test-tube case is very lightweight and thus easy to carry around.
-          
-          <br><img src="images/fig17-test-tube-case.png" alt="mosculpt-runner" width="488" style="padding-bottom:0px; margin-bottom:10px"><br>
-          <strong>Figure 17: (a, b) Tube case with sensors. (c) 3D model data, (d) circuit layout.</strong>
-          <br><br>
-          
-          
-          
-        <strong>#2 2D + 3D Smartwatch Display (Integrated Displays)</strong></p>
-        <p>Figure 18 shows a prototype of a smart watch: (a) By default, the smart watch provides a regular 2D display (for simplicity of prototyping we use a display made from 2x3 LEDs). (b) However, when the user pulls the watch face upwards, the 2D display transforms into a volumetric 3D display for viewing additional content.          </p>
-        <p><img src="images/fig18-smart-watch.png" alt="mosculpt-runner" width="488" style="padding-bottom:0px; margin-bottom:10px"><br>
-          <strong>Figure 18: (a, b) Expandable smart watch. (c) 3D model data, (d) circuit layout.
-        </strong></p>
-        <p>While traditional fabrication approaches make it difficult to arrange LEDs inside a 3D structure, our method of folding a 2D sheet reduces the 3D placement problem to a 2D layout problem, which we can solve with our design software.        </p>
-        <p>To detect when the display state changes from 2D to 3D and the additional LEDs need to be turned on, we also integrated a sensor that can detect when the display is in its flat 2D state. The key idea is to place conductive wires in a way that they touch when the display is compressed, and do not touch as the display gets expanded. We support this "touch sensor" in our design software as a separate electronic component.</p>
-        <p>In summary, this example made use of several benefits of the honeycomb structure: The 2D-to-3D folding facilitated the placement of the LEDs in the 3D volume, the capabilities of cells to expand and contract enabled the interaction of transforming the display, and since the honeycomb structure is sparse the resulting object was also very lightweight, which is especially important for wearable applications. More ways of extending screen space of such a folded smartwatch are shown by Fuchs et al. [10]. </p>
-        <p><strong>#3 Dynamic Game-Controller (Integrated Sensing)</strong></p>
-        <p>Building onto the functionality explained above, we also build a game-controller that users can transform into different shapes to represent different game states, e.g., from a regular controller to a gun-shaped controller as shown in Figure 19. The controller includes two of the touch-buttons explained in the previous example: one touch button operates the controller and allows the user to shoot objects, whereas the other touch button detects the state of the game controller (when user compresses the controller to state 1, the touch button activates; when the user expands the controller, the touch button deactivates and we transform the controller to state 2).</p>
-        <p>In summary, foldable honeycomb structures with integrated electronics that enable interactive 3D objects are useful in a variety of scenarios ranging from mobile applications that require effective storage for transportation (scenario 1: mobile tube case) to deformable and shape-changing objects (scenario 2: smart watch as well as scenario 3: dynamic game controller). <br>
-          <br><img src="images/fig19-game-controller.png" alt="mosculpt-runner" width="490" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-          <strong> Figure 19: Shape changing controller. (c) 3D model data, (d) circuit layout.</strong>        </p>
-        <p><span class="medium-headline">Implementation / Code</span></p>
-        <p>
-          Figure 20 shows a flowchart of our implementation pipeline. As mentioned previously, the main design tool is implemented in the 3D editor Rhino3D as a Grasshopper extension. Grasshopper directly exports the layers for the honeycomb sheet, insulating tape, and mountain/valley assembly. In addition, to generate the wiring, we implemented a ULP plugin to the electronic design software EAGLE, which exports the wiring layer – making the stack of layers complete.
-          
-          
-          <br><img src="images/fig20-system-flow.png" alt="mosculpt-runner" width="500" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-        <strong>Figure 20: Flow chart of the system.</strong></p>
-        <p><strong>Layer #1: Converting the 3D Model into a 2D Structure</strong></p>
-        <p>In the current version of our software, we can only convert a specific type of 3D model, i.e., shapes whose bottom and top are flat surfaces. There are no constraints on the other sides of the object, i.e. they can be slanted or curved or have an arbitrary shape (Figure 21).</p>
-        <p><em>Generating the Honeycomb Columns:</em> We start the conversion process by splitting the model into 2D planes that will form the walls of the honeycomb cell (Figure 22a/b).          </p>
-        <p><img src="images/fig21-types.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-        <strong>Figure 21: Examples of models our algorithm can convert.</strong></p>
-        <p>To determine the position of each 2D plane, our algorithm first computes the bounding box of the model using Grasshopper’s DeBox() function and then divides the width of the bounding box by the number of slices (which the user set using the "resolution" slider). To generate each 2D plane, we now split the model with a large cutting plane at each plane’s position using Grasshoppers Brep() function (Figure 22b).</p>
-        <p><br>
-        <img src="images/fig22-slicing-the-3D-model4.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-        <strong>Figure 22: (a) 3D model, (b) splitting into honeycomb columns, and (c) cells. (d) Duplicating each column to form both sides of a cell.</strong></p>
-        <p>Generating the Honeycomb Cell Segments: As can be seen in Figure 22c the next step is to split each 2D plane into the honeycomb cells segments, which will form the mountains and valleys. To find the position of each cell segment, we compute the bounding box of each 2D plane, compute its width, and then divide it by the cell resolution, which the user had previously set using the resolution slider. In the final step illustrated in Figure 22d, we duplicate each 2D plane and its cell segments to have one available for folding each of the connecting cells (see also Figure 23 for how this is represented in the final 2D layout).</p>
-        <p>Generating the 2D Layout: To convert the 2D planes with cell segments into a 2D drawing, we proceed as follows: First, we project each 2D plane onto the sheet starting with plane A, plane B, plane C and so on. When placing a 2D plane, we also have to create a duplicate vertically mirrored since each 2D plane is used for both the left and right connecting cell as mentioned previously (compare Figure 23 and Figure 22d). </p>
-        <p><br>
-        <img src="images/fig23-2d-layout.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-        <strong>Figure 23: Converting the model from Figure 22 into a 2D layout.</strong></p>
-        <p>After placing all planes and generating the line layout, we now determine which lines will be cut and which perforated.</p>
-        <p>For this, our algorithm iterates over the cells starting with
-        the top left cell and processes all the cells in a column before moving to the next one. While going over the cells, our algorithm executes the layout that we explained at the beginning of this paper and that is shown in Figure 2c, i.e. our algorithm tags each line as either a mountain, a valley, a slit, or as part of the honeycomb outline. In the 2D drawing, all slits are colored black for cutting, all mountains and valley lines are colored red for engraving.</p>
-        <p><em>Placing Electronic Components:</em> In addition, we also compute the position of electronic components on the 2D layout. For this, we identify which valley/mountain the electronic component is attached to and then identify that valley/mountain on the 2D sheet. We draw the outline of electronic component as a rectangle onto the 2D sheet in the respective position. Each electronic has a different color assigned to it (except red and black), which allows us to identify each component in EAGLE.          </p>
-        <p><strong>Layer #2: Wiring of Components with EAGLE</strong></p>
-        <p>After the user imported the base-layer into EAGLE, our EAGLE User Language Program (ULP) plugin first generates a circuit board the size of the honeycomb pattern by parsing the .DXF file and going over the outside contour of the honeycomb using the coordinates in the file. Next, it converts the colored squares according to their color into matching electronic components. First, we extract the position of electronic components from the .DXF file, then load the matching electronic component from EAGLE’s component library using EAGLE’s add() function and provide the respective component ID as parameter. Using the generated board and electronic component, the user can now create the desired schematic and then use EAGLE’s standard auto-routing function to generate the wiring layout.          </p>
-      <p><strong>Layer #3: Insulating Layer</strong></p>
-        <p>The insulating layer is exported from Grasshopper when the 2D honeycomb layout is generated. The insulating layer is simple in that it covers all cells except those that have an electronic component or a cross-cell circuit connector placed on them, which we can easily identify when we place the colored squares for the components on the sheet.</p>
-        <p><strong>Layer #4: Valley/Mountain Glue Layer</strong></p>
-        <p>Similarly, the valley/mountain glue layers that use double-sided tape to hold the honeycomb together are generated when Grasshopper generates the 2D honeycomb layout. Since this follows a pre-defined cell-pattern (see Figure 2c), we generate this layer when we are defining which cells are mountains and which valleys on the base layer.</p>
-        <p><span class="medium-headline">
-        Extensions For Honeycomb Circuits</span></p>
-        <p>
-          
-          
-          Next, we describe extensions to our approach that allow for additional functionality.          </p>
-      <p><strong>Double-Sided Circuit</strong></p>
-        <p>We can also create double-sided circuit boards by applying our fabrication process on both sides (wiring + insulating sheet). However, at this point our design software only supports one-sided boards and thus users would have to create the layout manually. If the user prints the circuit on the back side of the sheet, it is necessary to connect the circuit of the top side and the back side using eyelets (Figure 24).<br>
-          
-          <br><img src="images/fig24-2d-layout.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
-          
-          
-          <strong>Figure 24: Double-sided circuit and connection.</strong>
-          <br><br>
-          
-          
-        <strong>Using Different Honeycomb Patterns</strong></p>
-        <p>Beside the honeycomb pattern we used for this paper, there are other structures with different properties available. For instance, by using a different size for mountains than for valleys, we can create structures of negative Poisson’s ratio (NPR), which can be stretched in two directions [25]. With recent inventions in meta-materials, such structures could in the future even potentially be expanded to three-dimensional expansion and contraction [29]. Finally, by generating heterogeneous patterns, in a way similar to the ones shown in Hybrid Bricolage [8], we can generate honeycombs that better approximate an object’s geometry. Properties of irregular honeycomb structures have also been explored in computer graphics [15], mechanical engineering [20], and material science [43].          </p>
-        <p><strong>Stacking Multiple Honeycomb Structures</strong>        </p>
-        <p>At the moment, we use a single layer of honeycomb structure only, which limits us to very simple shapes. However, moving forward we can stack multiple honeycomb layers on top of each other for more complex geometries.
-          Other Base-Sheet Materials: Opaque, Translucent etc.<br>
-          For the objects illustrated in this paper, we used a transparent PET plastic sheet. However, other materials than PET can be used as the base as long as they comply with the maximum thickness of 0.8mm (thicker sheets are hard to cut and hard to fold). For example, by using a translucent plastic sheet we can diffuse the light of LEDs for a lamp, or by using a black plastic sheet we can conceal the internal parts. Similarly, paper can also be used for low cost prototyping.<br>
-          <br>
-          
-          <span class="medium-headline">
-          Discussion
-          </span>        </p>
-        <p>Finally, we will discuss our experiences while building honeycomb circuits over the course of several months. <strong>Conductive Inkjet Printing vs. Conductive Tape</strong>
-          
-        We initially considered the use of conductive inkjet printing to print the circuits directly onto the sheet rather than applying a layer of conductive tape and then peeling of the non-wire areas. However, conductive inkjet printing turned out to be not as reliable since the wire traces easily broke during folding. Conductive tape, in contrast, was robust enough to withstand folding over longer periods of time.          </p>
-        <p><strong>Robustness of Prototypes</strong></p>
-        <p>We found that with respect to the robustness of the constructed circuitry, the weakest point are the wire traces. When the lines are thin (less than 1mm) and folded several hundred times, such as when expanding and contracting the transformable smart watch display, traces start to break. We can reduce this effect by using thicker wire traces. However, this results in fewer wires per cell. For the cross-cell circuit connector, solder paste helped eliminate these issues since it "glues" both sides together more reliably. However, the paste needs to be applied manually while the tape can be cut using the plotter. We also noticed that the blade of the cutting plotter gets dull over time. However, for the entire project, we only replaced the blade once ($9 per blade).</p>
-        <p><strong>Debugging Folded Circuitry</strong></p>
-        <p>During assembly, we found that debugging the circuitry was challenging once the circuit was folded into its 3D shape since the honeycomb-cells were glued/taped together and thus could not be easily unfolded again. To facilitate this, we envision a version of our fabrication process that uses hook-and-loop fasteners (both regular and conductive) instead of tape to connect the mountains/valleys. When debugging is required, the hook-and-loop fasteners allow users to pull the two surfaces apart to reveal the circuitry, diagnose the problem, and then re-connect the surfaces.</p>
-        <p><strong>Learning Curve when Using Honeycomb Circuits</strong></p>
-        <p>Most of the fabrication steps (e.g., applying tape and aligning sheets, automated cutting using the plotter) require little expertise and have limited complexity. Soldering is the hardest task but our target users (makers and other technical inventors with expertise in electronics and prototyping) tend to be familiar with this. The steps in the electronic design software EAGLE are not more difficult than for regular 2D electronics. The most error-prone step from our own experience is soldering the right components into the right place, which could be further improved by cutting visually distinguishable marks into the sheet at the correct locations. The cutting and layering could be further automated using layered-object manufacturing (automatically aligns, cuts, laminates layers) or a machine similar to the one used during the honeycomb manufacturing process shown in Wadley et al.        <br>
-          <br>
-          <span class="medium-headline">
-          Conclusion
-        </span></p>
-        <p>In this paper, we presented a novel fabrication technique that allows users to integrate electronic parts into foldable 3D structures. Since our technique is based on using a plotting cutter and a plastic sheet, users can create foldable prototypes fast and at low cost. To facilitate the design, we developed a layer-based fabrication method and developed software that automatically generates the required layers for folding, circuitry, and insulating. We demonstrated how our technique can create a variety of 3D objects with integrated functions, such as a smart-watch, a test tube case and a shape-changing controller. For future work, we plan to investigate how to reduce the number of layers required by using conductive inkjet printing for printing traces that are robust to folding. In addition, we plan to automate the folding process using a feeder and a folding machine . We also plan to develop a circuit layout algorithm that avoids potential short circuiting when folding which would allow us to reduce the need for having an insulating sheet.
-          
-          
-          <br><br><br><br>
-        </p>
-        </br>
+	  </div>
+
+
+    <h1 class="medium-headline">
+      Multi-Color 3D Printing using Photochromic Dyes
+    </h1>
+    </p>
+  <div>
+    <p>
+      Our multi-color resin printing process combines digital light processing (DLP) with photochromic materials. Inspired by the method described in <a href="https://hcie.csail.mit.edu/research/photochromeleon/photochromeleon.html">Photo-Chromeleon</a> , we mix cyan, magenta and yellow photochromic dyes into a UV-curable resin. By introducing an additional RGB projector into a DLP printer, we can selectively deactivate each of the dyes in the resin and thus color the object as it is being printed. Our multi-color 3D printer has the potential to print single objects with multiple colors and to simultaneously print multiple objects each with a different color (Figure 1). The entire pipeline of the printing system is shown in Figure 2. </p>
+      <p>
+      <img src="images/Pipeline.png " alt="System diagram showing the different stages of the printing process" width="400" style="padding-bottom:0px; margin-bottom:10px"> <br>
+      Figure 2: System diagram showing the different stages of the printing process. 
+    </p> 
+  </div>
+
+
+    <h2 class="medium-headline">
+      Developing the Multi-Color Resin
+    </h2>
+    <div>
+      <p>
+        When creating our multi-color photochromic resin, our goal was to achieve the highest color saturation whilst also minimizing any detrimental effects to the printing properties of the resin.
+      </p>
+
+      <p>
+        <strong>Creating the CMY ink mixture:</strong>  We use the same bi-stable, P-type photochromic dyes from Yamada Chemical Co. (blue (DAE-0001), red purple (DAE-0012), yellow (DAE-0068)) and the same ink ratio (1:1:3) as <a href="https://hcie.csail.mit.edu/research/photochromeleon/photochromeleon.html">Photo-Chromeleon</a>. Since the photochromic dyes do not dissolve directly into resin due to differing polarities of the materials, we first mixed the dyes into ethyl acetate to create the photochromic ink and then mixed the resulting ink into resin. 
+      </p>
+
+      <p>
+        The vibrancy of the printed colors is largely dependant on the concentration of photochromic dye in the resin mixture. This is dictated by both the amount of photochromic dye that is dissolved in ethyl acetate to create the photochromic ink as well as the final ink:resin ratio. To determine the maximum concentration of photochromic dye that can be dissolved in ethyl acetate, we mixed each of the dyes into ethyl acetate (VWR International) separately at concentrations between 1wt\% and 20wt\%, at 1wt\% increments, and sonicated for 30 minutes. We then visually observed whether any undissolved dye particles could be seen in the solution. Beyond concentrations of 15wt\%, we observed undissolved particles at the bottom of the vial of yellow dye, meaning that the dye has reached its solubility limit in ethyl acetate. 15wt\% is therefore the maximum concentration of yellow dye achievable in this solvent. To create the CMY photochromic ink mixture with a C:M:Y ratio of 1:1:3), we mixed the yellow dye into ethyl acetate at a concentration of 15wt\% as determined previously. We then mixed cyan and magenta dyes into separate vials of ethyl acetate, each at a concentration of 5wt\%.
+      </p>
+
+      <p>
+        <strong>Creating the photochromic resin:</strong>  To create the photochromic resin, we chose a white resin as the base material as this enabled the photochromic colors to appear more vivid when activated, compared to a clear resin. We used `White Resin' from Formlabs since this particular resin does not require post-processing under UV light after printing, which would affect any color textures that were applied during printing. According to the specification from the manufacturer, the optimal wavelength for curing this resin is 405nm. We mixed 5 parts of the CMY photochromic ink to 95 parts resin by weight using a vortex mixer for 1 hour to create the photochromic resin. This ratio was chosen to ensure that the white resin was close to its initial formulation for successful 3D printing, yet enough photochromic dye was present for highly saturated colors to be achieved. Figure 3 shows early print tests of individual yellow, cyan and magenta photochromic resins, and the capability of an RGB projector to control the amount of photochromic color activated in the resin (indicated by the areas in white).
+      </p>
+
+      <p>
+        <img src="images/resin.png" alt="Three images showing different colored photochromic resins: The left image shows yellow resin in a resin tank; The centre images shows the effect of shining R, G, B light on the cyan resin (blue light had no effect on the cyan resin, green light deactivates the cyan resin slowly, red light deactivates the cyan fastest); The right images shows the effect of shining R, G, B light on the magenta resin (blue light had no effect on the magenta resin, green light and red light both deactivate the magenta resin to approximately the same degree)." width="400" style="padding-bottom:0px; margin-bottom:10px"> <br>
+        Figure 3: Individual photochromic dyes mixed into resin for an early print test. (a) Yellow resin in the resin tank. In (b,c) we 3D printed 5 layers of the individual photochromic resins and tested if the RGB projector could deactivate each resin, which is indicated by the white areas on the printed samples.
+      </p> 
+
+      <p>
+        <strong>Activating the photochromic inks:</strong> Prior to dissolving the photochromic ink mixture into the resin, the dyes must be activated with a UV light until the CMY dye mixture is fully saturated, i.e., the color is black. Activating the dyes after mixing into the resin or during the printing process would cause unwanted curing of the resin, since UV light also cures the resin; Therefore, before mixing into the resin, we placed the photochromic CMY ink mixture on a vortex mixer in front of a UV light source and mixed it in a sealed, blackout enclosure for 20 minutes until the inks were fully activated and the solution turned black. Once the dyes are activated and mixed into the resin, the resin must remain within a light-sealed container before pouring it into the resin tank to ensure unwanted deactivation does not occur. 
+      </p>
+    </div>
+
+    <h2 class="medium-headline">
+      Printing Hardware
+    </h2>
+    </p>
+  <div>
+    <p>
+      Our printing hardware, shown in Figure 4a, consists of a regular DLP printer with an additional RGB projector and a switchable mirror that can flip to either project the UV light for curing the layer or the RGB light for coloring the layer
+    </p>
+
+    <p>
+      <strong>UV projector for curing:</strong> We implemented our technology using an existing UV LCD resin 3D printer (ANYCUBIC Photon S) with a single tank. By default, this resin printer uses a 405nm UV LED light source combined with an LCD masking screen. The LCD screen acts to block out light in certain areas and only the remaining areas where the light passes through gets cured. However, we found that the LCD masking screen does not allow visible light to pass through, which is necessary for controlling the color of the photochromic resin. We therefore replaced the UV LED and LCD screen with a 385nm UV projector (InVision Ikarus Full-HD DLP6500 light engine) and a tempered glass screen (FYSTEC). 
+    </p>
+
+    <p>
+      <strong>RGB projector for coloring:</strong> To change the colors in the resin, we mounted an additional light source below the resin tank: an RGB projector (AAXA Technologies M6 1200 Lumens LED Projector) set to an intensity of 12A. As in <a href="https://hcie.csail.mit.edu/research/photochromeleon/photochromeleon.html">Photo-Chromeleon</a>, the default green LED from the visible light projector creates a light output over a broad wavelength range, deactivating the yellow and cyan dyes in addition to the magenta dye. We therefore added a filter in front of the green LED (Semrock Brightline <sup><span>&#174;</span></sup> FF02-529/24-25) to limit the wavelength range to primarily deactivate magenta.
+    </p>
+
+    <p>
+      <img src="images/electronics-board.png" alt="The top image shows the the rotating mirror beneath the resin tank, with a hall effect sensor located each side, and the UV projector on the left side of the mirror and RGB projector on the right side. The bottom image shows a custom electronics control board that has stepper motor drivers for controlling the mirror motor and Z axis motor, and the connections to the hall-effect sensors, which all connect to a 12V power supply." width="400" style="padding-bottom:0px; margin-bottom:10px"> <br>
+      Figure 4: (a) Close up of the rotating mirror directing the UV projector output and RGB projector output towards the build plate, (b) custom control electronics board for the printer.
+    </p>
+    
+    <p>
+      <strong>Switching between curing and coloring:</strong> To switch between the UV projector and the RGB projector, we mounted two mirrors (Optical Mirror, Glass First Surface Mirror, reflective efficiency of 96\%) back-to-back, between the two light sources. The mirrors are controlled by a stepper motor and rotate 90<sup>&deg;</sup>, switching the beam of light that is directed into the resin tank between the UV projector and the RGB projector. The angular position of the mirror when directing the UV light and the RGB light into the resin tank is detected by a magnet mounted on the bottom of the rotating mirror and two hall-effect sensors mounted on the mirror's frame. 
+    </p>
+
+    <p>
+      <strong>Moving the build plate:</strong> We use the existing stepper motor to raise and lower the build plate and the existing optical limit switch to calibrate the location of the build plate to the home position at the start of every print. 
+    </p>
+
+    <p>
+      <strong>Custom electronic control boards:</strong> To interface with the mirror motor, the hall effect sensors on the mirror frame, the build plate motor, and the optical limit switch on the build plate, we built a custom electronics control board, shown in Figure 4b, that contains a microcontroller, which connects to each of the components.
+    </p>
+
+    <p>
+      <strong>Opaque print enclosure:</strong> External light that enters the printer may affect the colors during printing. To prevent this, we painted the upper casing of the printer that houses the build plate and resin tank with a black sealant. We also enclosed the lower part of the printer in a black opaque acrylic casing, with two cut outs at each end of the casing for cooling fans.  
+    </p>
+  </div>
+
+  <h2 class="medium-headline">
+    Printing Process
+  </h2>
+  <div>
+    <p>
+      Our printing process works similar to existing color inkjet printing processes such as the da Vinci 3D printer. It first creates the geometry of the layer and then colors it. After a layer has been colored, the build platform raises and the next layer is printed and colored. This repeats until the entire object has been built. 
+    </p>
+
+    <p>
+      In detail, the process works as follows: After the build plate has moved to the position of the first layer, the mirror rotates to direct UV light into the resin tank and the UV projector turns on and projects the first image to cure the first layer of the object. After the first layer has cured, the mirror rotates 90<sup>&deg;</sup> and the UV light is replaced by the RGB light from the RGB projector. This projector then shines a series of projection images onto the previously printed layer of resin (using the same coloring algorithm as in<a href="https://hcie.csail.mit.edu/research/photochromeleon/photochromeleon.html">Photo-Chromeleon</a>) to color the layer. Once the coloring has completed, the platform raises by the specified layer height, the mirror rotates back to the UV light, and the next layer begins printing. This repeats until all layers have been printed and colored. When the print has finished, the build plate moves to the top of the printer and the print can be removed. After printing, the object is washed for 30 minutes to remove excess uncured resin from the outer surfaces of the object by placing it in a light-sealed container of isopropyl alcohol.
+    </p>
+  </div>
+
+
+  <h1 class="medium-headline">
+    USER INTERFACE
+  </h1>
+
+  <div>
+    <p>
+      We built a custom user interface and slicer as an add-on to the 3D editor <em>Blender</em>. Users can apply color textures to their 3D models, define the slicing settings, and then slice their 3D model to generate the custom build instructions for printing.
+    </p>
+
+    <p>
+      <img src="images/user-interface.png" alt="The top figure shows a model of a surfboard that has been loaded into the ChromoPrint user interface. On the left-hand side are various slice settings, such as the layer thickness, UV exposure times, lift and retraction speeds of the build plate, and options of add support structures to the model. The bottom image shows an image of the surfboard that has been sliced with the desired slicer settings. The `Export all' button allows all the resulting information to exported for printing." width="400" style="padding-bottom:0px; margin-bottom:10px"> <br>
+      Figure 5: (a) ChromoPrint user interface and slicer integrated into the 3D editor Blender, (b) sliced object.
+    </p>
+
+    <p>
+      <strong>Applying color to the 3D model:</strong> Users start by loading their 3D model into the 3D editor (Figure 5a). Next, users apply a virtual texture to the digital model using <em>Blender</em>'s texture mapping tools. Users also have the option to edit the colors on the 3D model's surface directly using a custom `brush' tool. Selecting the `Preview' button converts the texture to the closest approximation that can be realized within the available color space of the photochromic resin (<a href="https://hcie.csail.mit.edu/research/photochromeleon/photochromeleon.html">Photo-Chromeleon</a>). The user can toggle between the virtual and the preview texture, adjusting colors as required.
+    </p>
+
+    <p>
+      <strong>Slicing and printing the 3D model:</strong> To slice the 3D model, the user enters the desired layer height and then selects `Slice' in the user interface, which splits the model into a series of layers, each layer containing its part of the color texture (Figure 5b). The user can choose to generate supports for the printed objects and define more detailed printer settings, such as UV exposure times and lift speeds. To print the model, the user selects `Print' in the user interface, which sends the build instructions to the 3D printer.
+    </p>
+  </div>
+
+  <h1 class="medium-headline">
+    SOFTWARE IMPLEMENTATION
+  </h1>
+  <div>
+    <p>
+      In this section we discuss the implementation of the 3D printer pipeline, i.e. how the 3D model is converted into black and white images for curing, as well as the colored images for creating multi-color textures, and how the build instructions are generated. 
+    </p>
+
+    <p>
+      <strong>Slicing the 3D model:</strong> To slice the 3D model, our software splits the 3D geometry into a series of 2D planes at intervals representing the selected layer height for 3D printing. Once the layers are generated, our software outputs a folder of black and white images (.png) - one for each layer to cure the geometry, a folder of color images (.png) representing the virtual texture for each layer, and a file with print settings (.json). While the black and white images can be used as direct input for the UV projector to create the geometry of the layer, the color images representing the virtual texture need further post-processing to convert them into the photochromic color control light sequence for the RGB projector.
+    </p>
+
+    <p>
+      <strong>Converting the virtual colors into RGB projections:</strong> The colored images are automatically imported into a custom program in \textit{Processing}, which converts each colored layer image into a series of projection images for coloring by the RGB projector. To create the deactivation images for each layer, \textit{Processing} converts the color values of each pixel into deactivation times for each of the projector's R, G, B color channels. It then computes the optimal deactivation times for each pixel using the optimization algorithm from <a href="https://hcie.csail.mit.edu/research/photochromeleon/photochromeleon.html">Photo-Chromeleon</a>.
+    </p>
+
+    <p>
+      <strong>Generating the build instructions:</strong> After the RGB projection images have been created, <em>Processing</em> generates the build instructions for the printer based on the defined layer height, the time required for the UV projector to cure the resin (bottom layer exposure time, layer exposure time), the time required for the RGB projection, the retraction speed of the build platform, and the rotating speed of the mirror. <em>Processing</em> then uses these build instructions to interface with the printer: It first controls the z-motor of the build plate to move it into its initial position for printing, which it determines by reading the values output from the optical limit switch on the build plate. It then sends instructions to the mirror motor to move to the initial position for printing, i.e. the position which will direct UV light into the resin tank. To determine if the motor is in the correct position, <em>Processing</em> continuously reads the outputs from the hall effect sensors mounted on the mirror frame. Once the mirror has reached that position, the black and white projection image for the first layer is sent to the UV projector for the duration of the `bottom layer exposure time', which results in the first cured layer. After this time has elapsed, <em>Processing</em> controls the mirror motor to rotate towards the RGB projector, again monitoring the hall effect sensors to determine the correct position.  Once the mirror has reached this position, <em>Processing</em> sends the projection images for coloring that layer to the RGB projector. After the total time for coloring has elapsed, <em>Processing</em> controls the mirror motor to return to its initial position and controls the z-stepper motor to move the build plate up by the `layer height'  at the `retraction speed'. The process then repeats, but uses the `Layer exposure time' for UV curing each subsequent layer after the bottom layer.
+    </p>
+  </div>
+
+
+    
+<!-- </div> -->
+<h1 class="medium-headline">
+  LIMITATIONS AND FUTURE WORK
+</h1>
+<div>
+  <p>
+    So far, we have finalized the printing hardware including the integration of the new projection systems and control electronics. We have also completed our work on the user interface with a custom slicer that generates the build instructions for the new printing process. In addition, we have developed an initial CMY photochromic resin and ran a set of test prints to verify that the idea behind our new printing process works. However, there are several steps that we still need to complete, which we outline below.
+  </p>
+
+  <p>
+    <strong>Absorption spectra of dyes in resin:</strong> The absorption spectra of the dyes are key to ensuring that a large color space can be accomplished. If the absorption spectra of the cyan, magenta, and yellow photochromic dyes overlap significantly, they cannot be deactivated individually. <a href="https://hcie.csail.mit.edu/research/photochromeleon/photochromeleon.html">Photo-Chromeleon</a> measured the absorption spectra of the dyes when mixed in ethyl acetate, with a spectrophotometer, however, mixing them into a different material, such as a resin, may shift the absorption spectra slightly. We therefore have to repeat these experiments and, based on the result, may either choose to use other photochromic dyes or change the filter in the RGB projector to cut off other parts of the light spectrum. 
+  </p>
+
+  <p>
+    <strong>Timing the RGB projections:</strong> Although <a href="https://hcie.csail.mit.edu/research/photochromeleon/photochromeleon.html">Photo-Chromeleon</a> measured the deactivation times of each photochromic dye, the results are only valid when the dyes are dissolved in ethyl acetate and the same projector distance is used. Since we have a different hardware setup and use photochromic dyes in a different material, we need to repeat these deactivation experiments to determine the RGB projector illumination times. 
+  </p>
+
+  <p>
+    <strong>Between-layer interference for RGB projections:</strong> Since the resin is slightly translucent, light projected onto the recently printed layer also partially hits the previous layers. To address this, we will measure how much light passes through the previous layers and then develop a new optimization algorithm that takes these between-layer effects into account. For instance, by not fully desaturating a layer when it is being printed, we can use the subsequent light exposure to create the rest of the color change. 
+  </p>
+
+  <p>
+    <strong>Evaluating print time, color space, and texture resolution:</strong> We will evaluate the overall print time, color space, and texture resolution. Our initial experiments showed that coloring a layer takes significantly less time than in <a href="https://hcie.csail.mit.edu/research/photochromeleon/photochromeleon.html">Photo-Chromeleon</a> since a printed layer is very thin and thus the photochromic dyes can be desaturated in less than one minute. In addition, unlike inkjet printers, our projection-based approach creates the color on the entire layer at once, which is especially beneficial for large-scale prints. We expect the overall color space and texture resolution to be slightly reduced when compared to <a href="https://hcie.csail.mit.edu/research/photochromeleon/photochromeleon.html">Photo-Chromeleon</a> due to the between-layer interference, and a slight blur at the edge of textures due to a scattering of the light. 
+  </p>
+
+  <p>
+    <strong>Applications for prototyping:</strong> Finally, we will showcase different applications of our technique for prototyping. While photochromic dyes fade out under environmental light (depending on the intensity of light this can be days or hours), our system allows designers to prototype full-color objects and to evaluate if any changes are needed for the next prototyping iteration. In case designers have access to a system similar to <a href="https://hcie.csail.mit.edu/research/photochromeleon/photochromeleon.html">Photo-Chromeleon</a>, they can also reapply the color at a later stage or update it to a new appearance. 
+  </p>
+</div>  
+  
+
+<h1 class="medium-headline">
+  CONCLUSION
+</h1>
+<br>
+<div>
+  <p>
+    In this paper, we demonstrated ChromoPrint, the first multi-color 3D printer based on a reprogrammable resin. To achieve this we incorporate CMY photochromic dyes into a UV-curable resin, and introduced an RGB projector into the printer to color each layer, in addition to the UV projector used for curing each layer of resin. We detailed the development of the photochromic resin, described how we created the printer hardware, and showed our custom user interface with integrated slicing that allows users to color a 3D model and then generate the build instructions for 3D printing with the photochromic resin. Finally, we laid out steps for our future work including additional measurements on the photochromic resin, projection times, algorithmic optimization as well as an evaluation of the print time, color space, and texture resolution. 
+  </p>
+</div>
+
 		</br>
 		</br>
 		</br>
