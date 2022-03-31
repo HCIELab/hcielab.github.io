@@ -449,10 +449,10 @@
 		Fabrication games that combine fabrication activities with a player's gameplay are an emerging area of research in HCI for their potential to augment the gaming experience in several ways. Objects fabricated from the fabrication games can introduce novel interactions in the gameplay (for example, by fabricating customized game-controllers), teach fabrication skills through gameplay, and increase player motivation by bringing the digital content into the physical world. To integrate fabrication activities as part of the gameplay, these fabrication games are typically designed from scratch, which can be a time-consuming process and may require an expertise in game design. 
 		<br>
 		<br>
-		Instead of building games from scratch, in our prior work~\cite{2021fabo}, we presented a framework for modifying \textit{existing} digital games into fabrication games, by using computer vision to integrate fabrication activities within gameplay moments. We implemented this framework as a toolkit that allows game designers to tag the onscreen visual content of existing game mechanics and integrate it with fabrication mechanics to strengthen the player experience---i.e. the aesthetics using fabrication. Results from the user studies validated the workflow and its potential to augment a myriad of existing games into fabrication games. In particular, understanding the impact of the designer's choice gameplay moments and its integration with fabrication mechanics on the player's experience was unexplored.  
+		Instead of building games from scratch, in <a href="https://hcie.csail.mit.edu/research/fabo/fabo.html">our prior work</a>, we presented a framework for modifying existing digital games into fabrication games, by using computer vision to integrate fabrication activities within gameplay moments. We implemented this framework as a toolkit that allows game designers to tag the onscreen visual content of existing game mechanics and integrate it with fabrication mechanics to strengthen the player experience---i.e. the aesthetics using fabrication. Results from the user studies validated the workflow and its potential to augment a myriad of existing games into fabrication games. In particular, understanding the impact of the designer's choice gameplay moments and its integration with fabrication mechanics on the player's experience was unexplored.  
 		<br>
 		<br>
-		In this paper, we use the prior study results~\cite{2021fabo} and further analyze them with the goal of understanding the player experiences emerging from the integration of existing game mechanics~\cite{sicart2008defining} and fabrication activities. We first analyze the 47 fabrication events designed by the study participants from the prior study as this study data provides a wide range of example points for the analysis. To analyze these events through its design and technical components, we use the widely cited Mechanics-Dynamics-Aesthetics (MDA) framework~\cite{hunicke2004mda}. For the analysis, we first modify the MDA framework to f-MDA and incorporate the fabrication components that result from the integration of fabrication activities. We examine each of the 47 events using f-MDA, and identify its corresponding game mechanics, system dynamics, player aesthetics, fabrication mechanics, process of fabrication, and object use.  
+		In this paper, we use <a href="https://hcie.csail.mit.edu/research/fabo/fabo.html">the prior study results</a> and further analyze them with the goal of understanding the player experiences emerging from the integration of existing game mechanics and fabrication activities. We first analyze the 47 fabrication events designed by the study participants from the prior study as this study data provides a wide range of example points for the analysis. To analyze these events through its design and technical components, we use the widely cited Mechanics-Dynamics-Aesthetics (MDA) framework. For the analysis, we first modify the MDA framework to f-MDA and incorporate the fabrication components that result from the integration of fabrication activities. We examine each of the 47 events using f-MDA, and identify its corresponding game mechanics, system dynamics, player aesthetics, fabrication mechanics, process of fabrication, and object use.  
 		<br>
 		<br>
 		We found that fabricated objects have the potential to enhance and expand the existing game mechanics in new ways. We noted that the integration led to the emergence of new player-object aesthetics in most cases. We define player-object aesthetics as the emotional associations that the players develop with the objects fabricated from their personal gameplay. For example, a player fabricating a trophy from their winning gameplay could associate it as an object of pride. Our analysis shows the emergence of a set of five new player-object aesthetics (namely, objects of pride, creativity, resource, function, and shared memory) resulting from the fabrication of objects. We map the links between these emergent player-object aesthetics and the existing game mechanics. Designers can use this bidirectional mapping to identify the potential of existing game mechanics to lead to player-object aesthetics and vice versa, and thus integrate fabrication activities with existing digital games. 
@@ -474,31 +474,31 @@
 
 
 		<span class="medium-headline">
-		Prior Study
+		PRIOR STUDY
 		</span>
 		<br>
 		<br>
-		This paper builds on our prior study~\cite{2021fabo} that evaluated the workflow and the usability of our toolkit for integrating fabrication activities within the gameplay of existing digital games. While our earlier work provided insights on the usability of the toolkit, in this paper we examine and analyze the study results further from the game design perspective through the lens of the f-MDA framework.   
+		This paper builds on <a href="https://hcie.csail.mit.edu/research/fabo/fabo.html">our prior study</a> that evaluated the workflow and the usability of our toolkit for integrating fabrication activities within the gameplay of existing digital games. While our earlier work provided insights on the usability of the toolkit, in this paper we examine and analyze the study results further from the game design perspective through the lens of the f-MDA framework.   
 		<br>
 		<br>
-		Within the scope of our study, we use the term \textit{``designers"} to refer to the participants who modified existing games into fabrication games using our toolkit, and use the term \textit{``players"} to refer to the users who would play the modified fabrication games using our toolkit.  
+		Within the scope of our study, we use the term "designers" to refer to the participants who modified existing games into fabrication games using our toolkit, and use the term "players" to refer to the users who would play the modified fabrication games using our toolkit.  
 		<br>
 		<br>
 		<b>The Toolkit Workflow:</b><br>
-		The toolkit allowed \textit{designers} to tag on-screen visual content (i.e. text or images) from existing games to mark gameplay moments that trigger fabrication events in the gameplay. When players of the fabrication games encounter these respective fabrication events during their gameplay, they can choose to fabricate the objects using our toolkit. Figure ~\ref{toolkit} illustrates the toolkit's workflow that takes existing games as input and then outputs the fabrication files of the objects from the game. 
+		The toolkit allowed designers to tag on-screen visual content (i.e. text or images) from existing games to mark gameplay moments that trigger fabrication events in the gameplay. When players of the fabrication games encounter these respective fabrication events during their gameplay, they can choose to fabricate the objects using our toolkit. Figure 2 illustrates the toolkit's workflow that takes existing games as input and then outputs the fabrication files of the objects from the game. 
 		<br>
 		<br>
-		As an illustrative example, consider the fabrication event in the game of MarioKart, where the players can fabricate a collectible of the character, Rosalina as soon as the character gets unlocked. To integrate this fabrication event, designers would first use our toolkit's designer interface to choose the gameplay moment and capture its screenshot from videos of recorded gameplay available on video platforms, such as Youtube, or play the game themselves. Using the features of the designer interface, they would then tag the on-screen visual content as cues to identify the gameplay moment. For example, when Rosalina is unlocked in the game, designers could tag the on-screen visual cues, such as text (for example, `Congratulations! You have unlocked Rosalina'  as seen in Figure \ref{toolkit}-2b) or images (for example, the image of Rosalina's character) associated with that gameplay moment. Next, the designers can tag the on-screen regions to select the game objects for fabrication, for example, the region where Rosalina appears (Figure \ref{toolkit}-2c) and generate the event. These tagged visual cues allow our system to locate this gameplay moment using computer vision, during the players' live play. Once designers are done tagging cues they can then export all the fabrication events in a single file (JSON format). 
+		As an illustrative example, consider the fabrication event in the game of MarioKart, where the players can fabricate a collectible of the character, Rosalina as soon as the character gets unlocked. To integrate this fabrication event, designers would first use our toolkit's designer interface to choose the gameplay moment and capture its screenshot from videos of recorded gameplay available on video platforms, such as Youtube, or play the game themselves. Using the features of the designer interface, they would then tag the on-screen visual content as cues to identify the gameplay moment. For example, when Rosalina is unlocked in the game, designers could tag the on-screen visual cues, such as text (for example, `Congratulations! You have unlocked Rosalina'  as seen in Figure 2-2b) or images (for example, the image of Rosalina's character) associated with that gameplay moment. Next, the designers can tag the on-screen regions to select the game objects for fabrication, for example, the region where Rosalina appears (Figure 2-2c) and generate the event. These tagged visual cues allow our system to locate this gameplay moment using computer vision, during the players' live play. Once designers are done tagging cues they can then export all the fabrication events in a single file (JSON format). 
 		<br>
 		<br>
-		<img src="images/fig2-framework.png" alt="mosculpt-runner" width="750" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/fig2-toolkit.PNG" alt="mosculpt-runner" width="750" style="padding-bottom:0px; margin-bottom:10px"/>
 		<br>
 		<b>
-		Figure 2. FabO's framework uses on-screen visual content to (1) allow designers to integrate fabrication with existing games and (2) auto-generate the fabrication files to allow players to fabricate objects from their gameplay.
+		Figure 2. (1) Our toolkit's workflow allows designers to integrate fabrication events within existing games and players to fabricate objects from their gameplay. (2) Designers would first use our toolkit's designer-interface to (a) choose the gameplay moment, (b) tag the visual text or image cue to identify the gameplay moment, and (c) tag the on-screen regions to extract the game objects for fabrication. (3) Players can use the player interface to monitor their gameplay, identify the fabrication events, and generate fabrication files of the game object for (4)~fabricating artifacts from their gameplay.
 		</b>
 		<br>
 		<br>
-		Players can then load this events file in our player interface, use the interface to monitor their screen, and then start playing the game as they normally would. Our system monitors their gameplay using computer vision, scans for tagged cues, and identifies the tagged events using object recognition and text-matching algorithms. Once the fabrication event is identified, the system notifies the player that a fabrication event is encountered. In the player interface, players can access the objects from the encountered events, auto-generate 2D fabrication files (SVG or PNG format) of the objects for laser-cutting or paper-cutting. At this point, players can either continue playing or pause the game to fabricate the object~(Figure~\ref{toolkit}-3). More details about the toolkit implementation and the workflow is described in our prior work~\cite{2021fabo}.
+		Players can then load this events file in our player interface, use the interface to monitor their screen, and then start playing the game as they normally would. Our system monitors their gameplay using computer vision, scans for tagged cues, and identifies the tagged events using object recognition and text-matching algorithms. Once the fabrication event is identified, the system notifies the player that a fabrication event is encountered. In the player interface, players can access the objects from the encountered events, auto-generate 2D fabrication files (SVG or PNG format) of the objects for laser-cutting or paper-cutting. At this point, players can either continue playing or pause the game to fabricate the object (Figure 2-3). More details about the toolkit implementation and the workflow is described in our prior work.
 		<br>
 		<br>
 		<b>User Study:</b><br>
@@ -514,150 +514,174 @@
 		During the study, we asked the participants to talk us through their design goals, rationale for choosing their games and the gameplay moments for integrating with fabrication, and what they wanted their players to experience. We recorded these semi-structured interviews and gathered feedback in a survey form for our post study analysis.
 		<br>
 		<br>
-		<i><b>Study Results:</b></i><br>
-		At the end of the study, the 12 participants altogether integrated fabrication events with 47 gameplay moments within 33 different digital games. These games spanned across several game genres, such as action, adventure, puzzle, etc. The fabricated objects from the integrated events also had a variety of uses from being commemorative trophies and collectibles to being functional gameplay objects, such as maps. Figure \ref{gameplay-moments} shows 8 of the 47 gameplay moments and their respective fabricated objects resulted from the user study. These examples include the following fabricated objects: a customized clothing design for personal collection; a map to help solve the puzzle in the game; a collectible of a war plane destroyed as memorabilia; a custom designed skateboard for personal collection; a rare mask acquired as collectible; and an axe acquired in the inventory as a reminder during gameplay. 
+		<b>Study Results:</b><br>
+		At the end of the study, the 12 participants altogether integrated fabrication events with 47 gameplay moments within 33 different digital games. These games spanned across several game genres, such as action, adventure, puzzle, etc. The fabricated objects from the integrated events also had a variety of uses from being commemorative trophies and collectibles to being functional gameplay objects, such as maps. Figure 3 shows 8 of the 47 gameplay moments and their respective fabricated objects resulted from the user study. These examples include the following fabricated objects: a customized clothing design for personal collection; a map to help solve the puzzle in the game; a collectible of a war plane destroyed as memorabilia; a custom designed skateboard for personal collection; a rare mask acquired as collectible; and an axe acquired in the inventory as a reminder during gameplay. 
 		<br>
 		<br>
-		A detailed analysis of the results from this study is described in our prior work~\cite{2021fabo}. Note that the fabrication events were not tested with new participants as players. Rather, our research team simply tested the toolkit's success rate in generating the 2D fabrication files for laser-cutting the intended objects from the fabrication events resulted from the study. 
+		A detailed analysis of the results from this study is described in our prior work. Note that the fabrication events were not tested with new participants as players. Rather, our research team simply tested the toolkit's success rate in generating the 2D fabrication files for laser-cutting the intended objects from the fabrication events resulted from the study. 
 		<br>
 		<br>
 		Beyond the evaluation of the usability of the toolkit, the results and data from this study offer an opportunity to gain deeper insights from a game design perspective on the integration of fabrication activities with existing game mechanics and its resulting player experiences. As this analysis was beyond the scope of the prior work, we analyze them in our current work.  
 		<br>
 		<br>
-		<img src="images/fig3-designer-ui.png" alt="mosculpt-runner" width="750" style="padding-bottom:0px; margin-bottom:10px"/>
+		<img src="images/fig3-examples-gameplay-3.PNG" alt="mosculpt-runner" width="750" style="padding-bottom:0px; margin-bottom:10px"/>
 		<br>
 		<br>
 		<b>
-		Figure 3. To integrate fabrication events, designers use FabO's designer interface to (a) capture the screenshot of the gameplay moment (b) tag the on-screen visual content as cues, such as text or images, (c) set event properties, and (d) choose option for object fabrication.
+		Figure 3. Examples of gameplay moments from the study that were integrated with fabrication events, and their respective fabrication objects laser cut from the auto-generated fabrication files from the study. (a) In the game Animal Crossing, when the player finishes the custom design of the dress, they can fabricate their final design. (b) In the game Prof. Layton, when the player acquire a map, they can fabricate its physical version. (c) In the game War Thunder, when the player destroys their enemy's aircraft, they can fabricate the fallen aircraft. (d) In the game Tony Hawk, when the player chooses their custom skateboard, they can fabricate the skateboard design. (e) In the game Skyrim, when the player's inventory updates with a rare mask, they can fabricate the custom mask. (f) In the game Minecraft, when the player's inventory of tool is accessed, they can fabricate the tool.
 		</b>
 		<br>
 		<br>
 		
 		<span class="medium-headline">
-		===============START EDITING FROM HERE ++++++++++++++ IMPLEMENTATION
+		METHODS
 		</span>
 		<br>
 		<br>
-		Figure 6 shows the implementation pipeline of the FabO toolkit which mirrors the framework described in Section 3.1. We implemented the FabO toolkit in Python using the PyQt5 library as a GUI wrapper. In the FabO designer interface, we use the Autopy library to take gameplay screenshots, and display them in an editable OpenCV canvas. This editable canvas allows designers to draw bounding boxes on the loaded screenshot image and mark the text and image cues as well as select the region to monitor for cues. For text extraction from a region, we use OpenCV's thresholding function and Python-tesseract, an optical character recognition (OCR) tool. For processing the image cues, we use list slicing to crop the scene image to the cue region. We save the fabrication events, and the associated cues' properties in a JSON file encoded as a dictionary.  
+		In this paper, we further analyze and examine the resulted fabrication events from our prior study from the game design perspective. For the analysis, we modify the widely used Mechanics-Dynamics-Aesthetics (MDA) framework and incorporate the fabrication components into the framework. We then use this modified MDA framework (f-MDA) to examine the fabrication events.  
 		<br>
 		<br>
-		<img src="images/fig6-implementation.png" alt="mosculpt-runner" width="750" style="padding-bottom:0px; margin-bottom:10px"/>
+		<b>f-MDA Framework for the Analysis:</b><br>
+		The Mechanics-Dynamics-Aesthetics (MDA) framework allows examining the events through its design components, which are, the game mechanics, the system dynamics, and the player aesthetics. We used the MDA framework for our analysis because it allows us to investigate the fabrication events within the gameplay from both the designer's and the players' perspectives. To better understand the impact of the fabrication activities on the game design and the player experience, we first modify the MDA framework by adding the fabrication based components of fabrication mechanics, fabrication process of the objects, before the analysis. The Figure 4 shows the f-MDA framework, that we use to examine each of the 47 events. Within the scope of this paper, we define these components as follows:
+		<br>
+		<br>
+		<img src="images/Fig4-ModifiedFramework.PNG" alt="mosculpt-runner" width="750" style="padding-bottom:0px; margin-bottom:10px"/>
 		<br>
 		<br>
 		<b>
-		Figure 6. Implementation pipeline: The FabO toolkit has two components, the designer interface and the player interface, that are written in Python and use PyQt5 as a GUI wrapper
+		Figure 4. f-MDA Framework: We use the  Mechanics-Dynamics-Aesthetics (MDA) framework~\cite{hunicke2004mda} that allows examining the fabrication events through its design components. To fit the MDA framework in the context of integrated fabrication events, we modify it to f-MDA to incorporate the fabrication components. We observe that new player-object aesthetics emerge from the integration of fabrication activities within existing games.
 		</b>
 		<br>
 		<br>
-		Players can load this file in the FabO player interface and start monitoring their gameplay. For text cue detection, we capture the screen frame by frame and then use text extraction as described above. To match the extracted text with the tagged text cue, we use the Python FuzzyWuzzy library's Levenshtein Distance calculation and match accuracy to 99\%. For image cue detection, we use Autopy’s find bitmap function to search a screen region pixel by pixel. Once a fabrication event is detected, we use list slicing to crop the region and then process it for object extraction using Sullivan et al.'s GrabCut algorithm from OpenCV. After the players fine-tune the outline, we then extract the object outline with OpenCV's contours function, and export it as an SVG file. 
+		<b><i>Game Mechanics:</i></b>
+		The game mechanics are the algorithmic components and rules of the gameplay. The design of the game mechanics are motivated by what the designer intends their players to experience. To identify the specific game mechanics, we reference the comprehensive list drawn by Lim et al., described in the Section 2.2. This list, that is detailed in Section 5.3 and illustrated in the Figure 7 sorts the myriad of game mechanics based on how they can be used as core building blocks to build game layers, such as, strategy/planning, role playing, rewards/penalties, etc. Consider for example, the game of Animal Crossing (Figure 1) where the player encounters the opportunity to design their own custom clothing. In this gameplay moment, the game mechanic is the system's ability to update, edit, and customize an existing asset, such as clothing, by modifying the asset's properties (such as, size, color, patterns, cuts, etc.)
 		<br>
 		<br>
-		To evaluate the performance and usability of this FabO toolkit, and the experience of using it to integrate fabrication with existing digital games we ran two user studies detailed in the next sections. 
+		<b><i>System Dynamics:</i></b>
+		The system dynamics are the run-time behavior of the mechanics acting on player inputs and each others outputs over time. The dynamics are the procedural behaviors of the game’s different parts interacting with each other and the player while the game is being played. In our example of the game Animal Crossing, system dynamics are the interactive features using which the player creates a customized design clothing, chooses their final design, and adds it as a new game asset to the game repository.
+		<br>
+		<br>
+		<b><i>Player Aesthetics:</i></b>
+		Player aesthetics are the desirable emotional responses evoked in the player, when she interacts with the game system. The player aesthetics listed by Hunicke et al. in the MDA framework include sensation (game as sense-pleasure), fantasy (game as make-believe), narrative (game as drama), challenge (game as obstacle course), fellowship (game as social framework), discovery (game as uncharted territory), expression (game as self-discovery), and submission (game as pastime). In our example of the Animal Crossing game, the player aesthetics are sensation and expression, as the player experiences joy and discovery during the creative process of designing the clothing.
+		<br>
+		Hunicke et al. explain that from the designer’s perspective, the mechanics give rise to dynamic system behavior, which in turn leads to particular aesthetic experiences. And from the player’s perspective, aesthetics set the tone, which is born out in observable dynamics and eventually, operable mechanics.
+		<br>
+		<br>
+		<b><i>Fabrication Mechanics:</i></b>
+		We define the fabrication mechanics as the rules within the gameplay moments that trigger a fabrication event, and nudge the player to fabricate an object from the game. In our example of Animal Crossing, the fabrication mechanics are the rules where as soon as the player adds their custom design as a new asset, the toolkit nudges them to fabricate this new asset with a notification on the bottom corner of their window. Fabrication mechanics can impact the gaming experience based on when the player is asked to fabricate the object and how they are combined with the game mechanics.
+		<br>
+		<br>
+		<b><i>Fabrication of the Object:</i></b>
+		This component involves the player using the system to auto-generate and refine the fabrication files of the game object and then fabricating the object using the fabrication tools, such as a laser cutter or a 3D printer to construct the physical object. The player can update the fabrication files based on the choice of the fabrication tool (for example, laser cutting v/s paper cutting) and type of 2D fabrication (cutting v/s engraving). This process can either be automated or require the player input for choosing the material for fabrication, the fabrication tool, and the size of the object. This step also involves assembling the fabricated parts of the object. In our example of the Animal Crossing game, the system auto-generates a SVG file of the custom clothing for laser cutting with engravings of the custom patterns. The player can use this file to lasercut their custom design on a cardboard.
+		<br>
+		<br>
+		<b><i>Object Use:</i></b>
+		Once fabricated, the physical objects can offer various uses to the player during the gameplay. The objects could either serve as memorabilia and collectibles, or be useful to progress in the gameplay. For our example of custom designed clothing in the Animal Crossing game, the lasercut clothing can be used as a physical collectible for the player's personal collection. The object use are important from the designer's perspectives because if they align with the original aesthetics of the existing game, they could lead to strengthening the player experience.
+		<br>
+		<br>
+		<b><i>Player-Object Aesthetics:</i></b>
+		In some cases, integration of the MDA framework components with the fabrication components can lead to emergence of new associations and experiences for the players with the fabricated objects. We define these associations as the player-object aesthetics. From the designer's perspective, the player-object aesthetics are an important design component because of their potential to add new experiences within the existing games through fabrication. For example, in Animal Crossing, the collectible of the player's custom designed clothing could be an object of self expression and creativity for the player. Because of this personal association with the object, the player might be motivated to play the game differently. However, if the player-object aesthetics misaligns with the existing player aesthetics it could hinder the player's gameplay experience. We discuss the types of player-object aesthetics that emerged in the events from the study in the next section.
 		<br>
 		<br>
 
 		<span class="medium-headline">
-		USER STUDY 1 - Evaluating FabO for Integrating Fabrication with Existing Games
+		ANALYSIS
 		</span>
 		<br>
 		<br>
-		In the first user study, we examined FabO's workflow and user's experience for integrating fabrication events within various existing digital games. Insights from the study allowed us to determine how designers can choose  (1) suitable visual content for FabO's workflow and (2) suitable gameplay moments for seamless integration of fabrication within the gameplay. 
+		In this section, we first examine the prior study events using the components of the f-MDA framework. We then describe the new player-object aesthetics that emerge through the integration of fabrication activities with the existing game mechanics. We then identify which existing game mechanics offer the potential to lead to particular player-object aesthetics. From a design perspective, these findings help in identifying and leveraging these game mechanics of existing games for integrating with fabrication activities. 
 		<br>
 		<br>
-		<b><i>Study Design</i></b><br>
-		We recruited 12 participants from our institution (6f, 5m, 1n/b) aged between 20-29 years (M=24, STD.=2.82) and with varied experience of playing digital games (10+ yrs to never playing games). We conducted the 60min study remotely over a video call (Zoom). The participants used the FabO toolkit on our computer via Zoom's remote control.
+		<b>Examining the Fabrication Events Using the f-MDA Framework:</b><br>
+		For examining the fabrication events designed by the participants from the study through the lens of the f-MDA framework, we list the 47 events and their associated components as defined by the f-MDA framework. Figure 5 shows 12 of the 47 events listed along with their game mechanics, system dynamics, player aesthetics, fabrication mechanics, fabrication process of the objects, and the object uses. For the events that lead to new player-object aesthetics, we also list the player's associations with the objects. (A full analysis of the 47 events along with the definitions of the terms used in the table is detailed in the paper.)
 		<br>
 		<br>
-		Before the study, we asked the participants to choose up to 3 existing digital games, gameplay moments within those games to embed fabrication events, and associated game objects for fabrication. They could source these gameplay moments either from their own gameplay or from online videos. During the study, we first demonstrated the FabO workflow using the game Pokemon Lets Go. The participants then used the FabO designer interface and their sourced videos to tag as many gameplay moments and associated objects for fabrication as they preferred using text and image cues. They then tested if the FabO player interface successfully detected their embedded fabrication events. Finally, we gathered their feedback through semi-structured interviews and a post-study feedback form.
+		<img src="images/Fig5-Analysis.PNG" alt="mosculpt-runner" width="750" style="padding-bottom:0px; margin-bottom:10px"/>
 		<br>
-		<br>
-		<b><i>Study Results</i></b><br>
-		Altogether, the 12 participants attempted to integrate fabrication with 35 existing digital games (2-3 games per participant) across 9 genres by tagging 47 events (1-2 events per game). We tested the success of the fabrication events across three conditions: (1) were the participants able to tag on-screen visual content of their chosen gameplay moment, (2) did FabO identify those moments by scanning for the visual cues, and (3) did FabO generate a fabrication file of a game object for laser cutting. If all three conditions were met, we counted an event as a successful fabrication event. 
-		<br>
-		<br>
-		<img src="images/fig7-us1-results.png" alt="mosculpt-runner" width="750" style="padding-bottom:0px; margin-bottom:10px"/>
 		<br>
 		<b>
-		Figure 7. (a) User study participants tested 35 games (24 successful) across 9 genres. (b) Fabricated game-objects using FabO.
+		Figure 5. Instances of the 12 out of the 47 events from the study examined using our f-MDA framework. Each event is listed along with its corresponding components of: game mechanics, system dynamics, player aesthetics, fabrication mechanics, fabrication process of the object, object use, and the emergent player-object-aesthetics.
+		</b> 
+		<br>
+		<br>
+		<b>New Player-Object Aesthetics Resulting from the Integrated Fabrication Events:</b><br>
+		We observed that several new player-object aesthetics emerged from the integration of fabrication activities with existing games (as shown in Figure 5). While not all encompassing, we observed the following categories of associations that the players would have with their fabricated objects from their gameplay:
+		<br>
+		<br>
+		<img src="images/Fig6-Example.PNG" alt="mosculpt-runner" width="750" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<br>
+		<b>
+		Figure 6. Example of fabrication events integrated in the game \textit{Prof. Layton and The Curious Village} where two types of player-objects aesthetics emerge, namely, coins fabricated as \textit{objects of resource}, and map fabricated as an \textit{object of function}.
 		</b>
 		<br>
 		<br>
-		From the 35 games attempted shown in Figure7a: (1) the participants were able to tag on-screen content for 33 games (94.29 %). In 2 games, they struggled to identify a discrete moment to tag a text or image cue for integration. (2) Within the 33 tagged games, participants tagged 47 events - 15 using text cues and 32 using image cues. Of these 47 tagged events, FabO detected 35 events (74.47 %) - 12/15 text cues (80 %) and 23/32 image cues (71.19 %). In total 24 games had successfully detected events. (3) For the 35 detected events, FabO successfully auto-extracted the fabrication files for all game objects as marked by the participants. Thus, in total, the participants successfully integrated fabrication in 24 out of 35 games (68.57 %) across all three conditions. Figure7b shows the objects that we fabricated from the generated files. These objects ranged from commemorative trophies and collectibles to supportive gameplay tools, such as maps.
+
+		<b><i>1. Objects of Pride:</i></b>
+		Designers integrated the fabrication of objects of pride with the game mechanics at special moments within the gameplay, for example, winning the game or acquiring rare assets. The designer's intent was to allow their players to commemorate their achievements by fabricating and owning these objects that symbolized proud accomplishments. For example, the designer of the fabrication event no 33, where the player could lasercut a dagger shaped object from the game Risk Of Rain 2 said:
+		<br>
+		<br><i>"when you collect a very rare or legendary item, for example, this dagger, that occurs only once or twice in the entire game, you can fabricate that, because it is super special"</i> - (p9) [game: Risk Of Rain 2; event no: 35]<br>
+		<br>
+		Examples of other fabricated objects intended to create pride for the players included 3D printing a prize trophy after winning the race in the game Grand Tourismo Sport (p9, event no: 32), lasercutting the dragon mask acquired in the game Skyrim (p3, event no: 15), and lasercutting the winning tiles combination in Mahjong (p5, event no: 19).
 		<br>
 		<br>
-		<b><strong>Study Insights</strong></b><br>
-		We studied the successful and failed examples of fabrication events from the study to gain the following insights on choosing suitable visual content and gameplay moments:
+
+		<b><i>2. Objects of Creativity:</i></b>
+		Game mechanics that involved player's input to customize existing assets or create new assets within the game were integrated with fabrication mechanics that resulted on fabrication of the designed objects. Some designer's posited that because these objects were representative of the player's creativity and self-expression, the fabrication of these artifacts would influence the player's gameplay. For example, the designer of the fabrication event no: 16, where the player could lasercut the custom designed clothing from the game Animal Crossing said:
+		<br>
+		<br><i>"While there is a million things you can do, there is a [...feature...] in the game where you can craft stuff, which [...] would be very fitting for players to fabricate in the real world. So every time, the player crafts an object, they can repeat the fabrication in the real world. I wonder if the ability to craft them in real world will make the players craft them a certain way in the game?"</i> - (p4)} [game: Animal Crossing; event no: 16]<br>
+		<br>
+		Examples of fabricated objects intended to motivate creativity and self-expression among the players included 3D printing tile components of structures (for example, a staircase) built by the players in the game Sims (p5, event no: 20), and lasercutting the skateboard custom designed by the players in the game Tony Hawk (p14, event no: 47).
 		<br>
 		<br>
-		<b><i>#1 Choosing suitable visual content:</i></b><br>
-		When tagging an event, the designer has to find a text or image cue on screen that indicates that the event occurred. While most games offer such discrete cues through text messages or images, some games are continuous and do not contain such cues. An example of a game with a discrete cue is the game Prof. Layton [p2] (Figure 8a), in which a text message appears on-screen when players acquire a coin, thus indicating that the event occurred. However, in the 2 games for which participants failed to integrate fabrication events, i.e., Unrailed [p4] (Figure 8a) and Parkitect [p5], the gameplay was continuous with no discrete cues to indicate event occurrence, i.e., the players built a track and a park continuously, thereby making it difficult to select a discrete moment.
+
+		<b><i>3. Object as Resource:</i></b>
+		Several games are built with the game mechanics of resource management where the players strategically optimize their resources, for example, as currency or as construction material. Designers that integrated fabrication mechanics with such game mechanics intended their players to be more mindful of the limited resource availability. While digital games can theoretically offer infinite resources, in games that use the mechanics of strategic use of limited resources, having physical artifacts that reinforce this limitation can be particularly useful in the gameplay. For example, the designer of the fabrication event no: 7 (Figure 6 left) that allowed players to lasercut a physical coin every time they acquired it in the gameplay said:
+		<br>
+		<br><i>"collecting physical coins can motivate players to carefully and smartly use them as currency to [...] to solve the puzzle"</i>  - (p2)} [game: Prof. Layton And The Curious Village; event no: 7]<br>
+		<br>
+		Similar events that allowed fabrication objects of resource were integrated in the game Astroneer (p8, event no: 30) and the game Divinity (p11, event no: 41)
 		<br>
 		<br>
-		<img src="images/fig7-insight-visual-content.png" alt="mosculpt-runner" width="750" style="padding-bottom:0px; margin-bottom:10px"/>
+
+		<b><i>4. Object of Function:</i></b>
+		Designers also explored the potential of using physical objects that serve the function to support the player's progress. These objects not only functioned as support objects for the gameplay, but also brought the digital gameplay into the physical world. For example, the designer for the fabrication event no: 8 (Figure 6 right) that allowed the players to lasercut and engrave a map of the village to help solve the puzzle said: 
+		<br>
+		<br><i>"When you load into the game, you get a map, which you can fabricate and that can guide you to the positions you can go to. In the past, we would get a physical map or guides inside the disk case, so this could be something like that, to help with the gameplay"</i> - (p9) [game: Prof. Layton & the Curious Village; event no: 8]<br>
+		<br>
+		Similar events to fabricate objects of function were integrated were lasercutting maps in the game World of Tanks (p9, event no: 36) and engraving stat-cards while assessing the enemies in the game Final Fantasy (p6, event no: 21, 22, 23).
+		<br>
+		<br>
+
+		<b><i>5. Object of Shared Memory:</i></b>
+		In game mechanics that involved multiple users and shared player aesthetics, designers integrated fabrication of objects that the players could associate shared memories with. For example, the designer of the fabrication event no: 3 in the game Crawl with Friends said:
+		<br>
+		<br><i>"When several players play against each other in groups, events of wins and losses can be a fun shared experience. It would be cool to have objects from those memorable game events fabricated, for example a board that says `Humanity Stolen' when the boss wins the fight, as a collective memory of an epic win or a painful loss"</i> - (p1) [game: Crawl with Friends; event no: 3, 4]<br>
+		<br>
+		Similar instances of fabricating objects of shared memory and experiences were designed in other multiplayer challenge games, such as Overcooked (p4, event no: 18) and The League of Legends (p8, event no: 31).
+		<br>
+		<br>
+		While the above list of player-object aesthetics is not all-encompassing, it highlights the potential of using physical objects within existing digital games to introduce new player experiences. 
+		<br>
+		<br>
+
+		<b>Mapping Links between Game Mechanics and the Player-Object Aesthetics:</b><br>
+		Next, we identify the links between the above mentioned new player-object aesthetics and existing game mechanics. To map these links, we use the same comprehensive list of game mechanics described in the section 3.2. This mapping represented as visual encoding is shown in the Figure 7. The mapping identifies which game mechanics offer the potential of integration of fabrication activities and lead to the five player-object aesthetics that we described in the above section. 
+		<br>
+		<br>
+		<img src="images/Fig7-mapping-new.PNG" alt="mosculpt-runner" width="750" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
 		<br>
 		<b>
-		Figure 8. Examples from user study where FabO (a) successfully detected the text cues (that had legible text), (b) failed to detect text cues (that were pixelated) (c) onscreen text was tagged as image cue because of the font
+		Figure 7. Figure adapted from Lim et al. to map the bi-directional links (as color-coded dots) between the new player-object aesthetics and the existing game mechanics. These links help designers with identifying the game mechanics for integrating fabrication activities with the existing games in ways that either align with the existing player aesthetics, strengthen them, or introduce new aesthetics to enhance player experience.
 		</b>
 		<br>
 		<br>
-		Another important consideration in choosing the visual content is to select cues detectable using computer vision, i.e., extractable font and images with a high contrast background (Figure 8b, c). If the font was too thick, artistic or low-res (Figure 8b-bottom), the text extraction was faulty. Similarly, if the background was too noisy (Figure 8c-bottom), the image cue detection was slow and faulty. To increase the detection speed, some participants used a smaller area with less background noise for monitoring and FabO successfully detected the events. 
+		This mapping allows us to visualize the links between the game mechanics that have the potential of integrating fabrication of objects with one or more player-object aesthetics. For example, the mechanics of tiles/grids has the potential to integrate the fabrication of objects associated with a player's, resource management, or tool to support gameplay. Conversely, we can also identify the player-object aesthetics that can be most widely applied, for example objects of pride. Using this mapping in the design workflow can support designers in the integration of fabrication activities with the existing games.
 		<br>
 		<br>
-		Finally, to fabricate objects from visual content, it is essential to have them present on-screen at the moment selected for fabrication. When the objects were not visually present on-screen, participants linked external files with the event. However, one participant [p6] addressed this constraint by using FabO's sequencing feature for the game Final Fantasy, by using one fabrication event to trigger another event, wherein the fabrication object was on-screen.
-		<br>
-		<br>
-		<b><i>#2 Choosing gameplay moments suitable for seamlessly integrating with fabrication:</i></b><br>
-		When analyzing the successfully embedded fabrication events from the study, we observed that the timing of integration within the gameplay was crucial. We noted that fabrication was integrated either at the start (7/47 events, 15 %), during the gameplay when there are natural pauses (31/47 events, 66 %), or at the end of the gameplay (9/47 events, 19 %) when the player can shift focus to fabrication.
-		<br>
-		<br>
-		<img src="images/fig8-insights-moments.png" alt="mosculpt-runner" width="750" style="padding-bottom:0px; margin-bottom:10px"/>
-		<br>
-		<b>
-		Figure 9. User study #1 examples of gameplay moments when fabrication was integrated at the start, during, or end of the gameplay. [(e): fabrication event, and (o): fabrication object.
-		</b>
-		<br>
-		<br>
-		Examples of embedded fabrication events at the start of the gameplay included moments when the player created new objects, such as a dress (Animal Crossing Figure 9-1), customized game-objects, such as their skateboard (Tony Hawk Figure 9-2), or received support objects, such as a map (World of Tanks Figure 9-3). Examples of embedded fabrication events during the gameplay included moments of natural pauses, either because the game paused the playing or the player paused their gameplay voluntarily. Examples of gameplay pauses included moments, such as unlocking characters (Mario Kart Figure 9-4) or powers (Gris Figure 9-6), and destroying characters or objects. Examples of player-based pauses included players updating (Skyrim Figure 9-7) or accessing their inventory (Minecraft Figure 9-8), referencing support objects, such as maps, accessing scorecards or stat cards, and socially interacting with game characters (Ori and the Blind Forest Figure 9-9). Because "these are natural pauses" [p9] when players were not concentrating on playing the game, participants chose these moments as suitable for introducing them to a fabrication activity. Examples of embedded fabrication moments at the end of the gameplay included moments when the players completed building, such as a house (Sims Figure 9-11), or had won the game (Grand Tourismo Sport Figure 9-12). 
-		<br>
-		<br>
-		In summary, we observed that participants were mindful of the gameplay timing while integrating fabrication within it, such that it would not distract or interrupt the players while playing. 
-		<br>
-		<br>
-		While these examples cover the various games that the participants explored, our study does not cover the full design space of existing games. Thus, more extended studies are needed to understand how to choose suitable visual content and gameplay moments for integrating fabrication with existing games while also augmenting the player's experience. 
-		<br>
-		<br>
-		<span class="medium-headline">
-		USER STUDY 2 - Evaluating the Player Experience during Gameplay
-		</span>
-		<br>
-		<br>
-		In the second user study, we examined player's experience of playing an existing digital game integrated with fabrication events, and then fabricating objects from their gameplay using FabO.  
-		<br>
-		<br>
-		<b><i>Study Design</i></b><br>
-		For the study, we selected the game \textit{Pokemon Planet} because it has a short gameplay and an open-ended story line. Using FabO, we embedded fabrication events that corresponded to when players received either a Pokeball or captured a Pokemon. We recruited 12 new participants from our institution (8f, 4m) aged between 17-28 years (M=22.75, STD.=4) with varied experience of playing games from few times a month to everyday. We conducted the 30min study per participant remotely over Zoom, where they played the game for 15 mins on our computer via Zoom's remote control. We did not brief the participants about the FabO system and simply asked them to play the game as they normally would on their own. When they encountered a fabrication event in the game, FabO notified them with a text prompt. At this point, they could either continue playing or pause the game to fabricate the object. For fabrication, the participants first reviewed the auto-generated fabrication files in the FabO player interface and then fabricated the objects, such as Pokeballs and their captured Pokemons using a remote paper-plotter via Zoom's remote control feature, and watched their objects get fabricated over the video call. We then collected feedback on their experience in a semi-structured interview and a post-study feedback form. 
-		<br>
-		<br>
-		<img src="images/fig10-userstudy2-old.png" alt="mosculpt-runner" width="750" style="padding-bottom:0px; margin-bottom:10px"/>
-		<br>
-		<b>
-		Figure 10. (a) User study #2 setup wherein the participants remotely (via Zoom's remote control) played the game PokemonPlanet integrated with fabrication events, (b) fabricated objects from their gameplay using FabO and a remote paper-plotter. (c) Participants' feedback.
-		</b>
-		<br>
-		<br>
-		<b><i>Participant Feedback</i></b><br>
-		<b><i>Fabrication of Objects was Meaningful:}</i></b> 11 out of 12 (91.6 %) participants found the ability to have physical versions of digital objects from their gameplay meaningful. For example, p4 said <i>"There are many times during a game where I [have] thought it would be amazing to have a physical version of the equipment"</i> and p7 said <i>"I think it can be nice to build collections and to hold pride about."</i> However, p8 highlighted the need for closely integrating fabrication - <i>"The main risk of the modified game is for the fabrication event to feel out of place."</i> Some participants also recommended using the system for educational purposes. For example p12 said <i>"As an educational tool, especially for getting kids excited about fabrication, I can see it being really empowering and engaging while teaching really valuable skills in STEM."</i>
-		<br>
-		<br>
-		<b><i>Choice of Objects for Fabrication:</i></b> When asked if they preferred to choose which objects to fabricate and when to fabricate them, 7 out of 12 (58 %) participants wanted to choose themselves. For example, p3 said <i>"I would love to see players given the opportunity to design and embed their own events as well - to trade in games."</i> In contrast, 5 participants preferred the experience designed by someone else because it builds anticipation. For example, p10 said <i>"the anticipation of fabricating pokemon in real life encourages me to keep playing the game to discover new pokemon...so I can make more collectibles. The excitement and anticipation of playing the game and fabrication game items builds on each other."</i> In addition, p4 said <i>"randomizing the fabrication events rather than having them be predictable is fun!"</i>
-		<br>
-		<br>
-		<b><i>Timing of Fabrication Events:</i></b> 7 out of 12 (58 %) participants found the idea of fabricating objects during their gameplay enjoyable. From the other 5 participants, 3 stated that they preferred to fabricate the objects after the gameplay and not while playing the game as it halted their gameplay. For example, p2 said <i>"depending on the pace of gameplay, e.g., on a mission or adventure, it may feel distracting to keep having to switch out of the game to fabricate."</i> and p12 said <i>"perhaps pausing [the] game to make fab files print-ready was a bit intrusive and detracted a bit from gameplay."</i> 
-		<br>
-		<br>
-		<b><strong>Study Insights</strong></b><br>
-		We thus observed that from the player's perspective, it was important that the fabrication does not hinder the gameplay and is integrated meaningfully for a definite purpose. If integrated well, our study participants' feedback shows that it may increase player's motivation, excitement, and engagement with the game without distracting their gameplay.
-		
+		Designers can use this mapping in their workflow to integrate fabrication activities with existing games in two ways. First, the designers can analyze the game mechanics of the existing games and look for the potential player-object aesthetics that can be designed with those game mechanics, and then integrate fabrication activities of those objects. Second, the designers with a goal of designing a certain player experience can choose their player-object aesthetic and then identify the list of game mechanics that lead the intended experience. This mapping thus offers a bidirectional design workflow for identifying the game mechanics for integrating fabrication activities with the existing games in ways that either align with the existing player aesthetics, strengthen them, or introduce new aesthetics to enhance player experience.
+
 
 		<br>
 		<br>
@@ -667,31 +691,26 @@
 		</span>
 		<br>
 		<br>
-		We illustrated how FabO supports designers in integrating fabrication events with existing digital games. We next discuss the limitations of our toolkit and provide directions for future work:
+		<b>Implications on the Design of Fabrication Games:</b><br> The findings from our study highlight five categories of player-object aesthetics that were designed for by participants using our toolkit to integrate fabrication events into existing video games. The five categories demonstrate how the physical nature of the fabricated objects can provide real-time reinforcement of player aesthetics already embedded within the game. For example, providing a physical manifestation of a reward, such as a trophy for winning a race. Furthermore, the physical objects can also create opportunities to change how certain dynamics are experienced. For example, having physical objects as resources to think with during gameplay such as currency to influence how a player relates to and uses them. Thus, by considering the player-object aesthetics, we demonstrate the breadth of ways in which fabrication events can expand the gameplay of existing video game experiences.
 		<br>
 		<br>
-		<b><i>Visual Cues Required:</i></b> Because our framework uses on-screen visual content, we cannot extract information from moments that either (1) do not have distinct visual cues or (2) that have non-visual cues, for example sound. To address the first limitation, we can explore if machine learning techniques can be used to automatically identify significant moments and auto-label fabrication objects. For the second limitation, we can expand our system to tag and identify audio cues to include events that may not have distinct visual cues.
+		While we described our f-MDA framework and the emergent player-object aesthetics within the scope of modifying existing games into fabrication games, we believe this framework is also relevant to design of fabrication games from scratch. For example, if we were to explore building on Albaugh et al.'s work designing playful textile fabrication games, we could explore the range of player-object aesthetic categories in which embroidered objects may be created and updated. For example, currently the embroidery machine creates the game board as the players explore and gain prestige. Currently, the embroidered object can serve as an Object of Shared Memory and an Object of Pride. However, we could use our framework to explore other player-object aesthetics such as having players embroider their own map or colony during gameplay in order to shift the fabricated textile to also serve as an Object of Creativity.
 		<br>
 		<br>
-		<b><i>Trade-off in detection speed and object fidelity:</i></b> Because analyzing visual content during the gameplay requires significant computation power, the speed of detection is dependent on the player's screen resolution and the processing power of their computers. While reducing the screen resolution may improve detection speed, it reduces the fabrication file’s fidelity. This trade-off in performance speed and fabrication file’s fidelity can be addressed by using more efficient algorithms for object detection.
+		<b>Analyzing the Role of Physical Objects in Digital Games:</b><br> Going beyond the scope of fabrication games, our work can also provide a fresh lens to examine the design space of physical objects, such as controllers used in digital games that do not involve fabrication activities. By analyzing the player-object aesthetics that emerge from the object's current use and the player experiences, our framework can help identify gaps and opportunities in using physical objects to expand the object's use and player experiences. For example, examining the design of controllers to expand its use from being objects of function to also being Objects of Pride or Objects of Shared Memory. Furthermore, testing our framework to analyze existing design space of physical and tangible objects in HCI can lead to discovery of new player-object aesthetics. For example, in the game Chillfish, that is designed for players with ADHD, the players self-regulate through breathing into the lego controller that uses the player's biofeedback to control the gameplay. However, because the physical object also induces calmness ad relaxation, the player's association to the object extends beyond being a game-controller to being an object for mindfulness.
 		<br>
 		<br>
-		<b><i>2D fabrication Only:</i></b> Because we use 2D object extraction techniques for generating files, the resulting fabrication files are for 2D fabrication only. However, 3D fabrication, such as 3D printing, can also be integrated with gameplay using our framework by linking custom STL files of 3D objects to the fabrication events. For future versions of our system, we can generate 3D models from 2D visual content by (1) mapping 2D images to 3D models repositories, or (2) reconstructing the 3D geometry from 2D images through advanced graphics techniques, such as multi-view object construction.
+		<b>Limitations and Future Work:</b><br> The study presented in this paper leveraged existing data on the ways users integrated fabrication events across existing games. In order to gain an understanding for what these moments might mean for a set of players, we analyzed them using the augmented MDA framework. However, we recognize that this is only a first step in understanding the potential gameplay experience; a true understanding of the experience can only be gathered from user testing. Future work will be able to target a subset of cases informed by this work and the mappings that we have developed in order to test the player-aesthetic from players themselves. In order to evaluate if the designed integrated events lead to the intended player-object aesthetics, we plan to conduct more focused studies with various player groups in the future. We also plan to build on this current work and test out the design workflow using the player-object aesthetics mapped with the existing game mechanics. 
 		<br>
 		<br>
-		<b><i>Extending the use of the fabricated objects in games:</i></b> While incorporating the fabricated objects back into the game's mechanics is beyond the scope of our current work, it is an avenue for future work. Toolkits like \textit{Nintendo LABO} already incorporate objects fabricated from 2D materials within games for immersive gameplay. By fabricating tangible objects and configuring them to influence the gameplay can integrate the loop of play and fabrication more tightly.
-		<br>
-		<br>
-		<b><i>Educational and social maker-games:</i></b> The design of our framework also allows for applications in educational and social maker games. For instance, an educator can use the sequencing feature of our toolkit to embed increasingly difficult fabrication activities for their students. Similarly, in a social setting with multiple users, every user can use the designer interface to design unique fabrication events within the game or add to each others' fabrication events. The users can then play each others' unique versions or the combined version, encounter the unique fabrication events and fabricate objects, thereby creating novel social interactions using gaming and fabrication.  
-		<br>
-		<br>
+	
 
 		<span class="medium-headline">
 		CONCLUSION
 		</span>
 		<br>
 		<br>
-		In conclusion, we showed that fabricating objects from player's gameplay, such as collectibles, can be accomplished using our FabO framework, which allows designers to use on-screen content instead of source files for integration and auto-generation of fabrication files. We implemented our framework in the FabO toolkit and demonstrated FabO's workflow that uses computer vision for tagging on-screen visual cues for embedding events and extracting on-screen objects for fabrication. Through two user studies, we showed that FabO successfully allowed the participants to integrate fabrication with a wide variety of existing games to augment player's experience. We discussed the insights from our studies for choosing suitable on-screen visual content and gameplay moments for seamlessly integrating fabrication with the myriad existing games, thereby tapping their potential to expand players' engagement through fabrication.  
+		In this paper, we expanded on the prior work on integrating fabrication events with existing digital games. We first analyzed the results from the prior study from a game design perspective, using the Mechanics-Dynamics-Aesthetics framework, that we modified to f-MDA to incorporate the fabrication components. For the analysis, we examined the 47 events through the framework components, and observed emergence of new player-object aesthetics in the game, that offer opportunities to use fabrication to design new player experiences. We provided a mapping of the emergent player-object aesthetics with a comprehensive list of existing game mechanics. Designers can use this bidirectional mapping to identify game mechanics for integrating fabrication mechanics within existing games, and thus convert them into fabrication games. 
 		<br>
 		<br>
 		
@@ -701,7 +720,7 @@
 		</span>
 		<br>
 		<br>
-		We thank Supramaya Prasad and Joshua Verdejo for their input in the project. We thank the <a href="https://mitili.mit.edu/">MIT Learning Initiative</a> and the MIT.nano NCSoft innovations in gaming technology initiative for partial funding of this research. This work is also supported by the National Science Foundation under Grant No. 2008116.
+		We thank Harrison Allen for his contribution to the project. We thank the <a href="https://mitili.mit.edu/">MIT Learning Initiative</a> for partial funding of this research. This work is also supported by the National Science Foundation under Grant No. 2008116.
 		<br>
 		<br>
 
