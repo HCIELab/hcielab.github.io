@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Patching Physical Objects</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!-- CSAIL ICON -->
+	<link rel="CSAIL" href="http://hcie.csail.mit.edu/images/icon/csail.ico" type="image/x-icon" />
+
+	<!-- Bootstrap -->
+	<link href="https://hcie.csail.mit.edu/css/bootstrap.css" rel="stylesheet">
+	<link href="https://hcie.csail.mit.edu/css/custom-style.css" rel="stylesheet">
+	
+	<!-- Lightbox -->
+	<link href="../../css/lightbox.css" rel="stylesheet">
+
+	<!-- jQuery --> 
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+	
+	<!-- Google Analytic -->
+	<script type="text/javascript" src="https://hcie.csail.mit.edu/js/analytics.js"></script>
+</head>
+
+<body>
+<header class="main_header">
+	<!-- to be filled by javascript, see header.html -->
+</header>
+<div class="container" style="padding-top: 100px;">
+	<div class="row">
+	<!-- Publication details -->
+	<div class="col-md-4" style="text-align: left;">
+		</br>
+		</br>
+		<span class="medium-headline">
+		Publication
+		</span>
+		</br>
+		</br>
+		Mueller, S., Im, S., Gurevich, S., Teibrich, A., Pfisterer, L., Guimbretière, F., and Baudisch, P.   
+		</br>
+		Patching Physical Objects. 
+		</br>
+		In Proceedings of 
+		<a href="https://uist.acm.org/uist2014/" target="_blank">UIST &#8217;14</a>
+		, pp. 273-280.
+		</br>
+		Demo at UIST'14
+		</br>
+		</br>
+			<a href="https://dl.acm.org/citation.cfm?id=2807467" class="btn btn-doi" alt="doi" target="_blank">DOI</a> 
+			&nbsp; &nbsp; 
+			<a href="http://groups.csail.mit.edu/hcie/files/research-projects/patching/2015-uist-patching-paper.pdf" class="btn btn-pdf" alt="pdf" target="_blank" >Paper</a> 
+			&nbsp; &nbsp; 
+			<a href="https://www.youtube.com/watch?v=dO6FaZ38vF8" class="btn btn-vdo" alt="video" target="_blank">Video</a> 
+			&nbsp; &nbsp; 
+			<a href="http://groups.csail.mit.edu/hcie/files/research-projects/patching/2015-uist-patching-presentation.zip" class="btn btn-slide" alt="slide" target="_blank">Slides</a> 
+			&nbsp; &nbsp; 
+			<a href="https://www.youtube.com/watch?v=jhIoEecz1Ps" class="btn btn-talk" alt="talk" target="_blank"> Talk</a> 
+			&nbsp; &nbsp; 
+			</br>
+			</br>
+			<br>
+			I worked on this project before joining MIT. Here is the original <a href="https://hpi.de/baudisch/projects/patching-physical-objects.html">Patching project page</a> at Hasso Plattner Institut.<br><br>
+
+			<a href="https://hpi.de/baudisch/home.html"><img src="../../images/logo/hpi-logo.png" height="100px"></a>
+			</br>
+			</br>
+			<span class="medium-headline">
+			Press
+			</span>
+			</br>
+			</br>
+			<ul>
+				<li><a href="https://www.newscientist.com/article/dn28460-3d-print-extra-bits-for-old-objects-to-help-extend-their-life/">New Scientist</a></li>
+				<li><a href="http://www.3ders.org/articles/20151106-modified-3d-printer-can-patch-existing-objects-to-extend-their-lifespan.html">3ders.org</a></li>
+				<li><a href="http://www.3d-printingtrends.com/modified-3d-printer-add-on-can-patch-existing-objects-to-extend-their-lifespan/">3D Printing Trends</a></li>
+			</ul>
+			</br>
+			</br>
+			<span class="medium-headline">
+			Video
+			</span>
+			</br>
+			</br>
+			<iframe width="325" height="190" src="https://www.youtube.com/embed/dO6FaZ38vF8" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+			</br>
+			</br>
+			<span class="medium-headline">
+			Talk
+			</span>
+			</br>
+			</br>
+			<iframe width="325" height="190" src="https://www.youtube.com/embed/jhIoEecz1Ps" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+			</br>
+			</br>
+			<span class="medium-headline">
+			Slides
+			</span>
+			</br>
+			</br>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0001.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(1)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0002.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(2)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0003.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(3)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0004.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(4)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0005.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(5)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0006.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(6)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0007.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(7)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0008.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(8)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0009.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(9)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0010.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(10)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0011.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(11)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0012.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(12)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0013.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(13)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0014.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(14)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0015.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(15)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0016.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(16)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0017.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(17)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0018.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(18)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0019.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(19)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0020.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(20)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0021.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(21)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0022.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(22)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0023.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(23)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0024.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(24)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0025.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(25)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0026.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(26)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0027.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(27)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0028.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(28)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0029.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(29)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0030.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(30)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0031.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(31)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0032.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(32)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0033.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(33)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0034.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(34)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0035.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(35)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0036.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(36)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0037.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(37)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0038.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(38)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0039.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(39)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0040.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(40)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0041.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(41)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0042.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(42)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0043.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(43)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0044.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(44)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0045.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(45)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0046.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(46)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0047.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(47)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0048.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(48)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0049.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(49)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0050.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(50)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0051.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(51)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0052.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(52)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0053.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(53)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0054.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(54)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0055.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(55)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0056.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(56)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0057.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(57)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0058.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(58)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0059.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(59)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0060.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(60)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0061.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(61)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0062.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(62)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/thumbnails/uist-2015-patching-physical-objects-0063.jpg" alt="patching-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(63)" class="hover-shadow"/>
+	</div>
+	
+		<!-- For slide show -->
+	<!-- close button on tne right corner -->
+	<div id="lightbox-modal" class="lb-modal">	
+		<div class="modal-content">
+			<div class="lb-slides">
+			<div class="numbertext">1 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0001.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">2 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0002.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">3 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0003.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">4 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0004.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">5 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0005.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">6 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0006.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">7 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0007.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">8 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0008.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">9 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0009.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">10 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0010.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">11 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0011.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">12 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0012.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">13 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0013.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">14 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0014.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">15 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0015.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">16 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0016.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">17 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0017.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">18 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0018.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">19 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0019.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">20 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0020.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">21 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0021.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">22 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0022.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">23 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0023.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">24 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0024.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">25 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0025.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">26 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0026.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">27 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0027.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">28 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0028.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">29 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0029.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">30 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0030.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">31 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0031.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">32 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0032.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">33 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0033.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">34 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0034.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">35 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0035.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">36 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0036.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">37 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0037.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">38 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0038.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">39 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0039.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">40 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0040.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">41 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0041.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">42 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0042.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">43 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0043.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">44 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0044.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">45 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0045.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">46 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0046.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">47 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0047.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">48 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0048.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">49 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0049.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">50 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0050.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">51 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0051.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">52 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0052.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">53 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0053.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">54 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0054.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">55 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0055.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">56 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0056.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">57 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0057.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">58 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0058.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">59 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0059.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">60 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0060.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">61 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0061.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">62 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0062.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">63 / 63</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/patching/presentation-images/uist-2015-patching-physical-objects-0063.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+	
+			<!-- Next/previous controls -->
+			<a class="close-button" onclick="closeModal()">&times;</a>
+			<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+			<a class="next" onclick="plusSlides(1)">&#10095;</a>
+		</div>
+	</div>
+	
+	<!-- Project information -->
+	<div class="col-md-8" style="text-align: left;">
+		<h3 class="headline">
+		Patching Physical Objects
+		</h3>
+		</br>
+
+		<img src="images/patching-explained.jpg" alt="patching-explained" width="425" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 1: To minimize material consumption and to reduce waste during design iteration, we propose patching the existing object rather than reprinting it from scratch. (a) First, our software calculates which part changed, then (b) a mill removes outdated geometry, followed by a print head that prints the new geometry.  
+		</b> 
+		</br>
+		</br>
+		Personal fabrication is currently a one-way process: once an object has been fabricated with a 3D printer, it cannot be changed anymore. Any change requires printing a new version from scratch. The problem is that this approach ignores the nature of design iteration, i.e. that in subsequent iterations large parts of an object stay the same and only small parts change. This makes fabricating from scratch feel unnecessary and wasteful.
+		</br>
+		</br>
+		In this paper, we propose a different approach: instead of re-printing the entire object from scratch, we suggest patching the existing object to reflect the next design iteration. We built a system on top of a 3D printer that accomplishes this: Users mount the existing object into the 3D printer, then load both the original and the modified 3D model into our software, which in turn calculates how to patch the object. After identifying which parts to remove and what to add, our system locates the existing object in the printer using the system’s built-in 3D scanner. After calibrating the orientation, a mill first removes the outdated geometry, then a print head prints the new geometry in place.
+		</br>
+		</br>
+		Since only a fraction of the entire object is refabricated, our approach reduces material consumption and plastic waste (for our example objects by 82% and 93% respectively).
+		</br>
+		</br>
+		<span class="medium-headline">
+		Patching Physical Objects: Life-Long Design
+		</span>
+		</br>
+		</br>
+		While we focus primarily on design iterations, objects may require a patch:
+		</br>
+		</br>
+		1. immediately because of failed 3D printing</br>
+		2. minutes to hours later because of a new design iteration</br>
+		3. days to months later because the object breaks</br>
+		4. months to years later because of changing requirements</br>
+		</br>
+		</br>
+		Being able to patch an existing object allows for what we call life-long design and effectively reduces material consumption and waste. 
+		</br>
+		</br>
+		<b>Hardware for patching physical objects</b></br>
+		 Figure 2 shows the hardware setup that we integrated into an existing 3D printer (MakerBot Replicator 2X): a mill with suction for removing geometry, a 5-axis rotating platform for additional degrees of freedom, and a depth camera for 3D scanning and alignment. 
+		</br>
+		</br>
+		<img src="images/patching-hardware.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 2: Hardware for patching physical objects. 
+		</b> 
+		</br>
+		</br>
+		subtractive fabrication: We added a motor with mill bit and suction on the side of the MakerBot extruder. We built on top of the hardware suggested in the Scotty [17] paper, but optimized the component layout to fit onto a single carriage so as to maximize the build volume.
+		</br>
+		</br>
+		5 axis printing: Off-the-shelve 3D printers only have 3-axis and thus can only remove and add geometry from the top of an object. This often requires removing more material than necessary. To add and remove geometry from the side of an object, we added a 5-axis extension in the form of a dual axis rotating platform.
+		</br>
+		</br>
+		3D scanning: Our system 3D scans the existing object to align it with the next iteration of the 3D model. For 3D scanning, we mounted a depth camera (model: Creative Senz3D) to the frame of the 3D printer and use our dual-axis rotating platform to turn the object 360°. 
+		</br>
+		</br>
+		<span class="medium-headline">
+		Walkthrough
+		</span>
+		</br>
+		</br>
+		 We illustrate how patching physical objects allows for life-long design at the example of a phone charging dock that fits into the coffee holder of a car. 
+		</br>
+		</br>
+		<b>#1 Patching immediately because of failed 3D printing</b></br>
+		  While printing the initial version of the phone dock, the 3D print fails half way through: the stepper motors accidentally leaves out a step, which leads to a layer shift in all following layers (Figure 3a). The user stops the print and instead of trashing the failed print, patches the object.
+		</br>
+		</br>
+		<img src="images/patching-fixing-failed-print.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 3: (a) Failed print. (b) The user selects the failed part with the repair brush. (c) Patching. 
+		</b> 
+		</br>
+		</br>
+		As can be seen in Figure 3b, the user loads the corresponding 3D model into our software, then uses the “repair” brush to select the part that did not print correctly (selection is done based on a raster grid, the raster resolution can be changed by the user). No alignment with 3D scanning is necessary in this case since the failed print is still on the printing platform. After the user hits the “patch” button, our system instructs the mill to remove the failed upper layers, and then continues the regular print. Note that patching this failed print is different from [14] in that our system is able to not only resume a print job, but also to remove falsely printed geometry. Fixing the print required 34.43cm3 material (with 10% infill), saving 39% compared to reprinting it from scratch, and preventing 29.67cm3 of waste from trashing the object. During milling, we had to remove 7.54cm3.
+		</br>
+		</br>
+		<b>#2 minutes to hours later because of a new design iteration</b></br>
+		  After printing the initial version of the phone dock, the user notices that the home button is half-way covered and thus hard to operate (Figure 1). To fix the problem, the user adds a cut out for the home button to the 3D model, then loads it into our software together with the original 3D model. The user mounts the existing phone dock into the 3D printer (using double-sided tape) and hits the “patch” button. To locate the existing phone dock in the 3D printer, our system 3D scans it. After alignment, our system instructs the mill to remove the outdated geometry around the mount, and then instructs the 3D print head to create the new mount directly on the remaining geometry. This patch required only 2.39cm3, saving 96% material compared to reprinting from scratch, preventing 56.56cm3 of waste. During milling, we removed 2.54cm3 material.
+		</br>
+		</br>
+		After testing the phone dock in the car, the user decides to use the remaining space in front of the phone mount to store a coin for unlocking shopping carts that he otherwise always loses. In Figure 4, the user adds the coin slot to the phone dock 3D model, then hits the “patch” button. 
+		</br>
+		</br>
+		<img src="images/patching-five-axis-rotation-coin-slot.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 4: (a,b) Our system finds the optimal orientation to minimize printing material and waste. (d) Milling.  
+		</b> 
+		</br>
+		</br>
+		This time, the system uses its dual-axis rotating platform to minimize material consumption by rotating the phone dock so that only a small part needs to be removed and reprinted. Adding the coin slot required only 1.46cm3 material, saving 97% material compared to reprinting it from scratch, and preventing 56.40cm3 waste. During milling, we had to remove 1.43cm3 material. 
+		</br>
+		</br>
+		<b>#3 patching days to months later because the object breaks</b></br>
+		  One day, the user accidentally breaks the phone dock when putting his bag onto the side seat. The user decides to fix it (Figure 5). The user first loads the corresponding 3D model and using the “repair” brush marks the part that broke off. Our system patches the phone dock by milling off protruding geometry and then reprinting all missing parts. Repairing the phone dock took 2.86cm3 material, saving 95% compared to reprinting from scratch, preventing 56.44cm3 of waste. During milling, we removed 2.15cm3 of material.
+		</br>
+		</br>
+		<img src="images/patching-repair-phone.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 5: (a) The user accidentally broke the object. (b) The user marks the parts that need repair. (c) Our system then repairs the object using mill and print head. 
+		</b>
+		</br>
+		</br>
+		<b>#4 months to years later because of changing requirements</b></br>
+		  A year later, the user buys a new phone that is too large for the mount (Figure 6a). 
+		</br>
+		</br>
+		<img src="images/patching-mount-too-small.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 6: (a) The user’s new phone is too large, thus the user changes the model. (b) Changes. (c) Patched object. 
+		</b>
+		</br>
+		</br>
+		Since the charging dock still works, the user decides to patch it. Patching the phone dock required only 10.56cm3 of material, effectively saving 81% compared to reprinting it from scratch, and preventing 56.44cm3 waste. During milling, we had to remove 9.56cm3.
+		</br>
+		</br>
+		<span class="medium-headline">
+		Minimizing Material Consumption and Waste
+		</span>
+		</br>
+		</br>
+		 In the digital world, determining how much volume has changed is merely subtracting one model from the other, but implementing these changes in the physical world often requires additional volume (and thus material) to be removed. The reason for this are physical constraints:
+		</br>
+		</br>
+		size of print/mill head: the print head and mill head define a volume that can collide with existing geometry (Figure 7)—making it necessary to remove more material than actually changed. The smaller the print and mill head, the less additional material needs to be removed. 
+		</br>
+		</br>
+		<img src="images/patching-collision-rotation.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 7: (a) The print head causes a collision. (b) The system removes additional geometry, to (c) then reprint. 
+		</b> 
+		</br>
+		</br>
+		alignment of mill bit and extruder: As shown in Figure 8a, if the extruder nozzle and the mill bit operate on the same layer, this can cause a collision of the mill bit with already printed material. 
+		</br>
+		</br>
+		<img src="images/patching-mill-printhead-alignment.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 8: (a) In this setup, the mill bit causes a collision. (b) Correct alignment of mill and print head. 
+		</b> 
+		</br>
+		</br>
+		The mill bit thus needs to operate one layer above the extruder. This however, comes with the physical constraint that the print head always has to operate in the “shadow” of the mill, i.e. the mill has to first remove material, and then the print head can follow. In Figure 7, for instance, we rotate the object by 180° to be able to remove the colliding geometry with the mill. Afterwards, we rotate the object back for printing. One solution to avoid this problem is to add a mechanism to the carriage that can lift up the mill bit and the extruder, i.e. when the system mills the extruder is moved up and vice versa. A second option is to only add a mechanism to either the mill head or the print head, however this requires moving one of the heads the double distance.
+		</br>
+		</br>
+		degrees of freedom of the print/mill head: While 3-axis 3D printers are the most common, they can only remove and print geometry from the top of an object. If an object’s geometry changes close to its bottom, all upper geometry needs to be removed (Figure 9a). This creates a lot of waste and requires large amounts of printing material. In contrast, printers with higher degrees of freedom, such as 5-axis machines, can print and remove geometry from the side of an object (Figure 9b). 
+		</br>
+		</br>
+		<img src="images/patching-3axis-vs-5-axis.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 9: 3-axis vs. 5 axis for adding a handle to this watering can.  
+		</b> 
+		</br>
+		</br>
+		size of build plate: If the bottom of an object is patched using 5-axis milling/printing, the size of the build plate determines how much volume is accessible (Figure 10). 
+		</br>
+		</br>
+		<img src="images/patching-accessible-volume.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 10: (a) The larger the build plate, the less volume is accessible. (b) One voxel build plate.
+		</b> 
+		</br>
+		</br>
+		While making the base plate smaller allows for increasingly more volume to become accessible, the only way to reach the entire volume is to work with a one-voxel build plate (conceptual drawing in Figure 10b). The basic idea is to place the first voxel on the vertically aligned build plate and then through rotation of the build plate build up the object voxel by voxel from the side. However, due to the limited capabilities of today’s 3D printers, we were not able to implement the one-voxel build plate.
+		</br>
+		</br>
+		support material: Current 3D printing technology requires printing support material underneath structures with overhangs >45°. While for this paper, we did not explore the issue of support material, we think it is a challenge worth further research, especially when printing above gaps. 
+		</br>
+		</br>
+		<span class="medium-headline">
+		Contribution, Benefits, and Limitations
+		</span>
+		</br>
+		</br>
+		The main contribution of this paper is a system that allows patching the geometry of an existing object rather than printing it from scratch. The system combines subtractive and additive fabrication in a single integrated process to remove and add geometry to an object, and uses 3D scanning for alignment. In addition, our dual-axis rotating platform can patch geometry from both the top of an object and the side. Our approach not only saves material, but also reduces plastic waste—making 3D printing more sustainable.
+</br>
+		</br>
+On the flipside, patching an object’s geometry is subject to the following limitations: (1) physical constraints: due to the size of the print head and its limited degrees of freedom, regions that surround the to be modified area sometimes also need to be partially removed. (2) high precision necessary: print head, mill, and 3D scanning need to be calibrated to each other in the sub-millimeter range (see section “3D scanning”). (3) stress-resistance: by rotating the object, not all layers are printed in the same orientation, making the object potentially less stress resistant (see [26] for a discussion). (4) suction: we had good results with our suction, but not 100% of the chips were removed. 
+		</br>
+		</br>
+		<span class="medium-headline">
+		Implementation
+		</span>
+		</br>
+		</br>
+		To help readers replicate our results, we use the following section to explain the details of our hardware extension and the software implementation. 
+		</br>
+		</br>
+<b>Rotating platform for 5 axis printing</b></br>
+		  We designed the dual axis rotating platform so as to maximize the build volume in the 3D printer. Our design replaces the standard Makerbot platform. Key to our design is the use of a slewing ring searing from Igus (PRT-02-30-AL) for the Y axis. This bearing is designed to accept both radial and axial load and creates a rigid connection between the rotating platform and its support. Both axes are driven by a stepper motor attached (a NEMA 17 stepper motor, 200 steps per 360°). The Y axis has a transmission ratio of 17.7:1, while the transmission ratio for the Z axis is 8.13:1. Both motors are controlled by an Arduino Uno.</br>
+The carriage with the mill, camera, and suction is based on the hardware from the Scotty [23] project. However, to maximize the build volume, we fit both the print head and the mill head onto the same carriage and removed the down-facing RGB camera. For 3D scanning, we mounted a depth camera (model: Creative Senz3D) to the casing of the MakerBot, which faces sideward onto the object.
+		</br>
+		</br>
+		<b>Software</b></br>
+		 In the next section, we describe the algorithm that our system uses to determine which parts need to be removed by the mill and which need to be reprinted. 
+		</br>
+		</br>
+		<i>Determining what changed in the model:</i> </br>
+		Our system identifies geometry that needs to be removed by uniting the existing object and the next iteration, and then subtracting the next iteration (Figure 11a). 
+		</br>
+		</br>
+		<img src="images/patching-what-to-add-what-to-remove.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 11: Calculating (a) what to add, (b) to remove.
+		</b> 
+		</br>
+		</br>
+		Similarly, our system identifies geometry that needs to be added by uniting the existing object and the next iteration and then subtracting the existing object (Figure 11b). 
+		</br>
+		</br>
+		<i>Calculating the volume which collides with mill or print head</i> </br>
+		 As discussed in section “Minimizing material usage”, the size of the mill and print head can make it necessary to remove more material than actually changed to avoid collisions. Figure 12 illustrates our algorithm with an example of the geometry that needs to be added from the previous figure: (a,b) First, our system identifies the volume that needs to be empty so that the print head can reach all locations required to add the part. To do this, our software takes the 3D geometry of the print head and moves it along the surface of the part that should be added. All of the volumes are added up (minkowski sum).
+		</br>
+		</br>
+		<img src="images/patching-calculating-collision-volume.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 12: Checking collision volume for the geometry that should be added (from the previous figure).
+		</b> 
+		</br>
+		</br>
+(c) In the next step, our software determines if there are any collisions. For this, our software intersects the volume that should be empty with the existing geometry of the object. If the resulting volume is empty, no collision exists and the system can perform the patch without removing any additional geometry. If the volume is not empty as in the example shown in Figure 12c), a part of the new geometry cannot be added due to a collision. Thus, the part of the existing object that causes the collision has to be removed too.</br>
+The question remains if the additional part that needs to be removed causes collisions itself. The algorithm thus repeats all steps until no additional collisions exist anymore. (d) It then adds up all collision volumes, (e) removes them, and then (f) recreates them together with the geometry that needs to be added.
+		</br>
+		</br>
+		<i>Minimizing collision volume with 5-axis printing</i> </br>
+		In 3-axis printing only one option exists to change the geometry in a certain location, but 5-axis printing can achieve the same result in several ways, i.e. by rotating the object at different angles, resulting in different collision volumes, and thus requiring different amounts of geometry to be milled away and reprinted. Our system therefore finds the angles that create least waste and consume least material.
+For this, our system iteratively builds a tree structure of all potential solutions and applies a breadth first search, i.e. we stop pursuing a branch as soon as it creates more waste and requires more material than the current best solution (Figure 13). 
+		</br>
+		</br>
+		<img src="images/patching-5axis-algorithm.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 13: In the example shown, the optimal solution to minimize waste and material consumption is to rotate the object 90°. 
+		</b> 
+		</br>
+		</br>
+		Our algorithm starts by (a) calculating the difference between the existing object and the next iteration (as described in Figure 11). (b) It then calculates the collision volume for each potential angle (as described in Figure 12c). If the object contains several patches in different locations, the algorithm builds the next layer in the tree by repeating steps (a) and (b), i.e. testing all potential rotation angles for the second part that needs to be changed and again calculating the collision volume.
+		</br>
+		</br>
+		After traversing the valid options, our algorithm picks the solution that consumes least material and produces least waste. In the case shown in Figure 13, rotating the object by 90° produces zero waste and only requires a fraction of the material than changing it in a 0° position—making the 90° angle the optimal solution.
+		As testing all potential rotation angles is computationally expensive, we only test a set of discrete angles rather than a continuous space. The number of angles tested is a trade-off between accuracy and computation time (we currently test in 1° distances).
+		</br>
+		</br>
+		<i>Order of executing changes</i> </br>
+		 Our system first removes all collision geometries and geometries that no longer exist in the next iteration. After that, the system prints the geometry that needs to be added.
+		</br>
+		</br>
+		<i>Calculating the tool paths for the mill and print head</i> </br>
+		Milling: For each part that needs to be removed, our system calculates the mill path. For this, our system slices the part that should be removed in layers (we use a two wing flute mill bit for milling plastic, and mill layers with 0.6mm height). Our system implements the slicing by intersecting the 3D model of the part that should be removed with horizontal planes at increasing heights. For each slice, our system then calculates the bounding box. From the bounding box, our system generates the tool path for the mill in the form of g-code commands. Moving the mill exactly along the contour of the layer could further optimize our current implementation.
+		</br>
+		</br>
+3D printing: Our system generates the 3D print tool path for each part by sending the geometry in .stl file format to the MakerBot slicer miraclegrue, which in turn generates a g-code file that we automatically read back into our system.
+		</br>
+		</br>
+<i>Collision prevention during travel</i> </br>
+		 By default, the 3D printer moves the shortest path between two print locations, which can lead to collisions with existing geometry (Figure 14). To avoid collisions, our system first detects the highest point of existing geometry on the path (based on the initial 3D scan of the object). It then lowers the base plate to move the point below the print head. Finally, the system instructs the print head to move to the other location, and afterwards brings the base plate back up. 
+		</br>
+		</br>
+		<img src="images/patching-lowering-baseplate.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 14: To avoid collision of the print head with existing geometry, we lower the base plate accordingly. 
+		</b> 
+		</br>
+		</br>
+<i>Closing open surfaces / covering infill</i> </br>
+		  To save time in 3D printing, objects are often printed with a solid surface and a sparse infill pattern. 
+		</br>
+		</br>
+		<img src="images/patching-open-infill-solution.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 15: Closing open infill areas. 
+		</b> 
+		</br>
+		</br>
+		During a change, the existing surface of an object can be removed and parts of the infill form the new outside surface (Figure 15). To cover the infill pattern, our system removes the top infill layer in addition and reprints it as solid to close the surface.
+</br>
+		</br>
+<i>3D scanning and alignment</i> </br>
+		  We take multiple snapshots with the camera while rotating the object. Each snapshot contains the depth value in mm for each pixel. We combine all snapshots into a single point cloud, taking into account the position of the camera, the rotational center of the platform, and the 3D printer coordinate system. We then call the command line interface of CloudCompare [4] to register the object geometry with the point cloud (Figure 16).  
+		</br>
+		</br>
+		<img src="images/patching-scanning.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 16: 3D scanning for alignment.
+		</b> 
+		</br>
+		</br>
+		Unfortunately, current depth cameras, such as the CreativeSenz3D we use, are not accurate enough to achieve a seamless patch as this requires a resolution below the 200 microns of current consumer FDM printers. This is why the objects in our example walkthrough show small defects at the interface of the patch.
+In our setup, scanning accuracy is a trade-off between time and precision. By scanning the object from additional angles, we can collect more data and thereby increase the scanning resolution. In addition, since our algorithm combines all data from the point cloud (using the standard POSIT algorithm), not every point needs to be perfectly accurate. 
+</br>
+		</br>
+		<span class="medium-headline">
+		Discussion
+		</span>
+		</br>
+		</br>
+		In the next section, we discuss insights we gained while patching a range of different objects.
+		</br>
+		</br>
+		<b>Material savings for different types of changes</b></br>
+		  The material saved between two design iterations highly depends on the type of change. For local patches, i.e. changes that only affect a small part of the object in a specific area, material savings are typically high. For global patches, such as scaling the entire object, material savings tend to be small. In addition, they are technically more difficult to achieve. 
+		</br>
+		</br>
+		<b>Time saving during design iteration</b></br>
+		   Patching physical objects does not only lead to material savings, but in most cases also to time savings. However, the time saved depends on the type of patch as patching requires both time for printing and time for milling. One option to further reduce fabrication time is to use a saw for cutting off outdated parts in a single piece rather than using a mill to remove material layer-by-layer. However, a saw limits the type of removals that can be achieved. 
+		</br>
+		</br>
+		<b>5 axis vs. 3+2 axis printing</b></br>
+		  While our hardware is capable of full 5-axis printing, our algorithm currently implements 3+2 axis printing, i.e. we first rotate the object, then apply the patch rather than rotating and fabricating at the same time, which would allow for additional material savings. The benefit of 3+2 axis printing is that it allows us to re-use the default MakerBot slicer as we only print in the x-y plane and do not print 3D curves. Using industrial 5-axis printing software, our system could be extended to full 5-axis patching. 
+		</br>
+		</br>
+		<b>Taping the object into the printer vs. using a mount</b></br>
+		   While double-sided tape is sufficient to mount objects with a large bottom area (such as the phone dock in the walkthrough), it is not sufficient for objects with a small bottom area. For smaller objects, we developed a mount that can be opened and closed with a screw (Figure 17). One limitation of an additional mount is that it reduces the reachable area by the print head. To avoid the problem, the user can orient the object in the mount in different ways according to the part that is being patched. The efficacy of the tape bond also depends on the shearing forces during milling. 
+		</br>
+		</br>
+		<img src="images/patching-screw-mount.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 17: While double-sided tape is strong enough to hold objects with a large surface area, we use this mount for objects with a small surface area.
+		</b> 
+		</br>
+		</br>
+<span class="medium-headline">
+		Conclusion
+		</span>
+		</br>
+		</br>
+		In this paper, we presented a system that can patch an existing physical object rather than reprinting it from scratch. We showed how combining subtractive and additive fabrication in 5-axis allows efficient patching of an object to minimize material consumption and plastic waste—making 3D printing more sustainable.
+For future work, we want to explore how to patch more complex physical objects, such as those that are not only based on shape, but also exhibit behavior (e.g. kinematic mechanisms [4]). In addition, it would be interesting to apply the patching concept to different types of 3D printing techniques. Our current setup focuses on FDM 3D printing, but other technologies such as SLA/SLS exist. 
+		</br>
+		</br>
+		</br>
+		</br>
+
+	</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 footer" style="text-align: center;">
+			<span class="copyright">
+			Since 2017 &copy; MIT CSAIL (HCI Engineering group) [redesign by 
+			<a href="http://punpongsanon.info/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			moji
+			</a>]. 
+			All Rights Reserved.
+			
+			<a href="http://mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="http://hcie.csail.mit.edu/images/logo/mit.svg" alt="MIT" class="footer-logo" />
+			</a>
+			<a href="http://csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="http://hcie.csail.mit.edu/images/logo/csail.svg" alt="CSAIL" class="footer-logo"/>
+			</a>
+			<a href="http://hci.csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="http://hcie.csail.mit.edu/images/logo/hci.svg" alt="HCI" class="footer-logo"/>
+			</a>
+			</span>
+		</div>
+	</div>
+</div>
+
+<!-- Bootstrap --> 
+<script type="text/javascript" src="https://hcie.csail.mit.edu/js/bootstrap.min.js"></script>
+<!-- header -->
+<script type="text/javascript" src="https://hcie.csail.mit.edu/js/headerstrap-for-subpage.js"></script> 
+<!-- lightbox -->
+<script type="text/javascript" src="../../js/lightbox.js"></script> 
+</body>
+</html>

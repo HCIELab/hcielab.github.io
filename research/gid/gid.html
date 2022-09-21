@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>G-ID: Identifying 3D Prints Using Slicing Parameters</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!-- CSAIL ICON -->
+	<link rel="CSAIL" href="http://hcie.csail.mit.edu/images/icon/csail.ico" type="image/x-icon" />
+
+	<!-- Bootstrap -->
+	<link href="https://hcie.csail.mit.edu/css/bootstrap.css" rel="stylesheet">
+	<link href="https://hcie.csail.mit.edu/css/custom-style.css" rel="stylesheet">
+
+	<!-- Lightbox -->
+	<link href="../../css/lightbox.css" rel="stylesheet">
+
+	<!-- jQuery -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+
+	<!-- Google Analytic -->
+	<script type="text/javascript" src="https://hcie.csail.mit.edu/js/analytics.js"></script>
+</head>
+
+<body>
+<header class="main_header">
+	<!-- to be filled by javascript, see header.html -->
+</header>
+<div class="container" style="padding-top: 100px;">
+	<div class="row">
+	<!-- Publication details -->
+	<div class="col-md-4" style="text-align: left;">
+		</br>
+		</br>
+		<span class="medium-headline">
+		Publication
+		</span>
+		</br>
+		</br>
+		 Mustafa Doga Dogan, Faraz Faruqi, Andrew Day Churchill, Kenneth Friedman, Leon Cheng, Sriram Subramanian, Stefanie Mueller. 
+		</br>
+		 G-ID: Identifying 3D Prints Using Slicing Parameters.
+		</br>
+		In Proceedings of
+		<a href="https://chi2020.acm.org/" target="_blank">CHI &#8217;20</a>.<br>
+			</br>
+				<a href="https://dl.acm.org/doi/abs/10.1145/3313831.3376202" class="btn btn-doi" alt="doi" target="_blank">DOI</a>
+				&nbsp; &nbsp;
+				<a href="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/2020-CHI-GID-paper.pdf" class="btn btn-pdf" alt="pdf" target="_blank">PDF</a>
+				&nbsp; &nbsp;
+				<a href="https://www.youtube.com/watch?v=XsqLU6_78lc" class="btn btn-vdo" alt="video" target="_blank">Video</a>
+				&nbsp; &nbsp;
+				<a href="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/2020-CHI-G-ID-Talk.pptx" class="btn btn-talk" alt="slide" target="_blank">Slides</a>
+				&nbsp; &nbsp;
+			</br>
+			</br>
+
+			<span class="medium-headline">
+			Video
+			</span>
+			<br><br>
+			<iframe width="325" height="190" src="https://www.youtube.com/embed/XsqLU6_78lc" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+			</br>
+			</br>
+
+			<span class="medium-headline">
+			CHI 2020 Talk
+			</span>
+			<br><br>
+			<iframe width="325" height="190" src="https://www.youtube.com/embed/gKueHVbQfWo" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+			</br>
+			</br>
+
+
+			</br>
+			
+
+			<span class="medium-headline">
+			Slides
+			</span>
+			</br>
+			</br>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.001.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(1)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.002.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(2)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.003.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(3)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.004.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(4)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.005.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(5)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.006.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(6)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.007.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(7)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.008.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(8)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.009.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(9)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.010.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(10)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.011.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(11)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.012.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(12)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.013.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(13)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.014.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(14)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.015.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(15)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.016.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(16)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.017.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(17)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.018.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(18)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.019.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(19)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.020.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(20)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.021.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(21)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.022.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(22)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.023.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(23)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.024.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(24)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.025.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(25)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.026.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(26)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.027.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(27)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.028.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(28)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.029.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(29)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.030.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(30)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.031.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(31)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.032.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(32)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.033.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(33)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.034.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(34)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.035.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(35)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.036.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(36)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.037.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(37)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.038.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(38)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.039.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(39)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.040.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(40)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.041.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(41)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.042.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(42)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.043.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(43)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.044.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(44)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.045.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(45)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.046.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(46)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.047.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(47)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.048.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(48)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.049.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(49)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.050.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(50)" class="hover-shadow"/>
+
+
+
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.051.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(51)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.052.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(52)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.053.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(53)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.054.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(54)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.055.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(55)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.056.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(56)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.057.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(57)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.058.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(58)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.059.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(59)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.060.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(60)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.061.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(61)" class="hover-shadow"/>
+
+
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.062.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(62)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.063.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(63)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.064.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(64)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.065.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(65)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.066.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(66)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.067.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(67)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.068.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(68)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.069.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(69)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.070.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(70)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.071.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(71)" class="hover-shadow"/>
+
+
+
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.072.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(72)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.073.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(73)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.074.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(74)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.075.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(75)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.076.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(76)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.077.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(77)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.078.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(78)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.079.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(79)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.080.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(80)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.081.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(81)" class="hover-shadow"/>
+
+
+
+
+
+
+
+
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.082.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(82)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.083.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(83)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.084.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(84)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.085.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(85)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.086.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(86)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.087.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(87)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.088.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(88)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.089.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(89)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.090.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(90)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.091.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(91)" class="hover-shadow"/>
+
+
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.092.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(92)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.093.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(93)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.094.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(94)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.095.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(95)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.096.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(96)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-180/GID-Talk.097.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(97)" class="hover-shadow"/>
+
+		</div>
+
+
+	
+	<!-- For slide show -->
+	<!-- close button on tne right corner -->
+	<div id="lightbox-modal" class="lb-modal">	
+		<div class="modal-content">
+			<div class="lb-slides">
+			<div class="numbertext">1 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.001.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">2 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.002.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">3 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.003.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">4 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.004.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">5 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.005.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">6 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.006.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">7 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.007.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">8 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.008.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">9 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.009.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">10 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.010.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">11 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.011.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">12 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.012.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">13 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.013.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">14 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.014.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">15 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.015.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">16 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.016.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">17 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.017.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">18 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.018.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">19 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.019.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">20 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.020.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">21 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.021.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">22 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.022.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">23 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.023.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">24 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.024.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">25 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.025.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">26 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.026.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">27 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.027.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">28 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.028.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">29 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.029.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">30 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.030.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">31 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.031.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">32 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.032.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">33 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.033.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">34 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.034.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">35 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.035.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">36 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.036.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">37 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.037.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">38 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.038.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">39 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.039.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">40 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.040.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">41 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.041.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">42 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.042.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">43 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.043.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">44 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.044.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">45 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.045.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">46 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.046.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">47 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.047.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">48 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.048.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">49 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.049.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">50 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.050.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			
+			
+			
+			
+			
+			
+			<div class="lb-slides">
+			<div class="numbertext">51 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.051.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">52 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.052.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">53 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.053.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">54 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.054.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">55 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.055.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">56 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.056.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">57 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.057.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">58 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.058.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">59 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.059.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">60 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.060.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			
+			
+			
+			<div class="lb-slides">
+			<div class="numbertext">61 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.061.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">62 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.062.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">63 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.063.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">64 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.064.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">65 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.065.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">66 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.066.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">67 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.067.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">68 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.068.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">69 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.069.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">70 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.070.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			
+			
+			
+			<div class="lb-slides">
+			<div class="numbertext">71 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.071.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">72 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.072.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">73 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.073.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">74 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.074.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">75 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.075.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">76 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.076.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">77 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.077.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">78 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.078.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">79 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.079.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">80 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.080.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			
+			
+			
+			<div class="lb-slides">
+			<div class="numbertext">81 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.081.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">82 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.082.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">83 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.083.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">84 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.084.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">85 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.085.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">86 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.086.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">87 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.087.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">88 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.088.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">89 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.089.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">90 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.090.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			
+			<div class="lb-slides">
+			<div class="numbertext">91 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.091.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			
+						
+			<div class="lb-slides">
+			<div class="numbertext">92 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.092.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+						
+			<div class="lb-slides">
+			<div class="numbertext">93 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.093.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+						
+			<div class="lb-slides">
+			<div class="numbertext">94 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.094.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+						
+			<div class="lb-slides">
+			<div class="numbertext">95 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.095.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			
+			<div class="lb-slides">
+			<div class="numbertext">96 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.096.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+						
+			<div class="lb-slides">
+			<div class="numbertext">97 / 97</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/G-ID/presentation-slides/G-ID-720/GID-Talk.097.jpeg"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<!-- Next/previous controls -->
+			<a class="close-button" onclick="closeModal()">&times;</a>
+			<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+			<a class="next" onclick="plusSlides(1)">&#10095;</a>
+		</div>
+	</div>
+		<!-- </div> -->
+
+
+
+	<!-- Project information -->
+	<div class="col-md-8" style="text-align: left;">
+		<br>
+		<h3 class="headline">
+		G-ID: Identifying 3D Prints Using Slicing Parameters
+		</h3>
+<br>
+		<img src="images/Fig1-G-ID-pipeline.png" alt="mosculpt-runner" width="720" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>		<h6>
+		<strong>Figure 1.</strong> 3D printed objects inherently possess surface patterns due to the angle of the print path and the thickness of the trace the 3D printer lays down. G-ID exploits such features that would normally go unnoticed to identify unique instances of an object without the need to embed an obtrusive, additional tag. G-ID provides (a) a user interface for slicing individual instances of the same object with different settings and assigning labels to them. After (b) 3D printing, users can (c) identify each instance using the G-ID mobile app that uses image processing techniques to detect the slicing parameters and retrieve the associated labels.<br>
+		<br>
+		</h6>
+		We present G-ID, a method that utilizes the subtle patterns left by the 3D printing process to distinguish and identify objects that otherwise look similar to the human eye. The key idea is to mark different instances of a 3D model by varying slicing parameters that do not change the model geometry but can be detected as machine-readable differences in the print. As a result, G-ID does not add anything to the object but exploits the patterns appearing as a byproduct of slicing, an essential step of the 3D printing pipeline. 
+We introduce the G-ID slicing &amp; labeling interface that varies the settings for each instance, and the G-ID mobile app, which uses image processing techniques to retrieve the parameters and their associated labels from a photo of the 3D printed object. Finally, we evaluate our method&rsquo;s accuracy under different lighting conditions, when objects were printed with different filaments and printers, and with pictures taken from various positions and angles.
+  <br><br><br>
+  <span class="medium-headline">INTRODUCTION</span>
+
+  <div title="Page 2">
+
+
+  <br>
+		  <div>
+		    <div>
+		      <p>Machine-readable tags have many applications ranging from package delivery and tracking, to interactive museum exhibits, and games. While in the last decades, researchers have mainly focused on developing 2D tags, the rise of 3D printing now enables researchers to investigate how to embed tags directly with the geometry of 3D objects. For instance, QR codes are no longer limited to 2D applications and can now also be used as part of a 3D object&rsquo;s surface geometry by modifying the 3D model.<br>
+		        One key challenge when using tags is how to make them unobtrusive. To make tags less visible, researchers have investigated how to leave the surface intact and instead change the inside geometry of a model. <em>InfraStructs</em>, for instance, scans the object&rsquo;s interior with a terahertz scanner, while <em>AirCode</em> requires a projector and camera setup to detect internal air pockets using subsurface scattering. Even though these approaches leave the object&rsquo;s surface intact, both need large equipment, which prevents these solutions from being used in everyday scenarios.</p>
+              <p>To be able to use regular scanning equipment, such as a mobile phone camera, researchers proposed to analyze small imprecisions on the object&rsquo;s surface that are created during the fabrication process. Those imprecisions are unobtrusive yet machine readable and can therefore be used as tags. Such imperfections make it possible to identify which fused deposition modeling (FDM) printer was used to create an object. For the purpose of easier explanation, we will refer to FDM printers as 3D printers for the remainder of the paper.
+              </p>
+              <div>
+                <p>In this work, we propose a different approach to identification. When a 3D model is prepared for 3D printing, it first undergoes <em>slicing</em>, a computational process which converts a 3D model into layers and their corresponding print path (a <strong>G</strong>-code file), which the extruder then follows to create the 3D object. The parameters for the slicing process can be modified for each individual instance, which allows <strong>G</strong>-ID to create unique textures on the surface of objects that can be detected with a commodity camera, such as those available on a mobile phone. Since our approach allows us to be in control over which printed instance has been modified with which slicer settings, we can identify each instance and retrieve associated labels previously assigned by a user.    </p>
+                <p>&nbsp;</p>
+                <p><img src="images/Fig2-difference-related-work.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
+                <strong>Figure 2. Different ways to embed tags into 3D models while leaving the surface intact:<br>
+                (a) changing the internal geometry <em>(Infrastructs)</em>,<br>
+                (b) varying slicing parameters (<em>G-ID</em>),<br>
+                (c) relying on fabrication imprecisions (<em>PrinTracker</em>). </strong> </p>
+                <p>Our contributions can be summarized as follows:</p>
+              </div>
+              <ol>
+  <li>A method to utilize the subtle patterns left as an inevitable byproduct of the conventional 3D printing process to identify objects without the need to embed an additional tag.</li>
+  <li>A tool for users who want to create multiple instances of an object but intend to give each one a unique identifier.</li>
+  <li>A mobile app that helps users take pictures of objects to be identified, as well as a stationary setup to detect finer variations in slicing parameters using image processing.</li>
+  <li>An evaluation of the space of slicing parameters that can be varied to generate unique instances of a 3D model and the corresponding detection accuracy under different environmental and hardware-related conditions.</li>
+</ol>
+<p>We demonstrate these contributions with a diverse set of interactive applications.</p>
+
+<br>
+<span class="medium-headline">
+
+		G-ID: LABELING AND IDENTIFYING OBJECTS BY THEIR SLICING PARAMETERS
+		<br><br>
+	    </span>
+		The main contribution of G-ID is a framework to <em>label</em> and <em>identify</em> 3D printed objects by their distinct slicer settings.<br>
+G-ID <em>labels</em> 3D printed objects by intentionally varying the slicing settings of an unmodified 3D model which determine the path the extruder will follow. This allows G-ID to produce multiple instances that all have a unique artifact, e.g., the small grooves on the surfaces of the object that can be shaped differently when the print path is laid down. <br>
+G-ID then <em>identifies</em> the 3D printed object by such textures, i.e. after users take a picture of the object with a commodity camera, G-ID applies image processing techniques to first extract and then correlate the features with their initial slicing settings to retrieve the identifying label.<br>
+  <br>
+	<b>Main Benefits of Using Different Slicing Parameters </b>
+        <br>
+        Slicing parameters reveal themselves on any printed object as a fabrication byproduct that is normally ignored. One may make use of these inevitable textures that come for free due to 3D printing. G-ID combines a wide range of slicing parameters to create a sufficiently large parameter space. For each slicing parameter for surface and infill, there is a variety of values available (see section &ldquo;Spacing of Slicing Parameters&rdquo;). The use of so many values is enabled by G-ID&rsquo;s recognition algorithm, which uses a Fourier-based method for precise measurements. Detecting these values precisely in turn enables new applications such as &ldquo;Finding optimal print settings&rdquo; (see &ldquo;Application Scenarios&rdquo;).		    </p>
+<p><b>G-ID Workflow for an Identification Application</b> <br>
+  In the following section, we describe how we use (1) <em>the</em> <em>G-ID labeling interface</em> to assign each instance of a 3D printed object a unique tag prior to 3D printing, and how we use (2) <em>the</em> <em>G-ID identification app</em> that runs on a mobile device to detect each object&rsquo;s tag after 3D printing.</p>
+<p>We explain the workflow of G-ID using an application scenario, in which we will create a set of forty key covers—each with an unobtrusive feature that identifies its owner. We use these key covers in our research lab: At the end of the semester when members depart, we often forget to write down who has returned their keys. Using G-ID, we can quickly identify whom the previously returned keys used to belong to and then send a reminder to those who have outstanding keys. </p>
+<b>Labeling Interface (Slicer)</b>
+<p>To assign each key cover a unique tag, we open G-ID&rsquo;s labeling interface (Figure 3) on our computer and load the 3D model of the key cover by dragging it onto the canvas. Since we want to create 40 key covers, we enter 40 instances into the left-hand panel of the interface.<br>
+<div>
+  <p>
+    <em>#1 Generate Instances</em>: We select &ldquo;Mobile phone&rdquo; as the desired detection setup. Next, we click the &ldquo;Generate previews&rdquo; button, which slices each instance of the key cover with a unique set of slicing settings. In this case, since we only request 40 instances, G-ID only varies the slicing parameters <em>initial bottom line angle</em> and <em>initial bottom line width</em> (more on this in section &ldquo;Slicing parameters used for labeling&rdquo;). After slicing is completed, G-ID previews each instance as shown in Figure 1a.</p>
+  <p>&nbsp;</p>
+</div>
+		    </div>
+		  </div>
+	  </div>
+      <p><img src="images/Fig3-UI.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
+        
+        <strong>Figure 3. G-ID labeling interface: load a 3D model and enter number of unique instances needed. 
+        </strong>
+        
+      </p>
+      <p>#2 Enter Labels: We can now enter a label in the form of a text, an image, or a URL next to the preview of each instance. Since we want to give each key cover the name of one of our lab members, we enter one name per instance. We can update these labels later any time, for instance, when a new team member joins our lab and we need to reassign the key.</p>
+        <p> #3 3D Printing: Upon clicking the “Export” button, each instance’s G-code file is saved, as well as a digital file (XML) that stores the object information and the entered label corresponding to each instance. We can now send the G-code files to our FDM printer to obtain the printed instances. We also transfer the digital file that stores the object information to our smartphone to be used later for identification. </p>
+		
+		
+      <p><b>Identification Interface (Mobile App + Object Alignment)</b> </p>
+        <p>At the end of the semester when we update our key inventory, we use the G-ID mobile app on our phone to identify which of the returned keys belonged to whom. After launching the app, we first select the model we would like to scan, i.e., the key cover, from our object library (Figure 4a). The app then helps us to align the camera image with the object by showing an outline of the object on the screen, similar to how check cashing or document scanning apps work (Figure 4b). When the outlines are aligned in this human-in-the-loop setting, the app automatically captures and processes the image (Figure 4c). It then identifies the features in the photo associated with the surface-related slicing parameter settings, retrieves the user-assigned label, and shows it on the screen (Figure 1c). We check off the lab members who returned their keys and send a reminder to everyone else.        
+      <p>        
+      	<br>
+      <p><img src="images/Fig4-Handheld-phone.png" alt="mosculpt-runner" width="450" style="padding-bottom:0px; margin-bottom:10px"><br>
+          <strong>Figure 4. G-ID mobile app for identifying instances: (a) select model from library, (b) face the object, (c) once outlines are aligned, the app automatically takes the image.  </strong>
+        
+      <p>      
+      <p>To assign each key cover a unique tag, we open G-ID&rsquo;s labeling interface (Figure 3) on our computer and load the 3D model of the key cover by dragging it onto the canvas. Since we want to create 40 key covers, we enter 40 instances into the left-hand panel of the interface.        
+      <p><b>Surface &amp; Interior: Detecting Infill Using a Light Source </b>
+      <p>In the above described scenario, G-ID was able to successfully label each instance using only slicing parameters that affect the object&rsquo;s surface, such as the initial bottom line width and angle because the number of instances was small. However, for scenarios requiring more instances, G-ID can also sense the interior of objects (<em>infill</em>) at the expense of adding a small light source as described in the next scenario.</p>
+      <p>For our department&rsquo;s annual celebration, we are asked to print a set of 300 coffee mugs as a giveaway. Each coffee mug, when inserted into a smart coffee machine (camera and light source below the tray table), automatically fills the mug with the user&rsquo;s preferred drink. Similar to the previous scenario, we use G-ID&rsquo;s labeling interface to generate the instances, but this time G-ID also varies the parameters <em>infill angle</em>, <em>infill pattern</em>, and <em>infill density</em> once it used up the parameter combinations available for the surface. As users insert their mug into the smart coffee machine, which has a stationary setup, the integrated light makes the infill visible due to the translucent nature of regular PLA 3D printing filament (Figure 5). G-ID takes a picture, extracts the infill angle, pattern, and density in addition to the previously mentioned bottom surface parameters, and after identification, pours the user&rsquo;s favorite drink.</p>
+      
+      <p><img src="images/Fig5-infill-mug-scenario.png" alt="mosculpt-runner" width="400" style="padding-bottom:0px; margin-bottom:10px"><br>
+      <strong>Figure 5. By adding a light, we can also detect variations in infill, such as different infill angles, patterns, and densities, which allow for a larger number of instances. Here, the coffee maker recognizes the mug’s infill and pours the user’s preferred drink.</strong>      
+
+      <br><br><br>
+      <span class="medium-headline">SLICING PARAMETERS USED FOR LABELING</span> 
+
+        <p>In the next section of the paper, we report on the types of slicing parameters for surface and infill that can be used for creating unique identifiers.</p>
+        <p><b>Surface Parameters</b>
+        </p>
+      <p><i>Bottom Surface: Resolution &amp; Angle: </i>When the bottom layer is printed by moving the print head along a path, two parameters influence how the path on this first layer is laid out. <em>Initial bottom line width </em>defines the width of a single line on the bottom surface and thus the resulting resolution. <em>Initial bottom line angle</em> sets the direction when drawing the lines to construct the surface. Combinations of these two parameters are shown in Figure 6.        
+      <p>        
+      <p><img src="images/Fig6-Bottom-Surface-parameters.png" alt="mosculpt-runner" width="450" style="padding-bottom:0px; margin-bottom:10px"><br>
+  <strong>Figure 6.  Combinations of different line widths and angles.</strong>      
+      <p>Intermediate Layers: Resolution &amp; Angle
+      It is possible to vary the slicing parameters for the intermediate layers in the same way as for the bottom surface. Layer height when varied leads to different layer thicknesses across the printed object and thus affects the overall print resolution. Rotating the 3D model on the build plate leads to different layer angles across the side surface. Combinations of these two parameters can be seen in Figure 7.            
+      <p><img src="images/Fig7-side-parameters.png" alt="mosculpt-runner" width="450" style="padding-bottom:0px; margin-bottom:10px"><br>
+        <strong>Figure 7. Different layer angles achieved by rotating the model at the expense of additional support material and print time (a vs. b), and various print qualities (b vs. c).</strong>
+      <p>However, using the slicing parameters for layers comes at several drawbacks. As can be seen, changing the layer orientation results in a significant increase in print time due to the extra support material required. Further, changing the layer resolution can result in a notable difference in print quality across different instances. We still include it here to provide a complete overview of all available parameters.      
+      <p><b>Infill Parameters</b>
+      <p>Next, we review slicing parameters that change an object&rsquo;s internal print path.</p>
+      <p><i>Infill: Resolution, Angle, &amp; Pattern: </i>Three parameters influence how the infill is laid out. <em>Infill line distance</em> determines how much the lines of the infill are spaced out and thus determines the internal resolution. The denser the infill lines, the higher the infill density. <em>Infill angle</em> rotates the infill lines according to the direction specified in degrees. Different combinations of these two parameters are shown in Figure 8a. <em>Infill pattern</em> allows for different layouts of the print path (Figure 8b), such as grid or triangle shapes. 
+</p>
+      
+      <p><img src="images/Fig8-infill.png" alt="mosculpt-runner" width="450" style="padding-bottom:0px; margin-bottom:10px"><br>
+        <strong>Figure 8. Cross-sections of the mug model show (a) different infill angles and densities, (b) different infill patterns.</strong>
+      <p>      
+      <p>
+      	<br>
+		<b>Selecting Parameters that Minimize Print Time &amp; Material</b>
+      <p>When the user enters the number of instances, G-ID varies those slicing settings first that have the least amount of impact on print time and required material. For instance, the bottom line angle does not add any print time, does not change the resolution, and does not require additional material, whereas changing the bottom width changes the resolution slightly. Infill parameters are varied afterwards since they affect most layers of the model, starting with the infill angle, followed by infill pattern and width.       
+
+
+      <br><br>     
+	  <span class="medium-headline">DETECTING &amp; IDENTIFYING SLICING PARAMETERS</span> 
+		    
+		    
+      <p>To detect these slicing parameters on a 3D print, we apply common image processing techniques. Our pipeline is implemented using <em>OpenCV</em> and uses <em>SimpleElastix,</em> a state-of-the-art image registration library.</p>
+      <b>Aligning the Object&rsquo;s Base in Handheld Camera Images</b>
+      <p>In the first processing step, G-ID needs to further refine the position and orientation of the object in the photo the user has taken to match the outline of the 3D model that was shown on the screen. For such alignment, most existing tagging approaches include specific shapes with the tags. For example, QR codes&nbsp; have three square finder patterns. We did not want to add such markers and therefore decided to infer the position and orientation of the object based on the contour of its surface, which G-ID can extract from the 3D model. </p>
+      <p>&nbsp;</p>
+<p><img src="images/Fig9-image-registration-fourier.png" alt="mosculpt-runner" width="700" style="padding-bottom:0px; margin-bottom:10px"><br>
+  <strong>Figure 9. Image registration &amp; processing pipeline. (a) The captured outline is registered with that of the 3D model model for (b) improved alignment. (c) Its Fourier transform is used to infer line angle θ and width d. (d) The distance ∆x between intensity peaks on the inclined line is inversely proportional to d.</strong>
+<p><b>Images Used for Alignment</b>
+<p>When the user processes the 3D model in the G-ID labeling interface, it automatically saves the outline of its base in the XML file as a binary image (stored as a Base64 string). When the user loads the XML file in the app, the object appears in the user&rsquo;s model library. After choosing the desired model, the app shows the user the stored outline to assist them with facing the object from the right angle. The app automatically captures the image when the contours are matched (i.e., the bitwise XOR error between the detected contour and target contour is below an acceptable value). G-ID then applies several pre-processing steps, such as applying a bilateral filter to smooth different color and shade regions without blurring their boundaries.
+<p><b>Removing Overhangs</b>
+<p>In the next processing step, G-ID removes overhangs, i.e., filters out object geometry that is not part of the bottom surface but appears in the image due to the camera angle. G-ID filters these parts out based on their shading in the camera image: Since the bottom surface is flat and located at a different height than an overhang, the two surfaces have different reflection properties, and thus appear brighter or darker in the image (Figure 9a). To find the shading of the bottom surface, G-ID samples a small region of interest to extract the HSV values to get the corresponding threshold range. G-ID then uses the threshold to mask the contour. </p>
+<p><b>Reducing Perspective from the Image (Undistorting)</b></p>
+<p>After extracting the contour, G-ID applies an affine transformation (translation, rotation, scaling, shearing) to compute the deformation field required for alignment. As input to this image registration, we use the masked image from the previous step (converted to a binary outline) as the moving image. The fixed image is the outline of the 3D model at a constant scale. While a projective transformation would best rectify the perspective, it can be approximated by an affine transform since the perspective deviation is minimized due to human-in-the-loop camera image capturing. 
+</p>
+<p>To find the best affine transformation, we use adaptive stochastic gradient descent as the optimizer. As the objective function, we use mean squares since we work with binary images, which have little gradient information. The computed parameter map of the affine transformation is then applied to the image the user has taken to align it with the digital 3D model outline (Figure 9b). </p>
+<p>
+<b>Detecting Bottom Line Angle and Width</b>
+<p>Since the traces of the 3D printed surface have a periodic layout, we are able to detect their orientation and widths by looking at the frequency spectrum, i.e., we take the 2D Fourier transform of the image. From this spectrum, we can determine the bottom line angle  by extracting the slope of the line on which the periodic peaks lie (peaks are marked yellow in Figure 9c). We can determine the bottom line width <em>d</em> by casting the intensity values on this inclined line into a 1D array and computing the distance <em>x</em> between the maxima, which is inversely proportional to <em>d</em>. This approach is more robust than looking at the original image itself because in case the lines have irregularities, their distances may be inconsistent, whereas the Fourier transform acts as a smoothing filter and provides an averaged value.</p>
+<b>Error Checking</b>
+<p>If the picture the user has taken is of poor quality (out-of-focus, poor lighting, or accidental shaking of camera), the lines on the object surface will not be clear enough to extract correct measurements of parameters. Fortunately, these false readings can be avoided due to the nature of the 2D Fourier transform. In the Fourier spectra of digital photos, there is a strong intensity along the x and y-axis since real-world objects have many horizontal or vertical features and symmetries. If surface lines are not distinguishable, peak intensities appear on the x and y-axis and therefore erroneously result in detection of 0° or 90°. Thus, the detection of either of these two angles indicates a false reading. Therefore, we exclude these two values from our allowed slicing parameter space. Whenever our algorithm detects these two angles, we notify the user that the image has to be retaken for correct measurement.</p>
+<p>
+<b>Detecting Infill Angle, Width, and Pattern</b>
+<p>To detect the infill parameters, we first remove noise from the image that is caused by the bottom lines on the surface (Figure 10). We remove them by (a) increasing the contrast of the image, (b) blurring the image with a 2D Gaussian smoothing kernel, and (c) applying adaptive thresholding. <br>
+  To detect the infill <em>pattern,</em> we compare the resulting shapes after thresholding to the known infill pattern templates shown in Figure 10d/e. To determine infill <em>density,</em> we compare the infill templates at different scales to the size of the shapes in the image, the matching template then indicates the size of the pattern. Similarly, the infill <em>angle</em> is detected by rotating the template and finding the angle that gives the smallest sum of squared difference to shapes in the image. Since infill is detected in the stationary setup, alignment of the base is less of a concern and image registration can either be simplified or ignored for shorter processing times.</p>
+<p>&nbsp;</p>
+<p><img src="images/Fig10-image-processing.png" alt="mosculpt-runner" width="450" style="padding-bottom:0px; margin-bottom:10px"><br>
+  <strong>Figure 10. Image processing to extract the components of the infill pattern: (a) photo, (b) contrast increased, (c) blurred, (d) binarized, and (e) matched to the template of the respective infill type: grid, triangles, trihexagon from top to bottom.</strong>
+
+
+  <br><br>
+<span class="medium-headline">SPACING OF SLICING PARAMETERS</span>
+<p>We conducted an experiment to determine which parameter spacing can be reliably identified using our detection method. For the experiment, we printed a number of instances with different slicing settings and used our detection method to identify each pattern. Table 1 summarizes the results of this experiment under regular office light conditions. We focus this analysis on the parameters related to bottom surface and infill, which are seen from the object&rsquo;s base, and do not consider those related to the side (intermediate layers).<br>
+  <br>
+<div>
+  <table border="1" cellspacing="3" cellpadding="3">
+    <tr>
+      <td width="90" valign="top"><p> </p></td>
+      <td width="48" valign="top"><p><strong>Min</strong></p></td>
+      <td width="54" valign="top"><p><strong>Max</strong></p></td>
+      <td width="60" valign="top"><p><strong>Spacing</strong></p></td>
+      <td width="71" valign="top"><p><strong>Variations</strong></p></td>
+    </tr>
+    <tr>
+      <td width="90" valign="top"><p><strong>Bottom:</strong></p></td>
+      <td width="48" valign="top"><p>&nbsp;</p></td>
+      <td width="54" valign="top"><p>&nbsp;</p></td>
+      <td width="60" valign="top"><p>&nbsp;</p></td>
+      <td width="71" valign="top"><p>&nbsp;</p></td>
+    </tr>
+    <tr>
+      <td width="90" valign="top"><p>Angle (°)</p></td>
+      <td width="48" valign="top"><p>0°</p></td>
+      <td width="54" valign="top"><p>180°</p></td>
+      <td width="60" valign="top"><p>5°</p></td>
+      <td width="71" valign="top"><p>36-2=34*</p></td>
+    </tr>
+    <tr>
+      <td width="90" valign="top"><p>Width (mm)</p></td>
+      <td width="48" valign="top"><p>0.35</p></td>
+      <td width="54" valign="top"><p>0.6</p></td>
+      <td width="60" valign="top"><p>0.05</p></td>
+      <td width="71" valign="top"><p>6</p></td>
+    </tr>
+    <tr>
+      <td width="90" valign="top"><p>Bottom Total:</p></td>
+      <td width="48" valign="top"><p>&nbsp;</p></td>
+      <td width="54" valign="top"><p>&nbsp;</p></td>
+      <td width="60" valign="top"><p>&nbsp;</p></td>
+      <td width="71" valign="top"><p>= 204</p></td>
+    </tr>
+    <tr>
+      <td width="90" valign="top"><p><strong>Infill:</strong></p></td>
+      <td width="48" valign="top"><p>&nbsp;</p></td>
+      <td width="54" valign="top"><p>&nbsp;</p></td>
+      <td width="60" valign="top"><p>&nbsp;</p></td>
+      <td width="71" valign="top"><p>&nbsp;</p></td>
+    </tr>
+    <tr>
+      <td width="90" valign="top"><p>Angle (°)</p></td>
+      <td width="48" valign="top"><p>0°</p></td>
+      <td width="54" valign="top"><p>60°/90°</p></td>
+      <td width="60" valign="top"><p>5°</p></td>
+      <td width="71" valign="top"><p>12 / 18</p></td>
+    </tr>
+    <tr>
+      <td width="90" valign="top"><p>Width (mm)</p></td>
+      <td width="48" valign="top"><p>2.6</p></td>
+      <td width="54" valign="top"><p>3.2</p></td>
+      <td width="60" valign="top"><p>0.6</p></td>
+      <td width="71" valign="top"><p>2</p></td>
+    </tr>
+    <tr>
+      <td width="90" valign="top"><p>Pattern (type)</p></td>
+      <td width="48" valign="top"><p>- </p></td>
+      <td width="54" valign="top"><p>- </p></td>
+      <td width="60" valign="top"><p>- </p></td>
+      <td width="71" valign="top"><p>3</p></td>
+    </tr>
+    <tr>
+      <td width="90" valign="top"><p>Infill Total:</p></td>
+      <td width="48" valign="top"><p>&nbsp;</p></td>
+      <td width="54" valign="top"><p>&nbsp;</p></td>
+      <td width="60" valign="top"><p>&nbsp;</p></td>
+      <td width="71" valign="top"><p>= 84</p></td>
+    </tr>
+    <tr>
+      <td width="90" valign="top"><p><strong>Total:</strong></p></td>
+      <td width="48" valign="top"><p>&nbsp;</p></td>
+      <td width="54" valign="top"><p>&nbsp;</p></td>
+      <td width="60" valign="top"><p>&nbsp;</p></td>
+      <td width="71" valign="top"><p><strong>= 17,136</strong></p></td>
+    </tr>
+  </table>
+</div>
+<p>Table 1: Each slicing parameter&rsquo;s range (min, max) and incremental spacing values as determined by our experiments. The last column shows the number of variations that can be realized. (*2 angles reserved for error checking). <br>
+  <br>
+  Using the object&rsquo;s base for identification has many advantages: (1) it is easier for users to take aligned pictures of the base since it is flat, (2) it is more time and material efficient to manipulate base-related features since they only affect a single layer and have no influence on the print quality of the main surface of the object, (3) there are more combinations of identifiable features since both bottom surface and infill can be seen just from the base, (4) it is convenient to computationally process a flat surface. <br>
+  We therefore decided to first focus on the bottom layer and infill parameters, however, further analysis can be done concerning side surfaces by repeating our experiment.
+  </p>
+  </p>
+<p><b>Selecting 3D Models to Evaluate Parameter Spacings</b>
+</p>
+<p>How finely differences in slicing parameters can be detected depends on the size of the area of the bottom surface. The larger the surface, the more features can be used by the algorithm for classification. To determine a spacing of parameters that works well across different 3D models, we used objects with varying surface areas for our experiment.<br>
+  To select these objects, we downloaded the top 50 3D models from <a href="https://www.thingiverse.com/" target="_blank">Thingiverse</a>  and ranked them by their bottom surface area (i.e., the largest square one may inscribe in the contour of the first slice, determined by an automated MATLAB script). We found that 25 models had a large surface area (&gt;6cm2), 7 models had a medium surface area (1.2-6cm2), and 18 models had small surface areas (&lt;1.2cm2). These ranges were determined empirically based on our initial tests. We randomly picked one object representing each of these three categories and printed multiple instances using the parameters below.</p>
+<p><b>Determining the Range for Each Slicer Setting</b></p>
+<p>Before slicing each of the models with different settings, we first determined the min and max values for each setting.</p>
+<p><em>Bottom:</em> For the bottom angle, we can use 0°-180°. Going beyond 180° would cause instances to be non-distinguishable (i.e., 90° looks the same as 270°). We took the min value for initial bottom line width as 0.35mm, the default value recommended in the slicer <em>Cura</em>. Although this parameter can be as large as twice the nozzle size (2*0.4mm), we limit the max value to 0.6mm to avoid disconnected lines. For the pattern settings, which do not have min and max values, we considered the &ldquo;line&rdquo; pattern for the bottom surface. </p>
+<p><em>Infill</em><em>:</em> As for the infill angle, we can use a range of 0°-60°&nbsp;for the <em>trihexagon</em> and <em>triangular</em> patterns, and 0°-90°&nbsp;for the <em>grid</em> pattern, as their layouts are periodic with period 60° and 90°, respectively. For infill line distance (density), we determined that having infill units smaller than 2.6mm makes the pattern unrecognizable — we thus used it as the min value. The max value is 3.2mm for objects with medium base area but may go up to 8.0mm for larger objects. Going beyond this value would imply an infill density of less than 10%, and thus fragile, less stable objects. The three infill pattern (type) settings do not have min or max values.</p>
+<b>Slicing with Different Spacings and Capturing Photos</b>
+<p>Next, we used our three selected objects (small, medium, large), and printed them with different slicing settings. Our goal was to determine how finely we can subdivide the given parameter ranges for accurate detection. To find the optimal spacing for each parameter, we made pairwise comparisons of two values (e.g., for angles, instance #1: 8° - instance #2: 5°; difference: 3°), while keeping all other parameters constant. Based on 16 pictures taken for each pairwise comparison, we report the accuracy at which we can distinguish the two instances. For the prints with infill variations, we held a small light source <em>(Nitecore Tini)</em> against the side of the 3D printed object before taking the image.</p>
+<p><b>Results of the Experiments</b></p>
+<p>As expected, objects from the &ldquo;small&rdquo; category did not have sufficient base area to fit in enough infill units and thus not give satisfactory results. We therefore conclude that G-ID cannot be used for very small bases and excluded them from the rest of the analysis. We next discuss the results for each slicing parameter for the medium and large object category.
+</p>
+
+<p><img src="images/Fig12-combined-parameters.png" alt="mosculpt-runner" width="720" style="padding-bottom:0px; margin-bottom:10px"><br>
+  <strong>Figure 11. Detection accuracies vs. parameter spacing between pairs of instances for the four slicing parameters 
+(bottom line angle &amp; width, as well as infill angle &amp;width). All plots have the same y-range.
+</strong></p>
+
+<br>
+<p><b>Bottom Line Angle &amp; Width</b></p>
+<p>The dashed lines in Figure 11a,b indicate that a spacing of 5°&nbsp;and 0.05 mm provides a classification accuracy of 100% for both the medium and large base area categories, respectively. Thus, a range of 0°-180° would give us 36 variations for the angle. However, we exclude the two degrees 0° and 90° from the bottom line angle range since these are reserved for error checking (as described in section &ldquo;Detecting Slicing Parameters&rdquo;), therefore we have 34 variations. A range of 0.35-0.6mm allows 36 variations for the width.</p>
+<p><b>Infill Angle &amp; Line Distance (Width)</b>
+  </p>
+<p>The dashed lines in Figure 11c,d show that a spacing of 5°&nbsp;and 0.6mm provides a 100% detection accuracy for the two categories, respectively. Thus, for the ranges of 0°-60° and 0°-90°, we can use 12 or 18 variations, respectively. For the width, we can use, for medium objects, a range of 2.6-3.2mm (2 variations); and for large objects 2.6-8.0mm (10 variations). We report the smaller number in Table 1.
+</p>
+<p>
+<b>Infill Pattern</b>
+<p>The confusion matrix in Figure 12&nbsp;shows that the &ldquo;grid&rdquo; and &ldquo;trihexagon&rdquo; work for both medium and large classes. For large objects, we can also use all three different patterns.</p>
+<p><img src="images/Fig11-infill-confusion-matrix.png" alt="mosculpt-runner" width="390" style="padding-bottom:0px; margin-bottom:10px"><br>
+  <strong>Figure 12. Sliced infill patterns vs. detected infill patterns.</strong></p>
+<b>Total Number of Instances Possible</b>
+<p>Based on the results, using a parameter spacing that works for both medium and large objects, we can achieve a total of 204 instances if we only use the camera, or 17,136 instances if we use both the camera and light (see Table 1). In comparison to other types of tags, we can say that these parameter spaces have a larger code capacity than a 1D barcode with 7 or 14 bits, respectively.</p>
+<b>Cross-Validation</b>
+<p>To cross-validate our parameter spacing, we printed another random set of 16 objects (10 large, 6 medium) from the same top 50 model list from Thingiverse (excluding the ones we used in the previous experiment) with white filament. Before printing, we randomly assigned each model a combination of slicing settings from the available parameter space and then tested if G-ID can identify them. Our second goal was to see if the parameter spacing still applies when multiple parameters are varied at the same time (our previous experiment only varied one slicing parameter per instance at a time). Among the 10 objects with large bottom area, all slicing parameters were correctly identified. Among the 6 objects from the medium category, 5 were correctly identified. In total, the detection accuracy is 93.75%. The falsely identified model had the smallest bottom surface area (1.4cm2), which confirms the fact that objects without sufficient surface area cannot be recognized.</p>
+<br>
+<p>
+<p><img src="images/Fig13-Pipeline-overview-system.png" alt="mosculpt-runner" width="480" style="padding-bottom:0px; margin-bottom:10px"><br>
+  <strong>Figure 13. System overview. </strong><br>
+
+
+  <br><br>
+  <span class="medium-headline">SYSTEM IMPLEMENTATION</span>
+  <br>
+  <p>An overview of the system is shown in Figure 13. G-ID&rsquo;s labeling interface for creating multiple instances runs on the browser and is based on WebGL. Once the user drags a 3D model (.stl) onto the canvas and enters the number of instances, the interface calls its backend written in Python, which is responsible for the distribution of the slicing parameters. Once the slicing parameters are determined for each individual instance, the backend calls the slicer <em>CuraEngine</em> to compute the G-code for each instance.</p>
+  <p>After the instances are sliced with their individual slicer settings, the user is shown the 2D sliced layers as well as the 3D model. For rendering these previews, we use the JavaScript library <em>Three.js</em>. Finally, G-ID saves an .XML file with the slicing parameters, labels and the contour of the object&rsquo;s base as an image (created using an automated MATLAB script) for future identification with the G-ID mobile app.</p>
+
+  <br>
+  <span class="medium-headline">EVALUATION</span>
+  <br><br>
+  <p><strong>Different Materials, Lighting Conditions, Thicknesses</strong></p>
+  <p><em>Surface:</em> To see how the filament&rsquo;s color and different lighting affect the detection of surface parameters, we printed six instances of the key cover with eight different colors of Ultimaker PLA filaments (total of 48 instances) and using a dimmable LED lamp varied the light in the room from 0 – 500 lux (measured with lux meter Tacklife LM01). We picked the filament colors to be the primary and secondary colors of the RYB model, as well as white and black filament. We selected the light intensities to represent different low-light conditions. For slicing, we used surface parameters distributed evenly along bottom line angle and width within the allowed range from Table 1. The results are shown in Figure 14. All colors worked well for lighting conditions above 250 lux. This shows that our approach works well in classrooms (recommended light level: 250 lux) and offices/laboratories (recommended light level: 500 lux). The results also show that the camera needs more light to resolve the lines for lighter colors (i.e., white and yellow) than for darker colors. Since we used white filament for our parameter spacing evaluation, the results in Table 1 work even for worst-case scenarios. This also means that for other filament colors, an even smaller surface area would suffice for correct detection since the surface details can be better resolved.  </p>
+  <p><img src="images/Fig14-Lighting.png" alt="mosculpt-runner" width="450" style="padding-bottom:0px; margin-bottom:10px"><br>
+    <strong>Figure 13. System overview. </strong></p>
+  <p><em>Infill:</em> We were able to detect the patterns for all of the aforementioned filament colors except for black due to its opaque nature. Further, the brighter the light, the thicker the object base may be: 145 lumens suffice for a base of 1mm (suggested thickness in Cura), 380 lumens suffice for 1.75 mm.</p>
+  <b>Different 3D Printers</b>
+  <p>Since G-ID takes as input universal units like millimeters (width) and degrees (angle), our method extends to FDM printers other than the one we used for the experiments. To confirm this, we fabricated six test prints on the 3D printers Prusa i3 MK3S and Creality CR-10S Pro in addition to the Ultimaker 3 that we used for our experiments, and inspected the traces laid down with a microscope. The line widths of the prints had an average deviation of 9.6m (Prusa) and 10.7m (Creality) from the Ultimaker 3 prints. The line angles had an average deviation of 0.5° (Prusa) and 0.25° (Creality). These deviations are insignificant for our detection method since the spacing values chosen for the parameters are much larger than these values. To verify this, we used our mobile app to take pictures of these samples and ran our algorithm, which correctly detected the unique identifiers.</p>
+  <p><b>Camera Distance and Angle</b>    </p>
+  <p><em>Distance</em>: If the phone is held too far away from the object, the camera cannot detect the detailed grooves on the surface. To determine how far the camera can be held from the object, we took pictures with smartphones of different camera resolutions. We found that the iPhone 5s (8MP) can resolve the slicing parameter features up to 26cm, Pixel 2 (12.2MP) up to 36cm, and OnePlus 6 (16MP) up to 40cm. Taking into account the cameras&rsquo; field of view, this means that users can fit in an object with one dimension as large as 29cm, 45cm, and 52cm, respectively. G-ID guides users into the correct camera distance by varying the size of the object outline displayed on the user&rsquo;s phone for alignment. <br>
+      <em>Angle:</em> Since our image registration technique uses affine transformation, it is not able to fully remove the perspective distortion if the camera angle varies strongly. However, since our app guides users to align the object, the distortion is negligible. To show our algorithm can robustly read bottom surface parameters on a variety of shapes, we created a virtual dataset similar to the <em>LayerCode</em> paper. We downloaded the first 600 models from the <a href="https://arxiv.org/abs/1605.04797" target="_blank">Thingi10K</a> database that have a rotationally non-symmetric base of appropriate size, sliced them with a random set of slicing settings, and rendered the G-codes using 3D editor <em>Blender.</em> We placed the virtual camera at points located on a spherical cap above the object base, with 8 evenly sampled azimuthal angles for each of the 5 polar angles. The percentage of shapes read correctly for each polar angle value <em>θ</em> is given in Table 2. The spacing values chosen for the parameters act as a buffer to prevent false readings. The objects for which detection failed at small angles had rather rounded bases, which makes alignment challenging. </p>
+    <table width="352" height="66" border="1" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="65" align="left" valign="middle"><strong><em>θ</em></strong></td>
+        <td width="52" align="left" valign="middle"><p>4°</p></td>
+        <td width="52" align="left" valign="middle"><p>6°</p></td>
+        <td width="52" align="left" valign="middle"><p>8°</p></td>
+        <td width="52" align="left" valign="middle"><p>10°</p></td>
+        <td width="52" align="left" valign="middle"><p>12°</p></td>
+      </tr>
+      <tr>
+        <td width="65" align="left" valign="middle"><p align="left"><strong>Accuracy</strong></p></td>
+        <td width="52" align="left" valign="middle"><p>98.50%</p></td>
+        <td width="52" align="left" valign="middle"><p>94.50%</p></td>
+        <td width="52" align="left" valign="middle"><p>86.67%</p></td>
+        <td width="52" align="left" valign="middle"><p>75.00%</p></td>
+        <td width="52" align="left" valign="middle"><p>64.50%</p></td>
+      </tr>
+    </table>
+    <p>Table 2: Polar angle <em>θ</em> vs. the percentage of identified objects.</p>
+
+    <br><br>
+    <span class="medium-headline">APPLICATION SCENARIOS</span>
+    <br><br>
+    <p>Below, we outline three further example scenarios in addition to the two previously explained applications.<br>
+      <em>Finding Optimal Print Settings:</em> G-ID can be used to identify which slicing parameters a particular 3D print was created with. In Figure 15, a maker is trying to find the best angle for optimizing mechanical strength, and prints the model multiple times with varying settings. Rather than carefully writing down which settings were used for which one, the maker can retrieve a particular setting from a print simply by taking a picture of it. It is unlikely that they users estimate these settings by eye correctly as seeing tiny differences is not trivial.</p>
+    <p><img src="images/Fig15-Dinosaurs.png" alt="mosculpt-runner" width="450" style="padding-bottom:0px; margin-bottom:10px"><br>
+      <strong>Figure 15. Identifying particular print settings with G-ID: (a) exploring different slicing parameters and (b) printing them, (c) retrieving the best settings using G-ID.
+</strong></p>
+    <p><em>User Identification:</em> G-ID can be used to create identifiable objects that belong to a specific user cheaply and rapidly as it doesn&rsquo;t require the user to embed, e.g., an RFID/NFC tag in a separate step. For instance, in <em>toys-to-life</em> video games, physical character figurines that carry a G-ID label can be used to load a player&rsquo;s identity/score. When users insert their figurine into the G-ID reader, it communicates the user&rsquo;s ID to the game to display their name and score (Figure 16).
+</p>
+    <p><img src="images/Fig17-Figurine_toys.png" alt="mosculpt-runner" width="510" style="padding-bottom:0px; margin-bottom:10px"><br>
+      <strong>Figure 16. (a) Toys-to-life figurines are used to identify the player and display their info in the video game.</strong></p>
+    <p><em>Labeling a Commercial 3D Print for Anti-Counterfeiting:</em> Online 3D printing services such as <em>3D Hubs</em> or <em>makexyz</em>  ensure to refund customers if they can show a 3D model was not printed according to the user&rsquo;s specifications. By slicing a model using certain settings and storing this information, they can verify that a returned object was indeed fabricated by them before a refund is approved. Let us assume a 3D model is leaked and frauds attempt to print a copy themselves and then return that to get a refund (although they never bought it in the first place). Businesses can use G-ID to cross-verify the print setting used to create the original.</p>
+
+    <br><br>
+    <span class="medium-headline">DISCUSSION &amp; LIMITATIONS</span>
+    <br><br>
+    <p>Next, we discuss limitations and future work for labeling and identifying objects by their slicing parameters.</p>
+    <strong>Other Slicing Parameters </strong>
+    <p>In this work, we focused on surface and infill parameters, which offer a large number of unique identifiable features. Other slicing parameters, such as those that create geometry that is removed after fabrication (e.g., those related to <em>support material</em> or <em>build plate adhesion</em>) are less suitable.</p>
+    <p>However, for special materials, such as wood filaments, the shade of the object&rsquo;s color can be altered by varying the speed and temperature, which could be used to create differences among instances: the hotter/slower the extruder, the more the wood particles burn and the darker the resulting surface (Figure 17). However, since the changes affect the objects appearance, we do not consider them for our work.</p>
+  
+    <p><img src="images/Fig16-temperature-wood.png" alt="mosculpt-runner" width="440" style="padding-bottom:0px; margin-bottom:10px"><br>
+      <strong>Figure 17. The hotter the nozzle, the darker the print’s finish.</strong></p>
+    <strong>Rotational Symmetry of Outlines</strong>
+    <p>Since we use the outline of objects to extract the orientation of features, objects whose bases are rotationally symmetric are less suitable for our approach. Thus, the number of identifiable angles is reduced for certain shapes, e.g., for a square base, the range narrows down from 0°-180° to 0°-90°.</p>
+    <strong>Non-Flat Side Surfaces </strong>
+    <p>When a camera&rsquo;s optical axis is parallel to the object&rsquo;s axis of rotation on the build plate, the layer traces on a curved surface appear as straight, parallel lines and the features can be extracted similarly using Fourier transforms. For that, we instruct the user to take a picture from the correct viewpoint (as shown in Figure 18) by generating a silhouette guide of the object taking into account the camera&rsquo;s focal length</p>
+    <p><img src="images/Fig18-dinosaur-non-flat-sides-Fourier.png" alt="mosculpt-runner" width="330" style="padding-bottom:0px; margin-bottom:10px"><br>
+      <strong>Figure 18. (a) Model’s axis of rotation is orthogonal to the image plane of the virtual camera, (b) rendered target outline for the user to align model, (c) image has parallel traces</strong>.</p>
+    <strong>Applicability Beyond FDM Printing</strong>
+    <p>FDM and SLA printing have been the most accessible consumer techniques for the last decade. Although SLA achieves better resolutions, individual layers on objects can still be distinct (Figure 19). As for DLP printing, the projected pattern creates rectangular voxels that cause the edges to look stepped; different voxel sizes thus lead to different appearances . Most printing methods use infill, so the general idea of varying infill still applies. We thus think our method will stay relevant. Even if printing imperfections become smaller in the future, there are two factors to consider: As 3D printers improve in resolution, camera resolution improves over time (see Samsung&rsquo;s latest 108MP sensor). Computer vision gets better too: Neural networks can now pick up details beyond what the human eye or traditional image processing can detect, e.g., they have been used to identify tiny defects in solar cells  or dents in cars.</p>
+    <p><img src="images/Fig18-SLS.png" alt="mosculpt-runner" width="270" style="padding-bottom:0px; margin-bottom:10px"><br>
+      <strong>Figure 19. Formlabs SLA print captured by a phone camera.</strong></p>
+
+      <br>
+
+    <span class="medium-headline">CONCLUSION &amp; FUTURE WORK</span>
+    <br><br>
+    <p>We presented G-ID, a method that utilizes the subtle patterns left by the 3D printing process to identify objects and that provides both a labeling and identification interface for creating and detecting surface and infill parameters using only a commodity camera. We reported on the code capacity enabled by an off-the-shelf slicer. In the future, this can be scaled up by building a custom slicer for creating unique print paths that go beyond what current slicers offer, e.g., spatial pattern tiling could expand the number of encodings (2 different tiles would give more than 2042=41,616 combinations). Also, our current implementation uses optimization-based image registration, which takes a few seconds. In the future, we can enable continuous detection for faster image capturing using optimization-free contour matching methods.</p>
+    <br>
+    <span class="medium-headline">ACKNOWLEDGMENTS </span>
+    <br>
+    <p>We thank Alexandre Kaspar, Liane Makatura, Danielle Pace, and Jack Forman for the fruitful discussions. This work was supported in part by NSF Award IIS-1716413. Sriram Subramanian is grateful for the ERC Advanced Grant (#787413) and the RAEng Chairs in Emerging Technology Program.</p>
+    <p>
+      <br>
+      
+      </br>
+      </br>
+      </br>
+      </br>
+      
+      
+    </div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 footer" style="text-align: center;">
+			<span class="copyright">
+			Since 2017 &copy; MIT CSAIL (HCI Engineering group) [redesign by
+			<a href="http://punpongsanon.info/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			moji
+			</a>].
+			All Rights Reserved.
+
+			<a href="http://mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="http://hcie.csail.mit.edu/images/logo/mit.svg" alt="MIT" class="footer-logo" />
+			</a>
+			<a href="http://csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="http://hcie.csail.mit.edu/images/logo/csail.svg" alt="CSAIL" class="footer-logo"/>
+			</a>
+			<a href="http://hci.csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="http://hcie.csail.mit.edu/images/logo/hci.svg" alt="HCI" class="footer-logo"/>
+			</a>
+			</span>
+		</div>
+	</div>
+</div>
+
+<!-- Bootstrap -->
+<script type="text/javascript" src="https://hcie.csail.mit.edu/js/bootstrap.min.js"></script>
+<!-- header -->
+<script type="text/javascript" src="https://hcie.csail.mit.edu/js/headerstrap-for-subpage.js"></script>
+<!-- lightbox -->
+<script type="text/javascript" src="../../js/lightbox.js"></script>
+
+</body>
+</html>

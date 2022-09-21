@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Protopiper: Physically Sketching Room-Sized Objects at Actual Scale</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!-- CSAIL ICON -->
+	<link rel="CSAIL" href="http://hcie.csail.mit.edu/images/icon/csail.ico" type="image/x-icon" />
+
+	<!-- Bootstrap -->
+	<link href="https://hcie.csail.mit.edu/css/bootstrap.css" rel="stylesheet">
+	<link href="https://hcie.csail.mit.edu/css/custom-style.css" rel="stylesheet">
+	
+	<!-- Lightbox -->
+	<link href="../../css/lightbox.css" rel="stylesheet">
+
+	<!-- jQuery --> 
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+	
+	<!-- Google Analytic -->
+	<script type="text/javascript" src="https://hcie.csail.mit.edu/js/analytics.js"></script>
+</head>
+
+<body>
+<header class="main_header">
+	<!-- to be filled by javascript, see header.html -->
+</header>
+<div class="container" style="padding-top: 100px;">
+	<div class="row">
+	<!-- Publication details -->
+	<div class="col-md-4" style="text-align: left;">
+		</br>
+		</br>
+		<span class="medium-headline">
+		Publication
+		</span>
+		</br>
+		</br>
+		Agrawal, H., Umapathi, U., Kovacs, R., Frohnhofen, J., Chen, H.T., Mueller, S., Baudisch, P.   
+		</br>
+		Protopiper: Physically Sketching Room-Sized Objects at Actual Scale.
+		</br>
+		In Proceedings of 
+		<a href="https://uist.acm.org/uist2015/about" target="_blank">UIST &#8217;15</a>
+		, pp. 427-436.
+		</br>
+		Demo at UIST'15
+		</br>
+		</br>
+			<a href="https://dl.acm.org/citation.cfm?id=2807505" class="btn btn-doi" alt="doi" target="_blank">DOI</a> 
+			&nbsp; &nbsp; 
+			<a href="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/2015-uist-protopiper-paper.pdf" class="btn btn-pdf" alt="pdf" target="_blank" >Paper</a> 
+			&nbsp; &nbsp; 
+			<a href="https://www.youtube.com/watch?v=beRA4sIjxa8" class="btn btn-vdo" alt="video" target="_blank">Video</a> 
+			&nbsp; &nbsp; 
+			</br>
+			</br>
+			<br>
+			I worked on this project before joining MIT. Here is the original <a href="https://hpi.de/baudisch/projects/protopiper.html">ProtoPiper project page</a> at Hasso Plattner Institut.<br><br>
+
+			<a href="https://hpi.de/baudisch/home.html"><img src="../../images/logo/hpi-logo.png" height="100px"></a>
+			</br>
+			</br>
+			<span class="medium-headline">
+			Press
+			</span>
+			</br>
+			</br>
+			<ul>
+				<li><a href="http://gizmodo.com:80/an-upgraded-tape-gun-lets-you-quickly-build-life-size-w-1738566035">Gizmodo</a></li>
+				<li><a href="https://web.archive.org/web/20170206163243/http://makezine.com/2015/10/29/turning-a-tape-gun-into-a-prototyping-machine/">MAKE Magazine</a></li>
+				<li><a href="http://www.3ders.org:80/articles/20151029-3d-printed-handheld-protopiper-sketch-room-sized-objects-at-actual-scale.html">3ders.org</a></li>
+			</ul>
+			</br>
+			</br>
+			<span class="medium-headline">
+			Video
+			</span>
+			</br>
+			</br>
+			<iframe width="325" height="190" src="https://www.youtube.com/embed/beRA4sIjxa8" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+			</br>
+			</br>
+			<span class="medium-headline">
+			Slides
+			</span>
+			</br>
+			</br>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0001.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(1)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0002.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(2)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0003.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(3)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0004.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(4)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0005.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(5)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0006.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(6)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0007.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(7)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0008.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(8)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0009.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(9)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0010.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(10)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0011.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(11)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0012.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(12)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0013.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(13)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0014.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(14)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0015.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(15)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0016.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(16)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0017.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(17)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0018.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(18)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0019.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(19)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0020.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(20)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0021.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(21)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0022.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(22)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0023.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(23)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0024.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(24)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0025.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(25)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0026.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(26)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0027.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(27)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0028.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(28)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0029.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(29)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0030.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(30)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0031.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(31)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0032.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(32)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0033.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(33)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0034.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(34)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0035.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(35)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0036.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(36)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0037.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(37)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0038.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(38)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0039.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(39)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0040.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(40)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0041.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(41)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0042.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(42)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0043.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(43)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0044.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(44)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0045.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(45)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0046.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(46)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0047.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(47)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0048.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(48)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0049.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(49)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0050.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(50)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0051.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(51)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0052.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(52)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0053.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(53)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0054.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(54)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0055.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(55)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0056.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(56)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0057.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(57)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0058.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(58)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0059.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(59)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0060.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(60)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0061.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(61)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0062.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(62)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0063.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(63)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0064.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(64)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0065.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(65)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0066.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(66)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/thumbnails/uist-2015-protopiper-0067.jpg" alt="protopiper-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(67)" class="hover-shadow"/>
+		</br>
+		</br>
+	</div>
+	<!-- For slide show -->
+	<!-- close button on tne right corner -->
+	<div id="lightbox-modal" class="lb-modal">	
+		<div class="modal-content">
+			<div class="lb-slides">
+			<div class="numbertext">1 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0001.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">2 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0002.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">3 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0003.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">4 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0004.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">5 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0005.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">6 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0006.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">7 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0007.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">8 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0008.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">9 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0009.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">10 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0010.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">11 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0011.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">12 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0012.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">13 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0013.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">14 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0014.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">15 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0015.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">16 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0016.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">17 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0017.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">18 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0018.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">19 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0019.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">20 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0020.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">21 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0021.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">22 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0022.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">23 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0023.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">24 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0024.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">25 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0025.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">26 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0026.jpg" alt="constructable-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">27 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0027.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">28 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0028.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">29 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0029.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">30 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0030.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">31 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0031.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">32 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0032.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">33 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0033.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">34 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0034.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">35 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0035.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">36 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0036.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">37 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0037.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">38 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0038.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">39 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0039.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">40 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0040.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">41 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0041.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">42 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0042.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">43 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0043.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">44 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0044.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">45 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0045.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">46 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0046.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">47 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0047.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">48 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0048.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">49 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0049.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">50 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0050.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">51 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0051.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">52 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0052.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">53 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0053.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">54 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0054.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">55 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0055.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">56 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0056.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">57 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0057.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">58 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0058.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">59 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0059.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">60 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0060.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">61 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0061.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">62 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0062.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">63 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0063.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">64 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0064.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">65 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0065.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">66 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0066.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">67 / 67</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/protopiper/presentation-images/uist-2015-protopiper-0067.jpg" alt="constructable-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+
+			<!-- Next/previous controls -->
+			<a class="close-button" onclick="closeModal()">&times;</a>
+			<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+			<a class="next" onclick="plusSlides(1)">&#10095;</a>
+		</div>
+	</div>
+	
+	<!-- Project information -->
+	<div class="col-md-8" style="text-align: left;">
+		<h3 class="headline">
+		Protopiper:<br>
+		Physically Sketching Room-Sized Objects at Actual Scale
+		</h3>
+		</br>
+
+		<img src="images/protopiper-large-scale-prototyping-sofa.jpg" alt="protopiper-large-scale-prototyping-sofa" width="725" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 1: Protopiper is a hand-held physical sketching device. Unlike smaller devices that extrude plastic, protopiper creates tubes with connectors from adhesive tape. By allowing users to sketch and prototype room-sized objects at actual-scale, users can verify their designs during prototyping. For example, they can make sure that objects fit with the room or their bodies. 
+		</b> 
+		</br>
+		</br>
+		Physical sketching of 3D wireframe models using a hand-held plastic extruder allows users to explore the design space of 3D models efficiently. Unfortunately, the scale of these devices limits users’ design explorations to small-scale objects. We present protopiper, a computer aided, hand-held fabrication device that allows users to sketch room-sized objects at actual scale. The key idea behind protopiper is that it forms adhesive tape into tubes as its main building material, rather than extruded plastic or photopolymer lines. Since the resulting tubes are hollow they offer excellent strength-to-weight ratio, and thus scale well to large structures. Since the tape is pre-coated with adhesive it connects into tubes quickly, unlike extruded plastic that would require heating and cooling in the kilowatt range. We demonstrate protopiper’s use through several demo objects, ranging from more constructive objects, such as furniture, to more decorative objects, such as statues. In our exploratory user study, 16 participants created objects based on their own ideas. They rated the device as being “useful for creative exploration”, “its ability to sketch at actual scale helped judge fit”, and “fun to use.”
+		</br>
+		</br>
+		 <span class="medium-headline">
+		Protopiper
+		</span>
+		</br>
+		</br>
+		Figure 1 shows two protopiper users in the process of creat-ing sofa designs, in search of the one style and size that looks best and fits into the surrounding room. Unlike paper, CAD programs, or off-scale sketching tools, protopiper allows them to sketch the sofa at actual scale. This allows them to verify their questions during sketching already. When finished, they use the measurements of their “pro-topipe” to either get a custom sofa made or to find a read-ymade sofa of matching style and dimensions (Figure 1c).
+		Figure 2 shows a more encompassing example, i.e., the outcome of a longer design session that investigated what furniture and appliances might go best with the new kitch-en. Again, during the design process users can already vali-date their designs, i.e., make sure that everything fits, that overhead cupboards can be reached by all family members, and that remaining spaces do not feel too tight. Sketching at actual scale causes ergonomic mishaps “pop out”, as users naturally use their own bodies as references.
+		</br>
+		</br>
+		<img src="images/protopiper-large-scale-prototyping-kitchen.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 2: Working at actual scale allows discovering design mishaps (e.g. ergonomic issues) already during prototyping. 
+		</b> 
+		</br>
+		</br>
+		The sofa and kitchen examples illustrate how protopiper allows users to construct rectilinear objects, such as furniture. Protopiper, however, works equally well for freeform expression, such as the T-Rex sculpture shown in Figure 3.
+		</br>
+		</br>
+		<img src="images/protopiper-godzilla.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 3: A T-Rex sculpture made using protopiper.
+		</b> 
+		</br>
+		</br>
+		Figure 1b show the protopiper device. The key idea behind it is that it forms adhesive tape into tubes as its main build-ing material, rather than extruded plastic or photopolymer lines. Since the resulting tubes are hollow they offer excel-lent strength-to-weight ratio, thus scale well to large struc-tures. Since the tape is pre-coated with adhesive it forms and connects into tubes quickly.
+		Protopiper’s primary function is to shape adhesive tape into light and sturdy tubes and to provide these tubes with what we call wing connectors—one at each end (Figure 4). Wing connectors connect tubes to flat or curved surfaces, such as walls or ceilings, or other tubes.
+		</br>
+		</br>
+		<img src="images/protopiper-connectors.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 4: Protopiper provides tubes with wing connectors, which can connect to: (a) walls, (b) other objects, (c) tubes.
+		</b> 
+		</br>
+		</br>
+		Protopiper’s tubes also afford creating simple mechanisms. By creasing them, for example, users form hinges. Hinges allow for moving mechanisms, like the opening-closing umbrella in Figure 5b/c. We will discuss other connections and mechanisms enabled by protopiper in the “Design Vocabulary” section.
+		</br>
+		</br>
+		<img src="images/protopiper-umbrella.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 5: (a) Protopiper allows creating simple mechanisms, such as hinges that allow opening-closing an umbrella (b, c).
+		</b> 
+		</br>
+		</br>
+		 <span class="medium-headline">
+		Contribution
+		</span>
+		</br>
+		</br>
+		The key contribution of protopiper is that it allows users to sketch room-size objects at actual scale, allowing them to validate their designs against the physical world during sketching. Our main engineering contribution is the idea to form adhesive tape into tubes as the main building material for physical prototyping—rather than extruding hot plastic.</br>
+The concept of physical sketching at large scale works because (1) our hollow tubes provide excellent strength-to-weight ratio, (2) the use of tape pre-coated with adhesive eliminates the need for heating/cooling that a plastic extrusion system would be subject to, (3) the device produces tubes fast enough for real time use, and (4) the device is light enough (approx. 1kg) to be operated free hand.
+</br>
+		</br>
+Protopiper offers a range of useful functionality: (1) The wing connectors allow users to build directly on walls, the ground, and other tubes; (2) hinges etc. allow creating simple mechanisms; and (3) by producing straight, cut-to-length tubes, protopiper allows for reasonably accurate construction, rather than just doodling.</br>
+We condensed the feature set to a small set of tools, i.e., measurements to relate to the environment, design elements to support the most common object types, diagonals to obtain structural integrity, and a single connector design. This allowed us to equip protopiper with a simple user interface, which in turn allows users to focus on their current sketch.
+</br>
+		</br>
+While using tubes as a building element has many benefits, there are also two limitations: (1) if users ever accidentally crease a tube, the inside of the tube can stick to itself, which requires manual effort to restore. (2) Since tubes are designed to be straight and stiff, users have to approximate curves as sequences of straight pipes.
+		</br>
+		</br>
+ <span class="medium-headline">
+		Hardware Design of Protopiper
+		</span>
+		</br>
+		</br>
+		Figure 6 shows a close-up of the protopiper device. It is hand-held and self-contained, allowing users to move around freely.</br>
+		</br>
+		</br>
+		<img src="images/protopiper-device.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 6: The hand-held protopiper device.
+		</b> 
+		</br>
+		</br>
+		The device create tubes using the simple “assembly line” shown in Figure 7: it pulls the tape off the roll, shapes it into a tube, seals the tube, “brands” the wing connectors into the tube, and finally cuts the finished tube off.
+		</br>
+		</br>
+		<img src="images/protopiper-workflow.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 7: The protopiper device produces tubes in 5 steps. 
+		</b> 
+		</br>
+		</br>
+		Step 1 – pulling the tape off the roll: Pressing the extrude button on the device drives a pair of geared rollers that draw the tape off the roll (Figure 8). The metal surface and rippled texture of the gears prevent the sticky inside of the tape from getting stuck to the gears.
+		</br>
+		</br>
+		<img src="images/protopiper-tape-rolling-mechanism.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 8: Protopiper’s “extrusion” mechanism. This pair of gears pulls the tape off the roll.  
+		</b> 
+		</br>
+		</br>
+		To minimize the required pulling force, we use tape with a backing layer that easily peels off. This backing layer is wound back on a friction-coupled second spool, as shown in Figure 9. 
+		</br>
+		</br>
+		<img src="images/protopiper-friction-pair.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 9: A second spool gathers the tape’s backing layer. 
+		</b> 
+		</br>
+		</br>
+		Step 2 – shaping the tape into a tube: the tape is shaped into a tube by the series of guides and stencils shown in Figure 10. First a roller prong pushes the tape down, separating the tape from its backing layer and creasing the tape into a “v” shape. Next the “u” stencil gives the tape a more continuous curvature. Finally, the “e” stencil arranges the tape so that the two edges overlap, preparing it to be sealed into a tube. 
+		</br>
+		</br>
+		<img src="images/protopiper-stencils.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 10: A series of stencils shapes the tape into a tube by successively increasing curvature. 
+		</b> 
+		</br>
+		</br>
+		Figure 11 shows the stencils in detail. Note the rippled edges on the inside of the stencils—these reduce friction between the stencils and the adhesive tape.
+		</br>
+		</br>
+		<img src="images/protopiper-u-and-e-stencils.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 11: (a) The “u” and (b) “e” stencils that shape the tape into a tube.
+		</b> 
+		</br>
+		</br>
+		Step 3 – sealing the tube: Protopiper now seals the tube by pressing the two overlapping edges together. This function is performed by the same two gears that pull the tape from the roll (Figure 8). Sealing the tape into a tube gives the tube its structural integrity.
+	</br>
+		</br>
+Step 4+5 – making the connector and cutting off the tube: Two “branding irons” are heated up by running electricity through the resistive wires (Figure 12a), then a servomotor presses the branding irons into the sides of the tube. A clamp at the end of the cutting mechanism stabilizes the tube while it is being cut (Figure 12b). After finishing the cut, the user can slightly pull on the tube to remove it from the device.
+		</br>
+		</br>
+		<img src="images/protopiper-cutting-mechanism.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 12: Making connectors: (a) Two “branding irons” heat up, (b) then a servomotor presses them into the tube’s sides.
+		</b> 
+		</br>
+		</br>
+		As illustrated by Figure 13, a single action of this mechanism cuts the pipe, and produces a wing connector at the end of the current pipe and at the beginning of the next pipe.</br>
+Alternatively, the device can create a straight cut without wing connectors; protopiper accomplishes this by heating up only the middle wire of the branding mechanism. The cutting wires need to be cleaned from time-to-time and replaced after approximately 300 cuts. 
+		</br>
+		</br>
+		<img src="images/protopiper-cutting-connectors.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 13: A single cut produces two wing connectors at the same time, one at the end of the completed tube and one at the beginning of the next tube.
+		</b> 
+		</br>
+		</br>
+As shown in Figure 14, protopiper’s assembly line ends with a square frame. It serves as a folding edge that allows users to efficiently form living hinges on the extruded pipe. 
+		</br>
+		</br>
+		<img src="images/protopiper-hinging-square.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 14: This square frame helps users create hinges.
+		</b> 
+		</br>
+		</br>
+		<b>Tape</b></br>
+		We designed our prototype so as to create ~17.5 mm diameter tubes (incl. ~5 mm overlap); thus the flat tape has a width of 60mm. We evaluated different types of tape with the requirements that the tape should be easy to roll and feature above-average stiffness. We achieved best results with “graphical foil” tape that comes with a backing layer (e.g., ORAFOL 8300, 10m tape roll cost around 2 Euro). We also got excellent results with adhesive paper tape, which resulted in even stiffer tubes. However, its heat resistance required it to be cut mechanically using rotating blades.
+		</br>
+		</br>
+		<b>Electronics</b></br>
+		Protopiper contains a microcontroller board (Arduino Nano) as shown in Figure 15. It controls the extrusion, the heating, and the cutting.</br>
+Protopiper extrudes tubes at a rate of ~8 cm/sec, which creates a 90cm edge (standard height of kitchen appliances) in about 11-12 seconds, making it easy for users to handle the device. Expert users might choose a more powerful extrusion motor to obtain even faster extrusion. Protopiper fabricates tubes with ≤ 1cm length error per 1 meter extrusion length; it manages this by reading the internal encoder of the servomotor.
+Protopiper is powered by a single 11.1 V, 1000 mAh, LiPo battery. While the servomotors (Dynamixel XL-320) need only about 3-4 W energy, most of the power goes to the cutting mechanism, which consumes up to 30 W to heat up the wires. One battery charge powers the device for ~150-200 cuts.
+		</br>
+		</br>
+		<img src="images/protopiper-electronics.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 15: Protopiper’s electronics, here assembled on a perfboard – hidden into the handle of the device.
+		</b> 
+		</br>
+		</br>
+		<b>Tool selection menu and display</b></br>
+		Figure 16 shows protopiper’s user interface. The main functions are one pushbutton that extrudes tubes and another one that cuts tubes.</br>
+Protopiper also offers additional expert functions that simplify precise construction. A dial allows users to produce tubes of precise length, such as replicating the exact length of the previously created tube or creating a diagonal strut for a rectangular frame. A four digit alphanumeric display informs users about the currently chosen function and the length of the extruded tube.
+		</br>
+		</br>
+		<img src="images/protopiper-user-interface.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 16: Protopiper’s user interface.
+		</b> 
+		</br>
+		</br>
+		For freeform use, protopiper allows users to extrude tubes of arbitrary length using the extrusion button on the device’s handle. The device keeps extruding tube as long as the user hold down the button.
+	</br>
+		</br>
+For more construction-oriented tasks, such as the box shown in Figure 17, protopiper offers additional functionality. The vertical tubes, for example, should all be the same length. Protopiper supports this by allowing users to replicate the length of the previous tubes by double pressing the extrusion button. 
+</br>
+		</br>
+		<img src="images/protopiper-same-length-and-diagonal.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 17: Protopiper allows (a) replicating tubes of the same length, and (b) automatically generates diagonal struts. 
+		</b> 
+		</br>
+		</br>
+		For more complex construction tasks, protopiper offers three memory slots each of which stores one tube length. Figure 16, for example, shows a recall from memory slot A, which has a 0.30m tube stored. Another common construction task is the addition of diagonal struts to reinforce a design (Figure 17b). By rotating the tool switch to the position “AB”, “BC”, or “AC”, users request protopiper to create a tube that fits the diagonal between the two stored lengths.
+		</br>
+		</br>
+		<b>Creating cuts, connectors, and hinges</b></br>
+		 As already mentioned, protopiper supports the three types of tube endings shown in Figure 18. (a) To create a straight cut, users single press the cut button. (b) They double press the cut button to produce a wing connector. (c) They triple press it to produce a hinge. This aligns the tube with the hinge square, allowing users to hinge the tube in the desired direction.
+		</br>
+		</br>
+		<img src="images/protopiper-connectors.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 18: (a) straight cut, (b) wing connector, (c) living hinge.
+		</b> 
+		</br>
+		</br>
+		<b>Digitization</b></br>
+		 To help users turn sketched objects into specifications for subsequent fabrication, we scan objects using a mobile scanning app (123D Catch, 123dapp.com/catch). The scan of the cupboard in Figure 19b is sufficient to capture the overall geometry and allow manufacturer to extract measurements.
+	</br>
+		</br>
+Our initial design of protopiper also featured a 6DOF live tracking based on the Sony PS move (with the illuminated marker mounted onto the protopier device). This subsystem streamed the location data of the device to an external computer during the protopiping process. A custom Unity-3D plug-in received the tracking data and beautified the final result by guessing which edges could be approximated by a rectilinear design, resulting in a 3D line drawing. We dropped this subsystem in favor of the digitization using a mobile phone, which eliminated all set-up effort and better fits better our use case. 
+		</br>
+		</br>
+		<img src="images/protopiper-digitization.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 19: (a) Cupboard, (b) digitalized using Autodesk 123D Catch.
+		</b> 
+		</br>
+		</br>
+		<span class="medium-headline">
+		Design Vocabulary of Protopiper
+		</span>
+		</br>
+		</br>
+		Despite their simplicity, protopiper’s three basic mechanical elements (tube, wing connector, and living hinge) can produce a wide range of combinations and arrangements. In the following, we describe the space of objects protopiper can produce and the resulting design vocabulary.
+		</br>
+		</br>
+		<b>1. Wing connectors and living hinges</b>
+		</br>
+		  The wing connector is designed to make good contact with many kinds of surfaces. In particular, with walls and ceilings, allowing users to create wall-mounted shelves and to ceiling-mount lamps (Figure 20).
+		</br>
+		</br>
+		<img src="images/protopiper-connect-to-wall.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 20: (a) Wing connectors allow mounting a shelf to a wall, or (b) a lamp to the ceiling.
+		</b> 
+		</br>
+		</br>
+		Wing connectors connect to other tubes at well-defined angles. We can use this to make precise-angled constructions. For instance, the box in Figure 21a is made from 12 tubes with wing connectors, which make for sturdy 90-degree angles.</br>
+		Living hinges, in contrast, allow for vertices that are less precise but faster. The box in Figure 21b, for instance, is made from only 6 tubes: two rectangles are formed with living hinges and connected with four vertical struts.
+		</br>
+		</br>
+		<img src="images/protopiper-different-ways-of-making-a-box.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 21: A box with: (a) wing connectors, (b) living hinges.
+		</b> 
+		</br>
+		</br>
+		<b>2. Rectilinear contents and boxes</b>
+		</br>
+		   The box is one of protopiper’s high-level elements. The box is a powerful element for constructive tasks, because many constructed objects, in particular furniture, are based on boxes (e.g., Figure 2). Figure 22 shows a different design iteration of the sofa from Figure 1—note that it contains many boxes.
+		</br>
+		</br>
+		<img src="images/protopiper-rob-on-sofa.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 22: Sofa formed from boxes (user sits on acrylic sheet).
+		</b> 
+		</br>
+		</br>
+		Larger tubes, such as those contained in the sofa, are subject to sagging and shearing. We use the aforementioned diagonal struts to address the issue.
+As shown in Figure 23, struts may go from vertex-to-vertex or just across part of it. A single strut on any angle is sufficient for constraining a rectangle. Stabilizing a box, thus, requires only three struts. 
+		</br>
+		</br>
+		<img src="images/protopiper-stabilizing-struts.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 23: Diagonal struts reinforce angles for larger objects. 
+		</b> 
+		</br>
+		</br>
+		The benefit of additional struts can also be seen in Figure 24. (a) While protopiper can create free-hanging horizontal beams of up to 1 meter, (b) combining pipes with struts into a truss doubles this length.
+		</br>
+		</br>
+		<img src="images/protopiper-freehanging-beam-evaluation.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 24: (a) Protopiper produces free-hanging pipes of up to one meter, or (b) free-hanging trusses of up to two meters.
+		</b> 
+		</br>
+		</br>
+		<b>3. Freeform sculptures</b>
+		</br>
+		  One approach to creating freeform sculptures is to use triangle strips (Figure 25). The main element of a triangle strip is a triangle. We form the first triangle in a strip by attaching one pipe via two living hinges to itself. We form subsequent triangles by attaching pipes with a single living hinge to a tube of the sculpture that is already there.
+		</br>
+		</br>
+		<img src="images/protopiper-triangle-strip-design-element.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 25: (a) The basic element of the triangle strip is a tube with one or two hinges. (b) A freeform shape from triangles.
+		</b> 
+		</br>
+		</br>
+		Despite their simplicity, triangles offer a large number of degrees of freedom. First, any triangle offers two new segments to attach to, allowing the user to form tree structures. Additionally, each triangle can be any length, can bear its living hinge anywhere along the segment, and most important it can be mounted to the parent triangle at any angle, allowing for reasonably expressive 3D constructions, such as the T-Rex we had already shown in Figure 3.
+		</br>
+		</br>
+		<b>4. Mechanisms</b>
+		</br>
+		 Protopiper can make simple, functional mechanisms that dangle, slide, rotate, or pop. More complex mechanisms can be built by combining the simple mechanisms with each other. This generates physical sketches both explore the decorative aspects of a design, and validate a range of basic functionalities.
+Sliding mechanisms: Figure 26 shows a functional drawer supported by a sliding mechanism at the bottom and guides on the sides/back to constrain the drawer.
+		</br>
+		</br>
+		<img src="images/protopiper-example-dresser.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 26: A dresser with functional drawers.
+		</b> 
+		</br>
+		</br>
+		Rotating mechanisms: Rotating mechanisms can be made by attaching one side of a wing connector to the frame and folding the other one away. Figure 27 shows the door of an oven that can be opened. 
+		</br>
+		</br>
+		<img src="images/protopiper-rotating-mechanism.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 27: A rotating mechanism based on a hinge. 
+		</b> 
+		</br>
+		</br>
+		Another way to create a rotating mechanism is via axles and bearings. Figure 28 shows a fridge door with a straight pipe as an axle, and a “v” formed pipe as a bearing.
+		</br>
+		</br>
+		<img src="images/protopiper-bearing-axle-mechanism-fridge.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 28: A rotating mechanism based on axle and bearing. 
+		</b> 
+		</br>
+		</br>
+		Springs and latches: The simple snap-fit/latch mechanism shown in Figure 29 allows us to lock a door. 
+		</br>
+		</br>
+		<img src="images/protopiper-latch-door-mechanism.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 29: (a) Door latch in the shape of an “M”. The door’s weight allows it to latch into the “M”.
+		</b> 
+		</br>
+		</br>
+		The latch has the shape of an “M” formed from a tube, implementing a pair of vertical cantilever springs. The door “snaps” into it, because tubes are elastic along their cross section.
+		</br>
+		</br>
+		<span class="medium-headline">
+		Exploratory User Study
+		</span>
+		</br>
+		</br>
+		n order to validate the sketching process with protopiper, we conducted an exploratory user study in which participants created objects based on a theme, and their own ideas.
+		</br>
+		</br>
+		<b>Task and procedure</b></br>
+		Participant’s task was to create physical to-scale designs. Participants were given the following instructions “you are throwing a party at your house with the motto ‘beach party’. Build objects to transform your house for the party.” Participants were given approximately 60 minutes to build the object (Figure 30). Throughout the process, we encouraged participants to think aloud and they filled in a questionnaire at the end of the study.
+		</br>
+		</br>
+		Before the actual task, each participant received a 15 minute introduction to the protopiper device and had another 15 minutes to brainstorm on objects to create with the device in hand.
+		</br>
+		</br>
+		<img src="images/protopiper-study participants.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 30: Participants using protopiper to build objects.
+		</b> 
+		</br>
+		</br>
+		<b>Participants</b></br>
+		We recruited 16 participants (2 female), in part from out institution and in part from a group of lab visitors. Participant’s ages ranged from 15 to 37 (mean=21.4, s=6.14). 
+		</br>
+		</br>
+		<b>Results</b></br>
+		All participants succeeded at creating objects using protopiper. Figure 31 shows some of them. Throughout the experiment, participants repeatedly used their bodies and/or the room for reference. (a) One participant, for example, created a sunhat directly on the head of another participant. Also the beach lounge chair was designed to fit the participant’s body. (b) When another team of participants created a beach volleyball field, sketching at actual scale allowed them to make sure that the net was placed at a comfortable height. (c) Yet another team created a beach bar; again by sketching at actual scale they were able to get all dimensions right, such as the height of the bar. (d) The shortboard of this participant, in contrast, did not come out at the right scale—this, however, might be more indicative of the participant’s (lack of) experience surfing as our lab is located 1000 miles off the next surfable coast.
+		</br>
+		</br>
+		<img src="images/protopiper-study-objects.jpg" alt="laserstacker-scissors" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 31: The self-designed objects participants protopiped: (a) deck chair and sunhat, (b) beach volleyball field and ball, (c) beach bar, (d) surf board.
+		</b> 
+		</br>
+		</br>
+		In the questionnaire, participants rated the device as being “useful for creative exploration” (5.8 on a 7-item Likert scale), “fun to use” (6.7 on a 7-item Likert scale), and agreed that sketching at actual scale helped them to judge if the object would fit at the end (5.1 on a 7-item Likert scale).</br>
+Participants described protopiper as “good for brainstorming and improves creativity” (p1), “fun to use and allows building 3D structures easily and in reasonable time, allowing to represent something for further development or just fun” (p10), “for prototyping and ideation of a concept it creates a new point of view” (p6).</br>
+Based on their experience, participants requested additional features, such as a way to measure angles (p1), to incorporate surfaces, and to use multi-color tape, as this would allow for additional creative expression (p16). Participants also requested that a future design of protopiper should be able to hold larger tape roles (p15).
+During the study, we also observed that participants had a limited understanding on how to reinforce structures. Instead of thinking ahead, they added additional diagonals only when they started to see their construction becoming less stable. Physical simulation, such as in [23] could help to inform users about how to reinforce their design. Participants also mentioned the benefit of CAD systems to have an undo function and stated it would be interesting to have something like an undo for physical prototyping. 
+</br>
+		</br>
+		<span class="medium-headline">
+		Conclusion
+		</span>
+		</br>
+		</br>
+		In this paper, we presented protopiper, a computer aided, hand-held fabrication device. The key contribution of protopiper is that it allows users to sketch room-size objects at actual scale, allowing them to validate their designs against the physical world during sketching. Our main engineering contribution is the idea to form adhesive tape into tubes as the main building material for physical prototyping—rather than extruding hot plastic. For future work, we want to explore tubes with variable different diameter and curved tubes. 
+		</br>
+		</br>
+		</br>
+		</br>
+	</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 footer" style="text-align: center;">
+			<span class="copyright">
+			Since 2017 &copy; MIT CSAIL (HCI Engineering group) [redesign by 
+			<a href="http://punpongsanon.info/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			moji
+			</a>]. 
+			All Rights Reserved.
+			
+			<a href="http://mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="http://hcie.csail.mit.edu/images/logo/mit.svg" alt="MIT" class="footer-logo" />
+			</a>
+			<a href="http://csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="http://hcie.csail.mit.edu/images/logo/csail.svg" alt="CSAIL" class="footer-logo"/>
+			</a>
+			<a href="http://hci.csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="http://hcie.csail.mit.edu/images/logo/hci.svg" alt="HCI" class="footer-logo"/>
+			</a>
+			</span>
+		</div>
+	</div>
+</div>
+
+<!-- Bootstrap --> 
+<script type="text/javascript" src="https://hcie.csail.mit.edu/js/bootstrap.min.js"></script>
+<!-- header -->
+<script type="text/javascript" src="https://hcie.csail.mit.edu/js/headerstrap-for-subpage.js"></script> 
+<!-- lightbox -->
+<script type="text/javascript" src="../../js/lightbox.js"></script> 
+</body>
+</html>

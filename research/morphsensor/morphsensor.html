@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MorphSensor: A 3D Electronic Design Tool for Reforming Sensor Modules</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!-- CSAIL ICON -->
+	<link rel="CSAIL" href="http://hcie.csail.mit.edu/images/icon/csail.ico" type="image/x-icon" />
+
+	<!-- Bootstrap -->
+	<link href="https://hcie.csail.mit.edu/css/bootstrap.css" rel="stylesheet">
+	<link href="https://hcie.csail.mit.edu/css/custom-style.css" rel="stylesheet">
+	<!-- Lightbox -->
+	<link href="../../css/lightbox.css" rel="stylesheet">
+
+
+	<!-- jQuery -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+
+	<!-- Google Analytic -->
+	<script type="text/javascript" src="https://hcie.csail.mit.edu/js/analytics.js"></script>
+</head>
+
+<body>
+<header class="main_header">
+	<!-- to be filled by javascript, see header.html -->
+</header>
+<div class="container" style="padding-top: 100px;">
+	<div class="row">
+	<!-- Publication details -->
+	<div class="col-md-4" style="text-align: left;">
+		</br>
+		</br>
+		<span class="medium-headline">
+		Publication
+		</span>
+		</br>
+		</br>
+		 <a href="https://www.junyizhu.com">Junyi Zhu</a>, Yunyi Zhu, Jiaming Cui, Leon Cheng, Jackson Snowden, Mark Chounlakone, Michael Wessely, Stefanie Mueller.
+		</br>
+		 MorphSensor: A 3D Electronic Design Tool for Reforming Sensor Modules
+		</br>
+		In Proceedings of
+		<a href="https://uist.acm.org/uist2020/" target="_blank">UIST &#8217;20</a>.<br>
+			</br>
+				<a href="https://doi.org/10.1145/3379337.3415898" class="btn btn-doi" alt="doi" target="_blank">DOI</a>
+				&nbsp; &nbsp;
+				<a href="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/2020-UIST-morphsensor-paper.pdf" class="btn btn-pdf" alt="pdf" target="_blank">PDF</a>
+				&nbsp; &nbsp;
+				<!-- link needed -->
+				<a href="https://youtu.be/d5o3LI0rL7A" class="btn btn-vdo" alt="video" target="_blank">Video</a>
+				&nbsp; &nbsp;
+				<a href="https://youtu.be/O97eqZzTQVc" class="btn btn-vdo" alt="video" target="_blank">Talk</a>
+				&nbsp; &nbsp;
+				<a href="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/2020-UIST-morphsensor-presentation.pptx" class="btn btn-talk" alt="slide" target="_blank">Slides</a>
+				&nbsp; &nbsp;
+			</br>
+			</br>
+
+			<span class="medium-headline">
+			Video
+			</span>
+			</br>
+			</br>
+			<!-- <iframe width="360" height="203" src="https://www.youtube.com/embed/erV9JR0rjGs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+			<iframe width="360" height="203" src="https://www.youtube.com/embed/d5o3LI0rL7A" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			<!-- <iframe width="325" height="190" src="https://www.youtube.com/embed/T-22KOGFLoQ" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe> -->
+			</br>
+			</br>
+
+			<span class="medium-headline">
+			Press
+			</span>
+			</br>
+			</br>
+			<ul>
+				<li><a href="https://www.csail.mit.edu/news/electronic-design-tool-morphs-interactive-objects">MIT News</a></li>
+				<li><a href="https://3dprintingindustry.com/news/mit-researchers-develop-novel-3d-design-software-for-embedded-electronics-177617/">3D Printing Industry</a></li>
+				<li><a href="https://www.hackster.io/news/prototype-like-a-pro-8a14342ed8f1">Hackster.io</a></li>
+				<li><a href="https://techable.jp/archives/140388">Techable (Japan)</a></li>
+				<li><a href="https://www.3dnatives.com/en/morphsensor-by-mit-241020204/">3D Natives</a></li>
+				<li><a href="https://co.pinterest.com/pin/445574956887979591/">Pinterest</a></li>
+
+			</ul>
+			</br>
+
+			<span class="medium-headline">
+			UIST Talk Video
+			</span>
+			</br>
+			</br>
+			<iframe width="360" height="203" src="https://www.youtube.com/embed/O97eqZzTQVc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			</br>
+			</br>
+			
+			<span class="medium-headline">
+			Slides
+			</span>
+			</br>
+			</br>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide01.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(1)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide02.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(2)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide03.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(3)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide04.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(4)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide05.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(5)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide06.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(6)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide07.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(7)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide08.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(8)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide09.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(9)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide10.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(10)" class="hover-shadow"/>
+
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide11.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(11)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide12.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(12)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide13.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(13)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide14.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(14)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide15.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(15)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide16.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(16)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide17.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(17)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide18.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(18)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide19.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(19)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide20.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(20)" class="hover-shadow"/>
+
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide21.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(21)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide22.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(22)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide23.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(23)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide24.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(24)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide25.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(25)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide26.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(26)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide27.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(27)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide28.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(28)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide29.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(29)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide30.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(30)" class="hover-shadow"/>
+
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide31.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(31)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide32.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(32)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide33.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(33)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide34.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(34)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide35.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(35)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide36.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(36)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide37.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(37)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide38.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(38)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide39.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(39)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide40.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(40)" class="hover-shadow"/>
+
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide41.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(41)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide42.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(42)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide43.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(43)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide44.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(44)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide45.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(45)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide46.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(46)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide47.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(47)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide48.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(48)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide49.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(49)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide50.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(50)" class="hover-shadow"/>
+			
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide51.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(51)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide52.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(52)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide53.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(53)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide54.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(54)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide55.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(55)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide56.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(56)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide57.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(57)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide58.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(58)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide59.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(59)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide60.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(60)" class="hover-shadow"/>
+
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide61.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(61)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide62.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(62)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide63.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(63)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide64.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(64)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide65.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(65)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide66.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(66)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide67.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(67)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide68.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(68)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-180/2020-uist-morphsensor-Slide69.jpeg" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(69)" class="hover-shadow"/>
+			
+
+			</div>
+
+
+		<!-- For slide show -->
+			<!-- close button on tne right corner -->
+
+			<div id="lightbox-modal" class="lb-modal">
+				<div class="modal-content">
+				
+			<div class="lb-slides">
+			<div class="numbertext">1 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide01.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">2 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide02.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">3 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide03.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">4 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide04.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">5 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide05.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">6 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide06.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">7 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide07.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">8 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide08.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">9 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide09.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">10 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide10.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+
+			<div class="lb-slides">
+			<div class="numbertext">11 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide11.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">12 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide12.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">13 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide13.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">14 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide14.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">15 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide15.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">16 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide16.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">17 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide17.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">18 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide18.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">19 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide19.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">20 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide20.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+
+			<div class="lb-slides">
+			<div class="numbertext">21 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide21.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">22 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide22.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">23 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide23.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">24 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide24.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">25 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide25.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">26 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide26.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">27 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide27.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">28 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide28.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">29 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide29.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">30 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide30.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+
+			<div class="lb-slides">
+			<div class="numbertext">31 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide31.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">32 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide32.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">33 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide33.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">34 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide34.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">35 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide35.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">36 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide36.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">37 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide37.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">38 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide38.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">39 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide39.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">40 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide40.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			
+			<div class="lb-slides">
+			<div class="numbertext">41 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide41.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">42 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide42.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">43 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide43.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">44 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide44.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">45 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide45.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">46 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide46.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">47 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide47.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">48 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide48.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">49 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide49.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">50 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide50.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+
+			<div class="lb-slides">
+			<div class="numbertext">51 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide51.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">52 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide52.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">53 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide53.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">54 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide54.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">55 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide55.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">56 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide56.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">57 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide57.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">58 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide58.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">59 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide59.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			
+			<div class="lb-slides">
+			<div class="numbertext">60 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide60.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+
+			<div class="lb-slides">
+			<div class="numbertext">61 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide61.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">62 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide62.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">63 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide63.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">64 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide64.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">65 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide65.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">66 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide66.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">67 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide67.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">68 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide68.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">69 / 69</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/morphsensor/presentation-slides/morphsensor-720/2020-uist-morphsensor-Slide69.jpeg" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+					
+			<!-- Next/previous controls -->
+
+			<a class="close-button" onclick="closeModal()">&times;</a>
+			<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+			<a class="next" onclick="plusSlides(1)">&#10095;</a>
+		</div>
+	</div>
+
+
+
+
+
+	<!-- Project information -->
+	<div class="col-md-8" style="text-align: left;">
+		<br>
+		<h3 class="headline">
+		MorphSensor: A 3D Electronic Design Tool for Reforming Sensor Modules
+		</h3>
+		<br>
+		<img src="images/fig1-overview.png" alt="mosculpt-runner" width="720" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 1. (a) MorphSensor is a 3D electronic design tool for reforming pre-defined sensor modules into free-form electronic component arrangements that better integrate with the three-dimensional shape of a physical prototype. (b) A fabricated morphed air quality sensor integrated with the soldering iron.
+		</b>
+		<br>
+		<br>
+		MorphSensor is a 3D electronic design tool that enables designers to morph existing sensor modules of pre-defined two-dimensional shape into free-form electronic component arrangements that better integrate with the three-dimensional shape of a physical prototype.
+		<br>
+		<br>
+		MorphSensor builds onto existing sensor module schematics that already define the electronic components and the wiring required to build the sensor. Since MorphSensor maintains the wire connections throughout the editing process, the sensor remains fully functional even when designers change the electronic component layout on the prototype geometry.
+		<br>
+		<br>
+		We detail the MorphSensor editor that supports designers in re-arranging the electronic components, and discuss a fabrication pipeline based on customized PCB footprints for making the resulting freeform sensor. We then demonstrate the capabilities of our system by morphing a range of sensor modules of different complexity and provide a technical evaluation of the quality of the resulting free-form sensors.
+		<br>
+		<br>
+		<span class="medium-headline">
+		Introduction
+		</span>
+		<br>
+		<br>
+		In the last decades, the availability of sensor modules that are easy to use and affordable has increased substantially. Today, designers are able to quickly prototype interactive objects using plug-and-play sensor modules, such as those for <i>Arduino</i> [2], <i>Phidgets</i> [17], and <i>.NET Gadgeteer</i> [41].
+		<br>
+		<br>
+		While such sensor modules enable designers to prototype basic functionality on a breadboard, they are difficult to use in the later stages of design when designers need to integrate interactive function with the physical prototype of a device.
+		<br>
+		<br>
+		Since the modules come in two-dimensional, mostly square shapes, they are hard to integrate with the three-dimensional shape of a physical prototype, which can lead to aesthetic sacrifices, inaccurate sensor readings, and user interface layouts created based on the shape of electronic components that are not desirable for interaction.
+		<br>
+		<br>
+		HCI researchers investigated how to reduce these issues by providing 3D editing environments that enable designers to place sensor modules alongside the 3D geometry (<i>Printy</i> [7], <i>Plain2Fun</i> [42]). However, since these editors only allow designers to place sensor modules on the geometry but not to edit the sensor module itself, they limit the level of integration possible between form and function.
+		<br>
+		<br>
+		Recently, some commercial EDA tools, such as <i>Altium Designer</i> [3] and <i>Autodesk Fusion 360</i> [4], have taken this a step further by integrating electronic design (ECAD) and mechanical design (MCAD), and allow 3D visualization of the PCB board. However, they only allow the visualization after the electronic design and still treat editing of the electronic design and object design as two separated workflows. which prevents users from effectively designing electronic function in the context of a prototype’s shape.
+		<br>
+		<br>
+		In this paper, we present MorphSensor, a 3D electronics design tool for designing electronic function in the context of a prototype’s three-dimensional shape (Figure 1). MorphSensor unifies electronic and physical object design in one 3D workspace as one complete workflow, which leads to better form and function integration. To add a sensor to a prototype shape, designers start by loading an existing sensor module. Upon import, MorphSensor automatically creates 3D models for the board and its electronic components, and creates airwire connections that represent the logic. Designers can then move each electronic component onto the desired location on the 3D prototype design and redraw the wires to route across the prototype surface. MorphSensor supports designer in this editing process by providing a range of custom support tools, including tools that help identify the main sensing components and tools that automatically re-position components on the prototype geometry to fit into the available space.
+		<br>
+		<br>
+		To fabricate the resulting electronic designs, we use a modified fabrication pipeline based on <i>CircuitStickers</i> [20]. Rather than sending the PCB layer to a manufacturing facility, which slows down design iteration, we use a set of pre-fabricated PCB footprints, which we call <i>BigFoots</i>. The <i>BigFoot</i> for an electronic component can be manufactured ahead of time and then used immediately at the time of prototyping. <i>BigFoots</i> have two types of connector pads: the small pads, which connect to the electronic component’s original SMD footprint, and the larger pads with a slightly bigger area sufficient to be connected to an inkjet-printed or hand-drawn circuit trace.
+		<br>
+		<br>
+		In summary, we contribute:
+
+		<ul>
+			<li> an electronic design tool integrated into a 3D editor that builds onto existing schematics and maintains connectivity throughout the editing process to facilitate sensor layout designs that integrate well with a prototype’s shape </li>
+			
+			<li>a set of support tools that automatically identify the main sensing elements, re-arrange components within a selected area, and prevent wire crossings by adding jumpers </li>
+
+			<li>a fabrication pipeline based on <i>CircuitStickers</i> [20] that introduces pre-fabricated PCB footprints, called <i>BigFoots</i>, to rapidly fabricate the resulting morphed sensors right after editing </li>
+
+			<li>a demonstration of MorphSensor’s applicability across different use cases and object geometries at the example of five interactive prototypes </li>
+			
+			<li>a technical evaluation of conductivity and sensing functionality </li>
+			
+		</ul>
+		In the remainder of the paper, we will first review the related work and then discuss each of the contributions listed above in order.
+		<br>
+		<br>
+
+
+		<span class="medium-headline">
+		MORPHSENSOR CORE COMPONENTS
+		</span>
+		<br>
+		<br>
+		MorphSensor is a 3D editing tool that allows designers to edit prototype geometry and electronic component layouts in the same environment by treating all electronic components as 3D models. By using 3D models, designers can work in a familiar environment and with a familiar representation rather than with electronic design automation tools and their 2D specification files. In addition, since the 3D editor shows both the prototype and the electronic design in one unified view, it enables editing of interactive function in the context of the prototype design.
+		<br>
+		<br>
+		MorphSensor builds onto existing electronic design files that are available for a wide range of sensor modules. Such electronic design files contain both the schematic file (.sch) that defines how electronic components are connected with each other, as well as the board file (.brd), which defines where each electronic component is located and how the wires that connect them are routed. Given this information, MorphSensor reconstructs the sensor in its editing environment and maintains connectivity between individual components even when the physical layout is changed.
+		<br>
+		<br>
+		The schematic and board files also provide a source of information that can be used for additional support tools. For instance, on a sensor module, only few components contribute to the actual sensing (active sensing elements, ICs), while the remaining elements, such as resistors and capacitors are supporting components. For designers, it is important to differentiate between them when space on the prototype geometry is tight or sensing in a specific location is needed. The main sensor component should be placed as close to the designated measuring location as possible, while the remaining passive components can typically go elsewhere on the prototype. By extracting the component names from the schematic and board files and matching them against a list of the main active and passive components, we can provide designers with information which components on the sensor module contribute to the actual sensing.
+		<br>
+		<br>
+		To enable designers to fabricate the resulting circuits during a prototyping process without the need to send it to a manufacturing facility, MorphSensor supports designers with a set of standardized PCB footprints (e.g. JEDEC, SOT, SOIC, LGA packages), one for each component. These footprints can be pre-fabricated once using an external manufacturing facility, and then used accordingly during different prototyping sessions. For components with non-standard footprints and those that are not yet recorded in MorphSensor, MorphSensor can automatically generate the corresponding BigFoots from its footprint in the board file. Thus, a prototyping session with MorphSensor consists of first editing the sensor in the 3D editor to fit it with the prototype geometry and then fabricating it right away using the pre-fabricated foot prints and a fabrication process, such as inkjet printing or drawing with a silver ink pen to create the wire connections. In the next section, we describe each step in more detail.
+		<br>
+		<br>
+
+		<span class="medium-headline">
+		MORPHSENSOR 3D EDITOR
+		</span>
+		<br>
+		<br>
+		The MorphSensor 3D editor is an extension to an existing 3D modeling program (Rhino3D). Below we demonstrate how a designer can load an existing sensor, re-arrange its compo- nents on the prototype, and export the design for fabrication.
+		<br>
+		<br>
+		<b><strong>Acquire Board/Schematic Files for Existing Modules</strong></b><br>
+		Designers start by creating the 3D model of the prototype design. Once they are ready to add interactive functionality, designers open the MorphSensor sensor database (Figure 2b), which contains a range of different modules in categories, such as biometrics, environment, infrared etc., and load the selected module into the view. Within the MorphSensor database, there are in total 84 sensor modules across 11 different functional categories (downloaded from <i>SparkFun</i>).
+		<br>
+		<br>
+		<img src="images/fig2 UI-import.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 2. (a) MorphSensor main UI (top half), (b) MorphSensor sensor database.
+		</b>
+		<br>
+		<br>
+		Alternatively, designers can also download a sensor module from online platforms, such as <i>Adafruit</i> or <i>SparkFun</i>, that many designers already use for purchasing sensor modules. When loading a sensor module from a website or other platform, MorphSensor asks the user to load the board (.brd) file using the corresponding button in the user interface (Figure 2a). The schematic file is loaded automatically since its location is linked inside the board file.
+		<br>
+		<br>
+		<b><strong>Convert Schematic/Board Files into 3D Models</strong></b><br>
+		Once loaded, MorphSensor extracts the sensor information from the board and its corresponding schematic file, and then subsequently creates the board and the individual electronic components as a set of 3D models (Figure 3), one representing the board shape and one for each component on the board. To prevent designers from accidentally editing the components’ shapes, the 3D model of each component is locked.
+		<br>
+		<br>
+		In addition to creating the sensor components, MorphSensor also creates a set of air-wires, i.e. lines that represent the logical connections between each component but that do not specify the physical routing of the wires.
+		<br>
+		<br>
+		<img src="images/fig3 load sensor module.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 3. Loaded Sensor Module 3D Models and Prototype Design Geometry
+		</b>
+		<br>
+		<br>
+		<b><strong>Identifying Components</strong></b><br>
+		To highlight which electronic components on the sensor module contribute to the actual sensing and which are passive components, designers can click the ‘Color-Code Active Sensing Components’ button (Figure 2a), which highlights them in a visually distinct color (Figure 4). The active sensing components are generally more placement-sensitive. Components that are not highlighted do not contribute to the active sensing (resistors, capacitors) and can be flexibly placed where space is available.
+		<br>
+		<br>
+		<img src="images/fig4 highlight component.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 4. Highlight Active Sensing Components.
+		</b>
+		<br>
+		<br>
+		<b><strong>Arranging Electronic Components on the 3D Model</strong></b><br>
+		Designers can arrange individual electronic components on the 3D model using common 3D editing tools, such as move and rotate. To support the alignment of electronic components onto the curved prototype geometry, MorphSensor first asks designers to select the target prototype geometry. Designers can either select entire objects, or use a lasso tool to select only a part of a 3D object as the target area. During the following move and rotation operations, MorphSensor then automatically “snaps” components onto the prototype’s surface when they are in close proximity, and displays a “prohibited” icon (Figure 5b) when the components are held over an invalid location, such as in mid-air. Components are also automatically tilted to best approximate the curvature of the prototype geometry (Figure 5c). Designers are free to change the prototype geometry any time during the design process.
+		<br>
+		<br>
+		<img src="images/fig5 arrange component.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 5. (a) MorphSensor Main UI (bottom half), (b) prohibits when off the prototype geometry and (c) snaps electronic component to geometry when valid.
+		</b>
+		<br>
+		<br>
+		During the entire editing process, MorphSensor maintains connectivity by tracking the logically connected pin locations, and displays a ‘3D’ air wire by drawing a geodesic curve between the pins along the prototype geometry in real-time (Figure 6b). Users can choose to either display or hide the air wire connections using the ‘Show Logic Connections” button. Hiding the connectivity causes less visual clutter from the air-wires when placing individual components, however, designers may want to display the connectivity from time to time to estimate if the spacing of components is sufficient for the wires to be routed (Figure 6a).
+		<br>
+		<br>
+		<img src="images/fig6 air-wires.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 6. (a) Prototype with snapped electronic components, (b) MorphSensor with Logic Connection Air-wires.
+		</b>
+		<br>
+		<br>
+		<b><i>Auto-layout:</i></b> While designers have the option to place all components manually to remain in full control over the final design, MorphSensor also offers auto-placement functions. The “Auto-place Selected Components” button distributes and snaps all selected components onto the assigned prototype geometry (Figure 7). If there are already components on the prototype geometry that the designer had placed before and that have logic connections to the other components, the auto-placed components will be distribute in the area around them to keep wire connections short.
+		<br>
+		<br>
+		<img src="images/fig7 auto-placement.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 7. Auto-placed Electronic Components onto Prototype Geometry.
+		</b>
+		<br>
+		<br>
+		Finally, when designers change a part of the prototype’s geometry that holds electronic components and the electronic components no longer fit, designers can either manually move the components or click the auto-placement button again, which causes MorphSensor to re-layout the components and snap them back onto the modified geometry.
+		<br>
+		<br>
+		<b><strong>Drawing Wires</strong></b><br>
+		After designers positioned the electronic components, they need to convert the air wires into physical wires. To convert an air wire into a physical wire, designers first select the ‘draw wire’ tool, and then select one of the pins the air wire is connected to. After clicking on the pin, designers draw a path onto the 3D geometry with each new click creating a new connected wire segment and each point along the wire path automatically snapping to the object surface (Figure 8a). Once the designer connects the drawn wire to the pin at the end of the air wire, it is complete and the connection is established. This is indicated to the designer by rendering the newly drawn wire in silver. As a result of the conversion, the air-wire disappears (Figure 8b). If designers want to redraw a physical wire, they can delete the previously drawn wire using the ‘delete wire’ tool, which brings the air wire back.
+		<br>
+		<br>
+		<img src="images/fig8 draw wire.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 8. (a) Drawing wire on prototype geometry, (b) silver wire shows up and corresponding air-wire disappears.
+		</b>
+		<br>
+		<br>
+		<b><i>Preventing Wire Crossing (Jumper):</i></b> When wires cross, MorphSensor automatically adds a wire jumper, allowing both wires to be spaced out sufficiently (Figure 9). Wire crossing mostly happen because commercial sensor modules are fabricated as two-layer PCB boards allowing for wires to be routed on the top and bottom. However, at-home fabrication techniques, such as silver inkjet-printing only allow for single-sided PCBs. Thus, as a result, wires may overlap with each other and thus a jumper becomes necessary.
+		<br>
+		<br>
+		<img src="images/fig9 jumpers.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 9. Auto-generated wire jumpers over intersections.
+		</b>
+		<br>
+		<br>
+		<b><i>Connecting to Microcontroller & Output Display:</i></b> After converting all wires for a sensor module, designers may want to connect it to a microcontroller and a display for rendering output (Figure 10). Similar to loading a sensor module, designers can load the microcontroller (e.g., ATTINY85-20SUR) and output display (e.g. an Adafruit Sequin LED) from the MorphSensor module database. However, since MorphSensor does not know how designers want to connect between sensor modules, no air wire is shown and designers have to draw the connection by themselves.
+		<br>
+		<br>
+		<img src="images/fig10 connecting microcontroller.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 10. Connecting to the microcontroller & display LED.
+		</b>
+		<br>
+		<br>
+		<b><i>Overriding Air-Wires and Deleting Pins:</i></b> Finally, MorphSensor also allows designers to customize the routing. For instance, designers may want to update the routing to use a shared ground that is close to the component rather than routing an additional wire to the microcontroller. In addition, MorphSensor also allows designers to delete pins and the corresponding air wires if they do not need the functionality.
+		<br>
+		<br>
+		<b><strong>Exporting the Design for Fabrication</strong></b><br>
+		Once a design is finished, designers can export the design for fabrication using the ‘Select Output Area’ button, which activates a lasso tool for marking up the area on the prototype the designer would like to fabricate.
+		<br>
+		<br>
+		Since fabrication is in 2D, MorphSensor converts the 3D circuit into a 2D projection via surface unrolling (Figure 11). MorphSensor displays the 2D projection on a letter-sized sheet next to the 3D model and exports it as an .svg file. In the exported .svg file, MorphSensor includes a boundary box and unrolled surface outlines as fabrication references.
+		<br>
+		<br>
+		<img src="images/fig11 export.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 11. MorphSensor Export for Fabrication.
+		</b>
+		<br>
+		<br>
+
+		<span class="medium-headline">
+		FABRICATING MORPHSENSORS
+		</span>
+		<br>
+		<br>
+		To fabricate MorphSensors, designers can choose to either have their board fabricated as a high-fidelity prototype using a professional PCB manufacturing facility but at the expense of a time-delay, or to create a low-fidelity prototype using pre-fabricated PCB footprints (BigFoots) and silver inkjet printing, which can be made immediately on export.
+		<br>
+		<br>
+		To obtain a high-fidelity prototype, designers convert the SVG file into Gerber files, where the unrolled surface outline is the board’s new shape, and then send them to professional PCB manufacturer as a single-layer flexible PCB design. If designers do not want to include the BigFoot footprints, they have the option to disable BigFoot generation in the editor and instead import standard SMD footprints.
+		<br>
+		<br>
+		To create a low-fidelity prototype that can be made immediately upon export from the editor, designers follow the fabrication workflow as outlined below.
+		<br>
+		<br>
+		<b><strong>Obtaining Electronic Components and BigFoots</strong></b><br>
+		To fabricate a MorphSensor, designers start by taking out a sensor module bag from their prototyping toolkit that contains all the electronic components required to make the sensor and in addition the corresponding BigFoot PCB footprints. The BigFoot PCB footprints are double layer polyimide flex PCBs, with 0.1mm thickness. The PCB footprints are left as squares for easier handling during the fabrication process and can be cut into shape at the end.
+		<br>
+		<br>
+		<b><strong>Attaching Electronic Components to the BigFoots</strong></b><br>
+		In a first step, designers connect the electronic components to the pre-fabricated BigFoot PCB foot prints. For this, they can either solder the components directly (Figure 12a), or instead use solder paste and a reflow oven, which is easier.
+		<br>
+		<br>
+		Once the component is soldered to the BigFoot, designers attach double-sided electrically conductive adhesive transfer tape (3M ECATT [1]) to the back of the BigFoot (Figure 12b). Designers then cut the BigFoot with the attached tape into shape using scissors.
+		<br>
+		<br>
+		<img src="images/fig12 solder-2.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 12. (a) soldering component onto the BigFoot, (b) attaching double sided ECATT tape to the BigFoot.
+		</b>
+		<br>
+		<br>
+		<b><strong>Inkjet-Printing the Main Circuit Traces</strong></b><br>
+		Next, designers load the exported 2D file into their inkjet printer and fabricate the main circuit traces (Figure 13a). Alternatively, they can also use the 2D file as input to a vinyl or laser cutter to fabricate a stencil for drawing the circuit with a silver pen.
+		<br>
+		<br>
+		<img src="images/fig13 inkjet printing+stick component.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 13. (a) Inkjet printing the main circuit. (b) Peeling off the ECATT tape on the electronic component and attaching it to the main circuit.
+		</b>
+		<br>
+		<br>
+		<b><strong>Attaching the Footprints to the Main Circuit</strong></b><br>
+		Next, designers peel the backing off the ECATT tape and then carefully stick the BigFoot with its component onto the circuit sheet (Figure 13b). The BigFoots are designed to be visible from both the top and the bottom layer, which is helpful for aligning the footprints with the corresponding pads printed in silver ink on the sheet. The jumper is implemented as a 0603 resistor BigFoot, with top pads connected by wire instead of an actual resistor (i.e. a zero-ohm resistor). Designers might also attach double-side tape to the back of inkjet-printed main circuit to attach it to the object later. Alternatively, designers can also print an outline of the sticker onto the paper as an alignment aid.
+		<br>
+		<br>
+		<b><strong>Attaching the Circuit to the Object Geometry</strong></b><br>
+		After placing all the BigFoots with their electronic component on the main circuit, designers next cut out the circuit with the double-side tape to reduce the size of the sensor, and attach it onto the prototype (Figure 14).
+		<br>
+		<br>
+		<img src="images/fig14 attchment.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 14. (a) Cut out the morphed sensor, and (b) attach it onto the prototype.
+		</b>
+		<br>
+		<br>
+		If the prototype geometry is a developable surface and thus a 2D sticker adheres well, designers do not have to cut the sensor precisely along its outline but can simply cut along the boundary box. If the prototype geometry is non-developable (e.g., doubly-curved), designers need to cut the circuit more precisely along the unrolled surface outlines, or draw the circuit directly onto the object geometry using a silver ink pen and stencil rather than an inkjet-printed sheet. Once finished and the circuit is tested and confirmed to work properly, designers can brush a thin layer of transparent nail polisher onto the naked silver traces to prevent future short-circuiting and improve prototype durability.
+		<br>
+		<br>
+
+		<span class="medium-headline">
+		APPLICATIONS
+		</span>
+		<br>
+		<br>
+		We used MorphSensor to prototype a range of interactive devices highlighting different levels of complexity, including single and multi-sensor arrangements as well as different fabrication methods, using both inkjet printing and drawing.
+		<br>
+		<br>
+		<b><strong>Unobtrusive Sensing: Earpod with Accelerometer for Sleep Tracking and Ring with Weather-awareness</strong></b><br>
+		When measuring human behavior data, the presence of a device can be a variable that affects people’s behavior [24]. Therefore, a data recording device that can be integrated with objects that are part of people’s regular behavior can realize more accurate recording due to its non-instructive measurement. With MorphSensor, researchers can integrate sensors into existing objects to achieve non-intrusive measurements.
+		<br>
+		<br>
+		For example, to measure users sleep quality via their sleeping behavior, we integrated a 3-axis accelerometer with an existing earpod that is normally used to listen to calming music while falling asleep (Figure 15). To design the earpod, we loaded its 3D model into MorphSensor and then added the Triple Axis Accelerometer sensor (ADXL335) from the MorphSensor database to it. After placing the main accelerometer sensing element central onto the earpod to receive the best measurement, we placed the remaining passive capacitors along the cylinder and then routed the wires around the earpod shape. The wire then connects to a microcontroller attached to the user’s phone. Since the earpod is a highly curved geometry and thus a 2D inkjet printed circuit on paper would not confirm well, we used a silver ink pen instead. We use the MorphSensor visualization in the 3D editor to guide us where to draw the wires. Making the layout for the sensor took 20 mins and fabricating the sensor took 25 mins.
+		<br>
+		<br>
+		<img src="images/fig15 airpod.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 15. (a) Earpod design in MorphSensor system, (b) non-instructive measurement through an earpod.
+		</b>
+		<br>
+		<br>
+		Similarly, we can use MorphSensor to design a “weather-aware” ring, augmenting an object that many people use on a daily basis with the capability to provide advice on weather and dressing-code (Figure 16). We accomplish this by integrating a temperature sensor with the ring geometry. To design the ring, we loaded its 3D model into MorphSensor and then added the temperature sensor (TMP102) from the MorphSensor database to it. After placing the main sensing element central onto the ring to receive the best measurement, we placed the remaining four resistors and one capacitor along the boundary of the ring and then routed the wires to the bottom of the ring where they can connect to a microcontroller for processing the readings. Similar to the earpod, we used drawing with silver ink due to the highly curved geometry of the ring. Making the layout for the sensor took 15 min and fabricating the sensor took 20 min.
+		<br>
+		<br>
+		<img src="images/fig16 weather-ring.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 16. Weather-aware ring design as a MorphSensor.
+		</b>
+		<br>
+		<br>
+		<b><strong>Preserving Substrate Quality: Textile Facemask with Humidity Sensor</strong></b><br>
+		Attaching sensor modules to textiles makes them more rigid and prevents airflow through them in the locations where the sensor modules are attached. This can be especially an issue when the textile is part of personal protective equipment and the wearer has to breathe through the textile. Any obstruction that occurs prevents airflow and thus makes breathing more difficult. In the example below, we designed a smart facemask with an integrated humidity sensor and LED that alarms the user when the mask is getting to humid, which indicates a need to switch the mask to prevent contamination [16]. To maximize airflow through the mask, we used MorphSensor to place the main sensing element of the humidity sensor central to the user’s airflow, but moved the remaining elements (resistors, capacitors) and the majority of the wiring out of the way and onto the side of the mask (Figure 17). The design contains the entire circuit, including a humidity sensor (HIH6130), a microcontroller (ATTiny85-20SU), and an LED (Adafruit LED Sequin). We fabricated the circuit using silver inkjet printing. Making the circuit layout took 30 min and fabricating the circuit took 25 min).
+		<br>
+		<br>
+		<img src="images/fig17 n95 mask.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 17. (a) N95 mask design in MorphSensor System, (b) using MorphSensor mask to monitoring substrate quality.
+		</b>
+		<br>
+		<br>
+		<b><strong>Prototyping Function: Glasses that Sense Blue Light Exposure and Other Environmental Data for Well-Being</strong></b><br>
+		Building new device functionality and deploying it with actual users is an important step in the prototyping process. However, when using breadboard sized components, many prototypes are too obtrusive, uncomfortable to wear, or may not look socially acceptable to collect real-world data from users. For example, a designer who wants to prototype a set of glasses that measure the amount of blue light exposure a user has and the air quality the user is exposed to on a daily basis, may be able to prototype the glasses using sensor modules but the resulting prototype will either be impractical to wear due to the obtruding modules from the glass frame or the user may refuse to wear it due to its appearance.
+		<br>
+		<br>
+		With MorphSensor, we can quickly create a more integrated prototype. After loading the pair of glasses as a 3D model into the MorphSensor 3D editor, we load a light sensor (TEMT6000) from the MorphSensor data base. We place the main sensing element of the light sensor module right next to the user’s eyes and place the resistors and capacitors further back on the temple. We then place an LED (APA102 5050 DotStar) onto the temple to indicate the current measurement, and after connecting all wires to a microcontroller (ATTiny85-20SU) export the design and fabricate it (Figure 18). We fabricated the circuit using silver inkjet printing. Making the layout for the circuit took 15 min and fabricating the circuit took 20 min.
+		<br>
+		<br>
+		<img src="images/fig18 glasses.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 18. Glasses design as a MorphSensor to monitor light absorption and protect eye health.
+		</b>
+		<br>
+		<br>
+
+		<span class="medium-headline">
+		IMPLEMENTATION
+		</span>
+		<br>
+		<br>
+		MorphSensor’s main application is implemented as a Grasshopper Plugin for the 3D editor Rhino3D. Below we describe MorphSensor’s process of converting the board and schematic files into 3D models, maintaining connectivity during the layout process, and generating the fabrication files.
+		<br>
+		<br>
+		<b><strong>Convert Board Files to 3D Models</strong></b><br>
+		To convert the board file (.brd) for 3D editing, MorphSensor generates individual 3D models for each electronic component as well as a 3D model for the underlying board.
+		<br>
+		<br>
+		To generate a 3D model for each electronic component on the board, MorphSensor first extracts the name of each component from the board file using the open-source tool <i>EagleUp</i> [15]. <i>EagleUp</i> takes as input the .brd board file and outputs the names of the electronic components (in .eup file format). MorphSensor can then use the component names from the .eup file to find a matching 3D model in the <i>Sparkfun</i> 3D Model Component Library [36] for <i>SketchUp</i>, which for each component name has a corresponding 3D model file (in &#60;component-name&#62;.skp file format).
+		<br>
+		<br>
+		After loading the electronic component 3D models from the <i>SparkFun</i> 3D Model library, MorphSensor still has to place them into the right location on the board. The previously generated .eup file from <i>EagleUp</i> also contains this information, which MorphSensor uses to place 3D models accordingly.
+		<br>
+		<br>
+		After generating the components as 3D models, MorphSensor also generates the 3D model of the board. The previously generated .eup file from <i>EagleUp</i> also contains information on the shape of the board, the thickness of the board, and the texture of each layer of the board (copper, solder mask and silk textures in separate .png files). We input this information into a <i>SketchUp</i> Script (also part of <i>EagleUp</i>), which first generates the geometry of the board using the board shape and thickness, and then textures it using the .png files. Since each side of the board can only be textured with one .png file, MorphSensor merges the copper, solder mask, and silk into one image using <i>ImageMagick</i> [21].
+		<br>
+		<br>
+		Once all 3D models are generated and the components are positioned, MorphSensor saves the entire assembly as a new <i>SketchUp</i> .skp file and then uses Rhino3D’s import () function to import the 3D model into the Rhino3D workspace.
+		<br>
+		<br>
+		<b><strong>Creating the Air Wires</strong></b><br>
+		To convert the board file (.brd) for 3D editing, MorphSensor generates individual 3D models for each electronic component as well as a 3D model for the underlying board.
+		<br>
+		<br>
+		MorphSensor creates the air wires by reading the information from the board and schematic files. MorphSensor starts by creating a list of all components and their available pins, as well as which signals they are connected to. To accomplish this, MorphSensor parses the board file (.brd, XML structure) to extract information about its connection groups (located in “signals” and “contactref” attributes). For example, a capacitor with only a VCC and GND connection may be encoded as a group labeled ‘C1’ with two pins ‘VCC’ and ‘GND’. After compiling the list of all components and their pins, MorphSensor next loops through the signal list and marks all pins that connect to the same signal as “connected”. It then generates a.json file with this connection information.
+		<br>
+		<br>
+		Next, MorphSensor detects where the pins are physically located on the electronic components. For this, it traverses through all electronic components and for each electronic component retrieves the correct footprint layout from a custom look-up table. The footprint layout contains the relative displacements from each footprint-connector to the center of the electronic component, which we use to calculate their world coordinate in the 3D editor. In this step, MorphSensor also adds the BigFoot to each component. The footprint connector pads are then grouped with the corresponding 3D models of the electronic components, which makes them move and rotate together.
+		<br>
+		<br>
+		After knowing the physical location of each footprint-connector, MorphSensor parses the .json file, gets the connection information and maps them to the actual location of their corresponding footprint-connectors. Knowing the pairs of points that it has to connect, MorphSensor then calculates the geodesic curve between the points on the prototype’s mesh to form the corresponding air wire.
+		<br>
+		<br>
+		<b><strong>Identifying Placement Sensitive Components</strong></b><br>
+		To determine which components are placement sensitive, MorphSensor correlates the components name with information from a look up table, in which we encoded information on passive components (e.g., resistor, capacitor) and circuit connection elements (e.g., pad jumper, pin hole) who can be positioned flexibly. We consider all other components as placement-sensitive.
+		<br>
+		<br>
+		<b><strong>Component Placement Tools</strong></b><br>
+		The snapping tool works by finding the closest mesh point that the designer is pointing at, calculating the normal of the mesh on that mesh point, and rendering a preview of what the placement of the electronic component would look like. The rotation of components works by utilizing Rhino’s rotation method while fixing the rotation axis to the normal of the mesh on the center of the electronic component.
+		<br>
+		<br>
+		<b><strong>Automatic Layout</strong></b><br>
+		We implement the 3D auto-placement of electronic components based on Poisson-Disc Sampling algorithm, with each sensor representing a ‘point’ that gets distributed over an area. Before deciding on Poisson-Disc Sampling, we investigated several existing 2D sampling algorithms, including Mitchell’s Best-candidate algorithm, the Gridplace algorithm, the Physics algorithm, and random sampling. We chose Poisson-Disc Sampling because it allows direct control of minimum and maximum distance values that define how components are spaced with respect to each other and also places components with respect to an anchor point instead of a grid. We use this to ensure that passive components are placed in proximity to the active ‘anchor’ component. Since we can vary minimum and maximum distance over multiple algorithm runs, we can keep certain groups of components close together, such as an IC component and its corresponding decoupling capacitor.
+		<br>
+		<br>
+		The Poisson-Disc Sampling algorithm starts by iterating over each point (sensor) and trying to place them one point at a time. When deciding where to put a new point, the algorithm starts by randomly picking a previously placed point and then randomly generating a new point that is within distance of <i>min_dist</i> and <i>max_dist</i> away from the previous point while being within the bounds of the selected object geometry. In order to make the distribution algorithm work on 3D geometries, we change all the “distance” measurements in the algorithm to their corresponding geodesic distances. After placing the random point, the point is also checked to be at least <i>min_dist</i> away from any previously placed point. If it is, the point is a valid placement. Otherwise, the algorithm starts over with a newly generated point. When every point is placed, the algorithm is done.
+		<br>
+		<br>
+		However, the algorithm may become slow if the number of sensors is very large or if the distance specified is too small. Then the probability of generating a new point that is valid (sufficiently far away from all previously placed points) decreases, which results in many iterations before finding a valid point.
+		<br>
+		<br>
+		<b><strong>Drawing Wires</strong></b><br>
+		When the designer draws a wire, MorphSensor initiates an interface similar to Rhino’s polyline drawing interface. The designer is prompted to pick points on the mesh surface, and MorphSensor calculates and displays the geodesic curves between the points in the order of the selection.
+		<br>
+		<br>
+		<b><strong>Creating the Fabrication Files</strong></b><br>
+		MorphSensor creates the 2D projection for the fabrication file by generating a <i>MeshGraph</i> for the selected output area and then unrolling it onto its UV plane. It then finds the location of each electronic component’s footprint-connector and redraws the footprint-connector with correct orientation. Finally, MorphSensor redraws the wire connections by locating each wire curve’s control points on the MeshGraph and connecting them. The exported new circuit is then placed on a letter-sized 2D sheet for fabrication with an inkjet printer.
+		<br>
+		<br>
+		<b><strong>Computing BigFoot PCB Footprints Automatically</strong></b><br>
+		Since there is a large variety of different component footprints, MorphSensor’s pre-designed BigFoots cannot cover all possible electronic components. To determine which footprints are the most common and thus we need to supply designers with, we analyzed the top 97 sensor modules from <i>SparkFun</i>, made a list of their components, and then grouped them by their footprints. Around 75.8% of components followed standard footprints that can be found in open-sourced footprint libraries., which can be handled directly by MorphSensor system.
+		<br>
+		<br>
+		For the footprints that are not in our database, MorphSensor automatically generates corresponding BigFoots in EAGLE via a ULP script, with one connecting pad per SMD pad, and then import the newly generated BigFoots into the 3D editor. However, the auto-generated BigFoot can contain unnecessary connector pads, which take up more space compared to the ones designed manually (Figure 19). Note that for this analysis we only compared sensor modules with one or two PCB layers since most available off-the-shelf sensor modules are built in 2-layer to save fabrication cost.
+		<br>
+		<br>
+		<img src="images/Fig19 auto-generate BigFoot.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 19. (a) Manually Designed and (b) Automatically Generated Si7021 BigFoots.
+		</b>
+		<br>
+		<br>
+
+		<span class="medium-headline">
+		EVALUATION
+		</span>
+		<br>
+		<br>
+		Next, we demonstrate that MorphSensor is able to reshape a variety of different sensor modules. We first evaluate the conductivity of our circuit creation (inkjet print + silver pen drawing), and then further evaluate the effectiveness of morphed sensors by testing them side-by-side with the original off-the-shelf sensor modules. For this part, we evaluate sensor modules with both digital signals (TMP102, I2C protocol), and analog signals (TEMT6000).
+		<br>
+		<br>
+		<b><strong>Conductivity of Morphed Sensor Circuit</strong></b><br>
+		We inkjet-printed 20 sets of test traces with a length of 5cm and various width ranging from 0.1mm to 1mm, incremented at 0.1mm (Figure 20a). The resistances ranged from 0.293 Ω/□ (0.1mm width) to 0.144 Ω/□ (1.0mm width) on average. To accomplish a low resistance while keeping the trace width small, we set the wire width to 0.5mm in the MorphSensor fabrication file, which results in 0.164 Ω/□ on average.
+		<br>
+		<br>
+		<img src="images/Fig20 evaluation-conductivity.png" alt="mosculpt-runner" width="600" style="padding-bottom:0px; margin-bottom:10px"/>
+		<br>
+		<b>
+		Figure 20. (a) Inkjet Print Traces, (b) Hand-drawn Traces.
+		</b>
+		<br>
+		<br>
+		For hand-drawn circuits, we conduct a similar evaluation and draw the 5cm silver traces on a 3D printed object with white PLA with trace widths varying from ca. 0.2mm to 1.0 mm, incremented at 0.2mm and 5 traces each (Figure 20b). The results show that the resistances range from a low 0.502 Ω/□ (1.0mm) to a high 0.789 Ω/□ (0.2mm) on average. In practice, we draw silver traces with width ~0.6mm, which results in on average < 0.60 Ω/□ traces. Considering the SMD resistors used for sensor modules, which are usually around a few thousand ohms, are typically +/- 5% in actual values and the error tolerance of the modern electronics, the extra resistance is acceptable for prototyping designs with low-power electronics (e.g. 3.3V and 5V sensor modules).
+		<br>
+		<br>
+		<b><strong>Effectiveness of Morphed Sensor</strong></b><br>
+		We designed our evaluation for morphed sensor effectiveness based on standard industrial assembly and testing procedures [22], which contains <i>In-circuit Testing</i> and <i>Functional Testing</i>. We ran the evaluation on both digital signal (TMP102, I2C protocol) and analog signal (TEMT6000) sensor modules.
+		<br>
+		<br>
+		<b><i>In-circuit Testing via Multimeter:</i></b> For all MorphSensors we built, we performed the following in-circuit testing: (1) a continuity test to evaluate if all components are connected, (2) a voltage test to evaluate if all capacitors have the correct value on the connected traces, and (3) a resistance test to evaluate if all resistors have the correct value. We know the correct values from the data sheet of the components. All of our morphed sensors passed the in-circuit testing.
+		<br>
+		<br>
+		<b><i>Functional Testing:</i></b> For the functional testing of our sensors, we examined MorphSensors with (1) ten one-minute individual runs, and (2) compared the readings to the Ground Truth (original sensor from <i>SparkFun</i>). For digital signals, we placed two TMP102 sensors side by side and measured the temperature from both devices at static room temperature. We recorded 609 samples at a rate of one per second. The expectation was that the sensors should have similar readings since the room did not have large temperature gradients. The data shows that the sensors had similar readings. There was an average difference of +/-.06°C between the data with a conservative max of .3°C. The variance of the difference between the signals was also small at .02. For analog signals, two phototransistor-based sensors (TEMT6000) were setup side by side under an LED lamp. We collected 300 data points at a sampling rate of one data point every 2 seconds. We calculated the percent difference of our sensor from the off-the-self sensor at every sample and found an average percentage difference of 0.6% and a maximum difference of about 4%. The data shows that the MorphSensors can match the off-the-shelf sensor modules with small error margins. This is true for both the analog and digital sensors.
+		<br>
+		<br>
+
+		<span class="medium-headline">
+		DISCUSSION
+		</span>
+		<br>
+		<br>
+		In the next section, we reflect on limitations of our approach and discuss future opportunities for MorphSensor.
+		<br>
+		<br>
+		<b><i>Limited Flexibility of Pre-fabricated Footprints:</i></b> When the footprint is fabricated as part of the PCB of an entire circuit, the connector pad layout can be considered when the overall PCB layout is created. However, when pre-fabricating footprints, the connector layout that would least interfere with the object shape, is not yet known. To bypass this issue, we fabricate a variety of different footprint layouts that designers can choose from for each component.
+		<br>
+		<br>
+		<b><i>Further Automating Electronics Design Knowledge:</i></b> In its current form, MorphSensor already supports designers by maintaining connectivity of the circuit at all times and by highlighting which components contribute to the actual sensing. For future work, we plan to expand this set of support tools, for instance, by maintaining spatial relationships through grouping (e.g., for emitters and receivers) or by ensuring minimum distances between components. (e.g., for components that interfere with each other, such as heat sensitive and heat generating components). In addition, our assumption that all passive components can be placed in arbitrary locations needs to be refined with specific placement rules for various types of passive components. For instance, a decoupling capacitor for an IC requires needs to be placed close-by although being a passive component.
+		<br>
+		<br>
+		<b><i>Eliminating Redundant Components in Multi-Sensor Designs:</i></b> While in the current version of MorphSensor, we treat each sensor module individually, a future version of MorphSensor may be able to merge the circuits of multiple sensor modules together to eliminate redundant components and further save space.
+		<br>
+		<br>
+		<b><i>Optimizing for Traditional Flexible PCB Manufacturing:</i></b> While users have the option to outsource the system exported files to PCB manufacturers as a flexible PCB board, the MorphSensor system is currently optimized for rapid prototyping DIY boards. To better support the traditional flexible PCB manufacturing, users can disable the BigFoot generation, and instead import standard SMD footprints to take advantage of professional PCB Assembly. Multi-layer wiring functionality would also be much valued to enhance the flexible PCB design complexity.
+		<br>
+		<br>
+
+		<span class="medium-headline">
+		CONCLUSION
+		</span>
+		<br>
+		<br>
+		We presented <i>MorphSensor</i>, a 3D electronic design environment for early-stage prototyping to facilitate the design of electronics in the context of a three-dimensional prototype geometry. By using a single workspace for both electronics and geometry design, designers are able to iterate on the interactive function and the prototype’s shape simultaneously. We demonstrated our system’s functionality and showcased a set of example prototype scenarios that illustrate its benefits across a range of use cases that build on different object geometries and sensing needs. Our implementation outlined the steps required to build such a system, including the need to automatically convert electronic design files into 3D model assemblies.
+		<br>
+		<br>
+		For future work, we plan to implement more complex PCB editing functionality into our system, such as multi-layer PCB boards and additional design support tools.
+		<br>
+		<br>
+
+		<span class="medium-headline">
+		ACKNOWLEDGMENTS
+		</span>
+		<br>
+		<br>
+		We thank our colleagues from the MIT International Design Center and MIT EECS EDS for the hardware support. We thank Steve Hodges for helping us adapt the CircuitSticker fabrication method in the early stages. We especially thank Ruowang Zhang for her help with the photo and video capturing. This material is based upon work supported by the National Science Foundation under Grant No. 1716413.
+		<br>
+		<br>
+
+
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+
+
+	</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 footer" style="text-align: center;">
+			<span class="copyright">
+			Since 2017 &copy; MIT CSAIL (HCI Engineering group) [redesign by
+			<a href="http://punpongsanon.info/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			moji
+			</a>].
+			All Rights Reserved.
+
+			<a href="http://mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="http://hcie.csail.mit.edu/images/logo/mit.svg" alt="MIT" class="footer-logo" />
+			</a>
+			<a href="http://csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="http://hcie.csail.mit.edu/images/logo/csail.svg" alt="CSAIL" class="footer-logo"/>
+			</a>
+			<a href="http://hci.csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="http://hcie.csail.mit.edu/images/logo/hci.svg" alt="HCI" class="footer-logo"/>
+			</a>
+			</span>
+		</div>
+	</div>
+</div>
+
+<!-- Bootstrap -->
+<script type="text/javascript" src="https://hcie.csail.mit.edu/js/bootstrap.min.js"></script>
+<!-- header -->
+<script type="text/javascript" src="https://hcie.csail.mit.edu/js/headerstrap-for-subpage.js"></script>
+<!-- lightbox -->
+<script type="text/javascript" src="../../js/lightbox.js"></script>
+
+</body>
+</html>

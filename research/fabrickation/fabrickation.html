@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>faBrickation: Fast 3D Printing of Functional Objects by Integrating Construction Kit Building Blocks. </title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!-- CSAIL ICON -->
+	<link rel="CSAIL" href="http://hcie.csail.mit.edu/images/icon/csail.ico" type="image/x-icon" />
+
+	<!-- Bootstrap -->
+	<link href="https://hcie.csail.mit.edu/css/bootstrap.css" rel="stylesheet">
+	<link href="https://hcie.csail.mit.edu/css/custom-style.css" rel="stylesheet">
+	
+	<!-- Lightbox -->
+	<link href="../../css/lightbox.css" rel="stylesheet">
+
+	<!-- jQuery --> 
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+	
+	<!-- Google Analytic -->
+	<script type="text/javascript" src="https://hcie.csail.mit.edu/js/analytics.js"></script>
+</head>
+
+<body>
+<header class="main_header">
+	<!-- to be filled by javascript, see header.html -->
+</header>
+<div class="container" style="padding-top: 100px;">
+	<div class="row">
+	<!-- Publication details -->
+	<div class="col-md-4" style="text-align: left;">
+		</br>
+		</br>
+		<span class="medium-headline">
+		Publication
+		</span>
+		</br>
+		</br>
+		Mueller, S., Mohr, T., Guenther, K., Frohnhofen, J., Baudisch, P.  
+		</br>
+		faBrickation: Fast 3D Printing of Functional Objects by Integrating Construction Kit Building Blocks. 
+		</br>
+		In Proceedings of 
+		<a href="http://chi2014.acm.org/" target="_blank">CHI &#8217;14</a>
+		, pp. 3827-3834.
+		</br>
+		<b>Best Paper Nominee</b></br>
+		Demo at CHI'14, Video Showcase CHI'14
+		</br>
+		</br>
+			<a href="https://dl.acm.org/citation.cfm?id=2557005" class="btn btn-doi" alt="doi" target="_blank">DOI</a> 
+			&nbsp; &nbsp; 
+			<a href="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/2014-chi-fabrickation-paper.pdf" class="btn btn-pdf" alt="pdf" target="_blank" >Paper</a> 
+			&nbsp; &nbsp; 
+			<a href="https://www.youtube.com/watch?v=_bapIwyY7VY" class="btn btn-vdo" alt="video" target="_blank">Video</a> 
+			&nbsp; &nbsp; 
+			<a href="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/2014-chi-fabrickation-presentation.zip" class="btn btn-slide" alt="slide" target="_blank">Slides</a> 
+			&nbsp; &nbsp; 
+			<a href="https://www.youtube.com/watch?v=XH9u6GaZ-vU" class="btn btn-talk" alt="talk" target="_blank"> Talk</a> 
+			&nbsp; &nbsp; 
+			</br>
+			</br>
+			<br>
+			I worked on this project before joining MIT. Here is the original <a href="https://hpi.de/baudisch/projects/fabrickation.html">faBrickation project page</a> at Hasso Plattner Institut.<br><br>
+
+			<a href="https://hpi.de/baudisch/home.html"><img src="../../images/logo/hpi-logo.png" height="100px"></a>
+			</br>
+			</br>
+			<span class="medium-headline">
+			Press
+			</span>
+			</br>
+			</br>
+			<ul>
+				<li><a href="https://makezine.com/2014/02/08/legofy-it-3d-printing-lego-for-fast-prototyping/">MAKE Magazine</a></li>
+				<li><a href="https://www.theatlantic.com/technology/archive/2014/01/3d-printing-and-legos-perfect-together/283233/">The Atlantic</a></li>
+				<li><a href="http://lego.gizmodo.com/replacing-parts-of-3d-printed-models-with-lego-speeds-u-1569310877/+ericlimer">Gizmodo</a></li>
+				<li><a href="http://www.3ders.org:80/articles/20140122-fabrickator-uses-legos-for-fast-3d-printing.html">3ders</a></li>
+				<li><a href="http://3dprintingindustry.com:80/2014/01/31/lego-3d-printing-makers-perfect-match/">3D Printing Industry</a></li>
+				
+			</ul>
+			</br>
+			</br>
+			<span class="medium-headline">
+			Video
+			</span>
+			</br>
+			</br>
+			<iframe width="325" height="190" src="https://www.youtube.com/embed/_bapIwyY7VY" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+			</br>
+			</br>
+			<span class="medium-headline">
+			Talk
+			</span>
+			</br>
+			</br>
+			<iframe width="325" height="190" src="https://www.youtube.com/embed/XH9u6GaZ-vU" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+			</br>
+			</br>
+			<span class="medium-headline">
+			Slides
+			</span>
+			</br>
+			</br>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.001-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(1)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.002-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(2)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.003-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(3)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.004-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(4)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.005-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(5)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.006-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(6)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.007-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(7)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.008-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(8)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.009-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(9)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.010-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(10)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.011-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(11)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.012-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(12)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.013-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(13)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.014-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(14)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.015-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(15)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.016-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(16)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.017-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(17)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.018-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(18)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.019-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(19)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.020-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(20)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.021-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(21)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.022-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(22)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.023-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(23)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.024-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(24)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.025-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(25)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.026-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(26)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.027-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(27)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.028-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(28)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.029-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(29)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.030-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(30)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.031-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(31)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.032-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(32)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.033-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(33)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.034-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(34)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.035-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(35)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.036-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(36)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.037-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(37)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.038-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(38)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.039-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(39)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.040-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(40)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.041-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(41)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.042-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(42)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.043-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(43)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.044-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(44)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.045-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(45)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.046-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(46)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.047-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(47)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.048-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(48)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.049-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(49)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.050-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(50)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.051-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(51)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.052-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(52)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.053-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(53)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.054-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(54)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.055-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(55)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.056-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(56)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.057-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(57)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.058-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(58)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.059-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(59)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.060-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(60)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.061-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(61)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.062-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(62)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.063-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(63)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.064-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(64)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.065-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(65)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.066-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(66)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.067-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(67)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.068-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(68)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.069-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(69)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.070-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(70)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.071-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(71)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.072-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(72)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.073-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(73)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.074-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(74)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.075-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(75)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.076-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(76)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.077-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(77)" class="hover-shadow"/>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/thumbnails/chi-2014-mueller-faBrickator-presentation.078-001.jpg" alt="fabrickation-interactive-lasercutting" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(78)" class="hover-shadow"/>
+	</div>
+
+	<!-- For slide show -->
+	<!-- close button on tne right corner -->
+	<div id="lightbox-modal" class="lb-modal">	
+		<div class="modal-content">
+			<div class="lb-slides">
+			<div class="numbertext">1 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.001-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">2 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.002-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">3 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.003-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">4 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.004-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">5 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.005-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">6 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.006-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">7 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.007-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">8 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.008-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">9 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.009-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">10 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.010-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">11 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.011-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">12 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.012-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">13 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.013-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">14 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.014-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">15 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.015-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">16 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.016-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">17 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.017-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">18 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.018-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">19 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.019-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">20 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.020-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">21 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.021-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">22 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.022-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">23 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.023-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">24 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.024-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">25 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.025-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">26 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.026-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">27 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.027-001.jpg" alt="fabrickation-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">28 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.028-001.jpg" alt="fabrickation-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">29 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.029-001.jpg" alt="fabrickation-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">30 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.030-001.jpg" alt="fabrickation-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">31 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.031-001.jpg" alt="fabrickation-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">32 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.032-001.jpg" alt="fabrickation-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">33 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.033-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">34 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.034-001.jpg" alt="fabrickation-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">35 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.035-001.jpg" alt="fabrickation-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">36 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.036-001.jpg" alt="fabrickation-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">37 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.037-001.jpg" alt="fabrickation-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">38 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.038-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">39 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.039-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">40 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.040-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">41 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.041-001.jpg" alt="fabrickation-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">42 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.042-001.jpg" alt="fabrickation-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">43 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.043-001.jpg" alt="fabrickation-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">44 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.044-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">45 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.045-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">46 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.046-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">47 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.047-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">48 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.048-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">49 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.049-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">50 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.050-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">51 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.051-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">52 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.052-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">53 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.053-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">54 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.054-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">55 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.055-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">56 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.056-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">57 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.057-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">58 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.058-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">59 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.059-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">60 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.060-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">61 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.061-001.jpg" alt="fabrickation-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">62 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.062-001.jpg" alt="fabrickation-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">63 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.063-001.jpg" alt="fabrickation-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">64 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.064-001.jpg" alt="fabrickation-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">65 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.065-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">66 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.066-001.jpg" alt="fabrickation-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">67 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.067-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">68 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.068-001.jpg" alt="fabrickation-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">69 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.069-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">70 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.070-001.jpg" alt="fabrickation-interactive-lasercutting"   style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">71 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.071-001.jpg" alt="fabrickation-interactive-lasercutting"   style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">72 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.072-001.jpg" alt="fabrickation-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">			
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">73 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.073-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">74 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.074-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<div class="lb-slides">
+			<div class="numbertext">75 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.075-001.jpg" alt="fabrickation-interactive-lasercutting"   style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">76 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.076-001.jpg" alt="fabrickation-interactive-lasercutting"  style="padding-bottom:0px; margin-bottom:10px; width:100%">			
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">77 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.077-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+			
+			<div class="lb-slides">
+			<div class="numbertext">78 / 78</div>
+			<img src="http://groups.csail.mit.edu/hcie/files/research-projects/fabrickation/presentation-images/chi-2014-mueller-faBrickator-presentation.078-001.jpg" alt="fabrickation-interactive-lasercutting" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+			</div>
+
+			<!-- Next/previous controls -->
+			<a class="close-button" onclick="closeModal()">&times;</a>
+			<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+			<a class="next" onclick="plusSlides(1)">&#10095;</a>
+		</div>
+	</div>
+	
+	<!-- Project information -->
+	<div class="col-md-8" style="text-align: left;">
+		<h3 class="headline">
+		faBrickation:<br>
+		Fast 3D Printing of Functional Objects by Integrating Construction Kit Building Blocks. 
+		</h3>
+		</br>
+		<img src="images/faBrickation-head-mounted-display-overview.jpg" alt="faBrickation-head-mounted-display" width="425" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 1: Let’s fabricate this head-mounted display body quickly: (a) The exact shape of the lens mounts matters; the user thus marks them as “high-resolution” in faBrickator and (b) prints them. (c) faBrickator shows the user how to create everything else from Lego bricks and how to insert the 3D printed part. (d) Done in 67 minutes instead of the 14:30h for 3D printing.
+		</b> 
+		</br>
+		</br>
+		We present a new approach to rapid prototyping of functional objects, such as the body of a head-mounted display. The key idea is to save 3D printing time by automatically substituting sub-volumes with standard building blocks—in our case Lego bricks. When making the body for a head-mounted display, for example, getting the optical path right is paramount. Users thus mark the lens mounts as “high-resolution” to indicate that these should later be 3D printed. faBrickator then 3D prints these parts. It also generates instructions that show users how to create everything else from Lego bricks. If users iterate on the design later, faBrickator offers even greater benefit as it allows re-printing only the elements that changed. We validated our system at the example of three 3D models of functional objects. On average, our system fabricates objects 2.44 times faster than traditional 3D printing while requiring only 14 minutes of manual assembly.
+		</br>
+		</br>
+		<span class="medium-headline">
+		Introduction
+		</span>
+		</br>
+		</br>
+		The recent development in rapid prototyping tools, such as laser cutters, milling machines, and 3D printers [8], allows users to prototype one-off objects and to iterate over designs. These tools offer sufficient shape complexity and resolution to allow prototyping functional objects, such as the body of a head-mounted display with its bosses and mounts for holding the lenses, the head-strap, etc.
+		</br>
+		</br>
+		While 3D printers can create objects with the necessary level of detail, they are also very slow. Since printing time is largely proportional to the volume of the printed object, fabricating the body of the head-mounted display shown in Figure 1d takes hours on current 3D printers (14:30h on our Dimension SST 1200es). Even printing with multiple heads [6] achieves only a constant speed-up.
+		</br>
+		</br>
+		Yet speed is mission critical: while printing can be done over night, this still limits designs to a single iteration per day. Thus a typical iteration process easily adds up to a week—even though the actual design work may not have taken longer than a day. As a result, in today’s common design workflow, the 3D printer forms the bottleneck.
+		</br>
+		</br>
+		Experienced designers tend to address the problem by mixing fabrication techniques and weaving in prefabricated objects into the fabrication process. However, this requires a good amount of ingenuity and experience.
+		</br>
+		</br>
+		We propose addressing the problem by limiting 3D printing to where it is necessary—we use a much more rapid technique, the assembling of Lego bricks, everywhere else.
+		</br>
+		</br>
+		<span class="medium-headline">
+		faBrickation: Fast 3D Printing with Bricks
+		</span>
+		</br>
+		</br>
+		Figure 1 illustrates the rapid prototyping workflow we enable with our system faBrickator. faBrickator is a system that substitutes parts of 3D models with Lego bricks. Users specify, which areas they want to have executed in full detail, i.e., by the 3D printer. faBrickator then substitutes everything else with Lego bricks. Based on building instructions generated by faBrickator, users assemble the Lego part while the 3D printer is printing. Since it reduces the volume that needs to be 3D printed, faBrickator speeds up the fabrication process. While faBrickator already speeds up the fabrication of the initial prototype, it saves even more time when subsequently iterating over segments since users only have to reprint the parts that actually changed rather than reprinting the entire model.
+		</br>
+		</br>
+		<b>Walkthrough: printing a head-mounted display body</b>
+		</br>
+		In the following example session, the user rapidly prototypes the body of a head-mounted display using faBrickator. In order to get the optical properties of the display right, the exact shape and position of the lens mounts is crucial; the user thus decides to 3D print the lens mounts while fabricating the rest of the design in Lego.
+		</br>
+		</br>
+		The user starts by modeling the body of the head-mounted display in a 3D editor, here Blender (Figure 2). Alternatively, many users will choose to download a model from the web. The shown model would normally take 14:30h to 3D print. By using faBrickator to limit what gets 3D printed to the lens mounts, the user will be able to print the model in 67 minutes instead.
+		</br>
+		</br>
+		<img src="images/fabrickation-blender.png" alt="colormod-printing-user-interface" width="410" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 2: Walkthrough: The user has created a model of a head-mounted display body in Blender.
+		</b> 
+		</br>
+		</br>
+		<b>#1 Loading and legofication:</b> The user is currently editing the model in Blender (Figure 2). As the user exits the edit mode, the 3D model is automatically loaded into faBrickator, initiated by the Blender plug-in we provide. In faBrickator (Figure 3), the user hits the legofy-button, which causes faBrickator to display a naïve legofication of the model, i.e., one that consists only of Lego’s smallest building blocks—the 1x1 plates (Figure 3b). The user now hits the layout-button (Figure 3c). faBrickator responds by grouping the 1x1 plates into larger plates and bricks, so as to minimize the overall number of bricks. faBrickator also assures a stable design in this step by iterating over the brick layout until all components are connected.
+		</br>
+		</br>
+		<img src="images/fabrickation-legofy.jpg" alt="colormod-printing-user-interface" width="410" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 3: (a) The model is loaded into faBrickator, (b) legofied into 1x1 Lego plates, and (c) layouted.
+		</b> 
+		</br>
+		</br>
+		<b>#2 Marking the high-res areas of the model:</b> Figure 4 demonstrates how the user defines the regions that need to be 3D printed. (a) The user brushes the region around the lens mounts with the high-res brush. (b) This tells faBrickator to execute this area in full detail. The system responds by changing the preview accordingly. By default, faBrickator merges the marked area to a single 3D-printed block. The user repeats the process for the other lens opening.
+		</br>
+		</br>
+		<img src="images/fabrickation-highres-3D-printed.jpg" alt="colormod-printing-user-interface" width="410" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 4: Using the high-res brush the user defines the region that will be 3D printed in full detail.
+		</b> 
+		</br>
+		</br>
+		<b>#3 Printing and assembling:</b> To print, the user exports the model. This creates a 3D printable .stl file for each of the two lens mounts. The user then sends the files to the printer using the 3D printer software (in our case CatalystEX).
+		</br>
+		</br>
+		As soon as the 3D model has been sent to the printer, the user starts assembling the Lego part of the model. As shown in Figure 5, faBrickator provides animated assembly instructions that show how to assemble bottom-up, layer- by-layer.This helps to minimize the time needed for assembly.
+		</br>
+		</br>
+		67 minutes after the design was sent to the printer, the 3D printer is done fabricating the two lens mounts. Each brick bears a unique ID embossed into one of its sides (Figure 5b). This helps the user to quickly place them into the partially assembled Lego model.
+		</br>
+		</br>
+		<img src="images/fabrickation-assembly-instructions.jpg" alt="colormod-printing-user-interface" width="410" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 5: (a) Assembly instructions highlight the next brick in blue. (b) Each 3D printed part has a unique ID.
+		</b> 
+		</br>
+		</br>
+		Figure 6 shows the assembled body of the head-mounted display with the accurately fitted lenses, which took 25 minutes to assemble. The overall fabrication time was thus still bound by the 3D printer, so that the 67 min is the final time for the entire fabrication. In this case, a speed-up of a factor of 12.99.
+		</br>
+		</br>
+		The main benefit of our approach is that it can change the fabrication process from overnight printing to something that can be carried out multiple times a day. This allows users to perform several design iterations in a day that would otherwise have stretched out over the course of a week.
+		</br>
+		</br>
+		<img src="images/fabrickation-head-mounted-display.jpg" alt="colormod-printing-user-interface" width="410" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 6: The final faBrickated model.
+		</b> 
+		</br>
+		</br>
+		<b>Switching from low-res to high-res parts later on</b></br>
+		faBrickator allows users to change their mind later on in that it allows replacing additional Lego bricks with 3D printed parts. Figure 7 illustrates this, continuing our walkthrough: the optics of the head-mounted display work great, but after wearing the device for a while, the user notices that it does not sit comfortably on nose and forehead. The user goes back into faBrickator to create more ergonomic forehead and nose pieces.
+		</br>
+		</br>
+		<img src="images/fabrickation-highres-parts.jpg" alt="colormod-printing-user-interface" width="410" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 7: Making the forehead and nosepiece high-res for more comfort.
+		</b> 
+		</br>
+		</br>
+		As shown in Figure 7, the user marks the forehead and nose regions as high-res, then exports and 3D prints them. Figure 8 shows how the user removes the corresponding Lego bricks from the faBrickated head-mounted display body and replaces them with the printed parts. This iteration took 3:55 hours including assembly.
+		</br>
+		</br>
+		<img src="images/fabrickation-adding-headbrick.jpg" alt="colormod-printing-user-interface" width="410" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 8: (a) Replacing bricks with the 3D printed parts for the head. (b) The assembled model.
+		</b> 
+		</br>
+		</br>
+		<span class="medium-headline">
+		Faster Iteration Through Localized Changes
+		</span>
+		</br>
+		</br>
+		The second key benefit of faBrickator is that helps users iterate more quickly. Rather than reprinting the entire object, faBrickator allows users to make local changes to an already printed object. As this allows for faster design iteration, it allows users to iterate more and thus ultimately leads to better designs [1].
+		</br>
+		</br>
+		Back in the 3D editor Blender, the user extends the nosepiece so as to perfectly fit the user’s nose. After the user exits the edit mode in Blender, faBrickator aligns the current version of the 3D model with the previously printed one to minimize the number of bricks that need to be re-fabricated. Figure 9a shows how faBrickator highlights all bricks that changed compared to the last version. (b) The user now rebuilds the nose piece and (c) after printing exchanges it with the one that didn’t fit perfectly.
+		</br>
+		</br>
+		<img src="images/fabrickation-newnose-oldnose-brick.png" alt="colormod-printing-user-interface" width="410" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 9: (a,b) faBrickator highlights what changed between two model versions. (c) The user then reprints only the part that changed.
+		</b> 
+		</br>
+		</br>
+		<span class="medium-headline">
+		Contribution, Benefits, Limitations
+		</span>
+		</br>
+		</br>
+		The main contribution of this paper is a novel approach to fast 3D fabrication and a system called faBrickator that implements this approach. The main idea is to complement 3D printing with construction kit building blocks. The main benefit of our approach is that it allows for faster fabrication—2.44 times faster than traditional 3D printing on average (see section Validation). This allows users, such as industrial designers, to achieve several design iterations in a day that would otherwise extend across multiple days. faBrickator’s approach is especially beneficial in situations that underlay external constraints such as changing customer needs and thus require many subsequent iterations.
+		</br>
+		</br>
+		faBrickator implements additional speed-ups by (1) printing in low-detail where possible, i.e., using Lego bricks, (2) allowing for fast iteration by limiting reprinting to those regions that have actually changed, (3)minimizing the effort for manual assembly by using different sized Lego bricks. As a side effect, it also allows repairing objects that are partially broken. Unlike approaches that are entirely based on Legos, our approach allows creating precise parts for regions that require additional accuracy.
+		</br>
+		</br>
+		On the flipside, faBrickator trades in detail for speed. While suitable for iteration, the partially legofied objects do require a full 3D printing process eventually, i.e., before being deployed. There is also a modest amount of manual effort required, since users need to assemble the Lego part of the object manually.
+		</br>
+		</br>
+		Finally, as discussed in the introduction, faBrickator applies to functional objects, i.e., objects that have shape constraints only in specific areas, which is commonly the case for objects that fulfill a functional purpose. Most of the speed-up faBrickator achieves results from the fact that a given functional purpose can be implemented in many different forms, allowing faBrickator to choose the one that can be fabricated fastest. This approach, however, does not lead to benefits when designing objects where the entire shape matters, such as artistic or decorative shapes.
+		</br>
+		</br>
+		<span class="medium-headline">
+		Implementation
+		</span>
+		</br>
+		</br>
+		faBrickator is built in CoffeeScript using the constructive solid geometry library for its geometry operations. We also provide a Blender Plugin written in Python for easier file exchange between Blender and faBrickator.
+		</br>
+		</br>
+		<b>#1 File Exchange between Blender and faBrickator</b></br>
+		Our Blender plugin automatically exports the 3D model as an .stl file into a predefined folder as soon as the user exits the edit mode. faBrickator automatically detects if a new .stl file appears in the folder and imports it accordingly. The Blender plugin runs in a separate thread to prevent interference with Blender’s editing functionality.
+		</br>
+		</br>
+		<b>#2 Legofying: converting the 3D model into Legos</b></br>
+		Figure 10 shows how faBrickator converts the 3D model into Lego’s smallest building blocks—the 1x1 Lego plates. faBrickator first determines the bounding box of the model and extends it to the full multitude of a 1x1 Lego plate (8x8x3.2mm). Afterwards, faBrickator fills the bounding box with Lego plates in those positions that are either inside the model or share a portion of the volume with it. The remaining locations are left empty.
+		</br>
+		</br>
+		<img src="images/fabrickation-voxelization.png" alt="colormod-printing-user-interface" width="410" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 10: Legofying: (a) model, (b) bounding box, (c) extended bounding box, (d) legofied model.
+		</b> 
+		</br>
+		</br>
+		<b>#3 Layouting Lego Bricks</b></br>
+		faBrickator’s layout algorithm optimizes for two things: it minimizes the number of bricks used for assembly while maximizing stability. For layouting, we use the layout algorithm proposed by Testuz et al. [22]. The algorithm works as following: (1) it merges the 1x1 plates into larger Lego bricks, (2) it creates a connectivity graph representing the brick layout, (3) it identifies weak points in the graph (unstable connections), and (4) tries to relayout the bricks at these positions in a different way to erase the weak points.
+		</br>
+		</br>
+		<b>#4 Converting Lego bricks into 3D printable bricks</b></br>
+		When users select a Lego brick with the high-res brush, it is converted into a 3D printable brick. In order to generate the 3D printable brick, we use a Boolean intersection of the Lego brick with the original 3D model geometry (see Figure 11).
+		</br>
+		</br>
+		<img src="images/fabrickation-intersect.png" alt="colormod-printing-user-interface" width="410" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 11: The 3D printable brick is a result of a Boolean intersection of the model and the Lego brick.
+		</b> 
+		</br>
+		</br>
+		<b>#5 Merging and splitting Lego bricks</b></br>
+		When users select several bricks using the merge brush, they are merged into a single compound 3D printable brick. In our initial approach, we used the Boolean union operation to merge the bricks, which turned out to be very expensive. The reason is that the side faces of the two Lego bricks that should be merged are always co-planar, which is the most expensive case for a union operation.
+		</br>
+		</br>
+		Instead faBrickator uses a tagging approach for merging. As can be seen in Figure 12a, faBrickator tags each side of a Lego brick according to its orientation in space (e.g., side-y, side+y). In order to merge two bricks, we simply identify the matching neighbor sides by their tag and remove the sides since they would be inside the compound brick (Figure 12b). If later on users apply the split brush, we just enable the sides again.
+		</br>
+		</br>
+		<img src="images/fabrickation-merge.png" alt="colormod-printing-user-interface" width="410" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 12: Merging: (a) The sides of each brick are tagged according to their orientation. (b) We use this to identify, which sides need to be removed for merging.
+		</b> 
+		</br>
+		</br>
+		<b>#6 Detecting the completeness of knobs and tubes</b></br>
+		In order to ensure a stable brick layout, faBrickator needs to detect working knobs on a 3D printable brick. Only complete knobs can be used to make a connection with another brick. A knob is only complete if all of the knob’s faces were inside the model before the intersection with the model (see Figure 13). If a part of the knob lays outside the model, it is cut off during the intersection and the knob is no longer functional.
+		</br>
+		</br>
+		A regular Boolean intersect determines inside and outside faces in the process of calculating the intersection. However, as the result the intersect operation only returns a geometrical volume from which it is difficult to tell if the knob is complete or not. faBrickator therefore has its own intersect operation that stores the meta-information about inside and outside faces in tags. Before the intersection, all the faces of a knob are tagged with the knob-tag (Figure 13a). During the intersect, faBrickator tags, which faces are inside/outside of the model (Figure 13b). Afterwards, we check if there is any face that was with the knob-tag that also has the outside-tag. If there is none the knob is complete. We use the same mechanism for the tubes on the bottom side of the bricks.
+		</br>
+		</br>
+		<img src="images/fabrickation-knob-cut.png" alt="colormod-printing-user-interface" width="410" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 13: Detecting the completeness of knobs: (a) During intersection, we (b) tag if a part of the knob lies outside the model.
+		</b> 
+		</br>
+		</br>
+		<b>#7 Calculating changes between design iterations</b></br>
+		When users iterate over a model, faBrickator displays which part of the model changed. For this, we first align the new 3D model with the old 3D model because faBrickator allows users to rotate the 3D model in Blender and to move it around freely. In order to align the two models, faBrickator calculates a transformation matrix based on the distance of specific model features to a reference point— we use the point of origin. The triangles of a model are not suited as model features because even small changes of the model result in a completely different tessellation during the export from a 3D modeling program (e.g., Blender).
+		</br>
+		</br>
+		In order to create a representation of the model that is comparable, we merge the triangles into larger sides based on their orientation. First we merge neighbor triangles that have the same normal into larger convex polygons. In a second step, we merge all convex polygons with the same normal into a side. We use these sides for comparison (i.e. their outline) and after finding a match, calculate the transformation matrix and align the models.
+		</br>
+		</br>
+		Now that the models are aligned, we legofy the new model. Afterwards, we determine which parts changed by calculating the differences based on the 1x1 Lego plates. If a plate was added or removed, the part changed. For bricks that were marked as high-res 3D printed bricks in the old model, we use a volume comparison to determine changes. For bricks that did not change, we copy the brick layout of the old model to minimize the number of bricks that need to be reassembled.
+		</br>
+		</br>
+		<b>#8 Eliminating Non-Manifold Geometry</b></br>
+		When downloading models from the online platform Thingiverse, we experienced that many 3D models have invalid geometry, i.e. are not manifold/watertight. Therefore, we identified and cleaned the faulty geometry in the program meshlab before we further processed it with faBrickator.
+		</br>
+		</br>
+		<span class="medium-headline">
+		Validation
+		</span>
+		</br>
+		</br>
+		Beside the head-mounted display body, we faBrickated two additional example objects we downloaded from Thingiverse. faBrickator fabricates the three objects 3.11 times, 2.75 times, and 1.45 times faster (avg. 2.44 times) than traditional 3D printing while requiring only 14 minutes of manual assembly on average. How much faBrickator speeds up the prototyping process depends on how much volume can be substituted with bricks.
+		</br>
+		</br>
+		Figure 14 shows the first model: a soap bar dispenser that dispenses small flakes of soap when the sled is moved back and forth. It consists of two pieces: (1) the body that holds the soap and that the user moves with his dominant hand in the sled, and (2) the mount for the razor blades and the sled.
+		</br>
+		</br>
+		<img src="images/fabrickation-soap-casing.jpg" alt="colormod-printing-user-interface" width="410" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 14: (a,b) This soap dispenser only takes (c) 2:05h and 5 minutes assembly compared to the 6:30h of traditional printing.
+		</b> 
+		</br>
+		</br>
+		Producing this object with traditional 3D printing takes 6:30h compared to only 2:05h printing and 5minutes assembly when using faBrickator (casing: 0:51h printing and 3 minutes assembly, razor blade: 1:14h printing and 2 minutes assembly). This is an improvement of a factor 3.11 for 3D printing time.
+		</br>
+		</br>
+		Figure 15 shows the second model: a “penny ballista” that allows ejecting a penny with a rubber band. The ballista consists of a mount for the penny and the ballista body with a sled.
+		</br>
+		</br>
+		<img src="images/fabrickation-penny-ballista.jpg" alt="colormod-printing-user-interface" width="410" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 15: (a) A faBrickated penny ballista takes (b) only 2:06h for printing and 11 minutes for assembly compared to 3:03h when 3D printing entirely.
+		</b> 
+		</br>
+		</br>
+		Using 3D printing, this model takes 3:03h compared to 2:06h printing and 11 minutes assembly when using faBrickator (penny mount: 0:59h printing, ballista body: 1:07h printing and 11 minutes for assembly). This is an improvement of a factor 1.45 for 3D printing time.
+		</br>
+		</br>
+		The third model is the already presented head-mounted display body with the lens mounts and the head and nose parts. When using faBrickator, it took 5:17 hours for 3D printing and only 25 minutes for assembly (lens mounts: 0:33h and 0:34h, forehead piece top: 1:26h, forehead pieces bottom: 0:41h and 0:44h, nose bridge: 0:25h, nose: 0:54h). This is an improvement of a factor 2.75 for 3D printing time, which for the completely 3D printed model is 14:30h.
+		</br>
+		</br>
+		While these examples give first insights into potential time- savings when using faBrickator, we think that faBrickator will provide an even greater speed-up when creating very large objects. We hope this will encourage users to start designing and fabricating objects that exceed the volume of current 3D printers.
+		</br>
+		</br>
+		<span class="medium-headline">
+		Conclusion
+		</span>
+		</br>
+		</br>
+		In this paper, we presented a new approach to rapid fabrication and our system—faBrickator—that implements this approach. The key idea is to substitute sub-volumes of 3D models with standard building blocks. We demonstrated how the modular approach of faBrickator is especially useful when iterating over a design since only the parts that changed are reprinted – not the entire model.
+		</br>
+		</br>
+		As future work, we plan to extend faBrickator so as to work with a wider range of building blocks and objects in order to further decrease printing time. We also plan to improve the assembly instructions according to the Lego specification. Finally, we aim at automating the assembly process by building on existing tools that are able to assemble standard Lego bricks [9].
+		</br>
+		</br>
+		<img src="images/fabrickation-time-savings.jpg" alt="time-savings" width="455" style="padding-bottom:0px; margin-bottom:10px"/>
+		</br>
+		<b>
+		Figure 16: How much faBrickator speeds up the prototyping process depends on how much volume can be substituted with bricks. 
+		</b> 
+		</br>
+		</br>
+		</br>
+		</br>
+		</br>
+		</br>
+		
+	</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 footer" style="text-align: center;">
+			<span class="copyright">
+			Since 2017 &copy; MIT CSAIL (HCI Engineering group) [redesign by 
+			<a href="http://punpongsanon.info/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			moji
+			</a>]. 
+			All Rights Reserved.
+			
+			<a href="http://mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="http://hcie.csail.mit.edu/images/logo/mit.svg" alt="MIT" class="footer-logo" />
+			</a>
+			<a href="http://csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="http://hcie.csail.mit.edu/images/logo/csail.svg" alt="CSAIL" class="footer-logo"/>
+			</a>
+			<a href="http://hci.csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="http://hcie.csail.mit.edu/images/logo/hci.svg" alt="HCI" class="footer-logo"/>
+			</a>
+			</span>
+		</div>
+	</div>
+</div>
+
+<!-- Bootstrap --> 
+<script type="text/javascript" src="https://hcie.csail.mit.edu/js/bootstrap.min.js"></script>
+<!-- header -->
+<script type="text/javascript" src="https://hcie.csail.mit.edu/js/headerstrap-for-subpage.js"></script> 
+<!-- lightbox -->
+<script type="text/javascript" src="../../js/lightbox.js"></script> 
+</body>
+</html>
