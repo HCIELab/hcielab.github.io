@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>6.810 Lab7 Temperature Sensor</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!-- CSAIL ICON -->
+	<link rel="CSAIL" href="../../../images/icon/csail.ico" type="image/x-icon" />
+
+	<!-- Bootstrap -->
+	<link href="../../css/bootstrap.css" rel="stylesheet">
+	<link href="../../css/custom-style.css" rel="stylesheet">
+
+	<!-- jQuery -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+
+	<!-- Google Analytic -->
+	<script type="text/javascript" src="../../js/analytics.js"></script>
+    
+    <SCRIPT SRC='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></SCRIPT>
+<SCRIPT>MathJax.Hub.Config({ tex2jax: {inlineMath: [['',''], ['\\(','\\)']]}})</SCRIPT>
+
+	<style>
+	.etech-sch-col1 {width:60px; border: 1px solid black;padding:10px;}
+	.etech-sch-col2 {width:120px; border: 1px solid black;padding:10px;}
+	.etech-sch-col3 {width:450px; border: 1px solid black;padding:10px;}
+	.etech-sch-col4 {width:70px; border: 1px solid black;padding:10px;}
+  .etech-sch-col5 {width:70px; border: 1px solid black;padding:10px;}
+  /*.etech-sch-col6 {width:170px; border: 1px solid black;padding:10px;}*/
+  ul {
+    padding:0px;padding-left:10px;margin:0px; 
+  }
+	</style>
+</head>
+
+<body>
+<header class="main_header">
+	<!-- to be filled by javascript, see header.html -->
+</header>
+
+<section class="main_container">
+	<div class="container">
+    <div class="row nothing">
+
+      <section class="col-md-8 pull-right main-content">
+</br></br></br></br>
+        <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2021)</a><br></h4>
+        <h2 class="headline">Lab 7: Inkjet Printed Temperature Sensor</h2>
+
+In this lab, we will first create the digital design of an ink-jet printed temperature sensor to sense the heat of the mug when a hot drink is poured in. We will then create the overall circuit design for the mug, which contains the temperature sensor and connector pads for the EL display. Finally, we will print out the circuit design on the inkjet printer. In the next lab, we will then assemble everything into the final mug and write the temperature sensing code.<br><br>   
+          
+ <div style="color:red; border: red 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Don't forget to bring your EL display:</b><br> Please don't forget to bring your EL display for this and the next labs in this series.</div>
+
+
+ <img src="images/lab7/teaser_mug.png" width="750px"><br>
+
+
+<h3>Steps:</h3>
+<ol>
+  <li><a href="#temperaturesensing">Understand Temperature Sensing</a></li>
+  <li><a href="#sensorshape">Understand the Shape of a Temperature Sensor</a></li>
+  <li><a href="#processingscript">Generate Temperature Sensor Using Processing Script</a></li>
+  <li><a href="#overallcircuit"> Integrate Temperature Sensor and EL Display Circuit</a></li>
+  <li><a href="#inkjetprintcircuit">Inkjet Print Circuit</a></li>
+  <li><a href="#copperpad">Attach Copper Tape to the Connector Pads</a></li>
+  <li><a href="#displaycircuit">Attach Display to Printed Circuit</a></li>
+  <li><a href="#laminate">Laminate Printed Circuit</a></li>
+</ol>
+
+<h3>Deliverables</h3>
+
+At the end of the lab, upload to your student google drive:
+<ol>
+        <li>the Processing code (.pde) to generate the temperature sensor</li>
+        <li>the Adobe Illustrator file (.pdf) with the completed circuit design</li>
+        <li>1 photo (.jpg or .png) of your inkjet printed temperature sensor</li>
+    </ol>
+    
+<div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Help us Improve Class Materials for Lab7:</b><br>
+Please let us know if you had any trouble with the circuit drawing or if anything was confusing in the write up. <br> <a href="https://docs.google.com/document/d/1YKoNUb9T85Acbfh-jT0SfCVRACLxwdKZQCVremZpgJs/edit?usp=sharing">You can add your comments here.</a></div>
+
+    
+     <h3 id="temperaturesensing">(1) Understand Temperature Sensing</h3>
+
+     You will make your own <code>temperature sensor</code> from scratch using <code>conductive inkjet printing</code>. But why can conductive traces be used to sense temperature?<br><br>
+
+     <b>Resistance Changes with Temperature:</b> Conductive traces can be used to sense temperature because their <code>resistance changes</code> with <code>changes in temperature</code>, a property other metals share as well. This phenomenon can be understood by picturing <code>how electrons move in a conductive material from one pol to the other</code>. The conductive material is filled with atoms and molecules that bounce around. Electrons trying to move through the conductive material may <code>collide with the atoms and molecules</code>, and as a result, the electrons may be deflected or scattered around in the material. With <code>higher temperatures</code>, the atoms and molecules <code>bounce around more and scatter electrons stronger</code>, which leads to a higher resistance.<br><br>
+
+     Below, you see the <code>resistivity change</code> of silver, copper, and gold under different temperatures. Note, that these functions are not linear overall, but can be approximated with a <code>linear function</code> for temperature changes between <code>0C - 100C</code> with only a small error.<br><br>
+    
+     <img src="images/lab7/Resistivity_Cu-Ag-Au.png" width="400px"><br><br>
+        
+     <b>Formula for Computing Overall Resistance at a Certain Temperature:</b> As mentioned above, for temperature changes between 0C - 100C, the resistance of our conductive traces varies linearly with temperature. We can describe the <code>resistance at a certain temperature</code> with the following equation:<br>
+     \[ R_{temp} = R_{Ref}(1+\alpha (T - T_{Ref})) \]
+
+     <i>R_{temp}:</i> is the resistance at the current temperature T<br>
+    <i>R_{Ref}:</i> is the resistance at a given reference temperature T_{Ref}<br>
+     <i>alpha:</i> is the temperature coefficient of the conductive material in our case the <code>silver ink</code><br><br>
+    
+    <b>Determining alpha:</b> While the <code>temperature coefficient alpha</code> is known for metals, such as pure silver, our silver ink is a special mixture of silver for inkjet printing that has a different temperature coefficient. Since we cannot measure <code>alpha</code> directly, we will instead measure the resistance of our conductive traces at two temperatures (e.g., the conductive traces at room temperature of 20C, and when boiling water is poured into the mug at 100C) and measure the resulting resistances. We can then fill out the formula and calculate the <code>temperature coefficient alpha</code> of our silver ink  traces. Before we can take those measurements, we first have to create our temperature sensor. Let's start with this.  <br><br>
+
+    
+    <h3 id="sensorshape">(2) Understand the Shape of a Temperature Sensor</h3>
+    
+    Above we discussed how conductive traces can be used to sense temperature by measuring their resistance.  The next question that arises is <code>what area</code> should the trace cover and <code>what shape</code> should it have? <br><br>
+
+    <b>Area of the Temperature Sensor:</b> The temperature sensor that we wrap around the coffee mug should <code>measure temperature over a large area</code> of the mug to make sure that we get a good reading even when the mug is only half full. This also helps us to reduce the effect that a user's warm fingers have on an empty mug since those would only locally heat up the mug but do not generate enough heat over a larger area to change the temperature reading significantly. We will cover a <code>70mm x 20mm</code> large area on the mug with silver traces (see image below, no need to draw something yet, we will do this in the next section).<br><br>
+    
+    <b>Shape of the Temperature Sensor (Horse Shoe Pattern):</b> A classic method to create a long wire on a small area is to design it in a <code>horse shoe pattern</code>, which looks like the image below.<br><br>
+    
+    <img src="images/lab7/hsp.png" width="400px"><br><br> 
+    
+    In the next step, you will write a program to automatically generate a temperature sensor for a given size.
+
+    <h3 id="processingscript">(3) Generate Temperature Sensor Using Processing Script</h3>
+    
+    Since drawing a horse shoe pattern manually is quite the pain, let's leverage our <code>computational design capabilities in Processing</code>. Write a Processing Script that <code>generates a temperature sensor layout</code> of <code>variable width and height</code>. You may want to reuse some code from pset1 for this script.<br><br>   
+        
+    <b>Create User Input Fields:</b> There are 4 parameters necessary to generate this horse shoe pattern: <code>sensor width,</code> <code>sensor height</code>, <code>trace thickness</code>, and <code>distance between traces</code>. Your user interface should allow the user to change these values using UI elements and then generate a matching sensor layout.<br><br>  
+
+    <b>Default values for UI: </b>The default values in your program to generate your temperature sensor should be:
+    <ol>
+        <li><code>Width of temperature sensor</code> = 70mm</li>
+        <li><code>Height of temperature sensor</code> = 20mm</li>
+        <li><code>Wire thickness</code> = 0.3mm</li>
+        <li><code>Vertical Spacing between silver traces</code> = 0.5mm</li>
+    </ol>
+
+     <b>Generate Horse Shoe Pattern:</b> Given the UI parameters, generate a set of <code>horizontal lines</code> of the given thickness and connect them with <code>vertical lines</code> on alternating sides. Make sure that the <code>traces start and end on the same side</code>.<br><br>
+
+     <b>Export Temperature Sensor as PDF:</b> Output a <code>.pdf</code> that contains the temperature sensor ready for inkjet printing.<br><br>
+
+     <b>Check Temperature Sensor in Illustrator:</b> Open your temperature sensor pdf in <code>Adobe Illustrator</code> and <code>measure to confirm</code> that the default values are set correctly, i.e. width of temperature sensor = 70mm, height of temperature sensor = 20mm, wire thickness = 0.3mm, and vertical spacing between silver traces = 0.5mm. 
+  
+    <h3 id="overallcircuit">(4) Integrate Temperature Sensor and EL Display Circuit</h3>
+
+    Now that you have the temperature sensor, it's time to extend the circuit to also include the <code>EL display,</code> whose <code>brightness we want to control based on temperature changes</code>.<br><br> 
+
+    <b>Download Overall Circuit File:</b> Below, you see an image of the mug for reference and the <code>overall circuit layout</code> that fits onto the mug, which has all the elements you need for the circuit. <a href="images/lab7/Mug_Template.pdf"><code>Download the overall circuit file</code> from here.</a> It contains a rectangle that shows you how much space you have on the mug (width: 170mm, height: 50mm).<br><br> 
+
+    <img src="images/lab7/mug-circuits-schematic.png" width="750px"><br><br>
+
+    <b>Add Temperature Sensor to Circuit:</b> Open your <code>temperature sensor .pdf</code> in Adobe Illustrator. <code>Copy the temperature sensor</code> into your overall circuit file. The imported temperature sensor should be <code>placed near the mug's handle</code> as shown above.<br><br>
+
+    <b>Add two Connector Pads to Temperature Sensor:</b> Draw <code>two connector pads</code> (each size: <code>30mm x 5mm)</code> and connect them with <code>two wires</code> (thickness: <code>1mm)</code> to the temperature sensor start and end of the horse shoe pattern. We will later connect our microcontroller to those connector pads.<br><br>
+
+    <b>Draw a placeholder for your EL display:</b> <code>Measure the size of your EL display</code> and <code>draw a placeholder rectangle</code> in your overall circuit design as shown in the image above. There should be <code>at least a 10mm gap</code> between the temperature sensor and the edge of your EL display to ensure they do not touch each other.<br><br> 
+
+    <b>Draw a placeholder for copper flaps:</b> Also draw <code>two placeholders for the copper connectors on your EL display</code>. One connector is the <code>copper flap</code> that we attached to the copper sprayed area, the other connector is the <code>copper tape</code> at the bottom of the display. Draw their position accurately into your circuit drawing. <br><br> 
+
+    <b>Draw two Connector Pads to EL Display:</b> Next, draw an additional two connector pads (each size: <code>30mm x 5mm</code>) and connect them with <code>two wires</code> (thickness: <code>2mm</code>) to the EL display copper flap and copper stripe. There should be at <code>least a distance of 3cm</code> between the wires at the location where they connect to the EL display to avoid short circuits. The <code>position of the wires is essential</code>, if they are placed too high or too low they will not make a connection to your EL display since they will not touch the copper flap and copper tape.<br><br>
+
+    <b>Check your Drawing Before Printing:</b>  Once you are done, double check one more time:
+    <ol>
+        <li><code>Wires to Display:</code> The spacing between your display wires matches the distance between the copper flap and copper tape on <code>YOUR display.</code></li>
+        <li><code>Height of your circuit:</code> The bounding rectangle of your entire circuit is within the maximum height and width of 170mm x 50mm.</li>
+        <li><code>No Overlap of Temperature Sensor and Display:</code> The temperature sensor does not overlap with the display, there is a gap of at least 1cm between them.</li>
+        <li><code>Trace Width Display:</code> The trace width to your display is 2mm.</li>
+        <li><code>Size of Connector Pads:</code> The connector pads are 30mm x 5mm.</li>
+</ol>
+
+    <h3 id="inkjetprintcircuit">(5) Inkjet Print Circuit</h3>
+
+    Once you are done with your circuit design, please put it in your <code>google drive</code> and <code>let us know on slack</code> that you are ready for inkjet printing.<br><br>
+
+    <b>Inkjet Print Circuit:</b> Once we confirmed that everything looks good, go ahead and <code>inkjet print your circuit</code> on white inkjet paper sheets.<br><br>
+
+    <b>Check Resistance of your Temperature Sensor:</b> Once your print is done, check if the temperature sensor is printed properly. Use a <code>multimeter</code> and hold its two electrodes on the two corresponding connector pads, you should read a value of around a <code>few 100 Ohms to 1 kOhm</code>.<br><br>
+    
+    <h3 id="copperpad">(6) Attach Copper Tape to the Connector Pads </h3>
+
+    In one of the later steps, we will <code>solder jumper wires</code> to the <code>connector pads</code> of your printed circuit. However, soldering directly on paper is not a good idea. The <code>paper will burn</code> and destroy the printed silver at the same time. To address this issue, we will glue a piece of <code>copper tape</code> over the connector pads. This allows us to solder wires to our printed circuit.<br><br>
+
+    <b>Cut 4 copper tape pieces:</b> The copper tape should <code>fit the size of the printed connector pads</code>, which are <code>30mm long</code>. Cut 4 pieces that are 30mm long.<br><br>
+    
+    <span style="color: red"><b>Important: Get yourself a pair of gloves before you start working on the printed circuit. The silver traces might not be fully dry yet and you could rub off some silver when applying the copper tape on the connector pads.</b></span><br><br>
+    
+    <b>Glue copper tape on connector pads:</b> Check the image below for how your circuit should look like after you <code>applied the copper tape to the connector pads</code>.<br><br>
+    <img src="images/lab7/glue_copper_pad.jpg" height="250px">
+    <img src="images/lab7/copper_pads.jpg" height="250px"><br><br>
+
+    <h3 id="displaycircuit">(7) Attach Display to Printed Circuit </h3>
+    Now, it's time to <code>attach your sprayed display</code> to the printed circuit.<br><br>
+    
+    <b>Attach Copper Tape to Circuit for EL Display Connections:</b> Take a roll of <code>copper tape</code> and <code>cut of two 6cm long pieces</code>. Take one of the copper strips and <code>attach half</code> of it onto one of the wires that leads to the display, <code>bend it over</code> so that the <code>adhesive side faces upwards</code> (see images below). Repeat this with the other copper strip on the second wire. Make sure that the two copper stripes don't connect to each other and have a <code>save distance of at least 1cm</code>.<br><br>
+    
+    <img src="images/lab7/copperOpen.png" width="370px">
+    <img src="images/lab7/copperClosed.jpg" width="310px"><br><br>
+
+    <b>Attach your Display to Copper Tape:</b> Next, <code>attach your display</code> onto the adhesive side of the bend-over copper stripes. Make sure that one copper strip connects only to the copper tape on the display and the other copper strip only connects to the copper flap on the sprayed copper layer.<br><br>
+    
+    <img src="images/lab7/display_sidebyside.jpg" width="700px"><br>
+    <img src="images/lab7/display_on_circuit.jpg" width="700px"><br><br>
+    
+     <b>Test Display Connection:</b> Let's test if the connection between the display and the printed wires is working. Take your <code>inverter circuit</code> and connect it to the <code>two connector pads</code> that lead to the display, then check if the <code>display turns on/off</code>. If you don't remember how to control your inverter circuit, look back at lab 6. Remember: <code>do not touch the display</code> or any part of the circuit while the inverter is plugged in. If your display lights up, you can continue.<br><br>
+    
+    <img src="images/lab7/displayTesting.png" width="400px"><br><br>
+    
+    <b>Tape Down Edges of Display with Transparent Tape:</b> Once, you verified that everything works, you can <code>tape the display on its edges</code> onto the circuit sheet using <code>transparent scotch tape</code>.  
+    Apply a stripe of tape on the <code>left and the right edge</code> of your display.<br><br>
+
+    <img src="images/lab7/scotchOnOneSide.png" width="350px">
+    <img src="images/lab7/scotchOnBothSides.jpg" width="340px"><br><br>
+    
+    <h3 id="laminate">(8) Laminate Printed Circuit</h3>
+    
+    A mug often gets in contact with <code>liquids</code> that could <code>damage the printed circuit</code>. Because of that, we will <code>laminate</code> the circuit similar to how you did it for the music card to <code>protect it from moisture</code>, such as coffee or water. <br><br> 
+    
+    <b>Cut out the circuit:</b> Before you can laminate it, you have to <code>cut out the circuit</code>. The <code>overall size</code> should be close to <code>170mm x 50mm</code>. Make sure that you cut around the display and that you don't cut off part of the connector pads.<br><br>
+    
+    <img src="images/lab7/cutting.jpg" width="700px"><br><br>
+    
+    <b>Place your Circuit between two Lamination Sheets:</b> Take a lamination sheet, insert your circuit between the two layers, and push it up to the side that is glued together. Make sure that the <code>connector pads stick out of the lamination sheets by 1cm</code> (see image below). We will later <code>solder onto these pads</code>. Thus, they should still be exposed after lamination.<br><br>
+    <img src="images/lab7/laminate.jpg" width="700px"><br><br>
+    
+    <b>Cut Lamination Sheet to Fit Mug Sensor:</b> When you cut the lamination sheet around the circuit, make sure that you <code>leave a frame of about 1cm width around the mug sensor</code>. When laminating everything, this frame will glue together and encapsulate your mug sensor. <br><br>
+
+    <img src="images/lab7/cutlami.jpg" width="700px"><br><br>
+    
+    <b>Put your Mug Sensor in the Laminator:</b> Finally, <code>insert the circuit into the laminator</code>  with the <code>glued together side first</code>. <br><br>
+
+    <img src="images/lab7/laminator.jpg" width="700px"><br><br>
+    
+<h3>Deliverables</h3>
+
+At the end of the lab, upload to your student google drive:
+<ol>
+        <li>the Processing code (.pde) to generate the temperature sensor</li>
+        <li>the Adobe Illustrator file (.pdf) with the completed circuit design</li>
+        <li>1 photo (.jpg or .png) of your inkjet printed temperature sensor</li>
+    </ol>
+    
+    
+<br />
+
+<hr>
+
+        <br />
+        <br />
+        <br />
+      </section>
+
+      
+     <aside class="col-md-4 pull-left">
+         <br /> <br /> <br /> <br /><br>
+
+                 <h4 class="medium.headline" style="padding-bottom:10px;"><a href="lab-series-interactive-mug.html"><b>Lab Series: Interactive Mug</b></a><br></h4>
+
+<ul>
+    <li><a href="lab5-fabricating-el-display.html">Lab 5: Fabricating the Electroluminescent Display</a></li>
+    <li><a href="lab6-controlling-el-displays.html">Lab 6: Controlling the Electroluminescent Display</a></li>
+    <li><a href="lab7-temperature-sensing-mug-with-display.html">Lab 7: Inkjet Printed Temperature Sensor</a></li>
+    <li><a href="lab8-temperature-controlled-display.html">Lab 8: Mug Assembly &  Display Control Using Temperature</a></li>
+</ul><br>
+
+
+<iframe width="173" height="210" src="https://www.youtube.com/embed/E8sfqrH_1Ks" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
+
+In this lab series, you will create an interactive mug. The mug consists of a sprayed electroluminescent display and an inkjet printed temperature sensor. When the user pours in tea or coffee, the mug can sense the temperature of the liquid and when its too hot, blink the display as a warning.<br><br>
+
+
+<h4 class="medium.headline" style="margin-bottom:0px;">Use our design or make your own</h4><br>
+
+You have the choice to either use our template design files or to make your own design. That means you can either use our display design (coffee cup shape) or make your own display design. Sprayed displays have only about a 50% to work when you are new to spraying as a fabrication technique, thus if you decide to make your own design we recommend you also spray a few of our designs as a backup. If you decide to make your own, please make sure you read a bit ahead what's coming in lab 5/6/7/8. There is also the risk that your own design will have its own bugs that we are less knowledgable about. Below you see a custom display design from a 6.810 team from last year.<br><br> 
+
+<iframe width="280" height="158" src="https://www.youtube.com/embed/BtRwNVc96ZE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+      </aside>
+
+    </div>
+  </div>
+  </div>
+</section>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 footer" style="text-align: center;">
+			<span class="copyright">
+			Since 2017 &copy; MIT CSAIL (HCI Engineering group) [redesign by
+			<a href="http://punpongsanon.info/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			moji
+			</a>].
+			All Rights Reserved.
+
+			<a href="http://mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/mit.svg" alt="MIT" class="footer-logo" />
+			</a>
+			<a href="http://csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/csail.svg" alt="CSAIL" class="footer-logo"/>
+			</a>
+			<a href="http://hci.csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/hci.svg" alt="HCI" class="footer-logo"/>
+			</a>
+			</span>
+		</div>
+	</div>
+</div>
+
+<!-- Bootstrap -->
+<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+<!-- header -->
+<script type="text/javascript" src="../../js/headerstrap-for-subpage.js"></script>
+
+</body>
+</html>

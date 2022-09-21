@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>6.810 Pset4 Visualizing Touch</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!-- CSAIL ICON -->
+	<link rel="CSAIL" href="../../images/icon/csail.ico" type="image/x-icon" />
+
+	<!-- Bootstrap -->
+	<link href="../../css/bootstrap.css" rel="stylesheet">
+	<link href="../../css/custom-style.css" rel="stylesheet">
+
+	<!-- jQuery -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+	<!-- Prism for adding the code snippets-->
+	<link href="../../css/prism.css" rel="stylesheet" />
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+
+	<!-- Google Analytic -->
+	<script type="text/javascript" src="../../js/analytics.js"></script>
+
+	<style>
+	.etech-sch-col1 {width:60px; border: 1px solid black;padding:10px;}
+	.etech-sch-col2 {width:120px; border: 1px solid black;padding:10px;}
+	.etech-sch-col3 {width:450px; border: 1px solid black;padding:10px;}
+	.etech-sch-col4 {width:70px; border: 1px solid black;padding:10px;}
+  .etech-sch-col5 {width:70px; border: 1px solid black;padding:10px;}
+  /*.etech-sch-col6 {width:170px; border: 1px solid black;padding:10px;}*/
+  ul {
+    padding:0px;padding-left:10px;margin:0px;
+  }
+	</style>
+</head>
+
+<body>
+<header class="main_header">
+	<!-- to be filled by javascript, see header.html -->
+</header>
+
+<script src="../../js/prism.js"></script> 
+
+<section class="main_container">
+	<div class="container">
+    <div class="row nothing">
+
+      <section class="col-md-8 pull-right main-content">
+</br></br></br></br>
+        <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2021)</a><br></h4>
+        <h2 class="headline">Pset4: Visualizing Multi-Touch Input</h2>
+
+          <hr>
+
+In this problem set, you will write Processing code that takes as input the sensor signals and visualizes the resulting touch points as white pixels in a grayscale 2D image.<br><br>
+
+<b>Steps:</b>
+<ol>
+	<li><a href="#INSTALLLIBRARIES">Download Skeleton Code and Install Libraries</a></li>
+	<li><a href="#READPROCESSING">Read Multi-Touch Sensing Data into Processing</a></li>
+	<li><a href="#REDUCENOISE">Reducing Noise in Received Signal</a></li>
+	<li><a href="#GRAYSCALEIMAGE">Convert Received Signals into Grayscale Values</a></li>
+	<li><a href="#BICUBIC">Scale Up Image Using Bicubic Interpolation</a></li>
+	<li><a href="#BLOBDETECTION">Blob Detection</a></li>
+	<li><a href="#TOUCHPADHARDWARE">Use Your Own Multi-touch Pad Data</a></li>
+</ol>
+<br>
+
+ <div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Help us Improve Class Materials for PSet4:</b><br>
+Please let us know if anything was confusing in the write up or if you had trouble with the test program. <br><a href="https://docs.google.com/document/d/1EzNRraolXslbVGynQtzv9MruIiqbrR7p5X7Fc_2fzu8/edit?usp=sharing">You can add your comments here.</a></div>
+
+ <div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Get a new multi-touch pad from a TA:</b><br>
+If you have the feeling your printed multi-touch pad is degrading, let us know and we can give you one that we fabricated to test if it's really the multi-touch pad or something in your circuit/code.</div>
+
+ <div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Ask a TA to give you Arduino signal code if you did not finish pset3 (only needed for the very last step of pset4):</b><br>
+In case you did not finish pset3, you can ask a TA to provide you with a piece of Arduino code that will simulate sending touch data.</div>
+
+
+<h3 id="INSTALLLIBRARIES">(1) Download Skeleton Code and Install Libraries</h3>
+
+<b>Download Skeleton Code:</b> Start by downloading <a href="software/pset_visualization_skeleton_v5.zip" style="color:blue">the skeleton code for the pset4 from  here</a>.<br><br>
+
+<b>Install Libraries:</b> Before you can execute the skeleton code, you first have to install two libraries. <br><br>
+
+<b>OpenCV library:</b> <code>OpenCV</code> is a library that helps with image processing. In our case we will draw our touch signals into an image. Below we describe how to install it.<br><br>
+
+<i>Install OpenCV Library in Processing:</i> First, install the library directly in Processing by going to <code>Sketch/Import Library/Add Library</code> and searching for <code>OpenCV</code>. This version of <code>OpenCV</code> library is for the last version of Processing (3.x), and we need to update it for Processing 4.0.<br><br>
+
+<i>Update OpenCV Library for Processing 4.0:</i> To update OpenCV, go to this <a href="https://github.com/jaegonlee/opencv-processing/releases/tag/0.6">link</a>, download the zip file provided, and unzip it. You will find a folder named <code>opencv_processing</code>. Next, let's find the folder where the Processing libraries are stored on your system. On the top Menu bar, go to <code>Processing > Preferences</code>; here you'll find 'Sketchbook Location'. (If you are on a Mac, it will look like <code>/Users/UserName/Documents/Processing</code>, and on Windows it will look like <code>C:\Users\UserName\Documents\Processing)</code>. Browse to this location, and open the folder named <code>libraries</code>. You'll find a folder named <code>opencv_processing</code>, same as the one you have downloaded from the link given above. Replace this folder at this location with the one you have downloaded. Now, your <code>OpenCV</code> version has been updated to work with Processing 4.0. <br><br>
+
+<i>Run Sample Code to Verify OpenCV Installed Properly:</i> Let's run one of the example codes provided with the OpenCV library. Navigate to the top Menu bar in Processing, and go to <code>File > Examples > Contributed Libraries > OpenCV for Processing > Find Contours</code>. Double click to open the file and run the code. You should be able to see an image in a new window, with contours detected and highlighted. <br><br>
+
+<b>BlobDetection library:</b> <code>BlobDetection</code> is a library that helps to find blobs inside of images, in our case the blobs are the touch points on the multi-touch pad. We will use this later in pset5. You can install the library directly in Processing by going to: <code>Sketch/Import Library/Add Library</code> and searching for <code>BlobDetection</code>. You will not be using this library in pset4. However, because pset4 & 5 use the same skeleton code, we ask you to install this library now so that the skeleton code can compile without error.<br><br>
+
+<img src="images/pset4/processing-library-opencv.png" width="370px">
+<img src="images/pset4/processing-library-blob-detection.png" width="370px"> <br><br>
+
+<h3 id="READPROCESSING">(2) Read Prerecorded Multi-Touch Sensing Data into Processing</h3>
+
+To make it easier for you to write the code for pset4, we provide you with <code>prerecorded multi-touch data</code>. This allows you to implement all steps based on the touch data we provide, before testing your code with your own multi-touch pad in the last step of this pset. To implement pset4, all you need to do is to <code>plug in your ESP</code> (you <code>do not need to plug in the rest of the circuit / multi-touch pad</code> until the very last step).<br><br>
+
+<b>Download Arduino Program that Writes Prerecorded Data to the Serial Port:</b> Download the <code>Arduino program (.ino)</code> from <a href="software/writing_simulation_data.zip" style="color:blue">here</a> that will write the prerecorded touch data to the Serial Port. Compile it and upload it to your ESP microcontroller.</span> The prerecorded data contains data for <code>no touch</code>, <code>touch with one finger</code>, and <code>touch with two fingers</code> in the same format as you wrote it to the Serial Port with your Arduino Code in the last pset.<br><br>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/XQgTjNb7F9A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<b>Read Data from Serial Port Into Processing:</b> Remember from the last pset that the <code>touch data is written</code> onto the serial port one line at a time in the <code>format seen below</code>. <br><br>
+
+<pre>
+0,50,83,58,79,108,75,82,54;   //columm0, row0val, row1val, row2val
+1,55,92,120,84,63,61,88,53;  //columm1, row0val, row1val, row2val
+2,61,64,73,66,92,78,67,57;
+3,65,117,116,84,48,81,91,71;
+4,65,128,116,54,76,81,88,59;
+5,61,86,66,54,114,78,64,64;
+6,59,86,120,83,85,75,93,63;
+7,56,86,116,70,72,83,80,64;
+8,23,82,74,68,98,64,62,52;
+...
+</pre> <br>
+
+You now need to read this data from the <code>Serial Port</code> into <code>Processing</code>. We have already shown you how to read data from the Serial Port into Processing in Lab 3 & 4 and you can check your prior code from back then to see how to do it. Put your code for reading the data into the <code>readSerial()</code> function: <br>
+<img src="images/pset4/readSerial-skeleton-code.png" width="700px"> <br>
+
+<b>Clean Data when Reading it from the Serial Port into Processing:</b> Although the ESP is writing clean data to the Serial Port, the received data from the Serial Port in Processing can be messy, i.e. sometimes a <code>data line will be completely missing</code>, and other times there may be <code>unrecognized characters</code>. Make sure your <code>readSerial()</code> function in Processing properly handles these unexpected characters and formats, and stores only the valid data. One way to ensure the validity of the data being read from the serial port in Processing is by <code>checking the number of characters</code> currently written in the serial buffer. Whenever a correct line of data is written through the Serial Port, there are <code>at least 18 characters</code>. Additionally, you may find the Processing <code>string functions</code> useful in parsing your data, you can <a href="https://processing.org/reference#data-string-functions" >find documentation here</a>. For instance, you can use the function <code>match()</code> to check whether the string matches a certain regular expression, which is a really powerful tool. <br><br>
+
+<b>Save Data for One Complete Scanning Pass into a 2D Array:</b> The data for a <code>single pass on all columns and rows</code> should be saved into a <code>2D array</code>. When considering the size of your 2D array, remember that we build a <code>8x9 multi-touch pad</code>. Printing the 2D array to the Processing command line should look something like the print out below. Every time a new pass over all columns/rows starts, you need to override your array values. Instead of overriding the whole array at once, <code>update the array row by row</code> whenever there is new data coming from the serial port, i.e. update the row values based on the column number at the beginning of the data. <br><br>
+
+<img src="images/pset4/serial-read-array-one-pass.png" width="750px"> <br><br>
+
+
+<h3 id="REDUCENOISE">(3) Reducing Noise in Received Signal</h3>
+
+As you may have noticed, even when your code reads the <code>no touch</code> data (first data that comes in when you upload the Arduino Ino program that we provided), the data always has <code>some value</code> although you would expect that they should receive <code>0</code>. This is what we call <code>noise</code> in signal processing.<br><br>
+
+<b>Factors that Cause Noise:</b> Noise can be caused by a variety of factors. On the entire multi-touch pad, noise can be caused by the <code>substrate the multi-touch pad is placed on</code>, i.e. if you place it on a glass table or a wooden table the noise level will be different. Additionally, noise can be different at each of the connection points in the circuit. For instance, <code>each FPC connector and each wire</code> may have different noise levels since the conductive lines all make slightly different levels of contact.
+Furthermore, since the inkjet printed circuit may not be perfectly consistent everywhere either because of <code>uneven printing</code> or because of <code>different ageing levels over time</code>, the different printed paths may also have different levels of noise.
+Finally, in addition to the reasons above, we can also have different noise levels on a single row of electrodes because the <code>distance between the receiver pin and each electrode in the row is different</code>, thus the electodes further away accumulate noise over a larger distance.
+All of these factors together result in different noise levels at each point in your multi-touch pad. Noise is an issue because it can lead to <code>false positives</code>, i.e. your code may think the multi-touch pad was touched although no interaction occured. To prevent this, we need to <code>eliminate the noise</code> in our signals.<br><br>
+
+<b>Eliminate Noise with a Noise Baseline Filter:</b> In order to eliminate the noise and have more "clean" data, we will implement a simple <code>noise baseline filter</code>. A noise baseline filter works in <code>two steps</code>: (1) a <code>noise baseline signal is recorded</code> when the multi-touch pad is not touched. After this, (2) the <code>noise baseline is subtracted</code> from the incoming signal. Thus, if no touch occured, the resulting values will be zero this time (or very close to it).<br><br>
+
+<b>Record Noise Baseline:</b> Implement the noise baseline in the <code>setBaseLine()</code> function and change the <code>boolean baseLineSet</code> in the skeleton code to <code>true</code> once the baseline is set. Keep reading below on the steps to accomplish this:<br><br>
+
+<img src="images/pset4/setBaseLine-skeleton-code.png" width="600px"> <br><br>
+
+<i>Extract Noise Baseline Data:</i> The <code>first two seconds</code> in the prerecorded touch data that we provide is data with <code>no touching</code>, i.e., the multi-touch pad is laying on the table with no finger present. We can use this data as our <code>noise baseline</code>. Write code that determines when the data read from Serial Port can be used for the noise baseline (first two seconds) and when the data is actual touch signal data (anything that comes after that). You can use Java's native <code>System.nanoTime()</code> or Processing's <code>millis()</code> funtion</a> (documentation <a href="https://processing.org/reference/millis_.html">here)</a> to find out how many seconds you already read data. Note that the Arduino code will endlessly loop(), i.e. after sending all the prerecorded touch data once it will start sending it again and again. Thus, every time you <code>restart your Processing code</code> to record the noise baseline, you also need to <code>restart the ESP</code> so that it starts reading the prerecorded data from the beginning again and thus reads the 'no touch' data frst. You can do this by hitting the reset button on the ESP, which restarts the Arduino code. You can make this less hectic by telling Processing to only start the timer when it actually starts receiving data.<br><br>
+
+<i>Average Incoming Noise Baseline Signal in Processing:</i> Once you receive the noise baseline values, <code>average the values at each position of the multi-touch pad</code> to create the noise baseline value at each position. Yes, you need to record and compute the noise baseline <code>for every position</code> in the multi-touch pad for the reasons mentioned above, i.e. that every position has its own level of noise. Thus, in the end you should have <code>8x9 = 72 noiseline base values</code> in total, which should be saved in a <code>noise baseline 2D array</code>. You only have to do this <code>once at the beginning</code> (and please only do it once and not again and again in the loop()). <br><br>
+
+<b>Subtract Noise Baseline value from Touch Data:</b> Next, implement the <code>subtractBaseLine()</code> function in which you <code>subtract the noise baseline from the incoming touch data</code>. If you don't touch the multi-touch pad, the noisy incoming signal minus the noise baseline will equal 0 (or at least be close to it) and thus the chance of false positives is much smaller, i.e. the chance that your code thinks that a touch occured although there was none is greatly reduced. Make sure the cleaned sensing values stored after the subtraction <code>are not negative</code> (if the subtraction result is less than 0, <code>set that value to 0)</code>. <br><br>
+
+<img src="images/pset4/substractBaseLine-skeleton-code.png" width="600px"> <br><br>
+
+<h3 id="GRAYSCALEIMAGE">(4) Convert Received Signals into Grayscale Values</h3>
+
+Now that we have cleaned sensing values, our next step is to find out <code>where</code> the multi-touch pad was touched. While there are multiple different ways to find our where the multi-touch pad was touched, we will use an approach based on <code>image-processing</code>. First, we will convert our <code>8x9 analog sensor signals</code> into <code>grayscale values</code> and then draw the grayscale values into a <code>8x9 pixel image</code>. <code>Brighter pixels</code> will correspond to <code>higher sensor signals</code> (i.e. touch points) while <code>darker pixels</code> will correspond to <code>lower sensor signals</code> (i.e., areas that were not touched). Since image processing on such a small 8x9 pixel image is too difficult, we will then increase the size of the image to <code>500x500px using bicubic interpolation</code> to fill in for the missing pixel values. We can then use <code>blob detection</code> to extract the white blobs in the image (i.e. the touch points) and get the <code>touch coordinates from the blobs</code>.<br><br>
+
+<img src="images/pset4/UI-blob-touch-3.png" width="300px"><br><br>
+
+For this part, you will be mainly working on the <code>setColor()</code> function.<br><br>
+
+<img src="images/pset4/setColors-skeleton-code.png" width="730px"> <br><br>
+
+
+<b>Create 8x9 Pixel Image:</b> Construct an image <code>PImage</code> the same size as the 2D array that contains the sensing data. This PImage will be a tiny <code>8x9 pixel</code> image and you will likely have to search a bit for it on screen in case you decide to display it for debugging purposes.<br><br>
+
+<b>Convert Sensor Signals into Grayscale Values:</b> Before we can draw our analog sensor signals into the PImage as <code>grayscale values</code>, we have to make sure they have the correct range, i.e. are between <code>0-255</code>. You therefore have to scale your sensor signals accordingly. To scale your sensor values to a range of 0 - 255, you can use the <code>map()</code> function in Processing. As you can see in <a href="https://processing.org/reference/map_.html">the documentation of the map() function,</a> apart from the incoming value to be converted, we also have to set four "scaling" values:<br><br>
+
+<img src="images/pset4/map-function-parameters.png" width="350px"> <br><br>
+
+<i>start2/stop2 (target range):</i> The last two parameters are our <code>target range</code> and are pretty straight forward since we already discussed we want to scale to 0 - 255.<br><br>
+
+<i>start1/stop1 (source):</i> For the source parameters, you can think of these 2 parameters as <code>min-input-range</code> and <code>max-input-range</code> of your incoming sensing data. To find a good value for the <code>min-input-range</code>, you can print out the no-touch baseline values from Section #2 (i.e. sensing values after the noise substruction), and pick a <code>middle to low</code> value from the different values in the array. To find a good value for the <code>max-input-range</code>, look at the printed values when a touch occurs, and pick a <code>middle to high</code> value. Don't worry about the exact number for now, you may have to adjust them later after we scaled up the image to achieve a cleaner visualization.<br><br>
+
+<b>Draw Grayscale Values into the 8x9 Pixel Image:</b> After you scaled your sensor values, use them to <code>set the pixel color of each pixel</code> in the 8x9 pixel PImage. If you set a PImage's pixels to a <code>single color value from 0 (black) - 255 (white)</code>, it will automatically be treated as <code>grayscale</code>.<br><br>
+
+<h3 id="BICUBIC">(5) Scale Up Image Using Bicubic Interpolation</h3>
+
+Each sensor value represents the measured value at the intersection of an electrode column with an electrode row. While this gives us <code>8x9 = 72 values</code>, it is a very <code>sparse representation</code> of what is actually going on on the multi-touch pad, i.e. where the user is touching since the <code>user's finger may be in-between rows/columns</code>. To increase the space of sensor values, you can use <code>interpolation</code> to make an informed guess about signal values that would occur in the space between two measured signals. Thus, in the next step, we will first <code>increase the overall image size</code>, then draw in the few pixel values we know for sure, and then use interpolation to guess the grayscale values at each of the pixels that don't have an actual sensor value associated with them.<br><br>
+
+This part will be implemented in the <code>interpolate()</code> function in the skeleton code (more info below): <br><br>
+
+<img src="images/pset4/interpolate-skeleton-code.png" width="600px"> <br><br>
+
+<b>Interpolation Methods:</b> There are many different interpolation techniques that can be used to interpolate the pixel values to create a smooth scaled up appearance of the original input image. Some of simplest interpolation methods are bi-linear and bi-cubic interpolation. <code>Bi-linear interpolation</code> considers the closest <code>2x2 neighborhood of known pixel values</code> surrounding the unknown pixel. It then takes a weighted average of these 4 pixels to arrive at its final interpolated value. <code>Bi-cubic interpolation</code> is similar but considers the closest <code>4x4 neighborhood of known pixels</code> — for a total of 16 pixels. Closer pixels are given a higher weight in the calculation. Bicubic interpolation produces noticeably <code>smoother images</code> than the bi-linear interpolation since it considers more values than bilinear interpolation. However, it also needs higher computational power since more values need to be processed to generate the interpolated value. For our small multi-touch pad with only a few hundred interpolated values this is not an issue but if you had to do more interpolation it may slow the processing down and the multi-touch pad's touch detection would start lagging behind the user's finger movements.<br><br>
+
+<img src="images/pset4/multi-touch-interpolate-bilinear-bicubic.png" width="500px"><br><br>
+
+<b>Use OpenCV for Bi-Cubic Interpolation:</b> Luckily, you do not have to implement the bicubic interpolation from scratch. There is an image processing and <code>computer vision library called OpenCV</code> that has functions for this. <a href="https://opencv.org/">OpenCV</a> exists as a library for many different programming languages, in our case we will use OpenCV's implementation for <code>Java and Processing</code>.
+Remember, at the beginning of this pset, you already installed the OpenCV library. If you scroll up in your skeleton code, you can see that we already imported several classes of the library with:<br><br>
+
+<pre> 
+<code class="language-processing">
+import gab.opencv.*;
+import org.opencv.imgproc.Imgproc;
+import org.opencv.core.Mat;
+import org.opencv.core.Size;
+</code>
+</pre><br>
+
+<b>Resize Image:</b> If you look <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/imgproc/Imgproc.html">at the documentation of the <code>Imgproc</code> class,</a> you will see that it provides a <code>resize()</code> function, which allows us to specify which interpolation method we want to use.<br><br>
+
+<img src="images/pset4/imgproc-resize.png" width="750px"><br><br>
+
+<i>Mat src:</i> This is the <code>input image (8x9px)</code> that we want to resize. As you can see, the image here is in the format <code>Mat</code> (Matrix) and not PImage. We therefore first have to <code>convert our PImage into a Mat</code>. In image processing, images are handled as <code>2D matrices</code>, where every matrix entry is the color value of one pixel (i.e. 0-255 in our case). You can also think of the 2D matrix as a 2D array with pixel values in rows and columns. To convert your PImage into a Mat, first <code>construct a new OpenCV object</code> with the size of the PImage in the constructor, load the PImage via OpenCV's <code>loadImage()</code> function and then call the <code>getGray()</code> function on your OpenCV object, which will return the image as a Mat.<br><br>  
+
+<i>Mat dest:</i> This is the interpolated output image. Create an <code>empty matrix of 500x500px</code> and use it as the parameter. To create the matrix, you can use the constructor from the <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/core/Mat.html">OpenCV Mat Reference</a> called <code>Mat(int rows, int cols, int type)</code>. Similar to how other variables have a type, e.g. int or float, <code>matrices also have types</code>, which refer to what types of values can be stored in the matrix. Since the <code>type of our src matrix and our dest matrix need to match</code>, it is best to directly retrieve the type from the src matrix and then use this as the parameter in the Mat constructor. Check the <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/core/Mat.html">OpenCV Mat Reference</a> and you will see that each Mat has a <code>type()</code> function that returns you the type.<br><br>
+
+<i>Size dsize:</i> Construct a new <code>Size object</code> with 500x500px and then use it as the parameter. To see how the constructor works, you can find the <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/core/Size.html">OpenCV Size Reference</a> here. <br><br>
+
+<i>double fx, double fy:</i> These are scale factors but since we already created our output image and the size object in the correct dimensions, we don't need to scale our image any further. <code>Set these to 0</code>.<br><br>
+<i>int interpolation:</i> These are the different <code>interpolation options</code>. If you look at the different fields in the <a href="https://docs.opencv.org/3.4/javadoc/org/opencv/imgproc/Imgproc.html">OpenCV Imgproc</a> Reference, you will see that there are several options. We want to use the <code>inter-cubic option</code>.<br><br>
+
+<img src="images/pset4/interlinear.png" width="750px"><br>
+<img src="images/pset4/intercubic.png" width="720px"><br><br>
+
+<b>Convert Matrix back to PImage:</b> After you resized the image, you have to <code>convert your output matrix</code> back into a <code>PImage</code> for use in Processing. For this, you can go back to the <a href="http://atduskgreg.github.io/opencv-processing/reference/">OpenCV class documentation</a> and look at the <code>toPImage()</code> function. You will create a new PImage object for the function and use this PImage for later visualization.<br><br>
+
+<b>Check Results:</b> Once you are done implementing, you should be able to see images like the ones below. The image should be <code>dark when the multi-touch pad is not touched</code> and have some <code>bright spots when the multi-touch pad is touched</code>. If your image is only black or too white, read below for how to improve your results.<br><br>
+
+<img src="images/pset4/UI-no-blob-no-touch-1.png" width="300px"> 
+<img src="images/pset4/UI-no-blob-touch-2.png" width="300px"> <br><br>
+
+<b>Improve Results:</b> If your results don't look as good as above, try <code>changing how you map your sensors signals to the grayscale values of 0 - 255</code>. Remember, when you mapped your sensor signals to the 0 - 255 range, we had recommended that you use the <code>middle-to-low</code> sensor reading when not touching to map to 0 (black), and the <code>middle-to-high</code> sensor reading when touching to 255 (white). Let's assume for a moment your middle-to-high sensor reading when touching was 1500 and you mapped it to 255 (white). As a result, any sensor reading above 1500 is now leading to white pixels, whereas anything below will lead to darker pixels. If you find that you <code>only see dark areas</code> in your image and <code>nothing is white</code> or just a few pixels are white when touched, then perhaps <code>the 1500 threshold for middle-to-high is too high</code>. Consider using a lower value to increase what signal values are being treated as 'touched' white pixels. Similarly, if you see too much noise in your image, i.e. <code>everything is white</code> or too many areas get large numbers of white pixels when the touch data reads only one finger, perhaps your <code>middle-to-low sensor value</code> is too low and you should set it to something higher so that more signal values are treated as black or dark gray non-touch pixels. While optimizing this right now is not super important, it will become very relevant for the next section when you try to find touch 'blobs'. So revisit this section if your <code>blob detection either finds too few or too many touch points</code>.<br><br>
+
+
+<h3 id="BLOBDETECTION">(6) Blob Detection</h3>
+
+While you can now determine with your eyes where the multi-touch pad was touched, your program should also be able to do this automatically and tell you at which (x,y) coordinate it sees a touch point. To do this, we need to write code that detects the white <code>blobs</code> in the image. This is called <code>blob detection</code>.<br><br> 
+
+<img src="images/pset4/UI-blob-touch-1.png" width="240px"> 
+<img src="images/pset4/UI-blob-touch-2.png" width="240px"> 
+<img src="images/pset4/UI-blob-touch-3.png" width="240px"> <br><br>
+
+<b>Library for Blob Detection:</b> Luckily, somebody else has already provided a <code>library for blob detection</code> and you can see the <a href="http://www.v3ga.net/processing/BlobDetection/index-page-documentation.html">BlobDetection Reference here</a> for details on the different functions. You already installed that library at the beginning of the pset and we already imported it into the skeleton code using the following line:<br>
+
+<pre><code class="language-processing">import blobDetection.*;</code></pre><br>
+
+The blob detection code should be implemented in the <code>drawBlobsAndEdges()</code> function in the skeleton code:<br><br>
+
+<img src="images/pset4/drawBlobsAndEdges-skeleton-code.png" width="700px"> <br><br>
+
+<b>Construct BlobDetection Object:</b> First, construct a new object of the <code>BlobDetection class</code>, for the size parameters use the large interpolated grayscale <code>PImage height and width</code>. You can find the <a href="http://www.v3ga.net/processing/BlobDetection/index-page-documentation.html">BlobDetection Reference here</a>.<br><br>
+
+<b>Perform Blob Detection:</b> Next, you can use the BlobDetection instance's <code>computeBlobs()</code> function to detect the blobs.<br><br>
+
+<b>Retrieve Blob Number:</b> Use the BlobDetection instance's <code>getBlobNb()</code> function to retrieve the number of blobs (i.e. fingers) in the image. If you get '0' for your blob number, you can debug this by (1) revisiting your <code>mapping of sensor signals to grayscale values</code> (see previous section 'improving your results') and (2) <code>adjusting the blob detection threshold</code> as described in the next section.<br><br>
+
+<b>Improve Results by Changing the Blob Detection Threshold:</b> If your blob detection is not finding all the blobs in your image, consider the following: Before performing blob detection, the library automatically <code>converts your image from a grayscale image (pixel values ranging from 0 - 255) into a black/white image (pixels are either 0 or 255)</code>. The reason the library does this is because blob detection groups pixels of similar color together to find blobs and that is easier to do when pixels are either black or white and not something in between. The library automatically picks a <code>threshold</code> value, for instance, it may decide to convert <code>all pixels with a value below '100' to black (i.e. '0')</code> and <code>all pixels above '100' to white (i.e. '255')</code>. If you are not getting any blobs (i.e., groups of white pixels), it is likely that during thresholding all pixels were converted to black and no white pixels are left because the threshold value was set too high. To see if a lower threshold would leave you with more white pixels, you can use the <code>setThreshold()</code> function to determine which brightness levels from 0-255 should be taking into account when searching for blobs. Note that the threshold takes as input a <code>float value from 0-1</code> so you need to scale your 0-255 values accordingly. Once you set your custom threshold, check again if you now get the right blob number. As a reminder, our prerecorded data contains: no touch (noise baseline), one touch, and two touch points in this order.<br><br>
+
+<b>Draw Blob Centers and Contours Into the Image:</b> Next, we want to extract for each blob: (1) the <code>center of the blob</code> (i.e., center of the touch point), and (2) the <code>contour of blob</code> (i.e., the outline of the touch point). We can then draw the contour of the touch point into our image, and also add the center of the touch point and its <code>touch point coordinates (x,y)</code> into our PImage. To retrieve the information from a specific blob, you can use the BlobDetection instance's <code>getBlob()</code> function, which returns a 'Blob' object and then use its instance functions to get its blob center and edges (refer to <a href="http://www.v3ga.net/processing/BlobDetection/index-page-documentation.html">the <code>Blob class</code> in the documentation here</a>). Note that the contour is provided as a list of edges (i.e. lines).<br><br>
+
+Once you are done with the blob detection on prerecorded data, it should look similar to this:<br><br> 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/XQgTjNb7F9A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<h3 id="TOUCHPADHARDWARE">(7) Use Your Own Multi-touch Pad Data</h3>
+
+So far, you have only used prerecorded multi-touch data. In this last section, you will use your own multi-touch pad and replicate what you did so far with the prerecorded data.<br><br>
+
+<b>Plug-In Your Multi-Touch Pad:</b> First, <code>connect your multi-touch pad</code> to your computer.<br><br>
+
+<b>Writing your Own Multi-Touch Data to the Serial Port:</b> <code>Replace our Arduino .ino program</code> with your own code from pset3 that writes the <code>live multi-touch data</code> to the Serial Port. To make sure your <code>circuit from pset3 is still working correctly</code>, you may want to look at the Serial Plotter to see if the <code>touch signals are being received</code> (see final check in pset3) before moving on.<br><br>
+
+<b>Read your Own Multi-Touch Data from the Serial Port into Processing:</b> Now check in Processing if you can receive your live data there. You may have to do <code>more cleaning on the incoming string data</code> since <code>live data tends to be a bit more noisy</code>.<br><br>
+
+<b>Recording Noise Baseline Signal:</b> Similar to the pre-recorded data, you need to <code>record your noise baseline for your live data</code> first. Thus, once you start your Processing program, do not touch your multi-touch pad for 2 seconds. This will use your existing code to record the noise baseline. You don't have to change your code for this.<br><br>
+
+<b>Subtract Noise Baseline from Live Touch Data:</b> Your existing code should already be able to automatically subtract the noise baseline from any touch signal coming in after 2 seconds from the multi-touch pad. You don't have to change your code for this.<br><br>
+
+<b>Converting Sensor Signals into Grayscales:</b> Remember that we used the <code>map()</code> function to convert the sensor signals into grayscale values. The <code>map()</code> function required you to define the <code>start1/stop1 (source):</code> parameters (i.e., min-input-range, and max-input-range). You need to adjust these values now that you have live touch data. Check section (4) again for tips on how to find the best values.<br><br>
+
+<b>Adjusting Blob Detection with Custom Threshold:</b> Finally, you may have to <code>adjust your blob detection threshold</code> since your map() function is now using an updated mapping of sensor values. Refer to section (6) for how to choose a good threshold.<br><br>
+
+<b>Testing your Blob Detection with Live Data:</b> Test your blob detection with <code>1 finger</code> and <code>2 fingers</code> touching the multi-touch pad to see if it can reliably determine where the fingers are touching.<br><br>
+
+<h3>Deliverables</h3>
+
+For grading, please upload the following to your google drive student folder:<br>
+
+<ul>
+	<li>the .pde file of your Processing program</li>
+	<li>blob detection video using <code>pre-recorded data:</code> a short video captured with either your phone or a screencast showing the Processing UI detecting the 1 finger and 2 fingers touch blobs from the prerecorded data (.mov or .mp4, no more than 20MB) </li>
+	<li>blob detection video using <code>live-data:</code> a short video captured with your phone showing your multi-touch pad hardware and your Processing UI detecting touch blobs when you touch the multi-touch pad with 1 finger and with 2 fingers (.mov or .mp4, no more than 20MB) </li>
+</ul>
+
+<h3>Grading</h3>
+
+We will give 20 pts in total:
+<ul>
+	<li>3pts: you read the sensing data from your multi-touch pad from the serial port into Processing, cleaned the data from misrecognized characters, and saved it correctly into a 2D array. </li>
+	<li>3pts: you recorded the noise baseline and subtracted the noise baseline correctly from the incoming live signal during use.</li>
+	<li>3pts: you created a grayscale image of the correct size and converted the sensor signals into the matching grayscale values using the map() function.</li>
+	<li>3pts: you scaled the image correctly using bicubic interpolation, and the image shows white pixels where the user touches and darker grayscale values everywhere else.</li>
+	<li>4pts: you implemented the blob detection and drew the detected touch point contours and coordinates into the image.</li>
+	<li>4pts: your blob detection also works on multi-touch pad live data.</li>
+
+</ul>
+
+
+        <br />
+        <br />
+      </section>
+
+     <aside class="col-md-4 pull-left">
+         <br /> <br /> <br /> <br /><br>
+
+                 <h4 class="medium.headline" style="padding-bottom:10px;"><a href="pset-multi-touch-pad.html"><b>Pset Series: Multi-Touch Pad</b></a><br></h4>
+
+<ul>
+          <li><a href="pset1-circuit-design.html">Pset1: Generating the Fabrication Files</a></li>
+          <li><a href="pset2-multitouch-assembly.html">Pset2: Assembling the Circuit</a></li>
+          <li><a href="pset3-signal-processing.html">Pset3: Sensing Multi-Touch Input</a></li>
+          <li><a href="pset4-visualization.html">Pset4: Visualizing Multi-Touch Input</a></li>
+          <li><a href="pset5-multitouch-application.html">Pset5: Touch Pressure & Gesture Detection</a><br></li>
+</ul><br>
+
+
+<img src="images/pset-multi-touch-pad/pset-processing1.png" width="350px">
+<br><br>
+
+In this pset series, you will create an inkjet printed multi-touch pad. You will first write a Processing program that automatically generates the fabrication files for the multi-touch pad. Next, you will print your multi-touch pad, assemble it, and then build the circuit for sensing touch input. You will then write the microcontroller code for reading the touch signals from each electrode. Next, you will extend your code to draw the touch signals into an image and then extract the touch points via computer vision. Finally, you will write a gesture recognizer that can differentiate between different user inputs.<br><br>
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+      </aside>
+
+    </div>
+  </div>
+  </div>
+</section>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 footer" style="text-align: center;">
+			<span class="copyright">
+			Since 2017 &copy; MIT CSAIL (HCI Engineering group) [redesign by
+			<a href="http://punpongsanon.info/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			moji
+			</a>].
+			All Rights Reserved.
+
+			<a href="http://mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/mit.svg" alt="MIT" class="footer-logo" />
+			</a>
+			<a href="http://csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/csail.svg" alt="CSAIL" class="footer-logo"/>
+			</a>
+			<a href="http://hci.csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/hci.svg" alt="HCI" class="footer-logo"/>
+			</a>
+			</span>
+		</div>
+	</div>
+</div>
+
+<!-- Bootstrap -->
+<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+<!-- header -->
+<script type="text/javascript" src="../../js/headerstrap-for-subpage.js"></script>
+
+</body>
+</html>

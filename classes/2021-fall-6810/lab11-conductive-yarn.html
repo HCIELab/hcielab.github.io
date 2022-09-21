@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>6.810 Lab11 Conductive Yarn</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!-- CSAIL ICON -->
+	<link rel="CSAIL" href="../../../images/icon/csail.ico" type="image/x-icon" />
+
+	<!-- Bootstrap -->
+	<link href="../../css/bootstrap.css" rel="stylesheet">
+	<link href="../../css/custom-style.css" rel="stylesheet">
+
+	<!-- jQuery -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+
+	<!-- Google Analytic -->
+	<script type="text/javascript" src="../../js/analytics.js"></script>
+
+	<style>
+	.etech-sch-col1 {width:60px; border: 1px solid black;padding:10px;}
+	.etech-sch-col2 {width:120px; border: 1px solid black;padding:10px;}
+	.etech-sch-col3 {width:450px; border: 1px solid black;padding:10px;}
+	.etech-sch-col4 {width:70px; border: 1px solid black;padding:10px;}
+  .etech-sch-col5 {width:70px; border: 1px solid black;padding:10px;}
+  /*.etech-sch-col6 {width:170px; border: 1px solid black;padding:10px;}*/
+  ul {
+    padding:0px;padding-left:10px;margin:0px;
+  }
+	</style>
+</head>
+
+<body>
+<header class="main_header">
+	<!-- to be filled by javascript, see header.html -->
+</header> 
+
+<section class="main_container"> 
+	<div class="container">
+    <div class="row nothing">
+
+      <section class="col-md-8 pull-right main-content">
+</br></br></br></br>
+        <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2021)</a><br></h>
+        <h2 class="headline">Lab 11: Creating the Lamp Shade with Conductive Yarn</h2>
+
+In this lab, you will use fabric to make a lamp shade for your 3D printed lamp. After preparing the main fabric, you will sew on touch buttons using conductive yarn. After this, you will mount LEDs into the base of the lamp. In the next lab, we will then write code to light up the lamp in different colors depending on which touch sensor on the lamp shade it touched and also use one touch sensor to turn the lamp on/off.<br><br>  
+
+<img src="images/lab9/embroider1.png" width="310px"> <img src="images/labseries-lamp/glue_jumper_2.png" width="252px"> <img src="images/lab9/glue_LED_2.png" width="174px"><br>
+
+
+<h3>Steps:</h3>
+<ol>
+  <li><a href="#lasercutfabric">Laser Cut the Fabric Cover for the Lamp Shade</a></li>
+  <li><a href="#sewfabric">Sew Fabric Lamp Shade Cover Together</a></li>
+  <li><a href="#embroidertouchsensors">Embroider Touch Sensors with Conductive Yarn</a></li>
+  <li><a href="#connectbuttonstowires">Connect Touch Buttons to Jumper Wires</a></li>
+  <li><a href="#connectLEDStolamp">Connect LEDs to Lamp Shade</a></li>
+</ol>
+
+<h3>Deliverables</h3>
+    
+At the end of the lab, upload to your student google drive:
+    <ol>
+        <li>your laser cut drawing (.pdf)</li>
+        <li>2-3 photos (.jpg or .png) of your assembled lamp showing the stitched touch buttons and integrated LED strip</li>
+    </ol><br>
+
+ <div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Help us Improve Class Materials for Lab11:</b><br>
+Please let us know if you had any trouble with the fabrication and assembly or if anything was confusing in the write up. <br> <a href="https://docs.google.com/document/d/1ECuK0G93gX3cPzEwIepaPnSJ7fSuJljJOHCCHQWvhnA/edit?usp=sharing">You can add your comments here.</a></div>
+
+
+ <h3 id="lasercutfabric">(1) Laser Cut the Fabric Cover for the Lamp Shade</h3>
+
+First, you will create the <code>fabric cover</code> that will go onto the <code>3D printed cone of the lamp shade</code>. To create the fabric cover, you will first laser cut the desired shape and then sew it together.<br><br>
+   
+<b>Draw Fabric Cover Shape for Laser Cutting:</b> Create a new file in <code>Adobe Illustrator</code> for the laser cut drawing. The lamp shade will be laser cut in the shape of a <code>half circle</code> with a <code>radius of 14cm</code>. The easiest way to draw a half circle is to first <code>draw a full circle</code> in Illustrator <code>(width/height: 28cm)</code> and then <code>delete half of the circle</code> with the <code>'white mousepointer' tool</code>, which allows you to select individual parts of the circle path. Finally, to close the half circle, <code>draw a straight line</code> from one end to the other.<br><br>
+
+<b>Set Laser Cut Settings for your Drawing:</b> Make sure you are using the correct drawing settings for laser cutting <code>(line color: full red (R:255, G:0, B:0)</code>, and <code>line thickness: 0.0001mm)</code>. <br>
+
+<img src="images/lab9/full-circle-size2.png" width="225px">
+<img src="images/lab9/full-circle.png" width="185px">
+<img src="images/lab9/half-circle.png" width="160px">
+<img src="images/lab9/half-circle-closed.png" width="160px"><br><br>
+
+<b>Laser Cut Fabric:</b> Once you are done making the drawing, <code>export it as a .pdf</code> and you are ready for laser cutting. We already cut out the <code>fabric patches in a size of 30cmx20cm</code>, which will fit your drawing. Laser cut your half circle out of this patch (it does not matter which side of the fabric faces up in the laser cutter). When cutting, set the <code>speed to 100%</code> and the <code>power to 35%</code>.<br><br>
+
+    <img src="images/lab9/laser_cut.png" width="353px">
+    <img src="images/lab9/cut_stencil.jpg" width="200px"><br><br>
+    
+<h3 id="sewfabric">(2) Sew Fabric Lamp Shade Cover Together</h3>
+
+In the next step, we will fold and then sew together the laser cut piece of fabric.<br><br>
+
+<b>Fold Fabric, Nice Side Should Face Inside:</b> Next, you need to <code>fold your half circle fabric</code> over in the middle. Before you fold it, look at the fabric. You will notice that it has a good looking side with the pattern well visible and a less good looking side. After folding, the <code>good looking side should be facing inwards</code> and the <code>not good looking side should be facing outwards</code> (yes, this is correct). The reason we are doing this is that sewing is always done on the inside of the final object, so later on we will flip the fabric cover over and the good looking side will be visible outside.<br><br>
+
+    <img src="images/lab9/folding_fabric_1.png" width="320px">
+    <img src="images/lab9/folding_fabric_2.jpg" width="315px"><br><br>
+ 
+<b>Sew Together Straight Open Edge:</b> Next, <code>sew together the straight edge</code> of the half circle that is <code>not yet connected</code>. Take one of our <code>mobile sewing machines</code> and sew together the open straight line. To do this, <code>insert the fabric into the sewing machine</code> and then draw the sewing machine in <code>one straight motion</code> over the edge as shown below. You can start a little bit towards the inside to make the cone more tightly fit on the lamp shade. When you reach the <code>end of the edge, keep the sewing machine running for another 5-10 seconds</code>. This will add a few more knots to the yarn which will ensure that the yarn does not open up directly when you pull on it accidentally. Carefully <code>disconnect the sewing machine</code> without untanging the knots you just made.<br><br>
+
+    <img src="images/lab9/sewing_machine_1.png" width="348px"> <img src="images/lab9/sewing_machine_2.png" width="350px"><br><br>
+
+<b>Glue Yarn to Fix End Point:</b> Use <code>glue</code> to fix the yarn at the endpoint, so that the thread does not come apart when you handle the lamp shade in the next steps. <code>Wait for the glue to dry</code>.<br><br>
+
+<b>Flip Over Fabric Cover:</b> Once the glue has dried, <code>flip over your fabric</code> so that the good looking side now faces outside. Place it onto your 3D printed lamp shade to see if it fits.<br><br>
+
+    <img src="images/lab9/sewing_machine_3.png" width="380px"> <img src="images/lab9/flipping-over-fabric.png" width="330px"><br><br>
+    
+
+<h3 id="embroidertouchsensors">(3) Embroider Touch Sensors with Conductive Yarn</h3>
+
+Now that you have the basic fabric cover, you are ready to <code>add the touch buttons</code> onto the lamp shade using <code>conductive yarn</code>. We will add <code>4 touch buttons</code> to the fabric lamp shade. One of the touch buttons will later be used to <code>turn the lamp on and off</code>, and the other three touch buttons will be used to set <code>3 different color schemes</code> for the lamp (e.g. Red, Green, and Blue).<br><br>
+
+<b>Insert Conductive Yarn into Needle:</b> Take a <code>needle</code> and a roll of conductive yarn. Thread the conductive yarn into the needle. Make a <code>double knot at the end of the yarn</code> to make sure that it will hold onto the fabric and doesn't go through it.<br><br>
+
+<img src="images/lab9/threadingin.png" width="425px"><br><br>
+    
+<b>Placement of Buttons:</b> Before stitching the buttons, decide <code>where you want to place them</code>. In our example, we put the <code>three R, G, B light color buttons on one side</code> of the lamp and the <code>on/off button on the other side</code> of the lamp. You need to leave at least <code>2cm between adjacent touch buttons</code> otherwise there will be cross talk among the wires of the buttons.<br><br>
+
+<img src="images/lab9/touch-buttons.png" width="425px"><br><br>
+
+<b>Stitch Touch Buttons as Cross Patterns and Glue Ends to Lampshade:</b> Start with the first button and stitch a <code>cross pattern</code> into the fabric. Below you see the cross stitch step-by-step. When you finished the cross-stitch of your touch button, <code>cut off the yarn</code> (do not cut if off to short, <code>leave at least 5cm yarn).</code> Use <code>glue to secure the end</code> of the yarn in place. Then continue with the next touch button. Each touch button should use <code>its own yarn (i.e. wire)</code>. They should not be connected together with the same yarn since we otherwise would not be able to sense which button is touched. When you start the next touch button, make sure to <code>leave at least 2cm distance</code> to the previous touch button so there is no cross talk among the wires of the buttons.<br><br>
+
+    <img src="images/lab9/embroider1.png" width="350px">
+    <img src="images/lab9/embroider2.png" width="350px">
+
+    <img src="images/lab9/embroider3.png" width="350px">
+    <img src="images/lab9/embroider4.png" width="350px">
+
+    <img src="images/lab9/embroider5.png" width="350px"><br><br> 
+    
+
+<h3 id="connectbuttonstowires">(4) Connect Touch Buttons to Jumper Wires</h3>
+
+Since we can't stick the conductive yarn into a breadboard, we will connect it to a jumper wire and then use the jumper wire for breadboarding.<br><br>
+
+<b>Wrap Copper Tape Around Jumper Wire:</b> Get a <code>jumper wire</code>. Cut off a piece of <code>conductive copper tape</code>. First, wrap the beginning of the copper tape around the jumper wire. Before closing off the tape, also include the conductive yarn so everything is <code>connected together</code>.<br><br>
+    
+    <img src="images/lab9/jumper_1.png" width="350px">
+    <img src="images/lab9/jumper_2.jpg" width="375px"><br><br>
+    
+<b>Repeat for All Conductive Yarns:</b> Repeat these steps for <code>all 4 conductive yarns</code> connected to our touch buttons. At the end of this step, you should have four jumper wires connected ready for breadboarding.<br><br>
+
+    <img src="images/lab9/jumper_3.jpg" width="350px">
+    <img src="images/lab9/jumper_4.jpg" width="350px"><br><br>
+
+<b>Place Fabric Cover on 3D printed Lamp & Glue Wires onto Arms of Lamp Shade:</b> You are now ready to place the fabric over the 3D printed lamp shade. Make sure that the <code>conductive yarns inside the lamp shade do not touch each other</code>. You can ensure this by <code>glueing each jumper wire to one of the arms</code> of the lamp shade to spread them out.<br><br>
+
+    <img src="images/lab9/glue_jumper_1.png" width="350px">
+    <img src="images/lab9/glue_jumper_2.png" width="350px"><br><br>
+    <!-- <img src="images/lab9/glue_jumper_3.jpg" width="350px"> -->
+    <img src="images/lab9/glue_jumper_4.png" width="350px"><br><br> 
+    
+<h3 id="connectLEDStolamp">(5) Connect LEDs to Lamp Shade</h3>
+    
+Next, you will <code>connect the LEDs</code> to your lamp shade. For the LEDs, we will use <code>Neopixel LEDs</code>, which are RGB LEDs that can be <code>addressed individually</code> and thus each LED on the strip can take on any color you like.<br><br>
+
+<b>Cut Off a Stripe of LEDs:</b> The Neopixel LEDs come on a <code>large roll</code>. As you can see in the image below, between each LED there are <code>3 copper pads</code>. You need to <code>cut off a strip of 4 LEDs</code> while making sure you <code>cut the copper pads right in the middle at the end of your strip</code>, so the next person still has enough copper pads on their LEDs to be able to solder on a wire.<br><br>
+
+<img src="images/lab9/LED_stripe_1.png" width="500px"><br><br>
+
+<b>Remove Silicone from End of LED Strip:</b> There is a <code>silicone film</code> that covers the LED strip. The silicone film is used to <code>protect the LED strip from water</code> and other environmental influences but <code>prevents us from soldering</code> onto the copper pads. We only need to solder at the end of the LED strip, but which end should we use? Look at your LED strip. There are arrows on it. We want to <code>solder</code> on the side where the <code>arrows point away from</code>. Remove the silicone film from the top of the LED strip on this side.<br><br>
+
+ <img src="images/lab9/LED_stripe_1-remove-silicone.png" width="350px"><br><br>
+
+<b>Solder Jumper Wires onto Copper Pads:</b> To control the LEDs colors, we need some <code>wires that go from the LED copper pads</code> to the microcontroller. Note that the Neopixel LED strip is setup so that you only have to connect to the copper pads of a single LED in order to be able to set the color of each individual LED on the entire strip (more on this in the next lab). Thus, you only need to <code>solder three jumper wires</code> to the end of the strip where you just removed the silicone. For soldering, first <code>put a solder drop on each pad</code> and then <code>press the tip of the jumper wire on the drop</code> with the solder iron.<br><br>
+
+ <img src="images/lab9/LED_stripe_2.png" width="500px"><br><br>
+
+<b>Attach the LEDs onto the Lamp Shade:</b> <code>Remove the blue foil</code> from back of the LED stripes. Underneath the blue foil, there is <code>double sided tape on the back of the LED strip</code>. With the double sided tape exposed, you can now attach the LEDs to one of the free arms inside the printed lamp shade (i.e., an arm that does not have a jumper wire connected to a touch button).<br><br>
+    
+    <img src="images/lab9/glue_LED_1.png" width="425px">
+    <img src="images/lab9/glue_LED_2.png" width="220px"><br><br>
+        
+
+    
+<h3>Deliverables</h3>
+    
+At the end of the lab, upload to your student google drive:
+    <ol>
+        <li>your laser cut drawing (.pdf)</li>
+        <li>2-3 photos (.jpg or .png) of your assembled lamp showing the stitched touch buttons and integrated LED strip</li>
+    </ol><br>
+
+        <br />
+        <br />
+        <br />
+      </section>
+
+       <aside class="col-md-4 pull-left">
+         <br /> <br /> <br /> <br /><br>
+
+                  <h4 class="medium.headline" style="padding-bottom:10px;"><a href="lab-series-3Dprinted-lamp-with-conductive-yarn.html"><b>Lab Series: 3D Printed Lamp with Conductive Yarn Buttons</b></a><br></h4>
+
+<ul>
+ <li><a href="lab9-3D-modeling-lamp.html">Lab 9: 3D Modeling the Lamp</a></li>
+  <li><a href="lab10-3D-printing-lamp.html">Lab 10: Slicing and 3D Printing the Lamp</a></li>
+    <li><a href="lab11-conductive-yarn.html">Lab 11: Conductive Yarn for Creating the Lamp Shade</a> </li>
+    <li><a href="lab12-interactive-lamp-control-circuit.html">Lab 12: Control Circuit for the Interactive Lamp</a></li>
+</ul><br>
+
+<iframe width="280" height="157" src="https://www.youtube.com/embed/Xxg8-VN77Ys" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
+
+In this lab series, you will build an interactive lamp that can change its color when the user touches one of its sewn on touch-buttons. The lamp consists of a 3D printed lamp base, a hand-sewn fabric cover with touch buttons stitched from conductive yarn, and integrated LEDs.<br><br>
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+      </aside>
+
+    </div>
+  </div>
+  </div>
+</section>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 footer" style="text-align: center;">
+			<span class="copyright">
+			Since 2017 &copy; MIT CSAIL (HCI Engineering group) [redesign by
+			<a href="http://punpongsanon.info/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			moji
+			</a>].
+			All Rights Reserved.
+
+			<a href="http://mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/mit.svg" alt="MIT" class="footer-logo" />
+			</a>
+			<a href="http://csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/csail.svg" alt="CSAIL" class="footer-logo"/>
+			</a>
+			<a href="http://hci.csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/hci.svg" alt="HCI" class="footer-logo"/>
+			</a>
+			</span>
+		</div>
+	</div>
+</div>
+
+<!-- Bootstrap -->
+<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+<!-- header -->
+<script type="text/javascript" src="../../js/headerstrap-for-subpage.js"></script>
+
+</body>
+</html>

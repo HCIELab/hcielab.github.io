@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>6.810 Lab12 Lamp Circuit</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!-- CSAIL ICON -->
+	<link rel="CSAIL" href="../../../images/icon/csail.ico" type="image/x-icon" />
+
+	<!-- Bootstrap -->
+	<link href="../../css/bootstrap.css" rel="stylesheet">
+	<link href="../../css/custom-style.css" rel="stylesheet">
+
+	<!-- jQuery -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+
+	<!-- Google Analytic -->
+	<script type="text/javascript" src="../../js/analytics.js"></script>
+
+	<style>
+	.etech-sch-col1 {width:60px; border: 1px solid black;padding:10px;}
+	.etech-sch-col2 {width:120px; border: 1px solid black;padding:10px;}
+	.etech-sch-col3 {width:450px; border: 1px solid black;padding:10px;}
+	.etech-sch-col4 {width:70px; border: 1px solid black;padding:10px;}
+  .etech-sch-col5 {width:70px; border: 1px solid black;padding:10px;}
+  /*.etech-sch-col6 {width:170px; border: 1px solid black;padding:10px;}*/
+  ul {
+    padding:0px;padding-left:10px;margin:0px;
+  }
+	</style>
+</head>
+
+<body>
+<header class="main_header">
+	<!-- to be filled by javascript, see header.html -->
+</header>
+
+<section class="main_container">
+	<div class="container">
+    <div class="row nothing">
+
+      <section class="col-md-8 pull-right main-content">
+</br></br></br></br>
+        <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2021)</a><br></h>
+        <h2 class="headline">Lab 12: Control Circuit for the Interactive Lamp</h2>
+
+In this lab, you will add the circuit to the lamp and then program the lamp to change its color when the user interacts with one of the touch buttons. There is also one touch button to turn the lamp on/off.<br><br>
+
+<img src="images/lab10/circuit_1.jpg" width="370px">
+<img src="images/lab10/circuit_done.jpg" width="337x"><br>
+
+
+<h3>Steps:</h3>
+<ol>
+        <li><a href="#minibreadboard">Attach Microcontroller to Mini-Breadboard</a></li>
+        <li><a href="#ledcircuit">Build LED Control Circuit</a></li>
+        <li><a href="#touchcircuit">Build Touch Control Circuit</a></li>
+        <li><a href="#circuitlampbase">Mount LED and Touch Control Circuits into Lamp Base</a></li>
+        <li><a href="#touchsensingcode">Write Code for Touch Sensing</a></li>
+        <li><a href="#ledcolorcode">Control LED Colors</a></li>
+        <li><a href="#touchledcode">Change LED Colors Upon Touch</a></li>
+        <li><a href="#lamponoffcode">Turn Lamp On/off Upon Touch</a></li>
+    </ol>
+
+
+<h3>Deliverables</h3>
+
+At the end of the lab, upload to your student google drive:
+    <ol>
+        <li>the ESP32 code to sense touch and control the LEDs</li>
+        <li>2-3 photos (.jpg or .png) of your 3D printed lamp that shows the circuit and the assembled lamp</li>
+        <li>a video that shows how the lamp turns on/off when touching the "on/off" button and how the lamp changes its color when pressing the three color scheme buttons</li>
+    </ol><br>
+
+ <div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Help us Improve Class Materials for Lab12:</b><br>
+Please let us know if you had any trouble with slicing or 3D printing or if anything was confusing in the write up. <br> <a href="https://docs.google.com/document/d/1cQ8tyLiT0LzMWKjeUWE3Fr_2x1WJg9Abf7vZ-hhggGw/edit?usp=sharing">You can add your comments here.</a></div>
+
+
+ <h3 id="minibreadboard">(1) Attach Microcontroller to Mini-Breadboard</h3>
+
+Now that the lamp shade is fully assembled, you can <code>build the circuit</code> for the touch buttons and the LEDs. Since the lamp base is too small for regular breadboards, we supply you with a <code>mini-breadboard</code>. <br><br>
+
+<b>Tape ESP to Mini-Breadboard:</b> <code>Remove the backing from the mini-breadboard</code>, which will expose a layer of <code>double-sided tape</code>. Next, <code>place your microcontroller</code> onto the layer of double sided tape, the pins of the microcontroller should be facing away from the double sided tape (don't worry, the microcontroller is easy to pull off later if you need to remove it to work on your pset or project).<br><br>
+
+    <img src="images/lab9/minib_1.png" width="380px">
+    <img src="images/lab9/minib_2.png" width="330px"><br><br>
+
+
+ <h3 id="ledcircuit">(2) Build LED Control Circuit</h3>
+
+Next, we will connect the LEDs to our mini-breadboard. If you look at your LED strip, you can see that there are 3 pins labeled <code>GND</code>, <code>5V</code>, and <code>DIN</code>. <br><br>
+
+<b>Connect LED GND to GND pin on ESP:</b> Connect the <code>LED GND wire</code> to the <code>GND pin on the microcontroller</code>. Always connect the GND first to protect the LEDs from <code>voltage spikes</code>, which may blow them up.<br><br>
+
+<b>Connect LED 5V to 5V pin on ESP:</b> The LEDs need <code>5V</code>, not 3.3V, which is what we used so far in other labs. The ESP32 can supply 5V at the <code>5V</code> pin, connect this pin to your LED 5V. Usually, the 5V pin is used to connect to an external power supply (e.g. external battery pack). However, if you connect your ESP with a USB cable to your computer, the pin will use the 5V power supply from the USB cable to drive the pin.<br><br>
+
+<b>DIN (Data-In):</b> This channel is used to encode <code>which LED should turn on with which color</code>. Connect <code>DIN</code> to a <code>GPIO pin of your ESP32</code>.
+
+<h3 id="touchcircuit">(3) Build Touch Control Circuit</h3>
+
+Now that the LEDs are wired up, we also need to build the touch control circuit.<br><br>
+
+<b>Wire Up Conductive Yarn Touch Buttons to Microcontroller:</b> Wire up each of the four touch buttons to the ESP. If you don't remember how the <code>circuit for touch buttons</code> looks like, <a href="lab2-sensing-touch-button.html">you can look back at Lab 2.</a> Use a <code>100kOhm resistor</code> between the sender pin and the 4 receiver pins (reuse your resistors from the music card). Your final circuit should look similar to this:<br><br>
+
+    <img src="images/lab10/circuit_1.jpg" width="350px">
+    <img src="images/lab10/circuit_2.jpg" width="350px"><br><br>
+
+ <h3 id="circuitlampbase">(4) Mount LED and Touch Control Circuits into Lamp Base</h3>
+
+Next, you will place the circut inside your lamp base by following the steps below.<br><br>
+
+<b>Stick USB cable through Lamp Base Hole:</b> First <code>stick the USB cable through the hole</code> in your 3D printed lamp base.<br><br>
+
+<b>Connect USB cable to ESP:</b> Next, <code>connect the USB cable to your ESP32</code> so you can program the lamp.<br><br>
+
+<b>Place ESP with Circuit Inside Lamp Base:</b> Finally, carefully <code>place the ESP with the circuit inside the lamp base</code>. Don't put the lamp shade on top of the base just yet.<br><br>
+
+    <img src="images/lab10/usb_1.png" width="350px">
+    <img src="images/lab10/usb_2.png" width="350px"><br><br>
+
+ <h3 id="touchsensingcode">(5) Write Code for Touch Sensing</h3>
+
+Let's start programming our lamp by writing the code that can sense touch from all the four touch buttons. <br><br>
+
+<b>Reuse Code from Lab 2:</b> For touch sensing, you can <code>reuse the code from lab 2</code>. Print your touch signals to the <code>Serial Monitor/Plotter</code> to see if it works. Make sure that you get a clear signal from all 4 touch buttons. Select a suitable <code>threshold for each touch button</code> to detect touch reliably.<br><br>
+
+ <h3 id="ledcolorcode">(6) Control LED Colors</h3>
+
+Next, let's write some code that can change the color of the LEDs.<br><br>
+
+<b>Individually Addressable LEDs on an LED strip via a Single Pin:</b> The LEDs on the strip are called <code>NEOPIXELS (WS2812B)</code>. Each LED represents a 'pixel' that can be addressed individually and can thus change color and brightness independent of the other LEDs on the strip. The <code>DIN (Data-In) pin</code> on the strip transmits a specific <code>protocol to address each LED individually</code>. This is why the LEDs do not turn on immediately when you connect them to the power supply. Instead we first have to provide data through the DIN pin to say which LEDs we want to turn on on the strip and what color and brightness they should have.<br><br>
+
+<b>Install FastLED library:</b> To control the LEDs, you can use a <code>library</code> that handles the signal encoding for you. This library is called <code>FastLED</code>. You can download it directly from the Arduino IDE by clicking on <code>Sketch->Inlcude Libraries->Manage Libraries.</code> Search for 'FastLED' and install it. If you are interested to see what is available in the <a href="http://fastled.io/docs/3.1/annotated.html">FastLED library, you can look at the <code>documentation</code> here.</a> <br><br>
+
+    <img src="images/lab10/fastled.png" width="700px"><br><br>
+
+<b>Include Library in your Code:</b> Before you can use the library in your code, you have to <code>include</code> it at the top of the file:<br><br>
+
+    <pre><code>#include &lt;FastLED.h&gt;</code></pre>
+
+<b>Declaring an LED:</b> To declare an LED, you can use the <code>CRGB datatype</code>.<br>
+
+<pre>
+<code>CRGB led1;
+</code></pre>
+
+However, rather than declaring 4 LED variables individually to address each LED, we will use an array, which is more convenient.<br>
+
+<pre><code>#define NUM_LEDS 4
+
+CRGB leds[NUM_LEDS];
+</code></pre>
+
+<b>Add LEDs to Library's Internal Datastructure:</b> The library also requires to add each LED to its <code>internal data structures</code>. You can do this in the <code>setup()</code> function with the following line:<br>
+
+<pre><code>FastLED.addLeds&lt;NEOPIXEL,LED_PIN&gt;(leds,NUM_LEDS)
+</code></pre>
+
+The function requires the following parameters:<br><br>
+
+<i>NEOPIXEL:</i> The FastLED library is a generic library for all sorts of LED types. So we need to tell it which <code>LED type</code> we have so it knows which protocol to use to send the data to the LEDs. <code>NEOPIXEL</code> is a constant defined in the <a href="http://fastled.io/docs/3.1/annotated.html">documentation of the FastLED library</a> and we can simply use it as an argument here. <br><br>
+
+<i>LED_PIN:</i> this is the GPIO pin to the DIN pin. This variable has to be a constant so you should declare it with <code>#define</code>.<br><br>
+
+<i>leds, NUM_LEDS:</i> We already declared both of these above so you just insert them here.<br><br>
+
+<b>Define Color for an LED:</b> You can assign a color to an LED by writing:<br>
+
+<pre><code>leds[0] = CRGB::White;
+</code></pre>
+
+<b>Send Color to the LED:</b> The color is not getting sent to the LED when you assign it. Instead, you have to <code>make the sending explicit</code> by executing the command:<br>
+
+<pre><code>FastLED.show();
+</code></pre>
+
+Send a few different colors to different LEDs to see if your code works.<br><br>
+
+ <h3 id="touchledcode">(7) Change LED Colors Upon Touch</h3>
+
+One thing that is still missing is a piece of code that can change the LED color upon touch.<br><br>
+
+<b>Connect Touch Button Code to Different Color Schemes:</b> Connect your touch button code so that when one of the 3 touch buttons is touched, the lamp will light up in a different color scheme of your choice (e.g. red, green, blue or whatever color scheme you like).<br><br>
+
+ <h3 id="lamponoffcode">(8) Turn Lamp On/off Upon Touch</h3>
+
+Finally, we also want to add functionality for the fourth touch button to <code>turn the lamp on/off</code>.<br><br>
+
+<b>Turn Lamp On:</b> When the on/off button is touched and the lamp is off, the lamp should turn on. You can either set it by default to a white color or if you want to be fancy you could load the last used color scheme. To turn the LED off, you set its color to black.<br><br>
+
+<b>Turn Lamp Off:</b> When the on/off button is touched and the lamp is on, the lamp should turn off.<br><br>
+
+<b>Put Lamp Shade on Base:</b> Once everything works, put the lamp shade on the base and your lamp is ready. In the future, you could also connect a battery pack to your lamp so you would be able to disconnect your laptop.<br><br>
+
+    <img src="images/lab10/circuit_done.jpg" width="430x">
+    <img src="images/lab10/lamp.jpg" width="240px"><br><br>
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/Xxg8-VN77Ys" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+<h3>Deliverables</h3>
+
+At the end of the lab, upload to your student google drive:
+    <ol>
+        <li>the ESP32 code to sense touch and control the LEDs</li>
+        <li>2-3 photos (.jpg or .png) of your 3D printed lamp that shows the circuit and the assembled lamp</li>
+        <li>a video that shows how the lamp turns on/off when touching the "on/off" button and how the lamp changes its color when pressing the three color scheme buttons</li>
+    </ol><br>
+
+        <br />
+        <br />
+        <br />
+      </section>
+
+       <aside class="col-md-4 pull-left">
+         <br /> <br /> <br /> <br /><br>
+
+                  <h4 class="medium.headline" style="padding-bottom:10px;"><a href="lab-series-3Dprinted-lamp-with-conductive-yarn.html"><b>Lab Series: 3D Printed Lamp with Conductive Yarn Buttons</b></a><br></h4>
+
+<ul>
+  <li><a href="lab9-3D-modeling-lamp.html">Lab 9: 3D Modeling the Lamp</a></li>
+  <li><a href="lab10-3D-printing-lamp.html">Lab 10: Slicing and 3D Printing the Lamp</a></li>
+    <li><a href="lab11-conductive-yarn.html">Lab 11: Conductive Yarn for Creating the Lamp Shade</a> </li>
+    <li><a href="lab12-interactive-lamp-control-circuit.html">Lab 12: Control Circuit for the Interactive Lamp</a></li>
+</ul><br>
+
+
+<iframe width="280" height="157" src="https://www.youtube.com/embed/Xxg8-VN77Ys" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
+
+In this lab series, you will build an interactive lamp that can change its color when the user touches one of its sewn on touch-buttons. The lamp consists of a 3D printed lamp base, a hand-sewn fabric cover with touch buttons stitched from conductive yarn, and integrated LEDs.<br><br>
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+      </aside>
+
+    </div>
+  </div>
+  </div>
+</section>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 footer" style="text-align: center;">
+			<span class="copyright">
+			Since 2017 &copy; MIT CSAIL (HCI Engineering group) [redesign by
+			<a href="http://punpongsanon.info/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			moji
+			</a>].
+			All Rights Reserved.
+
+			<a href="http://mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/mit.svg" alt="MIT" class="footer-logo" />
+			</a>
+			<a href="http://csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/csail.svg" alt="CSAIL" class="footer-logo"/>
+			</a>
+			<a href="http://hci.csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/hci.svg" alt="HCI" class="footer-logo"/>
+			</a>
+			</span>
+		</div>
+	</div>
+</div>
+
+<!-- Bootstrap -->
+<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+<!-- header -->
+<script type="text/javascript" src="../../js/headerstrap-for-subpage.js"></script>
+
+</body>
+</html>

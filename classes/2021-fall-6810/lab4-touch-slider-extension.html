@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>6.810 Lab4 Music Card Slider</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!-- CSAIL ICON -->
+	<link rel="CSAIL" href="../../../images/icon/csail.ico" type="image/x-icon" />
+
+	<!-- Bootstrap -->
+	<link href="../../css/bootstrap.css" rel="stylesheet">
+	<link href="../../css/custom-style.css" rel="stylesheet">
+
+	<!-- jQuery -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+
+	<!-- Google Analytic -->
+	<script type="text/javascript" src="../../js/analytics.js"></script>
+
+	<style>
+	.etech-sch-col1 {width:60px; border: 1px solid black;padding:10px;}
+	.etech-sch-col2 {width:120px; border: 1px solid black;padding:10px;}
+	.etech-sch-col3 {width:450px; border: 1px solid black;padding:10px;}
+	.etech-sch-col4 {width:70px; border: 1px solid black;padding:10px;}
+  .etech-sch-col5 {width:70px; border: 1px solid black;padding:10px;}
+  /*.etech-sch-col6 {width:170px; border: 1px solid black;padding:10px;}*/
+  ul {
+    padding:0px;padding-left:10px;margin:0px;
+  }
+	</style>
+</head>
+
+<body>
+<header class="main_header">
+	<!-- to be filled by javascript, see header.html -->
+</header>
+
+<section class="main_container">
+	<div class="container">
+    <div class="row nothing">
+
+      <section class="col-md-8 pull-right main-content">
+</br></br></br></br>
+        <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2021)</a><br></h>
+        <h2 class="headline">Lab 4: Sensing Input from a Touch Slider</h2>
+   
+You already built the circuit and wrote the code for the touch buttons on your music card. In this lab, you will build the circuit and write the code for the slider, which can then be used to control the volume of the music that is being played.<br><br>
+
+<img src="images/lab2/slider_teaser.png" width="750px"><br>
+    
+<h3>Steps:</h3>
+<ol>
+  <li><a href="#1">Build Slider Circuit</a></li>
+  <li><a href="#2">Extend Microcontroller Code to Read Slider Segments</a></li>
+  <li><a href="#3">Measure Min and Max Signal Thresholds</a></li>
+  <li><a href="#4">Determine Which Slider Segments are Touched</a></li>
+  <li><a href="#5">Determine Slider Value When One Slider Segment is Touched</a></li>
+  <li><a href="#5">Determine Slider Value When Two Slider Segments are Touched</a></li>
+  <li><a href="#7">Write Slider Value to Serial Port</a></li>
+  <li><a href="#8">Add Slider to Card</a></li>
+  <li><a href="#9">Connect Physical Music Card to Processing</a></li>
+</ol>
+
+    
+<h3>Deliverables</h3>
+
+At the end of the lab, upload to your student google drive:
+<ol>
+<li>a photo of your slider circuit connected to the printed slider and the ESP microcontroller</li>
+ <li>the Arduino code you wrote for Serial Communication of the slider value (.ino file format)</li>
+  <li>the Processing code (.pde) of the music card application with the slider</li>
+  <li>a short video (.mov or .mp4, max. 1 minute, 20MB or less) showing how you use the printed slider to adjust the volume</li>
+</ol><br>
+
+ <div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Help us Improve Class Materials for Lab4:</b><br>
+Please let us know if you had any trouble with the circuit or programming or if anything was confusing in the write up. <br> <a href="hhttps://docs.google.com/document/d/1H1uvlbD0xDM-nG8OGzN9k2ufPj3K9G5wPDSem1IURE4/edit?usp=sharing">You can add your comments here.</a></div>
+
+
+<h3>Before you start</h3>
+
+<div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Join Slack Channels for 'Lab4' and your table number, e.g. 'Table3':</b> Similar to last lab, please join the lab's slack channel and the channel with the table number you are sitting at.<br>
+
+<img src="images/lab1/slack-setup1.png" width="400px">
+<img src="images/lab1/slack-setup2.png" width="150px">
+<img src="images/lab1/slack-setup3.png" width="120px">
+</div>
+
+<hr>
+
+<h3 id="1">(1) Build Slider Circuit</h3>
+
+The first step is to build the circuit for the slider. Remember that the slider is just a bunch of touch buttons placed right next to each other. Thus, the circuit for each slider segment is the same as for a touch button.<br><br>
+    
+<b>One Sender Pin, Different Receiver Pins:</b> When you wire up your slider segments, remember they can all use the <code>same sender pin</code> but need a <code>different receiver pin</code>. Refer to <a href="lab2-sensing-touch-button.html" target="_blank">Lab 2</a> if you don't remember how this works.<br><br>
+
+    <b>Use 'TOUCH' Pins for Receiving:</b> Remember to use the pins with <code>TOUCHX</code> labels for better signal quality but do not use the one labeled pin0 (TOUCH1) as receiver (you can still use it as sender). Below is the <code>ESP pin out</code> for your reference.<br><br>
+    
+<img src="images/lab2/esp32.png" width="750px" /><br><br>
+
+<h3 id="2">(2) Extend Microcontroller Code to Read Slider Segments</h3>
+
+<b>Read Slider Segment Signal Values:</b> Once finished with the wiring, <code>extend your Arduino code</code> to also read each slider segment's touch signal.<br><br>
+
+<b>Plot each Signal Value to the Serial Plotter:</b> Next, <code>serial print the received touch signals</code> for each slider segment and look at them in the Serial plotter. To visualize only the slider touch signals in the serial plotter, you have to format the serial output in the same way as you did in lab 2:<br><br>
+<pre><code>sliderValue1, sliderValue2, sliderValue3, sliderValue4, sliderValue5 \\end of line</code></pre><br>
+
+<!-- <span style="color:red">slider1","slider2","slider3","slider4","slider5""newline" (really? where is the semicolin? do we really need the </span>  -->
+
+Below you can see the serial plotter output for individually touching each of the five slider segments one after another.<br><br>
+<img src="images/lab4/lab2-slider-segments-raw-value.png" width="400px" /><br><br>
+
+
+<h3 id="3">(3) Measure Min and Max Signal Thresholds</h3>
+
+<b>Discrete vs. Continuous Touch Detection:</b> For the <code>touch buttons</code>, we were merely interested if the button is touched or not. Thus, we converted the touch signal into a <code>binary value 0 or 1</code>. For the <code>slider</code>, we want to compute at which position on the slider the finger is, i.e. we want a <code>continuous value</code>. This will allow us to more smoothly adjust the music volume rather than jumping from one discrete volume level to the next.<br><br> 
+
+<b>How can we detect where the finger is on the slider?</b> To determine where the finger is on the slider, we need to detect <code>how much of each slider segment is touched.</code> When looking at a slider segment signal in the Serial Plotter, you will notice that the <code>value of a slider segment has a strong correlation with how much area of the slider segment is touched</code>, i.e. the more area your finger covers on the slider segment the higher the value is. Below, we are plotting the signal from the middle slider segment. You can see that the signal is first low because the finger is at the beginning of the slider and not touching the middle segment. As the finger moves towards the middle segment the signal goes up as the overlap area with the finger increases and then goes down once the finger passes it and the overlap area with the finger decreases again.<br><br>
+
+<img src="images/lab2/2021_images/combined-gif.gif" width="750px"><br>
+<img src="images/lab2/2021_images/touchsignal_labeled.png" width="750px"><br><br>
+
+Before we can determine <code>how much</code> a slider segment is touched, we need to do some preprocessing. You need to repeat the next steps for <code>each slider segment individually</code> since they all have different noise levels and touch signal values due to slight inconstencies in the printing process.<br><br>
+
+<b>Remove Noise:</b> First, we want to distinguish between noise (i.e. small signal readings when the segment is not actually touched) and the value when the segment is barely touched. To find this <code>minimum threshold</code>, open the Serial Plotter and slide with your finger over the slider. At some point, you will see that the values for the slider segment you want to measure are starting to increase. Write down the <code>minimum value</code> which is consistently above the noise level. <code>Repeat</code> this procedure for each slider segment and store the individual minimum values for each  segment in your code.<br><br>
+
+<b>Determine Max Value when Slider Segment is Fully Touched:</b> Next, determine the <code>maximum value</code> when the slider segment is fully touched with you finger, i.e. your finger overlaps with the entire slider segment. <code>Repeat</code> the procedure for each slider segment and store the value for each segment in your code.<br><br>
+    
+
+<h3 id="4">(4) Determine Which Slider Segments are Touched</h3>
+
+Now that you know the min signal value that indicates a touch, you are ready to determine which slider segments are being touched.<br><br>
+
+<b>Determine if Slider Segment is Touched:</b> Write code to determine if a slider segment is touched or not, i.e. if it <code>exceeds the minimum threshold</code>). We recommend that for debugging, you write the result to the serial monitor in the same format as you did in lab2. You can use <code>0,1,2,3,4 for the slider segment IDs</code> and <code>0 for not touched</code> and <code>1 for touched</code>.<br>
+
+<pre><code>(sensor ID),(is_touched);</code></pre>
+    
+A sample output for when the finger is over the first two slider segments should look like:<br>
+<pre><code>0,1;
+1,1;
+2,0;
+3,0;
+4,0;
+</code></pre>
+
+<h3 id="5">(5) Determine Slider Value When One Slider Segment is Touched</h3>
+
+<b>Differentiate Between Touching 1 or 2 Slider Segments:</b> Next, extend your code to differentiate between two different scenarios: (1) Only <code>one slider segment is touched</code> at a time, or (2) <code>two segments are touched</code> at the same time. For (2), we want to later interpolate between both slider segment values to determine the relative position of the finger, but let's start with the simple case of touching only one segment.<br><br>
+
+<b>Assigning Slider Values Based on Which Segment in Touched:</b> In case only one slider segment is touched, you can simply compute the <code>discrete position</code> on the whole slider. Since you have 5 slider segments and your overall slider ranges from 0-1, you can assign a value of 0 when only the first slider segment is touched, 0.25 when only the second slider segment is touched, and so on. Plot the values to the Serial Monitor and see if you can get the correct value when you touch each slider segment individually.<br><br>
+
+<img src="images/lab2/slider_vis_discrete.png" width="400px"><br><br>
+
+
+<h3 id="6">(6) Determine Slider Value When Two Slider Segments are Touched</h3>
+    
+Now let's look at the more complicated case where the finger is in-between two slider segments. In this case we want to <code>interpolate between both slider segment signals</code> to determine the relative position of the finger between the two segments.<br><br>
+
+<b>Determine How Much Each Segment is Touched:</b> Let's first determine how much each of the two segments is being touched. The best way to do this is to <code>divide each slider segment signal by its max value</code>, which gives you the fraction that represents how much a slider segment was touched. You already recorded the max value in section (3). After computing the fraction, write the result to the Serial Monitor and see if the fraction increases as you touch more area of the slider segment.<br><br> 
+
+<b>Compute Relative Position of a Finger Between Two Slider Segments:</b> Now that you know how much each slider segment is being touched, you can compute the relative position of the finger between the two slider segments. This will be a value between 0.0-1.0 where smaller values represent that more of the left slider segment is touched, and larger values represent that more of the right slider segment is touched. To determine the relative position, you need to compute the <code>average between both values</code>. When computing the average, keep in mind that the <code>left segment will drop in value</code> as the finger moves to the right, which you need to reflect in your formula for the average: <code>((1-frac1)+frac2)/2</code>. Write this value to the serial monitor and see if it increases as your finger slides from the left to the right on the two segments.<br><br>
+   
+<b>Scaling the Relative Position to the Slider Spacing:</b> Remember that our slider spacing is in 0.25 increments, i.e. slider segment 1-2 cover a range of 0-0.25, slider segment 2-3 cover a range of 0.25 - 0.5 and so on. However, the relative position between two slider segments we just computed is a value from 0-1.0. We thus need to <code>scale down this value to our slider segment spacing</code> by multiplying it with 0.25. For example, if we have a relative position of 0.5, which indicates that the finger is exactly in the middle, multiplying the relative position 0.5 by the slider spacing 0.25 gives us 0.125, which is in the middle between two slider segments.<br><br> 
+
+<b>Computing Overall Slider Value:</b> Finally, you still have to add the scaled relative position, which will always be between 0.0 - 0.25, to the <code>overall slider position</code>. All you need to do is to add this value to the discrete slider value of the segment that is touched first. For instance, if you have a relative position of 0.18 for slider segment 3 and 4, which cover a range of 0.5 - 0.75, all you need to do is to add this value to 0.5 and you receive an overall slider value of 0.68.<br><br>
+    
+<!-- <img src="images/lab2/slider_vis_continuous.png" width="400px"><br><br> -->
+  
+
+<h3 id="7">(7) Write Slider Value to Serial Port</h3>
+
+Once you are ready, clean up what you write to the Serial Port. We only want to write the overall slider value to the Serial Port, not the individual slider segments, so we can later read the overall slider value into Processing. Assign the slider value the ID 3 since we already used ID 0, 1, and 2 for the touch buttons. The output should print continuously as long as the slider is touched.<br><br>
+
+<code>(sensor ID),(slider_value);</code><br>
+    
+(sensor ID) is 3, and represents the ID of the slider (we already used up sensor IDs 0, 1, 2 for the touch buttons).<br>
+(slider_value) is ranging from 0.0 to 1.0 to indicate the overall slider position.<br><br>
+
+Here is a sample output showing that the finger is moving from the left to the right on the slider:<br>
+<pre><code>3,0.78;
+3,0.86;
+3,0.97; 
+</code></pre> 
+
+<br>
+
+<h3 id="8">(8) Add Slider to Music Card</h3>
+
+Before we use our physical slider to control the music volume, let's first implement a <code>digital slider</code> to test the music volume functionality.<br><br>
+
+<b>Add Slider to Code:</b> Open the <code>Processing music card code</code> from lab3. We already implemented a class <code>Slider</code> for you. Add a new slider to the code in the <code>draw()</code> function with:<br>
+<pre>mySliders.add(new Slider(start_x, start_y, end_x, end_y));</pre>
+
+You should be able to control the slider by dragging your mouse with the <code>left mouse button pressed</code> as shown below: <br>
+<img src="images/lab4/lab2-volume-low_UI_new.png" width="350px">
+<img src="images/lab4/lab2-volume-middle_UI_new.png" width="350px">
+<!-- <img src="images/lab2-volume-high_UI.png" width="200px"> -->
+<br><br>
+
+<b>Create Slider Events to Control the Music Volume:</b> Next, we want to increase the music volume when the slider is dragged to the right and decrease the music volume when the slider is dragged to the left. To create events on <code>mouse drag,</code> we need to implement several <code>mouseDragged() events</code>. A part of this is already done further down in the code. Extend the code so that it changes the music volume based on the slider level. 
+You might find the following functions from the <code>Audio</code> and <code>Slider</code> classes useful:<br>
+
+<pre>
+music.changeVolume(double intensity);
+Slider.getIntensity();</pre><br>
+
+Once you finished your code, test if the music volume changes by first playing a song with the digital note touch buttons and then dragging the slider to the left and right to adjust the music volume.<br><br>
+    
+<b>Hide the Slider:</b> Similar to the previously added buttons, you can <code>hide the slider</code> by pressing the <code>'h' key</code> on your keyboard while your program runs. If you want to see the slider again, press <code>'s' for show</code>.<br><br>
+
+<div style="color:red; border: red 1px solid; padding: 20px;margin-bottom:20px;">
+<b>NOTE:</b> on Windows you might experience an issue where Processing does not allow you to drag over the card to adjust the volume bar. The reason for this because Processing4 (for some odd reason) cannot detect the mouse click event when inside the <code>mouseDragged()</code> method.  So, statements such as <code>mouseButton == LEFT</code> always return false. A similar issue is presented <a style="color:red;" target="_blank" href="https://stackoverflow.com/questions/17441013/mousedragged-not-returning-appropriate-button-down/18172343">here</a>. 
+A quick workaround is to do something similar to the third response on that post. 
+</div>
+	
+<h3 id="9">(9) Connect Physical Music Card to Processing</h3>
+
+Now that you can control the slider digitally, you area ready to connect your <code>physical slider</code> so you can also adjust the volume from your card.<br><br>
+
+<b>Extend Serial Read Code to Slider:</b> Extend your <code>serial read</code> code to also read in the serial messages for the <code>overall slider value</code>.<br><br>
+
+<b>Use Physical Slider Value to Adjust Volume:</b> Once you read in the value from the physical slider, use it to <code>change the volume of the music</code>. Test if everything works by using your physical printed card to play/pause songs and the physical slider to adjust the music volume. If it works, congrats, you are done!<br><br>
+
+<img src="images/lab4/lab2-volume-low_new.png" width="350px">
+<img src="images/lab4/lab2-volume-middle_new.png" width="350px">
+<!-- <img src="images/lab2-volume-high_UI.png" width="200px"> -->
+
+
+<h3>Deliverables</h3>
+At the end of the lab, upload to your student google drive:
+<ol>
+  <li>a photo of your slider circuit connected to the printed slider and the ESP microcontroller</li>
+ <li>the Arduino code you wrote for Serial Communication of the slider value (.ino file format)</li>
+  <li>the Processing code (.pde) of the music card application with the slider</li>
+  <li>a short video (.mov or .mp4, max. 1 minute, 20MB or less) showing how you use the printed slider to adjust the volume</li>
+</ol><br>
+    
+
+
+        <br />
+        <br />
+        <br />
+      </section>
+
+      
+     <aside class="col-md-4 pull-left">
+         <br /> <br /> <br /> <br /><br>
+
+                 <h4 class="medium.headline" style="padding-bottom:10px;"><a href="lab-series-inkjet-printed-card.html"><b>Lab Series: Inkjet Printed Music Card</b></a><br></h4>
+
+<ul>
+    <li><a href="lab1-circuit-design-for-inkjet-printing.html">Lab 1: Circuit Drawings for Conductive Inkjet Printing</a></li>
+    <li><a href="lab2-sensing-touch-button.html">Lab 2: Sensing Touch from Inkjet Printed Circuit</a></li>
+   	<li><a href="lab3-sending-touch-data-to-processing.html">Lab 3: Sending Touch Data to Processing</a></li>
+    <li><a href="lab4-touch-slider-extension.html">Lab 4: Sensing Input from a Touch Slider</a></li>
+</ul><br>
+
+
+
+
+<iframe width="280" height="158" src="https://www.youtube.com/embed/R7qxT6_8TE4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
+
+In this lab series, you will create an interactive music card. Underneath the visual design, the music card has an inkjet printed circuit with touch buttons and a slider that allow the user to play songs and control the volume. The card is connected to a microcontroller for analyzing user input and then sends the signals to a program called Processing for visualizing user input on screen.<br><br>
+
+
+<h4 class="medium.headline" style="margin-bottom:0px;">Use our design or make your own</h4><br>
+
+You have the choice to either use our template design files or to make your own design. That means either using our card design (three notes + piano keyboard) or to make your own card design. If you are a beginner in electronics and fabrication, we recommend you go with the default design since it is the safest path to success. However, if you are a designer at heart and you have some prior knowledge in electronics and making, it may be more interesting for you to make your own. If you decide to make your own, please make sure you read ahead what's coming in lab 2/3/4. There is also the risk that your own design will have its own bugs that we are less knowledgable about. Below you see a custom design from 6.810 student Diego Pinochet from last year that  features a circular slider rather than a straight one and additinal input buttons for extra functionality.<br><br>
+
+<iframe width="280" height="158" src="https://www.youtube.com/embed/ky_5ARiG4so" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+      </aside>
+
+    </div>
+  </div>
+  </div>
+</section>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 footer" style="text-align: center;">
+			<span class="copyright">
+			Since 2017 &copy; MIT CSAIL (HCI Engineering group) [redesign by
+			<a href="http://punpongsanon.info/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			moji
+			</a>].
+			All Rights Reserved.
+
+			<a href="http://mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/mit.svg" alt="MIT" class="footer-logo" />
+			</a>
+			<a href="http://csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/csail.svg" alt="CSAIL" class="footer-logo"/>
+			</a>
+			<a href="http://hci.csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/hci.svg" alt="HCI" class="footer-logo"/>
+			</a>
+			</span>
+		</div>
+	</div>
+</div>
+
+<!-- Bootstrap -->
+<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+<!-- header -->
+<script type="text/javascript" src="../../js/headerstrap-for-subpage.js"></script>
+
+</body>
+</html>

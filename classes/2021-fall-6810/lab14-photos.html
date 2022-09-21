@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>6.810 Lab14 Photos</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!-- CSAIL ICON -->
+	<link rel="CSAIL" href="../../images/icon/csail.ico" type="image/x-icon" />
+
+	<!-- Bootstrap -->
+	<link href="../../css/bootstrap.css" rel="stylesheet">
+	<link href="../../css/custom-style.css" rel="stylesheet">
+	
+	<!-- jQuery --> 
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+	
+	<!-- Google Analytic -->
+	<script type="text/javascript" src="../../js/analytics.js"></script>
+	
+	<style>
+	.etech-sch-col1 {width:60px; border: 1px solid black;padding:10px;}
+	.etech-sch-col2 {width:120px; border: 1px solid black;padding:10px;}
+	.etech-sch-col3 {width:450px; border: 1px solid black;padding:10px;}
+	.etech-sch-col4 {width:70px; border: 1px solid black;padding:10px;}
+  .etech-sch-col5 {width:70px; border: 1px solid black;padding:10px;}
+  /*.etech-sch-col6 {width:170px; border: 1px solid black;padding:10px;}*/
+  ul {
+    padding:0px;padding-left:10px;margin:0px;
+  }
+	</style>
+</head>
+
+<body>
+<header class="main_header">
+	<!-- to be filled by javascript, see header.html -->
+</header>
+
+<section class="main_container">
+	<div class="container">
+    <div class="row nothing">
+
+      <section class="col-md-8 pull-right main-content">
+</br></br></br></br>
+        <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2021)</a><br></h>
+        <h2 class="headline">Lab 14: Taking Photos</h2>
+
+In this lab, you will take photos with differently colored backdrops. A professional looking photo will make your work look so much better when you put it on your website or project portfolio, so we hope this will be helpful for you. You will also learn how remove unwanted objects from your photo and in general improve the quality of your picture.<br><br>
+
+  <!-- <img src="images/viz-photo-editing/example-photo-3d-viz2.png" width="353px" />  -->
+  <img src="images/viz-photo-editing/example-photo-blob2.png" width="346px" /> <img src="images/viz-photo-editing/example-photo-signal1.png" width="386px" />
+          <br>
+
+<h3>Steps:</h3>
+<ol>
+	<li><a href="#SETTINGUPBACKDROPS">Setting up Backdrops</a></li>
+	<li><a href="#ARRANGINGHARDWAREONBACKDROP">Arranging Laptop, Touchpad, and Breadboard on Backdrop</a></li>
+	<li><a href="#PREPAREPROCESSINGWINDOW">Prepare Processing Window on Laptop Screen</a></li>
+	<li><a href="#TAKINGPHOTOS">Taking Photos</a></li>
+	<li><a href="#PHOTOSHOP">Install Photoshop</a></li>
+	<li><a href="#ALIGNINGANDCROPPING">Aligning and Cropping your Photo</a></li>
+	<li><a href="#REMOVINGOBJECTS">Cleaning up the Edges and Removing Unwanted Objects</a></li>
+</ol>
+
+<h3>Deliverables</h3>
+
+At the end of the lab, upload to your student google drive:
+<ol>
+	<li><code>5 photos</code> of your multi-touch pad: each photo should show 
+		<ul>
+			<li>the printed multi-touch pad, breadboard, and laptop screen</li>
+			<li>either the <code>signal visualization. blob detection, or pressure visualization,</code> on the laptop screen (ideally live data, but can also be a static frame from a prior pset video)</li>
+			<li>at least one finger touching the multi-touch pad</li> 
+			<li>at least <code>two different backdrops</code> (e.g. gray, red)</li>
+			<li>a few <code>different angles</code></li>
+			<li>make sure your photos are cropped properly and no stuff is in the image that shouldn't be there.</li>
+		</ul>
+			</li>
+		<li>for section 6/7: a <code>before</code> photo (name it before.jpg) that had alignment issues (e.g. very angled) and that needed some stamping and cloning work to be done, and your <code>after</code> photo (after.jpg) that shows that you fixed those issues</li>
+</ol>
+<br>
+
+ <div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Help us Improve Class Materials for Lab14:</b><br>
+Please let us know if you had any trouble with the photo taking or if anything was confusing in the write up. <br> <a href="https://docs.google.com/document/d/1MuAP9hUa7PKKzPCPoEef033_6ID5h5H0E_K2zihlk7c/edit?usp=sharing">You can add your comments here.</a></div>
+
+
+<h3 id="SETTINGUPBACKDROPS">(1) Setting up Backdrops</h3>
+
+To get a nice homogeneous background, we use something that is called a <code>backdrop</code>. It is basically just a long roll of colored paper or PVC sheet that we can use as background.<br><br>
+
+<b>Setting up Backdrops:</b> We already taped the backdrops to a wall in the class room. You can go ahead and place your multi-touch pad, breadboard, and laptop on it. We have backdrops both where the printers were previously setup as well as on the side where the laminators were.<br><br>
+
+<b>Cardboard Backdrop vs. PCV:</b> Some of the photos in this tutorial are from this year and some from last year. You can easily spot this by looking at <code>how shiny</code> it is. Last year we used <code>cardboard</code> as the backdrop, which is less shiny than the <code>PVC</code> rolls we have this year and thus looks more even.<br><br>
+
+<img src="images/lab14/backdrops.jpg" width="643px" style="border:1px solid grey" /><br><br>
+
+<h3 id="ARRANGINGHARDWAREONBACKDROP">(2) Arranging Laptop, Touchpad, and Breadboard on Backdrop</h3>
+
+<b>Place Hardware on Backdrop:</b> The backdrops are not super wide, so it is important to place everything as tightly in the middle as possible. It is a good idea to put the <code>laptop in the background</code> and the <code>touchpad and breadboard in the foreground</code>.<br><br>
+
+<b>Check Photo Edges:</b> Once you placed everything on the backdrop, check that when you take a photo with your <code>mobile phone</code> there are <code>no walls from the class room visible on the edges of the photo</code>. The left photo below is good but the right photo has the walls showing on the edges, which is not great. We recommend you find a compact layout for all your components before you move onto the next step. If you can't find any way to make it fit, you can also read a bit ahead in section 7 how you can remove unwanted content from the edges of a photo with Photoshop. However, the golden rule is always to fix everything you can in the actual photo before going through great lengths in the postprocessing to fix things you could have fixed before.<br><br>
+
+<img src="images/lab14/photo-on-gray-backdrop.jpg" width="250px">
+<img src="images/lab14/photo-on-gray-backdrop-edes.jpg" width="430px"><br><br>
+
+
+
+<h3 id="PREPAREPROCESSINGWINDOW">(3) Prepare Processing Window on Laptop Screen</h3>
+
+Once you have your multi-touch placed on the backdrop, you still have to make sure it shows the Processing Window on your laptop. <br><br>
+
+<b>What Data to Show in the Processing Window:</b> You can either show the <code>raw signal on the Serial Plotter (pset2/3)</code>, the <code>blob detection (pset4)</code>, or the <code>touch pressure visualization (pset5)</code>.<br><br>
+
+<b>Either Use Screenshot or Live Program:</b> We recommend you use <code>live data</code> since that will be more authentic. However, if that is too much work to get your touchpad to run again, you can also look through your previous pset submissions and put a <code>frame of the video</code> in the background. Just make sure that when you take the photo later that your finger positions match what you show on the laptop screen.
+
+<br><br>
+
+<h3 id="TAKINGPHOTOS">(4) Taking Photos</h3>
+
+Now that you prepared everything, you are ready to actually take some photos.<br><br>
+
+<b>Decide on Photo Perspective:</b> Below are some photos students took last year. It is worth taking a moment to think about <code>which perspective</code> you like the most and why. Which arrangement would you use for your touchpad? What would you change?<br><br>
+
+<b>Take Photos:</b> Take some photos of your touch pad from different perspectives. Make sure you have <code>one or more fingers touching</code> and your <code>multi-touch pad, breadboard, and laptop are visible</code> and there is either the <code>signal processing, blob detection, or touch pressure visible on the laptop screen</code>.<br><br>
+
+<b>Different Backdrops:</b> Take photos on at least <code>two different backdrops</code> to see the effect of different colors.<br><br>
+
+<b>Take Photo with Edges Visible or Object in Photo:</b> Finally, take at least one <code>'ugly' photo</code>. The ugly photo should have (1) a weird angle (e.g. the laptop looks tilted, see section (6) for an example), and (2) have the wall visible on the edges (see section (7) for an example) or alternatively some other unwanted object in the image. This photo will serve as your <code>before image</code> and we will show you in the next section how to correct such a photo with Photoshop to create your <code>after image</code>.<br><br>
+
+<img src="images/pset5/photo-olivia.jpg" width="350px">
+<img src="images/pset5/photo-olivia2.jpg" width="350px">
+<img src="images/pset5/photo-katya.jpg" width="350px">
+<img src="images/pset5/photo-will.jpg" width="350px"><br><br>
+
+
+<h3 id="PHOTOSHOP">(5) Install Photoshop</h3>
+
+<b>Install Adobe Photoshop:</b> We recommend to use <a href="https://ist.mit.edu/adobe/cc">Adobe Photoshop. All MIT students have access to free Adobe Creative Cloud licenses here</a>. All our instructions will be based on Adobe Photoshop. If you use a different photo editing program that's fine but we may be less knowledgable on how to use it and may not be able to help you as much.<br><br>
+
+<b>Video Tutorials:</b> For the next steps, we made <code>video tutorials</code> that guide you through some tools in Photoshop that are helpful in making a photo look better. The video quality might be better if you click on the YouTube icon in the lower left corner, which opens a new tab and you can <code>set the quality to 1080p</code>.<br><br>
+
+<div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Only Cosmetic Fixes Allowed:</b> As you will learn below, Photoshop is a powerful tool that allows you to change your photo quite a bit without anyone noticing. You are only allowed to use Photoshop to fix <code>cosmetic issues</code>, e.g. if the wall is visible in the image although you wanted it to be backdrop or if a wire is hanging out from behind the laptop although you had planned to hide it behind the laptop screen. You are not allowed to manipualte the photo to create <code>functionality</code> that was never there. For instance, let's assume you never finished the blob detection implementation, you would not be allowed to photoshop blobs into your visualization to pretend that your blob detection is working. These are basic ethics of photo editing and you should keep those in mind as you apply the skills we will teach you to other projects.</div>
+
+<h3 id="ALIGNINGANDCROPPING">(6) Aligning and Cropping your Photo</h3>
+
+First, we will show you how you can properly <code>align and crop your photo</code>. You can see an example below where the laptop was originally very tilted in the image and we corrected it to be more horizontal.<br><br>
+
+Before and After Photos:<br><br>
+
+<img src="images/lab14/example1-before.jpg" width="358px">
+<img src="images/lab14/example1-after.jpg" width="370px"><br><br>
+
+<b>Use your 'before' photo:</b> Use your ugly <code>before</code> photo and apply the steps outlined in the video below to correct the alignment. Ideally you also apply these steps to all other photos you took so they look professional.<br><br>
+
+<b>Short Cuts:</b><br>
+panning: spacebar + left mouse<br>
+zooming: option + scroll<br>
+ruler: command + R to activate ruler toolbar, then drag the ruler line from the ruler bar<br>
+rotate image: go to top menu bar -> image -> image rotation -> arbitrary, then enter your rotation angle<br>
+crop: press 'c', drag the edges until happy, then double click on image to activate crop<br>
+save: command + 's' or go to menu File -> save as<br><br>
+
+ <iframe width="560" height="315" src="https://www.youtube.com/embed/_YJWsSBVLjY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
+
+
+<h3 id="REMOVINGOBJECTS">(7) Cleaning up the Edges and Removing Unwanted Objects</h3>
+
+Next, we will show you how to <code>clean up the edges</code> in case you see a bit of wall in your photo and how to <code>remove unwanted objects</code> in your photo. Below you can see an example where we both replaced the wall segments on the left and right side of the photo as well as removed the cable that was sticking out on the left side of the laptop screen.<br><br>
+
+Before and After Photos:<br><br>
+
+<img src="images/lab14/example2-before.jpg" width="370px">
+<img src="images/lab14/example2-after.jpg" width="370px"><br><br>
+
+<b>Use your 'before' photo:</b> Continue fixing your ugly <code>before</code> photo and apply the steps outlined in the video below to remove any wall that is in your image or other unwanted object. Ideally you also apply these steps to all other photos you took in case they have similar issues so they look professional.<br><br>
+
+<b>Short Cuts:</b><br>
+clone stamp tool: press 's'<br>
+sampling an area with the Clone Stamp Tool: Option Key + left mouse click<br>
+using the sampled area while clone tool is active: left mouse click<br>
+patch tool: press ‘j’, select an area you want to replace with other pixels, then drag the area onto the area you want to merge with<br>
+lasso tool: press ‘l’<br>
+remove selection: control + d<br><br>
+
+ <iframe width="560" height="315" src="https://www.youtube.com/embed/7Atimg76STo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
+
+Once you are done, save your photo as your <code>after photo</code> and put it in the google drive as part of your deliverables.<br><br>
+
+
+
+<h3>Deliverables</h3>
+
+At the end of the lab, upload to your student google drive:
+<ol>
+	<li><code>5 photos</code> of your multi-touch pad: each photo should show 
+		<ul>
+			<li>the printed multi-touch pad, breadboard, and laptop screen</li>
+			<li>either the <code>signal visualization. blob detection, or pressure visualization,</code> on the laptop screen (ideally live data, but can also be a static frame from a prior pset video)</li>
+			<li>at least one finger touching the multi-touch pad</li> 
+			<li>at least <code>two different backdrops</code> (e.g. gray, red)</li>
+			<li>a few <code>different angles</code></li>
+			<li>make sure your photos are cropped properly and no stuff is in the image that shouldn't be there.</li>
+		</ul>
+			</li>
+		<li>for section 6/7: a <code>before</code> photo (name it before.jpg) that had alignment issues (e.g. very angled) and that needed some stamping and cloning work to be done, and your <code>after</code> photo (after.jpg) that shows that you fixed those issues</li>
+</ol>
+<br>
+
+
+
+
+
+
+
+
+
+        <br />
+        <br />
+      </section>
+      
+      <aside class="col-md-4 pull-left">
+                 <br /> <br /> <br /> <br /><br>
+
+                  <h4 class="medium.headline" style="padding-bottom:10px;"><a href="lab-series-presentation-materials-multitouchpad.html"><b>Lab Series: Presentation Materials</b></a><br></h4>
+
+<ul>
+	<li><a href="lab13-rotoscope.html">Lab 13: Drawing Rotoscopes</a></li>
+	<li><a href="lab14-photos.html">Lab 14: Taking Photos & Photo Editing</a></li>
+	<li><a href="lab15-video.html">Lab 15: Video Recording & Editing</a> </li>
+</ul><br>
+
+<img src="images/pset5/photo-olivia2.jpg" width="300px"><br><br>
+
+In this lab series, you will create presentation materials for your multi-touch pad. You will create a rotoscope by drawing on top of a photo, take photos with a backdrop, create a short video of your multi-touch pad and then add all the materials to a website.<br><br>
+
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+      </aside>
+      
+    </div>
+  </div>
+  </div>
+</section>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 footer" style="text-align: center;">
+			<span class="copyright">
+			Since 2017 &copy; MIT CSAIL (HCI Engineering group) [redesign by 
+			<a href="http://punpongsanon.info/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			moji
+			</a>]. 
+			All Rights Reserved.
+			
+			<a href="http://mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/mit.svg" alt="MIT" class="footer-logo" />
+			</a>
+			<a href="http://csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/csail.svg" alt="CSAIL" class="footer-logo"/>
+			</a>
+			<a href="http://hci.csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/hci.svg" alt="HCI" class="footer-logo"/>
+			</a>
+			</span>
+		</div>
+	</div>
+</div>
+
+<!-- Bootstrap --> 
+<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+<!-- header -->
+<script type="text/javascript" src="../../js/headerstrap-for-subpage.js"></script> 
+
+</body>
+</html>

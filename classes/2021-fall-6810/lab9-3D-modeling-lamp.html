@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>6.810 Lab9 3D Modeling</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!-- CSAIL ICON -->
+	<link rel="CSAIL" href="../../../images/icon/csail.ico" type="image/x-icon" />
+
+	<!-- Bootstrap -->
+	<link href="../../css/bootstrap.css" rel="stylesheet">
+	<link href="../../css/custom-style.css" rel="stylesheet">
+
+	<!-- jQuery -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+
+	<!-- Google Analytic -->
+	<script type="text/javascript" src="../../js/analytics.js"></script>
+
+	<style>
+	.etech-sch-col1 {width:60px; border: 1px solid black;padding:10px;}
+	.etech-sch-col2 {width:120px; border: 1px solid black;padding:10px;}
+	.etech-sch-col3 {width:450px; border: 1px solid black;padding:10px;}
+	.etech-sch-col4 {width:70px; border: 1px solid black;padding:10px;}
+  .etech-sch-col5 {width:70px; border: 1px solid black;padding:10px;}
+  /*.etech-sch-col6 {width:170px; border: 1px solid black;padding:10px;}*/
+  ul {
+    padding:0px;padding-left:10px;margin:0px;
+  }
+	</style>
+</head>
+
+<body>
+<header class="main_header">
+	<!-- to be filled by javascript, see header.html -->
+</header> 
+
+<section class="main_container">
+	<div class="container">
+    <div class="row nothing">
+
+      <section class="col-md-8 pull-right main-content">
+</br></br></br></br>
+        <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2021)</a><br></h>
+        <h2 class="headline">Lab 9: 3D Modelling the Lamp</h2>
+      
+
+In this lab, you will 3D model the lamp base and lamp shade and then 3D print both parts on a Prusa 3D printers. In the next labs, we will then make the lamp interactive by adding fabric to the lamp that includes touch buttons made from conductive yarn and LEDs to add color changing functionality to the lamp.<br><br>
+
+<img src="images/lab9/3d-modeling-in-progress.png" width="350px">
+<img src="images/lab9/3d-modeling-overview2.png" width="355px"><br>
+
+<h3>Steps:</h3>
+<ol>
+        <li><a href="#install3deditor">Install 3D Editor</a></li>
+        <li><a href="#gettingstarted">Watch 3D Modeling Getting Started Tutorials</a></li>
+        <li><a href="#shortcuts3dmodeling">Short Cuts for 3D Modeling</a></li>
+        <li><a href="#3dmodellampbase">3D Model the Lamp Base</a></li>
+        <li><a href="#3dmodellampshade">3D Model the Lamp Shade</a></li>
+        <li><a href="#3dmodelrecess">Create Recess that Holds the Lamp Shade on the Base</a></li>
+        <li><a href="#exportstl">Export .stl File for Each 3D Model</a></li>
+    </ol>
+
+
+<h3>Deliverables</h3>
+    
+At the end of the lab, upload to your student google drive:
+    <ol>
+        <li>the 3D models saved in Blender (.blend file format)</li>
+        <li>the exported 3D models from Blender (.stl file format)</li>
+    </ol><br>
+
+
+ <div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Help us Improve Class Materials for Lab9:</b><br>
+Please let us know if you had any trouble with 3D modeling or if anything was confusing in the write up. <br> <a href="https://docs.google.com/document/d/1jDwKS14X4Jh3qqvUVqVl1ecm73t9VZ5kzTPlY7E5Pjw/edit?usp=sharing">You can add your comments here.</a></div>
+
+
+<div style="color:red; border: red 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Sign up for 3D Printing Slot:</b> Since your 3D printed object will take around 6 hours to print, we ask you to <a href="https://docs.google.com/spreadsheets/d/1wmpVzC6D_0vfhPyP-wrzb6zeKxSZ7emhZsSPzhlu_dk/edit#gid=0" style="color:red">sign up for a 3D printing slot here</a>. You will be able to 3D print once you finished lab 8 3D modeling + lab 9 slicing, which we will do on friday.</div>
+
+<h3 id="install3deditor">(1) Install 3D Editor</h3>
+
+For 3D modeling, we will use the <code>3D editor Blender</code>, which is <code>open source</code>.
+Blender is available for all major operating systems.
+<code>Install</code> the latest version of Blender from here: <a href="https://www.blender.org/download/">https://www.blender.org/download/</a>. If you are already familier with a different 3D editor (e.g. Rhino3D, Fusion 360), you can also use it but if you get stuck, we will not be able to help you.<br><br>
+
+<h3 id="gettingstarted">(2) Watch 3D Modeling Getting Started Tutorials</h3>
+
+If you are not familiar with Blender, we recommend you <code>watch these getting started tutorials</code> on youtube (<code>number 1-15</code>, each is 3-12 minutes, ca. 75 minutes total): <a href="https://www.youtube.com/playlist?list=PLa1F2ddGya_-UvuAqHAksYnB0qL9yWDO6">Blender Tutorials</a>. <br><br>
+
+  <a href="https://www.youtube.com/playlist?list=PLa1F2ddGya_-UvuAqHAksYnB0qL9yWDO6"><img src="images/install-blender/blender-tutorials.png" width="600px" /> </a>
+
+<h3 id="shortcuts3dmodeling">(3) Short Cuts for 3D Modeling</h3>
+
+Here is a summary of the <code>short cuts</code> which may come handy when you do your 3D modeling in the next steps:
+  <br><br>
+
+    Short cuts:<br>
+    <b>'a'</b> = select all<br>
+    <b>'e'</b> = extrude<br>
+    <b>'s'</b> = scale<br>
+    <b>'m'</b> = merge<br>
+    <b>'7'</b> = top view<br>
+    <b>'1'</b> = side view<br>
+    <b>'g' + 'z'</b> = grab and move in z<br><br>
+
+<h3 id="3dmodellampbase">(4) 3D Model the Lamp Base</h3>
+
+Our lamp consists of <code>two parts:</code> the <code>base of the lamp</code> (the cylindrical shape that will house the electronics), and the <code>shade of the lamp</code> (the cone shape that will be covered with fabric).<br><br>
+
+We made <code>video tutorials</code> that guide you through the modelling. The video quality might be better if you click on the youtube icon in the lower left corner, which opens a new tab and you can <code>set the quality to 1080p</code>.<br><br>
+    
+    <b>Creating the Lampbase Cylinder for Housing the Electronics (see video):</b> Make a <code> cylinder (vertices: 64, location: 0,0,0, radius: 5.0cm)</code>. Extrude to <code>height 4.0cm</code>. Create another <code> cylinder (vertices: 64, location: 0,0,0.3, radius: 4.8cm)</code>. Use a <code>Boolean Modifier</code> on the first cylinder, and subtract the second cylinder from it by choosing <code> Difference </code>. <br><br>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/koufNlUpLyw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
+    <h3 id="3dmodellampshade">(5) 3D Model the Lamp Shade</h3>
+
+  <The <code>lamp shade</code> will be placed on top of the lamp base. It has holes to let light shine through and it will be the place on which you can mount RGB LEDs. Please see the video below for detailed step-by-step instructions. The <code>video quality</code> might be better if you click on the youtube icon in the lower left corner, which opens a new tab and you can <code>set the quality to 1080p</code>.<br><br>
+
+    <b>Create Cylinder:</b> Make a <code>circle (vertices: 64, location: 0,0,0, radius: 4.6cm)</code>. Extrude and scale by <code>0.3cm</code>.<br><br>
+
+    <b>Create Lamp Shade Pillars:</b> Select every <code>second face</code>. Then <code>extrude upwards (height: 8.3cm)</code> to create pillars from the faces. <code>Scale faces inwards</code> to create angled pillars (<code>inside radius: 1cm)</code>. Select inward facing edges, scale inwards.<br><br>
+
+    <b>Create Connector Ring for Pillars:</b> To merge two pillars together, select <code>two adjacent vertices</code>, merge them at the center. After all pillars are connected, <code>extrude upwards (height: 2mm)</code>. <br><br>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/xMy6K9QtOwI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>     
+    <h3 id="3dmodelrecess">(6) Create Recess that Holds the Lamp Shade on the Base and add Hole for the USB cable</h3>
+
+    The way we modeled the base and the shade of the lamp, they do not really fit to each other and wouldn't connect tightly when just placed on top of each other. Therefore, we will <code>add a recess to base</code> of the lamp that has enough space such that the lamp shade fits in it nicely. <br><br>
+    
+    <b>Load both Models into one 3D Editor File:</b> First, <code>load both the 3D model</code> of the lamp shade and the lamp base into one Blender environment.<br><br>
+
+    <b>Align Lamp Shade over Lamp Base:</b> Next, move the lamp shade down until the <code>lower ring of the lamp shade overlaps with the lamp base</code>.<br><br>
+
+    <b>Subtract Lamp Shade from Lamp Base:</b> Select the Lamp base, use a boolean modified to subtract the lamp shade from the lamp base, this creates a small recess.<br><br>
+    
+    In the final step, we also have to create a hole for our USB cable so we can connect the electronics inside our lamp to our computer.<br><br>
+
+    <b>Add Hole for USB Cable to Cylinder:</b> Create a <code>cylinder (vertices: 64, radius: 0.6cm)</code> and <code>rotate it on the x-axis</code> to make it horizontal. Move cylinder to where the hole should be on the lamp base. Select the lamp base, use the <code>boolean modifier 'subtract'</code> to subtract the cylinder from the lamp base, leaving the whole. Delete the cylinder.<br><br>
+    
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/rSBc3WUiIAI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
+  
+ 
+<h3 id="exportstl">(7) Export .stl File for Each 3D Model</h3>
+
+<In the next lab, we will <code>slice the 3D model for 3D printing</code>. For this, The 3D models have to be converted from Blender's internal file format (.blend) to another file format that the slicing software can load and process. The standard for saving digital models is the <code>.stl file format</code> and we will use this file format to load models into the slicing software. The video below shows how you can save each of your 3D models as .stl files. The video quality might be better if you click on the youtube icon in the lower left corner. which opens a new tab and you can <code>set the quality to 1080p</code>.<br><br>
+
+<b>Export Lamp Base:</b> Select only the lamp base, go to <code>File -> Export -> Export .stl</code>, click checkbox <code>'selection only'</code>, use <code>scale factor: 10</code>, click 'export'.<br><br>
+
+<b>Export Lamp Shade:</b> Select only the lamp shade, go to <code>File -> Export -> Export .stl</code>, click checkbox <code>'selection only'</code>, use <code>scale factor: 10</code>, click 'export'.<br><br>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/S4Dm4EotM1U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h3>Deliverables</h3>
+    
+At the end of the lab, upload to your student google drive:
+    <ol>
+        <li>the 3D models as saved in Blender (.blend file format)</li>
+        <li>the exported 3D models from Blender (.stl file format)</li>
+    </ol><br>
+
+  
+        <br />
+        <br />
+        <br />
+      </section>
+
+       <aside class="col-md-4 pull-left">
+         <br /> <br /> <br /> <br /><br>
+
+                  <h4 class="medium.headline" style="padding-bottom:10px;"><a href="lab-series-3Dprinted-lamp-with-conductive-yarn.html"><b>Lab Series: 3D Printed Lamp with Conductive Yarn Buttons</b></a><br></h4>
+
+<ul>
+ <li><a href="lab9-3D-modeling-lamp.html">Lab 9: 3D Modeling the Lamp</a></li>
+  <li><a href="lab10-3D-printing-lamp.html">Lab 10: Slicing and 3D Printing the Lamp</a></li>
+    <li><a href="lab11-conductive-yarn.html">Lab 11: Conductive Yarn for Creating the Lamp Shade</a> </li>
+    <li><a href="lab12-interactive-lamp-control-circuit.html">Lab 12: Control Circuit for the Interactive Lamp</a></li>
+</ul><br>
+
+
+<iframe width="280" height="157" src="https://www.youtube.com/embed/Xxg8-VN77Ys" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
+
+In this lab series, you will build an interactive lamp that can change its color when the user touches one of its sewn on touch-buttons. The lamp consists of a 3D printed lamp base, a hand-sewn fabric cover with touch buttons stitched from conductive yarn, and integrated LEDs.<br><br>
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+      </aside>
+
+    </div>
+  </div>
+  </div>
+</section>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 footer" style="text-align: center;">
+			<span class="copyright">
+			Since 2017 &copy; MIT CSAIL (HCI Engineering group) [redesign by
+			<a href="http://punpongsanon.info/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			moji
+			</a>].
+			All Rights Reserved.
+
+			<a href="http://mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/mit.svg" alt="MIT" class="footer-logo" />
+			</a>
+			<a href="http://csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/csail.svg" alt="CSAIL" class="footer-logo"/>
+			</a>
+			<a href="http://hci.csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/hci.svg" alt="HCI" class="footer-logo"/>
+			</a>
+			</span>
+		</div>
+	</div>
+</div>
+
+<!-- Bootstrap -->
+<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+<!-- header -->
+<script type="text/javascript" src="../../js/headerstrap-for-subpage.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>6.810 Lab5 Spraying EL Displays</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!-- CSAIL ICON -->
+	<link rel="CSAIL" href="../../../images/icon/csail.ico" type="image/x-icon" />
+
+	<!-- Bootstrap -->
+	<link href="../../css/bootstrap.css" rel="stylesheet">
+	<link href="../../css/custom-style.css" rel="stylesheet">
+
+	<!-- jQuery -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+
+	<!-- Google Analytic -->
+	<script type="text/javascript" src="../../js/analytics.js"></script>
+
+	<style>
+	.etech-sch-col1 {width:60px; border: 1px solid black;padding:10px;}
+	.etech-sch-col2 {width:120px; border: 1px solid black;padding:10px;}
+	.etech-sch-col3 {width:450px; border: 1px solid black;padding:10px;}
+	.etech-sch-col4 {width:70px; border: 1px solid black;padding:10px;}
+  .etech-sch-col5 {width:70px; border: 1px solid black;padding:10px;}
+  /*.etech-sch-col6 {width:170px; border: 1px solid black;padding:10px;}*/
+  ul {
+    padding:0px;padding-left:10px;margin:0px;
+  }
+	</style>
+</head>
+
+<body>
+<header class="main_header">
+	<!-- to be filled by javascript, see header.html -->
+</header>
+
+<section class="main_container">
+	<div class="container">
+    <div class="row nothing">
+
+      <section class="col-md-8 pull-right main-content">
+</br></br></br></br>
+        <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.810 Engineering Interactive Technologies (fall 2021)</a><br></h>
+        <h2 class="headline">Lab 5: Spraying Electroluminescent Displays</h2>
+      
+
+In this lab, you will create the electrolumiscent display for the interactive mug from scratch using airbrushing.<br><br>
+
+<img src="images/lab5/spraying-copper.jpg" height="165px">
+<img src="images/lab5/making-copper-flaps.jpg" height="165px">
+<img src="images/lab6/display_animation.gif" height="165px">
+
+<h3>Steps:</h3>
+<ol>
+  <li><a href="#DISPLAYDESIGN">Decide on Display Design</a></li>
+  <li><a href="#LASERCUTSTENCIL">Laser Cut Stencil for Copper Layer</a></li>
+  <li><a href="#SAFETYWEAR">Put on Safety Wear</a></li>
+  <li><a href="#PHOSPHOR">Team Member 1: Prepare ITO and Spray Phosphor Layer</a></li>
+  <li><a href="#DIELETRIC">Team Member 2: Spray Dieletric Layer</a></li>
+  <li><a href="#COPPER">Team Member 3: Spray Copper Layer with Stencil</a></li>
+  <li><a href="#CUTDISPLAYS">Remove Stencils and Tape</a></li>
+  <li><a href="#POWERDISLAYS">Wire up the Display</a></li>
+</ol>
+
+
+<h3>Deliverables</h3>
+
+At the end of the lab, upload to your student google drive:
+<ol>
+  <li>a short video (.mov or .mp4, max. 30s) showing how one of your displays turns on</li>
+</ol>
+
+ <div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Help us Improve Class Materials for Lab5:</b><br>
+Please let us know if you had any trouble with the design file or spray hardware. <br> <a href="https://docs.google.com/document/d/1LGgwJKYrjoXPIa7ABNOvAVBu45uvDBBJMAWUhmr8sm8/edit?usp=sharing">You can add your comments here.</a></div>
+
+
+
+<h3>Group Work:</h3>
+This lab is done in teams of 3 students. Each member of your team will spray one layer (phosphor, dieletric, copper) of the electrolumiscent display. Thus, all steps below should be discussed as a team and then a decision for the entire team should be made. After each layer/material, the airbrush has to be cleaned, which takes about 20 minutes, and the layer has to dry, which takes about 30 minutes. Thus, spraying the entire display will take ca. 3 hours.<br><br>
+
+<div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Decide Spray Order for your Team:</b> Decide which team member is going to spray what.<br> Enter the <a href="https://docs.google.com/spreadsheets/d/1IC_FVw061ngUhZEWZZ7DWZPFM9YtIHK7X_TjAvs4uCg/edit?usp=sharing">team member's name and spray times here in this google spreadsheet</a>.</div>
+
+<div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Laser Cut Stencil for Last Layer:</b> You need to laser cut the stencil for the last layer (copper) before you can spray it. Thus, while team member 1 is spraying, the other two team members should laser cut the stencil in the mean time. You have about 2 hours to get this done, so there is no super rush but you should get going once you arrive at the IDC.</div>
+
+<img src="images/lab5/el-display-flipped.png" width="500px"><br>
+
+
+ <h3 id="DISPLAYDESIGN">(1) Decide on Display Design</h3>
+
+<b>Making Custom Shaped Displays:</b> To make your display have a particular shape, consider the following: The display will only <code>glow</code> in the locations that both have a <code>top electrode (ITO sheet)</code> and <code>bottom electrode (copper).</code> Any area that only has a top electrode (ITO) but is not covered by the bottom electrode (copper) will not glow. Thus, in order to make our display have a certain shape, we only need to <code>remove material</code> from either the top OR the bottom electrode, and not both. In our case, we will cover parts of the top layer with a <code>stencil</code> so that the sprayed copper will only be applied in the areas where the stencil has a cut-out. Thus, as a result, only those area will work as a display and glow.<br><br>
+
+<b>Download Template Display Design (Coffee Cup):</b> You can <a href="images/lab5/lc-template.pdf">download our <code>template design</code> here</a>. The design is a display shaped as a steaming coffee mug. As you can see, if contains several stencils in a row. This is because you will make 2 displays for each team member (8 in total) to ensure that a good number of them work (spraying a display is not easy, we will call it a success if 50% of your displays work, thus we have you fabricate some extra just in case). You may have noticed that the mugs are <code>mirrored,</code> i.e. the handle is on the left side not the right side. This is necessary because when we spray the stencil, it will form the bottom layer and the display will be flipped over in the end. Thus, if you forget about this you will have the handle on the wrong side. If you use our template design, move on to step (2) to laser cut the stencil, otherwise you can read below how you can make your own design.<br><br>
+ 
+    
+ <img src="images/lab5/lab3-stencil-file-overview-mirrored.png" width="500px"><br><br>
+
+<b>Create Custom Display Designs:</b> If you decide to make a custom display design, we still ask you to make 4 of our standard display designs <code>(i.e. 4 coffee mugs + 4 custom designs)</code>. By doing this, the chance is higher that some of them will work. To make a new design, <a href="images/lab5/lc-template.pdf">download the <code>template design</code></a> here and replace 4 of the 8 mugs with our own design while sticking to the following:<br><br>
+
+<ol>
+    <li>stay within the boundaries (large square) in the design template</li>
+    <li>4 displays per row</li>
+    <li>distance between individual displays in a row needs to be 25mm</li>
+    <li>distance between display rows need to be 25mm</li>
+    <li>your design should not contain delicate, thin elements (width <5mm)</li>
+    <li>do not forget to <code>mirror</code> your design at the end otherwise your display will not look as expected (e.g. the mug handle will be on the left side not right side where it should be)</li>
+    </ol>
+
+Below is a video from last year when a team made their own design:<br><br>
+
+<iframe width="373" height="210" src="https://www.youtube.com/embed/BtRwNVc96ZE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
+
+ <h3 id="LASERCUTSTENCIL">(2) Laser Cut Stencil for Copper Layer</h3>
+
+<b>Pick up Adhesive Sheet for Stencil:</b> You will cut your stencil from an adhesive sheet. The adhesive part will make it easy to attach the stencil to the existing two display layers. We will give you the sheet when you arrive at the IDC.<br><br>
+
+<b>Check Drawing Size and other Drawing Settings:</b> Open the file in your drawing program and confirm that the stencil design has the right size. The mug should be 48mm x 46mm and the overall design should show 8 little mugs and an outline around them.<br><br>
+   
+<b>Laser Cut the Stencil:</b> The power/speed settings for laser cutting a material depend on the material type and how thick it is. The laser cutter settings for our adhesive sheet are as follows: power: 40%, speed: 100%<br><br>
+
+<img src="images/lab5/lab3-laser-cutting-power-speed-settings.jpg" width="340px">
+
+<img src="images/lab5/lab3-cutting-adhesive-secure-with-heavy-object.jpg" width="200px">
+
+<img src="images/lab5/lab3-laser-cutting-stencil.jpg" width="200px"><br><br>
+
+
+<h3 id="SAFETYWEAR">(3) Put on Safety Wear</h3>
+
+For spraying, you need to wear gloves, a lab coat, and a mask that filters out spray particles. We will give you your own lab coat and mask when you come in for spraying. Please keep them for later use in the semester.<br><br>
+
+<img src="images/tutorial-safety-wear-and-spraying/safety-equipment.png" width="600px"><br><br>
+
+<b>Lab Coat:</b> Put on the lab coat. Make sure to close all the buttons on the lab coat. For use in class, we bought disposable lab coats, so after the semester is over you can dispose it in the trash.<br><br>
+
+<b>Gloves:</b> Next, put on the gloves. Never touch an ink container, the inks, or a sprayed area directly with your hands. Touching the ink can lead to some particles being taken up through your skin, so we want to avoid this at all times.<br><br>
+
+
+<b>Mask:</b> Put on the mask. The mask will protect you so that you don't breath in any flying particles during the spraying process. We will have a disposable mask for each student so you don't have to share.<br><br>
+
+<b>Safety Glasses:</b> Now also put on your safety glasses so nothing can splash into your eyes.<br><br>
+
+<img src="images/tutorial-safety-wear-and-spraying/labcoat-buttons.jpg" width="170px">
+<img src="images/tutorial-safety-wear-and-spraying/gloves.jpg" width="300px">
+<img src="images/tutorial-safety-wear-and-spraying/mask.jpg" width="300px">
+<img src="images/tutorial-safety-wear-and-spraying/safety-glasses.jpg" width="300px"><br><br>
+
+
+<h3 id="PHOSPHOR">(4) Team Member 1: Prepare ITO and Spray Phosphor Layer</h3>
+
+Before we can spray the phosphor layer onto the ITO sheet, we have to do a few preparation steps.<br><br>
+
+<b>Cut Cardboard:</b> Cut out a piece of cardboard larger than the ITO sheet. While spraying, you will hold onto the cardboard since you need to cover the entire ITO sheet with spray paint, so make sure the ITO sheet has enough space around it.<br><br>
+
+<b>Remove Protective Cover from ITO Sheet:</b> Before you tape the ITO onto the cardboard, remove its <code>protective cover foil</code>. The ITO sheet is sensitive to bending so try to not bend the sheet too much while you pull off the cover foil.<br><br>
+
+<img src="images/lab5/taping-export.png" width="450px"><br><br>
+
+<b>Identify Conductive Side on ITO sheet:</b> The ITO sheet is only <code>conductive on one side</code> (i.e. the side where we just removed the protective cover foil). We want to spray onto the conductive side, so it needs to face towards you. Use a multimeter to check which side is conductive. Imagine how frustrating it would be if your team mates sprayed the entire display stack just to find out at the end you sprayed on the wrong side of the sheet and nothing will work!<br><br>
+    <img src="images/lab5/meassure_ITO.jpg" height="220px"> <br><br> 
+
+<b>Tape ITO sheet to Cardboard:</b> With the conductive side facing up, attach the ITO sheet with tape to the cardboard. Tape around the entire area of the sheet, it will help you later to see where you already sprayed since you can monitor the marks on the blue area around the ITO. Try to cover <code>about 2cm</code> of the ITO on each side. Don't cover more than that because you also need enough space for the EL displays. The taped areas will later be used to connect with a wire to the conductive ITO.<br><br>
+
+<img src="images/lab5/taping-export-extended.png" height="220px"> <br><br>
+
+<b>Spray Phosphor Layer:</b> Load the phosphor ink into the spray gun and spray the entire area of the ITO with phosphor. While you spray, make sure you have some distance between the airbrush and the object. If you are too close drops will from on the surface leading to uneven coverage. Do a first pass across the entire sheet by moving you hand <code>vertically, i.e. up and down,</code> and then a second pass <code>horizontally moving your hand left to right</code>. Make sure the entire area has even coverage. If there is more phosphor in one area than another your display will have some brighter and some darker spots. Once you are done, the layer needs to dry at least 30 minutes before your team mate can spray the dieletric layer.<br><br> 
+
+ <img src="images/lab5/spraying-phosphor.png" width="562px"> <br><br>
+
+
+<h3 id="DIELETRIC">(5) Team Member 2: Spray Dieletric Layer</h3>
+
+Next, we will spray the dieletric layer. Remember that the dieletric layer is super important. If the dieletric layer is not covering every single pixel there will be a <code>short circuit</code> in this area since the ITO sheet, phosphor layer, and copper layer (last layer) are all conductive and will touch each other and thus the display will not work.<br><br>
+
+<b>Spray Dieletric Layer:</b> Load the dieletric ink into the spray gun and spray the entire area of the ITO with dieletric ink. While you spray, make sure you have some distance between the airbrush and the object. If you are <code>too close drops will from on the surface leading to uneven coverage</code>. Do a first pass across the entire sheet by moving the hand vertically, i.e. up and down, then do a second pass horizontally moving the hand left to right. For both passes, you want to make sure the entire area has even coverage. If there is more dieletric in one area than another your display will have some <code>brighter and some darker spots</code> since there is more resistance in some areas than in others. Once the dieletric layer is done, it needs to dry at least 30 minutes before your team mate can spray the copper layer.<br><br>
+
+ <img src="images/lab5/spraying-dieletric.png" width="400px"><br><br> 
+
+<h3 id="COPPER">(6) Team Member 3: Spray Copper Layer with Stencil</h3>
+
+Before we can spray the copper layer, you need to apply the stencil.<br><br> 
+
+<b>Apply Laser Cut Stencil:</b> Peel the protective layer from the back side of the stencil foil to expose the <code>adhesive side</code>. Stick the stencil on top of the sprayed layers. Make sure that your stencil <code>covers the entire ITO sheet</code> and there are no areas not covered by the stencil. When you apply the stencil, don't apply to much pressure so you don't damage the underlying layers.<br><br>
+
+<b>Spraying the Copper:</b> Load the copper ink into the spray gun and spray the entire area of the ITO with copper. While you spray, make sure you have some distance between the airbrush and the object. If you are too close drops will from on the surface leading to uneven coverage. Do a first pass across the entire sheet by moving you hand vertically, i.e. up and down, and then a second pass horizontally moving your hand left to right. Make sure the <code>entire area has even coverage.</code> If there is more copper in one area than another your display will have some brighter and some darker spots since some areas are more conductive. Once you are done, the layer needs to dry at least 30 minutes.<br><br>
+
+<img src="images/lab5/spraying-copper.png" width="650px"><br><br>
+
+<h3 id="CUTDISPLAYS">(7) Remove Stencils and Tape</h3>
+
+You are done with spraying and now need to remove the displays from the cardboard.
+ Remove the stencil, peel off the blue tape around the ITO sheet, and then take the displays off the cardboard.<br><br>
+
+<img src="images/lab5/tape-removal.png" width="600px"><br><br> 
+
+<h3 id="POWERDISLAYS">(8) Wire up the Display</h3>
+
+<div style="color:red; border: red 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Connect Display to Circuit:</b> Wiring up your display to see if it actually works takes another 20-30 minutes. In case you have to run out, don't worry, you can test your display in the next class. Only one of your team members has to do the wiring/testing, so if one from your team can stick around to do the next steps that would be best but not required.</div>
+
+
+<b>Test Conductivity of Copper with Multimeter:</b> Before wiring up the displays, let's test how conductive the copper layer is. This gives a good first estimate if the display will work or not. Use a multimeter and check if the copper layer is conductive. The tips of the multimeter are quite pointy and can damage the layers if you press too harshly on the copper, so be gentle.<br>
+A good <code>resistance</code> would be around <code>10&#8486;</code>. Anything higher than <code>50&#8486;</code> will likely not work.<br><br>
+
+<img src="images/lab5/measuring-display-resistance.jpg" width="300px"><br><br>
+
+<b>Wire Connection to ITO and Sprayed Copper Layers:</b> Before we can power up our display, we need to create a wire connection to the ITO and sprayed copper layer that will serve as <code>GND</code> and <code>power</code>. For this, we are using copper tape, which can later be connected to a crocodile clamp. Read more below on how to do it.<br>
+
+<img src="images/lab5/el-display-wires.png" width="600px"><br><br>
+
+<b>Attach Copper Tape to ITO sheet:</b> First, attach copper tape to the ITO sheet as shown below.<br><br>
+
+<img src="images/lab5/apply_copper_1.jpg" height="170px">
+<img src="images/lab5/apply_copper_2.jpg" height="170px"><br><br>
+
+<b>Attach Copper Tape to Sprayed Copper layer:</b> Cut the display sheet into individual displays, and then attach a copper tape flap. The flap should cover a large area on the display to make a good connection.<br><br>
+
+<img src="images/lab5/cutting_displays.jpg" height="200px">
+<!-- <img src="images/lab5/cutting-displays2.jpg" width="260px">
+ -->
+<img src="images/lab5/making-copper-flaps.jpg" height="200px">
+<!-- <img src="images/lab5/flipping-display.jpg" width="330px"> -->
+<br><br>
+
+<b>Test your Display:</b> Next, attach a crocodile clamp to the copper tape on the ITO and the copper tape on the sprayed copper and see if your display lights up. Once you tested all your displays, you can either leave them with us in a zip bag and we will store them for you on the class shelve or take them home (please be careful during transport to not apply too much pressure to the display and don't squish it in your bag). <br><br>
+
+<img src="images/lab5/display-illuminated1.png" width="220px">
+<img src="images/lab5/display-illuminated2.png" width="365px"><br><br>
+
+
+<h3>Deliverables</h3>
+
+At the end of the lab, upload to your student google drive:
+<ol>
+  <li>a short video (.mov or .mp4, max. 30s) showing one of your displays turn on</li>
+</ol>
+
+
+        <br />
+        <br />
+        <br />
+      </section>
+
+  <aside class="col-md-4 pull-left">
+         <br /> <br /> <br /> <br /><br>
+
+                 <h4 class="medium.headline" style="padding-bottom:10px;"><a href="lab-series-interactive-mug.html"><b>Lab Series: Interactive Mug</b></a><br></h4>
+
+<ul>
+    <li><a href="lab5-fabricating-el-display.html">Lab 5: Fabricating the Electroluminescent Display</a></li>
+    <li><a href="lab6-controlling-el-displays.html">Lab 6: Controlling the Electroluminescent Display</a></li>
+    <li><a href="lab7-temperature-sensing-mug-with-display.html">Lab 7: Inkjet Printed Temperature Sensor</a></li>
+    <li><a href="lab8-temperature-controlled-display.html">Lab 8: Mug Assembly &  Display Control Using Temperature</a></li>
+</ul><br>
+
+
+<iframe width="173" height="210" src="https://www.youtube.com/embed/E8sfqrH_1Ks" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
+
+In this lab series, you will create an interactive mug. The mug consists of a sprayed electroluminescent display and an inkjet printed temperature sensor. When the user pours in tea or coffee, the mug can sense the temperature of the liquid and when its too hot, blink the display as a warning.<br><br>
+
+
+<h4 class="medium.headline" style="margin-bottom:0px;">Use our design or make your own</h4><br>
+
+You have the choice to either use our template design files or to make your own design. That means you can either use our display design (coffee cup shape) or make your own display design. Sprayed displays have only about a 50% to work when you are new to spraying as a fabrication technique, thus if you decide to make your own design we recommend you also spray a few of our designs as a backup. If you decide to make your own, please make sure you read a bit ahead what's coming in lab 5/6/7/8. There is also the risk that your own design will have its own bugs that we are less knowledgable about. Below you see a custom display design from a 6.810 team from last year.<br><br>
+
+<iframe width="280" height="158" src="https://www.youtube.com/embed/BtRwNVc96ZE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+      </aside>
+
+    </div>
+  </div>
+  </div>
+</section>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 footer" style="text-align: center;">
+			<span class="copyright">
+			Since 2017 &copy; MIT CSAIL (HCI Engineering group) [redesign by
+			<a href="http://punpongsanon.info/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			moji
+			</a>].
+			All Rights Reserved.
+
+			<a href="http://mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/mit.svg" alt="MIT" class="footer-logo" />
+			</a>
+			<a href="http://csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/csail.svg" alt="CSAIL" class="footer-logo"/>
+			</a>
+			<a href="http://hci.csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/hci.svg" alt="HCI" class="footer-logo"/>
+			</a>
+			</span>
+		</div>
+	</div>
+</div>
+
+<!-- Bootstrap -->
+<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+<!-- header -->
+<script type="text/javascript" src="../../js/headerstrap-for-subpage.js"></script>
+
+</body>
+</html>
