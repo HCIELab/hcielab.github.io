@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PullupStructs: Digital Fabrication for Folding Structures via Pull-up Nets</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!-- CSAIL ICON -->
+	<link rel="CSAIL" href="http://hcie.csail.mit.edu/images/icon/csail.ico" type="image/x-icon" />
+
+	<!-- Bootstrap -->
+	<link href="https://hcie.csail.mit.edu/css/bootstrap.css" rel="stylesheet">
+	<link href="https://hcie.csail.mit.edu/css/custom-style.css" rel="stylesheet">
+	<!-- Lightbox -->
+	<link href="../../css/lightbox.css" rel="stylesheet">
+
+
+	<!-- jQuery -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+
+	<!-- Google Analytic -->
+	<script type="text/javascript" src="https://hcie.csail.mit.edu/js/analytics.js"></script>
+
+
+	<script type="text/javascript"
+            src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_SVG">
+    </script>
+
+</head>
+
+<body>
+<header class="main_header">
+	<!-- to be filled by javascript, see header.html -->
+</header>
+<div class="container" style="padding-top: 100px;">
+	<div class="row">
+	<!-- Publication details -->
+		<div class="col-md-4" style="text-align: left;">
+			</br>
+			</br>
+			<span class="medium-headline">
+				Publication
+			</span>
+			</br>
+			</br>
+			<a href="https://www.xinyi-yang.com/" target="_blank">Xinyi Yang</a>, Lauren Niu, Martin Nisser, Stefanie Mueller
+			</br>
+			PullupStructs: Digital Fabrication for Folding Structures via Pull-up Nets
+			</br>
+			In Proceedings of
+			<a href="https://tei.acm.org/2023/" target="_blank">TEI &#8217;23 work in progress</a>.
+			</br>
+			</br>
+			<a href="tei23-58.pdf" class="btn btn-pdf" alt="pdf" target="_blank">PDF</a>
+			&nbsp; &nbsp;
+			<a href="https://www.youtube.com/watch?v=Ym0-gIzQ1NU" class="btn btn-vdo" alt="video" target="_blank">Video</a>
+			&nbsp; &nbsp;
+			<!-- <a href="https://youtu.be/e0U4vdpa3b4" class="btn btn-vdo" alt="press video" target="_blank">Press video</a>
+	&nbsp; &nbsp; -->
+			<!-- <a href="https://youtu.be/-0wH_YS5Hyw" class="btn btn-vdo" alt="press video" target="_blank">MIT Interview</a>
+	&nbsp; &nbsp; -->
+			</br>
+			</br>
+			<!-- <a href="https://youtu.be/XuLAgSRzp5E" class="btn btn-talk" alt="press video" target="_blank">Conference Talk</a>
+		&nbsp; &nbsp;
+		<a href="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/2021-CHI-LaserFactory-Presentation.pptx" class="btn btn-talk" alt="slide" target="_blank">Slides</a>
+		&nbsp; &nbsp;
+	</br>
+	</br> -->
+			<!-- 	<span class="medium-headline">
+	Press
+	</span>
+	<br><br>
+	<ul>
+		<li><a href="https://www.forbes.com/sites/johnkoetsier/2022/04/02/mit-students-building-tiny-self-assembling-robots-for-space/?sh=493282bd7502">Forbes</a></li>
+		<li><a href="https://www.popsci.com/technology/selfspace-robot-cubes/">Popular Science</a></li>
+
+						<li><a href="https://spectrum.ieee.org/video-friday-lunar-rover">IEEE Spectrum</a></li>
+						<li><a href="https://3dprintingindustry.com/news/mit-team-uses-3d-printing-technology-to-develop-shape-shifting-robotic-cubes-for-just-0-60-204859/">3D Printing Industry</a></li>
+
+
+
+
+
+	</ul> -->
+			<!--
+	<span class="medium-headline">
+		Video
+	</span>
+	</br>
+	</br>
+	<iframe width="325" height="190" src="https://www.youtube.com/watch?v=Ym0-gIzQ1NU" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+	</br>
+	</br>-->
+			<!-- 	<span class="medium-headline">
+	Press video
+	</span>
+	</br>
+	</br>
+	<iframe width="325" height="190" src="https://www.youtube.com/embed/RzCAqVwZYCc" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+	</br>
+	</br>
+	</br> -->
+			<!-- <span class="medium-headline">
+	Slides
+	</span>
+	</br>
+	</br>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide1.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(1)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide2.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(2)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide3.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(3)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide4.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(4)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide5.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(5)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide6.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(6)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide7.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(7)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide8.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(8)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide9.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(9)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide10.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(10)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide11.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(11)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide12.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(12)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide13.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(13)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide14.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(14)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide15.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(15)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide16.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(16)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide17.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(17)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide18.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(18)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide19.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(19)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide20.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(20)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide21.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(21)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide22.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(22)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide23.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(23)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide24.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(24)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide25.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(25)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide26.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(26)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide27.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(27)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide28.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(28)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide29.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(29)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide30.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(30)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide31.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(31)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide32.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(32)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide33.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(33)" class="hover-shadow"/>
+	<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide34.jpg" alt="Laserfactory" width="100px" style="padding-bottom:0px; margin-bottom:10px" onclick="openModal();currentSlide(34)" class="hover-shadow"/> -->
+			<!-- </div> -->
+			<!-- For slide show -->
+			<!-- close button on tne right corner -->
+			<!-- <div id="lightbox-modal" class="lb-modal">
+						<div class="modal-content">
+							<div class="lb-slides">
+							<div class="numbertext">1 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide1.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">2 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide2.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide3.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide4.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide5.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide6.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide7.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide8.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide9.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide10.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide11.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide12.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide13.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide14.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide15.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide16.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide17.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide18.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide19.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide20.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide21.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide22.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide23.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide24.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide25.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide26.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide27.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide28.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide29.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide30.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide31.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide32.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide33.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+							<div class="lb-slides">
+							<div class="numbertext">3 / 92</div>
+							<img src="http://groups.csail.mit.edu/hcie/files/research-projects/laserfactory/presentation-images/thumbnails/2021-CHI-Laserfactory-Slide34.jpg" alt="Laserfactory" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+							</div>
+
+			<a class="close-button" onclick="closeModal()">&times;</a>
+			<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+			<a class="next" onclick="plusSlides(1)">&#10095;</a>
+		</div>
+	</div> -->
+
+
+		</div>
+
+
+
+
+	<!-- Project information -->
+		<div class="col-md-8" style="text-align: left;">
+			<br>
+			<h3 class="headline">
+				PullupStructs: Digital Fabrication for Folding Structures via Pull-up Nets
+			</h3>
+			<br />
+			<img src="images/face.png" alt="mosculpt-runner" width="720" style="padding-bottom:0px; margin-bottom:10px" />
+			<div style="text-align: center;">
+				<b>
+					Fig. 1. Our digital fabrication pipeline enables users to rapidly prototype 3D objects. It features (A) a web-based tool for uploading
+					and rendering 3D meshes. The tool executes our unpacking algorithm which unfolds the mesh into a (B) planar sheet partitioned into
+					faces with through-holes in them. (C) We fabricate these unfolded geometries on a laser cutter, route thread through the holes, and
+					pull the thread to fold the sheet into its target structure.
+				</b>
+			</div>
+			</br>
+			</br>
+			In this paper,we introduce a method to rapidly create 3D geometries by folding 2D sheets via pull-up nets. Given a 3D structure, we unfold its mesh into a planar 2D sheet using heuristic algorithms and populate these with cutlines and throughholes. We develop a web-based simulation tool that translates users’ 3D meshes into manufacturable 2D sheets. After laser-cutting the sheet and feeding thread through these throughholes to form a pull-up net, pulling the thread will fold the sheet into the 3D structure using a single degree of freedom.We introduce the fabrication process and build a variety of prototypes demonstrating the method’s ability to rapidly create a breadth of geometries suitable for low-fdelity prototyping that are both load-bearing and aesthetic across a range of scales. Future work will expand the breadth of geometries available and evaluate the ability of our prototypes to sustain structural loads.
+
+			</br>
+			</br>
+			<span class="medium-headline">
+				1. Introduction
+			</span>
+			</br>
+			</br>
+			Laser-cutting is one of the most commonly used manufacturing processes used in personal fabrication [5], and the fabrication speed and material choices available for laser-cutting make it a compelling substitute to 3D printing. However, unlike the latter, fabricating 3D structures from laser-cut parts may demand signifcant user intervention that is both time-consuming and technically cumbersome.
+			</br>
+			</br>
+			A major push in HCI research has recently been made to address these bottlenecks in speed and domain knowledge to assembling laser-cut structures. One method of addressing these challenges simultaneously is by automating the folding procedures in the laser cutter itself, using the laser in an attenuated power setting to heat fold lines until they become compliant and the substrate folds into a target 2.5D geometry via gravity [17, 19]. Similarly, another promising mechanism for improving the speed and ease of fabricating fully 3D structures involves laser-cutting joints and folds directly in place, permitting users to then fold the 2D laser-cut sheet into a target shape [2, 11]. However, these methods have only been utilized for structures requiring a few dozen folds to date, and the nature of these processes to require users to manually fold each hinge individually may limit the efcacy and adoption of these processes for high-resolution structures.
+			</br>
+			</br>
+			In this work, we introduce a method to rapidly create 3D geometries from 2D sheets using pull-up nets: a string routed through the planar faces which can be pulled by a user to fold the sheet into its target 3D structure. This provides a way to fold a sheet into its target shape using common string or nylon, using just a single actuated degree of freedom controlled by a user. Researchers have also previously leveraged embedded actuation to fold low-profle sheets into 3D structures using materials such as shape memory polymers [12, 20] and shape memory alloys [13] as well as using external activation via uniform heating [29] and selective laser heating [19]. However, these require dedicated machinery such as lasers, ovens or local joule-heating to activate material actuators. These actuators can also be challenging to use as they must be sufciently low-profle to be embedded in the sheet, reducing their strength and often limiting candidates to material-based actuators such as shape memory materials which are challenging to control and often cannot be activated bidirectionally. They are typically redundant after initial use, and the embedding of these actuators results in a thickening and weighing down of the laminate itself, compromising both foldability and portability. In contrast, our string-based design is highly inexpensive, requires no dedicated machinery, can be actuated powerfully via external means, and can be removed following fabrication.
+			</br>
+			</br>
+			Methods for unfolding 3D polyhedral meshes into 2D sheets has been studied across mathematics, physics, mechanical engineering and computer graphics [10, 27]. While prior work has explored pull-up nets to fold 3D geometries [16], this was restricted to manual fabrication designs for the 5 platonic solids; in our work, we provide a tool to automatically compute these designs for all admissible geometries and introduce a digital fabrication pipeline to manufacture them. Given a 3D target structure, this process unfolds its 3D mesh into a planar 2D sheet populated with cutlines and throughholes. After laser-cutting the sheet and feeding thread through these throughholes to form a pull-up net, a user pulls on the thread to fold the sheet into the 3D structure. We introduce the fabrication process and build several prototypes demonstrating the method’s ability to rapidly create a breadth of geometries suitable for low-fdelity prototyping across a wide range of applications. These include load-bearing stools, regular polyhedra and organic geometries such as the Stanford bunny, spanning a range of scales. We additionally develop a web-based simulation tool that translates 3D meshes into manufacturable 2D sheets, providing an existing set of 141 polyhedra for users to use as well as a feature allowing users to upload custom designs themselves.
+			</br>
+			</br>
+			This paper is structured as follows. We introduce related work in unpacking and folding between 2D sheets and 3D structures, and introduce the algorithmic framework to our approach. We demonstrate their use in our user interface which permits uploading 3D meshes and simulating the unfolding and folding stages. We highlight the digital fabrication pipeline for fabricating structures based on the outputs of the user interface, and showcase a variety of fabricated geometries that span both aesthetic and functional applications in the space of low-fdelity rapid prototyping. Finally, we highlight our method’s limitations and point to future avenues of research.
+			</br>
+			</br>
+			In summary, this paper contributes
+			<ul>
+
+				<li>
+					An algorithm to unfold a 3D mesh into a planar 2D sheet populated with cutlines and throughholes compatible with our pull-up net technique.
+				</li>
+				<li>
+					A web-based user interface, equipped with both a pre-existing set of 141 polyhedral meshes and a feature to accept custom 3D meshes, that outputs manufacturable 2D sheets for use on a laser cutter.
+				</li>
+				<li>
+					A range of fabricated geometries that demonstrate our pull-up net method’s ability to rapidly create both aesthetic and functional geometries spanning a range of applications in low-fdelity rapid prototyping.
+				</li>
+			</ul>
+
+
+
+
+			</br>
+			</br>
+			<img src="images/popup_methodology.png" alt="concept-cam.png" width="755" style="padding-bottom:0px; margin-bottom:10px" />
+			</br>
+			<div style="text-align: center;">
+				<b>
+					Figure 2: Unfolding a cube. (A) There are multiple potential “nets” for a cube but not all can be successfully pulled up to become a cube again. (B) Potential successful ways for folding up from a 2D net to a cube. (C) Location of the string to pull up 2D net back to the 3D cube (D) Even for the same 2D net, there can be many ways to route the string in order to fold the 3D shape.)
+				</b>
+			</div>
+			</br>
+			</br>
+
+
+			</br>
+			<span class="medium-headline">
+				2. Background and Related Work
+			</span>
+			</br>
+			</br>
+			<b>
+				2.1 Fabricating Folded 3D Structures using Laser Cutters
+			</b>
+			</br>
+			</br>
+			A range of prior works, particularly in HCI, has explored ways to enable the fabrication of 3D structures by folding laser-cut 2D sheets. Flaticulation [11] used a set of cut-in-place joint patterns to enable users to fold laser-cut sheets into target shapes via articulated angles. crdbrd [14] used a laser cutter to fabricate mutually intersecting planar cut-outs from 3D shapes which can be assembled to form low fdelity 3D prototypes. LaserOrigami [17] and LaserFactory [19] fabricated 2.5D objects in a laser cutter by attenuating the laser power to heat an acrylic substrate until it becomes compliant enough to fold due to gravity. LaserStacker [30] similarly used attenuated laser power to weld sheets of acrylic together to form low-fdelity 3D prototypes. HingeCore [2] used sandwiched materials laser-cut with fnger joints to a partial depth in order to permit a single sheet to be assembled via folding without the need of glue or tabs. InfOrigami [28] unfolds 3D meshes into laser-cuttable and color-coded 2D sheets which can be assembled by users with the help of glue.
+			</br>
+			</br>
+			However, methods to date may be difcult to scale to high-resolution structures with hundreds or thousands of folds. Structures manufactured using methods that consolidate the folding procedures within the laser cutter platform can be constrained by occlusion between target hinges and the laser. Similarly, user-folded methods may become burdensome and unwieldy by requiring users to manually fold each hinge individually. In this work, we propose laser-cut structures that can be folded in a single step, by actuating a single degree of freedom transmitted via a pull-up string.
+			</br>
+			</br>
+			<b>2.2 Algorithms for Polyhedra Unfolding</b>
+			</br>
+			</br>
+			The problem of unfolding a polyhedron into a non-overlapping net has challenged researchers for decades, and virtually no guarantees exist for unfolding general polyhedra [9, 10]. The computational efort needed to search all possible unfoldings sufers from combinatorial explosion as the size of the polyhedron increases. Even more challenging is the solving the full “blooming” problem, which seeks to avoid collisions between faces as the polyhedron is unfolded [7, 25]. Nevertheless, for simple polyhedral meshes, and for meshes with small dihedral angles, heuristic methods ofer promising results [8, 24]. Although few guarantees exist for fnding non-overlapping nets, existing heuristic algorithms have succeeded on thousands of polyhedra searched so far, including shapes with thousands of vertices and faces [9, 24]. Certain guarantees exist for fnding unfoldings, including restriction to convex polyhedra where faces may also be cut [4], but the general problem of unfolding along edges remains open. In this work, we introduce a set of heuristic algorithms for constructing an optimal net and string path for the unfolded sheet of a given 3D mesh.
+			</br>
+			</br>
+			<img src="images/folding_analysis.png" alt="concept-cam.png" width="755" style="padding-bottom:0px; margin-bottom:10px" />
+			</br>
+			<div style="text-align: center;">
+				<b>
+					Figure 3: Examples of folding 3D polyhedra using pull-up nets: By convention, one surface (in grey) of the unfolding nets remains fxed during the folding procedure, helping stabilize the structure while users actuate the fold.
+				</b>
+			</div>
+			</br>
+			</br>
+			<b>2.3 Fabricating Folded Structures using Embedded Actuation</b>
+			</br>
+			</br>
+			Several actuation mechanisms in HCI, robotics, and art make use of actuators to connect disjoint faces and fold them along specifc paths. Rivera et al. [23] combined 3D-printing with textile-embedded, string-actuated mechanical arms to fold fat structures into 3D shapes. Self-shaping Curved Folding [26] 3D-printed hygroscopic materials in fat sheets that form curved 3D structures on exposure to moisture. Work on self-folding robots has led to the development of composite laminate materials, fabricated by bonding together layers of diferent materials that include structural layers, embedded electronics, actuators and fexure hinges, where actuators have ranged from shape memory polymers [20] and shape memory alloys [13] to pneumatically activated polymer “pouches” [18]. These laminates are composed entirely of thin layers with embedded actuators, whose 2D layouts are made using CAD (Computer Aided Design) software and bonded together, with the exception of discrete electronic components that are soldered on to circuit layers that are part of the composite. In work closely related to our own, Kilian et al [15, 16] computed and fabricated string actuation networks for a range of well known but limited crease patterns for folded surfaces.
+			</br>
+			</br>
+			Despite the many advances in using origami-inspired folding to acquire target structures and robot geometries, the embedded actuators have to date been difcult to control, and added signifcantly to the material thickness and complexity; in parallel, unfolding techniques for string-actuated structures have been shown for only few target shapes. In this paper we introduce a set of algorithms to fold a wide variety of 3D structures using pull-up nets: we contribute a software tool to automatically compute these designs for wide variety of admissible geometries, including 141 pre-computed designs, and introduce a digital fabrication pipeline to manufacture them.
+			</br>
+			</br>
+			</br>
+			</br>
+
+			<span class="medium-headline">
+				3. Algorithms
+			</span>
+			</br>
+			This section introduces our algorithm for constructing an optimal net and string path for a given 3D mesh (Figure 4).
+			</br>
+			</br>
+
+			<i>Unfold the geometry:</i> We begin by generating unfoldings of the mesh using a set of heuristic algorithms, including a steepest-edge cut tree, greatest-increase cut tree from Schlickenrieder [24] and a naive breadth-frst unfolding from the largest face. If no non-overlapping nets are found, we randomly split the mesh in half (e.g., by cutting along edges that are nearest to a plane that passes through the center of mass) and repeat the search on each half.
+			</br>
+			</br>
+			<i>Join vertices:</i> Next we use a breadth-frst search to identify pairs of vertices that need to be joined (Figure 4): We identify vertices in the net that are already adjacent to n connected faces, where the vertex is adjacent to n faces in the 3D mesh. These vertices have a rigidity depth of 0. For each of these vertices: the vertex will be adjacent to two boundary edges in the net. The vertices at the other ends of these edges will need to be joined, and we sore these two vertices in a set and mark their rigidity depth as 1. Next, we join any sets with overlapping vertices. We fnally iterate this joining procedure through the vertices of rigidity depth 1, until all vertices have been marked.
+			</br>
+			</br>
+			<i>Prune unwanted connections:</i> We next remove unnecessarily joined vertices. The criteria for removing a vertex from a joined set are: (1) if removing the vertex from the set leaves only one vertex, then the other vertex must also be removed; (2) one of the vertices in the set must be connected by a single boundary edge to a joined vertex of greater rigidity depth; and (3) removing the vertex must leave each face with at least three joined vertices.
+			</br>
+			</br>
+			<i>Optimize string path:</i> Using the fnal set of vertex sets to be joined, we lastly fnd the string path that passes through each pair of joined vertices which minimizes a combination of its turning angles and total length. If the mesh has been partitioned into multiple pieces, we optimize the string path on each piece separately.
+			</br>
+			</br>
+			<img src="images/rigidity.png" alt="concept-cam.png" width="755" style="padding-bottom:0px; margin-bottom:10px" />
+			</br>
+			<div style="text-align: center;">
+				<b>
+					Figure 4: (A) Illustration of the algorithm to identify vertex sets that need to be joined by string. Color represents vertices of the net that are joined; numbers represent the rigidity depth of each vertex. Small arrows indicate the direction of the search from each vertex. Additionally, vertices of rigidity depth 1 do not need to be joined by string in order to assemble the fnal cube. In the 3D inset, cut edges are indicated by dotted lines. (B) The same concept illustrated with a portion of a dodecahedron net. The vertices of depth 1 and 2 do not necessarily have to join in order to determine a fully-joined geometric structure. Adding strings between all of these vertex pairs would require at least twice the amount of string, and would likely need to accommodate several sharp turns in its path, therefore increasing friction during assembly and complicating the assembly process. Depending on the assembled object’s function and expected load, this may be a worthwhile tradeof for extra rigidity in the fnal structure.
+				</b>
+			</div>
+			</br>
+			</br>
+			</br>
+
+
+			</br>
+			<span class="medium-headline">
+				4. Web Tool
+			</span>
+			</br>
+			</br>
+
+			We developed a web-based software tool based on our unfolding algorithm which allows users to upload their own custom 3D meshes from which to generate folded structures to fabricate. Users may upload either 3D mesh fles in the OBJ fle format, or existing nets in the SVG format; non-manifold meshes are rejected. In addition, an existing repertoire of 141 meshes that we successfully unfolded can be selected from a drop-down menu. The tool executes the algorithm on the chosen mesh and displays the mesh in the visualization window. Users can then render the folding procedure using a sliding toggle.
+			</br>
+			</br>
+			The interface uses linear interpolation of edge folding angles to animate the assembly of the fnal shape. A “base” face is chosen arbitrarily to remain stationary. We use the Netlib polyhedra database [1] to avoid calculating unfoldings for many well-known simple polyhedra, although the Netlib unfoldings may only be used for convex polyhedra that do not allow faces to intersect. Animation and controls are made using the THREE.js Javascript library.
+			</br>
+			</br>
+
+			<img src="images/user_interface_wide.png" alt="concept-cam.png" width="755" style="padding-bottom:0px; margin-bottom:10px" />
+
+			</br>
+			<div style="text-align: center;">
+				<b>
+					Figure 5: The web-based visualization tool. (A) The interface allows users to upload or select a geometry fle, apply the folding algorithms to the geometry, and render the computed net with holes at each stage in its folding procedure. (B) Steps in the folding process can be visualized.
+				</b>
+			</div>
+			</br>
+			</br>
+
+
+			</br>
+			<span class="medium-headline">
+				5. Fabricated Structures and Applications
+			</span>
+			</br>
+			</br>
+			We fabricated a range of structures (Figure 6) that are both aesthetic and load-bearing, including both traditional polyhedra (Figure 7) and organic shapes (Figures 8,1) across a range of scales to showcase the versatility of this technique in rapidly producing complex geometries. Possible applications include Educational Toolkits (Figure 9A-D), for example to teach children square-cube law relationships between surface area and volume, here with Platonic Solids. Visual dominance over some tactile cues [3] can be exploited to permit rapidly fabricating and folding low-resolution physical props for Virtual Reality (VR) on-demand that are overlayed with high-resolution images (Figure 9E). This manufacturing process is also suitable for load-bearing applications, including bookshelves or small stools (Figure 9F). These structures further beneft from their ability to be unfolded for compact storage or transport.
+			</br>
+			</br>
+			To build these structures, we used a laser cutter to cut the unfolded geometries produced by our web tool. We manually add cut holes where our algorithm selects them to appear, and then route string through these using our web tool rendering as a guide. We used 1/16” chipboard and traditional knitting yarn to route through holes. Once routed, we pulled the yarn to fold the sheets into their target shapes.
+
+			</br>
+			</br>
+
+			<img src="images/family.png" alt="concept-cam.png" width="755" style="padding-bottom:0px; margin-bottom:10px" />
+
+			</br>
+			<div style="text-align: center;">
+				<b>
+					Figure 6: Structures fabricated using our pipeline range from regular polyhedra to organic shapes, and from load-bearing to aesthetic, across a range of scales, for applications that include VR, education and functional load-bearing contexts.
+				</b>
+			</div>
+			</br>
+			</br>
+
+			</br>
+			</br>
+
+			<img src="images/folding.png" alt="concept-cam.png" width="755" style="padding-bottom:0px; margin-bottom:10px" />
+
+			</br>
+			<div style="text-align: center;">
+				<b>
+					Figure 7: Fabricating polyhedra. (A) Unpacked layouts of four simple 3D solids. (B,C,D,E) Fabricated structures during folding.
+				</b>
+			</div>
+			</br>
+			</br>
+
+			</br>
+			</br>
+
+			<img src="images/bunny.png" alt="concept-cam.png" width="755" style="padding-bottom:0px; margin-bottom:10px" />
+
+			</br>
+			<div style="text-align: center;">
+				<b>
+					Figure 8: Fabricating organic shapes. (A) Rendering, (B) unpacking, and (C) fabrication of a Stanford bunny.
+				</b>
+			</div>
+			</br>
+			</br>
+
+			<span class="medium-headline">
+				6. Limitations and Future Work
+			</span>
+			</br>
+			</br>
+			Having presented our digital fabrication pipeline, we discuss its limitations and avenues for future work.
+
+			</br>
+			</br>
+			<i>Algorithm:</i> Each step in our algorithm may be computationally costly without optimization, and is ideally suited for smaller meshes with ≲ 100 elements. As noted, not all meshes may be unfolded into a single fat piece [6, 22], an issue exacerbated for meshes with excessively hyperbolic vertices (where all adjacent faces meet with angles summing to more than 2�), common in geometries where convex polyhedral faces are extruded, or in periodic minimal surfaces. Although other assembly methods for such geometries exist [21], we do not yet consider them suitable for our method.
+			</br>
+			</br>
+			<i>String friction:</i> Friction limits the maximum length of string used, the severity of turning angles as it passes through holes,and the number of holes present. Like a shoelace woven through holes at tight angles, friction may prevent tension at one end of the string from difusing equally to all other parts. During assembly of polyhedra with many faces, the string may therefore require tension at several diferent points along its length to decrease frictional resistance.
+			</br>
+			</br>
+			<i>
+				Web interface:
+			</i>The interface generates vertex locations for routing string, but does not yet generate ready fabrication fles with holes at vertex locations, or indicate how to route string through each vertex, though this has been straightforward to interpret for our geometries produced so far. Further work will seek to automate this for fabrication on a laser cutter, and to implement basic mesh editing features for coarsening, triangulation, and refnement.
+
+			</br>
+			</br>
+
+			<i>
+				String path:
+			</i>The constraint of small-complexity solids is enforced physically as structural rigidity decreases as more cuts are introduced. Due to the large number of cuts needed for a complete unfolding (for a closed mesh, the cuts must reach every non-fat vertex), the complexity of some meshes may compromise its structure’s stability, further descriptions of which we leave to future works. Additionally, there is a trade-of between reducing the number of vertices explicitly joined by the string path and reducing the rigidity of the fnal structure (Figure 4). Another trade-of lies in the material thickness: thicker material exacerbates folding difculty while thinner material is less stif and tolerant to load-bearing. In future work we will seek to physically evaluate the load-bearing capacities of our structures.
+			</br>
+			</br>
+			<i>
+				Structure rigidity:
+			</i>A single 3D mesh can often be unfolded into different 2D surfaces (Figure 3C). While we optimize string path by length and turning angles, we found that our algorithm’s selected design is not always the easiest to pull up; more work is required to understand how to optimize for ease of fabrication.
+			</br>
+			</br>
+
+
+			<span class="medium-headline">
+				7. Conclusion
+			</span>
+			</br>
+			</br>
+
+			In this paper, we introduced a method to rapidly create 3D geometries from 2D sheets using pull-up nets.We developed an algorithm run by our web-based software tool that allows users to upload 3D meshes and generate their unfolded geometries. We show how to fabricate these on a commercial laser cutter and route string through the faces which are pulled by a user to fold the sheet into its target 3D structure. This lets users rapidly create large 3D geometries using 2D fabrication machines using just a single actuated degree of freedom.We fabricated a variety of polyhedra and organic structures, highlighted applications, and laid out the work’s current limitations and avenues for future work. We believe this work introduces a low-fdelity rapid prototyping option for 3D structures that is simple, inexpensive and rapid, obviating the need for significant design or fabrication expertise, and serves as a compelling alternative to more complicated material actuator-based folding paradigms.
+			</br>
+			</br>
+			<div style="display: flex; justify-content: center;">
+				<img src="images/application01.png" alt="concept-cam.png" width="755" style="padding-bottom:0px; margin-bottom:10px" />
+			</div>
+			</br>
+			<div style="text-align: center;">
+				<b>
+					Figure 9: Applications include (A-D) Educational Toolkits to teach relationships between area and volume, (E) on-demand fabrication of low-resolution physical props for Virtual Reality, and (F) load-bearing applications including bookshelves or stools.
+				</b>
+			</div>
+			</br>
+			</br>
+
+
+			<!--
+	There are three steps to the polarization sequence for both the pivot and traversal maneuvers, which we call the Launch, the Travel, and Catch phases (Fig. 2). In each of these phases, three cubes are involved: a traveling cube (the cube selected for moving), an origin cube (from which the traveling cube launches), and a destination cube (which catches the traveling cube). For the pivot (Fig. 2, 1st row), the origin and destination cubes correspond to the same physical cubes; for the Traversal (Fig. 2, 2nd row), they correspond to different cubes. The algorithm inputs are a cube ID, its desired rotation axis and rotation direction. Given these inputs, all electromagnet assignments (repulse, attract, or OFF) are uniquely defined and identified by our software.
+	</br>
+	</br>
+	During the Launch phase (Fig. 2 A and D), we polarize one electromagnet pair identically to launch the maneuver, while oppositely polarizing a second pair to form an attractive hinge. For the Traversal (Fig. 2, bottom), we energize two
+	additional pairs of electromagnets to keep the non-traveling cubes attached to one another; for this, we choose electromagnets oriented orthogonally to the launching electromagnets in order to avoid unwanted interactions between these pairs. During the Travel phase (Fig. 2 B and E), after a short pulse we switch the launching electromagnets off, while the remaining electromagnet pair remain attractive to maintain the hinge. During the Catch phase (Fig. 2 C and F), we energize a new pair of attractive electromagnets to form a stable bond in the newly acquired configuration.
+
+
+	</br>
+	</br>
+	<b>Simulation and Control Interface</b>
+	</br>
+	</br>
+	Manually planning pivoting maneuvers and their associated electromagnet assignments becomes intractable for more than a few cubes. To let users visualize and plan reconfiguration maneuvers, we developed a simulation (Fig. 3) that computes all electromagnet assignments based on desired reconfiguration maneuvers specified by the user. The simulation is browser-based and built using React, TypeScript, and Three.JS. It consists of three parts: (A) different ways to interact with the cubes (via buttons, direct manipulation, or code), (B) a viewport that simulates the cubes and affords their direct manipulation, and (C) a settings panel to toggle simulation features (e.g., different render modes for the cubes).
+	</br>
+	</br>
+			<img src="images/UI-labeled-2.png" alt="fig 1" width="455" style="padding-bottom:0px; margin-bottom:10px; display: block; margin-left: auto; margin-right: auto;"/>
+	</br>
+	<div style="text-align: center;">
+			<b>
+			Figure 3. Web simulation for planning reconfigurations and calculating the associated electromagnet commands. (A) Prescripted maneuvers. (B) Viewport. (C) Settings.
+			</b>
+		</div>
+	</br>
+	</br>
+	We provide three ways to define maneuvers. Users can initiate maneuvers directly by clicking cubes and arrow directions, each resulting in a single pivot. Alternatively, they can launch pre-defined scripts via the buttons that encode multiple consecutive rotations. And finally, new buttons encoding different reconfiguration maneuvers can be added at any time in the underlying Typescript file. To do so, users define the number and locations of starting cubes addressed by (x,y,z) coordinates, and define each subsequent maneuver by specifying the cube number and pivot direction.
+	</br>
+	</br>
+	Cubes in the viewport are affixed to a grid of cubic cells of unit length, with each cube occupying an integer address on coordinates (x,y,z). Rotations are permitted along orthogonal axes X,Y,Z, in clockwise or counter-clockwise directions. Because physical rotations require cubes to form both repulsive and attractive edges, cubes must share a face with another cube to execute a valid pivot. Each cube is assumed to have access to the local occupancy information of its neighboring cells. Prior to executing a pivot, this occupancy is checked in order to determine whether a selected rotation results in a pivot or a traversal. If the maneuver path is obstructed, the viewport returns an error message. Given a pivot direction and unobstructed path, there exists for each cube a unique valid edge about which to form a hinge, but up to two valid edges to repel and actuate the maneuver; in this case, we choose the edge corresponding to the cube with which the hinge is formed. We represent all rotations using quaternions in order to facilitate unordered rotations about multiple axes.
+	</br>
+	</br>
+	Finally, the settings panel allows users to set rendering features. These include displaying IDs for cubes, their electromagnets and their polarization values, displaying occupancy requirements of neighboring cells to prevent collisions for desired maneuvers, toggling animation speed, and setting rendering fidelity. Once a sequence of maneuvers is defined, the associated electromagnet assignments can be ported to a transmitting microcontroller for deployment on the hardware.
+	</br>
+	</br>
+			<span class="medium-headline">
+			Electromagnets
+			</span>
+			</br>
+			</br>
+
+	In this section, we first describe the selection of the electromagnet parameters for our system. To support further exploration of electromagnetically driven pivoting cubes, we then provide a force model to allow generating candidate electromagnets by using Ampere's Force law to compute magnetomotive force for a given electromagnet pair parametrically. We finally apply this force to a preliminary dynamical model of a 2-cube system.
+	</br>
+	</br>
+	<b>Electromagnet Parameters</b>
+	</br>
+	</br>
+	The idealized case of Ampere's law gives that an electromagnet’s force is proportional to (NI)2μ, where μ is the permeability of its core, N the number of turns and I the current applied. To limit each cube’s mass and size, we first selected the narrowest COTS ferrite cores available, at 1.625mm radius R and initial permeability μ0 of 2000. In addition, larger cores proved difficult to be supported by the rated pressure of our air table on a 60mm-side cube footprint. We next chose the COTS SMD drivers we found capable of delivering the highest current, at 1.2A continuous. Using exploratory experiments, we determined that an N of 800 provided sufficient force to pivot 100g prototype cubes within interactive times of 2s. Finally, choosing a wire gauge of AWG 34 at this NI yielded a coil resistance of 10.5Ω, allowing driving the electromagnets, microcontroller and auxiliary electronics from a single untethered power source of 11.1V-12.6V.
+	</br>
+	</br>
+			<img src="images/EM-model-2 (1).png" alt="fig 1" width="355" style="padding-bottom:0px; margin-bottom:10px; display: block; margin-left: auto; margin-right: auto;"/>
+	</br>
+	<div style="text-align: center;">
+			<b>
+			Figure 4. Computing electromagnet forces. Shown here for D1,D2=10 between 1-turn coils (force vectors in magenta).
+			</b>
+		</div>
+	</br>
+	</br>
+	<b>Electromagnet Force Model</b>
+	</br>
+	</br>
+	The dipole approximation commonly used to find electromagnets’ magnetic field strengths is invalid over short separation distances, such as when neighboring cubes are in contact. As such, we use Ampere's force law (1), which expresses the force F1,2 exerted on coil 1 due to coil 2 as a double line integral over each coil’s geometry where infinitesmal wire elements dl1 and dl2 in wires 1 and 2 are energized with currents I1 and I2, respectively, r12 is a unit vector from each element on wire 1 to those on wire 2 separated by distance r, and μ(I) is the permeability of the electromagnet core as a function of current.
+	</br>
+	</br>
+			<img src="images/insert-eq1.PNG" alt="fig 1" width="355" style="padding-bottom:0px; margin-bottom:10px; display: block; margin-left: auto; margin-right: auto;"/>
+	Equation (1) has no known analytical solution and is discretized to give (2), where D1 and D2 represent the number of discretized elements in wires 1 and 2.
+			<img src="images/insert-eq2.PNG" alt="fig 1" width="355" style="padding-bottom:0px; margin-bottom:10px; display: block; margin-left: auto; margin-right: auto;"/>
+	We parameterize (2) in terms of radius, length, turns, and pitch, and solve this numerically for our electromagnet parameters, using 8000 elements (D1,D2 = 8000) per coil to compute F1,2 from the sum of 64,000,000 force vectors over separation distances of 0.5mm to 20mm in 0.5mm increments (85 minutes/increment on a Razer Blade Intel(R) Core(TM) i7-8750H). Fig. 4 illustrates this computation for single-turn electromagnet coils with 10 elements each (100 force vectors).
+	</br>
+	</br>
+	<b>Dynamic Model</b>
+	We apply these forces to a preliminary model (Fig. 5). We model two 60-mm side length cubes as a 2-link pendulum consisting of two point masses m placed at the distal ends of two massless links (length L) connecting the hinge to each cube’s center of mass. Electromagnet forces are applied at locations that correspond to the positions of the other two electromagnet pairs associated with the maneuver along vectors that connect them. We derive the equations of motion and solve with Kane’s Method using Python’s SymPy package.
+	</br>
+	</br>
+			<img src="images/dyna-model-2 (1).png" alt="fig 1" width="355" style="padding-bottom:0px; margin-bottom:10px; display: block; margin-left: auto; margin-right: auto;"/>
+	</br>
+	<div style="text-align: center;">
+			<b>
+			Figure 5. Dynamical model. Massless links of length L (solid lines) connect point masses m. Force F actuates the pivot via repulsion; G attracts electromagnets to form a new stable bond.
+			</b>
+		</div>
+	</br>
+	</br>
+			<span class="medium-headline">
+			Hardware
+			</span>
+			</br>
+			</br>
+	<b>
+	Electronics
+	</b>
+	</br>
+	</br>
+	Each electromagnet is comprised of 800 turns of 34 AWG magnet wire wound around a ferromagnetic core (fair-rite 77) of 3.25mm diameter, 55.5mm length and initial permeability (μi) of 2000, with average electrical properties characterized by a capacitance of 118.1μF, an inductance of 21.44mH, a resistance of 10.65Ω and a Q factor of 1.265. Each actuator (core + winding) costs just $0.66. The circuitry for an untethered cube with 12 electromagnets consists of a microcontroller (Arduino Nano) integrated with a wireless transceiver (nRF24L01), two 16-channel GPIO expanders (Semtech SX1509) and 6 full dual H-bridges (Toshiba TB6612FNG). These are distributed evenly between two double-sided 0.78mm PCBs of square cross-section (side length 42mm) which sandwich three serially connected 3.7V batteries (ENGPOW 3.7v 150mAh Lipo, 4.2V at full charge). Combined, this allows controlling each electromagnet as to enable bidirectional pivoting in three orthogonal axes.
+	</br>
+	</br>
+	We use an NRF-equipped Arduino Nano as a centralized controller to transmit commands from a laptop to modules via radio. We utilize a simple open-loop bang-bang control scheme. To accommodate addressing N cubes, each with 12 electromagnets, where each electromagnet can be polarized in two directions or turned off, each command consists of a 16-bit signed integer that encodes the cube ID [1..N], electromagnet ID [1..12] and its polarity [−1,0,1]. Individual messages are transmitted in 20 milliseconds, and separate commands can be transmitted to configure individual cubes to drive selected electromagnets using PWM at a chosen duty cycle [0..255].
+	</br>
+	</br>
+	<b>Mechanical Design</b>
+	</br>
+	</br>
+			<img src="images/ryo-cube-v4.PNG" alt="fig 1" width="500" style="padding-bottom:0px; margin-bottom:10px; display: block; margin-left: auto; margin-right: auto;"/>
+	</br>
+	<div style="text-align: center;">
+			<b>
+			Figure 6. CAD model of a cube module.
+			</b>
+		</div>
+	</br>
+	</br>
+	Each module (Figures 1 and 6) is a 60mm side length cube and can be described as a unit cell of a primitive cubic Bravais lattice, with edges representing electromagnets that connect to vertices representing corner connectors. In the middle of the cube, two PCBs sandwich three batteries, centering the system’s mass to limit moment of inertia, and are fixated by a scaffold that interfaces via struts to all 8 corner connectors. The corner connectors are 3D printed on a Formlabs 2 using Tough 2000 resin and the scaffold from PLA using an Ultimaker 3. Table I details the cost and mass breakdown of a cube; mass and cost are for total in each row, and structure costs are based on raw material pricing.
+	</br>
+	</br>
+	<div style="text-align: center;">
+			<b>
+			Table 1. Module Cost/Mass Breakdown
+			</b>
+		</div>
+			</br>
+			<img src="images/insert-table.PNG" alt="fig 1" width="455" style="padding-bottom:0px; margin-bottom:10px; display: block; margin-left: auto; margin-right: auto;"/>
+	</br>
+	</br>
+	Two Molex cables connect the upper and lower PCBs, and four cables of 6 wires each (2 leads/electromagnet) harness triads of three electromagnets to the PCBs. These four triads consolidate all electromagnet wirings to two pairs of diametrically opposed corners to simplify wire routing; each triad connects three orthogonally positioned electromagnets to the PCBs in order of axis to ensure symmetry between all cubes such that they respond identically for a given command. Each cube took 80 minutes to assemble, discounting time to reflow-solder PCBs and manually wind electromagnets.
+	</br>
+	</br>
+
+			<span class="medium-headline">
+			Experiments and Results
+			</span>
+			</br>
+			</br>
+	<b>
+	Simulation
+	</b>
+	</br>
+	</br>
+	The simulation renders pivoting maneuvers and outputs correct electromagnet IDs and polarity assignments for any valid reconfiguration; assignments were verified on hardware by reconfigurations across all dimensions and electromagnets. The simulation supports real-time interaction with up to 200 modules while rendering the associated CAD files (1.1Mb .STL), and replacing these with low resolution proxy cubes permits interaction with 1000 modules. Fig. 7 (see supplementary video) illustrates the viewport simulating and computing electromagnet assignments for reconfiguring 19 cubes from a
+	chair to a table (via 22 maneuvers) to a couch (40 maneuvers).
+	</br>
+	</br>
+			<img src="images/chair-to-table-to-couch (1).png" alt="fig 1" width="555" style="padding-bottom:0px; margin-bottom:10px; display: block; margin-left: auto; margin-right: auto;"/>
+	<div style="text-align: center;">
+			<b >
+			Fig. 7: Reconfiguring between a chair, table and couch
+			</b>
+			</div>
+	</br>
+	</br>
+	<b>
+	2D Experiments: Air Table
+	</b>
+	</br>
+	</br>
+	The modules were deployed on an air table (ScienceFirst #12000) and programmed to perform the two reconfiguration primitives; a pivot and a traversal (see supplemental video).
+	Each electromagnet drew 11.7W (nominally 11.1V x 1.06A) to 15.1W (fully charged, 12.6V x 1.2A) for the duration of the maneuver, which was 1.53s for pivots and 1.03s for traversals.
+	</br>
+	</br>
+	52 pivots and 30 traversal maneuvers were performed, with a success rate of 100% and 94%, respectively. To yield this success rate, the electromagnets of the manually assembled
+	cubes required careful positioning; small misalignments resulted in failures of the cubes to generate sufficient attractive forces to catch stably, and traversal maneuvers showed a higher
+	likelihood of failure due to involving more electromagnets.
+	</br>
+	</br>
+	<b>
+	3D Experiments: Parabolic Flight
+	</b>
+	</br>
+	</br>
+	The modules were deployed in microgravity on a parabolic flight to observe pivoting maneuvers unimpeded by kinematic constraints from the ground plane or sliding friction. The modules were deployed in a clear 460mm side length cubic polycarbonate box with two 120mm diameter arm holes in one side for the experimenter. Ten 15-second parabolas were flown. The first 7 parabolas were utilized for calibrating the steps and timing of the experimental protocol under microgravity conditions. Most significantly, the microgravity quality was found to vary significantly between and during individual parabolas, resulting in re-programming the modules for a shortened experiment window of approximately 4 seconds of stable microgravity available before free-falling modules would impact the polycarbonate enclosure. The last 3 parabolas were used to demonstrate the pivoting maneuver between two modules. The procedure for each 15-second parabola involved the experimenter rising from a lying to a strapped-
+	in kneeling position on the aircraft floor, inserting hands through arm holes, and positioning the cubes while waiting for stable microgravity to settle. A trigger button was pushed to wirelessly command execution of the pivoting maneuver, and a second button was pushed to power down all cubes.
+	</br>
+	</br>
+	The pivoting maneuver was executed successfully each of the three times in 1.13 seconds, while electromagnets for launch, travel and catch phases performed correctly in all tests. However, small oscillations orthogonal to the axis of rotation were observed which led to the hinge disengaging early once completing the maneuver. This result was unique to microgravity experiments and unobserved on air tables as these kinematically constrain cubes in the ground plane, and arose due to imperfect alignments including protrusions of up to 0.6mm in our manually wound coils.
+	</br>
+	</br>
+			<img src="images/insert-2d-3d.PNG" alt="fig 1" width="555" style="padding-bottom:0px; margin-bottom:10px; display: block; margin-left: auto; margin-right: auto;"/>
+	<div style="text-align: center;">
+			<b >
+			Fig. 8: Two elements undergoing a pivoting maneuver (left) on an air table, a low friction surface used to simulate microgravity environments for 2D maneuvers, and (right) in microgravity
+			aboard a parabolic flight for 3D maneuvers.
+			</b>
+			</div>
+	</br>
+	</br>
+	<b>
+	Model Accuracy
+	</b>
+	</br>
+	</br>
+	We measured the force generated between two electromagnets using a Mettler Toledo Precision Balance ME203T/00 (10μN precision) while varying their separation distance and their currents, shown in Fig. 9. We held two electromagnets at a fixed separation distance of 0.5mm, varying the current applied to each electromagnet from 0A to 1.2A in 0.05A increments. We then held the electromagnets at a fixed current of 1.2A, varying the separation distance from 0.5mm to 20mm in 0.5mm increments. Each of these experiments were conducted 5 times. Measured data are plotted in raw form (scatter plots) and as mean±1 standard deviation (shaded plots) for both experiments. Using the force-current mean at I=1.2A to extract a characterised μ(1.2) of 874, we generated predicted values for force v distance (line graph) with our force model (2), correlating well with measured data.
+	</br>
+	</br>
+	Finally, tentative results of our simple dynamical model including a simulation (supplemental video) agree qualitatively with the experiments, however as physical experiments only utilize a single force value (for I=1.2A), further work is required to capture more data to validate the model.
+	</br>
+	</br>
+			<img src="images/Graph-0914 (1).png" alt="fig 1" width="555" style="padding-bottom:0px; margin-bottom:10px; display: block; margin-left: auto; margin-right: auto;"/>
+	<div style="text-align: center;">
+			<b >
+			Fig. 9: Force v current and electromagnet separation distance, showing raw data and mean ±1 St.D for N=5. Predicted force-distance relationship from (2) shown for comparison.
+			</b>
+			</div>
+	</br>
+	</br>
+			<span class="medium-headline">
+			Discussion and Future Work
+			</span>
+			</br>
+			</br>
+	This section discusses limitations and future work for our current implementation. First, our cubes have to date been manually assembled and soldered, and each electromagnet hand-wound, resulting in imperfect alignments of electromagnets. While sufficient to successfully showcase the electromagnetic actuation framework on an airtable and in microgravity, Fig. 9 reveals the degree to which these misalignments reduce attraction forces, at times disengaging the hinge. This resulted in a 6% failure rate during air table traversals and minor instabilities in microgravity without the kinematic constraint of a ground plane; in the future, coils will be machine-wound and the assembly rigidized before deployment.
+	</br>
+	</br>
+	Our parameterized force model accurately predicts forces between electromagnets, supporting tailoring these actuators for different module designs. The concave downwards relationship in the force v current data (Fig. 9) indicates the onset of saturation of the ferrite cores in addition to potential heating effects at higher currents. Although current can be raised with higher voltage sources, this diminishes the returns on force that could potentially be achieved using greater currents; by exploiting larger cores with smaller currents, more favorable force-current relationships could be achieved with future prototypes. Nonetheless, the lack of opposing gravity moments in microgravity obviates the need for large forces, and our parabolic flight deployment required preparatory testing on an
+	air table whose air pressure limited the total core mass.
+	</br>
+	</br>
+	Several avenues for future work present themselves. The success of our open-loop bang bang control suggests self-correction and robustness of the electromagnetic actuation method to small disturbances, however future work could support braking the traveling cube on impact via closed-loop control. Promising bases for control could include model-based strategies that leverage the pivoting cube model’s
+	tractable dynamics, combined with IMUs and electromagnet-based inductive sensing. To conserve power in a large scale system, future modules should embed passive permanent magnets in cube faces to form stable face-to-face bonds, or replace electromagnets with electropermanent [12] or programmable [18] magnets. Further applications of our microgravity-adapted architecture, such as tangible or swarm user interfaces [21], could be explored using air tables, caster wheels or low friction surfaces. Of equal interest would be to incorporate power electronics such as boost circuits for reconfiguring untethered
+	cubes against gravity moments for terrestrial applications. -->
+			</br>
+			</br>
+			</br>
+			</br>
+			</br>
+			</br>
+			</br>
+			</br>
+			</br>
+			</br>
+
+
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 footer" style="text-align: center;">
+			<span class="copyright">
+			Since 2017 &copy; MIT CSAIL (HCI Engineering group) [redesign by
+			<a href="http://punpongsanon.info/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			moji
+			</a>].
+			All Rights Reserved.
+
+			<a href="http://mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="http://hcie.csail.mit.edu/images/logo/mit.svg" alt="MIT" class="footer-logo" />
+			</a>
+			<a href="http://csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="http://hcie.csail.mit.edu/images/logo/csail.svg" alt="CSAIL" class="footer-logo"/>
+			</a>
+			<a href="http://hci.csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="http://hcie.csail.mit.edu/images/logo/hci.svg" alt="HCI" class="footer-logo"/>
+			</a>
+			</span>
+		</div>
+	</div>
+</div>
+
+<!-- Bootstrap -->
+<script type="text/javascript" src="https://hcie.csail.mit.edu/js/bootstrap.min.js"></script>
+<!-- header -->
+<script type="text/javascript" src="https://hcie.csail.mit.edu/js/headerstrap-for-subpage.js"></script>
+<!-- lightbox -->
+<script type="text/javascript" src="../../js/lightbox.js"></script>
+
+</body>
+</html>
