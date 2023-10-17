@@ -81,6 +81,18 @@
 			</br>
 			</br>
 
+			<span class="medium-headline">
+				Press
+				</span>
+				</br>
+				</br>
+				<ul>
+					<li><a href="https://news.mit.edu/2023/ai-driven-tool-personalize-3d-printable-models-0915" target="_blank">MIT News</a></li>
+					<li><a href="https://www.3dnatives.com/en/style2fab-mits-ai-driven-3d-printing-aid-150920235/" target="_blank">3D Natives</a></li>
+					<li><a href="https://www.voxelmatters.com/style2fab-uses-ai-to-easily-personalize-3d-printable-models/" target="_blank">VoxelMatters</a></li>
+				</ul>
+				</br>
+
 
 
 
@@ -216,6 +228,13 @@
 									<br>
 									 <p>Using this taxonomy, we then labeled our entire data set of 993 models based on the two types of designs and the axes of internal and external context. For each 3D model, two annotators examined the associated Thingiverse meta-data to understand the intended functionality of the model using shared images of the model being used in specific scenarios. Independently, each annotator labeled the model as Artifact or Task-Related based on its external functionality. This resulted in a Cohen’s Kappa inter-rater reliability score of 0.94. They negotiated differences to finalize the labels for each model, reaching full agreement. Two examples of models that required negotiation are ThingID:3096598 (Chainmail) and ThingID:1015238 (Robotic Arm). The annotators resolved the former to be an Artifact because the Thingiverse page did not showcase any task-specific use case, and the latter to be Task-Related since its metadata con- tained videos describing a specific functionality. Following data classification, we removed all models that had no aesthetic seg- ments because these cannot be readily modified. This exclusion primarily removed models used for calibrating printers where any change would have changed the functionality. Our final, labeled data set contained 938 models and is summarized in Table 1.</p>
 									
+									 <img src="images/table-1.png" alt="Table 1: Counts of Thingiverse Designs based on dimensions
+									 of internal and external functionality. Rows reflect external
+									 context and columns reflect internal context." width="700" style="padding-bottom:0px; margin-bottom:10px"/><br>
+								<b>Table 1: Counts of Thingiverse Designs based on dimensions
+									of internal and external functionality. Rows reflect external
+									context and columns reflect internal context.</b>
+								<br></br>
 
 								</div>
 							</div>
@@ -256,7 +275,10 @@
 							We use the weight matrix, 𝑊 , and the degree matrix, 𝐷 in order to compute the eigenvectors and values of the face graph. Formally defined as the norm Laplacian of a graph, 𝐿 = √𝐷<sup>T</sup>𝑊√𝐷. From the eigenvalues of 𝐿, we are able to capture the connectedness of the mesh, where large gaps between eigenvalues imply weak connectedness.</p>
 
 						<p>In the approach proposed by Liu and Zhang, the eigen-vectors corresponding to the smallest 𝑘 eigenvalues 𝜆 are used to construct a k-dimensional feature space, where 𝑘 is the desired number of segments. Instead of using the smallest 𝑘 eigenvalues, we analyze the entire distribution of eigenvalues 𝜆. A high standard deviation in the eigenvalue distribution indicates that the eigenvalues are spread out over a wide range, which suggests a more complex graph structure with varying connectivity and potentially multiple distinct clusters or segments. In this case, the graph may benefit from a more refined segmentation process. On the other hand, a low standard deviation implies that the eigenvalues are more tightly clustered, which suggests a relatively uniform graph structure with fewer distinct clusters. In this case, it would be sufficient to partition the graph into a lower number of clusters. We leverage this distribution to automatically calculate a value of 𝑘. Specifically, we calculate the number of eigenvalues that have a higher dispersion than the distribution’s standard deviation, using Equation 1.
+
 					</p>
+
+					<img src="images/equation_1.png" alt="Equation 1" width="700" style="padding-bottom:0px; margin-bottom:10px"/><br>
 
 						<p>Once we have extracted the lowest 𝑘 eigenvectors and their corresponding eigenvalues we follow Liu and Zhang’s segmentation method that uses k-means clustering to identify segments spanning from the 𝑛 faces captured by these high-variation eigenvectors. Based on the resulting clusters, we assign each face in the mesh graph to its corresponding segment, resulting in a segmented 3D model.</p>
 
@@ -265,6 +287,9 @@
 
 						<p>We determined that resolution to be 25k (vertices) by segmenting and comparing 100 randomly selected 3D models from our data set. For each mesh, we segmented the remeshed models with 15K, 20K, 25K, 30K, and 35K vertices. We then looked for the lowest resolution that stabilized the predicted number of segments 𝑘. That is, for all higher resolutions, the number 𝑘 did not change. For 88% of models, a 25k resolution stabilized this value. The segmentation at 25K resolution took an average of 72 seconds, while segmentation at 30K resolution took an average of 102 seconds. Figure 3 shows the effect of mesh resolution on the number of models it stabilized and the time it took to complete segmentation.</p>
 
+						<img src="images/mesh_resolution_time.png" alt="Figure 3: Comparison plots of the number of stabilized models (green) and segmentation time (blue) against mesh resolution." width="700" style="padding-bottom:0px; margin-bottom:10px"/><br>
+						<b>Figure 3: Comparison plots of the number of stabilized models (green) and segmentation time (blue) against mesh resolution.</b>
+						<br></br>
 
 					</div>
 				</div>
@@ -296,7 +321,18 @@
 							 <p>To increase efficiency, we prune the number of segment comparisons in this process. First, we can exclude all segments in meshes that have been labeled as having external functionality. Ultimately, we are looking for a single binary label between aesthetic and functional, so it does not matter if a segment is both internally and externally functional. Second, as we identify linkages we can remove both 𝑠 and 𝑠<sub>𝑐</sub> from future comparisons within the mechanism because linkages are formed of only two segments.</p>
 							
 							 <p>To decide that two segments are sufficiently similar to be considered a linkage, we need a threshold similarity value of 𝛼. To identify this threshold we gathered ground truth data from our data set. Two researchers annotated segments of the multi-component models in our data set to identify linked segments. We randomly selected 50 things with multiple components which contained a total of 157 component meshes. For each model, two annotators independently labeled all pairs of segments that formed a linkage in the mechanism resulting in an inter-rater reliability score of 0.99. They negotiated disagreements and produced a ground truth dataset. From this data set, we identified an effective threshold similarity score 𝛼 = 0.86 by evaluating the precision and recall across multiple 𝛼 values. We found that 𝛼 = 0.86 maximized the identification of functional segments and then minimized the misidentification of aesthetic segments. By this analysis, we got a precision value of 64% and a recall value of 86%. Like classifying external context, we prioritize high recall over precision since the cost of missing a functional segment will break a model while missing an aesthetic segment will only affect aesthetics. Therefore, we opted to have a more conservative classifier for both the internal and external functionality.</p>
-
+							
+							 <img src="images/global-vs-selective-cat.png" alt="Figure 4: A demonstration of the differences between
+							 functionality-aware and global styling. A “flexi cat” model
+							 (Thing: 3576952) is shown (a) without styles, (b) with
+							 functionality-aware styles, and (c) functionally broken by
+							 global styles." width="700" style="padding-bottom:0px; margin-bottom:10px"/><br>
+						<b>Figure 4: A demonstration of the differences between
+							functionality-aware and global styling. A “flexi cat” model
+							(Thing: 3576952) is shown (a) without styles, (b) with
+							functionality-aware styles, and (c) functionally broken by
+							global styles.</b>
+						<br></br>
 
 						<span class="small-headline">
 							<strong>Stylization of Segments</strong>
@@ -305,6 +341,14 @@
 								We use Text2Mesh [32] to stylize models based on text prompts. Text2Mesh uses a neural network architecture that leverages the CLIP [39] representation. The system considers a 3D model as a collection of vertices, where each vertex has a color channel (RGB) and a 3D position that can move along its vertex normal. Text2Mesh reduces the loss between the 3D model rendering (CLIP representation) from different angles and the CLIP representation of the textual prompt using gradient descent. Text2Mesh makes small manipulations in both the color channel and vertex displacement along the vertex normal for each of the vertices in order to make it look more similar to the text prompt. This allows the system to generate a stylized 3D model that reflects the user’s desired style.</p>
 								<p>This method will stylize the whole mesh and change the topology of the functional segments. In Figure 4a-c, we show that global stylization can render a functional object, in this case, an articulated cat, inoperable. We augment this system by adding an additional step of masking the gradients and setting functional vertices to zero. This allows manipulation of the color and displacement channels while preserving the functional segments of the model. As specified in Text2Mesh [32], we run this optimization for 1500 iterations.
 							</p>
+
+							<img src="images/figure_external_geometry.png" alt="Figure 5: In the Style2Fab UI, the user (a) loads their model
+							and (b) browses the functionality labels after segmentation." width="700" style="padding-bottom:0px; margin-bottom:10px"/><br>
+							<img src="images/ui-internal-functionality.png" alt="(c) In the case of multi-component models, the user can examine and adjust linked segments between components." width="700" style="padding-bottom:0px; margin-bottom:10px"/><br>
+							<b>Figure 5: In the Style2Fab UI, the user (a) loads their model
+								and (b) browses the functionality labels after segmentation.
+								(c) In the case of multi-component models, the user can examine and adjust linked segments between components.</b>
+					   <br></br>
 
 							
 						<span class="small-headline">
@@ -334,11 +378,60 @@
 					<div title="">
 						<div>
 							<div>
+
+						<img src="images/table-2.png" alt="Table 2: Participant demographics and years of experience
+						with 3D modeling and printing." width="700" style="padding-bottom:0px; margin-bottom:10px"/><br>
+								<b>Table 2: Participant demographics and years of experience with 3D modeling and printing.</b>
+								<br></br>
 								
 						<p>To evaluate if our functionality-aware segmentation method supports users in separating functional elements in 3D that they did not design, we had eight university students (Table 2) with varied 3D modeling and printing experience segment and stylize 3D models from our Thingiverse data set with and without automatic support from Style2Fab.</p>
 
 						<p>
 							We randomly selected eight 3D models representing each of our four categories of models based on internal and external context: two single-component Artifacts, two single-component TaskRelated models, two multi-component Artifacts, and two multicomponent Task-Related models. We segmented each model using our segmentation method and automatically classified the functionality of those segments. Each participant was presented with two models with segmentation and functionality classification (i.e., experimental group) and two models that were only segmented and that they needed to manually classify(i.e., control group). In each condition, the participant received an Artifact and Task-Related model. One of these was always a single component and the otherwas a multi-component model. We controlled for model-specific and learning effects by giving each participant a different combination of models and conditions. We asked participants to classify each segment in each model as functional or aesthetic. In the experimental condition, participants could accept or modify our functionality-aware classification. In the control condition, they had to make a manual classification. After classifying the segments, the users were asked open-ended questions about their experience. They were compensated with $20 for the hour-long study.
+						</p>
+
+						<p>
+							<span class="small-headline">
+								<strong>Findings</strong>
+								</span>
+							
+							<br>
+
+							<p>In order to understand the differences between the automatic and manual conditions, we compared the time taken to process a model, which included the classification runtime for the automatic condition, and the accuracy and precision of the classification (Figure 6). The time taken by the users was dependent on the complexity of the model, with the single-component model taking the least time, and the multi-component models taking significant time. We conducted a paired one-tailed t-test with 7 degrees of freedom to see if functionality-aware segmentation significantly improved task completion time. Across all types of models, we found a significant improvement in task completion time at the 𝑝 &lt; 0.05 level (Table 3, Figure 6). The greatest effects were on models with greater complexity such as multi-component models and Task-Related models with multiple segments that had external context.</p>
+
+							<img src="images/table-3.png" alt="Table 3: T-test comparison of task completion rates within
+							subjects. All values are significant." width="700" style="padding-bottom:0px; margin-bottom:10px"/><br>
+								<b>Table 3: T-test comparison of task completion rates within
+									subjects. All values are significant.</b>
+								<br></br>
+							
+							<p>To analyze the functionality classification accuracy, we compared the user annotations from the study with the ground truth. To generate the ground truth, two authors annotated the models collaboratively and then fabricated the original and stylized versions to verify functionality preservation. On comparing the user annotations with the ground truth, we found that users were more accurate in single-component models. But as the complexity increased, users had a hard time finding functional segments. The automatic classifier significantly improved performance in finding functional segments with the difference in performance increasing as the complexity increased (Table 4, Figure 7).</p>
+							
+							<img src="images/Time-spent-graph.png" alt="Figure 6: Box plots show the distribution of task completion
+							times by condition. The more complex the model, the more
+							time users save using the automatic classification of functional segments." width="700" style="padding-bottom:0px; margin-bottom:10px"/><br>
+								<b>Figure 6: Box plots show the distribution of task completion
+									times by condition. The more complex the model, the more
+									time users save using the automatic classification of functional segments.</b>
+								<br></br>
+							
+							<img src="images/annotation-both-functional-aesthetic-manual-automatic.png" alt="Figure 7: Box plots show the distribution of classification
+							accuracy by condition. As the complexity of the model increased, the automatic classification helped users identify
+							functional segments more accurately." width="700" style="padding-bottom:0px; margin-bottom:10px"/><br>
+									<b>Figure 7: Box plots show the distribution of classification
+										accuracy by condition. As the complexity of the model increased, the automatic classification helped users identify
+										functional segments more accurately.</b>
+									<br></br>
+
+							<img src="images/table-4.png" alt="Table 4: T-test comparison of classification accuracy within
+							subjects. All values are significant." width="700" style="padding-bottom:0px; margin-bottom:10px"/><br>
+										<b>Table 4: T-test comparison of classification accuracy within
+											subjects. All values are significant.</b>
+										<br></br>
+							
+						    <p>The participants generally had a positive experience stylizing models with Style2Fab. P7 said in their open-ended interview that “being able to know if it is best as decorative or functional for areas I am uncertain of is helpful. It felt like I was approving choices rather than making them”. P3 said “highlighting and automation made the process more precise”, which according to P4 “makes it easier to prepare components for [...] mesh editing”. Discussing the segmentation results, P5 also commented that “the segmentation of parts is much more uniform with Style2Fab”, while P6 said “models were usually segmented well, but the results could be better in some more complicated models”. P8 also said, “it usually got things right, but segmentation was too broad sometimes”. Commenting on the experience with the Automatic version, P6 said “this way I don’t have to think through each one, I can take the suggestion and say yes or no”. Overall, participants enjoyed stylizing 3D models with Style2Fab because the functionality-aware segmentation method made them confident their personalized models would work post-fabrication.</p>
+						    <p> In summary, the results of the user study demonstrate significant differences between the automatic and manual conditions in terms of the time taken to process models. The analysis shows that Style2Fab’s support is more beneficial as the complexity of the model increases, supporting the effectiveness of the proposed functionality-aware segmentation method.</p>
+							
 						</p>
 	
 								</div>
@@ -348,7 +441,7 @@
 
 
 							<span class="medium-headline">
-								ABSTRACT
+								DEMONSTRATIONS
 								</span>
 							<br>
 							</p>
@@ -356,365 +449,208 @@
 							<div>
 								<div>
 									
-							<p>With recent advances in Generative AI, it is becoming easier to automatically manipulate 3D models. However, current methods tend to apply edits to models globally, which risks compromising the intended functionality of the 3D model when fabricated in the physical world. For example, modifying functional segments in 3D models, such as the base of a vase, could break the original functionality of the model, thus causing the vase to fall over. We introduce a method for automatically segmenting 3D models into functional and aesthetic elements. This method allows users to selectively modify aesthetic segments of 3D models, without affecting the functional segments. To develop this method we first create a taxonomy of functionality in 3D models by qualitatively analyzing 1000 models sourced from a popular 3D printing repository, Thingiverse. With this taxonomy, we develop a semi-automatic classification method to decompose 3D models into functional and aesthetic elements. We propose a system called Style2Fab that allows users to selectively stylize 3D models without compromising their functionality. We evaluate the effectiveness of our classification method compared to human-annotated data, and demonstrate the utility of Style2Fab with a user study to show that functionalityaware segmentation helps preserve model functionality.</p>
-		
+							<p>In this section, we showcase Style2Fab’s functionality-aware stylization through six application scenarios across four categories: Home Decor, Personalized Health Applications, and Personal Accessories. These are all examples of Task-Related models, and they highlight the versatility of tools that use functionality-aware segmentation to personalize models.</p>
+							
+							<p>
+								<span class="small-headline">
+									<strong>Home Interior Design</strong>
+									</span>
+								
+								<br>
+
+								<p>Interior design is a popular domain for personalized fabrication. Here, we demonstrate customizing a Self-Watering Planter3, a TaskRelated model containing two components (containing internal and external functionality). The internal functionality for this model relates to the assembly of the pot and reservoir, while externally functional segments include the base and watering cavity. Using Style2Fab, we segmented the model, verified the functional aspects, and applied the “rough multi-color Chinoiserie Planter” style. The fabricated model showcases the desired aesthetics without compromising its self-watering capabilities or stability (Figure 8a). Another home decor example is the Indispensable Dispenser4, a drink dispenser that distributes liquid into six containers via interior cavities and spouts. We used Style2Fab to preserve the functional segments (base and interior cavities) and applied a “colorful water dispenser made of vintage mosaic glass tiles” style to the aesthetic segments. The resulting dispenser, shown in Figure 8d, retains its functionality while exhibiting the desired visual appearance.</p>
+							
+						    </p>
+
+							<p>
+								<span class="small-headline">
+									<strong>Medical/Assistive Applications</strong>
+									</span>
+								
+								<br>
+
+								<p>“Medical Making” [25] and “DIY Assistive Technology” [4] are emerging and critical domains for personalized fabrication by nontechnical experts. Social accessibility research [46] shows that considering both the aesthetic and functional features of medical/assistive devices increases their adoption. However, individuals with disabilities and their clinicians may not have the time or expertise to personalize devices [17]. We first demonstrate stylizing a geometrically-complex thumb splint sourced from Thingiverse5 to appear as “A beautiful thumb splint styled like a blue knitted sweater.” Like the participant from Hofmann et al. [17], we wanted the model to blend into the sleeve of a sweater (Figure 8b). Our functionalityaware segmentation method preserved the smooth internal surface that contacts the skin and holes that increase breathability. The exterior is stylized and attractive</p>
+								
+								<p>Our second example stylizes a tactile graphic of a human heart to apply unique textures to each region of the heart. This would make identifying each region easier for a blind person who accesses the model through touch. Our automatic segmentation and classification method identifies different segments of the heart that can be stylized with different textures (Figure 8e).</p>
+						    </p>
+
+							<p>
+								<span class="small-headline">
+									<strong>Personalizing Accessories</strong>
+									</span>
+								
+								<br>
+
+								<p>In this application scenario, we demonstrate how functionalityaware segmentation can be used to personalize accessories, such as an Airpods cover and a whistle. We demonstrate Style2Fab’s personalization capabilities using a Thingiverse Airpods case. The interface segmented and preserved the functional aspects, including internal geometry and charging cable hole even though our classification method has no specific information about the external objects the cover interacts with. We stylized this model with the prompt: “A beautiful antique AirPods cover in the style of Moroccan Art (Figure 8e). The resulting model fits the AirPods Pro case and allowed charging while featuring Moroccan Art-inspired patterns. Next, we applied styles to the popular V29 Whistle from Thingiverse without compromising its acoustic functionality. The system preserved the whistle’s resonant chamber and mouthpiece while styling the exterior with a prompt: “A beautiful whistle made of mahogany wood”. The functionality-aware styled whistle sounds like the original whistle (Figure 8f) while the globally-styled whistle lost its functionality due to internal geometry manipulation.</p>
+						    </p>
+
+
+
 									</div>
 								</div>
 						</div>
+
+						<p>
+
+
+							<span class="medium-headline">
+								DISCUSSION
+								</span>
+							<br>
+							</p>
+						<div title="">
+							<div>
+								<div>
+									
+							<p>Our functionality-aware segmentation method differs from prior
+								work because it assumes that the user will struggle to translate their
+								understanding of the functionality of a model into key parameters
+								of a segmentation method and specific labels for each segment. We
+								return to the scenario of Alex stylizing her self-watering planter.
+								Alex can recognize the pieces of the model that contribute to the
+								self-watering functionality and the pieces that she wants to stylize.
+								But translating this into parameters of a segmentation method is
+								non-trivial – Alex would either have to go through trial and error
+								in adjusting the hyperparameters for segmentation, or tediously
+								highlight the segments on the vertex-level. Our functionality-aware
+								segmentation method provides a semi-automatic method for separating aesthetic and functional segments allowing Alex to stylize
+								her model while retaining the functionality.</p>
+							
+							<p>We designed our functionality-aware segmentation method to be
+								modular and adaptable to modifications to the underlying methods.
+								For instance, Style2Fab can be augmented with a more nuanced
+								classifier to allow functionality beyond external and internal contexts. In the next sections, we identify limitations and opportunities
+								to improve on the concept of functionality-aware segmentation</p>
+							
+							<img src="images/Figure_5.png" alt="Figure 8: Application scenarios for Style2Fab (all models sourced from Thingiverse): (a) A multi-component self-watering
+							planter styled as “A rough multi-color Chinoiserie Planter”. (b) A personalized Thumb Splint styled like “a blue knitted sweater”.
+							(c) A personalized AirPods cover “in the style of Moroccan Art”. (d) A Drinks Dispenser model styled as “made of vintage mosaic
+							glass tiles”. (e) A color-coded, textured educational model of the human heart. (f) A functional whistle styled as “A beautiful
+							whistle made of mahogany wood”" width="700" style="padding-bottom:0px; margin-bottom:10px"/><br>
+											<b>Figure 8: Application scenarios for Style2Fab (all models sourced from Thingiverse): (a) A multi-component self-watering
+												planter styled as “A rough multi-color Chinoiserie Planter”. (b) A personalized Thumb Splint styled like “a blue knitted sweater”.
+												(c) A personalized AirPods cover “in the style of Moroccan Art”. (d) A Drinks Dispenser model styled as “made of vintage mosaic
+												glass tiles”. (e) A color-coded, textured educational model of the human heart. (f) A functional whistle styled as “A beautiful
+												whistle made of mahogany wood”</b>
+											<br></br>
+
+							<p>to adapt it to more complex and diverse domains. We expect this
+								method could be improved by broadening our definition of functionality, creating a larger dataset of labeled classes of functionality,
+								and using more nuanced evaluations of segment similarity.</p>
+							
 							<p>
+								<span class="small-headline">
+									<strong>A Broader Definition of Functionality</strong>
+									</span>
+								
+								<br>
 
-					
+								<p>Form and function are deeply related but do not have a one-to-one
+									relationship; many forms can perform the same task and many tasks
+									can be achieved with multiple forms. In our approach, we defined
+									functionality as a topology-dependent property and ignore usage
+									context (e.g., hanging a vase vs setting it on a table). In our formative
+									study of Thingiverse models, the annotators infer a specific context
+									when labeling each model’s relationship between form and function.
+									This is reliable because each model has specific affordances (e.g.,
+									a flat base affords resting on a flat surface). However, makers are
+									creative and often play with the affordances of models to use them
+									in new ways.</p>
 
-
-				
-		
-					
-			 <br>
-					<span class="medium-headline">
-						BASIC WORKING PRINCIPLE
-						</span>
-					<br>
-					<br>
-					</p>
-						 Photochromic dyes can transform from a transparent to a colored state through the absorption of UV light (‘activation’), and transform back from colored to transparent through the absorption of visible light (‘deactivation’). </p>
-							<p>When cyan, magenta, and yellow photochromic colors are mixed together into a single solution and the solution is ac-tivated with UV light (i.e. all three color channels are fully saturated), the resulting color is black (Figure 2a). This is consistent with the CMY color chart shown in Figure 2b, i.e. the center of the chart, which shows the result of all three color channels in full saturation is black.  </p>
-							<p><img src="images/photochameleon-CMY-color chart.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
-						 <strong>Figure 2. (a) CMY inks mixed together achieve black, which matches (b) the CMY color model.<br>
-						 </strong>
-							</p>
-			 
-							 To achieve colors other than black, we need to deactivate one or more color channels. Deactivating the cyan color, for instance, would result in red since only yellow and magenta remain activated (Figure 2b). To deactivate each color channel individually, we can leverage the fact that the deactivation peak (i.e. absorption peak) of each photo-chromic color is at a different wavelength (Figure 3). </p>
-							 <p><img src="images/photochameleon-absorption-peak.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
-						 <strong>Figure 3. The absorption peak of each photochromic dye is at a different wavelength. To control each color chan-nel, we can use the RGB LEDs of a projector to supply the required deactivation wavelength.<br>
-						 </strong>
-		
-						 <p>Since all of the deactivation wavelengths are within the spectrum of visible light (390 nm to 790 nm), we can use a regular office projector’s red, green, and blue LEDs to supply one deactivation wavelength each. As can be seen in Figure 3, shining blue light from the projector will deactivate yellow, green light will deactivate magenta and red light will deactivate cyan. Thus, to deactivate a specific photochromic color channel, the projector only needs to project R, G, or B pixels to reduce the saturation of the channel, as shown in Figure 4. </p>
-		
-							 <p><img src="images/effect of RGB on CMY (theoretical).png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
-						 <strong>Figure 4. Theoretical result of shining different combinations of RGB on the mixed CMY photochromic ink.<br>
-						 </strong>
-		
-							</p>
-			 
-							 Figure 5 shows the physical result of shining different combinations of RGB on the CMY ink mixture, which we ob-tained by following the deactivation chart in Figure 4. While Figure 5 demonstrates the results obtained by fully deactivating one or more channels, we can achieve intermediate colors of different saturation levels by only partially deactivating each channel. We will provide more information on this when we discuss the algorithm that times the projected deactivation wavelengths to accomplish this.  </p>
-		
-								<p><img src="images/Physical results of liquid.jpg" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
-						 <strong>Figure 5. Physical result of shining different combina-tions of RGB on the mixed CMY dye. <br>
-						 </strong>
-						 </p>
-			 
-							 In the remainder of this paper, we will provide more detail on each of the steps, starting with (1) creating the photo-chromic CMY coating that can be applied to objects, (2) modifying the light output from the projector to ensure the wavelength of the light matches with the deactivation wavelength of the dyes, and (3) developing the algorithm to accomplish intermediate colors of different saturation levels. After this, we will (4) evaluate the color gamut that we can achieve with our method and determine how closely the physical color represents the virtual color. Finally, we will (5) discuss the implementation of our end-to-end system to transfer the texture onto an object.  </p>
-		
-				 <p><br>
-			 <span class="medium-headline">
-						1.DEVELOPING THE PHOTOCHROMIC COATING
-						</span>
-					<br>
-					<br>
-					</p>To make our method directly applicable to physical objects, we developed a re-programmable photochromic coating that can be airbrushed onto the surface of objects. To develop the coating, we dissolved cyan, magenta and yellow photochromic dyes directly into a transparent laquer.</p>
-					
-					<b>Creating the ink mixture</b><br>
-						</p>
-						Several factors were involved in selecting the dyes for the CMY solution: (1) The visual appearance of the dyes needs to be as close to cyan, magenta, and yellow as possible in order to achieve the largest color gamut; (2) to be able to control each color channel individually, the deactivation wavelengths for each photochromic dye need to have as little overlap as possible; (3) the color of the dyes needs to be stable (i.e. do not deactivate quickly under ambient light). </p>
-						</p><b>#1 Visual appearance:</b> Figure 6 shows the available dyes from Yamada Chemical Co. which is the only compa-ny we found that reliably sells bi-stable (P-type) photo-chromic dyes. While we can see that a dye color exists for yellow (DAE-0068); for magenta, the nearest colors are red purple (DAE-0012), red (DAE-0004) and purple (DAE-0159), and for cyan: blue (DAE-0001) and blue purple (DAE-0018). </p>
-		
-						<p><img src="images/ink colors.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
-						 <strong>Figure 6. Bi-stable photochromic inks available from Yamada Chemical Co.: 0.1wt% die mixed in ethyl acetate. <br>
-						 </strong>
-		
-						 </p><b>#2 Absorption Spectra:</b> To be able to choose photochromic dyes that minimize overlap between different color channels, we determined the absorption spectrum for each photochromic dye. For this, we first mixed 0.1 wt% of each dye in ethyl acetate from Fisher Scientific using a magnetic stirrer for 1 hour at 500 RPM and then filled the solution into quartz cuvettes with a 1mL path length. We then radiated the solu-tion under UV light until the photochromic inks were fully activated and then placed the cuvettes in a spectropho-tometer (Varian Cary 5000 UV-Vis-NIR spectrophotometer) to determine their absorption spectra. The results are shown in Figure 7. We used yellow (DAE-0068) as a starting point for selection since it was the only available dye for this channel. For magenta, red purple (DAE-0012) and red (DAE-004) had the least overlap with yellow and cyan. For cyan, the least overlap with magenta was blue (DAE-0001) followed by blue purple (DAE-0018). </p>
-		
-						 <p><img src="images/absorption spectrum.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
-						 <strong>Figure 7. Absorption spectra of the photochromic dyes in the visible wavelength range. <br>
-						 </strong>
-		
-							</p><b>#3 Stable under ambient light:</b> Both red (DAE-0004) and blue purple (DAE-0018) were not very stable as they deac-tivated in ambient light after a few minutes. Thus, based on our criteria, we decided to use for cyan: blue (DAE-0001), for magenta: red purple (DAE-0012), and for yellow: yel-low (DAE-0068). This combination minimized overlap of deactivation wavelengths while also being closest to the desired color channels and the greatest stability under ambient light. For the purpose of easier explanation, we will refer to the blue dye as cyan dye and the red purple dye as magenta dye for the remainder of the paper.</p>
-		
-							<b>Applying the ink to materials & objects </b><br>
-						</p>
-						Before mixing the three photochromic dyes together, we first mixed each dye separately in laquer (Dupli-Color Paint Shop Finish Systems Matte-Finish Clear Coat (BSP307)). For the three separate mixtures, we used 0.05 wt% cyan, 0.05 wt% magenta and 0.3 wt% yellow respectively. These concentrations were chosen based on the deactivation times of each dye: Because yellow deac-tivates faster than the other two dyes, the concentration of the yellow dye was increased in order to extend the illumination time required for this dye to deactivate. We then mixed the resulting liquids by equal volumes (1:1:1) to achieve our multi-color coating. </p>
-		
-						</p>Before applying the coating to an object, we primed the surface of the object with spray paint to avoid subsurface scattering of the projected light. We first sprayed each object with black paint (drying time: 30 min), and then subsequently sprayed a white paint layer (drying time: 24 hours). </p>
-		
-						<p><img src="images/spraying.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
-						 <strong>Figure 8. (a) Applying the photochromic coating and (b) the resulting coated object after UV activation. <br>
-						 </strong>
-		
-						 </p>After this, we sprayed our photochromic coating onto the surface of the object using an airbrush system (Iwata HP-CS). The saturation of the sprayed ink can be increased by applying a second layer of ink after letting the first layer dry for 20 minutes. The ink is then fully dried after ca. 24 hours. </p>
-						 </p>By using an airbrush to apply the coating, we can coat the surface of an object evenly. While we sprayed the layers manually and found the consistency to be good enough for our applications, a CNC airbrush system may further improve the results. The coating can also be painted, however, this leads to an appearance that is less uniform. </p>
-		
-						 </p>We used laquer as the carrier material for the photochromic dyes. The laquer is recommended for use on metal (see example of model car exterior in Figure 25) and plastic (3D printed chameleon in Figure 8).</p>
-		
-				 <p><br>
-			 <span class="medium-headline">
-						2. MODIFYING THE PROJECTOR 
-						</span>
-					<br>
-					<br>
-		
-					</p>As mentioned previously, to deactivate each photochromic color channel individually, we need three different light sources: one light source with the corresponding deactiva-tion wavelength for each photochromic dye. Since existing DLP projectors already contain three light sources (3 LEDs for R,G,B), we decided to modify an existing office projec-tor (model: AAXA M6, 1200 Lumens). </p>
-		
-					</p>To determine the optical spectrum of each of the LEDs in the projector, we used a spectrometer (Thorlabs, CCS200) and found that the three LEDs overlap well with the select-ed photochromic dyes (Figure 9).</p>
-		
-					<p><img src="images/projector spectrum.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
-						 <strong>Figure 9. Optical spectrum of the projector output and absorption spectra of cyan, magenta and yellow dyes. <br>
-						 </strong>
-		
-						 </p>The blue LED of the projector creates light output over a small wavelength range and matches well with the yellow deactivation wavelength, therefore, by shining blue light from the projector, we can deactivate the yellow photo-chromic. Similarly, the red LED of the projector creates a light output over a small wavelength range and matches well with the cyan deactivation wavelength, thus, by shining red light, we can deactivate the cyan photochromic color. </p>
-		
-						 </p>Unfortunately, while the green LED of the projector matches well with the magenta deactivation wavelength, the default green LED creates a light output over a broader wavelength range. As a result, while shining green light would deactivate the magenta dye, it would also deactivate large parts of the yellow and cyan dyes.</p>
-		
-						 </p>To limit the wavelength range to only deactivate magenta, we opened up the projector and added a filter in front of the green LED (Semrock Brightline® FF02-529/24-25). To ensure the highest energy output, we placed the filter between the green LED and the collimator (Figure 10). With this modification, we were able to otherwise use the projector as is. </p>
-		
-						 <p><img src="images/projector modification.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
-						 <strong>Figure 10. Modified projector with added optical filter between green LED and collimator. <br>
-						 </strong>
-		
-				 <p><br>
-			 <span class="medium-headline">
-						3. ALGORITHM TO COMPUTE DEACTIVATION TIMES
-						</span>
-					<br>
-					<br>
-		
-					</p>With the modified projector at hand, we can now create a projection image to control the photochromic color chan-nels of each pixel on the physical object.  </p>
-		
-					<b>Effect of Projector Distance on Color Gamut </b><br>
-		
-					</p>When starting our research, we had initially placed the photochromic mixture ink directly in front of the projector, i.e. only a few centimeters away from the lens, which produced the results shown in Figure 5. We found that once we placed the photochromics further away from the projector, i.e. at a projection distance of 30cm to allow the projected image to be in focus, the available color gamut reduced. Figure 11 shows the result acquired when projecting the same R,G,B sequence as in Figure 5 for comparison. Our assumption is that this difference is due to the change in light intensity, which we will explore in more detail in future work. By determining a relationship between projector distance and deactivation time, this could enable us to add ‘projector distance’ as a variable into our system to accommodate different placements of the objects to be re-colored.</p>
-		
-					<b>Naïve approach vs. Optimization algorithm </b><br>
-		
-					</p>In an ideal scenario each LED would deactivate only one color channel, however, as seen in Figure 9, shining light from one of the LEDs also partially deactivates the other two color channels. This has two implications: First, using the photochromic dyes commercially available today, we can achieve only part of the CMY color spectrum (Figure 14). For instance, it is not possible to achieve a fully saturated cyan as deactivating magenta also causes cyan to partially deactivate. Second, a naïve approach that as-sumes that each projected deactivation wavelength (R, G, B), only affects a single photochromic color channel (Figure 4) will not lead to the correct color on the object due to additional effects of the other color channels on the dye. We therefore developed an optimization algorithm that takes into account the effect of overlapping absorption spectra. Figure 11 shows (a) the desired color texture and the results from both (b) the naïve approach and (c) our approximation algorithm, the latter of which leads to a color representation closer to the desired.</p>
-		
-					<p><img src="images/optimization results.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
-						 <strong>Figure 11. (a) Expected result. Results from (b) the naïve approach and (c) our optimization.<br>
-						 </strong>
-		
-						 <b>Deriving the Parameters of the Algorithm </b><br>
-						
-						 </p>Since our algorithm takes into account the effect each projector LED has on each photochromic color channel (i.e. its target photochromic color channel and the side effects on the other two channels), we first had to determine saturation decrease over time for each combination of LED and dye.</p>
-				 
-		
-						 </p>Apparatus and Procedure: To capture the deactivation times of each dye when exposed to each of the wavelengths R, G, B from the projector, we airbrushed cyan, magenta, and yellow coatings onto seperate white cubes. We placed each cube in front of the projector and fully activated the photochromic dye by shining UV light on its surface for 30 s.</p>
-		
-						 </p>We then shone all three deactivation wavelengths red (R), green (G) and blue (B) onto each cube in order to quantify the effect of the projector’s LEDs on each dye. </p>
-		
-						 </p>The saturation level of each projected R, G, B color bar linearily increased from left to right over time until it reached the right edge of the cube (Figure 12). This proce-dure created a color gradient from fully saturated dye (left) to increasingly desaturated dye (right) and intermediate saturations in between. We then extracted the relative satu-ration level by capturing a photo of each cube under white light, converted the photo to the CMY color space, and plotted the saturation per color channel as the relative satu-ration decrease over time.</p> 
-		
-						 <p><img src="images/deactivation speed.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
-						 <strong>Figure 12. Effect of exposure time of R, G, B projector channels on C, M, Y coatings (left = 0s, with time increasing to the right). <br>
-						 </strong>
-		
-		
-						 </p>Result: Figure 13 shows the relative saturation levels over time for each dye and each of the projector’s color channels. While each of the projector’s R, G, B LEDs deactivated its primary photochromic color channel, the deactiva-tion times varied significantly from 32 seconds for the yel-low dye under blue light to 620 seconds for the magenta dye under green light and 800 seconds for the cyan dye under red light. </p>
-		
-						 <p><img src="images/deactivation speed curves.png" alt="mosculpt-runner" width="700" style="padding-bottom:0px; margin-bottom:10px"><br>
-						 <strong>Figure 13. Deactivation times of the photochromic dye per light channel (R, G, B). We consider a dye to be deactivated when it drops below 5% saturation. <br>
-						 </strong>
-		
-						 </p>Computing Deactivation Times: We used the data on relative saturation level over time as input into our approximation algorithm. To minimize the global error rate across all three channels, our algorithm proceeds as follows: Let t=(t_r,t_g,t_b ) be the illumination time of the projector’s color channels, then the estimated color of a coated surface C(t) can be written as:</p>
-		
-						 <p><img src="images/image016.png" alt="mosculpt-runner" width="300" style="padding-bottom:0px; margin-bottom:10px"><br>
-						
-		
-						 <p>Where X ∈C,M,Y are cyan, magenta, yellow at full saturation and  a_j,b_j,c_j  are linear factors on the saturation reduction in relation to the illumination time t per color channel. Let P be the target color, then we want to minimize the expression:<p>
-		
-						<p><img src="images/image021.png" alt="mosculpt-runner" width="150" style="padding-bottom:0px; margin-bottom:10px"><br>
-		
-						</p>We use a gradient descent scheme which can be written as:</p>
-		
-						<p><img src="images/image022.png" alt="mosculpt-runner" width="250" style="padding-bottom:0px; margin-bottom:10px"><br>
-		
-						</p>With γ being the step size. </p>
-		
-						</p>An example of the improvement of our optimization algorithm over the naïve approach was shown in Figure 11. Our greatest enhancement is in the yellow color, a result of our optimization algorithm, which prioritizes the red LED over a combination of the red and green LED (as predicted in Figure 4) to deactivate the cyan and magenta dyes (since the green LED also deactivates the yellow dye).</p>
-		
-				<p><br>
-			 <span class="medium-headline">
-						4. EVALUATING OUR SYSTEM
-						</span>
-					<br>
-					<br>
-		
-					</p>To evaluate our approach, we measured the available color gamut and the maximum resolution of the projected tex-tures.</p>
-		
-					<b>Available Color Gamut </b><br>
-		
-				</p>First, we were interested in the color gamut we could achieve with the photochromic dyes purchased from Yamada Chemicals. To determine this, we placed a white cube coated with the CMY solution and fully activated it with the UV light until the coating appeared black. To sample the available color gamut, we took 5 images at evenly spaced deactivation times across the maximum deactivation length, i.e. for red/green: 1800 s and blue: 45 s. This created 5x5x5 sample images. After each light exposure, we used a camera to capture an image of the resulting outcome. We then converted the image into the CMY color space and extracted the mean value of each color channel using an OpenCV script.</p>
-		
-				</p>Figure 14 shows the captured texture colors of this experiment in the CIExy chromaticity diagram. As can be seen, our color gamut has its greatest impact in the area between the three primary photochromic colors.</p>
-		
-				<img src="images/color gamut.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
-						 <strong>Figure 14. Achievable color gamut of our photochromic coating in the CIE xy chromaticity diagram. <br>
-						 </strong>
-		
-		
-						 <b>Texture Resolution </b><br>
-		
-						 </p>Next, we quantified the texture resolution that can be achieved using the photochromic coating. We projected three black and white checkerboard patterns with varying checkerboard widths (5px, 2px, and 1px width), onto the surface of a coated cube and applied the texture on the cube for 12 minutes until the white checkerboard areas (white = all three R, G, B LEDs on) were fully deactivated. We measured the pixel size of the physical texture using an Olympus SZ61 microscope (Figure 15) and found the pixel measurements to be consistent at 129 um for a single pixel (5px = 647 um, 35px = 257 um, 1px = 129 um).</p>
-		
-						 <p><img src="images/resolution test.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
-						 <strong>Figure 15. Resolution of checkerboard pattern. <br>
-						 </strong>
-		
-							</p>While Figure 15a/b (5px and 2px width) both show a clear checkerboard pattern, the squares start to become indistin-guishable in Figure 15c (1px width). To clarify if the blur at the edges of the individual pixels in Figure 15 stems from the projector being out-of-focus or from subsurface scattering, we ran an additional test: we attached a 1x1 cm square mask on a UV activated cube and projected white light on it, after which we removed the square mask. Examining under a microscope, the edges and corners of the pixels remained sharp indicating that the projector’s lens and focus is the main reason for blur. Thus, while with our current projector system, the maximum resolution we can achieve is 257 um (2px), a better projector could achieve higher texture resolutions. </p>
-		
-		
-							<b>Color Fade Over Time </b><br>
-		
-							</p>The time for a texture to fade depends on the saturation level of the texture being applied to the object. A stronger saturation will take longer to deactivate fully than a lighter saturation. To evaluate the durability in normal lighting conditions, we activated three samples, coated with C, M, and Y colors, with a UV light and placed them under 150 lux illumination (average light intensity of a living room is 100–300 lux). We recorded the time each color took to disappear: the cyan and magenta colors disappeared after 26h and 19h respectively, while the yellow color disap-peared after 5h (Figure 16). Since outside light is stronger than indoor lighting, the dyes deactivate quicker and are therefore more suitable for indoor use. These deactivation times are a limitation in the materials currently commercially available.</p>
-		
-							<p><img src="images/color fading curves.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
-						 <strong>Figure 16. Color fade vs time for cyan, magenta and yel-low dyes under 150 lux illumination. <br>
-						 </strong>
-		
-		
-				<p><br>
-			 <span class="medium-headline">
-						5. END-TO-END SYSTEM TO TRANSFER A TEXTURE
-						</span>
-					<br>
-					<br>
-		
-					
-		
-						 </p>In the last part of this paper, we describe the end-to-end system that allows users to transfer a texture onto a physical object. Figure 17 shows a summary of the system pipe-line.</p>
-		
-							<p><img src="images/end-to-end system.png" alt="mosculpt-runner" width="800" style="padding-bottom:0px; margin-bottom:10px"><br>
-						 <strong>Figure 17. Overview of the end-to-end system. <br></p>
-						 </strong>
-		
-		
-						 <b>Hardware Setup</b><br>
-		
-		
-						 </p>We use a similar hardware setup and component layout as ColorMod: For activation, we use a UV light (Luminus Devices Inc. CBM-40-UV, ~365 nm, 4W) that we automatically turn on/off using a digital controller (PhatLight LED Develop Kits). For deactivation, we use our modified projector (LED DLP projector AAXA M6, 1920x1080 pixels, 1200 Lumens, with added green filter). For 360° projection on the object, we use a rotating platform that is controlled with a stepper motor. The rotating platform has a positioning screw to ensure central placement of the object when rotating. The setup with the above components is shown in Figure 18.</p>
-		
-							<p><img src="images/hardware setup.jpg" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
-						 <strong>Figure 18. Hardware setup.  <br>
-						 </strong></p>
-		
-						 <b>#1 Applying a Virtual Texture to a 3D Model</b><br>
-		
-						 </p>After placing the physical object onto the rotating platform, users load the corresponding 3D model into the 3D editor Blender (Figure 19a). Next, users apply a virtual texture to the digital model using Blender’s texture mapping tools (Figure 19b). Clicking on the ‘Preview’ button converts the texture to the closest match realizable with the available photochromic color space (Figure 19c). To compute this preview texture, we run our optimisation algorithm on the virtual texture and compute the deactivation times t for each pixel. We estimate the resulting physical color by calculating C(t) and then load the newly computed texture onto the 3D model. The user can toggle between the virtual and the preview texture, adjusting colors as required.</p>
-		
-							<p><img src="images/user interface.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
-						 <strong>Figure 19. (a) Loading the 3D model of the object, (b) applying a virtual texture onto the 3D model, (c) computing the preview texture. <br>
-						 </strong></p>
-		
-						 <b>#2 Transferring the Texture onto the 3D Object</b><br>
-		
-						 </p>When users hit the ‘transfer texture’ button, our custom python plug-in for Blender handles the projection mapping. Our system first generates four ray traced projection images by virtually rotating the 3D model in 90° increments to reach all four sides of the object. The plug-in then sends the projection images to a Processing application (via the OSC protocol) that generates the deactivation animations. To create the deactivation animations, the Processing application converts the color values of each pixel in the projection images into deactivation times for each of the projector’s R, G, B color channels. It then computes the optimal deactiva-tion times for each pixel using our optimization algorithm. Our implemention generates this animation in 5-25 seconds per view depending on the size of the object.</p>
-						 
-						 </p>To begin the projection sequence, users hit the ‘Activation’ button to activate the photochromic coating on the object. The rotating platform turns 360°; in 10 steps (36°; increments, 1 min per step, 10 min total). Users then press the ‘Projection’ button to apply the computed R, G, B anima-tions that deactivate the color channels on a per-pixel basis to create the desired color texture (Figure 20). Once the projection on one side of the object is complete, the platform rotates the object by 90° and repeats this process until all the sides have processed. The total time to apply color to the object depends on the object’s shape and the texture being applied (up to 45 min per side). </p>
-		
-							<p><img src="images/transferring texture.jpg" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
-						 <strong>Figure 20. Projecting the deactivation colors onto the 3D object to achieve the desired texture. <br>
-						 </strong></p>
-		
-						 </p>Compensating for Overlap: When projecting a texture onto the object from several sides, parts of the object may be projected onto multiple times. To compensate for this, we compare the intersection points of each ray on the object to the intersection points of all other views. If a hit point is closer than the projected pixel size (129 um), we set this pixel to black, removing any projection on this area.</p>
-		
-						 </p>Compensating for Slanted Edges: The more a surface is slanted, the less light from the projector will hit each target pixel on the surface. As a result, the same deactivating time will reduce saturation more on a perpendicular surface than on a slanted surface. To compensate for this, we calculate the incident angle of each ray on the virtual object and increase the illumination time in relation to this angle (e.g. a 45° angle to the projector’s position increases the illumination time by a factor of 2). We limit the maximal surface angle to 65° in order to limit the total illumination time.</p>
-		
-						 <b>#3 Final result</b><br>
-		
-						 </p>Figure 21 shows the final result of the texture after it has been applied to the photochromic object. The texture shown took 2 hours to apply. Since the texture contains pure yellow, which requires the longest deactivation time, most other textures can be transferred significantly faster. Note that since the texture transfer is done in a black box, no decay due to external light occurs during this process. The (de)activation times could also be significantly decreased by using a stronger projector with more lumen.</p>
-		
-							<p><img src="images/actual texture on photochameleon.jpg" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
-						 <strong>Figure 21. Final result of the texture on the object. <br>
-						 </strong></p>
-		
-							<b>Re-Programming (Repeat Step #1 - #3)</b><br>
-		
-							</p>Objects can be re-colored multiple times, simply by repeat-ing the procedure described above, i.e. the UV light will re-activate all color channels (resulting in a black object), enabling a new texture to be applied through the projector. The zebra texture show in Figure 22 took 1 hour to apply.</p>
-		
-							<p><img src="images/reprogramming new textures.png" alt="mosculpt-runner" width="416" style="padding-bottom:0px; margin-bottom:10px"><br>
-						 <strong>Figure 22. Re-coloring the chameleon (zebra texture) by activating with UV light and applying a new texture. <br>
-						 </strong></p>
-		
-				<p><br>
-			 <span class="medium-headline">
-						APPLICATION SCENARIOS
-						</span>
-					<br>
-					<br>
-		
-					 </p>We demonstrate a range of applications that make use of our ability to reprogram textures on different materials. </p>
-		
-						<b>#1 Day-to-Night Clothing and Adaptable Fashion</b><br>
-		
-						</p>Photochromic shoes, textiles, and accessories could enable users to alter the appearance of their outfits from day to night without the need to carry multiple items. Applying the photochromic coating to a phone case would enable users to apply and change the design or pattern of the casing on a daily basis. Here, have applied the coating to a phone case of an iPhone XR (length: 15.3 cm, width: 7.8 cm) (Figure 23). The patterns on the phone case can be re-programmed. The textures took between 24-40 minutes to apply (top: 24 min, middle: 34 min, bottom: 40 min).</p>
-		
-						 <p><img src="images/photochameleon-phone case.png" alt="mosculpt-runner" width="700" style="padding-bottom:0px; margin-bottom:10px"><br>
-						 <strong>Figure 23. The same phone case re-programmed three times with different textures. <br>
-						 </strong></p>
-							 
-							 </p>To demonstrate the application of our coating onto textiles, Figure 24 shows a women’s size US 6 shoe (length: 24.5 cm) coated with different textures to match different outfits; both textures took 1.5 hours to apply.</p>
-		
-								<p><img src="images/photochameleon-shoes.png" alt="mosculpt-runner" width="700" style="padding-bottom:0px; margin-bottom:10px"><br>
-						 <strong>Figure 24 The same shoe with two different textures to match a user’s daily outfit. <br>
-						 </strong></p>
-		
-		
-						 <b>#2 Product Exploration</b><br>
-		
-						 </p>In a showroom or sales scenario, a re-programmable color-changing coating could enable potential buyers to explore different textures or patterns on a product before making a final choice. Figure 25 demonstrates this by exploring different textures for a car. To realise this vision, we sprayed the coating onto a 1/18 scale model of an Aston Martin Vanquish (length: 26 cm) and projected a range of different textures. A re-programmable coating could also be used within the context of car-sharing among multiple users or to display changing advertisements on the car exterior. The textures shown took 40 min (butterflies) and 60 min (flame) to apply.</p>
-		
-							 <p><img src="images/photochameleon-car model.png" alt="mosculpt-runner" width="700" style="padding-bottom:0px; margin-bottom:10px"><br>
-						 <strong>Figure 25. The same car with two different color textures. <br>
-						 </strong></p>
-		
-		
-						 </p>Other scenarios we envision include large-scale applications, such as entire rooms in which walls or furniture can be re-colored (e.g. using a ceiling mounted UV/projector system); and dynamic physical visualizations (e.g. a 3D printed earth sphere could update during the day to show changes in weather).</p>
-		
-				<p><br>
-			 <span class="medium-headline">
-						LIMITATIONS AND FUTURE WORK
-						</span>
-					<br>
-					<br>
-		
-						 </p>While the contributions we make in this paper extend the capabilities of prior work, there are several improvements that we will address as part of future work. </p>
-		
-						 <b>Creating a Larger Color Gamut</b><br>
-						 </p>The photochromic dyes available on the market are cur-rently not optimal for our approach for multiple reasons: First, among the available photochromic dyes there is no good visual match for the magenta and cyan color channels, therefore we had to approximate these color channels with the closest available dye, which significantly reduced the color gamut. The development of photochromic dyes is an on-going research field in material science. Irie et al., for instance, demonstrated how to create a cyan dye that would potentially be a better candidate for our approach than Yamada Chemical’s blue dye. Second, the available photochromic dyes at present signifanctly overlap in their deactivation spectra, which further reduces the available color gamut since the color channels cannot be controlled independent of one another. Photochromic dyes with narrower absorption spectra would be better suited for our purposes. </p>
-		
-						 <b>Fabrication: Single Material 3D Printing (FDM, SLA): </b><br>
-		
-						 </p>Our approach can turn a single-material process into a multi-color process. While we have shown applications in coat-ing, we can also consider mixing the multi-color photochromic ink into a single roll of filament for fused deposition modelling (FDM) printing, or in resin used for stereo-lithography (SLA) 3D printing. This has the potential to enable multi-color prints at high resolution that are not limited by the number of extrusion heads or the single-resin.</p>
-		
-		
-				<p><br>
-			 <span class="medium-headline">
-						CONCLUSION
-						</span>
-					<br>
-					<br>
-		
-					</p>In this paper, we demonstrated how we can use photo-chromic dyes mixed into a single solution to create re-programmable multi-color textures that are made from a single material. We discussed the properties photochromic dyes need to have in order to achieve a large color gamut (appearance as close as possible to the color channel, minimized overlap in deactivation wavelengths), demonstrated how to create a mixture solution that provides even saturation in each color channel (mixing CMY 1:1:6) and explained how the projector needs to be modified to provide deactivation wavelengths that mostly deactivate a single channel (i.e. by adding filters). Finally, we explained our algorithm to create intermediate colors and provided an end-to-end walkthrough of our system that transfers a vir-tual color texture onto a physical object. For future work, we plan to further increase the capabilities of our system by collaborating with material science researchers to develop improved photochromic dyes and extending our fabrication methods to 3D printing with filaments and resins. </p>
-		
-		
-			 <p><br>
-			 <span class="medium-headline">
-						ACKNOWLEDGEMENTS
-						</span>
-					<br>
-					<br>
-		
-					</p>The authors would like to thank the Engineering and Physi-cal Sciences Research Council (EPSRC grant number EP/N509619/1) for partial funding of this work, Ford Motor Company for the financial support, Prof. Masahiro Irie (Rikkyo University) for sending us photochromic samples, Madeleine Laitz for help with analyzing the absorption spectrum of the photochromic dyes, Cattalyya Nuengsigkapian for help with the preview function, and Tom Buehler for support in video editing. Permission to publish was granted by Ford Motor Company. </p>
-		
-		
-		
+								<p>A more nuanced approach would be to classify specific affordances. Our taxonomy presents a high-level set of affordances for
+									interacting with external and internal contexts. However, creating a wider set of affordance-specific labels presents a trade-off.
+									Some affordances are rare, and most classification methods struggle to label rare events. This calls for a wider set of functionality
+									labels, beyond our taxonomy of external and internal functionality. Visual affordance is a crucial problem in robotics, with new
+									approaches and datasets bringing insights into the domain. One
+									such example is 3DAffordanceNet [10]which contains annotated
+									data for 23 object categories. The essential difference between the
+									curated deep learning datasets and online sharing platforms, is
+									the long-tail distribution of possible designs. Although the classes
+									represented in these datasets are represented in online repositories the open-sharing and creative platform allows users to share novel
+									and unique ideas, which is opposite to the standardization principle
+									of these datasets. Thus, there is a need for novel data collection and
+									analysis methodologies that will allow us to apply deep learning
+									methods to analyze fabrication-oriented data.</p>
 							
+						    </p>
+
+							<p>
+								<span class="small-headline">
+									<strong>Limits of Topological Similarity</strong>
+									</span>
+								
+								<br>
+
+								<p>In addition to limiting our classification to two types of functionality affordances, our classification approach relies on a measure of
+									segment and model similarity that only accounts for topological features. We selected this method because it is robust, computationally
+									efficient, and does not rely on expensive human-generated labels.
+									However, other measures of similarity or a measure that accounts
+									for multiple factors may have produced a more effective classifier.
+									More refined datasets, such as semantic labels of functionality for
+									segments, along with a larger number of models would provide
+									a more robust and informative approach to functionality-aware
+									segmentation.</p>
 							
-							<br><br><br><br>
-						</p>
-						</br>
-	        
+						    </p>
+
+							<p>
+								<span class="small-headline">
+									<strong>Opportunities for Richer Data Sets</strong>
+									</span>
+								
+								<br>
+
+								<p>We can improve our functionality-aware classification by expanding
+									our functionality data set and applying nuanced similarity metrics.
+									However, like any other classification domain, this requires either
+									larger sets of unlabeled real-world data or better labels and metadata for existing samples. Unfortunately, 3D modeling and printing
+									domains do not currently lend themselves to creating these types
+									of data sets. Ideally, we could apply more advanced deep-learning
+									methods to classify functionality, however, to account for the diversity of real-world models, this requires data sets of 3D models
+									that are orders of magnitudes larger than our current data set.</p>
+								
+								<p>There are multiple opportunities to curate or generate functionality information for 3D models. Makers could supply better labels
+									by supplying well-documented source files for their meshes, but
+									this requires a dramatic shift in the practices of these communities. More models are shared every day and new sub-domains of
+									making are emerging with additional labels (e.g., clinical reviews
+									on the NIH 3D print exchange [31]). Alternatively, the creation of
+									datasets for 3D printing [11] and release of novel approaches to 3D
+									model generation [19] presents an opportunity to use latent representations of 3D models to generate meta-data for functionality.</p>
+							
+						    </p>
+
+									</div>
+								</div>
+						</div>
+					    
+						<p>
 
 
-						
+							<span class="medium-headline">
+								CONCLUSION
+								</span>
+							<br>
+							</p>
+						<div title="">
+							<div>
+								<div>
+									
+							<p>In this paper, we propose a new approach to functionality-aware
+								segmentation and classification of 3D models for 3D printing that
+								allows users to modify and stylize 3D models while preserving
+								their functionality. This method relies on an insight gained from
+								a formative study of 3D models sourced from Thingiverse: that
+								functionality can be defined by external and internal contexts. We
+								present our segmentation and classification method and evaluate
+								it using functionality-labeled models from our noisy data set of
+								real-world Thingiverse models. We evaluate the utility of functionality in the context of selective styling of 3D models by building
+								the Style2Fab interface and evaluating it with 8 users. This work
+								speaks more broadly to the goal of working with generative models
+								to produce functional physical objects and empowering users to
+								explore digital design and fabrication.</p>
+									</div>
+								</div>
+						</div>
 	    </div>
 	  </div>
 		
