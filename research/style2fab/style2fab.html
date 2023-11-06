@@ -230,7 +230,7 @@
 									
 									 <img src="images/table-1.png" alt="Table 1: Counts of Thingiverse Designs based on dimensions
 									 of internal and external functionality. Rows reflect external
-									 context and columns reflect internal context." width="700" style="padding-bottom:0px; margin-bottom:10px"/><br>
+									 context and columns reflect internal context." width="600" style="padding-bottom:0px; margin-bottom:10px; margin-left: 70px"/><br>
 								<b>Table 1: Counts of Thingiverse Designs based on dimensions
 									of internal and external functionality. Rows reflect external
 									context and columns reflect internal context.</b>
@@ -278,7 +278,7 @@
 
 					</p>
 
-					<img src="images/equation_1.png" alt="Equation 1" width="700" style="padding-bottom:0px; margin-bottom:10px"/><br>
+					<img src="images/equation_1.png" alt="Equation 1" width="500" style="padding-bottom:0px; margin-bottom:10px; margin-left: 75px;"/><br>
 
 						<p>Once we have extracted the lowest 𝑘 eigenvectors and their corresponding eigenvalues we follow Liu and Zhang’s segmentation method that uses k-means clustering to identify segments spanning from the 𝑛 faces captured by these high-variation eigenvectors. Based on the resulting clusters, we assign each face in the mesh graph to its corresponding segment, resulting in a segmented 3D model.</p>
 
@@ -287,7 +287,7 @@
 
 						<p>We determined that resolution to be 25k (vertices) by segmenting and comparing 100 randomly selected 3D models from our data set. For each mesh, we segmented the remeshed models with 15K, 20K, 25K, 30K, and 35K vertices. We then looked for the lowest resolution that stabilized the predicted number of segments 𝑘. That is, for all higher resolutions, the number 𝑘 did not change. For 88% of models, a 25k resolution stabilized this value. The segmentation at 25K resolution took an average of 72 seconds, while segmentation at 30K resolution took an average of 102 seconds. Figure 3 shows the effect of mesh resolution on the number of models it stabilized and the time it took to complete segmentation.</p>
 
-						<img src="images/mesh_resolution_time.png" alt="Figure 3: Comparison plots of the number of stabilized models (green) and segmentation time (blue) against mesh resolution." width="700" style="padding-bottom:0px; margin-bottom:10px"/><br>
+						<img src="images/mesh_resolution_time.png" alt="Figure 3: Comparison plots of the number of stabilized models (green) and segmentation time (blue) against mesh resolution." width="400" style="padding-bottom:0px; margin-bottom:10px; margin-left: 150px;"/><br>
 						<b>Figure 3: Comparison plots of the number of stabilized models (green) and segmentation time (blue) against mesh resolution.</b>
 						<br></br>
 
@@ -326,7 +326,7 @@
 							 functionality-aware and global styling. A “flexi cat” model
 							 (Thing: 3576952) is shown (a) without styles, (b) with
 							 functionality-aware styles, and (c) functionally broken by
-							 global styles." width="700" style="padding-bottom:0px; margin-bottom:10px"/><br>
+							 global styles." width="275" style="padding-bottom:0px; margin-bottom:10px; margin-left: 220px"/><br>
 						<b>Figure 4: A demonstration of the differences between
 							functionality-aware and global styling. A “flexi cat” model
 							(Thing: 3576952) is shown (a) without styles, (b) with
@@ -338,13 +338,13 @@
 							<strong>Stylization of Segments</strong>
 							</span>
 							<p>
-								We use Text2Mesh [32] to stylize models based on text prompts. Text2Mesh uses a neural network architecture that leverages the CLIP [39] representation. The system considers a 3D model as a collection of vertices, where each vertex has a color channel (RGB) and a 3D position that can move along its vertex normal. Text2Mesh reduces the loss between the 3D model rendering (CLIP representation) from different angles and the CLIP representation of the textual prompt using gradient descent. Text2Mesh makes small manipulations in both the color channel and vertex displacement along the vertex normal for each of the vertices in order to make it look more similar to the text prompt. This allows the system to generate a stylized 3D model that reflects the user’s desired style.</p>
-								<p>This method will stylize the whole mesh and change the topology of the functional segments. In Figure 4a-c, we show that global stylization can render a functional object, in this case, an articulated cat, inoperable. We augment this system by adding an additional step of masking the gradients and setting functional vertices to zero. This allows manipulation of the color and displacement channels while preserving the functional segments of the model. As specified in Text2Mesh [32], we run this optimization for 1500 iterations.
+								We use Text2Mesh to stylize models based on text prompts. Text2Mesh uses a neural network architecture that leverages the CLIP representation. The system considers a 3D model as a collection of vertices, where each vertex has a color channel (RGB) and a 3D position that can move along its vertex normal. Text2Mesh reduces the loss between the 3D model rendering (CLIP representation) from different angles and the CLIP representation of the textual prompt using gradient descent. Text2Mesh makes small manipulations in both the color channel and vertex displacement along the vertex normal for each of the vertices in order to make it look more similar to the text prompt. This allows the system to generate a stylized 3D model that reflects the user’s desired style.</p>
+								<p>This method will stylize the whole mesh and change the topology of the functional segments. In Figure 4a-c, we show that global stylization can render a functional object, in this case, an articulated cat, inoperable. We augment this system by adding an additional step of masking the gradients and setting functional vertices to zero. This allows manipulation of the color and displacement channels while preserving the functional segments of the model. As specified in Text2Mesh, we run this optimization for 1500 iterations.
 							</p>
 
 							<img src="images/figure_external_geometry.png" alt="Figure 5: In the Style2Fab UI, the user (a) loads their model
-							and (b) browses the functionality labels after segmentation." width="700" style="padding-bottom:0px; margin-bottom:10px"/><br>
-							<img src="images/ui-internal-functionality.png" alt="(c) In the case of multi-component models, the user can examine and adjust linked segments between components." width="700" style="padding-bottom:0px; margin-bottom:10px"/><br>
+							and (b) browses the functionality labels after segmentation." width="275" style="padding-bottom:0px; margin-bottom:10px; margin-left: 200px"/><br>
+							<img src="images/ui-internal-functionality.png" alt="(c) In the case of multi-component models, the user can examine and adjust linked segments between components." width="275" style="padding-bottom:0px; margin-bottom:10px; margin-left: 200px"/><br>
 							<b>Figure 5: In the Style2Fab UI, the user (a) loads their model
 								and (b) browses the functionality labels after segmentation.
 								(c) In the case of multi-component models, the user can examine and adjust linked segments between components.</b>
@@ -380,8 +380,8 @@
 							<div>
 
 						<img src="images/table-2.png" alt="Table 2: Participant demographics and years of experience
-						with 3D modeling and printing." width="700" style="padding-bottom:0px; margin-bottom:10px"/><br>
-								<b>Table 2: Participant demographics and years of experience with 3D modeling and printing.</b>
+						with 3D modeling and printing." width="400" style="padding-bottom:0px; margin-bottom:10px; margin-left: 200px"/><br>
+								<b style="margin-left: 140px">Table 2: Participant demographics and years of experience with 3D modeling and printing.</b>
 								<br></br>
 								
 						<p>To evaluate if our functionality-aware segmentation method supports users in separating functional elements in 3D that they did not design, we had eight university students (Table 2) with varied 3D modeling and printing experience segment and stylize 3D models from our Thingiverse data set with and without automatic support from Style2Fab.</p>
@@ -400,8 +400,8 @@
 							<p>In order to understand the differences between the automatic and manual conditions, we compared the time taken to process a model, which included the classification runtime for the automatic condition, and the accuracy and precision of the classification (Figure 6). The time taken by the users was dependent on the complexity of the model, with the single-component model taking the least time, and the multi-component models taking significant time. We conducted a paired one-tailed t-test with 7 degrees of freedom to see if functionality-aware segmentation significantly improved task completion time. Across all types of models, we found a significant improvement in task completion time at the 𝑝 &lt; 0.05 level (Table 3, Figure 6). The greatest effects were on models with greater complexity such as multi-component models and Task-Related models with multiple segments that had external context.</p>
 
 							<img src="images/table-3.png" alt="Table 3: T-test comparison of task completion rates within
-							subjects. All values are significant." width="700" style="padding-bottom:0px; margin-bottom:10px"/><br>
-								<b>Table 3: T-test comparison of task completion rates within
+							subjects. All values are significant." width="500" style="padding-bottom:0px; margin-bottom:10px; margin-left: 120px"/><br>
+								<b style="margin-left: 100px">Table 3: T-test comparison of task completion rates within
 									subjects. All values are significant.</b>
 								<br></br>
 							
@@ -409,7 +409,7 @@
 							
 							<img src="images/Time-spent-graph.png" alt="Figure 6: Box plots show the distribution of task completion
 							times by condition. The more complex the model, the more
-							time users save using the automatic classification of functional segments." width="700" style="padding-bottom:0px; margin-bottom:10px"/><br>
+							time users save using the automatic classification of functional segments." width="500" style="padding-bottom:0px; margin-bottom:10px; margin-left: 120px"/><br>
 								<b>Figure 6: Box plots show the distribution of task completion
 									times by condition. The more complex the model, the more
 									time users save using the automatic classification of functional segments.</b>
@@ -417,15 +417,15 @@
 							
 							<img src="images/annotation-both-functional-aesthetic-manual-automatic.png" alt="Figure 7: Box plots show the distribution of classification
 							accuracy by condition. As the complexity of the model increased, the automatic classification helped users identify
-							functional segments more accurately." width="700" style="padding-bottom:0px; margin-bottom:10px"/><br>
+							functional segments more accurately." width="520" style="padding-bottom:0px; margin-bottom:10px; margin-left: 105px"/><br>
 									<b>Figure 7: Box plots show the distribution of classification
 										accuracy by condition. As the complexity of the model increased, the automatic classification helped users identify
 										functional segments more accurately.</b>
 									<br></br>
 
 							<img src="images/table-4.png" alt="Table 4: T-test comparison of classification accuracy within
-							subjects. All values are significant." width="700" style="padding-bottom:0px; margin-bottom:10px"/><br>
-										<b>Table 4: T-test comparison of classification accuracy within
+							subjects. All values are significant." width="500" style="padding-bottom:0px; margin-bottom:10px; margin-left: 120px"/><br>
+										<b style="margin-left: 100px">Table 4: T-test comparison of classification accuracy within
 											subjects. All values are significant.</b>
 										<br></br>
 							
@@ -469,7 +469,7 @@
 								
 								<br>
 
-								<p>“Medical Making” [25] and “DIY Assistive Technology” [4] are emerging and critical domains for personalized fabrication by nontechnical experts. Social accessibility research [46] shows that considering both the aesthetic and functional features of medical/assistive devices increases their adoption. However, individuals with disabilities and their clinicians may not have the time or expertise to personalize devices [17]. We first demonstrate stylizing a geometrically-complex thumb splint sourced from Thingiverse5 to appear as “A beautiful thumb splint styled like a blue knitted sweater.” Like the participant from Hofmann et al. [17], we wanted the model to blend into the sleeve of a sweater (Figure 8b). Our functionalityaware segmentation method preserved the smooth internal surface that contacts the skin and holes that increase breathability. The exterior is stylized and attractive</p>
+								<p>“Medical Making” and “DIY Assistive Technology” are emerging and critical domains for personalized fabrication by nontechnical experts. Social accessibility research shows that considering both the aesthetic and functional features of medical/assistive devices increases their adoption. However, individuals with disabilities and their clinicians may not have the time or expertise to personalize devices. We first demonstrate stylizing a geometrically-complex thumb splint sourced from Thingiverse5 to appear as “A beautiful thumb splint styled like a blue knitted sweater.” Like the participant from Hofmann et al., we wanted the model to blend into the sleeve of a sweater (Figure 8b). Our functionalityaware segmentation method preserved the smooth internal surface that contacts the skin and holes that increase breathability. The exterior is stylized and attractive</p>
 								
 								<p>Our second example stylizes a tactile graphic of a human heart to apply unique textures to each region of the heart. This would make identifying each region easier for a blind person who accesses the model through touch. Our automatic segmentation and classification method identifies different segments of the heart that can be stylized with different textures (Figure 8e).</p>
 						    </p>
@@ -562,7 +562,7 @@
 									Some affordances are rare, and most classification methods struggle to label rare events. This calls for a wider set of functionality
 									labels, beyond our taxonomy of external and internal functionality. Visual affordance is a crucial problem in robotics, with new
 									approaches and datasets bringing insights into the domain. One
-									such example is 3DAffordanceNet [10]which contains annotated
+									such example is 3DAffordanceNet which contains annotated
 									data for 23 object categories. The essential difference between the
 									curated deep learning datasets and online sharing platforms, is
 									the long-tail distribution of possible designs. Although the classes
@@ -613,9 +613,9 @@
 									by supplying well-documented source files for their meshes, but
 									this requires a dramatic shift in the practices of these communities. More models are shared every day and new sub-domains of
 									making are emerging with additional labels (e.g., clinical reviews
-									on the NIH 3D print exchange [31]). Alternatively, the creation of
-									datasets for 3D printing [11] and release of novel approaches to 3D
-									model generation [19] presents an opportunity to use latent representations of 3D models to generate meta-data for functionality.</p>
+									on the NIH 3D print exchange). Alternatively, the creation of
+									datasets for 3D printing and release of novel approaches to 3D
+									model generation presents an opportunity to use latent representations of 3D models to generate meta-data for functionality.</p>
 							
 						    </p>
 
