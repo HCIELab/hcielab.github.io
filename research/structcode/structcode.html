@@ -111,15 +111,19 @@
 			<br> -->
 
  			<span class="medium-headline">
-<!-- 			Press
+ 			Press
 			</span>
 			</br>
 			</br>
 			<ul>
-				<li><a href="https://news.mit.edu/2023/enhancing-3d-object-tracking-invisible-tagging-system-0815" target="_blank">MIT News</a></li>
+				<li><a href="https://news.mit.edu/2023/structcode-new-way-integrate-data-physical-objects-1018" target="_blank">MIT News</a></li>
+				<li><a href="https://www.hackster.io/news/embedding-data-into-laser-cut-kerfs-c8123eed5a1a" target="_blank">Hackster.io</a></li>
+				<li><a href="https://www.techeblog.com/mit-strutcode-machine-readable-data-laser-cut-objects/" target="_blank">Techeblog</a></li>
+				<li><a href="https://knowridge.com/2023/10/scientists-find-a-new-way-to-integrate-data-with-physical-objects/" target="_blank">Knowridge</a></li>
+				<li><a href="https://www.myscience.ie/news/wire/a_new_way_to_integrate_data_with_physical_objects-2023-mit" target="_blank">myScience</a></li>
+				<li><a href="https://news8plus.com/a-new-way-to-integrate-data-with-physical-objects/" target="_blank">News8Plus</a></li>
 			</ul>
 			</br> 
- -->
 
 
 
@@ -719,47 +723,1040 @@
 
 
 
-	<!-- Project information -->
-	<div class="col-md-8" style="text-align: left;">
+<!-- Project information -->
+<div class="col-md-8" style="text-align: left;">
 		<br>
-	  <h3 class="headline">
-		StructCode: Leveraging Fabrication Artifacts to <br> Store Data in Laser-Cut Objects
+	  	<h3 class="headline">
+			StructCode: Leveraging Fabrication Artifacts to <br> Store Data in Laser-Cut Objects
 		</h3><br>
-  <div title="Page 2">
-    <div>
-      <div>
 
-		<p>
-			<!-- TODO: ADD TEASER IMAGE -->
-			<!-- <img src="./images/uist23-46-fig1.jpg" class="figure"/> -->
-		</p>
+		<figure id="fig1">
+			<img style="width:45%;" src="./images/Fig0-teaser.jpg">
+			<p style="display:none" id="fig002">A room with different objects: a painting frame that says "augment with narration, file folders that say "label individually", a bookshelf that says "provide disassembly instructions", a plant pot that says "keep track and update", and a chair that says " find online and fabricate." A user is holding a phone that says "Plant: kalanchoe", indicating the watering times. Two callouts show zoomed-in views of the living hinge of the pot and the finger joints of the chair top. Different bits (0s, 1s, 2s) are shown on these callouts.</p>
+			<figcaption>
+			<span class="figure-number"><br>Figure 1:</span>
+			<span class="figure-title">StructCode embeds data in the fabrication artifacts of laser-cut objects, such as the patterns of (a) finger joints and (b) living hinges, to augment objects with data. Here, the embedded StructCodes allow narration for a painting and status updates for a potted plant, among others.</span>
+			</figcaption>
+		</figure>
+		<br/>
 
-		
-	        
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-<p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <p>. </p>
-<p>&nbsp;</p>
-      </div>
-      <p>&nbsp;</p>
-		      <p>&nbsp;</p>
-		      <p><br>
-	          </p>
-	    </div>
-	  </div>
-  </div>
-    <p>
-      <br>
-      
-      </br>
-      </br>
-      
-      
-    </div>
+	<div class="abstract">
+		We introduce StructCode, a technique to store machine-readable data in laser-cut objects using their fabrication artifacts. StructCode modifies the lengths of laser-cut finger joints and/or living hinges to represent bits of information without introducing additional parts or materials. We demonstrate StructCode through use cases for augmenting laser-cut objects with data such as labels, instructions, and narration. We present and evaluate a tag decoding pipeline that is robust to various backgrounds, viewing angles, and wood types. In our mechanical evaluation, we show that StructCodes preserve the structural integrity of laser-cut objects.</small> </p>
 	</div>
+
+	<section id="sec-2">
+		<br/>
+		<span class="medium-headline">
+			INTRODUCTION
+		</span>
+		<br/>
+		<br/>
+		<p>Attached to objects for identification, tags are an important part of our everyday lives and used for many applications in packaging&nbsp;[Wang et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0055" data-original-title="" title="" id="auto-BibPLXBIB00551">2016</a>], shipping&nbsp;[Schmitz et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0046" data-original-title="" title="" id="auto-BibPLXBIB00462">2018</a>], robotics&nbsp;[Zhao et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0063" data-original-title="" title="" id="auto-BibPLXBIB00633">2009</a>], and manufacturing &nbsp;[Rivers et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0043" data-original-title="" title="" id="auto-BibPLXBIB00434">2012</a>]. Tagging 3D objects without electronics&nbsp;[Yamaoka et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0062" data-original-title="" title="" id="auto-BibPLXBIB00625">2019</a>] usually involves sticking 1D barcodes and QR codes onto them&nbsp;[Holmquist <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0025" data-original-title="" title="" id="auto-BibPLXBIB00256">2006</a>] or carving, printing, or engraving the code patterns directly onto their surfaces&nbsp;[Matusik and Konakovic&nbsp;Lukovic <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0035" data-original-title="" title="" id="auto-BibPLXBIB00357">2023</a>; Ozdemir and Doubrovski <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0040" data-original-title="" title="" id="auto-BibPLXBIB00408">2023</a>; Song et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0048" data-original-title="" title="" id="auto-BibPLXBIB00489">2018</a>]. Even though these approaches are relatively low-cost, the barcodes may take away the attention from the physical object itself due to its obtrusiveness, and are typically not as durable as other tags like RFID&nbsp;[McCathie <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0036" data-original-title="" title="" id="auto-BibPLXBIB003610">2004</a>; Omron <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0039" data-original-title="" title="" id="auto-BibPLXBIB003911">2015</a>].</p>
+		<p>To achieve unobtrusive passive tags that do not require object modification, researchers investigated ways to use the inherent characteristics of objects, which may manifest in the form of either naturally occurring or engineered features. As an example of natural unobtrusive tags, <em>SensiCut</em>&nbsp;[Dogan et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0010" data-original-title="" title="" id="auto-BibPLXBIB001012">2021</a>] senses the micron-scale surface structure of materials using speckle sensing to identify the material's type. Similarly, <em>Verifiable Smart Packaging</em>&nbsp;[Wang et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0055" data-original-title="" title="" id="auto-BibPLXBIB005513">2016</a>] uses radio-frequency signals that penetrate through an object's exterior to identify the object by its internal structure. The second approach, engineered unobtrusive tags, offers more flexibility to define how the tag should by embedded with the object. For example, in agriculture, researchers developed tamper-evident tags using biodegradable silk particles, allowing for seed traceability and anti-counterfeiting&nbsp;[Sun et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0050" data-original-title="" title="" id="auto-BibPLXBIB005014">2023</a>]. In 3D printing, <em>G-ID</em>&nbsp;[Dogan et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0011" data-original-title="" title="" id="auto-BibPLXBIB001115">2020</a>] uses the patterns that appear as a byproduct of the slicing process as unobtrusive tags. However, it is only possible to embed an identifier, and not a custom array with multiple characters. Thus, users are unable to add data represented in character arrays.</p>
+		<p>In this paper, the question that prompted our research was: Can we make use of existing fabrication artifacts of objects to store metadata in them? Our goal is two-fold: (1) not introducing additional materials, parts, or features to the object, but simply <em>make use of its existing visual structures that arise as a byproduct of the fabrication process</em>. (2) The added data should be <em>decoded from regular camera images</em> so the meta-information can be easily used to augment the objects, e.g., in augmented reality (AR) applications.</p>
+		<p>Our proposed solution, <em>StructCode</em>, slightly varies fabrication artifacts, i.e., the patterns resulting from joints, which does not change the main object geometry, but can still be detected from camera images. Thus, <em>StructCode</em> does not add any new features to the object, but instead exploits the structures that are inevitable artifacts of the fabrication process. While this idea can be applied using many different manufacturing processes and materials that allow for the customization of individual tangibles (to embed individual tags), for the scope of this project we focus on <em>laser cutting</em>. Laser cutting is particularly suitable because it allows the rapid fabrication of sturdy, functional, and large-scale objects&nbsp;[Baudisch et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0005" data-original-title="" title="" id="auto-BibPLXBIB000516">2019</a>; Dogan et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0010" data-original-title="" title="" id="auto-BibPLXBIB001017">2021</a>]. These typically contain many visual artifacts across their surfaces due to their finger joints and living hinges. <em>StructCode</em> subtly changes the widths of these elements to represent machine-readable information. The <em>StructCodes</em> can be read as part of existing AR pipelines to augment the user's view with information relevant to the tangible objects that they are interacting with.</p>
+		<p>Figure&nbsp;<a class="fig" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#fig1">1</a> shows how laser-cut objects use their existing joints to store meta-information, such as labels (e.g., used to retrieve watering updates for the plant), context (e.g., to access the digital model of the chair), disassembly instructions (e.g., to recycle the bookshelf), and narration (e.g., explanatory video for the artwork on the wall). <em>StructCode</em> achieves this by modifying the lengths of laser-cut finger joints and living hinges, which are inherent artifacts of commonly laser-cut objects. The modified lengths represent different bits while ensuring the codes are easy to capture with a mobile camera. Because <em>StructCodes</em> are an inherent part of the objects, they cannot be easily removed without causing damage to the object. Compared to other unobtrusive tagging methods in HCI, which use additional equipment such as infrared cameras&nbsp;[Dogan et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0014" data-original-title="" title="" id="auto-BibPLXBIB001418">2022b</a>; Willis and Wilson <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0059" data-original-title="" title="" id="auto-BibPLXBIB005919">2013</a>], <em>StructCode</em> only requires a conventional RGB camera for detection, and thus can be used on off-the-shelf mobile devices and headsets.</p>
+		<p>While this paper demonstrates the idea of opportunistic data embedding for the example of laser-cut objects, we discuss how it can be generalized to other types of fabricated objects in the future in Section&nbsp;<a class="sec" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#sec-28">9</a>. Our contributions can be listed as follows:</p>
+		<ul class="list-no-style">
+		<li id="list1" label="•">An unobtrusive and integrated tagging method that embeds <em>data</em> in the existing <em>fabrication artifacts</em> of objects, as demonstrated for laser cutting, and only requires <em>a standard camera</em> for detection.<br></li>
+		<li id="list2" label="•">A tag decoding pipeline that is robust to various backgrounds, viewing angles, and wood types.<br></li>
+		<li id="list3" label="•">A set of applications showing how this opportunistic embedding can enrich tangible interactions with laser-cut objects.<br></li>
+		<li id="list4" label="•">A mechanical evaluation illustrating that the addition of StructCodes maintains the overall integrity of objects.<br></li>
+		</ul>
+	</section>
+
+	<section>
+		<br/>
+		<span class="medium-headline">
+			RELATED WORK
+		</span>
+		<br/>
+		<br/>
+
+					
+			<p>Embedding metadata, hyperlinks, and related documentation within the physical world can provide meaningful contextualization and allows for sharing of information [Ettehadi et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0016" data-original-title="" title="" id="auto-BibPLXBIB001620">2021</a>]. This has been explored for photographs&nbsp;[Tancik et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0051" data-original-title="" title="" id="auto-BibPLXBIB005121">2020</a>], font characters&nbsp;[Xiao et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0060" data-original-title="" title="" id="auto-BibPLXBIB006022">2018</a>], charts&nbsp;[Fu et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0019" data-original-title="" title="" id="auto-BibPLXBIB001923">2021</a>], documents&nbsp;[Dogan et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0013" data-original-title="" title="" id="auto-BibPLXBIB001324">2023b</a>; Want et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0056" data-original-title="" title="" id="auto-BibPLXBIB005625">1999</a>], and textiles&nbsp;[Zhu et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0065" data-original-title="" title="" id="auto-BibPLXBIB006526">2023</a>]. In this section, we review different types of tags for three-dimensional physical objects specifically and categorize the approaches based on where the tag is located on the object, how much data it can store, and how complex the associated fabrication and detection processes are. Table&nbsp;<a class="tbl" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#tab1">1</a> summarizes the capabilities of StructCodes in the context of previous works.
+			</p><div class="table-responsive" id="tab1">
+			<div class="table-caption">
+			<span class="table-number">Table 1:</span>
+			<span class="table-title">Comparison of previous approaches, including (a) surface and (b) interior tag embedding, to (c) StructCodes.</span>
+			</div>
+			<table class="table">
+			<tbody>
+			<tr>
+			<td style="text-align:left;">
+			</td><td style="text-align:left;border-right: 2pt solid #000000;">location</td>
+			<td colspan="4" style="text-align:left;background-color:#F3F3F3;border-right: 2pt solid #000000;"><strong>(a)</strong> surface</td>
+			<td colspan="3" style="text-align:left;background-color:#F3F3F3;border-right: 2pt solid #000000;"><strong>(b)</strong> interior</td>
+			<td style="text-align:left;background-color:#F3F3F3;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;"><strong>(a)</strong> surface +</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;"><strong>(b)</strong> interior</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="background-color:#F3F3F3;border-right: 2pt solid #000000;"><strong>(c)</strong> structure<strong>&nbsp;</strong></td>
+			</tr>
+			<tr style="border-bottom: 2pt solid #000000;">
+			<td style="text-align:left;">
+			</td><td style="text-align:left;border-right: 2pt solid #000000;">&nbsp;</td>
+			<td style="text-align:left;background-color:#F3F3F3;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;"><strong>LayerCode</strong></td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">(visual)</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;background-color:#F3F3F3;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;"><strong>LayerCode</strong></td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">(NIR-based)</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;background-color:#F3F3F3;border-right: 2pt solid #000000;"><strong>Seedmarkers</strong></td>
+			<td style="text-align:left;background-color:#F3F3F3;border-right: 2pt solid #000000;"><strong>ObjGen</strong></td>
+			<td style="text-align:left;background-color:#F3F3F3;border-right: 2pt solid #000000;"><strong>AirCode</strong></td>
+			<td style="text-align:left;background-color:#F3F3F3;border-right: 2pt solid #000000;"><strong>InfraStructs</strong></td>
+			<td style="text-align:left;background-color:#F3F3F3;border-right: 2pt solid #000000;"><strong>InfraredTags</strong></td>
+			<td style="text-align:left;background-color:#F3F3F3;border-right: 2pt solid #000000;"><strong>G-ID</strong></td>
+			<td style="background-color:#F3F3F3;border-right: 2pt solid #000000;"><strong>StructCodes</strong></td>
+			</tr>
+			<tr style="border-bottom: 2pt solid #000000;">
+			<td style="text-align:left;">
+			</td><td style="text-align:left;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">Fabrication</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">method</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;border-right: 2pt solid #000000;">3D printing</td>
+			<td style="text-align:left;border-right: 2pt solid #000000;">3D printing</td>
+			<td style="text-align:left;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">3D printing or</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;"><strong>laser cutting</strong></td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;border-right: 2pt solid #000000;"><strong>laser cutting</strong></td>
+			<td style="text-align:left;border-right: 2pt solid #000000;">3D printing</td>
+			<td style="text-align:left;border-right: 2pt solid #000000;">3D printing</td>
+			<td style="text-align:left;border-right: 2pt solid #000000;">3D printing</td>
+			<td style="text-align:left;border-right: 2pt solid #000000;">3D printing</td>
+			<td><strong>laser cutting</strong></td>
+			</tr>
+			<tr style="border-bottom: 2pt solid #000000;">
+			<td style="text-align:left;">
+			</td><td style="text-align:left;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">No new feature</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">additions necessary?</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">add differently</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">colored layers</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;background-color:#B6D7A8;border-right: 2pt solid #000000;">✓</td>
+			<td style="text-align:left;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">add visual blobs</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">engrave</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">visual barcodes</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">insert air gaps</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">insert</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">air gaps</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">insert tag of</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">different material</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;background-color:#B6D7A8;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">✓</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="background-color:#B6D7A8;border-right: 2pt solid #000000;">✓</td>
+			</tr>
+			<tr style="border-bottom: 2pt solid #000000;">
+			<td style="text-align:left;">
+			</td><td style="text-align:left;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">Accessible and</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">easy fabrication</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;background-color:#B6D7A8;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">✓</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">needs modified</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">SLA printer</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;background-color:#B6D7A8;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">✓</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;background-color:#B6D7A8;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">✓</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">object needs to be</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">partitioned and</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">printed&nbsp;separately</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">support material</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">inside&nbsp;needs to</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">be&nbsp;washed away</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">multi-material</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">printing with</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">IR-PLA</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;background-color:#B6D7A8;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">✓</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="background-color:#B6D7A8;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">✓</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			</tr>
+			<tr style="border-bottom: 2pt solid #000000;">
+			<td style="text-align:left;">
+			</td><td style="text-align:left;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">Carries data?</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">(code capacity)</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;background-color:#B6D7A8;border-right: 2pt solid #000000;">✓</td>
+			<td style="text-align:left;background-color:#B6D7A8;border-right: 2pt solid #000000;">✓</td>
+			<td style="text-align:left;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">used for</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">ID only</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;background-color:#B6D7A8;border-right: 2pt solid #000000;">✓</td>
+			<td style="text-align:left;background-color:#B6D7A8;border-right: 2pt solid #000000;">✓</td>
+			<td style="text-align:left;background-color:#B6D7A8;border-right: 2pt solid #000000;">✓</td>
+			<td style="text-align:left;background-color:#B6D7A8;border-right: 2pt solid #000000;">✓</td>
+			<td style="text-align:left;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">used for</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">ID only</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="background-color:#B6D7A8;border-right: 2pt solid #000000;">✓</td>
+			</tr>
+			<tr style="border-bottom: 2pt solid #000000;">
+			<td style="text-align:left;">
+			</td><td style="text-align:left;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">Multiple codes</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">on the same</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">object possible?</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;border-right: 2pt solid #000000;">1 tag per object</td>
+			<td style="text-align:left;border-right: 2pt solid #000000;">1 tag per object</td>
+			<td style="text-align:left;background-color:#B6D7A8;border-right: 2pt solid #000000;">✓</td>
+			<td style="text-align:left;background-color:#B6D7A8;border-right: 2pt solid #000000;">✓</td>
+			<td style="text-align:left;background-color:#B6D7A8;border-right: 2pt solid #000000;">✓</td>
+			<td style="text-align:left;background-color:#B6D7A8;border-right: 2pt solid #000000;">✓</td>
+			<td style="text-align:left;background-color:#B6D7A8;border-right: 2pt solid #000000;">✓</td>
+			<td style="text-align:left;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">1 tag per</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">object</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="background-color:#B6D7A8;border-right: 2pt solid #000000;">✓</td>
+			</tr>
+			<tr style="border-bottom: 2pt solid #000000;">
+			<td style="text-align:left;">
+			</td><td style="text-align:left;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">Can use existing</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">RGB cameras on</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">phones/headsets?</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;background-color:#B6D7A8;border-right: 2pt solid #000000;">✓</td>
+			<td style="text-align:left;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">needs to be read</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">under sunlight</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">with a NIR filter</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;background-color:#B6D7A8;border-right: 2pt solid #000000;">✓</td>
+			<td style="text-align:left;background-color:#B6D7A8;border-right: 2pt solid #000000;">✓</td>
+			<td style="text-align:left;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">needs a</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">projector</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">needs</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">Terahertz</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">scanner</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">needs</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">IR camera</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;border-right: 2pt solid #000000;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">needs a light</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">source in&nbsp;contact</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">with&nbsp;the object</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="background-color:#B6D7A8;border-right: 2pt solid #000000;">✓</td>
+			</tr>
+			</tbody>
+			</table>
+	</section>
+
+
+	<section>
+		<br/>
+		<span class="medium-headline">
+			EMBEDDING DATA IN STRUCTCODES
+		</span>
+		<br/>
+		<br/>
+		<p>In this section, we discuss how to physically embed the code into existing laser-cut structures and which encoding scheme we use for StructCodes. Our goal is to be able to store custom text (e.g., sentences or website URLs).</p>
+			<section id="sec-8">
+			<div class="title-info">
+				<span class="small-headline">
+				<b>3.1 Identifying Features Suitable for StructCodes</b>
+				</span>
+			</div>
+			<p>To better understand how to embed information in laser-cut objects’ artifacts, we surveyed what joints are used in their structure and which of these are suitable to be leveraged as a StructCode. We considered the top 100 laser cutting projects on the popular online repository <em>Instructables</em><a class="fn" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#fn1" id="foot-fn1" data-original-title="" title=""><sup>1</sup></a> and classified the identified joints in objects. If an object contained more than one joint type, we took into account all of them.</p>
+			<p>In total, 58% of projects had at least one type of joint. We found four main types of joints contained in the laser-cut objects: finger joints (26%), mortise and tenon joints (16%), slot joints (8%), and living hinges (8%). We count living hinges as a type of joint because under <em>joints</em>, we consider any connection between two planes in the laser-cut model. These joint types can also be commonly found in the research community, e.g., finger joints in <em>Enclosed</em>&nbsp;[Weichel et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0058" data-original-title="" title="" id="auto-BibPLXBIB005860">2013</a>], <em>CutCAD</em>&nbsp;[Heller et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0024" data-original-title="" title="" id="auto-BibPLXBIB002461">2018</a>], and <em>Fresh Press Modeler</em>&nbsp;[Chen and Sass <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0008" data-original-title="" title="" id="auto-BibPLXBIB000862">2016</a>], slot joints in <em>FlatFitFab</em>&nbsp;[McCrae et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0037" data-original-title="" title="" id="auto-BibPLXBIB003763">2014</a>], <em>SketchChair</em>&nbsp;[Saul et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0045" data-original-title="" title="" id="auto-BibPLXBIB004564">2010</a>], and <em>Planar Pieces</em>&nbsp;[Schwartzburg and Pauly <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0047" data-original-title="" title="" id="auto-BibPLXBIB004765">2013</a>].</p>
+			<p>Out of these four joint types, we identify <strong>finger joints</strong> and <strong>living hinges</strong> as most suitable for illustrating the concept of StructCodes. Both contain repeating elements, i.e., finger joints have individual fingers repeated along the edges of a plate and living hinges are made up of repeated individual lines. They are both on the outside surface of the object, i.e., visible to the camera. Living hinges form a well-defined shape that can be tightly enclosed by a bounding rectangle. While finger joints can also be applied to non-rectangular parts, they are most common on rectangular shapes (73.1% of the joint projects had joints on rectangular plates). Both structures offer large encoding capacity; particularly, living hinges have many line cuts that could be used as bits.</p>
+			</section>
+			<section id="sec-9">
+			<div class="title-info">
+				<span class="small-headline">
+					<b>3.2 Structural Embedding of Data Bits</b>
+				</span>
+			</div>
+			<p>As shown in Figure&nbsp;<a class="fig" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#fig3">3</a>, the identified structures typically contain material interleaved with cuts, i.e., gaps. For instance, in finger joints, the fingers are interleaved with cut outs that match the fingers of the neighboring plate, and in living hinges, the sheet is cut at specific distances to make the material bendable.</p>
+			<p>To encode a message, we can either vary the length of the <em>material</em> (<em>fingers</em> of joints or <em>links</em> of hinges) or the length of the <em>gaps</em> between the fingers or between the links. Below we outline how we embed the codes for each of the two structural element types.
+			</p><figure id="fig3">
+			<img src="./images/scf23-1-fig3.jpg" class="img-responsive" alt="Figure 3" aria-describedby="fig004">
+			<p style="display:none" id="fig004">(a) A box with finger joints on its edges. A zoom out showing the gaps and fingers in these joints, with their widths marked. (b) A box with a living hinge on one of its sides. The links between the hinge cuts are marked.</p>
+			<figcaption>
+			<span class="figure-number">Figure 3:</span>
+			<span class="figure-title">General design of (a) finger joints and (b) living hinges. To embed bits, we resize both the fingers and gaps in the finger joints, but only the links in the living hinges.</span>
+			</figcaption>
+			</figure>
+			<p></p>
+			<p><em>Finger joints</em>. To embed StructCodes into finger joints, we modify both the widths of the individual fingers and the widths of the gaps between the fingers, as labeled in Figure&nbsp;<a class="fig" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#fig3">3</a> a (i.e., <em>d</em><sub>1</sub>, <em>d</em><sub>2</sub>, <em>d</em><sub>3</sub>,...). We did not consider modifying the depth of the fingers because the depth has to be the same as the sheet thickness to ensure properly interlocking plates. To maintain the structural integrity of the joints, modifications to the widths of the elements (i.e., fingers or gaps) should be minimized to be as close to the original width as possible while being distinguishable by the camera and distributing evenly over the plate length (see Section&nbsp;<a class="sec" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#sec-19">6.1</a>).</p>
+			<p><em>Living hinges</em>. There are two ways to embed StructCodes into living hinges, either by modifying the size of the individual links, the widths of the hinge gaps (i.e., the vertical cuts between the links), or both as shown in Figure&nbsp;<a class="fig" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#fig3">3</a> b. To ensure that the hinge can be bent into the desired curved configuration after laser cutting, the links have to be vertically aligned. Therefore, we only modify the lengths of the <em>links</em>. Furthermore, since the links are typically shorter than the gaps, they are less prone to warping when comparing the lengths against each other and thus more suitable for our purposes. This is because the links are situated in a smaller local region, which allows the projection to the image plane to maintain the ratio of distances&nbsp;[Maia et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0034" data-original-title="" title="" id="auto-BibPLXBIB003466">2019</a>]. To ensure the structural integrity, we chose lengths that are as close to the original as possible while being distinguishable by the camera (see Section&nbsp;<a class="sec" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#sec-20">6.2</a>).
+			</p>
+			</section>
+			<section id="sec-10">
+				<div class="title-info">
+					<span class="small-headline">
+						<b>3.3 Encoding Scheme</b>
+					</span>
+				
+				</div>
+			<p>StructCode employs a base 3 (ternary) encoding scheme<a class="fn" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#fn2" id="foot-fn2" data-original-title="" title=""><sup>2</sup></a>, i.e., it uses the bits <tt>0</tt>, <tt>1</tt>, and <tt>2</tt>. This is represented in the physical code as a narrower element ("<tt>0</tt>"), a medium element ("<tt>1</tt>"), and a wider element ("<tt>2</tt>"). Four elements, i.e., four bits, represent one character. The different combinations of element widths that make up the four bits can generate up to 81 different variations, which allows to embed 81 different character types, including 62 alphanumeric characters and 18 special characters for strings that can include URLs. The remaining bit combination is used as the start/end sequence, which is asymmetric ("<tt>0120</tt>"). This allows us to identify where the code starts and thus helps to find the location in the captured image where we need to begin decoding. In addition, since the start/end sequence contains the <tt>0</tt>, <tt>1</tt>, and <tt>2</tt> bits, it makes it easier for us to detect the widths of the narrow, medium, and wide elements. We chose the base 3 encoding scheme rather than a base&nbsp;2 scheme (only <tt>0</tt> and <tt>1</tt>, such as in conventional barcodes) as it allows us to increase the amount of information we can embed in the same number of elements. We did not go up to base 4 or higher in order not to sacrifice subtlety (Section&nbsp;<a class="sec" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#sec-28">9</a>). If a bit string is relatively short and the plate or hinge has a large area, our tool automatically repeats the string throughout the structure to achieve a more even look.</p>
+			<p><em>Finger joints</em>. The bit sequence is encoded in a circular fashion beginning at one of the four corners of a rectangular plate so that it covers its whole perimeter. When investigating the average number of joints used in rectangular plates on <em>Instructables</em>, we found that the ones that have joints on all four sides had on average a total of 50.3 fingers and gaps (std=33.6). By varying both the finger and the gap, this allows us to embed 7 characters with a base 2 scheme, or 12 characters with a base 3 scheme, a capacity sufficient to store longer URLs using shortened URLs (similar to regular QR codes). For instance, <a class="link-inline force-break" href="http://t.ly/aNPf">t.ly/aNPf</a>
+			with 9 characters is the shorted version of a 39-character <em>kyub</em> link to a 3D model.</p>
+			<p><em>Living hinges</em>. A row of columns is encoded from left to right, and an individual column goes top to bottom. As an example, in Figure&nbsp;<a class="fig" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#fig3">3</a> b, the first column is read from top to bottom (<em>d</em><sub>1, 1</sub>, <em>d</em><sub>1, 2</sub>, <em>d</em><sub>1, 3</sub>), and then the second column is read (<em>d</em><sub>2, 1</sub>, <em>d</em><sub>2, 2</sub>,...). We found that the average number of links in two-dimensional hinges from the <em>Instructables</em> dataset is 85.7 (std=43.1), excluding the hinges that are completely circular and thus would not fit in a single camera frame. This allows for a data capacity of 21 characters using our base 3 scheme. Thus, we conclude that compared to finger joints, living hinges usually fit longer StructCodes because they have more repeating elements.</p>
+			</section>
+			</section>
+			<section id="sec-11">
+			<div class="title-info">
+			<h2>
+	</section>
+
+
+	<section>
+		<br/>
+		<span class="medium-headline">
+			END-TO-END WORKFLOW
+		</span>
+		<br/>
+		<br/>
+
+		<p>We next describe how a user can embed StructCodes into their laser cut object. Our workflow is designed to work with laser-cut objects made in the 3D editor <em>kyub</em>&nbsp;[Baudisch et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0005" data-original-title="" title="" id="auto-BibPLXBIB000567">2019</a>] or 2D models (.svg) from other sources imported into <em>kyub</em> using <em>assembler<sup>3</sup></em>&nbsp;[Roumen et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0044" data-original-title="" title="" id="auto-BibPLXBIB004468">2021</a>]. Users import the project from <em>kyub</em> as a 2D file into our Web-based tool to embed StructCodes in it. After fabricating the object in the laser cutter, the user can detect the code using our mobile application.</p>
+			<section id="sec-12">
+				<div class="title-info">
+					<span class="small-headline">
+						<b>4.1 User Interface for Embedding StructCodes</b></h3>
+					</span>
+			</div>
+			<p>Once the user has imported their <em>kyub</em> object into our tool, they click on the <em>Identify compatible structures</em> button in the tool (Figure&nbsp;<a class="fig" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#fig4">4</a>), which marks the jointed plates and hinges that allow embedding codes. In our walkthrough, the user is making a box and the StructCode tool shows that the two rectangular plates of the box and the one with the living hinge can be used to embed a code. It also reminds the designer to choose a structure that is facing towards the user when they take a photo of it. Since the hinge pattern on the top part of the object is most visible, the designer chooses it for the StructCode.</p><figure id="fig4">
+			<img src="./images/scf23-1-fig4.jpg" class="img-responsive" alt="Figure 4" aria-describedby="fig005">
+			<p style="display:none" id="fig005">(a) A software user interface showing a 2D cutting file, which has several plates. The joints and living hinge are marked. A popup window has "Red Oak" entered into its text box. (b) A mobile phone pointed at the laser-cut box, the application shows the message "Red Oak".</p>
+			<figcaption>
+			<span class="figure-number">Figure 4:</span>
+			<span class="figure-title">Workflow for encoding and decoding information. (a) After the tool highlights the compatible structures, the user selects the hinge and encodes <em>"Red Oak"</em>. (b) They use the StructCode mobile application to decode the message.</span>
+			</figcaption>
+			</figure><p></p>
+			<p>Once we select one of the structures, the tool shows how many characters can be embedded in it based on its number of joints or lines in the hinge pattern, e.g., that the selected hinge can embed up to 15 characters in it. In this example, we want to embed a StructCode that can later help us identify which material the object was laser cut from, i.e., red oak plywood. We type in "Red Oak" which is within our character limit (Figure&nbsp;<a class="fig" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#fig4">4</a> a) and as a result, the tool modifies the hinge cuts. After embedding this code, users have the option to also add more codes into the other structural elements of the object. In our case, we do not need to embed additional messages, so we leave all other structural elements as they are.</p>
+			<p>Finally, the user exports the laser-cut design with the embedded StructCodes as an SVG file and send it to the laser cutter's software. After fabrication, the user assembles the parts using the instructions generated by <em>kyub</em>. Our tool preserves the plate numbers from <em>kyub</em> to facilitate the assembly process.</p>
+			</section>
+			<div class="title-info">
+				<span class="small-headline">
+					<b> Mobile Interface for Reading StructCodes</b>
+				</span>
+			</div>
+			<p>The StructCode mobile application is used for decoding data embedded in objects. To do so, the user points their phone at the structure as shown in Figure&nbsp;<a class="fig" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#fig4">4</a> b. The mobile application automatically starts capturing images and processes them to decode the message. After enough images are taken to ensure correct decoding, the app displays the encoded message, i.e., in our case "Red Oak". The decoded information can be used to augment various mobile experiences, which are illustrated in Section&nbsp;<a class="sec" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#sec-14">5</a>.
+			</p>
+			</section>
+	</section>
+
+
+	<section>
+		<br/>
+		<span class="medium-headline">
+			APPLICATIONS
+		</span>
+		<br/>
+		<br/>
+
+		<p>We demonstrate how StructCodes enriches object interactions with data, including identifiers for labels, object context, such as instructions, as well as overlaid media, such as narration.</p>
+		<section id="sec-15">
+		<div class="title-info">
+				<span class="small-headline">
+					<b>5.1 Embedding Identifiers for Static or Dynamic Labels</b>
+				</span>
+		</div>
+		<p>Users can add identifiers to objects which allow static or dynamic labels for the specific use cases of the objects.</p>
+		<p><em>Static labels</em>. As shown in Figure&nbsp;<a class="fig" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#fig5">5</a> a, a set of office folders contain various personal documents (e.g., <em>personal finances</em> or <em>visa documentation</em>) that the owner would rather not have visibly shown. The user embeds a StructCode into the finger joints of the folder's front plates. Thus, the information is only visible to the user in AR and otherwise the folder looks unlabeled. For the most sensitive tags, the mapping of code to label can be encrypted and available to that user only.</p>
+		<p><em>Dynamic labels</em>. The embedded identifiers can be also used for dynamic labels, i.e., status updates. In the example shown in Figure&nbsp;<a class="fig" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#fig5">5</a> b, the designer is creating a plant pot that lets the user pull up an online dashboard to keep track of the plant's health (i.e., watering, trimming the branches, fertilizing). The pot has an identifier embedded into its living hinges as StructCodes. When the designer leaves for vacation, they ask their friends to take care of the plants. StructCode allows the friend to identify the plant and retrieve its recent status, e.g., that it needs to be watered today.
+		</p><figure id="fig5">
+		<img src="./images/scf23-1-fig5.jpg" class="img-responsive" alt="Figure 5" aria-describedby="fig006">
+		<p style="display:none" id="fig006">(a) Document folders have embedded labels that are only shown in augmented reality to the user: Finances, Passport, Manuscript 1. (b) A plant pot and a mobile phone showing the label: “plant: kalanchoe,” and its watering times. (c) A person watering the plant.</p>
+		<figcaption>
+		<span class="figure-number">Figure 5:</span>
+		<span class="figure-title">(a) Document folders with encoded personal labels, which the user views in AR to retrieve the right one. (b, c) Status updates inform the user about when the plant needs watering.</span>
+		</figcaption>
+		</figure>
+		<p></p>
+		</section>
+		<section id="sec-16">
+			<div class="title-info">
+				<span class="small-headline">
+					<b>5.2 Embedding Context: Resources and Instructions</b>
+				</span>
+		</div>
+		<p>StructCodes allow embedding references to the object's context, such as accessing the digital model, on-demand renewal, and (dis)-assembly instructions.</p>
+		<p><em>Accessing the digital model</em>. As shown in Figure&nbsp;<a class="fig" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#fig6">6</a> a, the laser-cut chair contains a shortened link to its <em>kyub</em> page. Users who see the chair and like the design can scan the StructCode to download its files online and make a copy for themselves.</p>
+		<p><em>On-demand renewal</em>. As shown in Figure&nbsp;<a class="fig" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#fig6">6</a> b, the user reorders cookies by simply capturing its container, which has the reorder link encoded as a StructCode. This allows users to access and renew supplies whenever needed.</p><figure id="fig6">
+		<img src="./images/scf23-1-fig6.jpg" class="img-responsive" alt="Figure 6" aria-describedby="fig007">
+		<p style="display:none" id="fig007">(a) A person taking a photo of the chair. The phone screen shows a link, which takes the user to the fabrication page. (b) A user clicking “Add to cart” button for a cookie on a mobile app, a cookie box is seen in the background of the photo.</p>
+		<figcaption>
+		<span class="figure-number">Figure 6:</span>
+		<span class="figure-title">Providing context. (a) The user can access the fabrication files of the furniture. (b) Running low on cookies, the user adds a new batch to the online shopping cart through the embedded reorder link.</span>
+		</figcaption>
+		</figure><p></p>
+		<p><em>Assembly / disassembly instructions</em>. Furniture manufacturers such as <em>IKEA</em> provide not only the assembly instructions for their products, but also the <em>disassembly</em> instructions to improve recycling for better sustainability&nbsp;[Allen <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0002" data-original-title="" title="" id="auto-BibPLXBIB000269">2021</a>]. However, users frequently misplace instruction manuals over time. Similarly, for fabricated objects, users may struggle to locate the related instructions that originally came with the digital file. As shown in Figure&nbsp;<a class="fig" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#fig7">7</a>, the owner retrieves the disassembly manual through the StructCode when they need to discard of the piece, or transport and reconstruct it elsewhere.
+		</p><figure id="fig7">
+		<img src="./images/scf23-1-fig7.jpg" class="img-responsive" alt="Figure 7" aria-describedby="fig008">
+		<p style="display:none" id="fig008">A bookshelf, whose hinge is linked to a digital document using StructCodes. The document includes disassembly instructions (drawings). By following these instructions, the plates can be disassembled and stacked together into a flat box.</p>
+		<figcaption>
+		<span class="figure-number">Figure 7:</span>
+		<span class="figure-title">Disassembly instructions are linked to the shelf in case the user needs to take it apart for recycling or transport.</span>
+		</figcaption>
+		</figure>
+		<p></p>
+		<p>While we showed the use case of StructCodes for linking <em>disassembly</em> instructions, our method can also be integrated into existing systems for helping users with the <em>assembly</em> of laser-cut objects&nbsp;[Abdullah et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0001" data-original-title="" title="" id="auto-BibPLXBIB000170">2021</a>; Park and Baudisch <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0041" data-original-title="" title="" id="auto-BibPLXBIB004171">2022</a>]. For instance, the part numbers could be embedded into individual plates so that our app guides the user to pick the right one in each step.</p>
+		</section>
+		<section id="sec-17">
+
+			<div class="title-info">
+				<span class="small-headline">
+					<b>5.3 Embedding Overlaid Media</b>
+				</span>
+		</div>
+
+		<p>StructCodes enable users to overlay objects with related media such as narrative videos or illustrations using AR.</p>
+		<p><em>Narrative media</em>. As shown in Figure &nbsp;<a class="fig" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#fig8">8</a> a, StructCode links a video of the original artist narrating their artwork. Using StructCode, students quickly set up a temporary gallery by laser cutting wooden frames for their own works. Visitors can use their phones to view the art in AR, which overlays the video on the related artwork. The app can tailor the content and duration to the individual viewer's level of interest.
+		</p><figure id="fig8">
+		<img src="./images/scf23-1-fig8.jpg" class="img-responsive" alt="Figure 8" aria-describedby="fig009">
+		<p style="display:none" id="fig009">(a) A person looking at two painting frames and holding a phone. The phone's AR view shows two play buttons. (b) A related video playing on the phone.</p>
+		<figcaption>
+		<span class="figure-number">Figure 8:</span>
+		<span class="figure-title">Overlaying media. (a) In an exhibit, visitors use an AR app to view narrative videos by the artists. (b) The crocodile has StructCodes that describe what part they are located on, which is used for educational applications.</span>
+		</figcaption>
+		</figure>
+		<p></p>
+		<p><em>Illustrative sublabels</em>. Individual parts of an object can have different functions. StructCodes are used to associate relevant information with each part using illustrative sublabels. One example of this is the educational toy model shown in Figure&nbsp;<a class="fig" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#fig8">8</a> b that has different sublabels embedded into different limbs of the crocodile. Thus, users access educational materials for each limb. This allows teachers to interactively introduce new concepts in classrooms. For such use cases, we expect that users are made aware of the existence of StructCodes through the toy description or manual.</p>
+		</section>
+	</section>
+
+	<section>
+		<br/>
+		<span class="medium-headline">
+			DETECTION OF STRUCTCODES
+		</span>
+		<br/>
+		<br/>
+			<p>The image processing pipeline of StructCodes is implemented using <em>OpenCV</em>&nbsp;[Bradski <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0007" data-original-title="" title="" id="auto-BibPLXBIB000772">2000</a>]. As shown in Figure&nbsp;<a class="fig" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#fig9">9</a>, StructCodes are detected by locating the structure of interest, detecting the modifications in it to extract the bits, and finally decoding the message.</p>
+			<p>This section describes the decoding pipeline for finger joints and living hinges, which use slightly different image processing techniques. If the user selects what type of feature to decode when launching the application, StructCodes can run the corresponding pipeline directly on the phone's processor. However, running both pipelines at the same time requires higher processing power and is thus recommended to run on a server, which in our applications takes less than a second. We implemented both standalone phone detection for simpler applications and the server-based approach for other use cases for which joints and hinges are expected to be identified at the same time.
+			</p>
+			<section id="sec-19">
+
+				<div class="title-info">
+					<span class="small-headline">
+						<b>6.1 Detection of Finger Joints</b>
+					</span>
+			</div>
+
+			<p>We explain the steps to read the code from the raw image of the finger joints as shown in Figure&nbsp;<a class="fig" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#fig9">9</a> a.</p><figure id="fig9">
+			<img src="./images/scf23-1-fig9.jpg" class="img-responsive" alt="Figure 9" aria-describedby="fig010">
+			<p style="display:none" id="fig010">The individual image processing steps for finger joints and living hinges. First, the image is converted to black and white, then the structures are found and isolated. The individual parts of the structures are measured to decode the bits and read the embedded message.</p>
+			<figcaption>
+			<span class="figure-number">Figure 9:</span>
+			<span class="figure-title">Image processing steps for (a) finger joints and (b) living hinges.</span>
+			</figcaption>
+			</figure><p></p>
+			<p><em>Isolate the plate of interest</em>. StructCode's finger joint detection pipeline starts by grouping the pixels using k-means based on each pixel's HSV values. This creates multiple black and white masks such that a plate of interest is white in at least one of the masks. It runs this process for <em>k=3, 6, 10</em>. It creates a different mask for each <em>k</em>, <em>k</em> (i.e., a total of 3+6+10 masks). The algorithm then applies a morphological opening on each mask to disconnect the plates from the background. It takes the larger rectangles found over all masks (with a padding of 25% to account for any error margin) and applies a 4-point perspective transformation to isolate the plate.</p>
+			<p><em>Correct for perspective</em>. The next step in the pipeline applies Gaussian blur to reduce noise and use Otsu's thresholding to turn the gaps between fingers into contours. For each edge of a plate, it samples points on the gaps’ contours, and draws a line of best fit through the points closest to the center, rather than using the details closer to the sides. This allows the the algorithm to segment the interior plate even if the background has a similar color. It uses these four fitted lines to find the bounding quadrilateral for the plate interior. It then applies another perspective warp that maps the four corners of the quadrilateral to an axis-aligned rectangle. And finally, it slightly extends the bounding rectangle to include the fingers but exclude the background.</p>
+			<p><em>Decode the message</em>. The gaps of interest are the white rectangles in the final image, and the width of the fingers can be calculated by the distance between consecutive gaps along each edge. The pipeline then runs k-means with <em>k=3</em> to classify the gap and finger lengths as <tt>0</tt>, <tt>1</tt>, or <tt>2</tt> bits. It converts the entire ternary string into characters by grouping bits into blocks of 4. To identify the correct reading direction irrespective of the plate orientation, the start/end sequence, which has an asymmetric order (i.e., "<tt>0120</tt>", see Section&nbsp;<a class="sec" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#sec-7">3</a>) is detected from one of the corners and used as an anchor.</p>
+			</section>
+			<section id="sec-20">
+				<div class="title-info">
+					<span class="small-headline">
+						<b>6.2 Detection of Living Hinges</b>
+					</span>
+			</div>
+			<p>We next explain the pipeline to detect living hinges, as demonstrated in Figure&nbsp;<a class="fig" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#fig9">9</a> b.</p>
+			<p><em>Identify individual hinge gaps</em>. The first step of the pipeline uses adaptive thresholding to turn the image into black and white. A morphological opening and closing are applied to eliminate small isolated patches of black pixel noise. Because the living hinge consists of many thin and long gaps (i.e., the cuts between links) that are parallel and close together, the algorithm searches for thin rectangles in the image. It measures each contour's similarity to a rectangle by comparing its enclosed area to the minimum-area rectangle that contains it.</p>
+			<p><em>Group gaps to isolate the hinge</em>. The next step groups rectangles based on proximity, as living hinges consist of many parallel nearby gaps with similar dimensions and orientation. For this, it creates a graph with edges between similar rectangles and find the bounding boxes around the largest connected components. For each bounding box, it applies a 4-point perspective transform and crop out the rest so that the hinge is axis-aligned and takes up the whole image.</p>
+			<p><em>Sort the gaps</em>. This step removes noise due to the side joints via morphological opening, resizes the image to thicken the rectangular gaps, and iterates through the gaps to assign them to rows and columns by their coordinates.</p>
+			<p><em>Decode the message</em>. Since every row of <em>gaps</em> is determined, the final step calculates the position and lengths of the <em>links</em> (i.e., the bits) by measuring the distances between the gaps within each row. It scans the links from top to bottom, where it groups each link together with the previous link that has approximately equal x-coordinate. StructCode runs k-means with <em>k=3</em> to classify each link length as a 0, <tt>1</tt>, or <tt>2</tt> bit. The entire ternary string is then converted into characters by grouping bits into blocks of 4. The correct reading direction is determined by identifying the start/end sequence “<tt>0120</tt>”.</p>
+			</section>
+			<section id="sec-21">
+
+				<div class="title-info">
+					<span class="small-headline">
+						<b>6.3 Evaluation of the Detection Pipelines</b>
+						</span>
+			</div>
+
+			<p>We evaluated what the smallest detectable length difference <em>Δd</em> is between individual bit categories (<tt>0</tt>, <tt>1</tt>, or <tt>2</tt>) when processing the camera images with our detection pipeline. If <tt>0</tt> is represented by distance <em>d</em>, then <tt>1</tt> is represented by <em>d</em> + <em>Δd</em>, and <tt>2</tt> is represented by <em>d</em> + 2<em>Δd</em>. Our goal is to only use the smallest possible length difference <em>Δd</em> to maintain the mechanical integrity of the object.</p>
+			<p>The smallest possible length difference <em>Δd</em> is related to the length of the captured joint plate <em>w<sub>plate</sub></em> and the camera distance since larger plates require the the camera to be held further to capture all features (joints or hinge links), which results in them appearing smaller in the image. Further, in certain applications, the user may want to identify more than one object at the same time and hold the phone further away, thus differences may become even subtler. We formalize this relationship as <span class="inline-equation"><span class="tex"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span id="MathJax-Element-1-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;&amp;#x0394;&lt;/mi&gt;&lt;msub&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mfrac&gt;&lt;msub&gt;&lt;mi&gt;w&lt;/mi&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;p&lt;/mi&gt;&lt;mi&gt;l&lt;/mi&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;mi&gt;&amp;#x03B1;&lt;/mi&gt;&lt;/mfrac&gt;&lt;/math&gt;" role="presentation" style="font-size: 108%; position: relative;"><span id="MJXc-Node-1" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-2" class="mjx-mrow"><span id="MJXc-Node-3" class="mjx-mi"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.441em; padding-bottom: 0.344em;">Δ</span></span><span id="MJXc-Node-4" class="mjx-msubsup"><span class="mjx-base" style="margin-right: -0.003em;"><span id="MJXc-Node-5" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.49em; padding-bottom: 0.295em; padding-right: 0.003em;">d</span></span></span><span class="mjx-sub" style="font-size: 70.7%; vertical-align: -0.212em; padding-right: 0.071em;"><span id="MJXc-Node-6" class="mjx-texatom" style=""><span id="MJXc-Node-7" class="mjx-mrow"><span id="MJXc-Node-8" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">m</span></span><span id="MJXc-Node-9" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.441em; padding-bottom: 0.295em;">i</span></span><span id="MJXc-Node-10" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">n</span></span></span></span></span></span><span id="MJXc-Node-11" class="mjx-mo MJXc-space3"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.1em; padding-bottom: 0.295em;">=</span></span><span id="MJXc-Node-12" class="mjx-mfrac MJXc-space3"><span class="mjx-box MJXc-stacked" style="width: 1.751em; padding: 0px 0.12em;"><span class="mjx-numerator" style="font-size: 70.7%; width: 2.477em; top: -1.346em;"><span id="MJXc-Node-13" class="mjx-msubsup" style=""><span class="mjx-base"><span id="MJXc-Node-14" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">w</span></span></span><span class="mjx-sub" style="font-size: 70.7%; vertical-align: -0.219em; padding-right: 0.071em;"><span id="MJXc-Node-15" class="mjx-texatom" style=""><span id="MJXc-Node-16" class="mjx-mrow"><span id="MJXc-Node-17" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.49em;">p</span></span><span id="MJXc-Node-18" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.49em; padding-bottom: 0.295em;">l</span></span><span id="MJXc-Node-19" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">a</span></span><span id="MJXc-Node-20" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.392em; padding-bottom: 0.295em;">t</span></span><span id="MJXc-Node-21" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">e</span></span></span></span></span></span></span><span class="mjx-denominator" style="font-size: 70.7%; width: 2.477em; bottom: -0.524em;"><span id="MJXc-Node-22" class="mjx-mi" style=""><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">α</span></span></span><span class="mjx-line" style="border-bottom: 1.3px solid; top: -0.28em; width: 1.751em;"></span></span><span class="mjx-vsize" style="height: 1.322em; vertical-align: -0.37em;"></span></span></span></span><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi mathvariant="normal">Δ</mi><msub><mi>d</mi><mrow class="MJX-TeXAtom-ORD"><mi>m</mi><mi>i</mi><mi>n</mi></mrow></msub><mo>=</mo><mfrac><msub><mi>w</mi><mrow class="MJX-TeXAtom-ORD"><mi>p</mi><mi>l</mi><mi>a</mi><mi>t</mi><mi>e</mi></mrow></msub><mi>α</mi></mfrac></math></span></span><script type="math/tex" id="MathJax-Element-1">\Delta d_{min} = \frac{w_{plate}}{\alpha }</script></span></span>, where <em>α</em> is the camera distance scaling factor and <em>w<sub>plate</sub></em> is the longest plate dimension or the longest dimension in the bounding box around living hinge regions.</p>
+			<p>To obtain a conservative bound for <em>α</em>, we conduct the following test in our workshop (80-150 lux), which is in line with regular indoor lighting conditions&nbsp;[Observatory <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0038" data-original-title="" title="" id="auto-BibPLXBIB003873">2016</a>]. We first cut multiple joint plates of a fixed size (15cm x 10cm, from the folder application in Section&nbsp;<a class="sec" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#sec-15">5.1</a>) with 6 different <em>α</em> values with increments of 5 (from <em>α</em> = 75 to <em>α</em> = 100), which corresponds to a range of 1.5-2mm for <em>Δd</em>. Next, we captured the plate with a phone (12.2MP on <em>Pixel 2</em>) and downscaled the images to 2048x1536 for fast processing. To ensure that at least two objects can be identified from a single image as shown in the use cases, we held the camera far enough (45cm) so that at least three plates can fit into the frame.</p>
+			<p>We then ran our image processing pipeline on the resulting images and found that it was able to distinguish between bits with <em>α</em> &lt; = 80. Thus, with the given <em>α</em>, a 15x10 cm plate requires a difference <em>Δd</em> = 1.88 mm, allowing up to 26 fingers, which can store up to 14 characters. By contrast, a larger plate of 20x20 cm (60 fingers) can store up to 31 characters but requires a larger difference <em>Δd</em> = 2.5 mm since the camera has to be held further away.</p>
+			<p>We repeated this experiment for living hinges. We first cut multiple copies of a hinge (5cm x 3.7cm, the model from Section&nbsp;<a class="sec" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#sec-12">4.1</a>), with 6 different <em>α</em> values with increments of 5 (from <em>α</em> = 25 to <em>α</em> = 50), which corresponds to a range of 1-2mm for <em>Δd</em>. We held the camera at a distance far enough (20.7cm) so that at least three of these hinges can be detected from the captured shot.</p>
+			<p>The processing pipeline managed to distinguish between bits with <em>α</em> &lt; = 45. Thus, with the given <em>α</em>, a hinge of a size of 5 cm x 3.7 cm requires a difference <em>Δd</em> = 1.11 mm, resulting in 72 hinge cuts in the area, which can store up to 9 characters. In contrast, a larger hinge of 10 cm x 7.4 cm (193 cuts) can store up to 36 characters but requires a larger difference <em>Δd</em> = 2.22 mm since the camera has to be held further away.</p>
+			<section id="sec-22">
+			<p><em><span class="section-number">6.3.1</span> Evaluation of the viewing angle:</em> Using the above results, we evaluated the maximum camera capture angle at which the message can still be decoded relative to the plate normal. To do this, we fixed the model with finger joints on a surface and rotated the camera around the plate of interest until the code is no longer detectable, while keeping track of the angle using a protractor attached onto the surface. We did this for three different codes (Figure&nbsp;<a class="fig" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#fig5">5</a>) and three different backgrounds (black, white, wood). The maximum viewing angle was 25.28° (std=2.81) across the nine resulting conditions. When repeated with the living hinge samples, we found that the maximum angle was 37.19° (std=4.52) around the axis perpendicular to the hinge gaps (y-axis in Figure&nbsp;<a class="fig" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#fig9">9</a> b), and 19.08° (std=2.95) around the axis along the gaps (x-axis) across the nine conditions. The reason the second value is smaller is that due to the curvature, the outermost gaps become more easily occluded with deviations away from the center.</p>
+			</section>
+			<section id="sec-23">
+			<p><em><span class="section-number">6.3.2</span> Evaluation of hinge curvature.</em> For reliable detection, we need to ensure that different bits can be correctly distinguished even though their lengths may be distorted as a result of hinge curvature. For instance, the more curved an (outward) hinge is, the more likely it is that a <tt>0</tt> bit at the center of the hinge appears longer than a <tt>0</tt> bit at the edge of the hinge. Figure&nbsp;<a class="fig" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#fig10">10</a> a shows an exaggerated case of this where the camera is very close the the hinge (4cm). As length is the differentiating factor between bits, this distortion creates a risk of incorrect detection (i.e., mistaking a <tt>0</tt> bit for a <tt>1</tt> bit as a result of length distortion). Based on the pinhole camera model&nbsp;[Sturm <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0049" data-original-title="" title="" id="auto-BibPLXBIB004974">2014</a>], we formalize the condition to avoid this risk using the expression <span class="inline-equation"><span class="tex"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span id="MathJax-Element-2-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;&amp;#x0394;&lt;/mi&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mo&gt;&amp;gt;&lt;/mo&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mrow&gt;&lt;mo&gt;[&lt;/mo&gt;&lt;mrow&gt;&lt;mfrac&gt;&lt;mrow&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;msub&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mi&gt;g&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;/mrow&gt;&lt;mrow&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;msub&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;c&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;/mrow&gt;&lt;/mfrac&gt;&lt;mo&gt;&amp;#x2212;&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/mrow&gt;&lt;mo&gt;]&lt;/mo&gt;&lt;/mrow&gt;&lt;/math&gt;" role="presentation" style="font-size: 108%; position: relative;"><span id="MJXc-Node-23" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-24" class="mjx-mrow"><span id="MJXc-Node-25" class="mjx-mi"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.441em; padding-bottom: 0.344em;">Δ</span></span><span id="MJXc-Node-26" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.49em; padding-bottom: 0.295em; padding-right: 0.003em;">d</span></span><span id="MJXc-Node-27" class="mjx-mo MJXc-space3"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.246em; padding-bottom: 0.392em;">&gt;</span></span><span id="MJXc-Node-28" class="mjx-mi MJXc-space3"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.49em; padding-bottom: 0.295em; padding-right: 0.003em;">d</span></span><span id="MJXc-Node-29" class="mjx-mrow MJXc-space1"><span id="MJXc-Node-30" class="mjx-mo"><span class="mjx-char MJXc-TeX-size2-R" style="padding-top: 0.928em; padding-bottom: 0.928em;">[</span></span><span id="MJXc-Node-31" class="mjx-mrow"><span id="MJXc-Node-32" class="mjx-mfrac"><span class="mjx-box MJXc-stacked" style="width: 2.756em; padding: 0px 0.12em;"><span class="mjx-numerator" style="font-size: 70.7%; width: 3.897em; top: -1.605em;"><span id="MJXc-Node-33" class="mjx-mrow" style=""><span id="MJXc-Node-34" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.49em; padding-bottom: 0.295em; padding-right: 0.003em;">d</span></span><span id="MJXc-Node-35" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.441em; padding-bottom: 0.295em;">i</span></span><span id="MJXc-Node-36" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">s</span></span><span id="MJXc-Node-37" class="mjx-msubsup"><span class="mjx-base"><span id="MJXc-Node-38" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.392em; padding-bottom: 0.295em;">t</span></span></span><span class="mjx-sub" style="font-size: 70.7%; vertical-align: -0.219em; padding-right: 0.071em;"><span id="MJXc-Node-39" class="mjx-texatom" style=""><span id="MJXc-Node-40" class="mjx-mrow"><span id="MJXc-Node-41" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">e</span></span><span id="MJXc-Node-42" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.49em; padding-bottom: 0.295em; padding-right: 0.003em;">d</span></span><span id="MJXc-Node-43" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.49em; padding-right: 0.003em;">g</span></span><span id="MJXc-Node-44" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">e</span></span></span></span></span></span></span></span><span class="mjx-denominator" style="font-size: 70.7%; width: 3.897em; bottom: -0.756em;"><span id="MJXc-Node-45" class="mjx-mrow" style=""><span id="MJXc-Node-46" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.49em; padding-bottom: 0.295em; padding-right: 0.003em;">d</span></span><span id="MJXc-Node-47" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.441em; padding-bottom: 0.295em;">i</span></span><span id="MJXc-Node-48" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">s</span></span><span id="MJXc-Node-49" class="mjx-msubsup"><span class="mjx-base"><span id="MJXc-Node-50" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.392em; padding-bottom: 0.295em;">t</span></span></span><span class="mjx-sub" style="font-size: 70.7%; vertical-align: -0.212em; padding-right: 0.071em;"><span id="MJXc-Node-51" class="mjx-texatom" style=""><span id="MJXc-Node-52" class="mjx-mrow"><span id="MJXc-Node-53" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">c</span></span><span id="MJXc-Node-54" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">e</span></span><span id="MJXc-Node-55" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">n</span></span><span id="MJXc-Node-56" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.392em; padding-bottom: 0.295em;">t</span></span><span id="MJXc-Node-57" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">e</span></span><span id="MJXc-Node-58" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">r</span></span></span></span></span></span></span></span><span class="mjx-line" style="border-bottom: 1.3px solid; top: -0.28em; width: 2.756em;"></span></span><span class="mjx-vsize" style="height: 1.669em; vertical-align: -0.534em;"></span></span><span id="MJXc-Node-59" class="mjx-mo MJXc-space2"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.295em; padding-bottom: 0.441em;">−</span></span><span id="MJXc-Node-60" class="mjx-mn MJXc-space2"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.392em; padding-bottom: 0.344em;">1</span></span></span><span id="MJXc-Node-61" class="mjx-mo"><span class="mjx-char MJXc-TeX-size2-R" style="padding-top: 0.928em; padding-bottom: 0.928em;">]</span></span></span></span></span><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi mathvariant="normal">Δ</mi><mi>d</mi><mo>&gt;</mo><mi>d</mi><mrow><mo>[</mo><mrow><mfrac><mrow><mi>d</mi><mi>i</mi><mi>s</mi><msub><mi>t</mi><mrow class="MJX-TeXAtom-ORD"><mi>e</mi><mi>d</mi><mi>g</mi><mi>e</mi></mrow></msub></mrow><mrow><mi>d</mi><mi>i</mi><mi>s</mi><msub><mi>t</mi><mrow class="MJX-TeXAtom-ORD"><mi>c</mi><mi>e</mi><mi>n</mi><mi>t</mi><mi>e</mi><mi>r</mi></mrow></msub></mrow></mfrac><mo>−</mo><mn>1</mn></mrow><mo>]</mo></mrow></math></span></span><script type="math/tex" id="MathJax-Element-2">\Delta d > d\left[ \frac{dist_{edge}}{dist_{center}} -1 \right]</script></span></span>, where <em>dist<sub>center</sub></em> is the camera distance from the bit at the center and <em>dist<sub>edge</sub></em> is the camera distance from the bit at the edge. The difference between these distance values is proportional to the curvature. However, since the camera is sufficiently far from the object, we have <em>dist<sub>center</sub></em> ≈ <em>dist<sub>edge</sub></em>. Thus, in practice the right-hand term is smaller than the <em>Δd</em> values used.
+			</p>
+			<p>For instance, for the typical viewing distance of the model evaluated in Section&nbsp;<a class="sec" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#sec-21">6.3</a>, we need <span class="inline-equation"><span class="tex"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span id="MathJax-Element-3-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;&amp;#x0394;&lt;/mi&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mo&gt;&amp;gt;&lt;/mo&gt;&lt;mn&gt;2.1&lt;/mn&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mrow&gt;&lt;mo&gt;[&lt;/mo&gt;&lt;mrow&gt;&lt;mfrac&gt;&lt;mrow&gt;&lt;mn&gt;21.3&lt;/mn&gt;&lt;mi&gt;c&lt;/mi&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;/mrow&gt;&lt;mrow&gt;&lt;mn&gt;20.7&lt;/mn&gt;&lt;mi&gt;c&lt;/mi&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;/mrow&gt;&lt;/mfrac&gt;&lt;mo&gt;&amp;#x2212;&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/mrow&gt;&lt;mo&gt;]&lt;/mo&gt;&lt;/mrow&gt;&lt;/math&gt;" role="presentation" style="font-size: 108%; position: relative;"><span id="MJXc-Node-62" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-63" class="mjx-mrow"><span id="MJXc-Node-64" class="mjx-mi"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.441em; padding-bottom: 0.344em;">Δ</span></span><span id="MJXc-Node-65" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.49em; padding-bottom: 0.295em; padding-right: 0.003em;">d</span></span><span id="MJXc-Node-66" class="mjx-mo MJXc-space3"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.246em; padding-bottom: 0.392em;">&gt;</span></span><span id="MJXc-Node-67" class="mjx-mn MJXc-space3"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.392em; padding-bottom: 0.344em;">2.1</span></span><span id="MJXc-Node-68" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">m</span></span><span id="MJXc-Node-69" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">m</span></span><span id="MJXc-Node-70" class="mjx-mrow MJXc-space1"><span id="MJXc-Node-71" class="mjx-mo"><span class="mjx-char MJXc-TeX-size2-R" style="padding-top: 0.928em; padding-bottom: 0.928em;">[</span></span><span id="MJXc-Node-72" class="mjx-mrow"><span id="MJXc-Node-73" class="mjx-mfrac"><span class="mjx-box MJXc-stacked" style="width: 2.326em; padding: 0px 0.12em;"><span class="mjx-numerator" style="font-size: 70.7%; width: 3.289em; top: -1.306em;"><span id="MJXc-Node-74" class="mjx-mrow" style=""><span id="MJXc-Node-75" class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.392em; padding-bottom: 0.344em;">21.3</span></span><span id="MJXc-Node-76" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">c</span></span><span id="MJXc-Node-77" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">m</span></span></span></span><span class="mjx-denominator" style="font-size: 70.7%; width: 3.289em; bottom: -0.609em;"><span id="MJXc-Node-78" class="mjx-mrow" style=""><span id="MJXc-Node-79" class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.392em; padding-bottom: 0.344em;">20.7</span></span><span id="MJXc-Node-80" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">c</span></span><span id="MJXc-Node-81" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">m</span></span></span></span><span class="mjx-line" style="border-bottom: 1.3px solid; top: -0.28em; width: 2.326em;"></span></span><span class="mjx-vsize" style="height: 1.354em; vertical-align: -0.431em;"></span></span><span id="MJXc-Node-82" class="mjx-mo MJXc-space2"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.295em; padding-bottom: 0.441em;">−</span></span><span id="MJXc-Node-83" class="mjx-mn MJXc-space2"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.392em; padding-bottom: 0.344em;">1</span></span></span><span id="MJXc-Node-84" class="mjx-mo"><span class="mjx-char MJXc-TeX-size2-R" style="padding-top: 0.928em; padding-bottom: 0.928em;">]</span></span></span></span></span><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi mathvariant="normal">Δ</mi><mi>d</mi><mo>&gt;</mo><mn>2.1</mn><mi>m</mi><mi>m</mi><mrow><mo>[</mo><mrow><mfrac><mrow><mn>21.3</mn><mi>c</mi><mi>m</mi></mrow><mrow><mn>20.7</mn><mi>c</mi><mi>m</mi></mrow></mfrac><mo>−</mo><mn>1</mn></mrow><mo>]</mo></mrow></math></span></span><script type="math/tex" id="MathJax-Element-3">\Delta d > 2.1mm \left[ \frac{21.3cm}{20.7cm} -1 \right]</script></span></span> ≈ 0.06<em>mm</em>, which is satisfied since the <em>Δd</em> used is 1.11 mm. This gives enough legroom to ensure correct detection in various conditions, such as different angles as mentioned in the earlier section. Another example is conical hinges (Figure&nbsp;<a class="fig" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#fig10">10</a> b), here the lines on which the hinge cuts lie have different angles. The legroom allows the detection of the correct measurements, however, the maximum viewing angles reported in Section&nbsp;<a class="sec" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#sec-22">6.3.1</a> are reduced by the angle difference between <span class="inline-equation"><span class="tex"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span id="MathJax-Element-4-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;msub&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mover&gt;&lt;mi&gt;v&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;&amp;#x2192;&lt;/mo&gt;&lt;/mover&gt;&lt;/mrow&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;c&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;/math&gt;" role="presentation" style="font-size: 108%; position: relative;"><span id="MJXc-Node-85" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-86" class="mjx-mrow"><span id="MJXc-Node-87" class="mjx-msubsup"><span class="mjx-base"><span id="MJXc-Node-88" class="mjx-texatom"><span id="MJXc-Node-89" class="mjx-mrow"><span id="MJXc-Node-90" class="mjx-munderover"><span class="mjx-stack"><span class="mjx-over" style="height: 0.248em; padding-bottom: 0.06em; padding-left: 0.491em;"><span id="MJXc-Node-92" class="mjx-mo" style="vertical-align: top;"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.441em; padding-bottom: 0.295em;"><span class="mjx-box" style="width: 0.25em; margin-left: -0.25em;"></span>⃗</span></span></span><span class="mjx-op"><span id="MJXc-Node-91" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">v</span></span></span></span></span></span></span></span><span class="mjx-sub" style="font-size: 70.7%; vertical-align: -0.212em; padding-right: 0.071em;"><span id="MJXc-Node-93" class="mjx-texatom" style=""><span id="MJXc-Node-94" class="mjx-mrow"><span id="MJXc-Node-95" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">c</span></span><span id="MJXc-Node-96" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">e</span></span><span id="MJXc-Node-97" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">n</span></span><span id="MJXc-Node-98" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.392em; padding-bottom: 0.295em;">t</span></span><span id="MJXc-Node-99" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">e</span></span><span id="MJXc-Node-100" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">r</span></span></span></span></span></span></span></span><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow class="MJX-TeXAtom-ORD"><mover><mi>v</mi><mo stretchy="false">→</mo></mover></mrow><mrow class="MJX-TeXAtom-ORD"><mi>c</mi><mi>e</mi><mi>n</mi><mi>t</mi><mi>e</mi><mi>r</mi></mrow></msub></math></span></span><script type="math/tex" id="MathJax-Element-4">\vec{v}_{center}</script></span></span> and <span class="inline-equation"><span class="tex"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span id="MathJax-Element-5-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;msub&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mover&gt;&lt;mi&gt;v&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;&amp;#x2192;&lt;/mo&gt;&lt;/mover&gt;&lt;/mrow&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mi&gt;g&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;/math&gt;" role="presentation" style="font-size: 108%; position: relative;"><span id="MJXc-Node-101" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-102" class="mjx-mrow"><span id="MJXc-Node-103" class="mjx-msubsup"><span class="mjx-base"><span id="MJXc-Node-104" class="mjx-texatom"><span id="MJXc-Node-105" class="mjx-mrow"><span id="MJXc-Node-106" class="mjx-munderover"><span class="mjx-stack"><span class="mjx-over" style="height: 0.248em; padding-bottom: 0.06em; padding-left: 0.491em;"><span id="MJXc-Node-108" class="mjx-mo" style="vertical-align: top;"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.441em; padding-bottom: 0.295em;"><span class="mjx-box" style="width: 0.25em; margin-left: -0.25em;"></span>⃗</span></span></span><span class="mjx-op"><span id="MJXc-Node-107" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">v</span></span></span></span></span></span></span></span><span class="mjx-sub" style="font-size: 70.7%; vertical-align: -0.219em; padding-right: 0.071em;"><span id="MJXc-Node-109" class="mjx-texatom" style=""><span id="MJXc-Node-110" class="mjx-mrow"><span id="MJXc-Node-111" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">e</span></span><span id="MJXc-Node-112" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.49em; padding-bottom: 0.295em; padding-right: 0.003em;">d</span></span><span id="MJXc-Node-113" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.49em; padding-right: 0.003em;">g</span></span><span id="MJXc-Node-114" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">e</span></span></span></span></span></span></span></span><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mrow class="MJX-TeXAtom-ORD"><mover><mi>v</mi><mo stretchy="false">→</mo></mover></mrow><mrow class="MJX-TeXAtom-ORD"><mi>e</mi><mi>d</mi><mi>g</mi><mi>e</mi></mrow></msub></math></span></span><script type="math/tex" id="MathJax-Element-5">\vec{v}_{edge}</script></span></span> on which the central and the edge cuts lie.</p><figure id="fig10">
+			<img src="./images/scf23-1-fig10.jpg" class="img-responsive" alt="Figure 10" aria-describedby="fig011">
+			<p style="display:none" id="fig011">(a) A rotoscope of a hinge distorted by a camera. (b) A conical hinge, which has different cut line angles. (c) A plot of increase in the degree of curvature vs. length distortion.</p>
+			<figcaption>
+			<span class="figure-number">Figure 10:</span>
+			<span class="figure-title">Curvature of living hinges. (a) As bit lengths may be distorted due to curvature, StructCode encodes them with sufficient tolerance to ensure correct detection. (b) StructCodes can be encoded on various shapes, e.g., conical hinges.</span>
+			</figcaption>
+	</section>
+
+	<section>
+		<br/>
+		<span class="medium-headline">
+			MECHANICAL EVALUATION
+		</span>
+		<br/>
+		<br/>
+
+			<p>When embedding StructCodes, the individual elements of mechanical structures are slightly modified, i.e., the width of the finger joints and the distance between the living hinge cuts are adjusted by multiples of <em>Δd</em>. To evaluate how much this change affects the mechanical integrity, we conducted several tests with modified finger joints and living hinges.</p>
+			<section id="sec-25">
+
+				<div class="title-info">
+					<span class="small-headline">
+						<b>7.1 Compression Evaluation of Finger Joints</b>
+					</span>
+			</div>
+
+			<p>To compare how the addition of StructCodes affects sturdiness, we compared the ultimate compressive strength of box structures before and after embedding the code (i.e., unmodified vs. modified).</p>
+			<p><em>Experiment setup</em>. We evaluated two different box sizes because each size results in a different resizing difference <em>Δd</em> based on the camera scaling factor <em>α</em> = 80 for finger joints as explained in Section&nbsp;<a class="sec" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#sec-21">6.3</a>. The smaller box, which can carry up to 5 characters, had a plate size of 5cm x 5cm and required a <em>Δd</em> of 0.625mm. The larger box, which can carry up to 10 characters, had a plate size of 12cm x 12cm and required a <em>Δd</em> of 1.5mm. The dimensions for the large box were chosen since they represent the largest size that can fit into the measurement machine. We laser cut 4 unmodified and 4 modified boxes of each box size (total of 16 boxes) from 3mm birch plywood sheets. The messages embedded in the modified boxes were produced using a random string generator. Similar to the technical evaluation for <em>kyub</em>&nbsp;[Baudisch et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0005" data-original-title="" title="" id="auto-BibPLXBIB000575">2019</a>], we used a common low-cost material to obtain a conservative lower bound for the sturdiness of the tested objects. All boxes were held together solely press fitting their joints together, i.e., without glue.</p>
+			<p><em>Experiment procedure</em>. We used an <em>Instron</em> universal testing machine (UTM) as shown in Figure&nbsp;<a class="fig" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#fig11">11</a> a. We placed the modified boxes such that the side with the StructCode faced upward. The Instron increased the compression force on the box and we measured the ultimate compression strength to the point where the box failed under crush loading. The ultimate compression strength represents the maximum stress the structure can sustain.
+			</p><figure id="fig11">
+			<img src="./images/scf23-1-fig11.jpg" class="img-responsive" alt="Figure 11" aria-describedby="fig012">
+			<p style="display:none" id="fig012">(a) An Instron testing machine compressing a laser-cut box. (b) A hinge being bent by a hand, with a protractor in the background for measuring the bending angle.</p>
+			<figcaption>
+			<span class="figure-number">Figure 11:</span>
+			<span class="figure-title">Mechanical evaluation of StructCodes: (a) Compressive strength of finger joints and (b) bending of hinges.</span>
+			</figcaption>
+			</figure>
+			<p></p>
+			<p><em>Results</em>. We found that the width modification of joints required to embed StructCodes did not strongly affect the sturdiness when compared to the values reported in previous literature. In their tests with <em>kyub</em> objects, Baudisch et al. &nbsp;[Baudisch et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0005" data-original-title="" title="" id="auto-BibPLXBIB000576">2019</a>] have reported that (unmodified) objects were still intact when they exceeded the 500kg (4,903 N) value range of their measuring device. We were able to confirm this as shown in Table&nbsp;<a class="tbl" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#tab2">2</a>. Both unmodified and modified objects go well beyond the reported 4,903 N value. Even though the peak load the box can handle decreased on average by 14.5% for the 5cm box and increased on average by 0.16% for the 12cm box after modifying the joints, the force that each of these boxes can withstand is still larger than what is required of most objects used in daily life. The high standard deviation, specifically for the large boxes, is likely due to the fact that there is a large variation in the composition of plywood sheets even though they all came from the same batch.</p>
+			<div class="table-responsive" id="tab2">
+			<div class="table-caption">
+			<span class="table-number">Table 2:</span>
+			<span class="table-title">Average peak load comparison of the finger joints.</span>
+			</div>
+			<table class="table">
+			<tbody>
+			<tr style="border-bottom: 2pt solid #000000;">
+			<td style="text-align:left;">
+			</td><td style="text-align:left;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;"><strong>Unmodified</strong></td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;"><strong>Modified with</strong></td>
+			</tr>
+			<tr>
+			<td style="text-align:left;"><strong>StructCode</strong></td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;"><strong>Relative change</strong></td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			</tr>
+			<tr style="border-bottom: 2pt solid #000000;">
+			<td style="text-align:left;">5 cm</td>
+			<td style="text-align:left;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">15,939.7 N</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">(std=621)</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">13,630.6 N</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">(std=641)</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;">Decrease by 14.5%</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">12 cm</td>
+			<td style="text-align:left;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">12,578.6 N</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">(std=2,020)</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;">12,599.3 N</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">(std=1,760)</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;">Increase by 0.16%</td>
+			</tr>
+			</tbody>
+			</table>
+			</div>
+			</section>
+			<section id="sec-26">
+
+				<div class="title-info">
+					<span class="small-headline">
+						<b>7.2 Bending Evaluation of Living Hinges</b>
+					</span>
+			</div>
+
+			<p>To evaluate if the introduction of StructCodes into living hinges changes their flexibility, we measured up to what angle the living hinge can bend before fracturing and compared the results for both modified and unmodified living hinges.</p>
+			<p><em>Experiment setup</em>. Similar to the setup from Section&nbsp;<a class="sec" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#sec-25">7.1</a>, we created 4 pairs of hinges based on the camera scaling factor for living hinges <em>α</em> = 45, which was explained in Section&nbsp;<a class="sec" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#sec-21">6.3</a>. We repeated this for hinges of two sizes: a smaller one that can carry 10 characters (4.7cm x 3.64cm, <em>Δd</em> = 1.04mm) and a larger one that can carry 50 characters (12.2cm x 9.6cm, <em>Δd</em> = 2.71mm). We laser cut the 4 unmodified and 4 modified hinges of each size (16 hinges in total) from 3mm birch plywood sheets. The messages embedded in the modified ones were produced using a random string generator. While different hinge designs may exhibit different flexibility&nbsp;[Fenner <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0017" data-original-title="" title="" id="auto-BibPLXBIB001777">2012</a>], we use the default pattern generated by <em>kyub</em> as this is the tool we used for fabricating our application samples.</p>
+			<p><em>Experiment procedure</em>. To evaluate the bending angle, we bent the living hinge pattern either up to 180° (maximum) or up to the point where it started cracking, and then read the corresponding maximum angle from a protractor as shown in Figure&nbsp;<a class="fig" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#fig11">11</a> b.</p>
+			<p><em>Results</em>. For the larger hinge, we found that both the unmodified and modified hinge were able to bend to 180° (Table&nbsp;<a class="tbl" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#tab3">3</a>). Thus, the change did not impact the performance. This is likely because the cut distance is not a main factor impacting the maximum hinge bend angle, which is rather directly linked to the the sheet thickness and the number of links in series&nbsp;[Fenner <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0017" data-original-title="" title="" id="auto-BibPLXBIB001778">2012</a>]. For the smaller hinge, the unmodified hinge was also able to bend to the maximum of 180°, whereas the modified hinge was still able to bend to 175° (i.e., a decrease only 2.8% after the insertion of the code). We believe this should not affect the use of hinges as they are typically bent to 90° for most objects (see Section&nbsp;<a class="sec" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#sec-28">9</a>).</p>
+			<p>The above evaluation demonstrated that the addition of StructCodes preserves the large compression strength of laser-cut objects held together with joints and curvatures achieved via hinges. However, more longitudinal tests might be needed to further examine the joints’ usage in diverse applications where, for instance, the effect of shearing (i.e., when the direction of the force is parallel to the plane of the object) is more important than the effect of compression. Similarly, while the hinge applications presented were for static objects, further analysis could be conducted to determine the long-term impact of repeated bending on hinges with StructCodes.</p><div class="table-responsive" id="tab3">
+			<div class="table-caption">
+			<span class="table-number">Table 3:</span>
+			<span class="table-title">Average bend angle of the living hinges.</span>
+			</div>
+			<table class="table">
+			<tbody>
+			<tr style="border-bottom: 2pt solid #000000;">
+			<td style="text-align:left;">
+			</td><td style="text-align:left;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;"><strong>Unmodified</strong></td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;"><strong>Modified with</strong></td>
+			</tr>
+			<tr>
+			<td style="text-align:left;"><strong>StructCode</strong></td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			<td style="text-align:left;">
+			<table>
+			<tbody>
+			<tr>
+			<td style="text-align:left;"><strong>Relative change</strong></td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			</tr>
+			<tr style="border-bottom: 2pt solid #000000;">
+			<td style="text-align:left;">smaller</td>
+			<td style="text-align:left;">180°</td>
+			<td style="text-align:left;">175° (std=5)</td>
+			<td style="text-align:left;">Decrease by 2.8%</td>
+			</tr>
+			<tr>
+			<td style="text-align:left;">larger</td>
+			<td style="text-align:left;">180°</td>
+			<td style="text-align:left;">180°</td>
+			<td style="text-align:left;">No change</td>
+			</tr>
+			</tbody>
+			</table>
+			</div><p></p>
+			</section>
+			</section>
+	</section>
+
+	<section>
+		<br/>
+		<span class="medium-headline">
+			SOFTWARE IMPLEMENTATION
+		</span>
+		<br/>
+		<br/>
+
+		<p>Our software tool for embedding StructCodes is Web-based and uses <em>JavaScript</em> as well as the <em>Paper.js</em> canvas library.</p>
+		<p><em>Extracting laser-cut plates from SVG</em>. To extract the laser-cut structures from the user's <em>kyub</em> design file (.svg), our software first parses through its layers that contain the individual path segments of the drawing. For each plate, our tool utilizes the annotations in the <em>kyub</em> file to create a data structure instance that contains the ID of the plate and the IDs of interlocking plates on the plate's sides.</p>
+		<p><em>Identifying structures in each plate</em>. Once the plates are extracted from the SVG file, the software interface identifies the finger joints and living hinges in each plate using our algorithm and adds the line segments that represent them to the data structure. To identify joints, it detects parallel line segments whose endpoints match in either the x- or y-axis and stores these segments in an array inside the data structure. To identify hinges, it detects groups of adjacent parallel lines with tiny distances between them. For hinges, once the last line is found, a bounding box is created to encompass all segments within that hinge.</p>
+		<p><em>Converting text into bit sequences</em>. The user-inputted characters are transformed into 4-bit, base 3 sequences to form a bit string according to a pre-defined dictionary.</p>
+		<p><em>Modifying structures to embed bits</em>. The fingers joints and living hinges are then manipulated to encode the computed bit sequence in the following manner:</p>
+		<p><em>For finger joints</em>, we first compute <em>Δd<sub>min</sub></em> based on the formula described in Section&nbsp;<a class="sec" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#sec-21">6.3</a> (<span class="inline-equation"><span class="tex"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span id="MathJax-Element-6-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;&amp;#x0394;&lt;/mi&gt;&lt;msub&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mfrac&gt;&lt;msub&gt;&lt;mi&gt;w&lt;/mi&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;p&lt;/mi&gt;&lt;mi&gt;l&lt;/mi&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;mi&gt;&amp;#x03B1;&lt;/mi&gt;&lt;/mfrac&gt;&lt;/math&gt;" role="presentation" style="font-size: 108%; position: relative;"><span id="MJXc-Node-115" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-116" class="mjx-mrow"><span id="MJXc-Node-117" class="mjx-mi"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.441em; padding-bottom: 0.344em;">Δ</span></span><span id="MJXc-Node-118" class="mjx-msubsup"><span class="mjx-base" style="margin-right: -0.003em;"><span id="MJXc-Node-119" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.49em; padding-bottom: 0.295em; padding-right: 0.003em;">d</span></span></span><span class="mjx-sub" style="font-size: 70.7%; vertical-align: -0.212em; padding-right: 0.071em;"><span id="MJXc-Node-120" class="mjx-texatom" style=""><span id="MJXc-Node-121" class="mjx-mrow"><span id="MJXc-Node-122" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">m</span></span><span id="MJXc-Node-123" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.441em; padding-bottom: 0.295em;">i</span></span><span id="MJXc-Node-124" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">n</span></span></span></span></span></span><span id="MJXc-Node-125" class="mjx-mo MJXc-space3"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.1em; padding-bottom: 0.295em;">=</span></span><span id="MJXc-Node-126" class="mjx-mfrac MJXc-space3"><span class="mjx-box MJXc-stacked" style="width: 1.751em; padding: 0px 0.12em;"><span class="mjx-numerator" style="font-size: 70.7%; width: 2.477em; top: -1.346em;"><span id="MJXc-Node-127" class="mjx-msubsup" style=""><span class="mjx-base"><span id="MJXc-Node-128" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">w</span></span></span><span class="mjx-sub" style="font-size: 70.7%; vertical-align: -0.219em; padding-right: 0.071em;"><span id="MJXc-Node-129" class="mjx-texatom" style=""><span id="MJXc-Node-130" class="mjx-mrow"><span id="MJXc-Node-131" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.49em;">p</span></span><span id="MJXc-Node-132" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.49em; padding-bottom: 0.295em;">l</span></span><span id="MJXc-Node-133" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">a</span></span><span id="MJXc-Node-134" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.392em; padding-bottom: 0.295em;">t</span></span><span id="MJXc-Node-135" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">e</span></span></span></span></span></span></span><span class="mjx-denominator" style="font-size: 70.7%; width: 2.477em; bottom: -0.524em;"><span id="MJXc-Node-136" class="mjx-mi" style=""><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">α</span></span></span><span class="mjx-line" style="border-bottom: 1.3px solid; top: -0.28em; width: 1.751em;"></span></span><span class="mjx-vsize" style="height: 1.322em; vertical-align: -0.37em;"></span></span></span></span><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi mathvariant="normal">Δ</mi><msub><mi>d</mi><mrow class="MJX-TeXAtom-ORD"><mi>m</mi><mi>i</mi><mi>n</mi></mrow></msub><mo>=</mo><mfrac><msub><mi>w</mi><mrow class="MJX-TeXAtom-ORD"><mi>p</mi><mi>l</mi><mi>a</mi><mi>t</mi><mi>e</mi></mrow></msub><mi>α</mi></mfrac></math></span></span><script type="math/tex" id="MathJax-Element-6">\Delta d_{min} = \frac{w_{plate}}{\alpha }</script></span></span>) for the selected plate. While modifying the fingers and gaps of the joints, we readjust their widths to ensure that the joints cover the whole side of the plate based on the computed <em>Δd<sub>min</sub></em> value as well as the number of <tt>0</tt>s, <tt>1</tt>s, and <tt>2</tt>s needed for the specific message. We modify the widths by shifting each parallel line from the line before it by the required calculated difference, and this shifting continues along each of the sides in a counter-clockwise manner until complete. When a side is done, the neighboring plate and its side are also shifted with the corresponding bit subarray to ensure interlocking.</p>
+		<p><em>For living hinges</em>, we similarly first compute <em>Δd<sub>min</sub></em> based on the formula described in Section&nbsp;<a class="sec" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#sec-21">6.3</a> (<span class="inline-equation"><span class="tex"><span class="MathJax_Preview" style="color: inherit; display: none;"></span><span id="MathJax-Element-7-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;&amp;#x0394;&lt;/mi&gt;&lt;msub&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mfrac&gt;&lt;msub&gt;&lt;mi&gt;w&lt;/mi&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;h&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mi&gt;g&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;mi&gt;&amp;#x03B1;&lt;/mi&gt;&lt;/mfrac&gt;&lt;/math&gt;" role="presentation" style="font-size: 108%; position: relative;"><span id="MJXc-Node-137" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-138" class="mjx-mrow"><span id="MJXc-Node-139" class="mjx-mi"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.441em; padding-bottom: 0.344em;">Δ</span></span><span id="MJXc-Node-140" class="mjx-msubsup"><span class="mjx-base" style="margin-right: -0.003em;"><span id="MJXc-Node-141" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.49em; padding-bottom: 0.295em; padding-right: 0.003em;">d</span></span></span><span class="mjx-sub" style="font-size: 70.7%; vertical-align: -0.212em; padding-right: 0.071em;"><span id="MJXc-Node-142" class="mjx-texatom" style=""><span id="MJXc-Node-143" class="mjx-mrow"><span id="MJXc-Node-144" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">m</span></span><span id="MJXc-Node-145" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.441em; padding-bottom: 0.295em;">i</span></span><span id="MJXc-Node-146" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">n</span></span></span></span></span></span><span id="MJXc-Node-147" class="mjx-mo MJXc-space3"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.1em; padding-bottom: 0.295em;">=</span></span><span id="MJXc-Node-148" class="mjx-mfrac MJXc-space3"><span class="mjx-box MJXc-stacked" style="width: 1.906em; padding: 0px 0.12em;"><span class="mjx-numerator" style="font-size: 70.7%; width: 2.696em; top: -1.354em;"><span id="MJXc-Node-149" class="mjx-msubsup" style=""><span class="mjx-base"><span id="MJXc-Node-150" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">w</span></span></span><span class="mjx-sub" style="font-size: 70.7%; vertical-align: -0.219em; padding-right: 0.071em;"><span id="MJXc-Node-151" class="mjx-texatom" style=""><span id="MJXc-Node-152" class="mjx-mrow"><span id="MJXc-Node-153" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.49em; padding-bottom: 0.295em;">h</span></span><span id="MJXc-Node-154" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.441em; padding-bottom: 0.295em;">i</span></span><span id="MJXc-Node-155" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">n</span></span><span id="MJXc-Node-156" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.49em; padding-right: 0.003em;">g</span></span><span id="MJXc-Node-157" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">e</span></span></span></span></span></span></span><span class="mjx-denominator" style="font-size: 70.7%; width: 2.696em; bottom: -0.524em;"><span id="MJXc-Node-158" class="mjx-mi" style=""><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.197em; padding-bottom: 0.295em;">α</span></span></span><span class="mjx-line" style="border-bottom: 1.3px solid; top: -0.28em; width: 1.906em;"></span></span><span class="mjx-vsize" style="height: 1.328em; vertical-align: -0.37em;"></span></span></span></span><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi mathvariant="normal">Δ</mi><msub><mi>d</mi><mrow class="MJX-TeXAtom-ORD"><mi>m</mi><mi>i</mi><mi>n</mi></mrow></msub><mo>=</mo><mfrac><msub><mi>w</mi><mrow class="MJX-TeXAtom-ORD"><mi>h</mi><mi>i</mi><mi>n</mi><mi>g</mi><mi>e</mi></mrow></msub><mi>α</mi></mfrac></math></span></span><script type="math/tex" id="MathJax-Element-7">\Delta d_{min} = \frac{w_{hinge}}{\alpha }</script></span></span>) for the hinge selected by the user, and use this value to find the lengths corresponding to the different bits. These length values are used to modify the endpoints of the two adjacent line segments that represent a gap between hinge cuts.</p>
+
+	</section>
+
+	<section>
+		<br/>
+		<span class="medium-headline">
+			DISCUSSION
+		</span>
+		<br/>
+		<br/>
+
+		<p>In the next section, we discuss insights gained from our work, acknowledge its limitations, and propose future research.</p>
+		<p><em>Aesthetics vs. code capacity</em>. Even though varying structural elements keeps the surface and the main geometry of the object intact, the varying patterns may come across as unfamiliar or less smooth to users that are used to the standard joint or hinge patterns. Thus, similar to <em>FoolProofJoint</em>&nbsp;[Park and Baudisch <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0041" data-original-title="" title="" id="auto-BibPLXBIB004179">2022</a>], which varies the joints to facilitate assembly, the use of StructCodes comes at an aesthetic cost based on the user's familiarity and experience with these patterns. StructCode aims to minimize this by choosing <em>Δd</em> values as small as possible while also ensuring machine-readability. Future work can explore how to optimize the look of joints for being completely unnoticeable to humans by aiming to go under the <em>Just Noticeable Difference</em>, i.e., the minimum level a stimulus that needs to be changed for humans to perceive it&nbsp;[Hecht <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0023" data-original-title="" title="" id="auto-BibPLXBIB002380">1924</a>]. Psychologists show this difference is proportional to the original length&nbsp;[Boring <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0006" data-original-title="" title="" id="auto-BibPLXBIB000681">1942</a>]. Therefore, distinguishing between two rectangles (e.g., joints) with different lengths is more difficult when their <em>average length</em> increases while the difference between them is kept constant&nbsp;[Wadhwa <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0054" data-original-title="" title="" id="auto-BibPLXBIB005482">2020</a>].</p>
+		<p>The current version of StructCode uses a base 3 encoding scheme, which allows us to embed a variety of characters sufficient to represent, e.g., a URL. Other numeral systems (e.g., base 5) can embed more characters with fewer bits, but they require more variation in the joint lengths. Thus, the difference between individual joints may be more visible and have a stronger impact on the object integrity and look. A future version of StructCode can offer multiple encoding schemes and allow users to decide on the best trade-off between data capacity, subtlety, and mechanical performance.</p>
+		<p><em>Error correction</em>. Error correction codes (ECCs) such as Reed-Solomon&nbsp;[Reed and Solomon <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0042" data-original-title="" title="" id="auto-BibPLXBIB004283">1960</a>] or Hamming code&nbsp;[Hamming <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0021" data-original-title="" title="" id="auto-BibPLXBIB002184">1950</a>] could be added to StructCodes to further increase detection robustness. By adding redundancy, these may help detect and correct errors that may occur in particularly noisy or blurry images. However, this comes at the expense of reduced code capacity.</p>
+		<p><em>The effect of post-hoc polishing</em>. After laser cutting an object, some users prefer smoothing the finger joints depending on intended use and time availability. However, sanding finger joints may impact the size of the detected joints. We evaluated how much sanding our image processing pipeline can endure for different wood materials, i.e., birch plywood, walnut, and medium-density fiberboard (MDF). We cut the same sample with these materials and sanded them with sandpaper of grit sizes 1000, 600, 220, and 110 (fine to coarse), 30 passes for each. We could decode each sample before sanding. For birch plywood and walnut, we found that sanding with grit size 1000 and 600 preserved decodability. For MDF, only grit size 1000 preserved decodability. This is likely because plywood sheets consist of multiple stacks of veneers, one of which naturally has a darker color that remains intact even after sanding. In the future, our detection algorithm could be further optimized to increase recognition under tougher conditions by enhancing contrast using methods such as CLAHE&nbsp;[Yadav et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0061" data-original-title="" title="" id="auto-BibPLXBIB006185">2014</a>]. Future research may also consider using specialized cameras&nbsp;[Dogan et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0014" data-original-title="" title="" id="auto-BibPLXBIB001486">2022b</a>] for cases where fabrication artifacts like joints are intentionally occluded by the designer.</p>
+		<p><em>Extending StructCode to other types of shapes and objects</em>. Our initial survey showed that finger joints and living hinges are most suitable for StructCodes. We therefore optimized our image processing pipeline to detect these structures. However, the StructCode concept is not limited to these. We plan to embed codes into more freeform shapes in the future, such as joints placed along circular plates. Future work can investigate ways to embed StructCodes into joints used in other fabrication processes, e.g., stitching in <em>Joinery</em>&nbsp;[Zheng et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0064" data-original-title="" title="" id="auto-BibPLXBIB006487">2017</a>], 3D printing textiles in <em>DefeXtiles</em>&nbsp;[Forman et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0018" data-original-title="" title="" id="auto-BibPLXBIB001888">2020</a>] or joints in <em>Hybrid Carpentry</em>&nbsp;[Magrisso et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0033" data-original-title="" title="" id="auto-BibPLXBIB003389">2018</a>], and machining traditional or modern woodworking joints in <em>Tsugite</em>&nbsp;[Larsson et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0029" data-original-title="" title="" id="auto-BibPLXBIB002990">2020</a>], <em>JigFab</em>&nbsp;[Leen et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0030" data-original-title="" title="" id="auto-BibPLXBIB003091">2019</a>] and <em>MatchSticks</em>&nbsp;[Tian et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0053" data-original-title="" title="" id="auto-BibPLXBIB005392">2018</a>].</p>
+
+	</section>
+
+
+	<section>
+		<br/>
+		<span class="medium-headline">
+			CONCLUSION
+		</span>
+		<br/>
+		<br/>
+
+		<p>In this paper, we presented StructCode, a technique to embed data into laser-cut fabrication artifacts. By modifying the patterns of laser-cut joints while maintaining their functionality, StructCode enables the embedding of data that can be decoded using a mobile phone camera. We explained the encoding scheme used to embed data into finger joints and living hinges. We then presented a software tool for embedding codes into existing 3D models, and a mobile application to decode them. Our applications illustrated how fabrication artifacts can be leveraged to augment laser-cut objects with data such as labels, instructions, and narration. We explained our image processing pipeline which extracts the data from camera images. Finally, we evaluated the mechanical integrity of the fabricated objects to ensure that they are stable after StructCodes are embedded, and discussed how StructCodes can be further developed to make them fully inconspicuous to humans and more robust using error correction codes.</p>
+		<p>This work aims to bring us one step closer to the vision of embedding data for augmented objects as an inherent part of the fabrication process&nbsp;[Dogan et&nbsp;al. <a class="bib" data-trigger="hover" data-toggle="popover" data-placement="top" href="https://camps.aptaracorp.com/ACM_PMS/PMS/ACM/SCF23/1/182482bc-4e41-11ee-b37c-16bb50361d1f/OUT/scf23-1.html#BibPLXBIB0009" data-original-title="" title="" id="auto-BibPLXBIB000993">2022a</a>].</p>
+
+	</section>
+
 </div>
+
 
 <div class="container">
 	<div class="row">
