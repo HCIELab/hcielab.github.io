@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Zip-up Print: Rapid and Assemblable 3D Printing Using 2D Flattened Zipper-like Structures</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<link rel="CSAIL" href="http://hcie.csail.mit.edu/images/icon/csail.ico" type="image/x-icon" />
+	<link href="https://hcie.csail.mit.edu/css/bootstrap.css" rel="stylesheet">
+	<link href="https://hcie.csail.mit.edu/css/custom-style.css" rel="stylesheet">
+	<link href="../../css/lightbox.css" rel="stylesheet">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+	<script type="text/javascript" src="https://hcie.csail.mit.edu/js/analytics.js"></script>
+	<style>
+		.project-figure {
+			width: 100%;
+			margin: 8px 0 10px;
+		}
+		.project-figure img {
+			width: 100%;
+			height: auto;
+			display: block;
+		}
+		.project-figure.narrow {
+			max-width: 520px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		p[style="font-size: 12px"] {
+			text-align: center;
+			margin-bottom: 22px;
+		}
+		.project-note {
+			font-size: 13px;
+			color: #666;
+		}
+		.sidebar-section {
+			margin-top: 28px;
+		}
+		.video-placeholder {
+			position: relative;
+			width: 100%;
+			padding-bottom: 56.25%;
+			border: 1px dashed #b8b8b8;
+			background: #f6f6f6;
+			overflow: hidden;
+		}
+		.video-placeholder-inner {
+			position: absolute;
+			inset: 0;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			color: #666;
+			text-align: center;
+			padding: 16px;
+		}
+		.video-play {
+			width: 54px;
+			height: 54px;
+			border-radius: 50%;
+			border: 1px solid #999;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 20px;
+			margin-bottom: 10px;
+			background: rgba(255,255,255,0.8);
+		}
+	</style>
+</head>
+
+<body>
+<header class="main_header">
+	<!-- to be filled by javascript, see header.html -->
+</header>
+<div class="container" style="padding-top: 100px;">
+	<div class="row">
+		<div class="col-md-4" style="text-align: left;">
+			<br><br>
+			<span class="medium-headline">Publication</span>
+			<br><br>
+			Takumi Yamamoto, Jiaji Li, Akib Zaman, Noah Barnes, Yuta Sugiura, Stefanie Mueller, Koya Narumi
+			<br><br>
+			Zip-up Print: Rapid and Assemblable 3D Printing Using 2D Flattened Zipper-like Structures
+			<br><br>
+			Published at <a href="https://chi2026.acm.org/" target="_blank">ACM CHI '26.</a>
+			<br><br>
+			<a href="https://dl.acm.org/doi/10.1145/3772318.3790538" class="btn btn-doi" alt="doi" target="_blank">DOI</a>
+			&nbsp; &nbsp;
+			<a href="https://groups.csail.mit.edu/hcie/files/research-projects/zip-up-print/zip-up-print.pdf" class="btn btn-pdf" alt="pdf" target="_blank">PDF</a>
+			&nbsp; &nbsp;
+			<a href="https://www.youtube.com/watch?v=8r8dpDAgUok" class="btn btn-vdo" alt="video" target="_blank">Video</a>
+			&nbsp; &nbsp;
+			<a href="https://groups.csail.mit.edu/hcie/files/research-projects/zip-up-print/zip-up-print_slides.pdf" class="btn btn-slide" alt="slide" target="_blank">Slides</a>
+
+			<div class="sidebar-section">
+				<span class="medium-headline">Press</span>
+				<br><br>
+				<ul>
+					<li><a href="https://www.csail.mit.edu/news/zipping-future-3d-printing-rapid-support-less-fabrication" target="_blank">MIT CSAIL News</a></li>
+				</ul>
+			</div>
+
+			<div class="sidebar-section">
+				<span class="medium-headline">Video</span>
+				<br><br>
+				<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;">
+					<iframe src="https://www.youtube.com/embed/8r8dpDAgUok" title="Zip-up Print Video"
+						frameborder="0" allowfullscreen
+						style="position: absolute; top:0; left: 0; width: 100%; height: 100%;"></iframe>
+				</div>
+			</div>
+
+			<div class="sidebar-section">
+				<span class="medium-headline">Slides</span>
+				<br><br>
+				<div id="slideThumbs"></div>
+			</div>
+		</div>
+
+		<div class="col-md-8" style="text-align: left;">
+			<br>
+			<h3 class="headline">Zip-up Print: Rapid and Assemblable 3D Printing Using 2D Flattened Zipper-like Structures</h3>
+			<br>
+
+			<div class="project-figure">
+				<img src="images/head.jpg" alt="Zip-up Print teaser workflow" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 1.</strong> Zip-up Print workflow: an input 3D model is converted into developable zipper-attached patches, flattened for printing, and then manually assembled back into a 3D object.</p>
+
+			<br>
+			<span class="medium-headline">ABSTRACT</span>
+			<br>
+			<p>We propose Zip-up Print, a fabrication method that produces 3D objects as flattened 3D-printed pieces with integrated zipper-like structures and then reconstructs them by manual assembly. Instead of printing a complex object directly with supports and infill, Zip-up Print divides an input model into developable patches, generates zipper structures along patch boundaries, and flattens the result into printable 2D layouts. The resulting workflow reduces support material and fabrication time, enables objects larger than the printer build volume, and supports post-print modification by allowing individual pieces to be detached and replaced.</p>
+
+			<br>
+			<span class="medium-headline">INTRODUCTION</span>
+			<br>
+			<p>Desktop FDM printers let people fabricate increasingly complex shapes, but they still come with familiar pain points: support material waste, long print times, limited build volume, and the need to reprint an entire object when only one region needs to change. These constraints are especially frustrating for large curved objects, where conventional printing tends to be slow, support-heavy, and difficult to revise once finished.</p>
+			<p>Prior work has mainly pushed in two directions. One is flatten-first fabrication, such as 4D printing and self-folding systems, which can reduce support and print time but remain limited by bed size and usually do not support partial replacement after printing. The other is part-based printing, which supports larger objects and modular assembly, but often keeps each piece volumetric rather than fully flattened, so the time and material savings are more limited. In addition, parts are often joined with glue or screws, making repeated assembly and disassembly inconvenient.</p>
+			<p>Zip-up Print aims for a middle ground between these approaches. It breaks a 3D model into pieces, prints those pieces in flattened form, and reconnects them with a fully 3D-printable zipper-like structure that supports iterative attachment and detachment. The zipper geometry is designed so the teeth can be printed parallel to the surface, which helps preserve print quality and reduce support, while ball-and-socket style engagement allows neighboring patches to connect even when their angles differ.</p>
+			<p>Together, the system offers a practical route toward faster, more assemblable 3D printing. It supports large objects beyond a single printer's build volume, makes selective part replacement possible, and opens a design space for reconfigurable printed artifacts rather than single-use static prints.</p>
+
+			<br>
+			<span class="medium-headline">ZIPPER DESIGN</span>
+			<br>
+			<p>Zip-up Print starts from a design problem that seems simple but is surprisingly tricky in practice: how do you attach zipper structures to arbitrary surface patches while keeping them printable without heavy support material? Conventional zippers assume the two rows of teeth remain parallel to each other. That works on flat textiles, but once two connected patches meet at an angle, keeping the teeth parallel causes the tooth geometry to tilt relative to the surface and protrude into space as overhangs.</p>
+			<p>Zip-up Print resolves this by aligning the zipper teeth with the surface patches themselves rather than with each other. This keeps each patch essentially planar for printing, but it means the zipper must still connect even when neighboring patches meet at different orientations after assembly. To handle that, the paper introduces a ball-and-socket tooth design: each tooth integrates a ball feature and a corresponding socket so adjacent teeth can interlock with some angular freedom.</p>
+			<p>This choice creates a useful balance. During assembly, the spherical contact makes it easier to snap pieces together from slightly different directions, which matters because users often assemble the object while bending the flexible printed patches. After assembly, the teeth still provide enough constraint to reconstruct the intended shape while remaining detachable. The paper further discusses parameter controls for thickness, tooth height, widths, guide spacing, socket radii, and surface thickness, which together shape the tradeoff between printability, ease of assembly, and holding force.</p>
+
+			<div class="project-figure narrow">
+				<img src="images/zipper-direction.jpg" alt="Zipper orientation strategies" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 2.</strong> Compared with conventional zipper alignment, Zip-up Print aligns zipper teeth with each surface patch so the pieces stay planar and printable before assembly.</p>
+
+			<div class="project-figure">
+				<img src="images/zipper-structure.jpg" alt="Zip-up Print zipper structure" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 3.</strong> Zipper geometry and parameters, including the ball-and-socket tooth structure that allows angle-independent connections between flattened patches.</p>
+
+			<br>
+			<span class="medium-headline">GENERATION PIPELINE</span>
+			<br>
+			<p>Given an input 3D mesh, the pipeline first converts it into developable patches that can be flattened with limited distortion. The implementation builds on Zhao et al.'s developable-approximation method and then loads the resulting segmented meshes into a Grasshopper-based workflow. This establishes the coarse part decomposition that makes large or support-heavy models printable as multiple flattened pieces.</p>
+			<p>Because automatic decomposition alone is not always enough, Zip-up Print also keeps the user in the loop. If a flattened piece would exceed the print bed, the user can add more seams interactively. These seams are defined on the mesh in Rhino, converted into polylines, and then used to subdivide oversized pieces further until everything fits within the target printer volume.</p>
+			<p>After segmentation, the system detects shared boundary edges between adjacent patches and generates zipper surfaces along those boundaries. The pipeline estimates local patch angles from tangents and normals so it can offset and trim the geometry consistently, then alternates zipper features across neighboring pieces so the parts can interlock after printing. Finally, the zipper-attached surfaces are flattened into 2D layouts that can be sent directly to a standard slicer.</p>
+			<p>The result is an end-to-end workflow that transforms a curved 3D shell into flat printable patches while preserving enough geometric information to reassemble the model later. This is the core move that turns a large support-heavy shape into a quicker, more material-efficient fabrication job.</p>
+
+			<div class="project-figure">
+				<img src="images/system-pipeline.jpg" alt="Zip-up Print system pipeline" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 4.</strong> System pipeline from input mesh, to developable segmentation, to user-added seams, zipper generation, and flattened printable output.</p>
+
+			<br>
+			<span class="medium-headline">DESIGN TOOL</span>
+			<br>
+			<p>The authors implemented a Grasshopper interface using Human UI so that the full workflow can be used without manually scripting each step. The interface supports three main phases: model import and automatic developable approximation, interactive seam editing for oversized pieces, and zipper generation plus flattening. Users can preview the imported geometry, trigger developable conversion, inspect which pieces exceed the build volume, add cut lines, and then expose zipper parameters such as tooth thickness, spacing, widths, and ball/socket radii before generating the final printable layouts.</p>
+
+			<div class="project-figure">
+				<img src="images/ui.jpg" alt="Zip-up Print user interface" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 5.</strong> The Grasshopper-based interface supports model import, interactive seam addition for oversized pieces, and zipper generation plus flattening.</p>
+
+			<br>
+			<span class="medium-headline">FABRICATION RESULTS AND EVALUATION</span>
+			<br>
+			<p>To evaluate the pipeline, the paper reports fabricated examples including a drill, bear, Moai statue, duck, Stanford bunny, and bird. Several of these exceed the build volume of the Bambu X1 Carbon printer used in the study, but become fabricable once segmented into zipper-connected developable patches. The printed results show that the method can reconstruct diverse curved shell geometries while keeping the pieces individually printable.</p>
+			<p>Shape accuracy was measured by scanning the fabricated objects, aligning them to the target developable models, and computing normalized geometric error. Across the six examples, the reported structural error ranges from 2.74% to 4.67%, averaging 3.77%. Surface coverage also remains high despite small boundary gaps around branching points, staying above 98% for all tested objects.</p>
+
+			<div class="project-figure">
+				<img src="images/results.jpg" alt="Zip-up Print fabricated results" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 6.</strong> Fabricated models and scan-based accuracy visualization for six examples, showing reconstruction quality across different geometries.</p>
+
+			<p>The material and time savings are one of the clearest wins. Compared with conventional direct printing, support material consumption decreases by an average of 78.65%, while total material consumption drops by 77.43% because the method avoids both large support structures and much of the infill required by volumetric prints. When fabrication time includes both printing and manual assembly, the method still reduces total fabrication time by an average of 44.4%, with larger objects benefiting the most.</p>
+
+			<div class="project-figure">
+				<img src="images/time-support.jpg" alt="Zip-up Print support and time evaluation" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 7.</strong> Evaluation of support material, total material, and fabrication time, showing substantial savings compared with conventional 3D printing.</p>
+
+			<p>The paper also reports a small assembly study with five participants. Participants described the process as enjoyable and LEGO-like, but also pointed out that the final patch is often the hardest to install because there is no way to support the object from the inside once most seams are already closed. Several participants suggested that assembly order matters a lot and that the system would benefit from indicating a recommended sequence.</p>
+			<p>Mechanical testing focused on normal force and peeling force, which capture how strongly the zipper resists sliding apart and peeling open. Scaling up the tooth geometry increases both forces in an approximately linear way, which provides a straightforward design knob for making the zipper stronger. A 200-cycle durability test further shows a short break-in phase during roughly the first 10 cycles, after which the forces stabilize and decline much more gradually.</p>
+
+			<div class="project-figure narrow">
+				<img src="images/mechanical-strength.jpg" alt="Zip-up Print mechanical evaluation" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 8.</strong> Mechanical evaluation setup for normal force and peeling force, used to study scaling behavior and durability across repeated assembly cycles.</p>
+
+			<br>
+			<span class="medium-headline">APPLICATIONS</span>
+			<br>
+			<p>Because the zipper-connected patches are detachable, Zip-up Print naturally supports modification after fabrication rather than only before it. The paper demonstrates this through several application examples that treat a printed object as something users can revise, customize, and reconfigure over time.</p>
+			<p>One set of examples explores visual customization. A bear model is segmented so the eye regions become replaceable patches, making it easy to swap facial expressions without reprinting the full object. A similar idea is applied to a hat, where selected pieces can be exchanged to switch between different silhouettes while reusing the rest of the printed structure.</p>
+
+			<div class="project-figure narrow">
+				<img src="images/application-face.jpg" alt="Bear face customization" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 9.</strong> Replaceable face patches allow the same bear model to support multiple eye designs and facial variations.</p>
+
+			<div class="project-figure narrow">
+				<img src="images/application-hat.jpg" alt="Hat customization" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 10.</strong> Hat pieces can be swapped to create different brim configurations while reusing shared parts.</p>
+
+			<p>The method also combines well with conventional printing. In the bunny example, the main shell is produced as zipper-connected developable patches while the tail is printed conventionally and swapped between different versions. This hybrid strategy is useful because Zip-up Print is fast and scalable for shells, while conventional printing remains better for stiff or highly non-developable local details.</p>
+
+			<div class="project-figure narrow">
+				<img src="images/application-tail.jpg" alt="Bunny tail customization" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 11.</strong> Zip-up Print can be combined with conventional 3D printing to swap more complex or rigid details, such as alternative bunny tails.</p>
+
+			<p>Another example uses the zipper as an interaction mechanism rather than only a fastening strategy. A banana-like object can be peeled open to reveal an inner core, showing how the system supports transformations in surface state that are difficult to achieve with traditional monolithic printing. The paper also includes a large lampshade that exceeds the printer's native build volume and a bird model with a swappable textured patch for changing tactile surface qualities.</p>
+
+			<div class="project-figure narrow">
+				<img src="images/application-banana.jpg" alt="Peelable banana object" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 12.</strong> A banana-like object uses zipper-connected peel segments to support a peel-away interaction.</p>
+
+			<div class="project-figure narrow">
+				<img src="images/application-lamp.jpg" alt="Large lampshade" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 13.</strong> A large lampshade fabricated beyond the build volume of a single desktop printer by segmenting it into zipper-connected flattened pieces.</p>
+
+			<div class="project-figure narrow">
+				<img src="images/application-texture.jpg" alt="Texture modification on bird model" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 14.</strong> A bird model with a replaceable textured patch demonstrates localized tactile modification after printing.</p>
+
+			<br>
+			<span class="medium-headline">DISCUSSION, LIMITATIONS, AND FUTURE WORK</span>
+			<br>
+			<p>The discussion highlights several tradeoffs in the current system. One is the relationship between tooth count and assembly. More teeth help the zipper follow higher-curvature boundaries, but they also make assembly slower and more demanding. Another issue appears at branching points, where teeth may need to be removed to avoid collisions. This can leave small holes in the reconstructed surface, although the paper shows that outward expansion of non-toothed boundary regions substantially reduces the visible gaps.</p>
+
+			<div class="project-figure narrow">
+				<img src="images/hole-fix.jpg" alt="Branching-point hole mitigation" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 15.</strong> Outward expansion of non-toothed boundary regions reduces holes that otherwise appear where multiple seams meet.</p>
+
+			<p>The paper also points out limits in the developable-approximation stage. Automatically generated patches can become too fine, which increases assembly burden and can cause issues when the flattened patches are offset to make room for zipper geometry. Symmetric objects can also lose symmetry during developable optimization, so the authors demonstrate a simple mirroring-based workaround and suggest more symmetry-aware segmentation as future work.</p>
+
+			<div class="project-figure narrow">
+				<img src="images/mirror.jpg" alt="Symmetry preservation process" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 16.</strong> A simple symmetry-preservation strategy mirrors one half of a model to recover symmetric developable patches when the automatic process drifts away from symmetry.</p>
+
+			<p>Finally, the paper explores what a zipper slider might look like in this context. A prototype slider works when the local tooth angle remains relatively constant, but a general-purpose slider for arbitrary changing patch angles remains unsolved. This is an interesting future direction because it could make assembly faster and potentially support richer zipper-based interaction.</p>
+
+			<div class="project-figure narrow">
+				<img src="images/slider.jpg" alt="Prototype zipper slider" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 17.</strong> A prototype slider suggests one path toward faster assembly, but a fully angle-adaptive slider for arbitrary shapes remains future work.</p>
+
+			<br>
+			<span class="medium-headline">CONCLUSION</span>
+			<br>
+			<p>Zip-up Print turns complex 3D shells into flattened, zipper-connected printed pieces that can be assembled into accurate 3D objects with less support material, shorter total fabrication time, and greater post-print revisability. By combining a printable angle-independent zipper design with a segmentation, zipper-generation, and flattening pipeline, the system expands what desktop FDM fabrication can do for large, curved, and customizable objects. Just as importantly, it reframes printed objects as revisable assemblies rather than fixed monoliths.</p>
+		</div>
+	</div>
+</div>
+
+<div id="lightbox-modal" class="lb-modal">
+	<div class="modal-content">
+		<div id="slideLightboxSlides"></div>
+		<a class="close-button" onclick="closeModal()">&times;</a>
+		<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+		<a class="next" onclick="plusSlides(1)">&#10095;</a>
+	</div>
+</div>
+
+<script type="text/javascript" src="../../js/headerstrap.js"></script>
+<script type="text/javascript" src="../../js/footerstrap.js"></script>
+<script>
+	var slideBaseUrl = "https://groups.csail.mit.edu/hcie/files/research-projects/zip-up-print/presentation-images/";
+	var slideCount = 36;
+	var slideIndex = 1;
+
+	function slideImageUrl(index) {
+		return slideBaseUrl + "zip-up-print-" + String(index).padStart(2, "0") + ".png";
+	}
+
+	function renderSlides() {
+		var thumbs = document.getElementById("slideThumbs");
+		var slides = document.getElementById("slideLightboxSlides");
+		if (!thumbs || !slides) {
+			return;
+		}
+		var thumbHtml = "";
+		var slideHtml = "";
+		for (var i = 1; i <= slideCount; i++) {
+			thumbHtml += "<img src=\"" + slideImageUrl(i) + "\" alt=\"Zip-up Print Slide\" width=\"100px\" style=\"padding-bottom:0px; margin-right:6px; margin-bottom:10px\" onclick=\"openModal();currentSlide(" + i + ")\" class=\"hover-shadow\"/>";
+			slideHtml += "<div class=\"lb-slides\"><div class=\"numbertext\">" + i + " / " + slideCount + "</div><img src=\"" + slideImageUrl(i) + "\" alt=\"Zip-up Print Slide\" style=\"padding-bottom:0px; margin-bottom:10px; width:100%\"></div>";
+		}
+		thumbs.innerHTML = thumbHtml;
+		slides.innerHTML = slideHtml;
+	}
+
+	function openModal() {
+		document.getElementById("lightbox-modal").style.display = "block";
+	}
+
+	function closeModal() {
+		document.getElementById("lightbox-modal").style.display = "none";
+	}
+
+	function plusSlides(n) {
+		showSlides(slideIndex += n);
+	}
+
+	function currentSlide(n) {
+		showSlides(slideIndex = n);
+	}
+
+	function showSlides(n) {
+		var slides = document.getElementsByClassName("lb-slides");
+		if (!slides.length) {
+			return;
+		}
+		if (n > slides.length) { slideIndex = 1; }
+		if (n < 1) { slideIndex = slides.length; }
+		for (var i = 0; i < slides.length; i++) {
+			slides[i].style.display = "none";
+		}
+		slides[slideIndex - 1].style.display = "block";
+	}
+
+	window.onclick = function(event) {
+		var modal = document.getElementById("lightbox-modal");
+		if (event.target === modal) {
+			closeModal();
+		}
+	};
+
+	renderSlides();
+</script>
+</body>
+</html>

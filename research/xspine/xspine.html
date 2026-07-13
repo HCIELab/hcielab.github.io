@@ -1,0 +1,449 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Xspine: Integrating Motion Sensing Capability into Dynamic Structures Using Multi-material FDM 3D Printing</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!-- CSAIL ICON -->
+	<link rel="CSAIL" href="http://hcie.csail.mit.edu/images/icon/csail.ico" type="image/x-icon" />
+
+	<!-- Bootstrap -->
+	<link href="https://hcie.csail.mit.edu/css/bootstrap.css" rel="stylesheet">
+	<link href="https://hcie.csail.mit.edu/css/custom-style.css" rel="stylesheet">
+
+	<!-- Lightbox -->
+	<link href="../../css/lightbox.css" rel="stylesheet">
+
+	<!-- jQuery -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+
+	<!-- Google Analytic -->
+	<script type="text/javascript" src="https://hcie.csail.mit.edu/js/analytics.js"></script>
+	<style>
+		.project-figure {
+			width: 100%;
+			margin: 8px 0 10px;
+		}
+		.project-figure img {
+			width: 100%;
+			height: auto;
+			display: block;
+		}
+		.project-figure.narrow {
+			max-width: 520px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		p[style="font-size: 12px"] {
+			text-align: center;
+			margin-bottom: 22px;
+		}
+		.project-note {
+			font-size: 13px;
+			color: #666;
+		}
+		.sidebar-section {
+			margin-top: 28px;
+		}
+		.video-placeholder {
+			position: relative;
+			width: 100%;
+			padding-bottom: 56.25%;
+			border: 1px dashed #b8b8b8;
+			background: #f6f6f6;
+			overflow: hidden;
+		}
+		.video-placeholder-inner {
+			position: absolute;
+			inset: 0;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			color: #666;
+			text-align: center;
+			padding: 16px;
+		}
+		.video-play {
+			width: 54px;
+			height: 54px;
+			border-radius: 50%;
+			border: 1px solid #999;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 20px;
+			margin-bottom: 10px;
+			background: rgba(255,255,255,0.8);
+		}
+	</style>
+</head>
+
+<body>
+<header class="main_header">
+	<!-- to be filled by javascript, see header.html -->
+</header>
+<div class="container" style="padding-top: 100px;">
+	<div class="row">
+		<div class="col-md-4" style="text-align: left;">
+			<br><br>
+			<span class="medium-headline">Publication</span>
+			<br><br>
+			Mingming Li, Dingning Cao*, Xiang Chang*, Karla Sahin*, Stefanie Mueller, Jiaji Li
+			<br><br>
+			Xspine: Integrating Motion Sensing Capability into Dynamic Structures Using Multi-material FDM 3D Printing
+			<br>
+			<span class="project-note">* authors contributed equally</span>
+			<br><br>
+			Published at <a href="https://chi2026.acm.org/" target="_blank">ACM CHI '26.</a>
+			<br><br>
+			<a href="https://dl.acm.org/doi/10.1145/3772318.3791317" class="btn btn-doi" alt="doi" target="_blank">DOI</a>
+			&nbsp; &nbsp;
+			<a href="https://groups.csail.mit.edu/hcie/files/research-projects/xspine/xspine.pdf" class="btn btn-pdf" alt="pdf" target="_blank">PDF</a>
+			&nbsp; &nbsp;
+			<a href="https://www.youtube.com/watch?v=tiL5XRtZYF8" class="btn btn-vdo" alt="video" target="_blank">Video</a>
+			&nbsp; &nbsp;
+			<a href="https://groups.csail.mit.edu/hcie/files/research-projects/xspine/xspine_slides.pdf" class="btn btn-slide" alt="slide" target="_blank">Slides</a>
+
+			<div class="sidebar-section">
+				<span class="medium-headline">Video</span>
+				<br><br>
+				<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;">
+					<iframe src="https://www.youtube.com/embed/tiL5XRtZYF8" title="Xspine Video"
+						frameborder="0" allowfullscreen
+						style="position: absolute; top:0; left: 0; width: 100%; height: 100%;"></iframe>
+				</div>
+			</div>
+
+			<div class="sidebar-section">
+				<span class="medium-headline">Slides</span>
+				<br><br>
+				<div id="slideThumbs"></div>
+			</div>
+		</div>
+
+		<div class="col-md-8" style="text-align: left;">
+			<br>
+			<h3 class="headline">Xspine: Integrating Motion Sensing Capability into Dynamic Structures Using Multi-material FDM 3D Printing</h3>
+			<br>
+
+			<div class="project-figure">
+				<img src="images/head.jpg" alt="Xspine teaser image" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 1.</strong> Xspine applications include: (a) game controller, (b) force tunable device, (c) desk lamp with self-sensing capabilities, (d) tangible module for animation, and (e) embodied intelligence prototype.</p>
+
+			<br>
+			<span class="medium-headline">ABSTRACT</span>
+			<br>
+			<p>We present Xspine, a design and fabrication method for creating motion-capable, self-sensing structures using multi-material FDM 3D printing with conductive filaments. Xspine embeds compliant mechanisms and circuits directly into geometry, enabling large deformations to be detected in a single, assembly-free print. The method combines printable conductive components, time-division multiplexed circuit layouts, and an interactive design tool for configuring motion, previewing deformation, and generating fabrication-ready outputs. Together, these pieces turn static models into customizable interactive artifacts that can sense their own motion.</p>
+
+			<br>
+			<span class="medium-headline">INTRODUCTION</span>
+			<br>
+			<p>Human-computer interaction research has long explored ways to bridge the physical and digital worlds through tangible and deformable interfaces. A major thread in this work is augmenting shape-changing structures with sensing, so that motion is not only expressive but also computationally legible. At the same time, fabrication research has tried to lower the barrier to building such systems, making them easier to prototype, customize, and adapt for different applications.</p>
+			<p>3D printing has become a widely used tool for rapid prototyping of dynamic interfaces, including compliant, elastic, bistable, and shape-memory mechanisms. Yet most 3D-printed dynamic systems are still passive: they can deform, but they cannot sense or respond to their own motion. Some approaches add sensing through post-processing such as electroplating, casting, or manually embedding components. These methods can work well, but they are labor-intensive and often difficult for non-expert users to reproduce.</p>
+			<p>Recent advances in multi-material 3D printing and conductive filaments have made it possible to directly print sensors such as touch surfaces, sliders, and internal sensing structures. However, many existing systems either focus on surface interaction, require specialized conductive materials, or depend on continuous resistance changes that are unstable with consumer-grade conductive PLA and TPU. In practice, these materials often have high resistance and noticeable variability, making analog deformation sensing difficult to use reliably.</p>
+			<p>Xspine addresses this challenge by reframing sensing as a discrete contact problem. Instead of trying to read subtle continuous resistance changes from a deforming path, Xspine divides motion into explicit contact events at predefined nodes. The structure is designed so cut-outs reliably close during deformation, conductive pads and paths convert those contact events into digital signals, and the overall geometry and circuitry are co-designed in a single printable object. This approach enables one-step fabrication of motion-capable, self-sensing structures using accessible multi-material FDM printing.</p>
+			<p>To make the system usable beyond one-off expert prototypes, the paper also introduces an interactive design tool for converting static 3D models into motion-aware structures with embedded sensing. The work is further supported by technical evaluation, a user study, and a set of application examples that demonstrate how Xspine can serve as a platform for customizable interactive 3D-printed devices.</p>
+
+			<div class="project-figure">
+				<img src="images/1_teaser.png" alt="Xspine teaser overview" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 2.</strong> Overview of the Xspine pipeline and representative applications.</p>
+
+			<br>
+			<span class="medium-headline">XSPINE METHOD</span>
+			<br>
+			<p><span class="small-headline"><strong>Compliant structure and conductive components</strong></span></p>
+			<p>Creating motion-capable, self-sensing structures with multi-material FDM printing involves three linked challenges: enabling reliable surface contact during deformation, converting those contacts into stable electrical signals, and fabricating structures that remain usable after printing. Xspine addresses these challenges through a pipeline that combines geometric design, embedded conductive components, circuit layout strategies, and fabrication tuning.</p>
+			<p>Xspine starts from a static 3D model and inserts compliant motion by cutting repeated triangular prisms into the geometry. These cuts define a set of bending nodes, while rectangular cut-outs reserve space for compliant bridges that connect rigid segments. As the structure bends, the faces are guided into repeatable contact, turning deformation into stable sensing events. The prism angle controls the maximum displacement of a node, while the rectangular cut-outs determine bridge length and therefore influence stiffness and required actuation force. A smaller angle supports limited bending, while a larger angle allows a wider range of motion but slightly extends the conductive path around the node.</p>
+
+			<div class="project-figure narrow">
+				<img src="images/contact.jpg" alt="Xspine structural contact design" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 3.</strong> The Xspine structure is created by (a) adding cut-outs for reliable contact and (b) reserving space for compliant bridges. (c) Bridges deform during bending.</p>
+
+			<p>Conductive TPU is then embedded into the compliant mechanism to directly convert mechanical contact into electrical readout. The paper defines three core conductive elements: conductive paths, contact pads, and pin connectors. Conductive paths run along the structure's axis like a spine, transmitting signals while remaining separated at different Z-heights by non-conductive PLA. Contact pads serve as sensing terminals and are extended through the full Z-range of the circuit layers to guarantee bridging at intended contact points. Pin connectors provide a printed interface for external electronics such as Dupont-style pins. Together these components form an integrated sensing circuit within the structure.</p>
+			<p>A key part of the method is the circuit layout strategy. Rather than assigning an independent line to every sensing location, Xspine uses time-division multiplexing. In double-sided bending structures where left and right contacts are mutually exclusive, this cuts wiring substantially compared with naive bus layouts. The reduction is not just electrically cleaner: it also reduces print height, fabrication time, and material consumption, making the approach more practical for actual 3D printing. The paper also discusses a more aggressive simplified wiring strategy that merges all receivers into a single line, although this comes with reliability tradeoffs because conductive TPU resistance varies with path length and contact quality.</p>
+
+			<p><span class="small-headline"><strong>Fabrication reliability</strong></span></p>
+			<p>Fabrication reliability is a core part of the Xspine method. The paper explains that all samples were printed on a Bambu Lab H2D dual-extrusion FDM printer using conductive TPU together with rigid PLA. Conductive TPU must be deposited on a solid PLA base rather than sparse infill; otherwise, the first TPU layers can stretch, break, or form unstable traces. Volumetric speed is also a key parameter: extrusion that is too fast increases stringing and unintended connections, while extrusion that is too slow causes sagging in the compliant bridges. Because the same printed elements are responsible for both deformation and sensing, these fabrication settings directly shape interaction quality and sensing stability.</p>
+
+			<br>
+			<span class="medium-headline">PHYSICAL AUGMENTATION</span>
+			<br>
+			<p>Xspine is not only a sensing method; it is also a design space for shaping physical interaction. The paper explores four forms of physical augmentation: motion primitives, force-feedback customization, bistable mechanisms, and actuation. Together they show how sensing can be paired with richer mechanical behavior rather than treated as a separate layer.</p>
+			<p>The two core motion primitives are bending and coiling. Bending can be configured as single-sided, dual-sided, or mixed-direction within one structure, while coiling extends bending by tilting the repeated cut geometry to create continuous winding along the axis. These primitives let designers move beyond simple planar deformation into more expressive motion vocabularies.</p>
+			<p>Force feedback can be customized by embedding auxiliary cables on the side opposite a bend. Moving the cable farther from the neutral axis increases stiffness and raises the force needed to close the contact pads. In multi-joint structures, varying cable offsets can produce sequential rather than simultaneous closures, which creates graded tactile feedback as well as richer temporal sensing states.</p>
+			<p>Xspine also incorporates bistable mechanisms, where curved contact pad geometry lets the structure snap into distinct stable states while maintaining reliable electrical contact. Finally, the paper demonstrates cable-driven actuation, showing how embedded sensing can be combined with externally driven motion in a closed loop. This begins to move Xspine from passive interactive objects toward adaptive physical systems.</p>
+
+			<div class="project-figure narrow">
+				<img src="images/motion-primitives.jpg" alt="Xspine motion primitives" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 4.</strong> Motion primitives of Xspine: (a) bending and coiling; (b) single-sided and dual-sided bending; (c) combining bending directions within one structure; and (d) extended coiling.</p>
+
+			<div class="project-figure narrow">
+				<img src="images/force-adjust.jpg" alt="Xspine force feedback customization" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 5.</strong> Force-feedback customization by embedding auxiliary cables at different offsets and producing sequential pad closures in multi-joint structures.</p>
+
+			<p>The force-feedback mechanism is especially important because it lets a designer tune not just whether a structure bends, but how it feels to bend it. In the paper, cable offsets of 1.6 mm, 3.2 mm, and 4.8 mm lead to measured force increases from 2.3 N to 4.5 N and 7.1 N, respectively. In multi-joint structures, using different offsets also creates a temporal order of pad closure under increasing load, which means the same object can encode richer interaction states while still using simple contact sensing.</p>
+			<p>Bistable mechanisms extend this design space further by providing clear snap-through behavior and stable post-contact states. Xspine uses curved contact pads so that after the structure passes the equilibrium point, the contact surfaces remain engaged even when the force is released. This makes the signal more reliable and gives the user tactile confirmation that a state change has occurred.</p>
+
+			<div class="project-figure narrow">
+				<img src="images/bistable1.jpg" alt="Xspine bistable mechanism design" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 6.</strong> The bistable mechanism is integrated into the structure through the circuit layout and curved contact pad design.</p>
+
+			<p>When several bistable units are connected in one structure, the contacts close sequentially rather than simultaneously, producing temporal features in the sensing signal. The final contact pair often peaks while load is still applied and then decreases slightly after release, whereas earlier contacts remain engaged. This behavior suggests that bistable Xspine structures can support both function-oriented state transitions and interpretable multi-stage signals.</p>
+
+			<div class="project-figure narrow">
+				<img src="images/bistable2.png" alt="Xspine bistable sensing signals" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 7.</strong> Sensing signals of multiple bistable units, including sequential pad closure and signal behavior after release.</p>
+
+			<p>The actuation method closes the loop between motion and sensing. The paper demonstrates a six-node, four-degree-of-freedom Xspine structure with embedded cables connected to servo motors. During motion, the conductive paths continuously sense deformation, allowing the system to adapt to changing gravity directions or external loads. This coupling of actuation and self-sensing is what allows later application examples such as the quadruped robot to behave as more than passive interactive artifacts.</p>
+
+			<div class="project-figure narrow">
+				<img src="images/cable.jpg" alt="Xspine cable-driven actuation" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 8.</strong> Cable-driven actuation of Xspine: motion range, servo-driven cable integration, and actuation demonstration.</p>
+
+			<br>
+			<span class="medium-headline">DIGITAL AUGMENTATION</span>
+			<br>
+			<p>On the digital side, Xspine treats sensing data as something to interpret, visualize, and classify rather than merely detect. The first layer is visualization: the system presents raw sensing signals as line charts so designers and users can inspect amplitude, timing, consistency, and the relationships between different contact events. This makes fabrication artifacts, partial contacts, and multi-contact behavior much easier to understand in practice.</p>
+			<p>The digital augmentation section begins with a resolution experiment on a 2x4 sensing matrix. With a 1 MOhm series resistor on each receiver, single contacts usually saturate the ADC, while multi-contact cases produce slightly lower readings because of current diversion and voltage division. This matters because it shows that multi-contact behavior is not simply the sum of single contacts; it has its own patterns that can later be used for richer interaction design.</p>
+
+			<div class="project-figure narrow">
+				<img src="images/frame16.jpg" alt="Xspine contact sensing experiment" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 9.</strong> Experimental setup for contact sensing: test piece, wiring arrangement, single-point contact, and multi-point contact.</p>
+
+			<p>These findings motivate the visualization interface. By showing single-sensor and multi-sensor traces in one place, the system helps users understand how local responses contribute to overall deformation. The paper highlights examples where one sensing node remains fully engaged, another fluctuates due to intermittent partial contact, and another begins from an elevated baseline because of printing artifacts but still reaches its expected peak under full press. The interface is therefore not just for display; it is a diagnostic tool for understanding how the printed structure actually behaves.</p>
+
+			<div class="project-figure narrow">
+				<img src="images/customization1.png" alt="Xspine visualization interface" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 10.</strong> Visualization interface for sensor readings: single-sensor view, multi-sensor view, and example motion visualizations.</p>
+
+			<p>The paper then moves from visualization to motion classification. Instead of limiting interaction to binary contact detection, Xspine uses the temporal patterns of multi-joint sensing signals to support user-defined motion categories. A dedicated data-collection interface records labeled trials, and PCA-based visualization gives users a quick view of signal separability before training.</p>
+
+			<div class="project-figure narrow">
+				<img src="images/customization2.png" alt="Xspine motion classification interface" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 11.</strong> Motion classification workflow from data collection through recorded motion types to data analysis.</p>
+
+			<p>For classification, the authors use an SVM with an RBF kernel and evaluate five representative motion types: idle, left-to-right bend, right-to-left bend, swing, and flick. After a two-stage hyperparameter search, the optimized classifier achieves 96% test accuracy. This result matters because it shows that Xspine can support not only structural sensing, but also customizable motion vocabularies and richer digital interaction built on the same printed hardware.</p>
+
+			<div class="project-figure narrow">
+				<img src="images/ml.png" alt="Xspine SVM evaluation" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 12.</strong> SVM evaluation, including hyperparameter search and final test accuracy.</p>
+
+			<br>
+			<span class="medium-headline">DESIGN TOOL</span>
+			<br>
+			<p>The design tool is a substantial contribution in its own right. It provides a structured workflow that moves from importing a geometry to parameter adjustment, motion preview, assistive-structure embedding, and circuit generation. Users can start with a static model, choose a primitive such as bending or coiling, configure cut-out counts and angles, preview the resulting deformation, and then add supporting structures like auxiliary cables, bistable elements, or actuation anchor points.</p>
+
+			<div class="project-figure narrow">
+				<img src="images/software_deformation.png" alt="Xspine design tool overview" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 13.</strong> Overview of the design tool workflow, from model import and parameter editing to motion preview and circuit generation.</p>
+
+			<p>The first stage of the tool focuses on embedding motion primitives. Users import a static model, select a primitive, define its direction, and adjust parameters such as cut-out number, spacing, and angle. The tool provides tested default values but keeps everything editable, and it supports rotating selected nodes to change bending direction, especially for models with rotationally consistent cross-sections such as circles or squares.</p>
+
+			<div class="project-figure narrow">
+				<img src="images/tool1.png" alt="Xspine design tool primitives" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 14.</strong> Design tool for embedding motion primitives.</p>
+
+			<p>After the basic motion shape is configured, users can embed assistive structures to enrich behavior. These include auxiliary cables for force tuning, bistable mechanisms for discrete tactile states, and perforations that serve as anchor points for later actuation. Once this stage is complete, the tool switches to circuit generation and automatically produces conductive paths, contact pads, and pin connectors aligned with the final geometry and sensing scheme. The result is not just a motion-capable form, but a fabrication-ready multi-material print with integrated sensing logic.</p>
+
+			<div class="project-figure narrow">
+				<img src="images/tool2.png" alt="Xspine design tool assistive structures" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 15.</strong> Design tool for embedding assistive structures and generating circuits.</p>
+
+			<br>
+			<span class="medium-headline">EVALUATION</span>
+			<br>
+			<p>The evaluation focuses on whether consumer-grade conductive TPU can support robust self-sensing in practice. First, the paper measures resistance characteristics of printed conductive paths with different widths. Resistance is generally inversely proportional to cross-sectional area, but variation across prints appears because conductive TPU is softer and more prone to inconsistent flow, micro-voids, and stringing than rigid materials. This confirms that raw conductive behavior is variable and needs to be interpreted carefully.</p>
+			<p>Second, the authors test printed pin connectors under repeated insertion cycles. Resistance drifts upward after repeated use, indicating gradual material degradation at the conductive interface, but the drift remains far below the 1 MOhm reference resistor used in the sensing circuit. In other words, the connectors degrade measurably, yet remain functionally stable for the binary detection tasks that Xspine targets.</p>
+			<p>Third, the paper studies the stability and lifetime of compliant bridges during cyclic motion. In a fatigue test driven by a stepper motor over more than 100,000 bending cycles, the bridges eventually fractured after roughly 60,000 cycles. Before failure, resistance changed only moderately, with occasional spikes likely caused by progressive filament breakage. This shows that the structures are durable enough for meaningful interaction, but also makes clear that frequent use can shift electrical behavior over time.</p>
+			<p>Beyond material durability, the paper also evaluates sensing resolution, visualization behavior, and motion classification. Taken together, the evaluation paints a realistic picture: Xspine is reliable enough for interactive applications and discrete motion sensing, but it is not a precision analog sensor platform. That boundary is part of the strength of the work, because the design choices are explicitly matched to what the material can support well.</p>
+
+			<div class="project-figure narrow">
+				<img src="images/riss.png" alt="Xspine bridge lifetime evaluation" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 16.</strong> Stability and lifetime of compliant bridges during motion, including the fatigue-test setup and resistance change over repeated bending cycles.</p>
+
+			<br>
+			<span class="medium-headline">APPLICATION</span>
+			<br>
+			<p>The application section demonstrates that Xspine can support a wide range of interactive artifacts, from personal objects and game controllers to animation tools and feedback-aware robotic systems. Across all examples, the same core idea is reused: the printed structure provides motion, conductive contact events provide self-sensing, and the sensed states are mapped directly to digital functions or adaptive physical behavior. This makes the application set important because it shows that Xspine is a reusable interaction platform rather than a single fabricated demo.</p>
+			<p>The first application is a carrot-shaped fidget toy that senses and logs bending motions. Repeated bending metaphorically “pulls out a carrot,” turning an otherwise invisible repetitive action into a visible form of release. On the tactile level, the user experiences the satisfaction of repeated deformation, while on the signal level, the recorded data provides analyzable interaction logs that can reveal usage patterns over time. This example shows how even a small everyday object can become a self-reporting interactive artifact when sensing is embedded directly into the compliant structure.</p>
+
+			<div class="project-figure narrow">
+				<img src="images/application-carrot.jpg" alt="Xspine carrot-shaped fidget toy" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 17.</strong> The carrot-shaped fidget toy: (a) circuit layout, (b) sensing and logging of bending motions, and (c) the “pulling out a carrot” interaction metaphor after repeated bends.</p>
+
+			<p>A related example uses the same sensing principles for gameplay. The lizard-shaped controller is created using the interactive design tool and maps light and strong bends to different turning commands in a climbing game. Players steer the digital lizard by gently or fully bending the physical structure to the left or right, demonstrating low-latency, expressive control with an object whose form already suggests how it should be held and deformed.</p>
+
+			<div class="project-figure narrow">
+				<img src="images/custom-game-controller.jpg" alt="Xspine custom game controller" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 18.</strong> Lizard-shaped game controller: (a) circuit layout, (b) printed controller, and (c) gameplay interaction.</p>
+
+			<p>The paper then scales this interaction style to richer multi-state input with a bow-shaped controller for <i>Minecraft</i>. The controller senses the pulling force through three pairs of contact pads corresponding to light, medium, and strong levels. As the bowstring is pulled, the pads close sequentially to detect the force level, while three tension cables printed on the opposite side provide progressively increasing stiffness. Two bending primitives in different orientations allow players to adjust both horizontal and vertical aiming angles. This single-step printed device combines multi-level force sensing, adjustable mechanical feedback, and directional control to create an immersive archery experience.</p>
+
+			<div class="project-figure narrow">
+				<img src="images/application-bow.jpg" alt="Xspine Minecraft bow controller" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 19.</strong> Bow-shaped controller for <i>Minecraft</i>, integrating multi-level force sensing, adjustable stiffness, and directional aiming control.</p>
+
+			<p>Xspine also supports function-oriented everyday devices. In the bistable lamp, brightness is controlled by a bistable Xspine structure embedded within the skeleton. The microcontroller samples the internal state signals via an ADC and maps the number of closed contact-pad pairs to PWM brightness levels. As more bistable joints close and remain latched, the brightness increases accordingly. This supports reliable multi-level brightness control with clear tangible feedback, showing how self-sensing structures can move beyond transient gestures into persistent, task-oriented interaction.</p>
+
+			<div class="project-figure narrow">
+				<img src="images/application-lamp.jpg" alt="Xspine bistable lamp" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 20.</strong> The lamp demonstrates (a) its circuit layout, (b) the initial state, and (c) different brightness levels controlled by the bistable structure.</p>
+
+			<p>The tangible animation example extends Xspine into motion authoring. The paper presents a coiling-based prototype that serves as a controller for animating a dragon in Unity. The device contains ten pairs of cut-outs, among which six pairs are instrumented with contact pads. On the software side, the authors rigged a skeleton in Blender and bound each sensing channel to corresponding bones of the dragon model in Unity. When users bend or coil different sections of the tangible device, the virtual dragon exhibits synchronized behaviors such as head swings, body coiling, and alternating crawling. This example highlights how Xspine can function as a bridge between embodied input and expressive digital animation.</p>
+
+			<div class="project-figure narrow">
+				<img src="images/application-animation.png" alt="Xspine tangible animation controller" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 21.</strong> Tangible animation controller for a dragon rig in Unity, including the physical device, rigging pipeline, and corresponding virtual motion.</p>
+
+			<p>The final application moves from input devices toward embodied systems. The quadruped robot integrates Xspine-based legs with cable-driven actuation and uses the self-sensed deformation signals as motion feedback. With an additional Xspine-based leg used as a controller, the robot attempts to reproduce a reference trajectory while adjusting its motion according to measured feedback. After repeated iterations, the alignment between input and feedback improves, allowing the system to better compensate for deviations caused by external conditions such as uneven terrain. This example is especially significant because it shows Xspine operating as part of a larger closed-loop robotic system rather than only as a human input device.</p>
+
+			<div class="project-figure narrow">
+				<img src="images/robot.png" alt="Xspine embodied intelligence prototype" />
+			</div>
+			<p style="font-size: 12px"><strong>Figure 22.</strong> Embodied intelligence prototype: circuit layout, controller input, quadruped robot output, and signal alignment between command and sensed feedback.</p>
+
+			<p>Taken together, these examples cover logging, game input, force-sensitive control, bistable state interaction, tangible animation, and feedback-aware robotics. Figure 1 gives an overview of representative application directions, while the detailed cases here show how motion, tactile feel, sensing, and interactive meaning are designed together in the same printed structure from the start.</p>
+
+			<br>
+			<span class="medium-headline">CONCLUSION</span>
+			<br>
+			<p>Xspine introduces a design and fabrication method that integrates motion and self-sensing into 3D-printed structures using multi-material FDM printing. By embedding compliant mechanisms and conductive components directly into geometry, the system enables reliable detection of large deformations in a single, assembly-free print. Physical augmentation, digital augmentation, technical evaluation, and tool support together show that Xspine is not just a fabrication demo but a broader workflow for creating customizable, motion-aware interactive artifacts.</p>
+
+			<br><br>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 footer" style="text-align: center;">
+			<span class="copyright">
+			Since 2017 &copy; MIT CSAIL (HCI Engineering group) [redesign by
+			<a href="http://punpongsanon.info/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			moji
+			</a>].
+			All Rights Reserved.
+
+			<a href="http://mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="http://hcie.csail.mit.edu/images/logo/mit.svg" alt="MIT" class="footer-logo" />
+			</a>
+			<a href="http://csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="http://hcie.csail.mit.edu/images/logo/csail.svg" alt="CSAIL" class="footer-logo"/>
+			</a>
+			<a href="http://hci.csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="http://hcie.csail.mit.edu/images/logo/hci.svg" alt="HCI" class="footer-logo"/>
+			</a>
+			</span>
+		</div>
+	</div>
+</div>
+
+<div id="lightbox-modal" class="lb-modal">
+	<div class="modal-content">
+		<div id="slideLightboxSlides"></div>
+		<a class="close-button" onclick="closeModal()">&times;</a>
+		<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+		<a class="next" onclick="plusSlides(1)">&#10095;</a>
+	</div>
+</div>
+
+<!-- Bootstrap -->
+<script type="text/javascript" src="https://hcie.csail.mit.edu/js/bootstrap.min.js"></script>
+<!-- header -->
+<script type="text/javascript" src="https://hcie.csail.mit.edu/js/headerstrap-for-subpage.js"></script>
+<script type="text/javascript">
+	var slideBaseUrl = "https://groups.csail.mit.edu/hcie/files/research-projects/xspine/presentation-images/";
+	var slideCount = 21;
+	var slideIndex = 1;
+
+	function slideImageUrl(index) {
+		return slideBaseUrl + "xspine-" + String(index).padStart(2, "0") + ".png";
+	}
+
+	function renderSlides() {
+		var thumbs = document.getElementById("slideThumbs");
+		var slides = document.getElementById("slideLightboxSlides");
+		if (!thumbs || !slides) {
+			return;
+		}
+		var thumbHtml = "";
+		var slideHtml = "";
+		for (var i = 1; i <= slideCount; i++) {
+			thumbHtml += "<img src=\"" + slideImageUrl(i) + "\" alt=\"Xspine Slide\" width=\"100px\" style=\"padding-bottom:0px; margin-right:6px; margin-bottom:10px\" onclick=\"openModal();currentSlide(" + i + ")\" class=\"hover-shadow\"/>";
+			slideHtml += "<div class=\"lb-slides\"><div class=\"numbertext\">" + i + " / " + slideCount + "</div><img src=\"" + slideImageUrl(i) + "\" alt=\"Xspine Slide\" style=\"padding-bottom:0px; margin-bottom:10px; width:100%\"></div>";
+		}
+		thumbs.innerHTML = thumbHtml;
+		slides.innerHTML = slideHtml;
+	}
+
+	function openModal() {
+		document.getElementById("lightbox-modal").style.display = "block";
+	}
+
+	function closeModal() {
+		document.getElementById("lightbox-modal").style.display = "none";
+	}
+
+	function plusSlides(n) {
+		showSlides(slideIndex += n);
+	}
+
+	function currentSlide(n) {
+		showSlides(slideIndex = n);
+	}
+
+	function showSlides(n) {
+		var slides = document.getElementsByClassName("lb-slides");
+		if (!slides.length) {
+			return;
+		}
+		if (n > slides.length) { slideIndex = 1; }
+		if (n < 1) { slideIndex = slides.length; }
+		for (var i = 0; i < slides.length; i++) {
+			slides[i].style.display = "none";
+		}
+		slides[slideIndex - 1].style.display = "block";
+	}
+
+	window.onclick = function(event) {
+		var modal = document.getElementById("lightbox-modal");
+		if (event.target === modal) {
+			closeModal();
+		}
+	};
+
+	renderSlides();
+</script>
+
+</body>
+</html>
