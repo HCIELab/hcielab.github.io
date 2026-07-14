@@ -28,7 +28,13 @@
     .center { text-align: center; }
     .btn-row .btn { margin-right: 12px; margin-bottom: 8px; }
     .hero-img { max-width: 100%; height: auto; }
-    .caption { display:block; margin-top:8px; color:#455a64; font-size: 0.95em; }
+    .caption { display:block; margin-top:8px; color:#455a64; font-size: 0.95em; text-align: left; }
+    .figure-block { margin: 25px 0; text-align: center; }
+    .paper-table { margin: 0 auto; border-collapse: collapse; font-size: 0.92em; }
+    .paper-table th, .paper-table td { padding: 5px 14px; border-bottom: 1px solid #ddd; text-align: center; }
+    .paper-table thead th { border-top: 2px solid #333; border-bottom: 1px solid #333; }
+    .paper-table tbody tr:last-child td { border-bottom: 2px solid #333; }
+    .paper-table td:first-child, .paper-table th:first-child { text-align: left; }
   </style>
 </head>
 
@@ -62,16 +68,29 @@
       <br><br>
 
       <div class="btn-row">
-        <a href="https://maxineaps.github.io/visiprint-project-site/" class="btn btn-doi" target="_blank">Project Page</a>
-        &nbsp; &nbsp;
+        <a href="https://doi.org/10.1145/3772318.3790851" class="btn btn-doi" target="_blank">DOI</a>
         <a href="https://maxineaps.github.io/visiprint-project-site/VisiPrint.pdf" class="btn btn-pdf" target="_blank">PDF</a>
-        &nbsp; &nbsp;
+        <!-- TODO: add video link -->
         <span class="btn btn-vdo">Video</span>
-        &nbsp; &nbsp;
-        <span class="btn btn-doi">DOI</span>
+        <!-- TODO: add slides link -->
+        <span class="btn btn-slides">Slides</span>
+        <!-- TODO: add code link -->
+        <span class="btn btn-code">Code</span>
+        <a href="https://maxineaps.github.io/visiprint-project-site/" class="btn btn-doi" target="_blank">Project Page</a>
       </div>
 
       <br><br>
+
+      <span class="medium-headline">Videos</span>
+      <br><br>
+      <!-- TODO: add video embed link, e.g.:
+      <div class="video-container">
+        <iframe width="360" height="203" src="https://youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+      </div>
+      -->
+      Coming soon.
+      <br><br>
+
     </div>
 
     <!-- Project information -->
@@ -80,31 +99,580 @@
       <h3 class="headline">VisiPrint: Previewing 3D-Print Appearances from Real Material Samples</h3>
       <br>
 
-      <div class="center">
-        <img src="images/teaser.png" alt="VisiPrint teaser" class="hero-img">
+      <div class="figure-block">
+        <img src="images/new_fig1.png" alt="A three-part workflow diagram. On the left are the inputs: (1) photos of real 3D-print materials (e.g., filament or printed sample photos) and (2) a target 3D model/geometry. In the center is VisiPrint, shown as both a slicer-independent VisiPrint UI or an Ultimaker Cura plugin. On the right are the outputs: photorealistic preview images of the 3D-printed object that reflect both the chosen material and the slicing/toolpath patterns." class="hero-img">
+        <span class="caption"><b>Figure 1. The <i>VisiPrint</i> workflow. The user slices a 3D model using their preferred software (e.g., Cura), then uploads a screenshot of the sliced view and a photo of the intended filament or printed exemplar. <i>VisiPrint</i> generates an appearance-faithful preview that reflects both slicing patterns and material characteristics.</b></span>
       </div>
-
-      <br><br>
 
       <span class="medium-headline">ABSTRACT</span>
       <br><br>
       <p>
-        We present <i>VisiPrint</i>, a tool for appearance-first previews of 3D-printed objects. Existing print preview slicers focus on toolpaths rather than appearance, while rendering tools are complex and cannot automatically reproduce slicing patterns. Prior work has shown persistent gaps between digital previews and printed results, including color shifts, gloss and translucency changes, and layer-line highlights. <i>VisiPrint</i> addresses this by combining slicer screenshots with filament photos through a custom diffusion-based synthesis pipeline. We present both a standalone user interface compatible with any slicer and an Ultimaker Cura plugin. We evaluate <i>VisiPrint</i> through a user study showing that it is significantly faster, easier to use, and more faithful than alternatives. <i>VisiPrint</i> narrows the gap between design intent and printed appearance by complementing settings-centric tools with appearance-driven decision support.
+        We present <i>VisiPrint</i>, a tool for appearance-first previews of 3D-printed objects. Existing print preview slicers focus on toolpaths, not appearance, while pure rendering software is complex and cannot automatically reproduce slicing patterns. Prior work highlights persistent gaps between digital previews and printed results, such as color shifts, gloss/translucency changes, and layer-line highlights, motivating the creation of <i>VisiPrint</i>, an appearance-focused support tool. The <i>VisiPrint</i> algorithm combines slicer screenshots with filament photos via a custom diffusion-based synthesis pipeline. We present both a standalone user interface for <i>VisiPrint</i> compatible with any slicer and an Ultimaker Cura Plugin. We evaluate <i>VisiPrint</i> through a user study showing it is significantly faster, easier to use, and more faithful than alternatives: within a time-limit, participants completed 100% of preview tasks with <i>VisiPrint</i>, versus 63% with Cura and 13% with Blender. <i>VisiPrint</i> narrows the gap between design intent and printed appearance, complementing settings-centric tools with appearance-driven decision support.
       </p>
 
+      <br>
+
+      <span class="medium-headline">INTRODUCTION</span>
       <br><br>
 
-      <div class="center">
-        <img src="images/overview.png" alt="VisiPrint overview" class="hero-img">
+      <p>
+        3D printing has transformed prototyping and manufacturing, empowering users to fabricate custom objects with a wide range of materials and printer settings. However, there is a critical gap that remains in the 3D printing workflow: the ability to accurately preview what a printed object will <i>look</i> like before fabrication. For Fused Deposition Modeling (FDM), the most popular type of 3D printing, most slicers and software offer print previews, but these primarily highlight layer-by-layer toolpaths rather than the material and visual characteristics of the final object. As a result, users are often left to guess how prints will turn out, which can lead to wasted time, filament, and effort when outcomes do not meet expectations. Prior works document persistent mismatches between print-previews and actual appearance arising from color-difference errors, interactions between gloss and perceived color, and FDM-specific surface cues such as anisotropic layer-line highlights. From an HCI perspective, these mismatches are not just rendering errors&mdash;they directly influence whether users judge a print as acceptable for display, prototyping, or everyday use. Prior perceptual work shows that observers are sensitive to small changes in color, gloss, and surface finish even when geometry is identical. Because prior work already links both slicing patterns and material properties to perceived quality, a preview that reflects <i>both</i> is especially valuable for HCI.
+      </p>
+
+      <p>
+        On the other hand, modeling and CAD tools like Blender and Fusion 360 can generate high-fidelity renders, but they do not account for the printing process. A render may depict a smooth, glossy object, while the printed result, shaped by layer height, support removal, artifacts, and filament texture, looks dramatically different. Neither these tools nor typical slicers capture the interplay between slicing patterns and material appearance that defines FDM&rsquo;s distinctive look. Recently, mainstream slicers have released dedicated features to mitigate visible artifacts in 3D prints such as Prusa's seam painting, and Cura&rsquo;s recent <i>Z-Seam</i> controls which enable fine-tuning of surface details, demonstrating that appearance is a practical concern in everyday workflows. Community discussions frequently raise 3D-printing issues due to appearance mismatches, such as color banding, needing to print personal color swatches to see how filament will actually look, and transparency falling short of &ldquo;clear&rdquo; claims, underscoring that appearance is a practical pain point for makers. Studies of fabrication platforms similarly show that missing appearance cues creates uncertainty, can increase the number of trial prints, and limits reuse of designs. Thus, print appearance can shape user decisions about whether to print an object, which filament to use, and whether the result meets a user&rsquo;s standards.
+      </p>
+
+      <p>
+        Meanwhile, recent advances in computer vision techniques have brought fast, expressive visual synthesis to other domains (e.g., SDXL), while diffusion-based material transfer continues to progress (e.g., <i>ZeST</i>). Physically based pipelines estimate SVBRDFs and re-render the object, but they rely on controlled capture and calibrated alignment that everyday makers rarely have. Exemplar-driven methods such as <i>MatCap</i> and recent lightweight material-transfer models are easy to use but ignore FDM-specific cues like layer lines and seams. Yet no existing system leverages computer vision to preview the appearance of 3D prints from a user&rsquo;s specific sliced input and chosen filament. As we demonstrate in our evaluation, out-of-the-box models struggle with domain-specific challenges such as slicing-induced microgeometry and limited training data. For example, we find that off-the-shelf SDXL cannot reliably synthesize images of 3D-printed objects, as this remains an underrepresented domain in its training set. To our knowledge, this is the first paper to directly target these domain-specific challenges for 3D-printed appearance preview.
+      </p>
+
+      <p>
+        At the same time, AI-assisted functionality has become standard in creative software, from photo editors (e.g., Photoshop) to illustration tools and animation pipelines. Bringing such capabilities to fabrication previews is a natural next step. But unlike purely generative image tasks, outputs must correspond to objects that will physically exist, not just be plausible renderings. This requires preserving key features such as geometry and slicing patterns. While 3D printing software has begun adding more appearance-oriented features (e.g., easier color/material selection and themed visual presets), reflecting demand for faster, more informative appearance decisions, to date no available tool employs AI to preview the 3D-printed look directly from a user&rsquo;s own sliced input and materials on hand. Our work builds on HCI systems such as AIdeation, which show that workflow-aware, transparent AI can support creative exploration while keeping designers in control. We focus on an appearance-first preview that helps designers decide whether and how to print. A preview that reflects the user&rsquo;s actual toolpaths and filament reduces visual uncertainty, and because of this, we treat appearance preview as a post-slicing step for setting expectations about the print.
+      </p>
+
+      <p>
+        To address this gap, we present <i>VisiPrint</i> (shown in Fig.&nbsp;1), a post-slicing preview tool that operates alongside a user's preferred slicer and printer. <i>VisiPrint</i> accepts a slicer screenshot and a single material photo as inputs, and synthesizes previews that reflect both slicing patterns and filament properties. As shown in Fig.&nbsp;2 and Fig.&nbsp;3, it works with any slicer software and with any material example, requiring only image inputs from the slicer of choice's UI and material. <i>VisiPrint</i> aims to predict how prints are likely to look, rather than to predict print success. It complements, not replaces, slicer checks (e.g., supports, adhesion, print settings).
+      </p>
+
+      <div class="figure-block">
+        <b>Modifying Slicer/Slicing Pattern</b><br><br>
+        <img src="images/overview_a.png" alt="A set of Visiprint preview images of the same object (the Benchy boat) in silver PLA, showing how appearance changes when the slicer or slicing pattern changes. The layout groups multiple boat previews under headings corresponding to different slicing patterns/software (e.g., Cura pattern variants and other slicers). The main point is that the same material can look different depending on slicing decisions." class="hero-img" style="max-width:80%;">
+        <span class="caption"><b>Figure 2. The Benchy boat being previewed in silver PLA across different slicing patterns and software programs.</b></span>
       </div>
 
-      <br><br>
-
-      <div class="center">
-        <img src="images/ui.png" alt="VisiPrint UI" class="hero-img">
+      <div class="figure-block">
+        <b>Modifying Material</b><br><br>
+        <img src="images/overview_b.png" alt="A set of preview images of the Benchy boat that holds geometry/slicing constant while varying material exemplars. It includes material photos (e.g., spherical printed samples) and corresponding boat previews, including challenging materials like translucent/clear and rainbow filaments. The figure emphasizes that VisiPrint can transfer diverse material appearances onto the same sliced model." class="hero-img" style="max-width:80%;">
+        <span class="caption"><b>Figure 3. The Benchy boat previewed in home material samples (the blue and clear spheres) and samples found online, including challenging translucent and rainbow filaments.</b></span>
       </div>
 
+      <br>
+
+      <span class="medium-headline">RELATED WORK</span>
       <br><br>
+
+      <p>
+        Research in digital fabrication spans both <i>appearance-focused</i> tools, which address how prints look, and <i>feasibility-focused</i> tools, which ensure they succeed. From an HCI perspective, appearance is critical: it shapes perception, acceptance, and interaction with fabricated objects, yet it remains less explored than reproducibility. For example, Alcock et al. found that users on Thingiverse struggled with missing cues about how designs would actually print, underscoring the importance of effective previewing in reducing uncertainty during the 3D-printing process.
+      </p>
+
+      <p>
+        To situate our contribution, we first review work on appearance in 3D printing, then contrast it with feasibility, interaction, and vision-assisted fabrication, highlighting how each frames the user experience of making and evaluating artifacts.
+      </p>
+
+      <p><b><i>Appearance-Focused 3D Printing Tools and Studies.</i></b></p>
+
+      <p>
+        The gap between how prints are previewed and how they actually appear is well documented, and motivates the need for appearance-first tools. Yuan et al. emphasize the absence of standards for reproducing appearance on curved, glossy, or translucent prints. Galati et al. propose evaluation frameworks where aesthetic quality is judged by users and treated as a primary workflow concern. Together, these perspectives underscore that appearance is not incidental but central, shaping perception, satisfaction, and adoption. This motivates <i>VisiPrint</i>, which aims to preview aesthetic properties more faithfully than existing systems. By grounding previews in exemplars of real 3D-printed materials and matching color profiles, <i>VisiPrint</i> addresses these gaps, allowing users to anticipate printed appearance.
+      </p>
+
+      <p>
+        Color discrepancies are commonly quantified with the CIEDE2000 formula. In dentistry, for example, full-color 3D-printed casts deviate unacceptably from design intent, and similar mismatches occur in other medical models. For education and communication, lifelike visual properties add value beyond geometry alone. In prosthetics, appearance is tied directly to acceptance: studies have found that more natural-looking 3D-printed cosmetic covers improved aesthetics to user satisfaction.  These examples reinforce the case for appearance as a first-order design concern in HCI, one that <i>VisiPrint</i> elevates from afterthought to previewable design variable.
+      </p>
+
+      <p>
+        Beyond color, other material properties significantly influence appearance. Condor et al. show that surface gloss alters perceived color and propose gloss-aware correction workflows. For translucent parts, appearance varies with thickness and subsurface scattering; Brunton et al. estimate optical properties from samples and apply inverse rendering to reproduce target translucency. Orientation also plays a role: Filip and V&iacute;tek find that observers consistently notice anisotropic highlights and layer-line banding. Elkhuizen et al. demonstrate the reproduction of paintings by jointly capturing gloss, color, and surface relief, making appearance, not geometry, the primary target. In manufacturing, Zhang et al. model orientation tradeoffs that explicitly include appearance, while Hartcher-O&rsquo;Brien et al. show users distinguish surface finishes tied to FDM parameters beyond roughness metrics. Shape and lighting matter as well: Jiang et al. show perceived color shifts with geometry and illumination, while Hlayhel et al. find that &ldquo;naturalness&rdquo; in color prints depends on elevation and roughness. To accommodate these effects, <i>VisiPrint</i> previews not only material color but also gloss, translucency, and slicing artifacts, enabling users to anticipate banding direction and surface finish.
+      </p>
+
+      <p>
+        Mainstream slicers also reflect demand for better visible outcomes, with features like <i>PrusaSlicer</i>&rsquo;s seam-hiding and Cura&rsquo;s <i>Z-Seam</i> controls. While such features and prior work reduce discrepancies between intent and outcome, <i>VisiPrint</i> instead foregrounds expectation management. By integrating color, gloss, translucency, and artifacts, it reframes previews as tools for aligning user expectations with reality.
+      </p>
+
+      <p><b><i>Interactive Fabrication Tools.</i></b></p>
+
+      <p>
+        Feasibility and reproducibility remain central to digital fabrication research. Prior work often treats slicer parameters and machine settings as first-class artifacts for sharing and repeatability: <i>SliceHub</i> embeds slicing previews and metadata into repositories, while Subbaraman et al. introduce workflows for recording and reusing parameters. Other systems address variability and failure, including 3DPFIX for diagnosing failed prints and uncertainty frameworks.
+      </p>
+
+      <p>
+        <i>VisiPrint</i> addresses a complementary question: What will it look like? While not fundamental to success, visible outcome influences choices such as filament, orientation, slicing strategy, or whether to print at all. Appearance-first previews can complement settings-first and feasibility-first tools. By positioning the preview itself as an HCI intervention, <i>VisiPrint</i> reframes fabrication workflows around expectations management.
+      </p>
+
+      <p>
+        Vision and interactivity have also been used to provide feedback before and during fabrication. <i>Don't Mesh Around</i> uses real-time scanning for clay printing. <i>SensiCut</i> applies speckle imaging and deep learning to identify materials for safer laser cutting. <i>Patching Physical Objects</i> employs depth sensing to repair prints, while <i>MultiFab</i> monitors multi-material prints via 3D scanning. Other systems embed information directly into appearance: G-ID encodes slicer-parameter textures, while <i>AnisoTag</i> introduces anisotropic micro-patterns. Interactive fabrication has connected users more directly through direct manipulation, AR-integrated robotic printing (<i>RoMA</i>), mid-process reshaping (<i>FormFab</i>), mechanism remixing (<i>Grafter</i>), and shape-changing interface prototyping (<i>MorpheesPlug</i>). Spatial preview tools further situate models in context, such as <i>Mix&amp;Match</i>, <i>pARam</i>, and <i>TinkerXR</i>. These works emphasize feasibility or interaction, while <i>VisiPrint</i> emphasizes pre-fabrication appearance, enabling informed decisions before committing material.
+      </p>
+
+      <p><b><i>Image-Based Appearance Transfer and Diffusion Models.</i></b></p>
+
+      <p>
+        Applying imaging and vision techniques to computational fabrication is still an emerging area of research, though appearance transfer and image generation are well studied. <i>VisiPrint</i> builds on material appearance transfer techniques, primarily <i>ZeST</i>, which applies pre-trained image-to-image translation with depth and illumination conditioning. Related methods include <i>Cross-image Attention</i>, which uses diffusion with semantic correspondences to transfer appearance without retraining,  <i>ReStyle3D</i>, which aligns correspondences across multiple views, and Deschaintre et al., which adapts deep appearance models via targeted fine-tuning for large-scale transfer. Complementary to these transfer pipelines, a rich line of physically based work estimates material parameters for predictive rendering, including single-image SVBRDF recovery, two-shot acquisition, high-resolution inverse rendering, and physically based editing from a single photo, with semi-procedural material priors and procedural approaches to material synthesis.
+      </p>
+
+      <p>
+        Neural style transfer and diffusion approaches such as <i>Alchemist</i> enable parametric control over gloss and roughness, while <i>Material Palette</i> and Kocsis et al. extract material sets and perform probabilistic decomposition from single views. Image-space appearance editing and swapping spans both classical and recent techniques. Like <i>VisiPrint</i>, <i>Anisotropic MatCap</i> demonstrates that spherical material samples can capture how a material responds under a fixed illumination. Building on these advances, <i>VisiPrint</i> integrates FDM slicing patterns into <i>ControlNet</i>-guided Stable Diffusion. Conditioning on slicer-derived Canny edges and depth preserves geometry, lamination, and seam placement, while the exemplar transfers hue and sheen&mdash;explicitly coupling <i>material</i> and <i>process</i> for previews. To our knowledge, <i>VisiPrint</i> is the first system to combine exemplar-based transfer with slicer-derived structure in this way; SVBRDF/inverse-rendering, <i>MatCap</i>, and generic editing pipelines do not simultaneously reconstruct both real filament appearance and FDM slicing patterns. In contrast to these pipelines, which focus on material properties or generic image edits, <i>VisiPrint</i> specifically targets FDM fabrication: it fuses exemplar-based transfer with slicer-encoded depth and lamination structure so that previews reflect both real filament appearance and actual slicing patterns.
+      </p>
+
+      <br>
+
+      <span class="medium-headline">USER INTERFACE</span>
+      <br><br>
+
+      <p>
+        Figure&nbsp;4 shows the <i>VisiPrint</i> interface, designed for both novice and expert users. It supports a simple end-to-end workflow from model preparation to preview generation, while offering advanced controls for fine-grained customization.
+      </p>
+
+      <div class="figure-block">
+        <img src="images/visiprint_ui.png" alt="A three-panel UI figure labeled (a), (b), and (c). (a) The main VisiPrint interface: the user uploads a sliced-model screenshot and selects/uploads a material exemplar, then generates a preview. (b) An 'Advanced Settings' section with multiple sliders/toggles for controlling how strongly color, luminance, and slicing patterns influence the output, plus options like custom text prompting and using a fine-tuned model. (c) A screenshot of the Cura plugin integration, showing VisiPrint accessible inside Cura and producing a preview within the slicer workflow." class="hero-img">
+        <span class="caption"><b>Figure 4. The <i>VisiPrint</i> interface. (a) The user uploads a sliced model screenshot and selects or uploads a material. (b) Advanced settings control color and luminance transfer, slicing pattern influence, custom prompts, and fine-tuned model usage.</b></span>
+      </div>
+
+      <p><b><i>Core Workflow.</i></b></p>
+
+      <p>As illustrated in Figure&nbsp;4a, the workflow consists of three steps:</p>
+      <ol>
+        <li><b>Upload Sliced Geometry:</b> The user provides a screenshot of the sliced model (e.g., from Cura or Bambu Studio), which encodes object shape, slicing pattern, and view direction.</li>
+        <li><b>Select or Upload Material:</b> A reference image of a printed object may be uploaded, or a preset chosen from the curated <i>Material Library</i>. Uploaded materials can also be saved for reuse.</li>
+        <li><b>Generate Preview:</b> Clicking <i>Generate</i> produces a photorealistic preview in under one minute, displayed alongside the input slicing image and material exemplar.</li>
+      </ol>
+
+      <p><b><i>Advanced Settings.</i></b></p>
+
+      <p>
+        The expandable <i>Advanced Settings</i> panel (Figure&nbsp;4b) provides expert controls: <b>Color Influence,</b> for the degree of color transfer from the exemplar, <b>Luminance Influence,</b> for the impact of exemplar brightness and shading, <b>Slicing Influence,</b>  for the visibility of slicing contours in the output, <b>Text Prompt Override,</b> for custom prompts and adjustable influence weights,  <b>Inference Steps,</b> for the trade-off between speed and quality, and <b>Fine-tuned Model,</b> an option to use a Stable Diffusion variant trained on 3D print imagery.
+      </p>
+
+      <p>
+        By combining a streamlined workflow with advanced customization, <i>VisiPrint</i> enables both quick previews and detailed control over visualization. The &ldquo;Slicing Influence&rdquo; slider in Fig.&nbsp;4b provides a user-facing control for adjusting the relative contribution of Canny edges and depth cues in our <i>ControlNet</i> conditioning (with &ldquo;Slicing Influence&rdquo; chosen as a more user-friendly term); this corresponds directly to the edge/depth weight settings evaluated in the ablation study in Section&nbsp;7.4.
+      </p>
+
+      <p>
+        The interface also includes a small &ldquo;Preview Limitations&rdquo; information panel that clearly explains that outputs are simulated, notes that appearance depends on the exemplar&rsquo;s lighting, and reminds users that <i>VisiPrint</i> is for appearance-only decisions; a screenshot is provided in the Supplemental Material.
+      </p>
+
+      <p><b><i>Cura Plugin.</i></b></p>
+
+      <p>
+        To allow users to interact with the preview functionality within their current workflows, we implemented a dedicated Ultimaker Cura plugin that lets users access <i>VisiPrint</i> directly in their slicing software (Figure&nbsp;4c). Once a model is sliced, the plugin automatically captures a screenshot of the 3D viewport as the <i>target</i> geometry. Users can select or manage a local library of material exemplars directly in Cura, then generate previews via the Extensions&thinsp;/&thinsp;VisiPrint menu. The captured geometry and chosen material are processed by the <i>VisiPrint</i> pipeline, and the resulting preview is displayed in a zoomable viewer embedded within Cura. This integration eliminates the need for manual screenshot handling, providing a seamless loop between slicing and appearance evaluation.
+      </p>
+
+      <br>
+
+      <span class="medium-headline">METHOD</span>
+      <br><br>
+
+      <p>
+        <i>VisiPrint</i> generates photorealistic previews of 3D-printed objects by combining material transfer with geometry and slicing-aware synthesis (Fig.&nbsp;5). Users see both overall shape and how slicing and material affect appearance. At its core is a generative model conditioned on material exemplars and structural cues. We describe the core components of our method below, and quantitatively evaluate them later in Section 7.4.
+      </p>
+
+      <div class="figure-block">
+        <img src="images/visiprint_pipeline.png" alt="A block diagram of the VisiPrint pipeline from input to output. Inputs include a material exemplar image and 3D geometry. The material image is encoded (via an image encoder / IP-adapter). The 3D geometry is sliced and rendered to produce a slicer-like image; from this, the system extracts a depth map and Canny edges (representing shape and layer-line structure). These cues condition a multi-ControlNet diffusion process, followed by post-processing such as foreground extraction/decoloring and color correction, producing the final photorealistic preview." class="hero-img">
+        <span class="caption"><b>Figure 5. <i>VisiPrint</i> architecture: The system takes as input a material exemplar and a 3D geometry. The material is encoded, while the geometry is sliced and rendered. Slicing, geometry, and latent illumination cues guide image generation via a multi-ControlNet pipeline. The output is refined using diffusion inpainting (SDXL) and finalized through color correction, producing a photorealistic preview of the 3D-printed object.</b></span>
+      </div>
+
+      <p><b><i>Input Normalization and Capture.</i></b></p>
+
+      <p>
+        <b>Slicer screenshots.</b> The inputs to VisiPrint are slicer agnostic, and can be taken with any preview color or slicing pattern/angle. However, we recommend choosing a preview color that contrasts with the build plate color in the slicer preview and disabling overlays (such as  travel moves). Once a screenshot is uploaded, preprocessing removes the background and computes edges and depth only inside the silhouette. Exemplars are single photos of printed samples (e.g., spheres) captured in a controlled tabletop setup. We used a soft lightbox positioned at a 45$^\circ$ overhead angle with white interior walls, providing diffuse global illumination while still producing a single soft specular highlight visible in the exemplar images. A ceiling light contributed weak ambient lighting. The same lightbox and camera position were used for both exemplar spheres and all evaluation photographs, ensuring consistent illumination and viewing geometry across materials.
+      </p>
+
+      <p><b><i>Material Transfer.</i></b></p>
+
+      <p>
+        Our pipeline extends the material transfer pipeline proposed in <i>ZeST</i> by incorporating additional slicing cues and accommodations for the 3D printed appearance domain. Our pipeline consists of three stages: (i) extract material features, (ii) compute geometry and structure guidance, (iii) synthesize previews conditioned on both.
+      </p>
+
+      <p>
+        Material features are encoded with CLIP. Depth is estimated with DPT, while grayscale masking preserves illumination. From slicer screenshots we extract depth and Canny edges, encoding both shape and lamination.
+      </p>
+
+      <p>
+        Previews are generated with Stable Diffusion XL (SDXL) and multi-ControlNet. Depth and edges guide shape and layer lines; CLIP embeddings and silhouettes constrain region and appearance. The result approximates printed look for the chosen filament and slicing parameters.
+      </p>
+
+      <p><b><i>Incorporating Slicing Patterns.</i></b></p>
+
+      <p>
+        FDM prints exhibit anisotropic appearance from extrusion, so previews must retain slicing detail. From screenshots, we compute a Canny edge map highlighting lamination, to complement the depth map conditioning proposed in <i>ZeST</i>. Because slicer screenshots vary in brightness and contrast, fixed Canny thresholds can miss layer lines, especially on dark views. We therefore use a mask-aware, adaptive Canny (Fig.&nbsp;6). We first obtain an object mask from the alpha matte and replace background pixels with the median interior intensity to avoid a silhouette edge. After a Gaussian blur, we choose the high threshold by searching a gradient percentile until interior edge density falls within a target band (about 12&ndash;25% of masked pixels for FDM layer lines). Finally, edges are restricted to an eroded mask and small components are removed to reduce speckle.
+      </p>
+
+      <div class="figure-block">
+        <img src="images/canny_double_column.png" alt="A comparison showing why adaptive Canny edge detection is needed for dark slicer screenshots. The figure shows an input image, a 'fixed threshold' Canny edge map that misses many internal slicing lines, and an 'adaptive' Canny edge map that captures more of the layer-line detail. Corresponding outputs illustrate that better edge maps lead to previews that better preserve slicing features." class="hero-img" style="max-width:90%;">
+        <span class="caption"><b>Figure 6. Visualization of a challenging, dark input with and without adaptive Canny map generation. Adaptive Canny more effectively picks up the slicing details of the input.</b></span>
+      </div>
+
+      <div class="figure-block">
+        <img src="images/canny_new.png" alt="Three conditioning comparisons for generated previews: depth-only, Canny-edges-only, and Canny + depth. Depth-only preserves overall shape and shading but can lose fine slicing details and may introduce errors in hollow regions. Edges-only preserves lamination/contours but can weaken global shading/shape. The combined approach balances both; the figure highlights failure regions where depth-only can create spurious holes and edges help preserve contours." class="hero-img">
+        <span class="caption"><b>Figure 7. We use both Canny edges and depth maps for conditioning the generated images: depth-only smooths shading but loses slicing detail, while edges preserve lamination but weaken shape. Combining both balances these effects. Red-circled regions highlight depth-only errors. In hollow regions (e.g., Benchy vent), edges preserve contours while depth retains global shape. Without edges, spurious holes may appear.</b></span>
+      </div>
+
+      <p>
+        As can be seen in Fig.&nbsp;7, depth maps ensure shading and global shape, while Canny edges preserve slicing and internal contours. Depth alone may blur hollow regions; edges alone lose shading. Users can balance the two via a <i>Slicing Influence</i> slider: higher values emphasize lamination, lower values emphasize shading. Defaults balance both.
+      </p>
+
+      <p><b><i>Color Correction and Artifact Reduction.</i></b></p>
+
+      <p>
+        Canny edges aid structure but can shift tone. To correct this, we apply statistical color transfer within the object silhouette (eroded to reduce boundary noise). Exemplar RGB mean/variance is matched, with contrast weight 0.5 and blend factor 0.8 to avoid overcorrection. This improves tonal coherence while retaining generative detail (Fig.&nbsp;8). To prevent unwanted structure from material photos (e.g., a donut hole or logo) from leaking into previews, we crop the exemplar to its foreground only. We also restrict edits to the object mask from the target view so the background does not influence results (Fig.&nbsp;10).
+      </p>
+
+      <div class="figure-block">
+        <img src="images/color_double_column.png" alt="A grid comparing outputs with and without color correction. For each material exemplar (shown as a photo, such as a printed sphere), the corresponding generated preview without correction is compared to the preview after correction. The corrected images better match the exemplar's overall color tone and brightness." class="hero-img" style="max-width:80%;">
+        <span class="caption"><b>Figure 8. Color correction improves correspondence between exemplar and output.</b></span>
+      </div>
+
+      <p><b><i>Material Exemplar Geometry Ablation.</i></b></p>
+
+      <p>
+        While users may provide any image of a printed material as an exemplar to <i>VisiPrint</i>, how well texture and lighting are captured is affected by the geometry of the exemplar. To identify which shapes are most effective as material example geometries, we conducted an ablation study across 12 geometries from our dataset. Each geometry was used as a material exemplar, and we evaluated the results using CLIP similarity, a metric that quantifies semantic similarity between generated previews and real photographs of printed objects. CLIP was chosen because it is more robust to variations in orientation and lighting than other metrics, making it suitable for evaluating our model&rsquo;s output images against the corresponding ground-truth photographs.
+      </p>
+
+      <p>
+        We found that spheres yielded the highest similarity scores (mean CLIP = .818), likely due to their even curvature and ability to capture material qualities under varied lighting, and cylinders performed worst (mean CLIP = .795). This preference for spherical exemplars mirrors <i>MatCap</i>-based workflows, where a single photographed sphere is used to encode how a material responds to a fixed illumination environment and is then mapped onto arbitrary geometries. In our case, the printed exemplar's appearance is injected as a conditioning signal into the diffusion model rather than used as a direct normal-lookup texture as in classical <i>MatCap</i> rendering. This allows <i>VisiPrint</i> to preserve FDM-specific surface cues such as lamination edges and layer-line highlights via slicer-derived depth and edge maps. While the performance gap between the best and worst geometries was modest (.023), we recommend using spheres for printing a new material sample for optimal results. This finding is specific to our pipeline and default hyperparameters, and performance may vary in other settings.
+      </p>
+
+      <div class="figure-block">
+        <img src="images/prompt_artefact_a.png" alt="Two preview images of a silver boat: one generated without a custom prompt and one with a custom prompt (e.g., emphasizing shininess). The prompted version appears more strongly biased toward the described visual property (more 'shiny'), illustrating optional user control through text prompting." class="hero-img" style="max-width:60%;">
+        <span class="caption"><b>Figure 9. Silver <i>VisiPrint</i> boat, without a custom prompt and with the custom prompt &ldquo;A very shiny 3D printed boat&rdquo;. Users can adjust previews with optional prompting.</b></span>
+      </div>
+
+      <div class="figure-block">
+        <img src="images/prompt_artefact_b.png" alt="A before/after comparison showing the effect of artifact suppression when cropping the material exemplar to remove background/irrelevant structure. The 'without suppression' preview shows an unintended transferred artifact (e.g., a spurious hole-like feature); the 'with suppression' preview reduces or removes this unwanted artifact." class="hero-img" style="max-width:80%;">
+        <span class="caption"><b>Figure 10. Cropping the material exemplar removes background pixels and reduces artifact transfer, such as the clear spurious hole on the front of the boat.</b></span>
+      </div>
+
+      <p><b><i>Optional Text Prompt Conditioning.</i></b></p>
+
+      <p>
+        Users may provide text prompts for creative control, though this is not required or recommended for realism. By default, a BLIP caption extracts the main noun and appends it to &ldquo;A 3D printed&rdquo; (e.g., &ldquo;A 3D printed vase&rdquo;). Users can override with custom prompts that can modify the output's material appearance (Fig.&nbsp;9).
+      </p>
+
+      <div class="figure-block">
+        <img src="images/finetuning.png" alt="A two-row comparison of images produced by SDXL for a prompt like 'a 3D printed cup.' The top row shows outputs before fine-tuning (less faithful to 3D-printed appearance). The bottom row shows outputs after fine-tuning (cups appear more plausibly 3D-printed in texture/structure)." class="hero-img">
+        <span class="caption"><b>Figure 11. Top row: SDXL outputs without fine-tuning. Bottom row: SDXL outputs with fine-tuning. Fine-tuning improves generated outputs of SDXL when prompted to visualize a 3D printed cup.</b></span>
+      </div>
+
+      <p><b><i>Optional Fine-tuning.</i></b></p>
+
+      <p>
+        While SDXL is a powerful generative model, our early experiments show that it does not handle generations of 3D printed objects well (Fig.&nbsp;11). To better align SDXL with the appearance of real prints, we optionally apply lightweight LoRA fine-tuning, a computationally efficient fine-tuning approach that injects small, trainable weights into the frozen model, using 100 Creative Commons&ndash;licensed images of 3D prints. We will release this dataset of images upon publication of this manuscript.
+      </p>
+
+      <p>
+        In Figure&nbsp;11, we show the effect of this fine-tuning on the SDXL model alone, by presenting generated images for the prompt &ldquo;A 3D printed cup&rdquo; before and after our fine-tuning approach. The cups appear more realistic and faithful to true 3D prints after fine-tuning.
+      </p>
+
+      <p><b><i>Implementation.</i></b></p>
+
+      <p>
+        The system is implemented in PyTorch, using <code>diffusers</code> for SDXL inference and fine-tuning and <code>rembg</code> for background removal. Our core model is <code>StableDiffusionXL-ControlNet-Inpaint-Pipeline</code> with two ControlNet branches (depth and edges). Depth maps are computed with DPT. Appearance is guided by IP-Adapter XL.
+      </p>
+
+      <p>
+        Optional LoRA fine-tuning runs 10,000 steps at learning rate $0.01$. Default ControlNet scales are 0.9 (depth and edges); inference uses 70 steps with seed 42. The <i>Slicing Influence</i> slider linearly adjusts edge vs. depth weights ($w_{\text{edge}}, w_{\text{depth}}$), initialized at 0.9 each and clipped to $[0,1]$. Preprocessing uses masks eroded with a $5\times 5$ kernel. Color correction applies histogram matching with contrast weight 0.5 and blend factor 0.8. Experiments ran on an NVIDIA A100 GPU.
+      </p>
+
+      <p><b><i>Scope and Assumptions.</i></b></p>
+
+      <p>
+        <i>VisiPrint</i> is designed primarily for FDM prints, but its approach generalizes to other technologies such as SLA. In the Supplemental, we show additional examples using resin and other materials. The system focuses on visual appearance: it previews what a print is expected to look like <i>if fabrication is successful</i>. It does not estimate printability, mechanical feasibility, or the likelihood of failure. Our goal is to give users a clearer sense of surface finish, material look, and color outcome&mdash;not to predict whether a print will succeed technically.
+      </p>
+
+      <br>
+
+      <span class="medium-headline">USER STUDY</span>
+      <br><br>
+
+      <p>
+        We evaluate <i>VisiPrint</i> as an appearance-first preview aid by asking whether, before printing, it helps participants reach a preview that they judge as <i>faster and more reliable</i>, requiring <i>lower workload</i>, and offering <i>higher realism</i> than baselines. We report task completion, time-to-preview, perceived realism, and workload. To compare against existing 3D print preview approaches (baseline), we set up three different tools during the experiment:
+      </p>
+      <ul>
+        <li><b>Ultimaker Cura Slicer Preview Tab:</b> A standard slicer visualization that displays the layer-by-layer slicing pattern.</li>
+        <li><b>Blender-Based Rendering:</b> A manually configured rendering pipeline using Blender to simulate realistic materials and lighting.</li>
+        <li><b><i>VisiPrint</i>:</b> Our approach, which uses generative models to transfer material appearance onto sliced 3D models.</li>
+      </ul>
+
+      <p>
+        The study examined trade-offs among ease of use, photorealism, visual fidelity, and task efficiency. While Cura and Blender do not cover the full landscape of preview tools, they are popular and accessible in printing and modeling communities. We conducted a one-hour user study in a lab environment with fifteen participants. Users were given five minutes to complete various tasks, and the completion rate for <i>VisiPrint</i> was $100\%$ (30/30 tasks across all participants) but only $63\%$ (19/30 tasks) for Cura and $13\%$ (4/30) for Blender. Participants consistently rated <i>VisiPrint</i> as significantly easier to use, less demanding, and more photorealistic than the other tools. In a perception study, previews generated by <i>VisiPrint</i> were rated as more realistic than those from the baseline and nearly on par with actual photographs. Beyond measuring task completion time, this workflow study was designed to probe users' perceived workload, confidence, and trust when interacting with different preview tools, reflecting the cognitive demands of real 3D-printing decision workflows rather than simply comparing interface speed.
+      </p>
+
+      <p>
+        This study received institutional approval. Participants gave informed consent and were able to withdraw at any time.
+      </p>
+
+      <div class="figure-block">
+        <img src="images/user_study_panel.png" alt="A multi-chart figure summarizing study results comparing VisiPrint, Cura, and Blender. Top-left: Bar chart of mean ratings (1-7) for NASA-TLX dimensions and extra questions (e.g., mental demand, hurriedness, success, effort, insecurity, photorealism, confidence). Top-middle: Completion rate chart showing VisiPrint with the highest completion percentage, Cura lower, Blender lowest. Top-right: Task time plot for completed trials, with VisiPrint fastest, Cura slower, Blender slowest. Bottom rows: Diverging bar charts showing distributions of non-neutral responses for each dimension (e.g., mental demand, physical demand, hurried, success, effort, insecure, photoreal, confident), indicating VisiPrint trends toward lower workload and higher perceived success/realism." class="hero-img">
+        <span class="caption"><b>Figure 12. User study results. Top row: mean scores for the NASA-TLX and extra questions (left), task completion rate (middle), and completion times for successful trials (right). Bottom rows: distribution of non-neutral responses for individual TLX dimensions and realism/confidence ratings. <i>VisiPrint</i> consistently reduced workload and increased success compared to baselines, and its improvement was statistically significant across all metrics other than physical demand.</b></span>
+      </div>
+
+      <p><b><i>Participant Demographics.</i></b></p>
+
+      <p>
+        We recruited fifteen participants (self reported genders of ten men and five women) aged 18 to 37 (with a mean age of 26.27). The participants were university students with different majors and backgrounds. All but one participant had prior experience with printing and modeling tools.
+      </p>
+
+      <p><b><i>Pre-survey Questionnaire.</i></b></p>
+
+      <p><b>Process</b>. Before starting the tasks, participants completed a background questionnaire covering:</p>
+      <ul>
+        <li>Prior experience with printers and modeling tools.</li>
+        <li>Importance of visualization before printing (1 = Not at all, 7 = Essential).</li>
+        <li>Current methods or strategies used to preview prints.</li>
+        <li>Prior experience with different print materials (e.g., colors, plastics).</li>
+        <li>Willingness to spend time on visualization before printing.</li>
+        <li>Prior experience with Blender and Cura.</li>
+      </ul>
+
+      <p>
+        <b>Results</b>. We assessed participants&rsquo; familiarity with each tool using a 7-point Likert scale (1 = novice, 7 = expert). The mean familiarity scores were 2.63 (<i>SD</i> = 1.40) for Blender and 2.60 (<i>SD</i> = 2.26) for Cura, indicating that participants were generally knowledgeable amateurs. Participants rated print visualization as highly important, with an average score of 6.40 (<i>SD</i> = 0.63). The time they were willing to spend on visualization averaged 14.93 minutes, with a mode of 5 minutes. Five participants reported frequent experience with aesthetic materials, six occasional, two infrequent, and two none.
+      </p>
+
+      <p><b><i>Evaluating Software Interaction Experience.</i></b></p>
+
+      <p>For each tool, participants completed two tasks:</p>
+      <p style="margin-left: 20px;">
+        <b>Task 1:</b> Visualize the boat in silver PLA.<br>
+        <b>Task 2:</b> Visualize the whistle in clear PLA.
+      </p>
+      <p>
+        Participants' completion times were recorded, with a maximum task duration of 5 minutes. If 5 minutes had elapsed, they were prompted to stop and asked if they felt they had finished. If yes, time was recorded as 5 minutes; if not, the task was marked incomplete. Tool order was rotated with a Latin-Square to reduce order effects.
+      </p>
+
+      <p>To isolate software interaction from asset preparation (studied separately in the Supplemental), some resources were pre-provided:</p>
+      <ul>
+        <li>Blender: curated texture maps for silver and clear PLA or built-in materials.</li>
+        <li><i>VisiPrint</i>: sliced screenshots and images of the silver and clear PLA references.</li>
+      </ul>
+
+      <p><b><i>Results.</i></b></p>
+
+      <p>
+        <b>Completion Rates and Times.</b> Completion rates per software tool were 30/30 for <i>VisiPrint</i>, 4/30 for Blender, and 19/30 for Cura. For completed tasks, average completion times were $66.4$&thinsp;s (<i>SD = $10.0$</i>) for <i>VisiPrint</i>, $158.5$&thinsp;s (<i>SD = $64.9$</i>) for Cura, and $250.2$&thinsp;s (<i>SD = $34.2$</i>) for Blender (Figure&nbsp;12). These results show a sizable improvement for <i>VisiPrint</i> over both baselines in both completion rate and task time.
+      </p>
+
+      <p>
+        <b>NASA-TLX.</b> After each task, participants completed NASA-TLX and two extra 7-point Likert questions: (i) &ldquo;How photorealistic was the result?&rdquo; (1 = Not at all, 7 = Extremely) and (ii) &ldquo;How confident are you that the preview matches the real object?&rdquo; (1-7). For <i>VisiPrint</i> specifically, they also answered: &ldquo;Did the automatic visualization help with previewing the print?&rdquo; (1-7).
+      </p>
+
+      <p>
+        We used non-parametric tests for within-subjects ordinal data. For each subjective metric, a Friedman test assessed overall differences across the three tools. If the Friedman test was significant, we ran Wilcoxon signed-rank tests for pairwise comparisons with Holm-Bonferroni correction for multiple comparisons. We report statistical significance at $\alpha=0.05$, with all raw p-values listed in Table&nbsp;1. Significant results at $p&lt;.05$ (after Holm-Bonferroni correction) are shown in boldface. <i>VisiPrint</i> was rated as significantly lower-effort, less mentally demanding, less hurried, and more successful than both Blender and Cura. Participants also reported feeling less insecure, perceiving higher photorealism, and expressing greater confidence in the resulting prints.
+      </p>
+
+      <div class="figure-block">
+        <table class="paper-table">
+          <thead>
+            <tr><th><b>Metric</b></th><th><b>Friedman</b></th><th><b>VisiPrint vs Blender</b></th><th><b>VisiPrint vs Cura</b></th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Mental Demand</td><td><b>.000016</b></td><td><b>.000650</b></td><td><b>.003483</b></td></tr>
+            <tr><td>Hurried</td><td><b>.000036</b></td><td><b>.001576</b></td><td><b>.017679</b></td></tr>
+            <tr><td>Success</td><td><b>.000006</b></td><td><b>.000655</b></td><td><b>.001024</b></td></tr>
+            <tr><td>Effort</td><td><b>.000009</b></td><td><b>.000647</b></td><td><b>.001498</b></td></tr>
+            <tr><td>Insecure</td><td><b>.000049</b></td><td><b>.000682</b></td><td><b>.003483</b></td></tr>
+            <tr><td>Photorealism</td><td><b>.000005</b></td><td><b>.000974</b></td><td><b>.000686</b></td></tr>
+            <tr><td>Confidence</td><td><b>.000123</b></td><td><b>.001149</b></td><td><b>.008519</b></td></tr>
+          </tbody>
+        </table>
+        <span class="caption"><b>Table 1. Friedman and Wilcoxon test results. We report raw p-values; boldface indicates significance after Holm-Bonferroni correction ($p &lt; .05$).</b></span>
+      </div>
+
+      <p>
+        For <i>VisiPrint</i>, the extra question &ldquo;Did the automatic visualization help with previewing the print?&rdquo; had a mean score of 6.20 out of 7.
+      </p>
+
+      <p><b><i>User Perception Study.</i></b></p>
+
+      <p>
+        <b>Process.</b> Participants held the actual 3D-printed object (a silver boat and a clear whistle) while viewing side-by-side previews from each tool (Fig.&nbsp;13) and photographs of that same object. In this setup, the physical print serves as the ground-truth baseline: all similarity ratings are made with the real 3D-printed artifact in hand, rather than relative to another preview. Each set included: (a) Blender uniform, (b) Blender PBR, (c) Cura yellow, (d) <i>VisiPrint</i>, (e) photo of the printed object, and (f) Cura silver (boat) or Cura clear (whistle). Backgrounds were removed. Participants rated each image on 7-point Likert scales (1 = no resemblance, 7 = exact match) for three metrics: overall similarity, texture similarity, and slicing similarity. They also provided full rankings for each metric.
+      </p>
+
+      <div class="figure-block">
+        <img src="images/userperception.png" alt="A two-part figure. Left: A simple diagram of the study setup: a participant holds a real 3D-printed object while viewing six preview images on a screen and recording similarity ratings and rankings. Right: An example row of the six on-screen options (labeled A-F), including two Blender renders (uniform and PBR), a Cura default-color view, a VisiPrint preview, a real photograph of the object, and a Cura material-themed view (e.g., clear PLA). The figure communicates the side-by-side comparison task used for perceptual evaluation." class="hero-img">
+        <span class="caption"><b>Figure 13. Left: Perception study setup. The participant holds the real 3D-printed object and compares it to six different previews on a screen, recording their results. Right: Example row of options shown in the perception study. From left to right we show the options participants were given: Blender uniform texture, Blender PBR texture, Cura default color, <i>VisiPrint</i>, a real-world photograph of the actual object and Cura &ldquo;clear PLA&rdquo;.</b></span>
+      </div>
+
+      <p>
+        <b>Results.</b> We collected Likert-scale ratings and rankings for each model and metric. Figure&nbsp;14 shows a visualization of both Likert-scale ratings and average rankings for the boat model. Notably, the profile of <i>VisiPrint</i> closely tracks that of a photo across most conditions. For slicing similarity, Cura previews sometimes matched or outperformed <i>VisiPrint</i> and the photo, which is expected given Cura&rsquo;s primary function as a slicing visualization tool. For overall and texture similarity, however, Cura consistently lagged behind <i>VisiPrint</i>. In a handful of cases, participants ranked <i>VisiPrint</i> ahead of the real photograph, suggesting that lighting conditions in photos may bias perception. The perception study was structured not merely to rank previews, but to examine when users treat <i>VisiPrint</i> previews as interchangeable with photographs of the actual object, and how this judgment shifts across filaments, materials, and baseline methods&mdash;providing insight into expectation-setting, rather than simply demonstrating that <i>VisiPrint</i> performs well.
+      </p>
+
+      <div class="figure-block">
+        <img src="images/boat_ranks.png" alt="A results figure specific to the boat perception study. Top row: Three horizontal diverging charts showing the distribution of non-neutral Likert responses for (1) overall similarity, (2) texture similarity, and (3) slicing-pattern similarity across methods (Blender Uniform, Blender PBR, Cura Yellow, VisiPrint, Photo, Cura Silver). Bottom row: Three bar charts showing average rank (1 = best) for the same three metrics. VisiPrint and the real photo appear in the top tier for overall/texture, with Cura Silver mid-tier and Cura Yellow/Blender methods lower; slicing similarity shows Cura performing competitively due to its slicing-focused visualization." class="hero-img">
+        <span class="caption"><b>Figure 14. Perception study (boat). Top row: distribution of non-neutral Likert responses for overall, texture, and slicing similarity. Bottom row: average participant rankings. <i>VisiPrint</i> and photos were statistically indistinguishable and ranked highest, with Cura silver mid-tier and Blender/Cura yellow lowest.</b></span>
+      </div>
+
+      <p>
+        <b>Overall Appearance.</b> Both whistle and boat conditions showed significant differences across methods (Whistle: $\chi^2=36.53$, $p&lt;.001$, $W=.459$; Boat: $\chi^2=47.38$, $p&lt;.001$, $W=.602$). For the whistle, <i>VisiPrint</i> was significantly higher than Cura-Yellow and comparable to both the photo and Cura-Clear, while all three outperformed the Blender baselines. For the boat, <i>VisiPrint</i> and the photo formed the top tier, rated higher than most baselines and not statistically differently from one another. Cura-Silver fell in between the top tier and the weaker baselines.
+      </p>
+
+      <p>
+        <b>Texture Similarity.</b> Texture ratings again showed significant differences (Whistle: $\chi^2=46.42$, $p&lt;.001$, $W=.602$; Boat: $\chi^2=53.58$, $p&lt;.001$, $W=.690$). For both objects, <i>VisiPrint</i> and the photo were rated highly and were not significantly different from each other. Both consistently outperformed Blender-Uniform, Blender-PBR, and Cura-Yellow. For the whistle, Cura-Clear also achieved strong ratings, significantly better than the Blender baselines, while for the boat, Cura-Silver received moderate scores.
+      </p>
+
+      <p>
+        <b>Slicing Similarity.</b> Slicing comparisons also yielded significant effects (Whistle: $\chi^2=44.46$, $p&lt;.001$, $W=.534$; Boat: $\chi^2=51.15$, $p&lt;.001$, $W=.611$). For both objects, <i>VisiPrint</i> and the photo were not significantly different from each other and outperformed the Blender baselines. As expected, slicing-focused previews from Cura performed competitively in this dimension: Cura-Clear for the whistle and Cura-Silver for the boat matched or surpassed some baselines, reflecting their emphasis on visualizing slicing patterns.
+      </p>
+
+      <p>
+        <b>Summary.</b> Across both objects, <i>VisiPrint</i> achieved perceptual similarity on par with photographs and significantly outperformed slicer previews. Blender PBR improved shape and overall appearance but generally lagged behind <i>VisiPrint</i> and photos.
+      </p>
+
+      <p><b><i>Post Survey.</i></b></p>
+
+      <p>
+        Participants completed a post-study survey covering: (1) preferred tool for photorealistic print preview (Blender, Cura, or <i>VisiPrint</i>) with justification; (2) overall <i>VisiPrint</i> experience (7-point Likert); (3) willingness to use <i>VisiPrint</i> again and reasons; (4) extent to which <i>VisiPrint</i> aided print preview (1&ndash;7) with explanation; (5) anticipated frequency of using <i>VisiPrint</i> for prototyping (1&ndash;7) with example cases; (6) perceived reliability of visualizations (1&ndash;7) with elaboration; (7) suggested improvements; (8) applications where <i>VisiPrint</i> would be most helpful; (9) reflections on what they learned; and (10) any additional comments.
+      </p>
+
+      <p>
+        Twelve out of the fifteen participants said they would prefer to use <i>VisiPrint</i> instead of just Cura alone or Blender alone for print visualization, and three participants said they would prefer to use just Cura. The mean experience score was 6.33 out of 7, the mean answer to how much <i>VisiPrint</i> helped was 5.33 out of 7, and the mean answer to how reliable the previews were was 6.27.
+      </p>
+
+      <p>
+        Fourteen out of the fifteen participants expressed that they would use <i>VisiPrint</i> again in the future, with a mean score of 4.60 when answering how often they would use it when doing 3D-print preview. Participants proposed a range of applications for <i>VisiPrint</i>, including product design where appearance matters (e.g., P4 said <i>&ldquo;Product design focused applications, where visual appearance matters&rdquo;</i>), exploring new materials (e.g., P2: <i>&ldquo;It would be nice to visualize new materials on print jobs&rdquo;</i>), and fine-tuning models late in the design process (e.g., P3: <i>&ldquo;I would use it mostly at the end of a modeling process to fine-tune details and confirm material selection&rdquo;</i>). Some noted limited use for everyday prints (e.g., P6: <i>&ldquo;Probably won&rsquo;t need to preview appearances, I imagine product designers need it&rdquo;</i>).
+      </p>
+
+      <p>
+        Participants found <i>VisiPrint</i> to be highly accurate and visually realistic (e.g., P7: <i>&ldquo;I thought it was photorealistic,&rdquo;</i> P8: <i>&ldquo;They look like the material I&rsquo;m trying to use,&rdquo;</i> P9: <i>&ldquo;The boat and print were very accurate to each other&rdquo;</i>), and appreciated its ease of use (e.g., P1: <i>&ldquo;It was very easy to use,&rdquo;</i> P8: <i>&ldquo;Cool stuff&rdquo;</i>).  However, several participants noted limitations such as the lack of a 3D preview or orbiting view (P3: <i>&ldquo;Would be cool to rotate the object and view it from different angles&rdquo;</i>), and a desire for more interactivity and integration (P3: <i>&ldquo;I would like to provide a 3D model instead of a single image&rdquo;</i>). Trust and understanding of the system also came up (P2: <i>&ldquo;An understanding of the algorithm would better ground the trust I place in the visualizations&rdquo;</i>).
+      </p>
+
+      <p>
+        We mitigate learning and order effects via a within-subjects design with counterbalanced condition order and standardized task scripts. Hawthorne effects remain possible in any tool-comparison study; we reduce them by avoiding feedback during tasks and by using identical prompts across conditions. Our findings center on appearance-related decisions rather than print success, consistent with <i>VisiPrint</i>&rsquo;s intended use.
+      </p>
+
+      <br>
+
+      <span class="medium-headline">ADHERING TO RESPONSIBLE USE OF AI FOR FABRICATION PREVIEWS</span>
+      <br><br>
+
+      <p>
+        In our study (Section 5), participants&rsquo; confidence in <i>VisiPrint</i> previews was lower before seeing the real object in question than it was after inspecting the real physical prints, suggesting that they treated images as provisional rather than guarantees. Nonetheless, as preview realism improves, as with any pipeline that incorporates computer-vision material transfer or generative models, we acknowledge the risk of over-trusting the outputs of the model may grow. Prior work shows that explicitly communicating the limitations and fallibility of AI systems helps calibrate users' expectations and reduces both over- and under-reliance on automated advice. Following guidance on calibrated trust, we implemented the following safeguards into <i>VisiPrint</i>:
+      </p>
+
+      <p>
+        <b>System safeguards:</b> Unlike some generative models such as GPT-5, <i>VisiPrint</i> previews are tailored with a custom computer-vision algorithm, conditioned on slicer screenshots with geometry and layer cues preserved to keep outputs tied to toolpaths and prevent geometry hallucination; the UI warns if strong text prompting may reduce faithfulness; a single <i>Slicing Influence</i> slider exposes the trade-off between edges (lamination detail, vents/holes) and depth (global shape/shading); and all outputs are labeled &ldquo;Simulated Preview&rdquo; to set expectations.
+      </p>
+
+      <p>
+        <b>User guidelines:</b> We also provide the following guidelines for users, which are included in a pop-up to the User Interface: &ldquo;Use <i>VisiPrint</i> only for visible appearance (sheen, hue tendencies, layer-line direction, seam/banding) not for printability, strength, tolerance, or safety, and always pair it with slicer checks and for high-stakes parts, a small test print. Know that <i>VisiPrint</i> is designed for previewing sliced 3D prints and tested primarily on FDM printing. And do not use <i>VisiPrint</i> previews as an indicator of likely print success for safety-critical parts (e.g., load-bearing or clinical), keeping records of slicer view, model/weights (incl. LoRA), conditioning scales, seed, and exemplar reference for auditability.&rdquo;
+      </p>
+
+      <p>
+        These safeguards and guidelines aim to keep trust calibrated: previews reveal slicing patterns and material appearance before printing, without being mistaken for evidence that a print will succeed, and our findings thus complement broader HCI work on expectation-setting and AI-assisted creativity, which emphasizes transparency and user control when integrating generative tools into designers' workflows.
+      </p>
+
+      <br>
+
+      <span class="medium-headline">TECHNICAL EVALUATION</span>
+      <br><br>
+
+      <p>
+        We evaluate VisiPrint using both a user study and technical benchmarks. Users provide the most meaningful signal of utility; quantitative metrics (PSNR, LPIPS, CLIP) are included as additional checks that compare each preview against a photograph of the corresponding actual 3D-printed object.
+      </p>
+
+      <p>
+        <b>Input preparation.</b> All methods used the same models and material exemplars. Aspect ratios were matched to avoid distortion; outputs were foreground-masked for quantitative metrics. Diffusion-based methods (<i>VisiPrint</i>, <i>ZeST</i>, IP-Adapter) used identical screenshots, exemplars, defaults, and seeds. Cura previews hid non-print moves with a neutral theme. As using <i>GPT-5</i> is non-deterministic even for a fixed prompt, we prompted the model twice with the same prompt to show variations across two distinct attempts.
+      </p>
+
+      <p><b><i>Dataset.</i></b></p>
+
+      <p>
+        We built a dataset of twelve objects: 8 popular Thingiverse models plus 4 primitives (sphere, torus, cylinder, cube). All were printed in four filaments&mdash;solid pink, solid blue, clear white, and metallic silver, chosen to span translucency, specularity, and matte vs. glossy finishes. Ground-truth photos were captured under diffuse lighting with fixed camera distance and neutral backgrounds, with the same setup as described in Section 4.1, and object orientation matched slicer views. This qualitative alignment was performed by manually rotating the physical object to visually resemble the slicer view, not via any automatic registration, but was held constant across baselines. Thus, for each filament, the exemplar sphere and the corresponding evaluation photos of printed objects share the same illumination environment. Printer/slicer settings were held constant within each color (full details in the Supplemental).
+      </p>
+
+      <div class="figure-block">
+        <img src="images/comparison_new.png" alt="A large grid of qualitative results. Each row corresponds to a target object and material. Columns include: target/sliced geometry, material exemplar, real photo, VisiPrint, and multiple baselines (e.g., ZeST, IP-Adapter, MatSwap, SVBRDF, and two attempts from GPT-5). The montage is meant to visually compare how well each method preserves geometry, slicing cues, and material appearance across several objects and filaments." class="hero-img">
+        <span class="caption"><b>Figure 15. Left: ground-truth photographs of 3D printed objects from Thingiverse, with sliced geometries and material samples. Right: previews from <i>VisiPrint</i> and baselines. <i>VisiPrint</i> best combines material fidelity, slicing, and geometry.</b></span>
+      </div>
+
+      <p><b><i>Qualitative Evaluation.</i></b></p>
+
+      <p>
+        We compared previews from: (i) ground-truth photos, (ii) <i>VisiPrint</i>, and baselines. All methods used the same models and exemplars. Figure&nbsp;15 shows representative results. Across all models, only <i>VisiPrint</i> and Cura consistently preserved shape and slicing; <i>ZeST</i> introduced blocking artifacts, and <i>GPT-5</i> hallucinated geometry. On specular materials (like the whistle and octopus), <i>VisiPrint</i>, <i>ZeST</i>, and <i>GPT-5</i> captured shininess, but only <i>VisiPrint</i> and Cura preserved slicing patterns. Unlike <i>GPT-5</i>, <i>VisiPrint</i> and <i>ZeST</i> support arbitrary aspect ratios without stretching, and are geometry-aware and deterministic. Overall, <i>VisiPrint</i> qualitatively best balances geometry, slicing, and material (Table&nbsp;2).
+      </p>
+
+      <div class="figure-block">
+        <table class="paper-table">
+          <thead>
+            <tr><th></th><th><b><i>VisiPrint</i></b></th><th><b><i>ZeST/IP-Adapter</i></b></th><th><b><i>Cura</i></b></th><th><b><i>GPT-5</i></b></th></tr>
+          </thead>
+          <tbody>
+            <tr><td><b>Geometry</b></td><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td></tr>
+            <tr><td><b>Slicing</b></td><td>Yes</td><td>No</td><td>Yes</td><td>No</td></tr>
+            <tr><td><b>Material</b></td><td>Yes</td><td>Yes</td><td>No</td><td>Yes</td></tr>
+          </tbody>
+        </table>
+        <span class="caption"><b>Table 2. Feature support across different tools.</b></span>
+      </div>
+
+      <p><b><i>Quantitative Evaluation.</i></b></p>
+
+      <p>
+        We compared <i>VisiPrint</i> against <i>ZeST</i>, IP-Adapter, <i>MatSwap</i>, and Single-Image SVBRDF estimation, using their official code releases, with results shown in  Table&nbsp;3. Evaluation metrics include PSNR, LPIPS (VGG), and CLIP similarity, computed against photographs of real 3D-printed objects.
+      </p>
+
+      <div class="figure-block">
+        <table class="paper-table">
+          <thead>
+            <tr><th><b>Method</b></th><th><b>PSNR</b> &uarr;</th><th><b>LPIPS<sub>VGG</sub></b> &darr;</th><th><b>CLIP</b> &uarr;</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><b><i>VisiPrint</i> (Ours)</b></td><td><b>15.587 &plusmn; 3.470</b></td><td><b>0.278 &plusmn; 0.078</b></td><td><b>0.911 &plusmn; 0.040</b></td></tr>
+            <tr><td>ZeST</td><td>14.567 &plusmn; 3.165</td><td>0.285 &plusmn; 0.074</td><td>0.887 &plusmn; 0.043</td></tr>
+            <tr><td>IP-Adapter</td><td>12.446 &plusmn; 2.532</td><td>0.306 &plusmn; 0.070</td><td>0.823 &plusmn; 0.056</td></tr>
+            <tr><td>MatSwap</td><td>11.506 &plusmn; 2.220</td><td>0.298 &plusmn; 0.080</td><td>0.865 &plusmn; 0.041</td></tr>
+            <tr><td>SVBRDF</td><td>11.518 &plusmn; 3.226</td><td>0.324 &plusmn; 0.092</td><td>0.887 &plusmn; 0.043</td></tr>
+          </tbody>
+        </table>
+        <span class="caption"><b>Table 3. Quantitative comparison of <i>VisiPrint</i> with mean scores and standard deviations of different baselines (lower LPIPS is better; higher CLIP is better).</b></span>
+      </div>
+
+      <p>
+        For the SVBRDF baseline, we used &ldquo;sliced&rdquo; STLs with the ground-truth slicing patterns extracted from GCode using <i>GCode2STL</i> to ensure a fair geometric comparison with our method. We estimated material maps (diffuse albedo, specular albedo, roughness, normals) from each exemplar using [Deschaintre et al. 2018]. While single-image SVBRDF capture assumes planar material samples, we use the same sphere exemplar images as in other baselines to keep the inputs consistent across methods. We crop to the central 50% of the image to prevent background whitespace from appearing in the material maps, which reduces the amount of curvature in the image. However, as the surfaces are not flat, the resulting maps may be suboptimal. See the Supplemental for preprocessing and reproducibility details as well as a discussion of how the material images were adapted for use with the SVBRDF code, including material maps and details on alignment results.
+      </p>
+
+      <p>
+        Camera elevation and azimuth were manually specified per object to closely match the ground-truth photograph viewpoint. Ambient and directional light intensities were calibrated once by minimizing RGB error on a held-out reference photograph, then fixed for all renders. While <i>MatCap</i> is conceptually similar&mdash;mapping a photographed sphere to arbitrary geometry&mdash;we do not include <i>MatCap</i> as a baseline in Table&nbsp;3 because there is no standard, open-source implementation that can be applied directly to slicer screenshots and our dataset. Backgrounds were removed and metrics averaged across 48 object&ndash;material pairs.
+      </p>
+
+      <p>
+        <i>VisiPrint</i> achieved the highest PSNR (15.587), LPIPS (.278), and CLIP (.911), indicating that its performance quantitatively exceeds the closest baselines in pixel-level fidelity, perceptual similarity, and semantic alignment with the ground-truth appearance. This is a demanding benchmark, since we compare against real-world photographs whose lighting and other capture conditions can influence scores, and the CLIP differences are modest; we do not claim statistical significance. While the quantitative results highlight <i>VisiPrint</i>'s capabilities, we treat these metrics as complementary to&mdash;but less decisive than&mdash;the qualitative user study comparisons.
+      </p>
+
+      <div class="figure-block">
+        <img src="images/ablation_master_dashboard.png" alt="A multi-plot figure reporting ablation and sensitivity analyses with three metrics: PSNR, LPIPS, and CLIP (with arrows indicating preferred directions). Top section (component ablation): Bar charts comparing a depth-only baseline to progressively adding components (Canny conditioning, color harmonization, BLIP prompt). Color harmonization yields the largest improvement. Bottom-left (Canny weight sweep): Line/bar plots showing how changing Canny weight affects PSNR/LPIPS/CLIP; higher Canny weight tends to improve semantic consistency (CLIP) with limited impact on other metrics. Bottom-right (LoRA scale sweep): Plots showing how varying LoRA scale slightly affects perceptual similarity (LPIPS) with minor changes in PSNR/CLIP." class="hero-img">
+        <span class="caption"><b>Figure 16. Ablation study results. <i>Top:</i> Component ablation showing gains from adding Canny conditioning, color harmonization, and BLIP prompts to a depth-only baseline; color harmonization yields the largest improvement. <i>Bottom:</i> Sweeps over Canny weight (left) and LoRA scale (right). Higher Canny weights improve semantic consistency (CLIP&thinsp;$\uparrow$), while LoRA fine-tuning provides minor perceptual benefits. $y$-axes are zoomed to data range; arrows indicate preferred directions. Error bars show 95% confidence intervals.</b></span>
+      </div>
+
+      <p><b><i>Ablation Study.</i></b></p>
+
+      <p>
+        We evaluate the contribution of each component in the <i>VisiPrint</i> pipeline across 12 target objects and 4 material exemplars (48 test pairs), with results shown in Fig.&nbsp;16. Starting from a depth-only <i>ControlNet</i> baseline ($w_d{=}0.8$, $w_c{=}0$ for Depth and Canny weights), adding Canny conditioning ($w_c{=}0.8$), color harmonization, and BLIP prompts produces progressively better results. Color harmonization delivers the largest improvement, increasing PSNR by $1.93$ and CLIP by $0.018$ relative to the Canny-only configuration, and the full pipeline achieves the strongest overall performance (PSNR&thinsp;=&thinsp;14.99, CLIP&thinsp;=&thinsp;0.912). To assess sensitivity to Canny conditioning, we sweep $w_c \in \{0.0, 0.4, 0.6, 0.8, 1.0\}$ while holding $w_d{=}0.8$. Increasing the Canny weight improves semantic consistency (CLIP) with minimal impact on PSNR or LPIPS, with $w_c{=}0.8$ offering a good balance of edge fidelity and generative flexibility. Finally, varying the LoRA finetuned-weights scale $\{0, 0.2, 0.5, 0.8, 1.0\}$ produces modest perceptual gains (LPIPS from 0.715 to 0.712) while leaving PSNR and CLIP largely unchanged, indicating that LoRA contributes incremental refinement atop an already capable base model.
+      </p>
+
+      <br>
+
+      <span class="medium-headline">LIMITATIONS</span>
+      <br><br>
+
+      <p>
+        While <i>VisiPrint</i> improves the visual fidelity of 3D print previews, several limitations remain. First, the method relies on monocular depth estimation and Canny edges extracted from slicer screenshots; these can introduce artifacts in hollow or detailed regions. Second, preview quality depends on the exemplar photo: poor lighting, low contrast, or misalignment can reduce realism, particularly for user-provided inputs. Our photo-slicer pose alignment is manual rather than optimization-based, reusing a visually matched pose across all methods instead of performing automatic camera registration.
+      </p>
+
+      <p>
+        As with <i>MatCap</i> previews and exemplar-driven methods such as <i>ZeST</i> and <i>MatSwap</i>, <i>VisiPrint</i> inherits the exemplar&rsquo;s lighting and does not support arbitrary relighting. Previews may therefore diverge under different illumination, though users can provide exemplars captured in alternate environments. The system thus offers expectation-setting under a specific lighting setup rather than the relighting flexibility of physically based rendering.
+      </p>
+
+      <p>
+        We intentionally favor an exemplar-driven pipeline over SVBRDF or inverse-rendering methods, which require controlled capture, calibrated cameras, and dedicated renderers. <i>VisiPrint</i> instead operates from a single uncalibrated photo and a slicer screenshot, trading physical interpretability for speed and accessibility while maintaining competitive fidelity relative to <i>MatSwap</i> and single-image SVBRDF baselines. <i>VisiPrint</i> is currently optimized for FDM printing with standard PLA filaments; materials with complex optical properties (metallic, translucent, multicolor) may not be fully captured, and we have not evaluated performance on SLA/resin prints. Importantly, the method does not model physical feasibility or support-structure artifacts and is not a substitute for slicer validation. Instead, it complements existing tools by offering a visual approximation of expected appearance.
+      </p>
+
+      <br>
+
+      <span class="medium-headline">CONCLUSION</span>
+      <br><br>
+
+      <p>
+        We introduced <i>VisiPrint</i>, a photorealistic preview tool for 3D printing that incorporates both material appearance and slicing structure, enabling users to visualize how prints will look before fabrication. Our method operates as a post-slicing step and is agnostic to printer or slicer type. By bridging the gap between input 3D models and the actual physical output, <i>VisiPrint</i> lays the groundwork for future intelligent fabrication tools that support faster, more informed, and aesthetics-driven prototyping.
+      </p>
+
+      <br>
+
+      <span class="medium-headline">ACKNOWLEDGEMENTS</span>
+      <br><br>
+
+      <p>
+        We thank Leonardo Hern&aacute;ndez Cano for their support, and gratefully acknowledge the support of the MIT MAD (Morningside Academy for Design) Fellowship, and the MIT MathWorks Fellowship.
+      </p>
+
+      <br>
 
       <span class="medium-headline">BIBTEX</span>
       <br><br>
@@ -113,7 +681,8 @@
   author    = {Maxine Perroni-Scharf and Faraz Faruqi and SooYeon Ahn and Raul Eduardo Hernandez and Szymon Rusinkiewicz and William Freeman and Stefanie Mueller},
   title     = {VisiPrint: Previewing 3D-Print Appearances from Real Material Samples},
   booktitle = {Proceedings of the 2026 CHI Conference on Human Factors in Computing Systems (CHI '26)},
-  year      = {2026}
+  year      = {2026},
+  doi       = {10.1145/3772318.3790851}
 }
       </pre>
     </div>
@@ -142,3 +711,4 @@
 
 </body>
 </html>
+
