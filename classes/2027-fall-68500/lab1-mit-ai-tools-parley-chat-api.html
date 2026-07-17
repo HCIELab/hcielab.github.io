@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>6.810 Lab1 Music Card Printing</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!-- CSAIL ICON -->
+	<link rel="CSAIL" href="../../../images/icon/csail.ico" type="image/x-icon" />
+
+	<!-- Bootstrap -->
+	<link href="../../css/bootstrap.css" rel="stylesheet">
+	<link href="../../css/custom-style.css" rel="stylesheet">
+
+	<!-- jQuery -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+
+	<!-- Google Analytic -->
+	<script type="text/javascript" src="../../js/analytics.js"></script>
+
+	<style>
+	.etech-sch-col1 {width:60px; border: 1px solid black;padding:10px;}
+	.etech-sch-col2 {width:120px; border: 1px solid black;padding:10px;}
+	.etech-sch-col3 {width:450px; border: 1px solid black;padding:10px;}
+	.etech-sch-col4 {width:70px; border: 1px solid black;padding:10px;}
+  .etech-sch-col5 {width:70px; border: 1px solid black;padding:10px;}
+  /*.etech-sch-col6 {width:170px; border: 1px solid black;padding:10px;}*/
+  ul {
+    padding:0px;padding-left:10px;margin:0px;
+  }
+	</style>
+</head>
+
+<body>
+<header class="main_header">
+	<!-- to be filled by javascript, see header.html -->
+</header>
+
+<section class="main_container">
+	<div class="container">
+    <div class="row nothing">
+
+      <section class="col-md-8 pull-right main-content">
+</br></br></br></br>
+        <h4 class="medium.headline"><a href="6810-engineering-interactive-technologies.html">6.8500 AI-Assisted HCI Research (fall 2027)</a><br></h4>
+
+        <br><br>
+        <b>Lab Series: Intro to MIT AI Tools </b>
+        <h2 class="headline" style="padding:0px;margin:0px">Lab1: Parley Chat and API</h2><br>
+
+In this lab, you will first create the circuit drawing for your music card and then print out the circuit using conductive inkjet printing.<br><br>
+
+<img src="images/lab1/lab1-assembled_new.jpg" width="357px" />
+<img src="images/lab1/lab1-assembled2_new.jpg" width="374px" /><br>
+
+<h3>Steps:</h3>
+<ol>
+	<li><a href="#INSTALL">Parley Chat</a></li>
+	<li><a href="#BUTTON">Parley API</a>
+		<ol>
+			<li><a href="#INSTALL">Get your Parley API key</a></li>
+			<li><a href="#INSTALL">Install Claude Code</a></li>
+			<li><a href="#INSTALL">Point Claude Code at Parley</a></li>
+			<li><a href="#INSTALL">Try a Simple Example</a></li>
+		</ol>
+	</li>
+</ol>
+
+<h3>Deliverables:</h3>
+
+At the end of the lab, upload to your student google drive:
+<ol>
+	<li>the Adobe Illustrator drawing file (combined-visual-circuit.pdf) that contains both your circuit and your visual design on two separate layers</li>
+	<li>the two individual pdfs (circuit-design.pdf and visual-design.pdf) you used for printing</li>
+	<li>two photos showing the front and back of your inkjet printed card</li>
+</ol><br>
+
+<hr>
+
+<h3>Before you start</h3>
+
+<div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Sign-Up Spreadsheet:</b> Don't forget to fill out the <a href="https://forms.gle/Rixw7H4krGwj5o2e6" style="color:red;">6.810 sign up spreadsheet</a> to enroll in class.</div>
+
+<div style="color:black; border: black 1px solid; padding: 20px;margin-bottom:20px;">
+<b>Join 6.810 Slack Workspace:</b> To join the 6.810 workspace, <a href="https://mit-6810-2021.slack.com/">first click here and sign in with your kerberos</a>. On the following page, type in 'mit-6810-2021', which should show the 6.810 class workspace. Join the workspace. We recommend you install the slack desktop app and access the workspace from there.<br>
+
+<!-- <img src="images/lab1/slack-workspace.png" width="300px"></div> -->
+
+
+
+<b>Join Slack Channels for 'Lab01' and your table number, e.g. 'Table1':</b> When you join slack, the channels are not yet visible to you. You need to click on the little '+' next to the 'Channels' side bar and then 'browse channels' to see all channels. For now it's enough to join the 'Lab01' slack channel (for general announcement related to the lab) and your respective table's slack channel, e.g. 'Table1' (for asking for TA/LA help and sharing info with other students at your table).
+<!-- 
+<img src="images/lab1/slack-setup1.png" width="400px">
+<img src="images/lab1/slack-setup2.png" width="150px">
+<img src="images/lab1/slack-setup3.png" width="120px"> -->
+
+
+
+</div>
+
+Now that we have the logistics out of the way, let's get started with the actual lab.<br><br>
+
+
+<h3 id="INSTALL">Token Use</h3>
+
+<span style="color:red">We have $30 a month for the chat interface (and a seperate $30 a month for the API interface).</span>
+
+
+<h4 id="INSTALL">(1) Model Choice</h4>
+
+For testing today, we are going to use <span style="color:red">Lllama 4 Maverick 17B</span> because it is free.
+
+<br><br>
+
+
+
+<h3 id="INSTALL">Parley Chat</h3>
+
+
+<h4 id="INSTALL">(1) Set Model to Llama 4</h4>
+
+
+Before doing anything, set the model to Llama 4.
+
+
+<h3 id="INSTALL">Parley API</h3>
+
+<br><br>
+
+<span style="color:red">We have $30 a month for the API interface.</span>
+
+
+<h4 id="INSTALL">(1) Get your Parley API key</h4>
+
+Go to parley.mit.edu, sign in with your MIT Kerberos credentials, and click "Parley API" in the top-right corner. This is where you generate your API key and should also find your personal endpoint URL. Note both down.<br>
+
+<br><br>
+
+<h4 id="INSTALL">(2) Install Claude Code</h4>
+
+
+Open your terminal, then install claude code with:
+
+<code>npm install -g @anthropic-ai/claude-code</code>
+
+
+<br><br>
+
+<h4 id="INSTALL">(3)  Point Claude Code at Parley</h4>
+
+Claude Code talks to Anthropic's servers by default. <br>
+Two environment variables redirect it to Parley instead:<br>
+
+<code>
+	export ANTHROPIC_API_KEY="<span style="color:red">your-parley-api-key</span><br>
+export ANTHROPIC_BASE_URL="https://parley.mit.edu/api"   
+</code><br><br>
+
+The ANTHROPIC_BASE_URL: the actual value will be in your Parley API dashboard.<br><br>
+
+To make these permanent (so you don't have to export them every session), add them to your ~/.claude/settings.json:
+
+<code>
+	open ~/.claude/settings.json
+</code>
+
+<code>
+{<br>
+  "env": {<br>
+    "ANTHROPIC_API_KEY": "your-parley-api-key",<br>
+    "ANTHROPIC_BASE_URL": "https://parley.mit.edu/api"<br>
+  }<br>
+}<br>
+</code>
+
+<br><br>
+
+
+
+<h4 id="INSTALL">(4) Start Claude</h4><br>
+
+Navigate to a folder with some files — say, a paper you're working on and start claude.<br><br>
+
+<code>
+	cd <span style="color:red">~/my-research-folder</span><br>
+	claude<br>
+</code><br>
+
+This will trigger the start up assistant from claude when done for the first time.<br>
+Select the display style you like to use, then hit enter, this should start the claude command.<br><br>
+
+<img src="images/lab1-parleychatapi/parley-recommended-settings.png" width="400px"><br><br>
+
+<img src="images/lab1-parleychatapi/parley-working.png" width="400px"><br><br>
+
+
+<span style="color:red">If you are asked to select a usage model your parley key didn't properly install. Ask a TA for help.</span><br>
+
+<img src="images/lab1-parleychatapi/parley-key-not-recognized.png" width="400px"><br><br>
+
+<h4 id="INSTALL">(5) Set Model to Llama 4</h4>
+
+Before doing anything, set the model to Llama 4.
+
+<code>/model Llama4</code> //check what to write here
+
+<h4 id="INSTALL">(6) Try a Simple Example</h4>
+
+Once the model is confirmed as Llama 4, try the following:<br><br>
+
+<code>
+	> summarize the key arguments in paper.pdf<br>
+> what are the gaps in the literature based on these three papers?<br>
+> suggest a methods section outline given these notes<br>
+</code>
+<br><br>
+
+<img src="images/lab1-parleychatapi/parley-cd-to-folder.png" width="400px"><br><br>
+
+
+<h4 id="INSTALL">(5) Check Token Use</h4>
+
+Parley API only gives you a certain amount of tokens per month.<br>
+Check your token use on the Parley API dashboard, it should still say 0 (if not the Llama 4 model is not used).<br><br>
+
+
+<img src="images/lab1-parleychatapi/token-use.png" width="600px"><br><br>
+
+
+<h3 id="INSTALL">AI Workflows</h3>
+
+
+<span style="color:red">- for work, I use the Claude add-on for VS code so I can see all files it generates and references. I read the MD files with Obsidian, and put my comments in brackets to use as localized input for the next iteration. </span><br><br>
+
+- for conversational tasks/mobile working, I use the chat interface. <br>
+
+
+
+
+
+<h3>Deliverables:</h3> 
+
+At the end of the lab, upload to your student google drive:
+<ol>
+	<li>the Adobe Illustrator drawing file (.pdf) that contains both your circuit and your visual design on two separate layers</li>
+	<li>the two individual pdfs (circuit_design.pdf and visual_design.pdf) you used for printing</li>
+	<li>two photos showing the front and back of your inkjet printed card</li>
+</ol><br>
+
+
+ <div style="color:red; border: red 1px solid; padding: 20px;margin-bottom:20px;">
+<b>What's next?:</b> If you have time left, we recommend you either (1) do the safety trainings that were listed at the beginning of the lab, or  <a href="lab2-sensing-touch-button.html" style="color:red">(2) go to Lab 2 and start installing Arduino, the ESP core etc.</a> and pick up your hardware bag from the teaching team (please only do this if you are confident you will stay in the class), or (3) <a href="laser-cut-business-card.html" style="color:red">create your laser cut business card homework.</a></div>
+
+
+<br>
+
+        <br />
+        <br />
+        <br />
+      </section>
+
+      <aside class="col-md-4 pull-left">
+         <br /> <br /> <br /> <br /><br>
+
+                 <h4 class="medium.headline" style="padding-bottom:10px;"><a href="lab-series-inkjet-printed-card.html"><b>Lab Series: Intro to MIT AI Tools</b></a><br></h4>
+
+<ul>
+    <li><a href="lab1-mit-ai-tools-parley-chat-api.html">Lab 1: Parley Chat and API</a></li>
+    <li><a href="lab2-mit-ai-tools-parley-token-use.html">Lab 2: Efficient Token Use</a></li>
+   	<li><a href="lab3-sending-touch-data-to-processing.html">Lab 3: XXX</a></li>
+    <li><a href="lab4-touch-slider-extension.html">Lab 4: XXX</a></li>
+</ul><br>
+
+
+
+
+<iframe width="280" height="158" src="https://www.youtube.com/embed/R7qxT6_8TE4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
+
+In this lab series, you will create an interactive music card. Underneath the visual design, the music card has an inkjet printed circuit with touch buttons and a slider that allow the user to play songs and control the volume. The card is connected to a microcontroller for analyzing user input and then sends the signals to a program called Processing for visualizing user input on screen.<br><br>
+
+
+<h4 class="medium.headline" style="margin-bottom:0px;">Use our design or make your own</h4><br>
+
+You have the choice to either use our template design files or to make your own design. That means either using our card design (three notes + piano keyboard) or to make your own card design. If you are a beginner in electronics and fabrication, we recommend you go with the default design since it is the safest path to success. However, if you are a designer at heart and you have some prior knowledge in electronics and making, it may be more interesting for you to make your own. If you decide to make your own, please make sure you read ahead what's coming in lab 2/3/4. There is also the risk that your own design will have its own bugs that we are less knowledgable about. Below you see a custom design from 6.810 student Diego Pinochet from last year that  features a circular slider rather than a straight one and additinal input buttons for extra functionality.<br><br>
+
+<iframe width="280" height="158" src="https://www.youtube.com/embed/ky_5ARiG4so" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br><br>
+
+
+        <br><br><br><br><br>
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+      </aside>
+
+    </div>
+  </div>
+  </div>
+</section>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 footer" style="text-align: center;">
+			<span class="copyright">
+			Since 2017 &copy; MIT CSAIL (HCI Engineering group) [redesign by
+			<a href="http://punpongsanon.info/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			moji
+			</a>].
+			All Rights Reserved.
+
+			<a href="http://mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/mit.svg" alt="MIT" class="footer-logo" />
+			</a>
+			<a href="http://csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/csail.svg" alt="CSAIL" class="footer-logo"/>
+			</a>
+			<a href="http://hci.csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+			<img src="../../images/logo/hci.svg" alt="HCI" class="footer-logo"/>
+			</a>
+			</span>
+		</div>
+	</div>
+</div>
+
+<!-- Bootstrap -->
+<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+<!-- header -->
+<script type="text/javascript" src="../../js/headerstrap-for-subpage.js"></script>
+
+</body>
+</html>
