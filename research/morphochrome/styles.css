@@ -68,9 +68,7 @@ figcaption span:first-child{color:var(--quiet)}
 .paper-title{max-width:780px;font-size:clamp(25px,2.7vw,40px);line-height:1.18;letter-spacing:-.04em}
 .authors{margin-top:28px;font-size:16px;line-height:1.65;letter-spacing:-.015em}
 .publication-note{font-size:12px;color:var(--quiet);margin-top:13px}
-.paper-actions{display:flex;flex-wrap:wrap;gap:30px;margin-top:30px;font-size:14px}
-.paper-actions a,.paper-actions button{display:flex;align-items:center;gap:14px;padding:0 0 6px;border:0;border-bottom:1px solid var(--ink);background:none;cursor:pointer;line-height:1.5;text-decoration:none}
-.paper-actions a:hover,.paper-actions button:hover{opacity:.55}
+.paper-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
 .citation-fallback{font-size:12px;color:var(--quiet);margin-top:24px}
 .citation-fallback summary{cursor:pointer;display:inline-block}
 pre{font-size:12px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;margin-top:16px;color:var(--ink)}
@@ -97,3 +95,23 @@ pre{font-size:12px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;m
 @media(max-width:640px){:root{--gutter:16px}.site-header{height:68px;font-size:11px}.lab-link span{margin-left:10px}nav{gap:20px}nav a{gap:8px}.hero{padding-top:38px}h1{font-size:12.3vw;letter-spacing:-.075em}.title-row{display:block;margin:25px 0 27px}.subtitle{font-size:22px;line-height:1.2}.project-meta{text-align:left;margin-top:21px;font-size:10px;line-height:1.5;max-width:none}.hero-image{aspect-ratio:1.04;object-position:58% 45%}figcaption{font-size:10px;gap:20px}figcaption span:last-child{text-align:right;max-width:180px}.introduction,.publication{display:block}.introduction{padding-block:64px 58px}.eyebrow{font-size:11px;margin-bottom:24px}.intro-copy>p:first-child{font-size:32px}.body-copy{font-size:16px;margin-top:23px}.image-pair{grid-template-columns:1fr;gap:32px}.image-pair figcaption{display:flex}.image-pair figcaption span+span{margin-top:0}.image-frame{aspect-ratio:1.25}.publication{margin-top:65px;padding-top:24px;padding-bottom:50px}.paper-title{font-size:29px}.authors{font-size:15px;margin-top:24px}.publication-note{font-size:11px;line-height:1.5}.paper-actions{font-size:13px;gap:26px;margin-top:26px}.desktop-break{display:none}.research>summary{font-size:22px;padding:23px 0}.paper-content{font-size:17px;margin:20px auto 50px}.paper-content h2{font-size:28px;margin-top:40px}.paper-content h3{font-size:23px}.site-footer{flex-wrap:wrap;justify-content:space-between;margin-top:52px;padding-top:0;gap:18px;font-size:10px}.site-footer p{order:3;flex-basis:100%}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.expand-mark{transition:none}}
 @media(max-width:640px){.project-video{margin-top:64px}.video-heading{margin-bottom:18px;gap:18px}.video-heading .eyebrow{margin-bottom:0}.video-heading a{font-size:11px}.swipe-hint{font-size:10px}.carousel-controls{gap:8px}.carousel-buttons{gap:8px}.press-link{font-size:11px}}
+
+/* Match the shared HCIE Bootstrap buttons (css/bootstrap.css and custom-style.css).
+   DOI and Video use the lab's exact colors; citation uses its orange resource color. */
+.paper-actions .btn{display:inline-block;padding:3px 10px;margin-bottom:0;font-family:inherit;font-size:13px;font-weight:normal;line-height:1.42857143;text-align:center;white-space:nowrap;vertical-align:middle;touch-action:manipulation;cursor:pointer;user-select:none;background-image:none;border:0 solid transparent;border-radius:4px;text-decoration:none;color:#fff}
+.paper-actions .btn-doi{background-color:#e95a44;border-color:#e95a44}
+.paper-actions .btn-doi:hover,.paper-actions .btn-doi:focus{background-color:#f87560}
+.paper-actions .btn-vdo{background-color:#1d5c00;border-color:#1d5c00}
+.paper-actions .btn-vdo:hover,.paper-actions .btn-vdo:focus{background-color:#2f9400}
+.paper-actions .btn-citation{background-color:#ff9600;border-color:#ff9600}
+.paper-actions .btn-citation:hover,.paper-actions .btn-citation:focus{background-color:#ffaf3d}
+.institution-logos{display:flex;align-items:center;gap:25px}
+.lab-link{display:flex;align-items:center;gap:12px}
+.lab-link img{width:auto;height:36px}
+.lab-link span{font-size:9px;font-weight:500;line-height:1.5;letter-spacing:.08em;margin-left:0}
+.mit-link{border-left:1px solid var(--rule);padding-left:24px}
+.mit-link img{height:29px;width:auto}
+.authors a{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.authors a:hover{color:#626262}
+@media(max-width:640px){.institution-logos{gap:14px}.lab-link{gap:8px}.lab-link img{height:29px}.lab-link span{font-size:7px}.mit-link{padding-left:14px}.mit-link img{height:24px}.paper-actions{gap:10px}}
+@media(max-width:380px){.institution-logos{gap:10px}.mit-link{padding-left:10px}.lab-link span{display:none}}
