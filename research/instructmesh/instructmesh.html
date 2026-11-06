@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>InstructMesh: Selective Refinement of Generative 3D Models for Fabrication</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!-- CSAIL ICON -->
+	<link rel="CSAIL" href="http://hcie.csail.mit.edu/images/icon/csail.ico" type="image/x-icon" />
+
+	<!-- Bootstrap -->
+	<link href="https://hcie.csail.mit.edu/css/bootstrap.css" rel="stylesheet">
+	<link href="https://hcie.csail.mit.edu/css/custom-style.css" rel="stylesheet">
+
+	<!-- Lightbox -->
+	<link href="../../css/lightbox.css" rel="stylesheet">
+
+	<!-- jQuery -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+
+	<!-- Google Analytic -->
+	<script type="text/javascript" src="https://hcie.csail.mit.edu/js/analytics.js"></script>
+</head>
+
+<body>
+	<header class="main_header">
+		<!-- to be filled by javascript, see header.html -->
+	</header>
+	<div class="container" style="padding-top: 100px;">
+		<div class="row">
+			<!-- Publication details -->
+			<div class="col-md-4" style="text-align: left;">
+				</br>
+				</br>
+				<span class="medium-headline">
+					Publication
+				</span>
+				</br>
+				</br>
+				Faraz Faruqi, Ahmed Katary, Demircan Tas, Theresa Hradilak, Ning Zhang, Jiaji Li, Fabian Manhardt,
+				Martin Nisser, Vrushank Phadnis, Ruofei Du, Federico Tombari, Megan Hofmann, Stefanie Mueller
+				</br></br>
+				InstructMesh: Selective Refinement of Generative 3D Models for Fabrication
+				</br>
+				Published at
+				<a href="https://uist.acm.org/2026/" target="_blank">ACM UIST '26.</a><br>
+				</br>
+
+				<a href="https://dl.acm.org/doi/10.1145/3830398.3830647" class="btn btn-doi" alt="doi"
+					target="_blank">DOI</a>
+				&nbsp; &nbsp;
+
+				<a href="https://arxiv.org/pdf/2608.28534" class="btn btn-pdf" alt="pdf" target="_blank">PDF</a>
+				&nbsp; &nbsp;
+
+				<a href="https://www.youtube.com/watch?v=CYf9aR0sVf0" class="btn btn-vdo" alt="video"
+					target="_blank">Video</a>
+				&nbsp; &nbsp;
+
+				<!-- <a href="https://groups.csail.mit.edu/hcie/files/research-projects/instructmesh/uist-2026-instructmesh-presentation.pdf"
+					class="btn btn-slide" alt="slide" target="_blank">Slides</a>
+				&nbsp; &nbsp; -->
+
+				</br>
+				</br>
+
+				<!-- <span class="medium-headline">
+					Press
+				</span>
+				</br>
+				</br>
+				<ul>
+					<li><a href="" target="_blank">MIT News</a></li>
+				</ul>
+				</br> -->
+
+				<span class="medium-headline">
+					Video
+				</span>
+				</br>
+				</br>
+				<div
+					style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;">
+					<iframe src="https://www.youtube.com/embed/CYf9aR0sVf0" title="InstructMesh Video"
+						frameborder="0" allowfullscreen
+						style="position: absolute; top:0; left: 0; width: 100%; height: 100%;"></iframe>
+				</div>
+				</br>
+				</br>
+
+				<!-- <span class="medium-headline">
+					Slides
+				</span>
+				</br>
+				</br>
+				<img src="https://groups.csail.mit.edu/hcie/files/research-projects/instructmesh/instructmesh_slides/uist-2026-instructmesh-01.png"
+					alt="uist-2026-instructmesh-01" width="100px" style="padding-bottom:0px; margin-bottom:10px"
+					onclick="openModal();currentSlide(1)" class="hover-shadow" /> -->
+
+			</div>
+
+			<!-- For slide show -->
+			<!-- close button on tne right corner -->
+			<div id="lightbox-modal" class="lb-modal">
+				<div class="modal-content">
+
+					<!-- <div class="lb-slides">
+						<div class="numbertext">1 / N</div>
+						<img src="https://groups.csail.mit.edu/hcie/files/research-projects/instructmesh/instructmesh_slides/uist-2026-instructmesh-01.png"
+							alt="uist-2026-instructmesh-01" style="padding-bottom:0px; margin-bottom:10px; width:100%">
+					</div> -->
+
+					<!-- Next/previous controls -->
+					<a class="close-button" onclick="closeModal()">&times;</a>
+					<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+					<a class="next" onclick="plusSlides(1)">&#10095;</a>
+				</div>
+			</div>
+
+
+			<!-- Project information -->
+			<div class="col-md-8" style="text-align: left;">
+				<br>
+				<h3 class="headline">
+					InstructMesh: Selective Refinement of Generative 3D Models for Fabrication
+				</h3><br>
+
+				<p>
+					<img src="images/teaser.png" width="750"
+						alt="A dragon mug is generated from a prompt, its sealed lid is selected and removed with an edit prompt, and the final mug is fabricated" />
+				</p>
+				<p style="font-size: 12px"><strong>Figure 1</strong>. InstructMesh enables fabrication-relevant
+					refinement of generative 3D models through selective editing. a)&nbsp;A user provides an initial
+					prompt. b)&nbsp;The system generates a 3D model, but may include fabrication-related flaws (e.g., a
+					sealed lid). c)&nbsp;The user selects the problematic region and provides a descriptive edit prompt.
+					d)&nbsp;InstructMesh applies an edit operation in the latent-space to remove the lid while preserving
+					other regions and regenerates the model. e)&nbsp;The final model is fabricated as a functional mug.
+				</p>
+				<br>
+
+				<span class="medium-headline">
+					ABSTRACT
+				</span>
+				<br>
+				<p>
+					Recent advances in generative AI allow users to create 3D models from text or images. However, these
+					models prioritize visual plausibility over geometric accuracy, often generating results with flaws
+					that compromise their intended use post-fabrication. We present InstructMesh, an interactive
+					post-generation refinement tool that enables selective repair of generative 3D models through region
+					selection and targeted operations, such as opening or sealing voids, or adjusting local thickness.
+					Users can invoke edit operations via natural language prompts or slider controls. By operating
+					directly on the intermediate latent representation, InstructMesh allows users to apply robust
+					geometric corrections without requiring expert modeling skills. To inform our design, we first
+					analyze common fabrication-related failure modes in outputs from state-of-the-art generative tools.
+					We then conduct two user studies, demonstrating that novices can identify and perform
+					fabrication-relevant repairs on generative outputs using InstructMesh, and revealing user preference
+					for hybrid interfaces that combine slider controls with natural language input.
+				</p>
+				<br>
+
+				<span class="medium-headline">
+					INTRODUCTION
+				</span>
+				<br>
+				<p>
+					Generative AI has enabled new forms of creative expression across modalities like text, images,
+					music, and 3D geometry. In the 3D domain, these advances now allow users with minimal modeling
+					experience to generate novel 3D models from text or image prompts, bypassing the steep learning curve
+					of traditional 3D modeling tools. However, while generative models produce visually plausible
+					outputs, they are typically trained with image-based supervision, prioritizing appearance over the
+					geometric properties required for real-world fabrication. As a result, generated models could
+					exhibit flaws such as sealed openings, insufficient wall thickness, or missing structural
+					connections, that only become apparent when a model is fabricated and used in a downstream physical
+					task.
+				</p>
+				<p>
+					Bridging the gap between a visually plausible model and a physically usable one requires
+					fabrication-relevant repairs that are difficult for novices to achieve. Mesh-editing tools such as
+					Blender or MeshMixer can address geometric flaws, but require significant domain expertise and effort
+					that novices may not have. Recent text-driven 3D editing methods such as DreamEditor and TIP-Editor
+					allow localized edits guided by text prompts, but operate on neural radiance fields to target visual
+					appearance rather than the fabrication-specific geometric corrections needed for real-world use.
+					Similarly, tools like
+					<a href="../style2fab/style2fab.html">Style2Fab</a> and
+					<a href="../tactstyle/tactstyle.html">TactStyle</a> support functionality-aware transformations of
+					existing designs, but assume that the relevant functional geometry already exists in the base model,
+					focusing on preservation rather than repair. Finally, re-prompting the generative model is often
+					unreliable: prior work shows that non-experts struggle to craft effective prompts, often producing
+					vague or overly rigid instructions that fix one issue, only to alter other desired details, trapping
+					them in a frustrating prompt-refinement loop.
+				</p>
+				<p>
+					To bridge this gap, we introduce InstructMesh, an interactive post-generation refinement tool that
+					supports fabrication-relevant repairs of generative 3D models by mapping user-specified edits to
+					targeted operations on the model's intermediate latent representation. Rather than forcing novices to
+					edit the mesh directly, InstructMesh modifies the coarse voxel grid produced by the generative
+					model's encoder, then passes the edited representation through the decoder to produce a refined
+					mesh. This allows the generative model to fill in low-level details such as texture and surface
+					topology, while satisfying the user's intended geometric correction.
+				</p>
+				<p>
+					A key challenge in designing such tools for generative 3D models is determining how novices should
+					express geometric corrections: through natural language, which is expressive but ambiguous, or
+					through structured controls, which are precise but require understanding the available operations? To
+					investigate this, InstructMesh provides two complementary interaction modes: a natural language
+					interface through an LLM, and a slider interface exposing a library of parameterized operations. In
+					both modes, users first highlight a problematic region on the mesh, then specify the desired change.
+					A second design challenge arises from the opacity of latent-space editing: because the intermediate
+					representation is non-visual, users cannot anticipate how their edit will affect the final mesh. To
+					make this process controllable, InstructMesh provides a preview visualization, showing additive
+					edits in green and subtractive edits in red, making the latent-space edit tangible before
+					regeneration is triggered. This introduces WYSIWYG (What You See Is What You Get)-style interaction
+					into generative 3D modeling, allowing users to inspect, revise, and confirm edits on the intermediate
+					representation, thereby maintaining direct control over the generative process. Together, these
+					design choices enable us to investigate two research questions about novice-driven repair of
+					generative 3D models for fabrication. First, can novices reliably identify and correct visually
+					identifiable fabrication-relevant flaws using latent-space editing, a task that has traditionally required
+					sophisticated mesh-manipulation skills? Second, how do the choice of interaction mode and the
+					availability of visual feedback on the intermediate representation shape their editing experience?
+				</p>
+				<p>In summary, this work contributes:</p>
+				<ul>
+					<li>
+						A formative analysis (N = 120 models) identifying common fabrication-relevant geometric flaws in
+						outputs from state-of-the-art 3D generative models;
+					</li>
+					<li>
+						A set of canonical latent-space operations that repair these flaws without requiring mesh
+						manipulation expertise, paired with an interaction design combining natural language input and
+						parameterized slider controls, and a preview visualization for user understanding;
+					</li>
+					<li>
+						Two user studies (N = 12) demonstrating that novices can successfully identify and repair
+						visually identifiable flaws using InstructMesh, and that hybrid workflows with preview visualizations improve usability and
+						transparency.
+					</li>
+				</ul>
+				<br>
+
+				<span class="medium-headline">
+					FORMATIVE STUDY
+				</span>
+				<br>
+				<p>
+					A key challenge in using generative AI for 3D modeling is ensuring that outputs contain the geometric
+					details needed for physical functionality such as appropriate wall thickness, openings, and manifold
+					integrity. We hypothesize that current generative models replicate aesthetic properties but fail to
+					capture these local geometric details, rendering models non-functional after fabrication. To test
+					this, we conducted a formative study assessing geometric errors in reconstructions of popular 3D
+					models from <a href="https://www.thingiverse.com" target="_blank">Thingiverse</a>.
+				</p>
+
+				<span class="small-headline">
+					<strong>Dataset Selection and Generative 3D Reconstruction</strong>
+				</span>
+				<p>
+					Thingiverse is a popular online resource for novice and expert makers to share designs or things for
+					3D printing. We selected the 100 most popular `things' (collections of models) from Thingiverse,
+					skipping multi-part components without assembled versions since current generative tools produce
+					single meshes. After preprocessing, the dataset comprised of 120 distinct unique 3D models (100
+					unique `things' from Thingiverse). We rendered one image of each model and reconstructed it using
+					Trellis, chosen for its state-of-the-art geometric fidelity. While we scope our analysis on Trellis
+					for consistent reconstruction and evaluation, nearly all current 3D generative methods employ a
+					similar two-stage encoder-decoder pipeline with image-based training objectives.
+				</p>
+
+				<p style="font-size: 12px"><strong>Table 1</strong>. Taxonomy of Fabrication-Relevant Geometric Flaws in
+					3D Model Reconstructions. Based on 120 most popular 3D models on 3D model website Thingiverse.</p>
+				<table class="table">
+					<tr>
+						<th>Flaw Category</th>
+						<th>Description</th>
+						<th>Models Affected</th>
+					</tr>
+					<tr>
+						<td>Missing Openings</td>
+						<td>Absence of essential through-holes, ventilation gaps, volumes to contain liquids or support
+							airflow.</td>
+						<td>48.6%</td>
+					</tr>
+					<tr>
+						<td>Fused Joints</td>
+						<td>Components meant to rotate or articulate (e.g., hinges, pivots, ball joints, axles) are
+							fused, preventing intended motion.</td>
+						<td>13.5%</td>
+					</tr>
+					<tr>
+						<td>Broken or Missing Bridges</td>
+						<td>Crucial geometric connections between parts are missing, leaving the structure fragmented or
+							unsupported.</td>
+						<td>10.8%</td>
+					</tr>
+					<tr>
+						<td>Extraneous Artifacts</td>
+						<td>Unintended bumps, extensions, or disconnected mesh elements.</td>
+						<td>65.8%</td>
+					</tr>
+					<tr>
+						<td>Fused / Duplicated Features</td>
+						<td>Features are erroneously duplicated, stacked, or fused together, often due to generative
+							ambiguity.</td>
+						<td>27%</td>
+					</tr>
+					<tr>
+						<td>Hollowing Errors</td>
+						<td>Solid elements are mistakenly hollowed or vice versa.</td>
+						<td>36.9%</td>
+					</tr>
+					<tr>
+						<td>Wall Thickness Issues</td>
+						<td>Non-uniform or insufficient wall thicknesses.</td>
+						<td>20.7%</td>
+					</tr>
+					<tr>
+						<td>Topological Errors</td>
+						<td>Gaps, tears, or ambiguous topologies in the mesh.</td>
+						<td>9.9%</td>
+					</tr>
+					<tr>
+						<td>Truncated Features</td>
+						<td>Extrusions or geometric extensions are prematurely cut off, resulting in incomplete or
+							malformed shapes.</td>
+						<td>9.9%</td>
+					</tr>
+				</table>
+				<br>
+
+				<p>
+					<img src="images/Formative_Study_Flaws.png" width="750"
+						alt="Examples of fabrication-relevant flaws found in generative reconstructions of Thingiverse models" />
+				</p>
+				<p style="font-size: 12px"><strong>Figure 2</strong>. Descriptive examples of flaws found in our
+					formative study. Models were sourced from Thingiverse, reconstructed with 3D generative model Trellis
+					using their image as input, and evaluated manually for geometric functionality errors by reviewers.
+				</p>
+
+				<span class="small-headline">
+					<strong>Inductive Taxonomy Development</strong>
+				</span>
+				<p>
+					We used an iterative qualitative coding method to develop our taxonomy of geometric flaws in 3D
+					models: geometric errors in reconstruction that impact the functionality of the 3D model. For each
+					of the 120 3D models, two expert annotators in 3D modeling compared the generated model and the
+					original model, and described the issues in natural language. Their task was to describe each
+					individual issue independently, and describe the change required. Next, they discussed these
+					annotations and came to an agreement on the issues found.
+				</p>
+
+				<span class="small-headline">
+					<strong>Iterative Categorization of Issues</strong>
+				</span>
+				<p>
+					Next, the two annotators independently grouped similar descriptions of issues, then collaboratively
+					discussed and refined these groupings. We continued this process over multiple rounds of iterative
+					refinement, merging overlapping categories and sharpening definitions through discussion until
+					consensus was reached. The process concluded when no new categories emerged from additional data, at
+					which point the taxonomy had stabilized at nine flaw categories. We report these categories in
+					Table&nbsp;1 and show descriptive examples in Figure&nbsp;2.
+				</p>
+
+				<span class="small-headline">
+					<strong>Deductive Classification</strong>
+				</span>
+				<p>
+					After developing our taxonomy of fabrication-relevant geometric flaws, we performed a deductive
+					classification of the dataset using the previously collected annotations. The two expert annotators
+					revisited their initial descriptions and mapped each issue to one or more of the nine categories
+					found in the taxonomy.
+				</p>
+				<p>
+					Across the 120 models analyzed, we found that fabrication-relevant flaws were widespread: 94 models
+					(78.3%) exhibited more than one distinct type of issue, highlighting the compounding nature of
+					geometric failures in generative reconstructions. On average, each model exhibited 2.4 issues (SD =
+					1.10), suggesting that these flaws commonly co-occur and cannot be addressed through isolated fixes.
+					The most frequently encountered issues were Extraneous Artifacts (65.8%), Missing Openings (48.6%),
+					and Hollowing Errors (36.9%), while more localized structural flaws like Broken / Missing Bridges
+					(10.8%) or Truncated Features (9.9%) appeared less frequently.
+				</p>
+				<p>
+					These findings suggest that while state-of-the-art generative models achieve high visual fidelity,
+					they overlook fine-grained geometric properties critical for fabrication, which can be difficult to
+					capture through image-based supervision. The prevalence and diversity of these flaws motivate the
+					design of post-generation tools that support targeted, user-guided geometric correction. We describe
+					our approach in the following section.
+				</p>
+				<br>
+
+				<span class="medium-headline">
+					SYSTEM OVERVIEW
+				</span>
+				<br>
+				<p>
+					InstructMesh enables users to generate 3D models with text or image prompts and iteratively refine
+					them to fix fabrication-relevant issues. Recent 3D generative methods, including TRELLIS and SPAR3D,
+					employ a two-stage pipeline: an <em>encoder</em> produces a coarse latent structure (e.g., point
+					cloud or voxel grid) and contextual features about appearance, and a <em>decoder</em> refines this
+					information into a high-fidelity mesh. One key idea is that this separation enables controlled
+					customization by modifying this intermediate representation.
+				</p>
+				<p>
+					InstructMesh operates directly on this intermediate latent voxel representation. We use TRELLIS as the
+					generative backbone, which represents each shape as a structured latent over a 64&sup3; sparse voxel
+					grid; we persist the latent structure alongside the decoded mesh so that user edits can be applied to
+					this latent structure and decoded to produce a new mesh. Figure&nbsp;3
+					illustrates the system design, which comprises of: (1) a set of latent-space operations derived from
+					common fabrication flaws, (2) dual interaction modes&mdash;a natural language interface powered by an
+					LLM and a slider interface exposing parameterized presets, and (3) a preview visualization that
+					highlights additive edits in green and subtractive edits in red before they are committed. Together,
+					these components provide fine-grained customization with generative 3D models while maintaining
+					user's transparency and control.
+				</p>
+				<p>
+					We focus on repairing static functionality in 3D models, as current generative methods do not yet
+					support dynamic mechanisms (e.g., hinges or interlocking parts) that require precise geometric and
+					mechanical constraints. Our goal is to address the static fabrication-related flaws identified in our
+					formative study, with the exception of <em>Fused Joints</em>, which involves articulated or
+					mechanical components.
+				</p>
+
+				<p>
+					<img src="images/system_figure.png" width="750" alt="InstructMesh system overview diagram" />
+				</p>
+				<p style="font-size: 12px"><strong>Figure 3</strong>. InstructMesh System Overview. (a) The user
+					provides a text or image prompt. (b) The model is encoded into a latent voxel representation and (c)
+					decoded into a textured mesh. (d) The user inspects the mesh for flaws; if none, the model proceeds
+					to (g) fabrication. Otherwise, the user highlights a region and specifies an edit. (e) The latent
+					operation is applied and previewed. (f) Once confirmed, the edited latents are decoded into a refined
+					model.</p>
+
+				<span class="small-headline">
+					<strong>User Interface and Workflow</strong>
+				</span>
+
+				<p>
+					<img src="images/user_interface_with_buttons.png" width="750" alt="InstructMesh web interface" />
+				</p>
+				<p style="font-size: 12px"><strong>Figure 4</strong>. The InstructMesh web interface. (a) Users enter a
+					text or image prompt. (b) The generated mesh is inspected for flaws. (c) Users paint the problematic
+					region. (d) The edit is specified via natural language or direct selection. (e) A preview is shown
+					for confirmation. (f) The refined model is generated.</p>
+
+				<p>
+					Figure&nbsp;4 shows the InstructMesh web interface. Users begin by providing a text or image prompt
+					to generate a 3D model (Figure&nbsp;4a), which is rendered for inspection (Figure&nbsp;4b). If a
+					flaw is identified, they activate <em>Highlight Region</em> and paint the problematic area
+					(Figure&nbsp;4c). Users can then specify the desired edit either by entering a natural language
+					instruction or by selecting an operation from the slider interface (Figure&nbsp;4d).
+				</p>
+				<p>
+					Before the edit is applied, the system presents a <em>preview</em> overlay: additive changes are
+					shown in green and subtractive changes in red (Figure&nbsp;5). This makes latent edits transparent and
+					gives users the opportunity to revise or cancel. Once confirmed, the operation is executed on the
+					corresponding subset of the latent representation and decoded into an updated mesh
+					(Figure&nbsp;4f). The edited model appears next to the original for side-by-side comparison, and
+					users can continue refining, undo an operation, or download the final repaired model.
+				</p>
+
+				<p>
+					<img src="images/preview_visualization.png" width="750"
+						alt="Preview visualizations showing a subtractive edit in red and an additive edit in green" />
+				</p>
+				<p style="font-size: 12px"><strong>Figure 5</strong>. Preview visualizations of canonical operations.
+					Top: a subtractive edit (&ldquo;make a hole&rdquo;) removes the sealed lid. Bottom: an additive edit
+					(&ldquo;connect these parts&rdquo;) generates a handle. Red regions indicate subtractive changes;
+					green indicates additive. Previews let users verify edits on the latent representation before
+					triggering regeneration.</p>
+
+				<p>
+					This workflow enables localized, in-situ corrections, abstracting away the complexity of latent
+					manipulation, while providing transparent feedback loops through preview visualizations. Our goal
+					with this design is to enable novices to iteratively refine generative 3D models with both
+					expressiveness and control.
+				</p>
+
+				<span class="small-headline">
+					<strong>Canonical Operations to Modify Latent Representation</strong>
+				</span>
+				<p>
+					Editing the latent voxel representation, rather than directly modifying the mesh, offers key
+					advantages. Latent grids are coarser and lack explicit connectivity, making them easier to manipulate
+					without navigating complex mesh topology. Additionally, the edited voxels are processed by the
+					decoder, which combines them with learned appearance features to produce a coherent mesh,
+					synthesizing missing geometry without requiring the topology-aware, texture-preserving edits required
+					in tools like Blender. This enables novices to make structural corrections that would otherwise
+					require expert-level mesh manipulation.
+				</p>
+
+				<p>
+					<img src="images/operations_figure.png" width="750"
+						alt="Additive and subtractive canonical operations on the latent voxel grid" />
+				</p>
+				<p style="font-size: 12px"><strong>Figure 6</strong>. Canonical operations on voxel representations.
+					User highlights (pink) are mapped to regions in the latent voxel grid. Additive operations (left)
+					grow occupancy via extrusion, expansion, or filling. Subtractive operations (right) reduce occupancy
+					via trimming, erosion, or flattening. The modified grid is decoded to produce the refined model.</p>
+
+				<p>
+					<strong>Mapping Selections to the Latent Representation.</strong> When a user highlights a region on
+					the decoded mesh, the system maps this selection back to the latent voxel grid as follows. First, it
+					recovers the decoder's coordinate transformation by aligning the mesh's bounding box to the voxel
+					grid via scaling, rotation, and translation. The selected faces are then extracted as sub-meshes in
+					this voxel-aligned frame, where they serve as geometric references for the canonical operations:
+					each sub-mesh identifies the voxels to modify. For example, fill uses convex-hull containment, while
+					trim uses signed-distance queries. The modified voxel structure is then passed through the TRELLIS
+					decoder, which regenerates a coherent mesh from the edited representation.
+				</p>
+				<p>
+					This pipeline is tolerant to imprecise selection through three mechanisms. First, the selection is
+					not treated as an exact voxel mask: connected components below a minimum size are discarded,
+					removing stray fragments from accidental brushing, while all remaining sub-meshes are retained to
+					support disjoint selections (e.g., the two endpoints of a broken bridge). Second, operations act on
+					the neighborhood of these sub-meshes using a proximity radius. Expand, for instance, grows voxels
+					outward from the selection, so that missing a few faces still produces a coherent edit. Third, the
+					preview renders the modified voxels directly, without invoking the decoder, allowing users to verify
+					the actual effect of an operation before committing (Figure&nbsp;5).
+				</p>
+				<p>
+					With selections mapped onto the latent grid, the system next needs a vocabulary of edits to apply
+					there. We defined a small set of <em>canonical</em> operations analogous to geometric primitives
+					such as extrude or subtract, that are compatible with latent voxel grids and composable: individual
+					edits can be combined or sequenced to address complex repair scenarios (Figure&nbsp;6). We group our
+					operations into two classes:
+				</p>
+				<p>
+					<strong>Additive Operations.</strong> These increase voxel occupancy by extending surfaces outward,
+					thickening thin regions, or filling enclosed volumes. They are used to reinforce fragile areas or
+					close gaps.
+				</p>
+				<ul>
+					<li><strong>Extrude</strong> extends the selected surface region by adding voxels along its average
+						outward normal, useful for lengthening handles or creating protrusions.</li>
+					<li><strong>Expand</strong> thickens structure by adding a uniform shell of voxels around the
+						selection, reinforcing thin walls and fragile geometry.</li>
+					<li><strong>Fill</strong> closes surface gaps or hollow volumes by populating voxels inside the
+						convex hull of the selection, commonly used to solidify hollow parts or create bases and lids.
+					</li>
+				</ul>
+				<p>
+					<strong>Subtractive Operations.</strong> These reduce occupancy by cutting away selected regions,
+					thinning shells, or smoothing surfaces. They are used to remove unwanted material, hollow interiors,
+					or prepare flat contact areas.
+				</p>
+				<ul>
+					<li><strong>Trim</strong> removes voxels near the selected surface based on a signed distance field
+						threshold, useful for cleaning artifacts or cutting away extraneous material.</li>
+					<li><strong>Erode</strong> thins a surface or creates voids by subtracting an interior shell of
+						voxels, often used to hollow parts or carve channels.</li>
+					<li><strong>Flatten</strong> smooths a region toward a best-fit plane, preparing contact surfaces or
+						flat bases for fabrication.</li>
+				</ul>
+				<p>
+					Together, these operations form a compact, extensible vocabulary for repairing generated 3D models.
+					The latent voxel representation provides a
+					meaningful locus of operations, and the flexibility of decoding process into the final mesh allows us
+					to create these representation-agnostic operations. Thus, these representation switches are
+					abstracted away from the user who can focus on the high level design intent. Each operation can be
+					parameterized (e.g., extrusion depth, erosion thickness), enabling a range of functional
+					modifications.
+				</p>
+
+				<span class="small-headline">
+					<strong>Operation Prediction Using LLMs with In-Context Learning</strong>
+				</span>
+				<p>
+					To map natural language edit descriptions to canonical operations, we employ in-context learning
+					(ICL) with OpenAI's GPT-4. The LLM does not interpret or edit 3D geometry directly: it maps the
+					user's instruction to an operation and parameters from our fixed vocabulary, while spatial grounding
+					comes from the user's region selection. Constraining the LLM to select from a pre-parameterized set
+					of operations rather than synthesize direct edits, keeps each edit interpretable and bounded. This is
+					consistent with prior work showing that scoping an LLM to a fixed set of operations improves
+					reliability in human-AI interaction. We provide a set of labeled description-operation pairs drawn from the 20%
+					development split of our formative dataset directly in the prompt. For example, given the
+					description &ldquo;the mug has a sealed lid that should be open,&rdquo; the model predicts
+					<em>erode</em> as the appropriate operation. By including examples spanning all operation types and
+					flaw categories, the model learns to map new user instructions to the fixed operation vocabulary
+					without fine-tuning. We chose ICL over fine-tuning for its simplicity and adaptability: new
+					operations can be incorporated by extending the example set without retraining. While our
+					implementation uses GPT-4, the approach is model-agnostic: any modern LLM can serve as the backend
+					with the proposed ICL approach.
+				</p>
+				<br>
+
+				<span class="medium-headline">
+					EVALUATING AND CALIBRATING OPERATIONS
+				</span>
+				<br>
+				<p>
+					Each canonical operation has tunable parameters that must be calibrated to reliably rectify the
+					flaws identified in our taxonomy. To this end, we conducted a technical evaluation. We first
+					randomized our dataset and split it using an 80%-20% split. We used the 20% set as a `development
+					set' to calibrate each operation, and used the 80% to evaluate its accuracy in resolving an issue.
+				</p>
+				<p>
+					Using the development set, we manually calibrated each operation (e.g., <em>expand</em>,
+					<em>extrude</em>, <em>erode</em>, <em>fill</em>) by highlighting affected regions and testing
+					parameter ranges for their ability to resolve the target flaw. We found that different flaw contexts
+					required distinct parameterizations. Balancing flexibility against interface complexity and LLM
+					prediction accuracy, we defined twelve calibrated presets across six operations. These presets function as
+					operational modes that can be invoked via natural language or the slider interface.
+				</p>
+
+				<span class="small-headline">
+					<strong>Flaw Correction Accuracy</strong>
+				</span>
+				<p>
+					We tested our calibrated operations on the 80% test split from our formative study. The operations
+					were conducted by the authors with InstructMesh, and the resulting 3D models were stored. To evaluate
+					the repairs, an independent reviewer assessed each flaw and judged whether the correction was
+					successful or unsuccessful. This evaluation was conducted at the flaw level, meaning each flaw was
+					independently repaired, stored, and assessed by the independent reviewer.
+				</p>
+
+				<p>
+					<img src="images/repair_success_technical_eval.png" width="550"
+						alt="Bar chart of repair success rates per flaw category" />
+				</p>
+				<p style="font-size: 12px"><strong>Figure 7</strong>. Success rates of canonical operations in resolving
+					fabrication-relevant geometric flaws. This evaluation was conducted on 80% of flaw instances from our
+					annotated dataset. For each flaw, a predefined canonical operation was applied through region
+					selection and LLM-guided latent editing.</p>
+
+				<p>
+					As shown in Figure&nbsp;7, InstructMesh successfully repaired a high proportion of flaws across all
+					categories. The most reliably repaired issues included Missing Openings (96.3%) and Wall Thickness
+					Issues (95.65%), while the lowest success rate was observed for Fused / Duplicated Features at
+					83.33%. These results demonstrate that the latent operations implemented in InstructMesh are broadly
+					effective across a diverse set of fabrication-relevant flaw types.
+				</p>
+
+				<span class="small-headline">
+					<strong>Runtime Efficiency</strong>
+				</span>
+				<p>
+					We also evaluated runtime performance. Using Trellis for image-to-3D generation, the average
+					generation time was 31.7s (SD = 3.7s). Applying region-specific latent operations increased this to
+					43.7s (SD = 5.2s), reflecting the added computation for localized manipulation and regeneration.
+					Despite this overhead, edits remained well under a minute, supporting iterative design workflows.
+				</p>
+
+				<span class="small-headline">
+					<strong>LLM Accuracy for Operation Selection</strong>
+				</span>
+				<p>
+					Using the in-context learning setup described above, GPT-4 achieved 92.1% accuracy in predicting the
+					correct canonical operation on the 80% test split, demonstrating that in-context learning is
+					sufficient to map natural language instructions to our operation vocabulary without fine-tuning.
+				</p>
+
+				<span class="small-headline">
+					<strong>Implementation Details</strong>
+				</span>
+				<p>
+					The generative pipeline is implemented in Python and deployed on a cloud-based server (Intel CPU, 32
+					GB RAM, NVIDIA L4 GPU with 24 GB memory). Canonical latent-space operations were implemented using
+					PyTorch, Pymeshlab and Trimesh.
+				</p>
+				<br>
+
+				<span class="medium-headline">
+					USER EVALUATION I: NOVICE FLAW IDENTIFICATION AND REPAIR
+				</span>
+				<br>
+				<p>
+					For InstructMesh to be effective, novices must be able to (1) identify functional flaws in generated
+					models and (2) repair them independently and efficiently using our system. We designed our first
+					study to evaluate both capabilities.
+				</p>
+
+				<span class="small-headline">
+					<strong>Study Design</strong>
+				</span>
+				<p>
+					We recruited 12 participants (7 male, 5 female; ages 20&ndash;39, M = 27.3, SD = 5.6) from a
+					university campus, including undergraduate and graduate students across non-technical disciplines.
+					None had prior experience with 3D modeling, CAD tools, or digital fabrication. Participants worked
+					with five flawed 3D models randomly drawn from our formative study (Figure&nbsp;8), each containing
+					between one and four annotated fabrication flaws. For each model, participants first inspected the
+					mesh and identified flaws while thinking aloud. They then used InstructMesh to attempt repairs, with
+					up to 10 minutes per model. Participants could address flaws in any order. After completing their
+					edits, participants judged for each flaw whether the repair was successful or unsuccessful. An
+					independent researcher, post user-study sessions, evaluated the final meshes in the same way. We
+					measured task completion time, the number of flaws identified and repaired, and repair success rates
+					based on both participant and expert judgments.
+				</p>
+
+				<p>
+					<img src="images/user_study_models.png" width="750"
+						alt="The five models used in the user study, shown as original, flawed, and with flaws highlighted" />
+				</p>
+				<p style="font-size: 12px"><strong>Figure 8</strong>. Overview of the five models used in our user study
+					(M1&ndash;M5). (a) Original model. (b) Flawed version from a generative model. (c)
+					Fabrication-related flaws highlighted in pink.</p>
+
+				<span class="small-headline">
+					<strong>Results</strong>
+				</span>
+				<p>
+					We report findings across flaw identification, repair time, and repair success, using
+					repeated-measures ANOVAs to test for effects of model and flaw type.
+				</p>
+
+				<p>
+					<strong>Error Identification.</strong> Participants successfully identified 90.4% of
+					fabrication-relevant flaws in AI-generated models (Figure&nbsp;9), showing that novices could reliably
+					recognize most issues. However, performance varied by both model and flaw type. A repeated-measures
+					ANOVA revealed a significant effect of model (F(4,55) = 3.06, p &lt; 0.05); post-hoc tests showed
+					that flaws in Model M1 were significantly easier to detect than those in Model M5 (p &lt; 0.05). This
+					suggests that flaws in more geometrically complex models can be harder to perceive.
+				</p>
+				<p>
+					Flaw type also had a significant effect (F(5,139) = 19.24, p &lt; 0.0001). Topological issues were the
+					hardest to detect, performing significantly worse than truncated features, extraneous artifacts,
+					missing openings, and fused features. In contrast, extraneous artifacts and missing openings were
+					among the most readily identified. Together, these results demonstrate that while novices can
+					generally identify fabrication flaws, both the geometry of the model and the type of flaw strongly
+					affect detectability.
+				</p>
+
+				<p>
+					<img src="images/user_study_identification.png" width="750"
+						alt="Charts of flaw identification precision, recall, and accuracy per flaw type" />
+				</p>
+				<p style="font-size: 12px"><strong>Figure 9</strong>. Flaw Identification Performance. (a) Precision and
+					recall of flaw detection across five generated 3D models (M1&ndash;M5). (b) Average identification
+					accuracy (left axis) and number of flaw instances (right axis) for each flaw type.</p>
+
+				<p>
+					<strong>Repair Times.</strong> Repair efficiency varied significantly across both models and flaw
+					types (Figure&nbsp;10). A repeated-measures ANOVA revealed a significant effect of model on repair
+					time (F(4,55) = 7.27, p &lt; 0.001), with simpler models (e.g., M1) repaired significantly faster
+					than more complex ones (M3, M4, M5).
+				</p>
+				<p>
+					Flaw type also had a significant effect on repair time (F(5,121) = 5.43, p &lt; 0.001). Truncated
+					features (3.00 &plusmn; 0.95 min) took significantly longer to repair than topological errors (1.50
+					&plusmn; 0.52 min, p &lt; 0.01) and fused features (1.84 &plusmn; 0.75 min, p &lt; 0.05); missing
+					openings (2.33 &plusmn; 1.24 min) also took longer than topological errors (p &lt; 0.05). These
+					results suggest that while flaws such as topological errors were harder to identify, they could be
+					resolved quickly once recognized, whereas flaws like truncated features required more time-consuming
+					interventions.
+				</p>
+
+				<p>
+					<img src="images/user_study_repair.png" width="750"
+						alt="Charts of mean repair time per model and per flaw type" />
+				</p>
+				<p style="font-size: 12px"><strong>Figure 10</strong>. Repair Time and Effort. (a) Mean repair time and
+					number of flaws per model, indicating that models with more flaws required longer repair times. (b)
+					Mean repair time by flaw type. Simpler flaws like topological errors and fused features were repaired
+					faster, while truncated features and missing openings took longer.</p>
+
+				<p>
+					<strong>Repair Correction Performance.</strong> An independent expert in 3D modeling and fabrication
+					evaluated all user-corrected meshes (Figure&nbsp;11). Each flaw was judged as successfully repaired or
+					not, based on whether functionality was restored. Overall, 89.7% of flaws were successfully repaired,
+					with only 16 failures out of 156 annotated flaws.
+				</p>
+				<p>
+					A repeated-measures ANOVA showed no significant effect of model on repair correctness (F(4,55) =
+					2.25, p &gt; 0.05), but flaw type had a significant effect (F(5,121) = 2.33, p &lt; 0.05). Post-hoc
+					tests, however, did not reveal significant differences between specific flaw categories. This
+					suggests that while some flaw types may be more challenging, InstructMesh enabled novices to produce
+					successful fabrication-relevant repairs across diverse models.
+				</p>
+				<p>
+					We also compared participants' self-assessments with the expert's ratings. No significant difference
+					was found (F(1,587) = 0.40, p &gt; 0.05), indicating close alignment between novices' perception of
+					successful repair and expert evaluation. Only 11 cases (7.1%) showed disagreement, where participants
+					believed a flaw was fixed but the reviewer did not. Overall, these results suggest that novice users
+					were able to identify and correct functional errors in AI-generated 3D models with a high degree of
+					accuracy.
+				</p>
+
+				<p>
+					<img src="images/user_study_success.png" width="450" alt="Bar chart of repair success by flaw type" />
+				</p>
+				<p style="font-size: 12px"><strong>Figure 11</strong>. Repair Success by Flaw Type. Participants
+					successfully repaired most flaw types, with success rates exceeding 80% for all categories.</p>
+
+				<span class="small-headline">
+					<strong>Participant Feedback</strong>
+				</span>
+				<p>
+					Participants responded positively to InstructMesh, highlighting its ease of use and low barrier to
+					entry. P2 remarked, &ldquo;<em>I like that you can undo your changes, and I just have to describe my
+						changes in text. It's very easy to get used to the tool.</em>&rdquo; P6 emphasized that
+					&ldquo;<em>I don't feel the need to learn CAD software,</em>&rdquo; while another noted
+					&ldquo;<em>First time 3D modeling - Didn't know it could be easy!</em>&rdquo; Participants envisioned
+					use cases spanning rapid prototyping, creative hobbyist printing, and educational contexts.
+				</p>
+				<br>
+
+				<span class="medium-headline">
+					USER EVALUATION II: INTERACTION MODES AND PREVIEW VISUALIZATION
+				</span>
+				<br>
+				<p>
+					Our first user study demonstrated that novices can identify and repair fabrication-relevant flaws
+					using InstructMesh. The second study examines how the choice of <em>interaction mode</em> shapes this
+					experience, comparing two conditions: (1) an LLM-based interface where participants describe edits in
+					natural language, and (2) a slider-based interface where participants select operations directly. We
+					also investigate the role of <em>preview visualization</em> in supporting user understanding and
+					clarity during latent-space editing. We address the following research questions:
+				</p>
+				<ul>
+					<li><strong>RQ1 (Usability &amp; Control):</strong> How do the LLM and slider interfaces differ in
+						terms of ease of use, effort, clarity of intent expression, perceived accuracy, and sense of
+						control?</li>
+					<li><strong>RQ2 (Previews):</strong> How do latent-space previews influence participants'
+						understanding of edits, their confidence, and their decision to accept or revise?</li>
+					<li><strong>RQ3 (Trade-offs):</strong> Do participants prefer natural language versus direct
+						operation selection, or a combination?</li>
+				</ul>
+
+				<span class="small-headline">
+					<strong>Tasks and Procedure</strong>
+				</span>
+				<p>
+					We recruited 12 new participants (7 female, 5 male; compensated 20&nbsp;USD), none with prior 3D
+					modeling or CAD experience. Each completed 12 editing tasks from the same flawed models used in
+					Study&nbsp;1, split into two counterbalanced blocks of six: one with the LLM interface and one with
+					sliders.
+				</p>
+				<p>
+					For each task, participants were shown a flawed model and its target corrected version, and asked to
+					rectify the error using the assigned interface. In the LLM condition, participants described desired
+					edits in natural language, while in the slider condition, they selected operations and adjusted
+					parameters directly. In both conditions, a preview visualization was shown before committing the
+					edit.
+				</p>
+				<p>
+					After each block, participants completed six 7-point Likert items assessing ease of use, perceived
+					accuracy, clarity of intent, sense of control, effort, and preview usefulness. This evaluation was
+					informed by usability constructs from standardized questionnaires such as SUS, adapted to our
+					study-specific tasks. A post-study questionnaire asked participants to compare interfaces and
+					indicate preference for LLMs, sliders, or a hybrid workflow.
+				</p>
+
+				<span class="small-headline">
+					<strong>Results</strong>
+				</span>
+				<p>
+					We analyzed the questionnaire data using descriptive statistics and within-subject comparisons
+					between the LLM and slider conditions. Figure&nbsp;12 shows the results from the analysis.
+				</p>
+
+				<p>
+					<img src="images/user_study_2_figure.png" width="650"
+						alt="Likert results comparing the LLM and slider interfaces" />
+				</p>
+				<p style="font-size: 12px"><strong>Figure 12</strong>. Likert results comparing LLM and slider
+					interfaces. (a,c) LLM rated easier for specifying edits. (b,d) Sliders scored higher on accuracy and
+					control. (e) LLMs required less effort. (f) Previews rated very highly across both conditions.</p>
+
+				<p>
+					<strong>RQ1 (Usability &amp; Control).</strong> Both interfaces were rated as usable, with subtle
+					differences. The LLM interface was rated as less effortful (M = 2.67, SD = 1.23 vs. M = 3.25, SD =
+					1.36), while the slider interface was perceived as slightly more accurate (M = 5.17, SD = 1.19 vs. M
+					= 5.00, SD = 1.21). Perceived control was comparable (both M = 5.58). This suggests a trade-off: LLMs
+					lower the barrier to entry, while sliders provide a stronger sense of precision.
+				</p>
+				<p>
+					<strong>RQ2 (Previews).</strong> Previews received consistently high ratings across both interfaces.
+					Participants agreed the preview clearly showed what the system would do (LLM: M = 6.67, SD = 0.65;
+					sliders: M = 6.75, SD = 0.45) and helped them decide whether to accept or revise (LLM: all
+					participants rated 7.0; sliders: M = 6.75, SD = 0.45). One participant noted the preview
+					&ldquo;<em>made invisible operations visible</em>,&rdquo; suggesting that previews are critical for
+					building trust in non-WYSIWYG editing.
+				</p>
+				<p>
+					<strong>RQ3 (Trade-offs).</strong> Participants were evenly split in overall preference (6 sliders, 6
+					LLMs), and all 12 favored a hybrid design combining both modes. Users preferring the slider mode
+					emphasized precision: &ldquo;<em>I had more control of the edits rather than waiting to see if my
+						intent was clearly understood by the LLM</em>&rdquo; (P1). Meanwhile, LLM advocates highlighted
+					expressiveness: &ldquo;<em>It was easier to specify the modification I wanted</em>&rdquo; (P6).
+					Participants described the two modes as complementary, natural language for broad creative edits
+					such as &ldquo;<em>generating initial sketches and making big fundamental changes</em>&rdquo; (P4),
+					and sliders for precise local refinements such as &ldquo;<em>fill in a gap, make a hole</em>&rdquo;
+					(P2). These findings suggest that novices value the expressiveness of LLMs and the precision of
+					sliders, and see the hybrid combination with previews as the most effective design direction.
+				</p>
+				<br>
+
+				<span class="medium-headline">
+					APPLICATIONS
+				</span>
+				<br>
+				<p>
+					We demonstrate InstructMesh across six application scenarios covering home decor, medical devices,
+					personal accessories, and robotic enclosures. All examples were constructed with InstructMesh and
+					printed on a Stratasys J55 multi-color 3D printer.
+				</p>
+
+				<p>
+					<img src="images/Applications_full.png" width="750"
+						alt="Six fabricated applications: dragon mug, seashell whistle, denim knee brace, butterfly eyeglasses, shrimp bristle bot, and octopus dispenser" />
+				</p>
+				<p style="font-size: 12px"><strong>Figure 13</strong>. Applications of InstructMesh across domains. (a)
+					Dragon mug with lid removed. (b) A functional whistle with acoustic chambers added. (c)
+					Denim-aesthetic knee brace with strap openings added. (d) Butterfly eyeglasses with hollowed lenses
+					and connected temples. (e) Bristle bot enclosure with electronics cavity. (f) Octopus-inspired
+					liquids dispenser with added fluid channels.</p>
+
+				<span class="small-headline">
+					<strong>Home Decor and Functional Objects</strong>
+				</span>
+				<p>
+					Personal fabrication tools are increasingly used to design expressive yet functional home objects.
+					We showcase a mug with a dragon-shaped handle, where the generated model included a sealed lid. With
+					InstructMesh, the lid was removed, producing a printable, functional version (Figure&nbsp;13a). We also
+					demonstrate an octopus-inspired liquid dispenser whose head and legs were sealed. We created a top
+					opening, thickened the surrounding area, and added tunnels through each leg to enable fluid flow
+					(Figure&nbsp;13f).
+				</p>
+
+				<span class="small-headline">
+					<strong>Medical and Assistive Devices</strong>
+				</span>
+				<p>
+					Personalized fabrication is increasingly important in &ldquo;Medical Making&rdquo; and DIY Assistive
+					Technology, where combining function and aesthetics improves adoption. We generated
+					<em>&ldquo;a knee brace in the style of blue denim jeans&rdquo;</em>. The model achieved the desired
+					aesthetic but lacked functional openings for straps. Using localized edits, we created strap holes to
+					produce a wearable, functional design, ready for printing (Figure&nbsp;13c).
+				</p>
+
+				<span class="small-headline">
+					<strong>Personal Accessories</strong>
+				</span>
+				<p>
+					InstructMesh also supports the refinement of personalized accessories. We generated
+					<em>&ldquo;butterfly-shaped eyeglass frames&rdquo;</em> with ornate wing patterns. The initial model
+					had filled lens regions, a thin bridge, and disconnected temples. Localized edits corrected these
+					flaws into a functional design (Figure&nbsp;13d). We also generated <em>&ldquo;an ornate whistle in
+						the shape of a seashell&rdquo;</em> that lacked acoustic chambers. Using InstructMesh, we added
+					tunnels and refined the resonant geometry; the fabricated whistle produces a clear tone
+					(Figure&nbsp;13b).
+				</p>
+
+				<span class="small-headline">
+					<strong>Robotic Enclosures</strong>
+				</span>
+				<p>
+					Finally, we demonstrate InstructMesh's utility in robotics with a shrimp-shaped enclosure for a
+					bristle bot. We generated a <em>&ldquo;colorful shrimp with several legs&rdquo;</em> as an enclosure
+					for a bristle bot housing a DC motor. The model's front and back legs would cancel forward motion,
+					and it lacked a cavity for electronics. We shortened obstructing legs, created an underbelly cavity,
+					and added a motor tunnel, producing a printable enclosure that enabled directed walking
+					(Figure&nbsp;13e).
+				</p>
+				<br>
+
+				<span class="medium-headline">
+					DISCUSSION AND FUTURE WORK
+				</span>
+				<br>
+				<p>
+					InstructMesh demonstrates how fabrication-aware editing can be integrated into generative 3D
+					workflows through selective highlights and natural language interactions. In this section, we discuss
+					the broader implications of our system design and study results, the current limitations, and future
+					directions.
+				</p>
+
+				<span class="small-headline">
+					<strong>Insights and Design Guidelines</strong>
+				</span>
+				<p>
+					In Study&nbsp;1, novices identified 90.4% of fabrication-relevant flaws and
+					successfully repaired 89.7%, suggesting that post-generation repair can be made accessible through
+					latent-space operations paired with region-based selection. This aligns with prior observations that
+					novice makers can reason about physical properties of 3D models but lack the expert skills with
+					3D&nbsp;modeling tools to perform the relevant corrective operations. Across flaw types,
+					detectability and repair difficulty were not always correlated (Figures&nbsp;9 and 10), suggesting
+					that future tools could benefit from both automated flaw detection and operation recommendations.
+				</p>
+				<p>
+					In Study&nbsp;2, the even split between LLM and slider preference (6/6), combined with unanimous
+					preference for a hybrid workflow (12/12), provides empirical support for dual-mode interaction design.
+					From these findings, we distill four design guidelines:
+				</p>
+				<ul>
+					<li><strong>Offer complementary input modes.</strong> Natural language lowers the barrier to entry;
+						structured controls provide precision. Supporting both lets users match the mode to the task.
+					</li>
+					<li><strong>Provide previews for non-WYSIWYG edits.</strong> Latent-space operations are inherently
+						opaque. Visual previews make edits tangible, improving transparency and trust.</li>
+					<li><strong>Bridge intent and operation with parameterization.</strong> Calibrated presets make
+						operations reliable while leaving room for adjustment, reducing cognitive load without
+						oversimplifying.</li>
+					<li><strong>Prioritize near real-time feedback.</strong> Edits and previews that complete within
+						seconds are sufficient to maintain iterative workflows and user engagement.</li>
+				</ul>
+
+				<span class="small-headline">
+					<strong>Heuristics vs. Learned Approaches for Latent-Space Editing</strong>
+				</span>
+				<p>
+					We opted for heuristic-based operational design for several reasons. First, they are interpretable:
+					each operation has a clear geometric meaning (e.g., &ldquo;remove voxels within a distance
+					threshold&rdquo;) that can be previewed, parameterized, and explained to users. This interpretability
+					is central to our WYSIWYG design goal. Second, they are composable: simple operations can be
+					sequenced to address complex repairs, as demonstrated by combinations like <em>fill</em> +
+					<em>erode</em> for creating bridges. Third, they require no training data, which is important given
+					the absence of large-scale datasets of fabrication-relevant 3D edits.
+				</p>
+				<p>
+					A learning-based approach, such as training a model to predict voxel modifications from natural
+					language descriptions, could potentially handle a broader range of edits and generalize to novel
+					repair scenarios. However, such an approach could limit the transparency and controllability that our
+					user studies identified as critical for novices. We see the two approaches as complementary:
+					heuristic operations provide a reliable, inspectable foundation, while learned components (such as
+					our ICL-based operation prediction) can route user intent to the appropriate operation. Future work
+					could explore hybrid architectures where learned models propose edits that are executed through
+					interpretable geometric primitives.
+				</p>
+				<p>
+					Although our implementation builds on TRELLIS, the approach is generalizable across similar two-stage
+					generative backbones. The canonical operations act on a structured intermediate voxel
+					representation, including recent models such as TRELLIS&nbsp;2 and SAM3D. Similarly, the ICL-based
+					operation mapping is model-independent: we validated it with GPT-4, but the same in-context approach
+					can route instructions to operations with any modern LLM. Our formative dataset, drawn from the most
+					popular Thingiverse designs, reflects the contexts in which novices most commonly fabricate objects,
+					and broader fabrication domains are important areas of future work.
+				</p>
+
+				<span class="small-headline">
+					<strong>Limitations</strong>
+				</span>
+				<p>
+					We identify several limitations and future directions for this work. We focused our evaluation on a
+					single generative model, Trellis, due to its state-of-the-art reconstruction fidelity and to maintain
+					a standardized evaluation pipeline. We will open-source our implementation to support future analysis
+					across additional generative models as they continue to evolve.
+				</p>
+				<p>
+					The 64&sup3; voxel grid bounds the granularity of repairs: a single voxel spans roughly 1.5% of a
+					shape's extent, which sets the smallest feature an edit can target. The flaws identified in our
+					formative study are meso-scale and span many voxels, making them addressable, as our evaluation
+					demonstrates. However, sub-voxel defects cannot be repaired in the current implementation. This is a
+					limitation of grid resolution rather than of the operations themselves and higher-fidelity backbones
+					can improve the minimum addressable feature size.
+				</p>
+				<p>
+					InstructMesh supports the repair of fabrication-relevant flaws but relies on the user to diagnose
+					them: the system assumes users can visually identify and select a problematic region. Our studies
+					show novices do this reliably for visually apparent flaws (90.4%, Study&nbsp;1), but defects such as
+					internal wall-thickness violations or tolerance issues may only surface during slicing or after a
+					failed print. Automatic flaw detection and operation recommendation are natural and exciting future
+					work.
+				</p>
+				<p>
+					Our user studies were designed to evaluate whether novices can identify and rectify visually
+					identifiable fabrication-relevant flaws within a generative workflow. We did not compare InstructMesh
+					with alternative workflows such as iterative re-prompting or manual mesh repair. Such analysis would
+					complement findings from this paper and is an important direction for future work. Similarly, our
+					fabricated examples demonstrate applications rather than systematic printability validation.
+				</p>
+				<p>
+					As scoped in the System Overview, InstructMesh targets static geometry and cannot address flaws
+					involving dynamic mechanisms such as hinges or interlocking parts. As these generative systems continue to evolve, future systems can incorporate
+					dynamic simulations to evaluate functionality. Finally, the preview visualization uses red and green
+					overlays, which may pose challenges for colorblind users; future iterations should explore
+					alternative visual encodings such as patterns or shape cues.
+				</p>
+				<br>
+
+				<span class="medium-headline">
+					CONCLUSION
+				</span>
+				<br>
+				<p>
+					In this work, we present InstructMesh, an interactive post-generation refinement tool that enables
+					novices to perform fabrication-relevant repairs on generative 3D models by mapping region selections
+					and natural language instructions to canonical latent-space operations. A formative study revealed geometric flaws in state-of-the-art generative
+					outputs, motivating a set of composable editing operations that can be triggered via text or slider
+					controls. A preview visualization makes this latent-editing process transparent, supporting user
+					trust and decision-making. Our user studies show that novices can detect and repair visually
+					identifiable flaws in under
+					ten minutes per model, and that hybrid workflows combining natural language with structured controls
+					are preferred. We demonstrate practical applications spanning home decor, assistive devices, personal
+					accessories, and robotics.
+				</p>
+
+				<br>
+				<span class="medium-headline">
+					ACKNOWLEDGMENTS
+				</span>
+				<br>
+				<p>
+					We would like to extend our sincere gratitude to the MIT-Google Program for Computing Innovation, the
+					MIT-HPI Collaborative Research Program, and the MIT Felicis Program for their generous support, which
+					made this research possible.
+				</p>
+
+				</br>
+				</br>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 footer" style="text-align: center;">
+				<span class="copyright">
+					Since 2017 &copy; MIT CSAIL (HCI Engineering group) [redesign by
+					<a href="http://punpongsanon.info/" target="_blank" style="text-decoration:none; border-bottom:0px">
+						moji
+					</a>].
+					All Rights Reserved.
+
+					<a href="http://mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+						<img src="http://hcie.csail.mit.edu/images/logo/mit.svg" alt="MIT" class="footer-logo" />
+					</a>
+					<a href="http://csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+						<img src="http://hcie.csail.mit.edu/images/logo/csail.svg" alt="CSAIL" class="footer-logo" />
+					</a>
+					<a href="http://hci.csail.mit.edu/" target="_blank" style="text-decoration:none; border-bottom:0px">
+						<img src="http://hcie.csail.mit.edu/images/logo/hci.svg" alt="HCI" class="footer-logo" />
+					</a>
+				</span>
+			</div>
+		</div>
+	</div>
+
+	<!-- Bootstrap -->
+	<script type="text/javascript" src="https://hcie.csail.mit.edu/js/bootstrap.min.js"></script>
+	<!-- header -->
+	<script type="text/javascript" src="https://hcie.csail.mit.edu/js/headerstrap-for-subpage.js"></script>
+	<!-- lightbox: errors on load when there are no .lb-slides, enable together with the slides -->
+	<!-- <script type="text/javascript" src="../../js/lightbox.js"></script> -->
+
+</body>
+
+</html>
